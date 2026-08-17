@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSiteInfo, getCanonicalUrl } from '../config/site-info';
+import { getLocale, getDictionary } from '../config/i18n';
+
+export const prerender = false;
+
+const locale = getLocale(Astro.url.searchParams.get('lang'));
+const dict = getDictionary(locale);
+const siteInfo = getSiteInfo({
+	title: dict.home.title,
+	description: dict.home.subtitle,
+	lang: locale,
+	ogDescription: dict.home.subtitle,
+	canonicalUrl: getCanonicalUrl(Astro.url.pathname),
+});
+
+const screens = [
+	{ href: '/', label: dict.common.brand, desc: dict.home.screens.variant1.desc },
+	{ href: '/rutas-horarios', ...dict.home.screens.routes },
+	{ href: '/donde-estamos', ...dict.home.screens.locations },
+	{ href: '/servicios-discrecionales', ...dict.home.screens.discretionary },
+	{ href: '/home-variant-1', ...dict.home.screens.variant1 },
+	{ href: '/home-variant-2', ...dict.home.screens.variant2 },
+	{ href: '/mobile', ...dict.home.screens.mobile },
+	{ href: '/donde-estamos-mobile', ...dict.home.screens.locationsMobile },
+	{ href: '/rastreig', ...dict.home.screens.tracking },
+];
+---
+
+<BaseLayout {...siteInfo} bodyClass="bg-background text-on-background font-body-md antialiased">
+	<header class="bg-deep-navy text-on-primary py-6 px-margin-mobile md:px-margin-desktop">
+		<div class="max-w-container-max mx-auto">
+			<a href="/" class="font-body-md text-body-md text-on-primary/70 hover:text-secondary-fixed transition-colors">← {dict.common.brand}</a>
+			<h1 class="font-headline-lg text-headline-lg font-bold mt-2">{dict.home.title}</h1>
+			<p class="font-body-lg text-body-lg text-on-primary/80 mt-2">{dict.home.subtitle}</p>
+		</div>
+	</header>
+	<main class="flex-grow max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+		<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+			{
+				screens.map((screen) => (
+					<li>
+						<a
+							class="block h-full bg-surface-container-lowest rounded-xl border border-outline-variant/20 ambient-shadow p-6 hover:-translate-y-1 hover:border-coastal-teal/40 transition-all duration-300"
+							href={screen.href}
+						>
+							<h2 class="font-headline-md text-headline-md text-deep-navy mb-2">{screen.label}</h2>
+							<p class="font-body-md text-body-md text-on-surface-variant">{screen.desc}</p>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</main>
+	<footer class="bg-deep-navy text-on-primary/80 py-stack-md px-margin-mobile md:px-margin-desktop">
+		<div class="max-w-container-max mx-auto font-body-md text-body-md">
+			{dict.common.footer.copyright}
+		</div>
+	</footer>
+</BaseLayout>

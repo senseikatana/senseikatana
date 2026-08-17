@@ -1,0 +1,156 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { db, eq, Product, ProductVariant, Category } from 'astro:db';
+import { AppLayout } from '../../components/AppLayout';
+import { AddToCartSection } from '../../components/AddToCartSection';
+
+// Enable server-side rendering for this dynamic route
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+// Fetch the product from Astro DB
+const products = await db
+  .select()
+  .from(Product)
+  .where(eq(Product.slug, slug))
+  .limit(1);
+
+const product = products[0];
+
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+// Fetch category details
+let categoryName = 'Moda';
+if (product.categoryId) {
+  const categories = await db
+    .select()
+    .from(Category)
+    .where(eq(Category.id, product.categoryId))
+    .limit(1);
+  if (categories[0]) {
+    categoryName = categories[0].name;
+  }
+}
+
+// Fetch variants (sizes, colors, stock)
+const variants = await db
+  .select()
+  .from(ProductVariant)
+  .where(eq(ProductVariant.productId, product.id));
+
+// Parse images JSON
+const parsedImages = JSON.parse(product.images as string) as string[];
+const mainImage = parsedImages[0] || '';
+
+// Prepare data for the React AddToCartSection component
+const productDetails = {
+  id: product.id,
+  title: product.title,
+  price: product.price,
+  image: mainImage,
+};
+
+const mappedVariants = variants.map((v) => ({
+  id: v.id,
+  productId: v.productId,
+  size: v.size,
+  color: v.color,
+  stockOnline: v.stockOnline,
+  stockPhysical: v.stockPhysical,
+  sku: v.sku,
+}));
+---
+
+<Layout title={`${product.title} | 3 Lunas Boutique`} description={product.description || undefined}>
+  <!-- Top Bar -->
+  <div class="bg-stone-900 text-stone-100 text-xs py-2 px-4 text-center tracking-wider font-medium uppercase border-b border-stone-850">
+    ✨ Recogida gratis en tienda (Cambrils) o Envío gratis desde 50€ ✨
+  </div>
+
+  <!-- Header & Cart Drawer -->
+  <AppLayout client:load />
+
+  <main class="flex-grow bg-stone-50/50 py-12">
+    <div class="container mx-auto px-4">
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-semibold text-stone-500 uppercase tracking-wider mb-8">
+        <a href="/" class="hover:text-amber-800 transition-colors">Inicio</a>
+        <span>/</span>
+        <a href="/#coleccion" class="hover:text-amber-800 transition-colors">Colección</a>
+        <span>/</span>
+        <span class="text-stone-400 font-bold">{categoryName}</span>
+      </nav>
+
+      {/* Main product structure */}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        <!-- Left Column: Gallery -->
+        <div class="space-y-4">
+          <div class="aspect-[3/4] bg-stone-100 border border-stone-200 shadow-md overflow-hidden">
+            <img 
+              src={mainImage} 
+              alt={product.title} 
+              class="w-full h-full object-cover"
+            />
+          </div>
+          
+          {parsedImages.length > 1 && (
+            <div class="grid grid-cols-4 gap-4">
+              {parsedImages.map((image, index) => (
+                <div key={index} class="aspect-[3/4] bg-stone-100 border border-stone-200 overflow-hidden cursor-pointer hover:border-stone-400 transition">
+                  <img src={image} alt={`${product.title} - ${index + 1}`} class="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Right Column: Details & Checkout Section -->
+        <div class="bg-white border border-stone-150 p-8 shadow-sm space-y-6">
+          <div class="space-y-2">
+            <span class="inline-block bg-amber-50 text-amber-800 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1">
+              {categoryName}
+            </span>
+            <h1 class="text-3xl font-extrabold text-stone-900 leading-tight">
+              {product.title}
+            </h1>
+            <p class="text-2xl font-extrabold text-stone-900 pt-2">
+              {product.price.toFixed(2)} €
+            </p>
+          </div>
+
+          <div class="text-stone-600 text-sm leading-relaxed whitespace-pre-line">
+            {product.description || 'Prenda exclusiva seleccionada personalmente para nuestra boutique en Cambrils.'}
+          </div>
+
+          {/* Interactive React checkout selector */}
+          <AddToCartSection client:load product={productDetails} variants={mappedVariants} />
+
+          {/* Value Props & Store info */}
+          <div class="pt-6 border-t border-stone-100 space-y-3">
+            <div class="flex items-start gap-3 text-xs">
+              <span class="text-amber-800 font-bold">📍</span>
+              <div>
+                <h5 class="font-bold text-stone-900">Recogida Click & Collect en Cambrils</h5>
+                <p class="text-stone-500 mt-0.5">Compra online y recoge en nuestra boutique física de Cambrils gratis en menos de 2h.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 text-xs">
+              <span class="text-amber-800 font-bold">🚚</span>
+              <div>
+                <h5 class="font-bold text-stone-900">Envíos exprés nacionales</h5>
+                <p class="text-stone-500 mt-0.5">Envíos rápidos a domicilio en 24-48h. Gratis en pedidos superiores a 50€.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

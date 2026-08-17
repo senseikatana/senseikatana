@@ -1,0 +1,51 @@
+---
+title: Eventos SSE
+description: Suscripción al hub de eventos en tiempo real con Server-Sent Events.
+order: 2
+---
+
+El backend emite eventos en tiempo real a través de un hub **SSE** (Server-Sent Events). Cada mensaje o chat nuevo (entrante o saliente) se transmite a todos los clientes conectados.
+
+## Endpoint
+
+```
+GET /api/events
+```
+
+Headers de respuesta: `Content-Type: text/event-stream`, `Cache-Control: no-cache`.
+
+## Formato de eventos
+
+El hub emite dos tipos de eventos:
+
+| Evento | Payload (`data`) |
+| --- | --- |
+| `message` | Objeto `StoredMessage` (mensaje guardado) |
+| `chat` | Objeto `StoredChat` (conversación upsertada) |
+
+```json
+event: message
+data: { "id": 3, "chatId": "telegram:123456789", "channel": "telegram", "direction": "in", "text": "Hola", "timestamp": 1720000000000, "status": "sent" }
+```
+
+## Consumirlo desde el navegador
+
+```js
+const events = new EventSource('http://localhost:8787/api/events');
+
+events.addEventListener('message', (event) => {
+  console.log('Nuevo mensaje:', JSON.parse(event.data));
+});
+
+events.addEventListener('chat', (event) => {
+  console.log('Nuevo chat:', JSON.parse(event.data));
+});
+```
+
+## Notas
+
+- El server envía un ping de mantenimiento cada 15 segundos (líneas de comentario `: ping`), que el cliente SSE ignora de forma nativa.
+- La conexión no requiere autenticación en modo local.
+- Desconectate al cambiar de página: `events.close()`.
+
+Ver también: [Chats y mensajes](/docs/chats-messages).

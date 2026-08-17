@@ -1,0 +1,62 @@
+---
+title: Introducción
+description: Base URL, CORS, formato de errores y cómo consumir la API del backend de mensajería.
+order: 1
+---
+
+El backend de mensajería de WarehouseFlow es una API REST + SSE escrita con Express y SQLite (libSQL). Expone el panel de mensajería (WhatsApp y Telegram), el hub de eventos en tiempo real y el copiloto KITT.
+
+## Base URL
+
+```
+http://localhost:8787
+```
+
+El puerto se configura con `PORT` en `server/.env` (por defecto `8787`).
+
+## Formato de respuestas
+
+- **JSON** para todas las rutas `GET`/`POST` salvo las de streaming (SSE).
+- **Errores**: código HTTP adecuado (`400`, `403`, `500`, `502`) y cuerpo `{ "error": "mensaje" }`.
+- El error handler global devuelve `500` con el detalle del error como último recurso.
+
+## CORS
+
+Por defecto solo se permiten estos orígenes:
+
+```
+http://localhost:4321, http://127.0.0.1:4321
+```
+
+Se amplían con `CORS_ORIGIN` (lista separada por comas) en `server/.env`.
+
+## Liveness
+
+`GET /api/health` responde `200` cuando el server está arriba, e indica qué canales están configurados:
+
+```json
+{
+  "ok": true,
+  "telegram": false,
+  "whatsapp": true,
+  "time": 1720000000000
+}
+```
+
+## Manifest de endpoints
+
+`GET /api` devuelve la lista completa de endpoints disponibles:
+
+```json
+{
+  "name": "whm-server",
+  "baseUrl": "http://localhost:8787",
+  "endpoints": [
+    { "method": "GET", "path": "/api/health", "description": "Liveness del server", "params": [] }
+  ]
+}
+```
+
+## Visita guiada
+
+Seguí con [Eventos SSE](/docs/events) para aprender a consumir el streaming en tiempo real.

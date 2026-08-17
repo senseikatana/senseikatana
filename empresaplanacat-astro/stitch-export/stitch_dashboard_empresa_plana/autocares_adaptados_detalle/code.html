@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Autocares Adaptados - Empresa Plana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-400-normal.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-600-normal.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-700-normal.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2e3132",
+                        "surface-dim": "#d9dadb",
+                        "tertiary-container": "#5d3500",
+                        "surface-container-high": "#e7e8e9",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#78f5ff",
+                        "surface-bright": "#f8f9fa",
+                        "outline": "#747783",
+                        "tertiary": "#3f2200",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#335ab1",
+                        "error-container": "#ffdad6",
+                        "secondary": "#00696f",
+                        "on-tertiary-fixed": "#2c1600",
+                        "on-primary-container": "#87a8ff",
+                        "on-background": "#191c1d",
+                        "on-surface-variant": "#434652",
+                        "on-secondary-container": "#007076",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#f3940f",
+                        "secondary-fixed-dim": "#57d8e2",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface": "#f8f9fa",
+                        "on-surface": "#191c1d",
+                        "on-primary-fixed-variant": "#134198",
+                        "background": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed": "#dae2ff",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "outline-variant": "#c4c6d4",
+                        "on-primary-fixed": "#001847",
+                        "surface-container-low": "#f3f4f5",
+                        "inverse-primary": "#b2c5ff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-container": "#013990",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary-fixed": "#78f5ff",
+                        "on-secondary-fixed": "#002022",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "tertiary-fixed-dim": "#ffb86d",
+                        "primary": "#002563"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "margin-desktop": "48px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "button": ["Geist"],
+                        "body-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "label-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md relative pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background w-full top-0 sticky z-40 transition-colors duration-200">
+<div class="flex items-center justify-between px-margin-mobile h-16 w-full max-w-container-max mx-auto">
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-surface-variant p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed">
+                Empresa Plana
+            </div>
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-surface-variant p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+<!-- Hero Section -->
+<section class="mb-stack-lg relative overflow-hidden rounded-xl shadow-[0px_4px_20px_rgba(1,57,144,0.08)] group">
+<div class="w-full h-[40vh] md:h-[50vh] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A modern, high-quality photograph of a specialized transport bus equipped with an automated wheelchair lift ramp extending down to the pavement. The bus is painted in a pristine white with subtle navy blue branding accents, glowing softly under warm Mediterranean sunlight. The setting is a clean, accessible urban bus stop. The mood is safe, welcoming, and highly professional, utilizing the bright light-mode aesthetic of the brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAKCeTIXVo6Adz4tyza1zizesc42NLzx4E_Lyy-x8Cs7QsP14h7Mi3X6AkRHlENIGwZF4yarlzdxUcpi1S4V0bO3zoS5pXrNYO9IwYV6OFTlHiEb23ChSUdsfDcB6KIG4r6GMDc5kOIU-DHbL034OnuORxO0eR0YWNDoh9KOlcloQPbzTPqCTOW1nEygoRkO-LO6QT_1Ew6QVFyXLB9KaBt_K0CD4ypkAhoUhrFP1EusPpXk5nzY-aR')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-stack-md md:p-stack-lg w-full">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-primary mb-stack-sm">Autocares Adaptados</h1>
+<p class="font-body-md text-body-md text-primary-fixed max-w-2xl">Flota especializada para personas con movilidad reducida (PMR).</p>
+</div>
+</section>
+<!-- Content Description -->
+<section class="mb-stack-lg max-w-3xl mx-auto text-center">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                En Empresa Plana, creemos que la movilidad es un derecho universal. Contamos con una flota especializada y totalmente adaptada para personas con movilidad reducida (PMR), garantizando el máximo confort, seguridad y autonomía para todos nuestros pasajeros durante todo el trayecto.
+            </p>
+</section>
+<!-- Features Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-md mb-stack-lg">
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-surface-container-high shadow-[0px_4px_20px_rgba(1,57,144,0.08)] flex items-start gap-stack-md hover:border-secondary transition-colors group">
+<div class="bg-secondary-container text-on-secondary-container p-3 rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="elevator">elevator</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary mb-1">Rampas de acceso automáticas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Facilitan un embarque y desembarque suave y sin esfuerzo.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-surface-container-high shadow-[0px_4px_20px_rgba(1,57,144,0.08)] flex items-start gap-stack-md hover:border-secondary transition-colors group">
+<div class="bg-secondary-container text-on-secondary-container p-3 rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary mb-1">Anclajes de seguridad</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Sistemas de fijación certificados para garantizar la estabilidad durante el viaje.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-surface-container-high shadow-[0px_4px_20px_rgba(1,57,144,0.08)] flex items-start gap-stack-md hover:border-secondary transition-colors group">
+<div class="bg-secondary-container text-on-secondary-container p-3 rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="accessible">accessible</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary mb-1">Espacio amplio para sillas de ruedas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Zonas designadas libres de obstáculos para máxima comodidad.</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-stack-md rounded-xl border border-surface-container-high shadow-[0px_4px_20px_rgba(1,57,144,0.08)] flex items-start gap-stack-md hover:border-secondary transition-colors group">
+<div class="bg-secondary-container text-on-secondary-container p-3 rounded-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-primary mb-1">Personal formado en asistencia</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Conductores capacitados para brindar apoyo empático y profesional.</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="flex justify-center mt-stack-lg mb-stack-lg">
+<button class="bg-on-tertiary-container text-on-primary font-button text-button h-[48px] px-8 rounded-full shadow-[0px_4px_20px_rgba(1,57,144,0.08)] hover:bg-tertiary-container transition-colors active:scale-95 flex items-center gap-2">
+                SOLICITAR PRESUPUESTO
+                <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-on-background fixed bottom-0 w-full z-50 shadow-[0px_-4px_20px_rgba(1,57,144,0.08)] md:hidden">
+<div class="flex justify-around items-center h-20 pb-safe w-full">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low active:scale-95 transition-transform rounded-xl">
+<span class="material-symbols-outlined" data-icon="route">route</span>
+<span class="font-label-md text-label-md mt-1">Routes</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low active:scale-95 transition-transform rounded-xl">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="font-label-md text-label-md mt-1">Tickets</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-low active:scale-95 transition-transform rounded-xl">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md mt-1">Locations</span>
+</button>
+<!-- Active Tab: Services -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 hover:bg-surface-container-low active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="directions_bus" style="font-variation-settings: 'FILL' 1;">directions_bus</span>
+<span class="font-label-md text-label-md mt-1">Services</span>
+</button>
+</div>
+</nav>
+</body></html>

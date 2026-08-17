@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { AppLayout } from '../../components/AppLayout';
+
+// SSR enabled to parse checkout session ID
+export const prerender = false;
+
+const sessionId = Astro.url.searchParams.get('session_id') || '';
+---
+
+<Layout title="¡Gracias por tu compra! | 3 Lunas Boutique">
+  <!-- Top Bar -->
+  <div class="bg-stone-900 text-stone-100 text-xs py-2 px-4 text-center tracking-wider font-medium uppercase border-b border-stone-850">
+    ✨ Tu pedido está siendo preparado con cariño por Erika ✨
+  </div>
+
+  <!-- Header & Cart Drawer -->
+  <AppLayout client:load />
+
+  <main class="flex-grow bg-stone-50/50 py-16 flex items-center justify-center">
+    <div class="max-w-md w-full mx-4 bg-white border border-stone-150 p-8 shadow-md text-center space-y-6">
+      <div class="w-16 h-16 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-3xl mx-auto font-extrabold shadow-inner">
+        ✓
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-2xl font-extrabold text-stone-900">¡Pedido Confirmado!</h1>
+        <p class="text-stone-500 text-sm leading-relaxed">
+          Muchísimas gracias por confiar en **3 Lunas Boutique**. Tu compra se ha completado con éxito.
+        </p>
+      </div>
+
+      {sessionId && (
+        <div class="bg-stone-50 p-3 text-[10px] font-mono text-stone-500 rounded border border-stone-100">
+          Ref. Pedido: {sessionId.slice(0, 24)}...
+        </div>
+      )}
+
+      <div class="text-left space-y-3 pt-4 border-t border-stone-100 text-xs text-stone-600">
+        <h4 class="font-bold text-stone-900 text-sm">¿Qué ocurre ahora?</h4>
+        <ul class="list-disc pl-4 space-y-1">
+          <li>Recibirás un correo electrónico con el resumen y número de seguimiento de tu pedido.</li>
+          <li>Si elegiste **Recogida en Cambrils**, te avisaremos por WhatsApp en cuanto tu paquete esté listo (habitualmente en menos de 2 horas).</li>
+          <li>Para envíos a domicilio, prepararemos tu paquete hoy mismo para entrega en 24-48 horas.</li>
+        </ul>
+      </div>
+
+      <div class="pt-6 border-t border-stone-100 flex flex-col gap-2">
+        <a 
+          href="/" 
+          class="bg-stone-900 hover:bg-amber-900 text-white font-bold text-xs uppercase tracking-wider py-3 transition text-center shadow-md"
+        >
+          Volver a la Tienda
+        </a>
+        <a 
+          href="https://wa.me/34600000000" 
+          target="_blank" 
+          class="border border-stone-200 text-stone-700 hover:bg-stone-50 bg-white font-bold text-xs uppercase tracking-wider py-3 transition text-center flex items-center justify-center gap-2"
+        >
+          💬 ¿Dudas? Pregúntale a Erika
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

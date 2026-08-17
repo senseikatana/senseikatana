@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180" width="100%" height="100%">
+  <defs>
+    <!-- Rose gold gradient for waning & waxing moons -->
+    <linearGradient id="roseGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2B1B1" />
+      <stop offset="40%" stop-color="#C58B8B" />
+      <stop offset="70%" stop-color="#A26363" />
+      <stop offset="100%" stop-color="#7C4646" />
+    </linearGradient>
+
+    <!-- Champagne gold gradient for full moon -->
+    <linearGradient id="classicGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCEBB6" />
+      <stop offset="30%" stop-color="#E9C579" />
+      <stop offset="70%" stop-color="#C59A3F" />
+      <stop offset="100%" stop-color="#9A701C" />
+    </linearGradient>
+
+    <!-- Subtle drop shadow to give premium depth -->
+    <filter id="luxuryShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#4A3B32" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <g filter="url(#luxuryShadow)">
+    <!-- 1. Orbital ring passing behind moons -->
+    <circle cx="150" cy="55" r="54" fill="none" stroke="url(#classicGold)" stroke-width="0.75" opacity="0.4" stroke-dasharray="1.5 2.5" />
+
+    <!-- 2. Sparkles / Stars -->
+    <!-- Top Center Star -->
+    <path d="M 150 9 Q 150 15 144 15 Q 150 15 150 21 Q 150 15 156 15 Q 150 15 150 9" fill="url(#classicGold)" />
+    <!-- Left Star -->
+    <path d="M 62 55 Q 62 55 57 55 Q 62 55 62 60 Q 62 55 67 55 Q 62 55 62 50" fill="url(#roseGold)" />
+    <!-- Right Star -->
+    <path d="M 238 55 Q 238 55 233 55 Q 238 55 238 60 Q 238 55 243 55 Q 238 55 238 50" fill="url(#roseGold)" />
+
+    <!-- 3. Left Moon (Menguante/Waning) -->
+    <path d="M 105 27 A 28 28 0 0 0 105 83 A 36 36 0 0 1 105 27 Z" fill="url(#roseGold)" />
+
+    <!-- 4. Center Moon (Llena/Full) -->
+    <circle cx="150" cy="55" r="28" fill="url(#classicGold)" />
+    <circle cx="150" cy="55" r="25" fill="none" stroke="#FFFFFF" stroke-width="0.5" opacity="0.5" />
+
+    <!-- 5. Right Moon (Creciente/Waxing) -->
+    <path d="M 195 27 A 28 28 0 0 1 195 83 A 36 36 0 0 0 195 27 Z" fill="url(#roseGold)" />
+
+    <!-- 6. Typography (Outfit Style) -->
+    <text x="150" y="125" 
+          font-family="'Outfit', 'Playfair Display', serif" 
+          font-size="28" 
+          font-weight="800" 
+          letter-spacing="8" 
+          fill="#2A221E" 
+          text-anchor="middle">3 LUNAS</text>
+
+    <text x="150" y="155" 
+          font-family="'Outfit', 'Inter', sans-serif" 
+          font-size="12" 
+          font-weight="600" 
+          letter-spacing="6" 
+          fill="#8C6C58" 
+          text-anchor="middle">BOUTIQUE</text>
+
+    <!-- Decorative line under text -->
+    <line x1="110" y1="168" x2="190" y2="168" stroke="url(#classicGold)" stroke-width="0.75" opacity="0.6" />
+  </g>
+</svg>

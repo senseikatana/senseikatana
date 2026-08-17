@@ -1,0 +1,15 @@
+[build]
+  builder = "nixpacks"
+
+[deploy]
+  startCommand = "node ./dist/server/entry.mjs"
+  healthcheckPath = "/api/health"
+  healthcheckTimeout = 300
+  restartPolicyType = "on_failure"
+  restartPolicyMaxRetries = 3
+
+[variables]
+  NODE_ENV = "production"
+  PORT = "4000"
+  HOST = "0.0.0.0"
+  FRONTEND_URL = "https://senseikatana.com"

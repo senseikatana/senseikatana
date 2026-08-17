@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "email": "admin@treslunas.com",
+      "password": "Admin123!",
+      "displayName": "Admin TresLunas"
+    },
+    {
+      "email": "vendedor@treslunas.com",
+      "password": "Vendedor123!",
+      "displayName": "Vendedor"
+    },
+    {
+      "email": "cliente1@email.com",
+      "password": "Cliente123!",
+      "displayName": "Cliente Uno"
+    },
+    {
+      "email": "cliente2@email.com",
+      "password": "Cliente123!",
+      "displayName": "Cliente Dos"
+    },
+    {
+      "email": "manager@treslunas.com",
+      "password": "Manager123!",
+      "displayName": "Store Manager"
+    }
+  ]
+}

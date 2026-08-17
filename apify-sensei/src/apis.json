@@ -1,0 +1,36 @@
+{
+  "primaryApi": {
+    "baseUri": "https://api.example.com/v1",
+    "endpoints": {
+      "resource": "/resources",
+      "resourceById": "/resources/:id"
+    }
+  },
+  "secondaryApi": {
+    "baseUri": "https://another-service.com/api",
+    "endpoints": {
+      "items": "/items",
+      "filteredItems": "/items"
+    },
+    "defaultQueryParams": {
+      "filteredItems": { "limit": 10 }
+    }
+  },
+  "pokeapi": {
+    "baseUri": "https://pokeapi.co/api/v2",
+    "endpoints": {
+      "pokemonById": "/pokemon/:id/",
+      "abilityByName": "/ability/:name/"
+    }
+  },
+  "jsonplaceholder": {
+    "baseUri": "https://jsonplaceholder.typicode.com",
+    "endpoints": {
+      "userPosts": "/posts",
+      "commentById": "/comments/:id"
+    },
+    "defaultQueryParams": {
+      "userPosts": { "_limit": 10 }
+    }
+  }
+}

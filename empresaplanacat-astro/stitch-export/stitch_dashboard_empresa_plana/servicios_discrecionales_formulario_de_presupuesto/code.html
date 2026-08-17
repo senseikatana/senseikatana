@@ -1,0 +1,272 @@
+<!DOCTYPE html><html class="light cvdyngos zodrwmo" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Solicitud de Presupuesto - Empresa Plana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1d",
+                        "on-primary-fixed-variant": "#134198",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "secondary-container": "#78f5ff",
+                        "outline-variant": "#c4c6d4",
+                        "primary-fixed": "#dae2ff",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "surface-tint": "#335ab1",
+                        "background": "#f8f9fa",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary-container": "#5d3500",
+                        "surface": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary": "#3f2200",
+                        "on-primary-container": "#87a8ff",
+                        "primary-container": "#013990",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-container": "#f3940f",
+                        "surface-dim": "#d9dadb",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434652",
+                        "tertiary-fixed": "#ffdcbd",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e1e3e4",
+                        "secondary-fixed-dim": "#57d8e2",
+                        "primary": "#002563",
+                        "secondary": "#00696f",
+                        "surface-container": "#edeeef",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "inverse-primary": "#b2c5ff",
+                        "on-secondary-fixed": "#002022",
+                        "outline": "#747783",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001847",
+                        "tertiary-fixed-dim": "#ffb86d",
+                        "secondary-fixed": "#78f5ff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#007076"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-lg-mobile": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "button": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "headline-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+        .ambient-shadow { box-shadow: 0px 4px 20px rgba(1, 57, 144, 0.08); }
+        .input-focus-glow:focus-within { border-color: #00696f; box-shadow: 0 0 0 2px rgba(0, 105, 111, 0.2); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20">
+<!-- Logo -->
+<a class="flex items-center gap-2" href="#">
+<img alt="Empresa Plana Logo" class="h-10 w-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLtGFBceY_E6FA7WilCjoEGnnAIVBgJI3ZxwoFQ7mp5OrxQo8174UGm7Tqh0fhXKk7r9lNdBL6xf2Zl2W4qosQxu6vxwL-wgYPM-SMBi8JoQwDA_nvvkUoblE1wAEfViUXfDzwwDGwns0P0L2qyIs9wAE4Eu1VxN-5lzci5_ctTWepYuMn6ouQk_328RVveg4W1rH-zi5L467ABa9qqxRRxR1hcnbv-osL0Ssqwc66sHySwJSVBAJfdVtw">
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary transition-colors duration-200 font-label-md text-label-md" href="#">Services</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary transition-colors duration-200 font-label-md text-label-md" href="#">Locations</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-secondary transition-colors duration-200 font-label-md text-label-md" href="#">Downloads</a>
+</nav>
+<!-- Actions -->
+<div class="hidden md:flex gap-stack-sm items-center">
+<button class="text-primary-container font-button text-button px-4 py-2 hover:bg-surface-container rounded transition-colors">Contact</button>
+<button class="bg-primary-container text-on-primary font-button text-button px-6 py-3 rounded hover:opacity-90 transition-opacity">BOOK NOW</button>
+</div>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-primary-container p-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center py-stack-lg px-margin-mobile md:px-margin-desktop">
+<!-- Form Container -->
+<div class="w-full max-w-4xl bg-surface-container-lowest rounded-xl ambient-shadow p-stack-lg border border-surface-container-highest">
+<div class="text-center mb-stack-lg">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-sm">Solicitud de Presupuesto</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
+                    Complete el siguiente formulario para solicitar un presupuesto para nuestros servicios discrecionales. Nos pondremos en contacto con usted a la brevedad.
+                </p>
+</div>
+<form class="space-y-stack-md" onsubmit="event.preventDefault(); alert('Formulario enviado (simulación)');">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<!-- Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="name">Nombre y Apellidos *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">person</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md" id="name" placeholder="Ej: Juan Pérez" required="" type="text">
+</div>
+</div>
+<!-- Email -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="email">Correo Electrónico *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md" id="email" placeholder="ejemplo@correo.com" required="" type="email">
+</div>
+</div>
+<!-- Phone -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="phone">Teléfono *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">call</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md" id="phone" placeholder="+34 600 000 000" required="" type="tel">
+</div>
+</div>
+<!-- Service Type -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="service_type">Tipo de Servicio *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">directions_bus</span>
+<select class="w-full pl-10 pr-10 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md appearance-none" id="service_type" required="">
+<option disabled="" selected="" value="">Seleccione un servicio</option>
+<option value="discrecionales">Transportes discrecionales</option>
+<option value="empresas">Empresas y fábricas</option>
+<option value="adaptados">Autocares adaptados</option>
+<option value="escolar">Transporte escolar</option>
+<option value="fin_curso">Viajes fin de curso</option>
+<option value="transfers">Transfers</option>
+<option value="turisticos">Viajes turísticos</option>
+<option value="excursiones">Excursiones Internacionales</option>
+<option value="bodas">Bodas y celebraciones</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md pt-stack-sm">
+<!-- Origin -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="origin">Origen *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">location_on</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md" id="origin" placeholder="Ciudad o dirección de salida" required="" type="text">
+</div>
+</div>
+<!-- Destination -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="destination">Destino *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">flag</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md" id="destination" placeholder="Ciudad o dirección de llegada" required="" type="text">
+</div>
+</div>
+<!-- Date -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="date">Fecha del Servicio *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface-variant" id="date" required="" type="date">
+</div>
+</div>
+<!-- Number of Passengers -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="passengers">Número de Pasajeros *</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">group</span>
+<input class="w-full pl-10 pr-3 py-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md" id="passengers" min="1" placeholder="Ej: 45" required="" type="number">
+</div>
+</div>
+</div>
+<!-- Message -->
+<div class="flex flex-col gap-1 pt-stack-sm">
+<label class="font-label-md text-label-md text-on-surface" for="message">Mensaje Adicional / Detalles</label>
+<div class="relative input-focus-glow rounded border border-outline-variant bg-surface-container-lowest transition-all">
+<textarea class="w-full p-3 bg-transparent border-none focus:ring-0 font-body-md text-body-md resize-y" id="message" placeholder="Indique necesidades especiales, horarios preferidos, itinerarios complejos, etc." rows="4"></textarea>
+</div>
+</div>
+<!-- Consent -->
+<div class="flex items-start gap-3 py-stack-sm">
+<input class="mt-1 rounded text-secondary border-outline-variant focus:ring-secondary" id="consent" required="" type="checkbox">
+<label class="font-body-md text-body-md text-on-surface-variant text-sm" for="consent">
+                        He leído y acepto la <a class="text-secondary underline hover:text-primary transition-colors" href="#">Política de Privacidad</a> y consiento el tratamiento de mis datos para la gestión de este presupuesto.
+                    </label>
+</div>
+<!-- Submit Button -->
+<div class="bg-secondary-container/20 border border-secondary rounded-lg p-4 mb-stack-md flex items-start gap-3">
+    <span class="material-symbols-outlined text-secondary">info</span>
+    <p class="font-body-md text-body-md text-on-secondary-container">
+        <span class="font-bold">Aviso:</span> Para solicitar autocares adaptados para sillas de ruedas (PMR), es necesario realizar la solicitud con una antelación de 24 a 48 horas.
+    </p>
+</div><div class="pt-stack-md flex justify-end">
+<button class="bg-on-tertiary-container text-on-primary font-button text-button px-8 py-4 rounded hover:bg-opacity-90 transition-all ambient-shadow flex items-center gap-2" type="submit">
+                        SOLICITAR PRESUPUESTO
+                        <span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-deep-navy dark:bg-surface-container-lowest full-width bg-primary-container">
+<div class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-stack-sm">
+<span class="font-headline-md text-headline-md font-bold text-on-primary dark:text-primary">Empresa Plana</span>
+<p class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80">© 2024 Empresa Plana. All rights reserved. Efficient Mobility for the Mediterranean.</p>
+</div>
+<div class="flex flex-wrap gap-x-gutter gap-y-stack-sm">
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200 font-body-md text-body-md" href="#">Privacy Policy</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200 font-body-md text-body-md" href="#">Terms of Service</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200 font-body-md text-body-md" href="#">Cookies</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200 font-body-md text-body-md" href="#">Contact Us</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200 font-body-md text-body-md" href="#">Fleet</a>
+<a class="text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200 font-body-md text-body-md" href="#">Sitemap</a>
+</div>
+</div>
+</footer>
+
+
+</body></html>

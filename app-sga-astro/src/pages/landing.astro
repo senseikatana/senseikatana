@@ -1,0 +1,186 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="ESINSA Gaskets — Soluciones de Estanqueidad Industrial" description="Soluciones de selado industrial desde 1985. Juntas, O-rings, kits de bridas y tornillería. WMS inteligente con IA.">
+  <div class="min-h-screen bg-white text-gray-900 dark:bg-gray-950 dark:text-slate-100">
+
+    <header class="sticky top-0 z-50 border-b border-gray-200/60 backdrop-blur-md bg-white/80 dark:border-slate-800/60 dark:bg-gray-950/80">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="/landing" class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+          ESINSA <span class="text-indigo-600 dark:text-indigo-400">Gaskets</span>
+        </a>
+        <nav class="hidden items-center gap-6 text-sm font-medium text-gray-500 dark:text-slate-400 md:flex">
+          <a href="#stats" class="transition hover:text-gray-900 dark:hover:text-white">Empresa</a>
+          <a href="#productos" class="transition hover:text-gray-900 dark:hover:text-white">Productos</a>
+          <a href="#clientes" class="transition hover:text-gray-900 dark:hover:text-white">Clientes</a>
+        </nav>
+        <a
+          href="/signin"
+          class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500"
+        >
+          Acceder al WMS
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section class="relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1553413077-190dd305871c?w=1920&q=80"
+            alt=""
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-950/70 to-gray-950/50 dark:from-gray-950/95 dark:via-gray-950/80 dark:to-gray-950/60"></div>
+        </div>
+        <div class="relative z-10 mx-auto max-w-7xl px-6 py-28 text-center lg:py-36">
+          <p class="text-sm font-semibold uppercase tracking-widest text-indigo-400">Desde 1985 en Tarragona</p>
+          <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Soluciones de <span class="text-indigo-400">Estanqueidad</span> Industrial
+          </h1>
+          <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
+            Fabricamos y distribuimos juntas, O-rings, kits de bridas y tornillería especializada para la industria petroquímica, energética y de proceso. WMS inteligente con gestión por IA.
+          </p>
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <a href="/signin" class="rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-500">
+              Acceder al Sistema WMS
+            </a>
+            <a href="#productos" class="rounded-lg border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-300 transition hover:border-slate-400 hover:text-white">
+              Conocer productos
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="stats" class="border-y border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/40">
+        <div class="mx-auto grid max-w-7xl grid-cols-2 gap-px divide-gray-200 dark:divide-slate-800/60 sm:grid-cols-4">
+          <div class="flex flex-col items-center px-6 py-10 text-center">
+            <span class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">40+</span>
+            <span class="mt-2 text-sm text-gray-500 dark:text-slate-400">Años de experiencia</span>
+          </div>
+          <div class="flex flex-col items-center px-6 py-10 text-center">
+            <span class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">5000+</span>
+            <span class="mt-2 text-sm text-gray-500 dark:text-slate-400">Productos en catálogo</span>
+          </div>
+          <div class="flex flex-col items-center px-6 py-10 text-center">
+            <span class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">200+</span>
+            <span class="mt-2 text-sm text-gray-500 dark:text-slate-400">Clientes activos</span>
+          </div>
+          <div class="flex flex-col items-center px-6 py-10 text-center">
+            <span class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">24h</span>
+            <span class="mt-2 text-sm text-gray-500 dark:text-slate-400">Entrega urgente</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="productos" class="mx-auto max-w-7xl px-6 py-24">
+        <h2 class="text-center text-3xl font-bold text-gray-900 dark:text-white">Nuestros Productos</h2>
+        <p class="mx-auto mt-4 max-w-xl text-center text-gray-500 dark:text-slate-400">
+          Soluciones de selado y fijación para los sectores industriales más exigentes
+        </p>
+        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="group rounded-xl border border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/50 p-6 transition hover:border-indigo-600/40 hover:shadow-lg hover:shadow-indigo-600/5">
+            <div class="flex size-12 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+              <svg class="size-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L12 12.75 6.429 9.75m11.142 0l4.179 2.25-9.75 5.25-9.75-5.25 4.179-2.25" />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Juntas</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-500 dark:text-slate-400">
+              Juntas tóricas, planas, espirales y de ranura en V. Materiales: caucho, PTFE, grafito, mica y materiales especiales.
+            </p>
+          </div>
+
+          <div class="group rounded-xl border border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/50 p-6 transition hover:border-indigo-600/40 hover:shadow-lg hover:shadow-indigo-600/5">
+            <div class="flex size-12 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+              <svg class="size-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">O-Rings</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-500 dark:text-slate-400">
+              Anillos O en caucho nitrilo, EPDM, silicona, Viton y FFKM. Estándares AS568, ISO 3601 y dimensiones métricas.
+            </p>
+          </div>
+
+          <div class="group rounded-xl border border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/50 p-6 transition hover:border-indigo-600/40 hover:shadow-lg hover:shadow-indigo-600/5">
+            <div class="flex size-12 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+              <svg class="size-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.384 3.18A1.5 1.5 0 014 17.05V6.95a1.5 1.5 0 012.036-1.39l5.384 3.18m0 6.43a1.5 1.5 0 01-2.036 1.39L4 12.22m7.42 2.95l5.384 3.18A1.5 1.5 0 0020 17.05V6.95a1.5 1.5 0 00-2.036-1.39l-5.384 3.18" />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Kits de Bridas</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-500 dark:text-slate-400">
+              Kits completos de juntas y tornillería para conexiones de bridas. ANSI, DIN, EN y specification levels.
+            </p>
+          </div>
+
+          <div class="group rounded-xl border border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/50 p-6 transition hover:border-indigo-600/40 hover:shadow-lg hover:shadow-indigo-600/5">
+            <div class="flex size-12 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+              <svg class="size-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-gray-900 dark:text-white">Tornillería</h3>
+            <p class="mt-3 text-sm leading-relaxed text-gray-500 dark:text-slate-400">
+              Pernos, tuercas, arandelas y tornillos especiales en acero inoxidable, aleaciones y materiales según norma ASTM.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="clientes" class="border-t border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-slate-900/30 py-16">
+        <div class="mx-auto max-w-7xl px-6">
+          <p class="text-center text-sm font-medium uppercase tracking-widest text-gray-400 dark:text-slate-500">
+            Confían en nosotros
+          </p>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-50">
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Repsol</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Cepsa</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">BASF</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Dow Chemical</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Bayer</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Iberdrola</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Naturgy</span>
+            <span class="text-lg font-bold text-gray-400 dark:text-slate-500">Enagás</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl px-6 py-24 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Gestiona tu almacén con inteligencia</h2>
+        <p class="mx-auto mt-4 max-w-xl text-gray-500 dark:text-slate-400">
+          Nuestro sistema WMS integra IA para optimizar picking, inventario y logística en tiempo real.
+        </p>
+        <a
+          href="/signin"
+          class="mt-8 inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-500"
+        >
+          Comenzar ahora
+          <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </section>
+    </main>
+
+    <footer class="border-t border-gray-200 dark:border-slate-800/60 bg-gray-50 dark:bg-gray-950 py-12">
+      <div class="mx-auto max-w-7xl px-6 text-center text-sm text-gray-500 dark:text-slate-500">
+        <p class="font-semibold text-gray-900 dark:text-slate-300">ESINSA Gasket S.L.</p>
+        <p class="mt-1">Pol. Industrial Riu Clar, Tarragona, Spain</p>
+        <p class="mt-1">
+          <a href="tel:+34977123456" class="hover:text-gray-900 dark:hover:text-slate-300">+34 977 123 456</a>
+          &nbsp;&middot;&nbsp;
+          <a href="mailto:info@esinsa.es" class="hover:text-gray-900 dark:hover:text-slate-300">info@esinsa.es</a>
+        </p>
+        <p class="mt-4 text-xs text-gray-400 dark:text-slate-600">
+          &copy; {new Date().getFullYear()} ESINSA Gasket S.L. — CIF B43123456
+        </p>
+      </div>
+    </footer>
+
+  </div>
+</BaseLayout>

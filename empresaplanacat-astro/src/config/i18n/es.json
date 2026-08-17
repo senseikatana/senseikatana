@@ -1,0 +1,696 @@
+{
+  "common": {
+    "brand": "Empresa Plana",
+    "nav": {
+      "services": "Servicios",
+      "locations": "Localizaciones",
+      "downloads": "Descargas",
+      "contact": "Contacto",
+      "bookNow": "RESERVAR AHORA"
+    },
+    "lang": {
+      "ca": "CA",
+      "es": "ES",
+      "en": "EN"
+    },
+    "phone": "+34 977 553 680",
+    "footer": {
+      "privacy": "Política de privacidad",
+      "terms": "Términos de servicio",
+      "cookies": "Cookies",
+      "contact": "Contáctanos",
+      "fleet": "Flota",
+      "sitemap": "Mapa del sitio",
+      "copyright": "© 2024 Empresa Plana. Todos los derechos reservados. Movilidad eficiente para el Mediterráneo."
+    }
+  },
+  "home": {
+    "title": "Empresa Plana - Pantallas",
+    "subtitle": "Pantallas generadas desde el proyecto Stitch «Dashboard Empresa Plana».",
+    "screens": {
+      "routes": {
+        "label": "Rutas y Horarios",
+        "desc": "Buscador de líneas y descargas de horarios"
+      },
+      "locations": {
+        "label": "Dónde Estamos",
+        "desc": "Oficina central y delegaciones"
+      },
+      "discretionary": {
+        "label": "Servicios Discrecionales",
+        "desc": "Autocares a medida para grupos y empresas"
+      },
+      "variant1": {
+        "label": "Homepage Variante 1",
+        "desc": "Landing con booking widget (variante 1)"
+      },
+      "variant2": {
+        "label": "Homepage Variante 2",
+        "desc": "Landing split hero (variante 2)"
+      },
+      "mobile": {
+        "label": "App Móvil",
+        "desc": "Landing móvil con buscador"
+      },
+      "locationsMobile": {
+        "label": "Dónde Estamos Móvil",
+        "desc": "Versión móvil de delegaciones"
+      },
+      "tracking": {
+        "label": "Seguimiento del autobús",
+        "desc": "Reporta si tu autobús pasa a la hora"
+      }
+    }
+  },
+  "routes": {
+    "title": "Descargas y Horarios - Empresa Plana",
+    "hero": {
+      "title": "Rutas y Horarios",
+      "subtitle": "Localiza fácilmente los horarios de bus y rutas disponibles para llegar a tu destino en transporte público por la Costa Dorada."
+    },
+    "search": {
+      "title": "Buscador de Líneas",
+      "originLabel": "Localidad de origen",
+      "destinationLabel": "Localidad de destino",
+      "dateLabel": "Fecha",
+      "timeLabel": "Horario",
+      "originPlaceholder": "Seleccionar origen...",
+      "destinationPlaceholder": "Seleccionar destino...",
+      "anyTime": "Cualquier hora",
+      "morning": "07:00 a 12:00",
+      "afternoon": "12:00 a 16:00",
+      "evening": "16:00 a 20:00",
+      "direct": "Rutas directas",
+      "withTransfers": "Con transbordos",
+      "submit": "BUSCAR LÍNEAS",
+      "disclaimer": "* El cumplimiento de estos horarios están condicionados a la fluidez del tráfico."
+    },
+    "results": {
+      "title": "Resultados de búsqueda",
+      "summaryLabel": "Resultados para",
+      "directTitle": "Rutas directas",
+      "transfersTitle": "Rutas con transbordo",
+      "hubLabel": "Transbordo en",
+      "legLabel": "Tramo",
+      "throughTitle": "Rutas en el mismo autobús",
+      "throughBadge": "Mismo autobús",
+      "throughAtLabel": "El autobús continúa en",
+      "throughOriginHeader": "Salida",
+      "throughConnectionHeader": "En la parada",
+      "throughWaitHeader": "Espera",
+      "throughDepartHeader": "Sale de la parada",
+      "throughDestinationHeader": "Llega",
+      "firstDeparture": "Primera salida",
+      "lastDeparture": "Última salida",
+      "departuresLabel": "salidas",
+      "stopsLabel": "Paradas del recorrido",
+      "downloadPdf": "Descargar PDF",
+      "moreDepartures": "+ {n} salidas más",
+      "emptyTitle": "No se han encontrado resultados",
+      "emptyBody": "No encontramos líneas que conecten esas localidades con los criterios indicados.",
+      "emptyHint": "Prueba con otras localidades o activa la búsqueda con transbordos.",
+      "missingSelection": "Selecciona origen y destino para buscar.",
+      "databaseError": "No se pudo conectar con la base de datos de horarios.",
+      "searchingInfo": "Mostrando salidas de ejemplo. La fecha indicada es orientativa."
+    },
+    "origins": {
+      "barcelonaAirport": "Aeroport de Barcelona",
+      "reusAirport": "Aeroport de Reus",
+      "tarragona": "Tarragona",
+      "salou": "Salou",
+      "cambrils": "Cambrils",
+      "portAventura": "PortAventura"
+    },
+    "lines": {
+      "title": "Las Líneas Más Buscadas",
+      "subtitle": "Descarga los horarios en PDF de nuestras rutas principales.",
+      "downloadPdf": "Descargar PDF",
+      "viewAll": "Ver todas las líneas en PDF",
+      "cards": {
+        "barcelonaAirport": {
+          "route": "Barcelona - Aeropuerto",
+          "stops": "Tarragona - La Pineda - Salou - Cambrils"
+        },
+        "tarragonaBarcelona": {
+          "route": "Tarragona - Barcelona",
+          "stops": "Barcelona"
+        },
+        "costaDorada": {
+          "route": "Costa Dorada Central",
+          "stops": "La Pineda - Salou - Cambrils"
+        },
+        "reusSalou": {
+          "route": "e5 Reus - Salou",
+          "stops": "Salou"
+        },
+        "estacioCamp": {
+          "route": "Estació del Camp",
+          "stops": "Estació del Camp AVE"
+        },
+        "penedes": {
+          "route": "L68 Penedés",
+          "stops": "Vilafranca del Penedés"
+        }
+      }
+    },
+    "banner": {
+      "title": "Acceso de patinetes eléctricos en los autobuses",
+      "body": "Siguiendo las instrucciones de Autoridad Territorial de Movilidad y por motivos de seguridad, no se podrá acceder ni viajar en el transporte público con patinetes eléctricos y otros vehículos eléctricos de movilidad personal, ni siquiera plegados."
+    },
+    "groups": {
+      "special": "Puntos de interés",
+      "altCamp": "Alt Camp",
+      "baixCamp": "Baix Camp",
+      "baixEbre": "Bajo Ebro",
+      "baixPenedes": "Bajo Penedés",
+      "concaBarbera": "Cuenca de Barberá",
+      "montsia": "Montsiá",
+      "priorat": "Priorato",
+      "riberaEbre": "Ribera de Ebro",
+      "tarragones": "Tarragonés",
+      "terraAlta": "Tierra Alta"
+    }
+  },
+  "mobileApp": {
+    "title": "Empresa Plana - App Móvil",
+    "hero": {
+      "title": "¿A dónde vas?"
+    },
+    "search": {
+      "fromPlaceholder": "Desde (p. ej. Aeropuerto de Barcelona)",
+      "toPlaceholder": "Hasta (p. ej. Salou)",
+      "today": "Hoy",
+      "onePassenger": "1 Pasajero",
+      "submit": "BUSCAR AUTOBUSES"
+    },
+    "popular": {
+      "title": "Servicios Populares",
+      "airport": {
+        "tag": "Ruta Exprés",
+        "title": "Traslados al Aeropuerto"
+      },
+      "excursions": {
+        "title": "Excursiones",
+        "desc": "Salidas y excursiones de un día"
+      },
+      "timetables": {
+        "title": "Horarios",
+        "desc": "Horarios de autobuses locales"
+      }
+    },
+    "nav": {
+      "search": "Buscar",
+      "tickets": "Billetes",
+      "stops": "Paradas",
+      "profile": "Perfil"
+    }
+  },
+  "locations": {
+    "title": "Dónde Estamos - Empresa Plana",
+    "hero": {
+      "title": "DONDE ESTAMOS",
+      "subtitle": "Empresa Plana opera en las principales ciudades del Camp de Tarragona y destinos turísticos de la Costa Daurada, además de conectarlos en autobús al aeropuerto de Barcelona y de Reus."
+    },
+    "mapBadge": "Red de Oficinas",
+    "central": {
+      "title": "Oficina Central",
+      "tag": "1. CENTRAL",
+      "address1": "Polígono Industrial Riu Clar, parcela 145-155",
+      "address2": "Polígono Industrial Riu Clar",
+      "city": "43006 TARRAGONA"
+    },
+    "delegations": {
+      "title": "Delegaciones",
+      "label": "Delegación {n}",
+      "bases": {
+        "tarragona": {
+          "name": "Base Tarragona",
+          "address": "C/ Colom, 29",
+          "city": "43001 TARRAGONA"
+        },
+        "reus": {
+          "name": "Base Reus",
+          "address": "C/ Sabaters, 5, Pol. Ind. CIM El Camp",
+          "city": "43204 REUS"
+        },
+        "garraf": {
+          "name": "Base Garraf",
+          "address": "C/ Mas d'en Borràs, 5, Pol. Ind. Masia d'en Notari",
+          "city": "08800 VILANOVA I LA GELTRÚ"
+        },
+        "calafell": {
+          "name": "Base Calafell",
+          "address": "C/ Cobertera, 6, Parc Empresarial de Calafell",
+          "city": "43820 CALAFELL"
+        },
+        "barcelona": {
+          "name": "Base Barcelona",
+          "address": "C/ Botánica, 135, Pol. Pedrosa",
+          "city": "08908 L'HOSPITALET DE LLOBREGAT"
+        },
+        "hospitalet": {
+          "name": "Base L'Hospitalet",
+          "address": "C/ Torroja, 2, Pol. Ind. Les Tapies",
+          "city": "43890 L'HOSPITALET DE L'INFANT"
+        }
+      }
+    },
+    "experience": {
+      "title": "MÁS DE 60 AÑOS",
+      "subtitle": "Nuestra experiencia nos avala. Contacta con nosotros para cualquier servicio que necesites."
+    }
+  },
+  "homeVariant1": {
+    "title": "Empresa Plana - Homepage",
+    "booking": {
+      "tabs": {
+        "booking": "Reserva",
+        "destination": "Destino",
+        "passengers": "Pasajeros"
+      },
+      "origin": "Origen",
+      "destination": "Destino",
+      "date": "Fecha",
+      "passengers": "Pasajeros",
+      "originPlaceholder": "Aeropuerto de Barcelona",
+      "destinationPlaceholder": "Salou",
+      "datePlaceholder": "27/07/2026",
+      "passengersPlaceholder": "1 Adulto",
+      "search": "BUSCAR"
+    },
+    "routes": {
+      "title": "RUTAS POPULARES",
+      "startingFrom": "Desde",
+      "price": "12,50 €",
+      "cards": {
+        "barcelona": {
+          "name": "Barcelona",
+          "desc": "Barcelona es un hermoso destino de la playa mediterránea."
+        },
+        "salou": {
+          "name": "Salou",
+          "desc": "Salou es conocida por su hermosa playa mediterránea y su vibrante ambiente."
+        },
+        "tarragona": {
+          "name": "Tarragona",
+          "desc": "Tarragona ofrece una mezcla de historia antigua y hermosos paisajes costeros."
+        }
+      }
+    },
+    "footer": {
+      "services": "Servicios",
+      "routesSchedules": "Rutas y Horarios",
+      "privateServices": "Servicios Discrecionales",
+      "contact": "Datos de contacto",
+      "social": "Redes Sociales",
+      "legal": "Enlaces Legales"
+    }
+  },
+  "locationsMobile": {
+    "title": "Dónde Estamos - Empresa Plana",
+    "appbar": {
+      "title": "Dónde Estamos"
+    },
+    "hero": {
+      "title": "Dónde Estamos"
+    },
+    "central": {
+      "title": "Oficina Central",
+      "address": "Polígono Industrial Riu Clar, Calle del Plomo, s/n, 43006 Tarragona"
+    },
+    "delegations": {
+      "title": "Delegaciones",
+      "bases": {
+        "tarragona": {
+          "name": "Base Tarragona",
+          "area": "Pol. Ind. Riu Clar"
+        },
+        "reus": {
+          "name": "Base Reus",
+          "area": "Av. de Salou, s/n"
+        },
+        "garraf": {
+          "name": "Base Garraf",
+          "area": "Pol. Ind. Vilanova i la Geltrú"
+        },
+        "calafell": {
+          "name": "Base Calafell",
+          "area": "Ctra. C-31, km 136"
+        },
+        "barcelona": {
+          "name": "Base Barcelona",
+          "area": "Zona Franca"
+        },
+        "hospitalet": {
+          "name": "Base L'Hospitalet de l'Infant",
+          "area": "Pol. Ind. Les Tàpies"
+        }
+      }
+    },
+    "nav": {
+      "routes": "Rutas",
+      "tickets": "Billetes",
+      "locations": "Lugares",
+      "services": "Servicios"
+    }
+  },
+  "homeVariant2": {
+    "title": "Empresa Plana - Homepage",
+    "brand": {
+      "name": "PLANA",
+      "suffix": "60"
+    },
+    "nav": {
+      "routesSchedules": "Rutas y Horarios",
+      "privateServices": "Servicios Discrecionales",
+      "aboutUs": "Sobre Nosotros",
+      "contact": "Contacto"
+    },
+    "booking": {
+      "tabs": {
+        "booking": "Reserva",
+        "destination": "Destino",
+        "passengers": "Pasajeros"
+      },
+      "origin": "Origen",
+      "destination": "Destino",
+      "date": "Fecha",
+      "passengers": "Pasajeros",
+      "originPlaceholder": "Aeropuerto de Barcelona",
+      "destinationPlaceholder": "Salou",
+      "datePlaceholder": "27/07/2026",
+      "oneAdult": "1 Adulto",
+      "twoAdults": "2 Adultos",
+      "search": "BUSCAR"
+    },
+    "routes": {
+      "title": "Rutas Populares",
+      "startingFrom": "Desde",
+      "price": "12,50 €",
+      "cards": {
+        "barcelona": {
+          "name": "Barcelona",
+          "desc": "Barcelona es una hermosa ciudad mediterránea con una rica historia y cultura, perfecta para tu próxima escapada."
+        },
+        "salou": {
+          "name": "Salou",
+          "desc": "Salou es conocida por sus impresionantes playas y su animado ambiente en la costa mediterránea."
+        },
+        "tarragona": {
+          "name": "Tarragona",
+          "desc": "Tarragona ofrece una magnífica mezcla de herencia romana y hermosas vistas costeras."
+        }
+      }
+    },
+    "footer": {
+      "services": "Servicios",
+      "contact": "Datos de contacto",
+      "social": "Redes Sociales",
+      "legal": "Enlaces Legales",
+      "email": "empresaplana.com"
+    }
+  },
+  "discretionary": {
+    "title": "Servicios Discrecionales - Empresa Plana",
+    "intro": {
+      "title": "SERVICIOS PARA CADA NECESIDAD",
+      "subtitle": "A través de BusPlana le ofrecemos transfers desde los aeropuertos de Barcelona y Reus y desde la Estación del AVE del Camp de Tarragona a todos los puntos de la Costa Dorada, así como excursiones organizadas para que disfrute al máximo de tus vacaciones.",
+      "linkLabel": "Entre en BUSPLANA.COM para más información."
+    },
+    "hero": {
+      "title": "Servicios Discrecionales a Medida",
+      "subtitle": "En Empresa Plana contamos con una dilatada experiencia en el alquiler de autobús con conductor profesional para todo tipo de trayectos por carretera para particulares y profesionales, en tramos urbanos e interurbanos, por territorio nacional e internacional. Trabajamos habitualmente con empresas, asociaciones, entidades y grupos de personas que desean alquilar autocar en Tarragona para eventos especiales, congresos, excursiones, viajes turísticos nacionales y viajes en bus al extranjero.",
+      "cta": "SOLICITAR PRESUPUESTO"
+    },
+    "professionals": {
+      "title": "PROFESIONALES",
+      "subtitle": "Facilitamos el transporte colectivo, principalmente en la provincia de Tarragona, entre dos o más puntos.",
+      "bullets": [
+        "Soluciones a medida para instituciones, empresas y centros educativos que deseen implementar una ruta de autobús para los desplazamientos diarios y ocasionales de los trabajadores o alumnos.",
+        "Le asesoramos sobre las paradas y horarios más adecuados, estableciendo rutas en bus a medida adaptadas a sus necesidades.",
+        "Ofrecemos seguridad y confort. Contamos con una flota de más de 600 autocares, formada por vehículos que cumplen con las más exigentes normativas en seguridad y también con autocares adaptados a personas con movilidad reducida.",
+        "Nuestros autocares llevan integrada la última tecnología en control GPS y de navegación.",
+        "Nuestros conductores de autobús cuentan con una dilatada experiencia en el transporte de viajeros por carretera."
+      ]
+    },
+    "services": {
+      "title": "Servicios para cada necesidad",
+      "subtitle": "Nuestra flota se adapta a tus requerimientos específicos, garantizando puntualidad, confort y un servicio de primera clase en cada trayecto.",
+      "cards": {
+        "transfers": {
+          "tag": "Aeropuertos y Hoteles",
+          "title": "Transfers",
+          "desc": "Traslados en autobús desde el aeropuerto de Barcelona y de Reus, hasta la zona de su hotel, en la Costa Daurada."
+        },
+        "weddings": {
+          "title": "Bodas y celebraciones",
+          "desc": "Traslados en grupo en autocar para ocasiones especiales. Garantice la comodidad y puntualidad de sus invitados."
+        },
+        "adapted": {
+          "title": "Autocares adaptados",
+          "desc": "Disponemos de autobuses y autocares adaptados para personas con movilidad reducida (P. M. R.)"
+        },
+        "mice": {
+          "title": "Transportes discrecionales",
+          "desc": "Barcelona es una de las principales ciudades organizadoras de eventos MICE (Reuniones, Incentivos, Congresos, y Eventos)."
+        },
+        "companies": {
+          "title": "Empresas y fábricas",
+          "desc": "Autobuses para trasladar regularmente a los trabajadores hacia sus instalaciones y acompañar a sus clientes en acontecimientos especiales."
+        },
+        "school": {
+          "title": "Transporte escolar",
+          "desc": "Autocares para niños y jóvenes: excursiones, campamentos, competiciones deportivas, actividades culturales y eventos especiales."
+        },
+        "endOfYearTrips": {
+          "title": "Viajes fin de curso",
+          "desc": "Viajes nacionales e internacionales en autocar, con los que disfrutarán de un viaje de fin de curso inolvidable."
+        },
+        "touristTrips": {
+          "title": "Viajes turísticos",
+          "desc": "Descubra el patrimonio histórico y cultural de los principales destinos turísticos. Viaje en autobús y aproveche al máximo su viaje."
+        },
+        "internationalExcursions": {
+          "title": "Excursiones Internacionales",
+          "desc": "Hacemos posible vuestros viajes en autobús por Europa."
+        }
+      },
+      "moreInfo": "MÁS INFORMACIÓN",
+      "viewDetails": "Ver detalles →"
+    },
+    "cta": {
+      "title": "¿MÁS INFORMACIÓN?",
+      "contactTitle": "CONTACTA CON NOSOTROS",
+      "subtitle": "Si necesitas información sobre nuestros servicios llámanos o usa el formulario que encontrarás en esta web.",
+      "areaTarragona": "Presupuestos Área Tarragona",
+      "areaBarcelona": "Presupuestos Área Barcelona y Garraf",
+      "phoneTarragona": "+34 977 54 04 93",
+      "phoneBarcelona": "+34 663 854 611",
+      "submit": "SOLICITA PRESUPUESTO"
+    }
+  },
+  "about": {
+    "title": "Empresa Plana - Empresa Plana",
+    "heroTagline": "A SU SERVICIO",
+    "heroTitle": "Más de 60 años evolucionando y adaptándonos a las necesidades de nuestros usuarios.",
+    "qualityTitle": "POLÍTICA DE CALIDAD, MEDIO AMBIENTE, SEGURIDAD Y SALUD EN EL TRABAJO Y SEGURIDAD VIAL.",
+    "qualityIntro": "EMPRESA PLANA, desde sus bases de Tarragona, Reus, Calafell y Vilanova i la Geltrú, ofrece servicios de transporte público de pasajeros por carretera, en sus distintas modalidades de línea regular urbana e interurbana, transporte escolar, de empresa y discrecional.",
+    "qualityBody": "Nuestra meta es obtener los resultados empresariales esperados, prestando a nuestros clientes y partes interesadas unos servicios seguros que cumplan satisfactoriamente con sus necesidades y expectativas, y que estén realizados mediante procesos respetuosos con el Medio, teniendo presente la Seguridad y Salud en el trabajo, así como la Seguridad Vial, tanto hoy como en el futuro.",
+    "qualityCommitment": "Por ello, la Gerencia decide establecer un Sistema de Gestión, conforme a las Normas ISO 9001, ISO 14001, UNE-EN 13816, ISO 45001, ISO 39001 y declara su compromiso para el cumplimiento de la legislación y reglamentación aplicable a la Calidad, al Medio, a la Seguridad y Salud en el Trabajo, a la Seguridad Vial, y a la Igualdad y a los requisitos que se deriven de compromisos suscritos por la organización, con la siguiente política:",
+    "qualityBullets": [
+      "El conocimiento actualizado y su transmisión, de cómo influyen nuestros procesos y actividades en la satisfacción del cliente, en el medio, en la seguridad y salud en el trabajo, en la seguridad vial y el de los requisitos legales correspondientes y los compromisos suscritos por la organización son la base para la gestión.",
+      "Todas las deficiencias en la calidad, las agresiones al medio, los daños y el deterioro de la salud en el trabajo, así como los riesgos de seguridad vial, dentro del ámbito de responsabilidad de la empresa, se pueden prevenir, controlar y minimizar, y debe hacerse de forma sistemática, documentada y con criterios de mejora continua, tanto en situaciones normales como en emergencias.",
+      "El compromiso para la protección del medio ambiente, incluida la prevención de la contaminación, y otros compromisos específicos pertinentes al contexto de la organización.",
+      "El compromiso para proporcionar condiciones de trabajo seguras y saludables para la prevención de lesiones y deterioro de la salud relacionados con el trabajo, que contribuyan a eliminar los peligros y reducir los riesgos para la Seguridad y Salud en el trabajo, así como la consulta y participación de los trabajadores.",
+      "Los errores se han de detectar y solucionar con la rapidez necesaria, tomando acciones eficaces para evitar su repetición, mejorando los mecanismos de prevención y emergencias.",
+      "Cada empleado, debidamente formado y motivado todos los niveles, debe ser consciente de su responsabilidad personal y estar atento a la repercusión de su actividad en la calidad de servicio, de su impacto en el medio, de los riesgos para la seguridad y salud en el trabajo, así como de su impacto y riesgos en cuanto a la seguridad vial, comprometiéndose en conocer y aplicar lo que se establece en la documentación del Sistema y participando, dentro de un ambiente organizativo adecuado, de forma activa en la mejora continua del sistema.",
+      "La voluntad permanente de mejora se manifiesta a través de los objetivos y metas, y de la puesta en práctica de planes y programas integrados o específicos de Calidad, Medio, Seguridad y Salud en el trabajo, Seguridad Vial e Igualdad.",
+      "El Sistema de Gestión se revisa de forma periódica y sistemática, incluyendo la política, los objetivos, y la dotación de los recursos necesarios, para conseguir la mejora continua de su eficacia."
+    ],
+    "qualityClosing": "En Tarragona, a 01 de marzo de 2024",
+    "contactCtaTitle": "DATOS, FORMULARIO DE CONTACTO, DIRECCIÓN Y HORARIOS DE OFICINA",
+    "contactCta": "Si deseas contactar con nosotros puedes hacerlo llamándonos al teléfono +34 977 553680 o a través del formulario que encontrarás en esta web.",
+    "phoneHours": "De Lunes a Domingo: 8:00 h - 22:00 h",
+    "jobs": {
+      "title": "TRABAJA CON NOSOTROS",
+      "desc": "Desde Empresa Plana buscamos de manera constante diferentes perfiles profesionales: conductores, mecánicos, etc. Envíanos tu currículum si quieres trabajar en una empresa de futuro.",
+      "sendCvTitle": "ENVÍANOS TU CURRÍCULUM",
+      "sendCvCta": "ENVÍA TU CURRÍCULUM",
+      "applyOffer": "APÚNTATE A UNA OFERTA",
+      "viewOffers": "VER OFERTAS DE EMPLEO"
+    },
+    "social": {
+      "title": "SÍGUENOS EN LAS REDES SOCIALES",
+      "subtitle": "Actualidad, incidencias, novedades y todo lo que necesitas saber si usas el transporte público"
+    },
+    "aboutUsTitle": "SOBRE NOSOTROS",
+    "aboutFooter": "Empresa Plana tiene más de 60 años de experiencia en el transporte de personas en líneas regulares, transfers a aeropuertos y servicios de transporte discrecional. Confíe en Empresa Plana.",
+    "fundedBy": "Financiado por"
+  },
+  "legal": {
+    "legalNotice": {
+      "title": "Aviso legal",
+      "heading": "RESPONSABILIDAD DE CONTENIDOS Y OFERTAS COMERCIALES.",
+      "intro": "AVISO LEGAL v.1. TERESA Y JOSÉ PLANA EMPRESA PLANA, S.L. (en adelante, EMPRESA PLANA) provista de CIF B43009091, actúa como titular, dinamizador y gestor de contenidos de la presente web. La entidad informa a los Usuarios que cumple con la vigente normativa de protección de datos, y con carácter especial, con el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos datos y por el que se deroga la Directiva 95/46/CE (Reglamento general de protección de datos) y con la Ley de la Sociedad de Servicios de la Información y Comercio Electrónico, Ley 34/2002, de 11 de julio.",
+      "address": "Por tanto, la actividad comercial, publicitaria, mercantil, administrativa o de contratación de bienes y/o servicios es responsabilidad de la sociedad mencionada, propietaria de este dominio y que opera con la marca EMPRESA PLANA atendiendo para cuestiones comerciales y administrativas en la dirección siguiente: C/ Les Creus, 29, 43120 Constantí (Tarragona).",
+      "sections": {
+        "userConcept": "La utilización de la web (incluida su área privada) atribuye la condición de usuario e implica la aceptación plena y sin reservas de todas y cada una de las disposiciones incluidas en este Aviso Legal y en las Políticas de Privacidad en la versión publicada por EMPRESA PLANA en el mismo momento en que el usuario acceda a la web. En consecuencia, el usuario debe leer atentamente el presente Aviso Legal y las Políticas de Privacidad en cada una de las ocasiones en que se proponga utilizar la web, puesto que puede tener modificaciones.",
+        "links": "EMPRESA PLANA no se hace responsable de las webs no propias a las que se puede acceder mediante vínculos \"links\" o de cualquier contenido puesto a disposición por terceros. Cualquier uso de un vínculo o acceso a una web no propia es realizado por voluntad y riesgo exclusivo del usuario y EMPRESA PLANA no recomienda ni garantiza ninguna información obtenida a través de un vínculo ajeno a la web de EMPRESA PLANA ni se responsabiliza de ninguna pérdida, reclamación o perjuicio derivada del uso o mal uso de un vínculo, o de la información obtenida a través de él, incluyendo otros vínculos o webs, de la interrupción en el servicio o en el acceso, o del intento de usar o usar mal un vínculo, tanto al conectarse a la web de EMPRESA PLANA como al acceder a la información de otras webs desde la web de EMPRESA PLANA.",
+        "externalLinks": "Se prohíbe expresamente establecer el vínculo http://empresaplana.cat/ desde páginas que contengan manifestaciones o propaganda de carácter racista, xenófobo, pornográfico, de apología del terrorismo, en contra de los Derechos Humanos o cualquier otro de carácter ilícito o contrario a la moral y al orden público. En ningún caso se podrá dar a entender, ni declarar que, EMPRESA PLANA, interviene, avala, promociona, participa o ha supervisado en forma alguna los contenidos de la página donde figure el enlace, ni tan sólo que consienta su incursión, excepto autorización expresa.",
+        "cookies": "En esta Web se pueden ir utilizando cookies en algunas páginas. La finalidad de dichas cookies es mejorar el servicio que ofrecen a sus clientes y a nuestros visitantes. Si desea saber más sobre el uso de las cookies por parte de EMPRESA PLANA visite nuestra Política de cookies en la web.",
+        "liability": "EMPRESA PLANA informa que en todo momento implementa las medidas de seguridad oportunas a fin de presentar a los usuarios de la web informaciones y servicios adecuados, ciertos y actualizados. No obstante, se reserva el derecho de rectificación sobre aquellos aspectos que, eventualmente y de forma fortuita, puedan sufrir incorrecciones, desactualizaciones o errores. EMPRESA PLANA, ha obtenido la información y los materiales incluidos en la web de fuentes consideradas como fiables, pero si bien se han tomado las medidas correspondientes por asegurar que la información contenida sea correcta, no garantiza que sea exacta o actualizada. También se advierte que los contenidos de esta Web, tienen dos finalidades, una finalidad informativa en cuanto a la calidad, situación, servicios y tarifas y otra de venta de servicios, según lo previsto en el presente aviso legal y el resto de textos legales de la presente web.",
+        "technical": "EMPRESA PLANA declina cualquier responsabilidad en caso de que existan interrupciones o un mal funcionamiento de los servicios o contenidos ofrecidos en Internet, cualquiera que sea su causa. Asimismo, EMPRESA PLANA no se hace responsable por caídas de la red, pérdidas de información como consecuencia de dichas caídas, suspensiones temporales del fluido eléctrico o cualquier otro tipo de daño indirecto que le pueda ser causado a los Usuarios por causas ajenas a EMPRESA PLANA. EMPRESA PLANA no declara ni garantiza que los servicios o contenidos sean ininterrumpidos o que estén libres de errores, que los defectos sean corregidos, o que el servicio o el servidor que lo pone a disposición estén libres de virus u otros componentes nocivos, sin perjuicio de que EMPRESA PLANA realiza sus mejores esfuerzos en evitar este tipo de incidentes.",
+        "intellectualProperty": "Los contenidos prestados por EMPRESA PLANA, así como los contenidos vertidos en la red a través de sus páginas web, constituyen una obra en el sentido de la legislación sobre propiedad intelectual por lo que se hallan protegidos por las leyes y convenios internacionales aplicables en la materia. Queda prohibida cualquier forma de reproducción, distribución, comunicación pública, transformación, puesta a disposición y, en general, cualquier otro acto de explotación pública referido tanto a las páginas Web como a sus contenidos e información, sin el expreso y previo consentimiento y por escrito de EMPRESA PLANA.",
+        "close": "Cerrar"
+      },
+      "sectionTitles": {
+        "userConcept": "1.- CONCEPTO DE USUARIO",
+        "links": "2.- INFORMACIÓN SOBRE LOS LINKS",
+        "externalLinks": "3.- VÍNCULOS O ENLACES DESDE OTRAS WEBS EXTERNAS",
+        "cookies": "4.- INFORMACIÓN SOBRE LA UTILIZACIÓN DE COOKIES",
+        "liability": "5.- RENUNCIA Y LIMITACIÓN DE LA RESPONSABILIDAD",
+        "technical": "6.- INDICACIONES SOBRE ASPECTOS TÉCNICOS",
+        "intellectualProperty": "7.- PROPIEDAD INDUSTRIAL E INTELECTUAL"
+      }
+    },
+    "cookiePolicy": {
+      "title": "Política de cookies",
+      "heading": "POLÍTICA DE USO COOKIES",
+      "definitionTitle": "Definición y función de las cookies",
+      "definition": "De conformidad con lo establecido en la Ley 34/2002 de Servicios de la Sociedad de la Información y Comercio Electrónico, le informamos que este sitio web almacena información de las direcciones IP de los ordenadores, y utiliza Cookies con el objetivo de prestar un mejor servicio y ofrecerle una mejor experiencia en su navegación.",
+      "definitionBody": "Las Cookies son pequeños archivos de texto que contienen información, y que se generan en el ordenador o terminal del Usuario cuando navega por el sitio web. Con la navegación por esta web usted presta su consentimiento para recibir dichas Cookies.",
+      "typesTitle": "¿Qué tipos de cookies utilizamos?",
+      "typesByTime": "Según el plazo de tiempo que permanecen activas:",
+      "sessionCookies": "Cookies de sesión: Son un tipo de cookies diseñadas para recabar y almacenar datos mientras accede a nuestra web y permanecen en el archivo de cookies de su navegador hasta que abandone la página. Como por ejemplo las cookies de identificación.",
+      "persistentCookies": "Cookies persistentes: Son un tipo de cookies en el que los datos siguen almacenados en el terminal y pueden ser accedidos y tratados durante un periodo determinado de tiempo.",
+      "typesByPurpose": "Según su finalidad y la entidad que las gestiona:",
+      "ownCookies": "Cookies propias: Son aquellas que enviamos a su ordenador o terminal desde nuestra página web.",
+      "thirdPartyCookies": "Cookies de terceros: Son aquellas que se envían a su ordenador o terminal desde un dominio o una página web que no es gestionada por nosotros, sino por una entidad colaboradora.",
+      "technicalCookies": "Cookies técnicas: son aquellas necesarias para la navegación y el buen funcionamiento de nuestra web. Por ejemplo, permiten realizar el proceso de compra, controlar los aspectos de seguridad de la web, compartir contenidos a través de redes sociales…",
+      "analyticsCookies": "Cookies de análisis: Son aquéllas que bien tratadas por nosotros o por terceros, nos permiten cuantificar el número de usuarios y realizar la medición y análisis estadístico de la utilización que hacen los usuarios de nuestra web.",
+      "advertisingCookies": "Cookies publicitarias y de publicidad comportamental: Las cookies publicitarias son aquéllas que permiten la gestión, de la forma más eficaz posible, de los espacios publicitarios que se pudieran incluir en nuestra página web en base a criterios como el contenido editado o la frecuencia en la que se muestran los anuncios.",
+      "configureTitle": "¿Cómo puedo configurar o deshabilitar las cookies?",
+      "configure": "Puede configurar su navegador para ser avisado de la recepción de cookies y negarse a aceptarlas activando la configuración en el navegador que permite rechazarlas. No obstante, le advertimos que la desactivación de las Cookies puede provocar la limitación, o incluso imposibilidad de acceso a algunas de las funcionalidades de nuestra web, así como algunos de los servicios pueden dejar de funcionar correctamente.",
+      "configureHelp": "Para más detalle sobre la configuración de las cookies en su navegador, consulte el menú \"Ayuda\" del mismo.",
+      "thirdPartyTitle": "Cookies de terceros / empresas colaboradoras",
+      "googleCookies": "Google: Google ofrece un gran número de productos para ayudarnos a administrar nuestros anuncios y sitios web; entre los que se incluyen Google Analytics. Al visitar nuestro sitio web pueden enviarse algunas cookies a su navegador.",
+      "close": "Cerrar"
+    },
+    "privacyPolicy": {
+      "title": "Política de privacidad",
+      "heading": "POLÍTICA DE PRIVACIDAD",
+      "sections": {
+        "object": "La presente Política de privacidad de TERESA Y JOSE PLANA (En adelante, EMPRESA PLANA) regula la obtención, utilización y otras formas de procesamiento de datos personales facilitados por los Usuarios en la presente web o en cualquiera del entorno de Internet de la entidad.",
+        "responsible": "EMPRESA PLANA es el responsable de la recogida y procesamiento de sus datos personales en relación con los servicios que la misma presta. EMPRESA PLANA se compromete a respetar y salvaguardar su privacidad y la seguridad de sus datos. Los datos identificativos del responsable de tratamiento son: EMPRESA PLANA, con CIF B43009091, y domiciliada en C/ Les Creus, 29, 43120 Constantí (Tarragona).",
+        "collectedData": "De acuerdo con lo dispuesto en la normativa vigente, EMPRESA PLANA sólo recoge los datos estrictamente necesarios para ofrecer los servicios derivados de su actividad y demás prestaciones, gestiones y actividades atribuidas por la Ley. Mediante la presente web, y con el objetivo de prestarle el mejor servicio, EMPRESA PLANA capta información o datos que pueden identificarle directa o indirectamente: nombre, correo electrónico y número de teléfono.",
+        "purpose": "Las finalidades y base legal para las que recopilamos dichos datos son: Gestión de la relación contractual que mantenemos con usted, para la cual la base legal es la ejecución del contrato que nos une. Envío de información comercial y/o promocional que pueda ser de su interés, siendo la base legal su consentimiento. Resolución de consultas que pueda plantearnos vía web, siendo la base legal su consentimiento. Se informa de que no se realizarán evaluaciones automatizadas, ni se elaborarán perfiles de usuarios.",
+        "recipients": "Los datos podrán ser comunicados a los siguientes destinatarios: Otras empresas relacionadas con el Grupo Plana. Terceros que nos ayudan a proporcionar servicios de Tecnologías de la Información, como proveedores de plataforma, servicios de alojamiento, mantenimiento y soporte en nuestras bases de datos, así como en nuestro software y aplicaciones que pueden contener datos sobre usted. Terceros que nos ayudan a proporcionar servicios digitales calificaciones y reseñas, CRM, análisis web y motor de búsqueda, herramientas de curación de contenido generado por el usuario. EMPRESA PLANA no vende, alquila o cede los datos personales de los usuarios de estas Web, a excepción del caso que sea necesario para la propia prestación del servicio.",
+        "retention": "Los datos personales serán conservados mientras el usuario no manifieste lo contrario y por los plazos de conservación legalmente establecidos, salvo que por motivos lógicos y evidentes hayan perdido la utilidad o la finalidad legítima para la que fueron captados.",
+        "rights": "Los usuarios podrán ejercitar, respecto de los datos recabados en la forma descrita en el punto primero, los derechos reconocidos en el Reglamento General de Protección de Datos, y en particular los derechos de portabilidad, acceso, rectificación, supresión y limitación al tratamiento.",
+        "incidents": "En el caso de existir alguna conducta o situación que pudiera ser susceptible de generar una incidencia o irregularidad de cualquier clase, se ruega contactar con info@autocarsplana.cat o a la dirección siguiente C/ Les Creus, 29, 43120 Constantí (Tarragona).",
+        "contact": "Si tiene cualquier duda o preocupación acerca de la forma en que tratamos y usamos sus datos personales o desea ejercer cualquiera de los derechos anteriormente descritos, póngase en contacto con EMPRESA PLANA o escríbanos a la siguiente dirección info@autocarsplana.cat. También puede ponerse en contacto con nuestro Delegado de Protección de Datos en dpd@autocarsplana.cat.",
+        "userCommitment": "El usuario es el responsable de la autenticidad de los datos aportados, que sean exactos, actuales y completos para la finalidad que sean aportados, asumiendo la responsabilidad de los daños y perjuicios que se pudieran generar por dichas inexactitudes o falsedades.",
+        "userLiability": "Tanto el acceso a nuestra web, como el uso que pueda realizarse de la información y contenidos incluidos en la misma, será de exclusiva responsabilidad de quien lo realice. EMPRESA PLANA no asume responsabilidades, ya sean directas o indirectas, por daño emergente o lucro cesante, derivadas del mal uso de los servicios o contenidos realizado por los Usuarios o terceros.",
+        "lssi": "En cumplimiento del deber de información contemplado en el artículo 10 de la vigente Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico, le comunicamos que la dinamizadora y gestora de contenidos de la Web donde puede descargar diferentes aplicaciones y/o informaciones es EMPRESA PLANA con domicilio en C/ Les Creus, 29, 43120 Constantí (Tarragona).",
+        "cookiesInfo": "Le informamos que utilizamos cookies con el fin de mejorar la experiencia de navegación en nuestra web y prestarle un mejor servicio. Para obtener más información acerca de las cookies y de cómo las utilizamos, por favor lea nuestra Política de Cookies que se encuentra en nuestra web.",
+        "socialInfo": "La empresa sólo se hace responsable de los contenidos y de la gestión de las páginas web de la cual sea ella el titular u ostente un derecho de análoga naturaleza. Cualquier otra página web o red social o repositorio de información en Internet, fuera de la presente web, es responsabilidad de sus legítimos titulares."
+      },
+      "sectionTitles": {
+        "object": "1.- Objeto de la política de privacidad",
+        "responsible": "2.- ¿Quién es responsable del tratamiento de sus datos?",
+        "collectedData": "3.- ¿Qué datos recogemos?",
+        "purpose": "4.- ¿Con qué finalidad/es recopilamos sus datos?",
+        "recipients": "5.- ¿A qué destinatarios se comunicarán sus datos?",
+        "retention": "6.- ¿Durante cuánto tiempo conservamos sus datos personales?",
+        "rights": "7.- ¿Cuáles son los derechos de los usuarios que nos facilitan sus datos?",
+        "incidents": "8.- Comunicación de incidencia e irregularidades",
+        "contact": "9.- Contacto",
+        "userCommitment": "10.- Compromiso del usuario",
+        "userLiability": "11.- Responsabilidad de los usuarios por uso y contenido",
+        "lssi": "12.- Información LSSI-CE",
+        "cookiesInfo": "13.- Información sobre las cookies",
+        "socialInfo": "14.- Información sobre el uso de otras webs y redes sociales"
+      }
+    },
+    "cookieBanner": {
+      "intro": "El sitio web utiliza cookies propias y de terceros con fines analíticos y técnicos para mejorar la experiencia de navegación. Puede aceptarlas todas o cambiar las preferencias de sus cookies en el botón de Configuración. Más información en Política de cookies.",
+      "accept": "Aceptar cookies",
+      "deny": "Denegar",
+      "settings": "Configuración",
+      "privacyTitle": "Su privacidad es importante para nosotros",
+      "privacyDesc": "Las cookies son archivos de texto muy pequeños que se almacenan en su computadora cuando visita un sitio web. Usamos cookies para una variedad de propósitos y para mejorar su experiencia en línea en nuestro sitio web (por ejemplo, para recordar los detalles de inicio de sesión de su cuenta).",
+      "technicalTitle": "Técnicas (esenciales)",
+      "technicalDesc": "Estas cookies son esenciales para que pueda moverse por el sitio web y utilizar sus funciones. Sin estas cookies, los servicios que ha solicitado no se pueden proporcionar.",
+      "sessionCookie": "Session cookie: El lenguaje de programación para el desarrollo web utiliza una cookie para identificar las sesiones de los usuarios.",
+      "xsrfCookie": "XSRF-Token cookie: El framework usado genera automáticamente un token CSRF para cada sesión de usuario activo, se usa para verificar que el usuario es quien realiza las solicitudes de formulario desde la web.",
+      "analyticsTitle": "Analítica",
+      "analyticsDesc": "Permiten conocer el comportamiento y actividad de los usuarios en el sitio web para la elaboración de perfiles de navegación de sus usuarios con el fin de mejorar en base al análisis de los datos de uso que hacen los usuarios del servicio.",
+      "googleAnalytics": "Google Analytics cookie: Abre una identificación única que se utiliza para generar estadísticas sobre cómo el visitante usa el sitio web.",
+      "lastReview": "Última revisión: 18-01-2021",
+      "rejectAll": "Rechazar todo",
+      "acceptAll": "Aceptar todo",
+      "save": "Guardar"
+    }
+  },
+  "busTracking": {
+    "title": "¿Ha pasado tu autobús?",
+    "subtitle": "Ayúdanos a mantener la puntualidad de las rutas de Empresa Plana.",
+    "scheduled": "Hora prevista",
+    "stop": "Parada",
+    "line": "Línea",
+    "actions": {
+      "passed": "Ha pasado",
+      "passedTitle": "El autobús ya ha pasado",
+      "onTime": "Llegó a tiempo",
+      "late": "Llegó tarde",
+      "early": "Llegó antes de hora",
+      "notPassed": "No ha pasado",
+      "cancelled": "Servicio cancelado"
+    },
+    "feedback": {
+      "thanks": "¡Gracias por tu reporte!",
+      "thanksDesc": "Tu aportación nos ayuda a mejorar la puntualidad de las rutas.",
+      "confirm": "Confirmar reporte",
+      "cancel": "Cancelar",
+      "alreadyReported": "Ya has reportado esta parada",
+      "selectIssue": "Selecciona el estado del autobús",
+      "minutesLate": "Minutos de retraso",
+      "comment": "Comentario (opcional)",
+      "commentPlaceholder": "Cuéntanos qué ha pasado...",
+      "send": "Enviar reporte"
+    },
+    "alerts": {
+      "threshold": 3,
+      "thresholdLabel": "Reportes negativos para avisar",
+      "notifiedTitle": "Aviso enviado",
+      "notifiedBody": "Tras 3 reportes negativos en esta ruta, la empresa y el coordinador de conductores han sido notificados.",
+      "coordinatorNotified": "El coordinador del grupo de conductores ha recibido un aviso.",
+      "companyNotified": "La empresa ha recibido un aviso.",
+      "strikesLeft": "Reportes restantes antes de notificar",
+      "resolved": "Incidencia resuelta"
+    },
+    "stats": {
+      "punctuality": "Puntualidad",
+      "reports": "Reportes hoy",
+      "onTimeRate": "% a tiempo"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "reported": "Reportado",
+      "reviewed": "Revisado",
+      "escalated": "Escalado a la empresa"
+    },
+    "review": {
+      "title": "Valora tu viaje",
+      "subtitle": "Tu opinión nos ayuda a mejorar el servicio.",
+      "stars": "Puntuación",
+      "driver": "Conductor",
+      "bus": "Autobús",
+      "punctuality": "Puntualidad",
+      "comfort": "Confort",
+      "cleanliness": "Limpieza",
+      "submit": "Enviar valoración",
+      "thanks": "¡Gracias por tu valoración!"
+    }
+  }
+}

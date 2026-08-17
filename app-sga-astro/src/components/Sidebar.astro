@@ -1,0 +1,53 @@
+---
+import UserMenu from './UserMenu';
+
+const pathname = new URL(Astro.request.url).pathname;
+const currentPath = pathname.replace(/\/$/, "");
+
+const navItems = [
+  { name: 'Overview', es: 'Panel General', href: '/', current: currentPath === '' || currentPath === '/' },
+  { name: 'Inventory', es: 'Inventario y Stock', href: '/Inventory', current: currentPath === '/Inventory' },
+  { name: 'Customers', es: 'Clientes', href: '/Customers', current: currentPath === '/Customers' },
+  { name: 'Orders', es: 'Pedidos', href: '/Orders', current: currentPath === '/Orders' },
+  { name: 'Picking', es: 'Picking con IA', href: '/Picking', current: currentPath === '/Picking' },
+  { name: 'WhatsApp', es: 'Agente WhatsApp', href: '/WhatsApp', current: currentPath === '/WhatsApp' },
+  { name: 'Settings', es: 'Ajustes', href: '/Settings', current: currentPath === '/Settings' },
+];
+---
+
+<div
+  id="dashboard-sidebar"
+  class="fixed inset-y-0 start-0 z-40 flex w-64 -translate-x-full flex-col justify-between overflow-y-auto border-e border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-transform duration-300 peer-checked:translate-x-0 lg:static lg:translate-x-0 lg:shrink-0"
+>
+  <div class="p-4">
+    <a href="/" class="grid h-12 w-32 place-content-center rounded-lg bg-gray-100 dark:bg-gray-800 text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+      ESINSA WMS
+    </a>
+
+    <nav aria-label="Dashboard" class="mt-4">
+      <ul class="space-y-1">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              data-i18n={item.name}
+              data-en={item.name}
+              data-es={item.es}
+              class={`block rounded-lg px-4 py-2 text-sm font-medium ${
+                item.current
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white'
+                  : 'text-gray-600 dark:text-gray-400 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
+              }`}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="sticky inset-x-0 bottom-0 border-t border-gray-200 dark:border-gray-800">
+    <UserMenu client:load />
+  </div>
+</div>

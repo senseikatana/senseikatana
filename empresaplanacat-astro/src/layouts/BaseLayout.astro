@@ -1,0 +1,69 @@
+---
+import "../styles/global.css";
+import type { Locale } from "../config/i18n/types";
+
+interface Props {
+	title: string;
+	lang?: Locale;
+	bodyClass?: string;
+	description?: string;
+	author?: string;
+	keywords?: string[];
+	themeColor?: string;
+	ogTitle?: string;
+	ogDescription?: string;
+	ogImage?: string;
+	ogType?: string;
+	canonicalUrl?: string;
+}
+
+const {
+	title,
+	lang = "ca",
+	bodyClass = "bg-background text-on-background font-body-md antialiased",
+	description,
+	author,
+	keywords,
+	themeColor,
+	ogTitle = title,
+	ogDescription = description,
+	ogImage,
+	ogType = "website",
+	canonicalUrl,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		{description && <meta name="description" content={description} />}
+		{author && <meta name="author" content={author} />}
+		{keywords && keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+		{themeColor && <meta name="theme-color" content={themeColor} />}
+		{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+		<meta property="og:title" content={ogTitle} />
+		{ogDescription && <meta property="og:description" content={ogDescription} />}
+		<meta property="og:type" content={ogType} />
+		{ogImage && <meta property="og:image" content={ogImage} />}
+		{canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class={bodyClass}>
+		<slot />
+	</body>
+</html>

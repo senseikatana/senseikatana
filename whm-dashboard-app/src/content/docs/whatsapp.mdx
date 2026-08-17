@@ -1,0 +1,92 @@
+---
+title: WhatsApp
+description: Enviar mensajes por Cloud API, verificar el webhook y recibir entrantes.
+order: 5
+---
+
+WhatsApp usa la **Cloud API** de Meta con webhooks. Requiere `WHATSAPP_TOKEN` y `WHATSAPP_PHONE_ID` en `server/.env`; la versión de la API se configura con `WHATSAPP_VERSION` (default `v22.0`).
+
+## Estado del número
+
+```
+GET /api/whatsapp/status
+```
+
+```bash
+curl "http://localhost:8787/api/whatsapp/status"
+```
+
+```json
+{
+  "configured": true,
+  "phoneId": "123456789012345"
+}
+```
+
+## Enviar un mensaje
+
+```
+POST /api/whatsapp/send
+Content-Type: application/json
+```
+
+Body (JSON):
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `to` | string | Número en formato internacional, p. ej. `+5491100000000`. |
+| `text` | string | Texto del mensaje. |
+
+```bash
+curl -X POST "http://localhost:8787/api/whatsapp/send" \
+  -H "Content-Type: application/json" \
+  -d '{"to": "+5491100000000", "text": "Tu pedido salió en la ruta R-042"}'
+```
+
+Respuesta: el `StoredMessage` guardado (se crea o actualiza el chat del contacto).
+
+```json
+{
+  "id": 8,
+  "chatId": "whatsapp:+5491100000000",
+  "channel": "whatsapp",
+  "direction": "out",
+  "text": "Tu pedido salió en la ruta R-042",
+  "timestamp": 1720000000000,
+  "status": "sent"
+}
+```
+
+Errores comunes:
+
+- `400 { "error": "Faltan to o text." }` — body incompleto.
+- `400 { "error": "WhatsApp no está configurado." }` — faltan credenciales.
+
+## Verificación del webhook (handshake)
+
+```
+GET /api/whatsapp/webhook?hub.mode=subscribe&hub.verify_token=<TOKEN>&hub.challenge=<CHALLENGE>
+```
+
+El server responde `200` con el `challenge` si `hub.verify_token` coincide con `WHATSAPP_VERIFY_TOKEN`; en caso contrario responde `403`. Configurá esta URL como *Callback URL* en Meta con el mismo verify token.
+
+## Mensajes entrantes
+
+```
+POST /api/whatsapp/webhook
+Content-Type: application/json
+```
+
+Meta envía aquí el payload del webhook. El server procesa los mensajes de texto, los persiste y emite eventos por [SSE](/docs/events).
+
+```bash
+curl -X POST "http://localhost:8787/api/whatsapp/webhook" \
+  -H "Content-Type: application/json" \
+  -d '{"entry": [{"changes": [{"value": {"messages": [{"from": "+5491100000000", "text": {"body": "Hola"}}]}}]}]}'
+```
+
+Responde siempre `200` para confirmar la recepción.
+
+## Exponer el webhook al exterior
+
+En desarrollo, usá una herramienta de túneles (p. ej. `ngrok`) apuntando al puerto `8787` y configurá la URL pública como Callback URL en Meta.

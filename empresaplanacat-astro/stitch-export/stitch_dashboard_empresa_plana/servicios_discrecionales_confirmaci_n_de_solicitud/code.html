@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Confirmación de Solicitud - Empresa Plana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-surface": "#191c1d",
+                            "on-primary-fixed-variant": "#134198",
+                            "on-secondary-fixed-variant": "#004f54",
+                            "secondary-container": "#78f5ff",
+                            "outline-variant": "#c4c6d4",
+                            "primary-fixed": "#dae2ff",
+                            "on-tertiary-fixed-variant": "#693c00",
+                            "surface-tint": "#335ab1",
+                            "background": "#f8f9fa",
+                            "on-tertiary-fixed": "#2c1600",
+                            "surface-bright": "#f8f9fa",
+                            "tertiary-container": "#5d3500",
+                            "surface": "#f8f9fa",
+                            "on-background": "#191c1d",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-highest": "#e1e3e4",
+                            "surface-container-high": "#e7e8e9",
+                            "tertiary": "#3f2200",
+                            "on-primary-container": "#87a8ff",
+                            "primary-container": "#013990",
+                            "inverse-surface": "#2e3132",
+                            "on-tertiary-container": "#f3940f",
+                            "surface-dim": "#d9dadb",
+                            "on-primary": "#ffffff",
+                            "on-error": "#ffffff",
+                            "on-secondary": "#ffffff",
+                            "on-surface-variant": "#434652",
+                            "tertiary-fixed": "#ffdcbd",
+                            "error": "#ba1a1a",
+                            "surface-variant": "#e1e3e4",
+                            "secondary-fixed-dim": "#57d8e2",
+                            "primary": "#002563",
+                            "secondary": "#00696f",
+                            "surface-container": "#edeeef",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-container-low": "#f3f4f5",
+                            "inverse-primary": "#b2c5ff",
+                            "on-secondary-fixed": "#002022",
+                            "outline": "#747783",
+                            "on-error-container": "#93000a",
+                            "on-primary-fixed": "#001847",
+                            "tertiary-fixed-dim": "#ffb86d",
+                            "secondary-fixed": "#78f5ff",
+                            "inverse-on-surface": "#f0f1f2",
+                            "primary-fixed-dim": "#b2c5ff",
+                            "error-container": "#ffdad6",
+                            "on-secondary-container": "#007076"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "stack-sm": "8px",
+                            "stack-lg": "32px",
+                            "container-max": "1280px",
+                            "margin-desktop": "48px",
+                            "margin-mobile": "16px",
+                            "gutter": "24px",
+                            "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                            "body-md": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "label-md": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "headline-lg-mobile": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "body-lg": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "headline-lg": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "button": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "display-lg": [
+                                    "Geist", "sans-serif"
+                            ],
+                            "headline-md": [
+                                    "Geist", "sans-serif"
+                            ]
+                    },
+                    "fontSize": {
+                            "body-md": [
+                                    "16px",
+                                    {
+                                            "lineHeight": "24px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "label-md": [
+                                    "14px",
+                                    {
+                                            "lineHeight": "20px",
+                                            "letterSpacing": "0.05em",
+                                            "fontWeight": "600"
+                                    }
+                            ],
+                            "headline-lg-mobile": [
+                                    "24px",
+                                    {
+                                            "lineHeight": "32px",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "body-lg": [
+                                    "18px",
+                                    {
+                                            "lineHeight": "28px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "headline-lg": [
+                                    "32px",
+                                    {
+                                            "lineHeight": "40px",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "button": [
+                                    "16px",
+                                    {
+                                            "lineHeight": "16px",
+                                            "letterSpacing": "0.02em",
+                                            "fontWeight": "600"
+                                    }
+                            ],
+                            "display-lg": [
+                                    "48px",
+                                    {
+                                            "lineHeight": "56px",
+                                            "letterSpacing": "-0.02em",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "headline-md": [
+                                    "24px",
+                                    {
+                                            "lineHeight": "32px",
+                                            "fontWeight": "600"
+                                    }
+                            ]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Ambient shadow utility from design system */
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(1, 57, 144, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopNavBar Suppressed as per rule: Linear/Transactional/Success Splash Screen -->
+<header class="w-full flex justify-center pt-margin-mobile md:pt-margin-desktop mb-stack-lg">
+<img alt="Empresa Plana Logo" class="h-16 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtGFBceY_E6FA7WilCjoEGnnAIVBgJI3ZxwoFQ7mp5OrxQo8174UGm7Tqh0fhXKk7r9lNdBL6xf2Zl2W4qosQxu6vxwL-wgYPM-SMBi8JoQwDA_nvvkUoblE1wAEfViUXfDzwwDGwns0P0L2qyIs9wAE4Eu1VxN-5lzci5_ctTWepYuMn6ouQk_328RVveg4W1rH-zi5L467ABa9qqxRRxR1hcnbv-osL0Ssqwc66sHySwJSVBAJfdVtw"/>
+</header>
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop">
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow w-full max-w-lg p-margin-desktop text-center flex flex-col items-center gap-stack-lg">
+<div class="w-24 h-24 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-display-lg" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">
+                    check_circle
+                </span>
+</div>
+<div class="space-y-stack-sm w-full">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary">
+                    Gracias por tu solicitud
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                    Hemos recibido correctamente tus datos. Un miembro de nuestro equipo analizará los requerimientos de tu ruta y se pondrá en contacto contigo en las próximas 24 horas.
+                </p>
+</div>
+<div class="w-full h-px bg-outline-variant opacity-50"></div>
+<div class="bg-surface-container-low rounded-lg p-stack-md w-full text-left flex gap-stack-md items-start">
+<span class="material-symbols-outlined text-primary-container" data-icon="info">
+                    info
+                </span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Si necesitas asistencia inmediata o modificar tu solicitud urgente, puedes contactarnos directamente al teléfono de soporte o responder al correo de confirmación.
+                </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-stack-md w-full justify-center pt-stack-sm">
+<button class="bg-on-tertiary-container hover:bg-tertiary-fixed-dim text-on-primary font-button text-button h-12 px-8 rounded flex items-center justify-center transition-colors duration-200">
+                    VOLVER AL INICIO
+                </button>
+<button class="bg-surface-container hover:bg-surface-container-highest text-primary font-button text-button h-12 px-8 rounded flex items-center justify-center transition-colors duration-200 border border-outline-variant">
+                    VER MÁS SERVICIOS
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer Suppressed as per rule: Linear/Transactional/Success Splash Screen -->
+</body></html>

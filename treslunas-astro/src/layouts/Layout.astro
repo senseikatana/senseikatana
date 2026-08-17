@@ -1,0 +1,54 @@
+---
+import '../globals.css'; // Reutilizar los estilos globales existentes (Tailwind base, utilities)
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "3 Lunas Boutique - Tu tienda de moda en Cambrils" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    
+    <!-- Google Fonts: Outfit (modern, clean, targeted for 25-45 age group) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <title>{title}</title>
+    <!-- Dark Mode Initializer -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="bg-background text-foreground font-sans min-h-screen flex flex-col antialiased transition-colors duration-300">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    font-family: 'Outfit', sans-serif;
+  }
+</style>

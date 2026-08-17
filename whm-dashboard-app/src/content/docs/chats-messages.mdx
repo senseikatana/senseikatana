@@ -1,0 +1,79 @@
+---
+title: Chats y mensajes
+description: Listar conversaciones y mensajes almacenados en SQLite.
+order: 3
+---
+
+Los chats y mensajes se persisten en SQLite (libSQL) dentro de `server/data/whm.db`. Estas rutas son de solo lectura: el contenido se llena automáticamente al recibir o enviar mensajes por WhatsApp o Telegram.
+
+## Listar chats
+
+```
+GET /api/chats
+```
+
+Query params (opcionales):
+
+| Param | Tipo | Descripción |
+| --- | --- | --- |
+| `channel` | string | Filtra por canal: `telegram` o `whatsapp` |
+
+Ejemplo:
+
+```bash
+curl "http://localhost:8787/api/chats?channel=whatsapp"
+```
+
+Respuesta: array de `StoredChat`, ordenado por `lastMessageAt` descendente.
+
+```json
+[
+  {
+    "id": "whatsapp:+5491100000000",
+    "channel": "whatsapp",
+    "externalId": "+5491100000000",
+    "contactName": "Juan Pérez",
+    "lastMessageAt": 1720000000000,
+    "updatedAt": 1720000000000
+  }
+]
+```
+
+## Listar mensajes de un chat
+
+```
+GET /api/messages
+```
+
+Query params (requerido `chatId`):
+
+| Param | Tipo | Descripción |
+| --- | --- | --- |
+| `chatId` | string | **Obligatorio.** ID del chat (el `id` de la respuesta anterior). |
+| `afterId` | number | Solo mensajes con `id > afterId`. Útil para polling incremental (default `0`). |
+
+Ejemplo:
+
+```bash
+curl "http://localhost:8787/api/messages?chatId=telegram:123456789&afterId=0"
+```
+
+Respuesta: array de `StoredMessage`, ordenado por `id` ascendente.
+
+```json
+[
+  {
+    "id": 1,
+    "chatId": "telegram:123456789",
+    "channel": "telegram",
+    "direction": "in",
+    "text": "Hola, ¿hay stock del A54?",
+    "timestamp": 1720000000000,
+    "status": "sent"
+  }
+]
+```
+
+Errores: `400 { "error": "Falta chatId." }` si no se envía el parámetro.
+
+Ver también: [Eventos SSE](/docs/events).

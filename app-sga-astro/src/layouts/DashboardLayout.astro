@@ -1,0 +1,89 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ThemeMenu from '../components/ThemeMenu.astro';
+import LanguageMenu from '../components/LanguageMenu.astro';
+import JarvisAssistant from '../components/JarvisAssistant.astro';
+import AuthGuard from '../components/AuthGuard';
+import InsForgeLoader from '../components/InsForgeLoader';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title = 'Dashboard Intranet de ESINSA Gasket, Tgna', description = 'Panel Control de SGA, Gestión Inventario en Esinsa' } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} >
+  <AuthGuard client:only="react">
+    <InsForgeLoader client:only="react">
+      <div class="flex h-screen overflow-hidden bg-white dark:bg-gray-900">
+      <input type="checkbox" id="sidebar-toggle" class="peer sr-only" />
+      
+      <label
+        for="sidebar-toggle"
+        aria-hidden="true"
+        class="fixed inset-0 z-30 hidden bg-gray-900/50 peer-checked:block lg:hidden"
+      ></label>
+
+      <Sidebar />
+
+      <div class="flex flex-1 flex-col overflow-y-auto">
+        <header class="flex items-center justify-between border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-6 py-4">
+          <div class="flex items-center gap-4">
+            <label
+              for="sidebar-toggle"
+              id="sidebar-toggle-label"
+              aria-expanded="false"
+              aria-controls="dashboard-sidebar"
+              class="cursor-pointer rounded-md p-2 text-gray-600 dark:text-gray-300 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-gray-900 peer-focus-visible:ring-offset-2 hover:bg-gray-100 dark:hover:bg-gray-800 lg:hidden"
+            >
+              <span class="sr-only">Toggle menu</span>
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </label>
+
+            <h1 class="text-lg font-semibold text-gray-900 dark:text-white" data-i18n={title} data-en={title} data-es={title}>{title}</h1>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <LanguageMenu />
+            <ThemeMenu />
+            
+            <slot name="header-actions" />
+          </div>
+        </header>
+
+        <main class="flex-1 space-y-6 p-6 relative">
+          <slot />
+
+          <!-- JARVIS AI Assistant -->
+          <JarvisAssistant />
+        </main>
+      </div>
+    </div>
+    </InsForgeLoader>
+  </AuthGuard>
+
+  <script>
+    const sidebarToggleCheckbox = document.getElementById('sidebar-toggle');
+    const sidebarToggleLabel = document.getElementById('sidebar-toggle-label');
+
+    if (sidebarToggleCheckbox && sidebarToggleLabel) {
+      sidebarToggleCheckbox.addEventListener('change', () => {
+        sidebarToggleLabel.setAttribute('aria-expanded', String((sidebarToggleCheckbox as HTMLInputElement).checked));
+      });
+    }
+  </script>
+</BaseLayout>

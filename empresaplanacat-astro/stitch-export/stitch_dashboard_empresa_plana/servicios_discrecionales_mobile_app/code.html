@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Servicios Discrecionales - Empresa Plana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#191c1d",
+                      "on-primary-fixed": "#001847",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#002022",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#87a8ff",
+                      "primary-fixed-dim": "#b2c5ff",
+                      "surface-variant": "#e1e3e4",
+                      "primary-fixed": "#dae2ff",
+                      "secondary-fixed": "#78f5ff",
+                      "primary-container": "#013990",
+                      "secondary-fixed-dim": "#57d8e2",
+                      "surface-dim": "#d9dadb",
+                      "inverse-surface": "#2e3132",
+                      "on-secondary-fixed-variant": "#004f54",
+                      "surface": "#f8f9fa",
+                      "secondary-container": "#78f5ff",
+                      "on-tertiary-fixed-variant": "#693c00",
+                      "secondary": "#00696f",
+                      "surface-tint": "#335ab1",
+                      "primary": "#002563",
+                      "outline": "#747783",
+                      "on-error": "#ffffff",
+                      "background": "#f8f9fa",
+                      "on-primary": "#ffffff",
+                      "surface-container-low": "#f3f4f5",
+                      "surface-container": "#edeeef",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary-fixed": "#ffdcbd",
+                      "on-surface": "#191c1d",
+                      "on-tertiary-container": "#f3940f",
+                      "on-secondary-container": "#007076",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb86d",
+                      "surface-container-high": "#e7e8e9",
+                      "surface-bright": "#f8f9fa",
+                      "tertiary-container": "#5d3500",
+                      "inverse-primary": "#b2c5ff",
+                      "on-primary-fixed-variant": "#134198",
+                      "tertiary": "#3f2200",
+                      "on-tertiary-fixed": "#2c1600",
+                      "outline-variant": "#c4c6d4",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#434652"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "gutter": "24px",
+                      "stack-sm": "8px",
+                      "margin-desktop": "48px",
+                      "container-max": "1280px",
+                      "margin-mobile": "16px",
+                      "stack-lg": "32px",
+                      "top-bar": "64px",
+                      "bottom-bar": "64px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "display-lg": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "button": [
+                              "Geist"
+                      ],
+                      "headline-lg-mobile": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "button": [
+                              "16px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+      </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased pb-bottom-bar pt-top-bar">
+<!-- TopAppBar -->
+<header class="bg-primary dark:bg-primary fixed top-0 w-full z-50 transition-opacity duration-200 flat no shadows flex justify-between items-center px-margin-mobile w-full h-16">
+<button aria-label="Menu" class="text-on-primary hover:opacity-80 transition-opacity duration-200 p-2 -ml-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary text-center flex-1">Empresa Plana</h1>
+<button aria-label="Profile" class="text-on-primary hover:opacity-80 transition-opacity duration-200 p-2 -mr-2">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative w-full h-[400px] flex items-end pb-stack-lg px-margin-mobile">
+<div class="absolute inset-0 bg-cover bg-center w-full h-full" data-alt="A high-quality, professional photograph of a modern, sleek coach bus driving along a scenic coastal road bathed in warm Mediterranean sunlight. The image should convey reliability, luxury travel, and professional transport services. The color palette should highlight navy blue and coastal teal elements, fitting a modern corporate travel aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCkI-LAvpEs_Q7jevo_jD67heo5FcHH6ekWgBU48EK6__sItdFK4Oow9boz2xhpLSZTLtZ6i6NR1WZwDE_-P0W9g8c0gBqgbG8FCzMPgQO7jfKtXkTYv6vV7hqszTQIJp3btNNeQ3Yj6kHRqhjzmguui94c_vJsB7rruGl1BVGn2jRp-5RCHA7I7Xmd6GjM7-Je-H6nCCRLSySdxSQdLj9YTP5f8xeid8aS5cc6ZkcHFazC7vrNbAOz')">
+<!-- Overlay gradient for text readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/80 to-transparent"></div>
+</div>
+<div class="relative z-10 w-full text-center">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-primary mb-stack-sm">Servicios Discrecionales a Medida</h2>
+<p class="font-body-md text-body-md text-on-primary/90 mb-stack-md max-w-sm mx-auto">Alquiler de autocares con conductor para empresas, eventos y particulares.</p>
+<button class="w-full sm:w-auto min-h-[48px] bg-on-tertiary-container hover:opacity-90 text-on-primary font-button text-button rounded-full px-8 py-3 shadow-[0px_4px_20px_rgba(1,57,144,0.15)] transition-all">
+                    SOLICITAR PRESUPUESTO
+                </button>
+</div>
+</section>
+<!-- Value Propositions -->
+<section class="px-margin-mobile py-stack-lg bg-surface">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-md text-center">Soluciones Profesionales</h3>
+<div class="space-y-stack-md">
+<!-- Item 1 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(1,57,144,0.04)] border border-outline-variant/30">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="handshake" style="font-variation-settings: 'FILL' 1;">handshake</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Soluciones a medida</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Adaptamos nuestros servicios a las necesidades específicas de tu grupo o empresa.</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(1,57,144,0.04)] border border-outline-variant/30">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Seguridad y confort</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Nuestra moderna flota garantiza los más altos estándares de seguridad y comodidad.</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(1,57,144,0.04)] border border-outline-variant/30">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Tecnología GPS</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Seguimiento en tiempo real para una logística precisa y puntualidad garantizada.</p>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-start gap-4 p-4 bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(1,57,144,0.04)] border border-outline-variant/30">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="person_play" style="font-variation-settings: 'FILL' 1;">person_play</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Conductores expertos</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Personal altamente cualificado con amplia experiencia en rutas nacionales e internacionales.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Service Grid -->
+<section class="px-margin-mobile py-stack-lg bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-md text-center">Nuestros Servicios</h3>
+<div class="grid grid-cols-1 gap-stack-md">
+<!-- Service Card 1 -->
+<a class="block bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(1,57,144,0.06)] border border-outline-variant/20 transition-transform active:scale-95" href="#">
+<div class="flex items-center p-4">
+<div class="flex-shrink-0 w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center text-primary mr-4">
+<span class="material-symbols-outlined text-3xl" data-icon="directions_bus">directions_bus</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md text-on-surface">Transportes discrecionales</h4>
+<span class="font-body-md text-body-md text-primary-container text-sm flex items-center mt-1">Ver más <span class="material-symbols-outlined text-sm ml-1" data-icon="arrow_forward">arrow_forward</span></span>
+</div>
+</div>
+</a>
+<!-- Service Card 2 -->
+<a class="block bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(1,57,144,0.06)] border border-outline-variant/20 transition-transform active:scale-95" href="#">
+<div class="flex items-center p-4">
+<div class="flex-shrink-0 w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center text-primary mr-4">
+<span class="material-symbols-outlined text-3xl" data-icon="business">business</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md text-on-surface">Servicios a Empresas</h4>
+<span class="font-body-md text-body-md text-primary-container text-sm flex items-center mt-1">Ver más <span class="material-symbols-outlined text-sm ml-1" data-icon="arrow_forward">arrow_forward</span></span>
+</div>
+</div>
+</a>
+<!-- Service Card 3 -->
+<a class="block bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(1,57,144,0.06)] border border-outline-variant/20 transition-transform active:scale-95" href="#">
+<div class="flex items-center p-4">
+<div class="flex-shrink-0 w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center text-primary mr-4">
+<span class="material-symbols-outlined text-3xl" data-icon="accessible">accessible</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md text-on-surface">Autocares adaptados</h4>
+<span class="font-body-md text-body-md text-primary-container text-sm flex items-center mt-1">Ver más <span class="material-symbols-outlined text-sm ml-1" data-icon="arrow_forward">arrow_forward</span></span>
+</div>
+</div>
+</a>
+<!-- Service Card 4 -->
+<a class="block bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(1,57,144,0.06)] border border-outline-variant/20 transition-transform active:scale-95" href="#">
+<div class="flex items-center p-4">
+<div class="flex-shrink-0 w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center text-primary mr-4">
+<span class="material-symbols-outlined text-3xl" data-icon="school">school</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md text-on-surface">Transporte escolar</h4>
+<span class="font-body-md text-body-md text-primary-container text-sm flex items-center mt-1">Ver más <span class="material-symbols-outlined text-sm ml-1" data-icon="arrow_forward">arrow_forward</span></span>
+</div>
+</div>
+</a>
+<!-- Add more cards as needed following the same pattern to match the list -->
+<a class="block bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(1,57,144,0.06)] border border-outline-variant/20 transition-transform active:scale-95" href="#">
+<div class="flex items-center p-4">
+<div class="flex-shrink-0 w-14 h-14 bg-surface-container rounded-lg flex items-center justify-center text-primary mr-4">
+<span class="material-symbols-outlined text-3xl" data-icon="flight_takeoff">flight_takeoff</span>
+</div>
+<div class="flex-grow">
+<h4 class="font-label-md text-label-md text-on-surface">Transfers</h4>
+<span class="font-body-md text-body-md text-primary-container text-sm flex items-center mt-1">Ver más <span class="material-symbols-outlined text-sm ml-1" data-icon="arrow_forward">arrow_forward</span></span>
+</div>
+</div>
+</a>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="px-margin-mobile py-stack-lg bg-surface">
+<div class="bg-primary rounded-2xl p-stack-md text-center shadow-lg relative overflow-hidden">
+<!-- Abstract decorative element -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary-container rounded-full opacity-50 blur-2xl pointer-events-none"></div>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-primary mb-2">¿Más Información?</h3>
+<p class="font-body-md text-body-md text-on-primary/80 mb-stack-md">Estamos a tu disposición para resolver cualquier duda.</p>
+<div class="space-y-stack-sm mb-stack-md">
+<a class="flex items-center justify-center gap-2 bg-on-primary/10 hover:bg-on-primary/20 text-on-primary py-3 px-4 rounded-xl transition-colors border border-on-primary/20" href="tel:+34977556677">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+<span class="font-label-md text-label-md">Tarragona: 977 55 66 77</span>
+</a>
+<a class="flex items-center justify-center gap-2 bg-on-primary/10 hover:bg-on-primary/20 text-on-primary py-3 px-4 rounded-xl transition-colors border border-on-primary/20" href="tel:+34934445566">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+<span class="font-label-md text-label-md">Barcelona: 93 444 55 66</span>
+</a>
+</div>
+<button class="w-full min-h-[48px] bg-on-tertiary-container hover:opacity-90 text-on-primary font-button text-button rounded-full px-8 py-3 shadow-[0px_4px_20px_rgba(235,142,2,0.3)] transition-all">
+                        SOLICITA PRESUPUESTO
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface dark:bg-surface-container fixed bottom-0 w-full z-50 rounded-t-xl shadow-[0px_-4px_20px_rgba(1,57,144,0.08)] shadow-lg flex justify-around items-center h-16 w-full px-margin-mobile pb-safe">
+<!-- Inactive Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high scale-95 transition-transform duration-150 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="directions_bus">directions_bus</span>
+<span class="font-label-md text-[10px] mt-1">Routes</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high scale-95 transition-transform duration-150 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="font-label-md text-[10px] mt-1">Tickets</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high scale-95 transition-transform duration-150 p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-label-md text-[10px] mt-1">Locations</span>
+</a>
+<!-- Active Tab -->
+<a class="flex flex-col items-center justify-center bg-tertiary-container text-on-tertiary-container rounded-full px-4 py-1 hover:bg-surface-container-high scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-label-md text-[10px] mt-1">Services</span>
+</a>
+</nav>
+</body></html>

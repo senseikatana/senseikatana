@@ -1,0 +1,77 @@
+---
+title: KITT (copiloto IA)
+description: Chat con el asistente logístico vía OpenRouter u Ollama, con streaming SSE.
+order: 6
+---
+
+KITT es el copiloto logístico. Usa un proveedor de IA (OpenRouter u Ollama) y devuelve la respuesta en **streaming SSE**.
+
+## Estado del proveedor
+
+```
+GET /api/kitt/health
+```
+
+```bash
+curl "http://localhost:8787/api/kitt/health"
+```
+
+```json
+{ "configured": true, "provider": "openrouter", "model": "google/gemini-2.5-flash" }
+```
+
+## Chat con streaming
+
+```
+POST /api/kitt/chat
+Content-Type: application/json
+```
+
+Body (JSON):
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `messages` | array | Historial `[{ "role": "user" \| "assistant", "text": "..." }]`. El último debe ser `user`. |
+| `snapshot` | unknown | Opcional. Estado actual del almacén (JSON) que KITT usa como contexto. |
+| `files` | array | Opcional. Maestros subidos: `[{ "name", "rowCount", "rows" }]` (p. ej. productos con códigos NUT). |
+
+```bash
+curl -N -X POST "http://localhost:8787/api/kitt/chat" \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "text": "¿Cuántos ítems hay en stock crítico?"}], "snapshot": {"inventory": []}}'
+```
+
+Respuesta: `text/event-stream` con eventos:
+
+| Evento | Payload |
+| --- | --- |
+| `delta` | `{ "text": "..." }` — fragmento incremental de la respuesta |
+| `done` | `{}` — fin del stream |
+
+Ejemplo de stream:
+
+```text
+event: delta
+data: { "text": "Hay " }
+
+event: delta
+data: { "text": "3 ítems en stock crítico." }
+
+event: done
+data: {}
+```
+
+Errores:
+
+- `400 { "error": "No hay proveedor de IA configurado..." }` — falta OpenRouter/Ollama.
+- `400 { "error": "No hay una consulta para procesar." }` — el último mensaje no es de `user`.
+- `502 { "error": "Ollama no responde..." }` — el proveedor está caído.
+
+## Configuración
+
+| Variable | Uso |
+| --- | --- |
+| `KITT_PROVIDER` | `ollama` o `openrouter` (se autodetecta con `OPENROUTER_API_KEY`). |
+| `OPENROUTER_API_KEY` | Clave de OpenRouter. |
+| `KITT_MODEL` | Modelo OpenRouter (default `google/gemini-2.5-flash`). |
+| `OLLAMA_MODEL` | Modelo Ollama (default `llama3.2`). |

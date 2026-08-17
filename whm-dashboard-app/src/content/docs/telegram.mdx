@@ -1,0 +1,64 @@
+---
+title: Telegram
+description: Enviar mensajes por Telegram y consultar el estado del bot.
+order: 4
+---
+
+Telegram funciona con **long-polling**: el server consulta `getUpdates` contra la Bot API y persiste cada mensaje entrante. Requiere `TELEGRAM_BOT_TOKEN` en `server/.env`.
+
+## Estado del bot
+
+```
+GET /api/telegram/status
+```
+
+```bash
+curl "http://localhost:8787/api/telegram/status"
+```
+
+```json
+{ "configured": true }
+```
+
+## Enviar un mensaje
+
+```
+POST /api/telegram/send
+Content-Type: application/json
+```
+
+Body (JSON):
+
+| Campo | Tipo | Descripción |
+| --- | --- | --- |
+| `chatId` | string | ID del chat de Telegram. |
+| `text` | string | Texto del mensaje. |
+
+```bash
+curl -X POST "http://localhost:8787/api/telegram/send" \
+  -H "Content-Type: application/json" \
+  -d '{"chatId": "123456789", "text": "Pedido OUT-2026-1042 listo"}'
+```
+
+Respuesta: el `StoredMessage` guardado.
+
+```json
+{
+  "id": 5,
+  "chatId": "telegram:123456789",
+  "channel": "telegram",
+  "direction": "out",
+  "text": "Pedido OUT-2026-1042 listo",
+  "timestamp": 1720000000000,
+  "status": "sent"
+}
+```
+
+Errores comunes:
+
+- `400 { "error": "Faltan chatId o text." }` — body incompleto.
+- `400 { "error": "Telegram no está configurado." }` — falta `TELEGRAM_BOT_TOKEN`.
+
+## Entrantes
+
+El polling se inicia solo si el bot está configurado. Cada mensaje entrante se guarda y se emite por [SSE](/docs/events) con `event: message` y `event: chat`. El offset se persiste en la tabla `meta`, así que no se pierden mensajes entre reinicios.

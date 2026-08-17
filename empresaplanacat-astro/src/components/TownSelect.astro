@@ -1,0 +1,28 @@
+---
+import { STOPS } from "../data/towns";
+
+interface Props {
+	name: string;
+	placeholder: string;
+	defaultValue?: string;
+	icon?: string;
+}
+
+const { name, placeholder, defaultValue, icon = "location_on" } = Astro.props;
+---
+
+<div class="relative">
+	<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">{icon}</span>
+	<select
+		name={name}
+		class="w-full pl-10 pr-4 py-3 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:border-coastal-teal focus:ring-1 focus:ring-coastal-teal transition-colors appearance-none font-body-md text-body-md cursor-pointer"
+	>
+		<option value="">{placeholder}</option>
+		{STOPS.map((stop) => (
+			<option value={stop} selected={stop === defaultValue}>
+				{stop}
+			</option>
+		))}
+	</select>
+	<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>

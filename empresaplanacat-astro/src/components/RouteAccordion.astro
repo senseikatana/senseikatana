@@ -1,0 +1,112 @@
+---
+import type { LineSummary } from "../lib/search";
+import type { RoutesResults } from "../config/i18n/types";
+
+interface Props {
+	line: LineSummary;
+	t: RoutesResults;
+	index?: number;
+	legLabel?: string | null;
+}
+
+const { line, t, index = 0, legLabel = null } = Astro.props;
+const more = line.departureCount - line.departures.length;
+---
+
+<details
+	class="group bg-surface-container-lowest rounded-xl border border-outline-variant/20 ambient-shadow overflow-hidden"
+	open={index === 0}
+>
+	<summary
+		class="cursor-pointer list-none flex flex-col md:flex-row md:items-center justify-between gap-3 p-5 hover:bg-surface-container-low transition-colors"
+	>
+		<div class="flex flex-col gap-1">
+			<span class="font-headline-md text-headline-md text-deep-navy flex items-center gap-2 flex-wrap">
+				{legLabel && (
+					<span class="font-label-md text-label-md bg-surface-tint text-on-primary px-2 py-0.5 rounded">{legLabel}</span>
+				)}
+				{line.name}
+			</span>
+			<span class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+				<span class="material-symbols-outlined text-[18px] text-coastal-teal">trip_origin</span>
+				{line.origin}
+				<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+				<span class="material-symbols-outlined text-[18px] text-energetic-orange">location_on</span>
+				{line.destination}
+			</span>
+		</div>
+		<div class="flex items-center gap-4">
+			<div class="text-right hidden sm:block">
+				<p class="font-label-md text-label-md text-outline">
+					{t.firstDeparture}: <span class="text-deep-navy font-semibold">{line.firstDeparture}</span> · {t.lastDeparture}: <span class="text-deep-navy font-semibold">{line.lastDeparture}</span>
+				</p>
+				<p class="font-body-md text-body-md text-on-surface-variant">{line.departureCount} {t.departuresLabel}</p>
+			</div>
+			{line.pdfUrl && (
+				<a
+					href={line.pdfUrl}
+					target="_blank"
+					rel="noopener"
+					class="py-2 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all"
+				>
+					<span class="material-symbols-outlined">download</span>
+					<span class="hidden sm:inline">{t.downloadPdf}</span>
+				</a>
+			)}
+			<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform">expand_more</span>
+		</div>
+	</summary>
+	<div class="px-5 pb-6 flex flex-col gap-6 border-t border-outline-variant/20 pt-5">
+		<div>
+			<h4 class="font-label-md text-label-md text-outline mb-3 uppercase tracking-wide">{t.stopsLabel}</h4>
+			<ol
+				class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30"
+			>
+				{line.stops.map((stop, i) => (
+					<li class="flex items-start gap-3 relative">
+						<span
+							class:list={[
+								"w-6 h-6 rounded-full bg-surface-bright border-2 flex-shrink-0 z-10 mt-0.5",
+								i === 0 ? "border-coastal-teal" : i === line.stops.length - 1 ? "border-energetic-orange" : "border-outline-variant",
+							]}
+						/>
+						<div class="flex flex-col">
+							<span
+								class:list={[
+									"font-body-md text-body-md",
+									i === 0 || i === line.stops.length - 1 ? "text-deep-navy font-semibold" : "text-on-surface",
+								]}
+							>
+								{stop.town} — {stop.name}
+							</span>
+							<span class="font-label-md text-label-md text-outline">{stop.time}</span>
+						</div>
+					</li>
+				))}
+			</ol>
+		</div>
+		<div>
+			<h4 class="font-label-md text-label-md text-outline mb-3 uppercase tracking-wide">
+				{t.firstDeparture} → {t.lastDeparture}
+			</h4>
+			<div class="flex flex-wrap gap-2">
+				{line.departures.map((departure) => (
+					<span
+						class="bg-surface-container-low border border-outline-variant/40 rounded-lg px-3 py-1.5 font-label-md text-label-md text-on-surface flex items-center gap-1.5"
+					>
+						<span class="text-deep-navy font-semibold">{departure.departureTime}</span>
+						<span class="material-symbols-outlined text-[14px] text-outline">arrow_forward</span>
+						<span class="text-on-surface-variant">{departure.arrivalTime}</span>
+					</span>
+				))}
+				{more > 0 && (
+					<span
+						class="rounded-lg px-3 py-1.5 font-label-md text-label-md text-on-surface-variant border border-dashed border-outline-variant"
+					>
+						{t.moreDepartures.replace("{n}", String(more))}
+					</span>
+				)}
+			</div>
+		</div>
+	</div>
+</details>

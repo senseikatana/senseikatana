@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Design tokens — DESIGN.md */
+  --color-primary: hsla(215, 64%, 29%, 1);
+  --color-on-primary: hsla(0, 0%, 100%, 1);
+  --color-accent: hsla(86, 41%, 46%, 1);
+  --color-surface: hsla(220, 20%, 95%, 1);
+  --color-text: hsla(0, 0%, 0%, 1);
+  --color-text-muted: hsla(0, 0%, 100%, 1);
+
+  /* Gray scale */
+  --gray-50: hsla(220, 20%, 97%, 1);
+  --gray-100: hsla(220, 14%, 96%, 1);
+  --gray-200: hsla(220, 13%, 91%, 1);
+  --gray-300: hsla(216, 12%, 84%, 1);
+  --gray-400: hsla(220, 9%, 66%, 1);
+  --gray-500: hsla(220, 9%, 46%, 1);
+  --gray-600: hsla(220, 9%, 34%, 1);
+  --gray-700: hsla(217, 33%, 26%, 1);
+  --gray-800: hsla(217, 33%, 17%, 1);
+  --gray-900: hsla(220, 25%, 9%, 1);
+
+  /* Indigo */
+  --indigo-600: hsla(245, 76%, 58%, 1);
+  --indigo-700: hsla(245, 64%, 53%, 1);
+
+  /* Green */
+  --green-500: hsla(160, 84%, 39%, 1);
+  --green-600: hsla(160, 92%, 31%, 1);
+
+  /* Amber */
+  --amber-500: hsla(36, 93%, 50%, 1);
+  --amber-600: hsla(36, 93%, 44%, 1);
+
+  /* Rose */
+  --rose-500: hsla(348, 83%, 55%, 1);
+  --rose-600: hsla(348, 83%, 47%, 1);
+
+  /* Motion */
+  --duration-fast: 200ms;
+  --duration-base: 400ms;
+  --duration-slow: 500ms;
+  --easing: cubic-bezier(0.75, 0, 0.125, 1);
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-600;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-slate-900/40 backdrop-blur-sm border border-slate-800/60;
+  }
+
+  .glow-indigo {
+    box-shadow: 0 0 20px -5px var(--indigo-600);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "3 Lunas Boutique",
+  "description": "Boutique de moda exclusiva en Cambrils. Catálogo, carrito, pasarela de pago, sobre Erika y guía de marca.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

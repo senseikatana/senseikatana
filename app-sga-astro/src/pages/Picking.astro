@@ -1,0 +1,190 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+---
+
+<DashboardLayout title="Picking">
+  <div class="space-y-6 max-w-5xl">
+
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white">Lista de Picking</h2>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Gestiona la recogida de artículos del almacén</p>
+      </div>
+      <button id="new-pick-btn" type="button" class="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition">
+        Nuevo Pick
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5">
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Por recoger</p>
+        <p id="stat-pending" class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">4</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5">
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Recogidos</p>
+        <p id="stat-picked" class="mt-1 text-2xl font-bold text-green-600 dark:text-green-400">0</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-5">
+        <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Progreso</p>
+        <div class="mt-2 flex items-center gap-3">
+          <div class="flex-1 h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+            <div id="progress-bar" class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p id="stat-percent" class="text-sm font-semibold text-gray-900 dark:text-white">0%</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6">
+      <h3 class="text-base font-semibold text-gray-900 dark:text-white">Paso actual</h3>
+      <div class="mt-4 flex items-center gap-2 text-xs font-medium">
+        <span id="step-1" class="flex items-center gap-1.5 rounded-full bg-indigo-100 dark:bg-indigo-900/30 px-3 py-1 text-indigo-700 dark:text-indigo-400">
+          <span class="size-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">1</span>
+          Escanear
+        </span>
+        <span class="text-gray-300 dark:text-gray-600">&rarr;</span>
+        <span id="step-2" class="flex items-center gap-1.5 rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-500 dark:text-gray-400">
+          <span class="size-4 rounded-full bg-gray-300 dark:bg-gray-600 text-white flex items-center justify-center text-[10px]">2</span>
+          Confirmar
+        </span>
+        <span class="text-gray-300 dark:text-gray-600">&rarr;</span>
+        <span id="step-3" class="flex items-center gap-1.5 rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-500 dark:text-gray-400">
+          <span class="size-4 rounded-full bg-gray-300 dark:bg-gray-600 text-white flex items-center justify-center text-[10px]">3</span>
+          Ubicar
+        </span>
+        <span class="text-gray-300 dark:text-gray-600">&rarr;</span>
+        <span id="step-4" class="flex items-center gap-1.5 rounded-full bg-gray-100 dark:bg-gray-800 px-3 py-1 text-gray-500 dark:text-gray-400">
+          <span class="size-4 rounded-full bg-gray-300 dark:bg-gray-600 text-white flex items-center justify-center text-[10px]">4</span>
+          Completar
+        </span>
+      </div>
+      <div class="mt-4 flex gap-3">
+        <input id="scan-input" type="text" placeholder="Escanea o escribe el código NUT..." class="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
+        <button id="scan-btn" type="button" class="shrink-0 rounded-lg bg-gray-900 dark:bg-gray-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 dark:hover:bg-gray-600 transition">
+          Verificar
+        </button>
+      </div>
+      <p id="scan-result" class="mt-2 text-sm hidden"></p>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6">
+      <h3 class="text-base font-semibold text-gray-900 dark:text-white">Artículos</h3>
+      <div class="mt-4 overflow-x-auto">
+        <table class="min-w-full text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-gray-800">
+              <th class="pb-3 text-left font-medium text-gray-500 dark:text-gray-400">NUT Code</th>
+              <th class="pb-3 text-left font-medium text-gray-500 dark:text-gray-400">Descripción</th>
+              <th class="pb-3 text-center font-medium text-gray-500 dark:text-gray-400">Necesaria</th>
+              <th class="pb-3 text-center font-medium text-gray-500 dark:text-gray-400">Recogida</th>
+              <th class="pb-3 text-left font-medium text-gray-500 dark:text-gray-400">Ubicación</th>
+              <th class="pb-3 text-left font-medium text-gray-500 dark:text-gray-400">Estado</th>
+              <th class="pb-3 text-right font-medium text-gray-500 dark:text-gray-400">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="picking-table" class="divide-y divide-gray-100 dark:divide-gray-800"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-6">
+      <h3 class="text-base font-semibold text-gray-900 dark:text-white">Consejos</h3>
+      <ul class="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+        <li class="flex items-start gap-2"><span class="mt-0.5 size-1.5 rounded-full bg-indigo-500 shrink-0"></span>Escanea el código NUT del producto con el lector o escríbelo manualmente</li>
+        <li class="flex items-start gap-2"><span class="mt-0.5 size-1.5 rounded-full bg-indigo-500 shrink-0"></span>Confirma la cantidad antes de ubicar en el contenedor de expedición</li>
+        <li class="flex items-start gap-2"><span class="mt-0.5 size-1.5 rounded-full bg-indigo-500 shrink-0"></span>Usa la ubicación sugerida para optimizar la ruta de recogida</li>
+      </ul>
+    </div>
+
+  </div>
+</DashboardLayout>
+
+<script>
+  const items = [
+    { nut: 'NUT0004001', desc: 'Junta espiral DN80', qty: 50, picked: 0, bin: 'A-03-02', status: 'pending' },
+    { nut: 'NUT0002050', desc: 'Espárrago M12x80 A4', qty: 200, picked: 0, bin: 'B-01-05', status: 'pending' },
+    { nut: 'NUT0001003', desc: 'Tuerca hexagonal M16', qty: 100, picked: 0, bin: 'C-02-01', status: 'pending' },
+    { nut: 'NUT0007010', desc: 'Kit brida DN100 PN16', qty: 10, picked: 0, bin: 'D-01-03', status: 'pending' },
+  ];
+
+  function renderTable() {
+    const tbody = document.getElementById('picking-table');
+    if (!tbody) return;
+    tbody.innerHTML = items.map((item, i) => `
+      <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
+        <td class="py-3 font-mono text-xs font-medium text-gray-900 dark:text-white">${item.nut}</td>
+        <td class="py-3 text-gray-700 dark:text-gray-300">${item.desc}</td>
+        <td class="py-3 text-center text-gray-700 dark:text-gray-300">${item.qty}</td>
+        <td class="py-3 text-center font-semibold ${item.picked >= item.qty ? 'text-green-600 dark:text-green-400' : 'text-gray-900 dark:text-white'}">${item.picked}</td>
+        <td class="py-3"><span class="rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-0.5 text-xs font-mono text-gray-600 dark:text-gray-400">${item.bin}</span></td>
+        <td class="py-3"><span class="rounded-full px-2.5 py-0.5 text-xs font-medium ${item.status === 'picked' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'}">${item.status === 'picked' ? 'Recogido' : 'Pendiente'}</span></td>
+        <td class="py-3 text-right">
+          ${item.status !== 'picked' ? `<button data-pick="${i}" class="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500 transition">Recoger</button>` : '<span class="text-xs text-gray-400">Listo</span>'}
+        </td>
+      </tr>
+    `).join('');
+
+    document.querySelectorAll('[data-pick]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt((btn as HTMLElement).dataset.pick || '0');
+        items[idx].picked = items[idx].qty;
+        items[idx].status = 'picked';
+        updateStats();
+        renderTable();
+      });
+    });
+  }
+
+  function updateStats() {
+    const total = items.length;
+    const picked = items.filter(i => i.status === 'picked').length;
+    const pct = total > 0 ? Math.round((picked / total) * 100) : 0;
+    const pending = total - picked;
+
+    const statPending = document.getElementById('stat-pending');
+    const statPicked = document.getElementById('stat-picked');
+    const statPercent = document.getElementById('stat-percent');
+    const progressBar = document.getElementById('progress-bar');
+
+    if (statPending) statPending.textContent = String(pending);
+    if (statPicked) statPicked.textContent = String(picked);
+    if (statPercent) statPercent.textContent = pct + '%';
+    if (progressBar) progressBar.style.width = pct + '%';
+  }
+
+  const scanInput = document.getElementById('scan-input') as HTMLInputElement;
+  const scanBtn = document.getElementById('scan-btn');
+  const scanResult = document.getElementById('scan-result');
+
+  scanBtn?.addEventListener('click', () => {
+    const code = scanInput?.value.trim().toUpperCase();
+    if (!code || !scanResult) return;
+    const item = items.find(i => i.nut === code);
+    scanResult.classList.remove('hidden');
+    if (item) {
+      if (item.status === 'picked') {
+        scanResult.textContent = `${code} ya fue recogido.`;
+        scanResult.className = 'mt-2 text-sm text-green-600 dark:text-green-400';
+      } else {
+        scanResult.textContent = `Encontrado: ${item.desc} — Ubicación: ${item.bin} — Cantidad: ${item.qty}`;
+        scanResult.className = 'mt-2 text-sm text-indigo-600 dark:text-indigo-400';
+      }
+    } else {
+      scanResult.textContent = `Código ${code} no encontrado en la lista de picking.`;
+      scanResult.className = 'mt-2 text-sm text-red-600 dark:text-red-400';
+    }
+  });
+
+  scanInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter') scanBtn?.click(); });
+
+  document.getElementById('new-pick-btn')?.addEventListener('click', () => {
+    items.forEach(i => { i.picked = 0; i.status = 'pending'; });
+    updateStats();
+    renderTable();
+    if (scanResult) scanResult.classList.add('hidden');
+    if (scanInput) scanInput.value = '';
+  });
+
+  renderTable();
+  updateStats();
+</script>

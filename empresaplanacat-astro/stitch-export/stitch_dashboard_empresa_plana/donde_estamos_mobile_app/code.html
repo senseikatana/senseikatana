@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Empresa Plana - Dónde Estamos</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Geist -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#002563",
+                        "primary-container": "#013990",
+                        "surface-container-highest": "#e1e3e4",
+                        "tertiary-fixed": "#ffdcbd",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-tertiary-fixed": "#2c1600",
+                        "inverse-surface": "#2e3132",
+                        "on-primary-fixed": "#001847",
+                        "surface-variant": "#e1e3e4",
+                        "surface-bright": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-error-container": "#93000a",
+                        "surface": "#f8f9fa",
+                        "on-primary-container": "#87a8ff",
+                        "surface-container": "#edeeef",
+                        "primary-fixed": "#dae2ff",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-tint": "#335ab1",
+                        "secondary-container": "#78f5ff",
+                        "outline": "#747783",
+                        "on-tertiary-container": "#f3940f",
+                        "background": "#f8f9fa",
+                        "secondary-fixed-dim": "#57d8e2",
+                        "inverse-primary": "#b2c5ff",
+                        "surface-container-low": "#f3f4f5",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed": "#78f5ff",
+                        "outline-variant": "#c4c6d4",
+                        "tertiary": "#3f2200",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-surface": "#191c1d",
+                        "secondary": "#00696f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#5d3500",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#002022",
+                        "on-surface-variant": "#434652",
+                        "tertiary-fixed-dim": "#ffb86d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#007076",
+                        "on-primary-fixed-variant": "#134198",
+                        "surface-dim": "#d9dadb",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "margin-desktop": "48px",
+                        "stack-md": "16px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "button": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "label-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #f8f9fa; /* bg-background */
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom hide scrollbar for clean mobile lists */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-primary text-on-primary font-headline-md text-headline-md flex justify-between items-center px-margin-mobile h-16">
+<button class="hover:opacity-80 transition-opacity duration-200 text-on-primary flex items-center justify-center p-2 -ml-2 rounded-full focus:outline-none focus:ring-2 focus:ring-on-primary focus:ring-opacity-50">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary tracking-tight">Empresa Plana</h1>
+<button class="hover:opacity-80 transition-opacity duration-200 text-on-primary flex items-center justify-center p-2 -mr-2 rounded-full focus:outline-none focus:ring-2 focus:ring-on-primary focus:ring-opacity-50">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-16 pb-24 w-full max-w-container-max mx-auto md:hidden"> <!-- md:hidden enforces mobile view strictly for this specific requirement -->
+<!-- Interactive Map Header -->
+<section class="relative w-full h-[320px] bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="A highly detailed, modern digital UI map showcasing the beautiful Costa Dorada coastal region in Spain. The map utilizes a sophisticated, light color palette with soft Mediterranean blues for the water and subtle grays for landmasses, reflecting a premium corporate aesthetic. Prominent, vibrant energetic orange map pin markers are strategically distributed along key coastal routes and city centers. The overall mood is bright, clear, and perfectly suited for a high-end travel application interface." data-location="Costa Dorada, Tarragona, Spain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6yboEZAwHg4zaozLlS2D6QyQIATaURTbxVoUxmnpKHgF4wq0BWyH5NH2OMQOldsMCubDWCSw2FEhJSZYCDwwn0qVLcAG87ntq6Ic5Zi6ryifvMMabXXEGTM2-wl0yf0uSNjcMGZdb8lbMVtAU70rFOEwTBYZvQql3XUwgbVEBTMuqdziBFEWgZRMxSn3gF5_cqajCH7VsLxL6CJICMk-EECk9Ntj0xqDOeEj8faQOmh-_JTMfMjEr"/>
+<!-- Map Markers (Simulated UI Elements overlaying map) -->
+<div class="absolute top-[30%] left-[40%] text-on-tertiary-container drop-shadow-md transform -translate-x-1/2 -translate-y-1/2 animate-bounce" style="animation-duration: 2s;">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute top-[60%] left-[65%] text-on-tertiary-container drop-shadow-md transform -translate-x-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="absolute top-[45%] left-[25%] text-on-tertiary-container drop-shadow-md transform -translate-x-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<!-- Gradient overlay for smoother transition to content -->
+<div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent"></div>
+<!-- Search Overlay -->
+<div class="absolute -bottom-7 left-0 right-0 px-margin-mobile z-10 w-full">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(1,57,144,0.08)] p-1.5 flex items-center border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all duration-200 w-full">
+<span class="material-symbols-outlined text-outline ml-3">search</span>
+<input class="w-full border-none bg-transparent focus:ring-0 text-body-md font-body-md text-on-surface placeholder:text-outline py-2.5 px-3" placeholder="Buscar ubicación o delegación..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Delegaciones List -->
+<section class="px-margin-mobile pt-12 pb-stack-lg">
+<div class="flex items-center justify-between mb-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary">Nuestras Bases</h2>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">3 Ubicaciones</span>
+</div>
+<div class="flex flex-col gap-stack-md">
+<!-- Card 1: Base Principal -->
+<article class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0px_4px_20px_rgba(1,57,144,0.08)] border border-outline-variant border-opacity-40 flex flex-col gap-stack-md relative overflow-hidden group">
+<!-- Subtle accent line -->
+<div class="absolute top-0 left-0 w-1 h-full bg-on-tertiary-container rounded-l-xl"></div>
+<div class="flex items-start gap-4">
+<div class="bg-primary-container bg-opacity-10 text-primary-container p-2.5 rounded-full flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">corporate_fare</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-[18px] leading-[24px] font-semibold text-on-surface">Base Central Tarragona</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Polígono Industrial Francolí, Parcela 12</p>
+<p class="font-body-md text-body-md text-on-surface-variant">43006 Tarragona</p>
+</div>
+</div>
+<div class="flex gap-stack-sm pt-2 border-t border-surface-container-high">
+<button class="flex-1 h-12 flex items-center justify-center gap-2 bg-on-tertiary-container text-white font-button text-button rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[20px]">directions</span>
+                            Cómo llegar
+                        </button>
+<button aria-label="Llamar base" class="w-12 h-12 flex items-center justify-center border border-outline-variant text-on-surface-variant rounded-lg hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</button>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0px_4px_20px_rgba(1,57,144,0.08)] border border-outline-variant border-opacity-40 flex flex-col gap-stack-md relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-start gap-4">
+<div class="bg-surface-container text-on-surface-variant p-2.5 rounded-full flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined">garage</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-headline-md text-[18px] leading-[24px] font-semibold text-on-surface">Base Reus</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Carrer de la Macarena, 15</p>
+<p class="font-body-md text-body-md text-on-surface-variant">43204 Reus, Tarragona</p>
+</div>
+</div>
+<div class="flex gap-stack-sm pt-2">
+<button class="flex-1 h-12 flex items-center justify-center gap-2 border border-primary text-primary font-button text-button rounded-lg hover:bg-primary-container hover:bg-opacity-10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">directions</span>
+                            Cómo llegar
+                        </button>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest rounded-xl p-stack-md shadow-[0px_4px_20px_rgba(1,57,144,0.08)] border border-outline-variant border-opacity-40 flex flex-col gap-stack-md relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-start gap-4">
+<div class="bg-surface-container text-on-surface-variant p-2.5 rounded-full flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[18px] leading-[24px] font-semibold text-on-surface">Oficina Salou</h3>
+<span class="bg-[#e6f4ea] text-[#137333] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Abierto</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Passeig de Jaume I</p>
+<p class="font-body-md text-body-md text-on-surface-variant">43840 Salou, Tarragona</p>
+</div>
+</div>
+<div class="flex gap-stack-sm pt-2">
+<button class="flex-1 h-12 flex items-center justify-center gap-2 border border-primary text-primary font-button text-button rounded-lg hover:bg-primary-container hover:bg-opacity-10 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">directions</span>
+                            Cómo llegar
+                        </button>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface shadow-[0px_-4px_20px_rgba(1,57,144,0.08)] flex justify-around items-center h-16 px-margin-mobile pb-safe md:hidden border-t-0">
+<!-- Routes -->
+<button class="hover:bg-surface-container-high scale-95 transition-transform duration-150 flex flex-col items-center justify-center text-on-surface-variant w-16">
+<span class="material-symbols-outlined">directions_bus</span>
+<span class="font-label-md text-label-md mt-1">Routes</span>
+</button>
+<!-- Tickets -->
+<button class="hover:bg-surface-container-high scale-95 transition-transform duration-150 flex flex-col items-center justify-center text-on-surface-variant w-16">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-label-md text-label-md mt-1">Tickets</span>
+</button>
+<!-- Locations (Active State applied based on page context) -->
+<button class="hover:bg-surface-container-high scale-95 transition-transform duration-150 flex flex-col items-center justify-center bg-tertiary-container text-on-tertiary-container rounded-full px-4 py-1 w-20">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-label-md text-label-md mt-1">Locations</span>
+</button>
+<!-- Services -->
+<button class="hover:bg-surface-container-high scale-95 transition-transform duration-150 flex flex-col items-center justify-center text-on-surface-variant w-16">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-md text-label-md mt-1">Services</span>
+</button>
+</nav>
+</body></html>

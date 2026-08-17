@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Descargas y Horarios - Empresa Plana</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b2c5ff",
+                        "outline": "#747783",
+                        "primary-container": "#013990",
+                        "secondary-container": "#78f5ff",
+                        "deep-navy": "#013990",
+                        "surface-variant": "#e1e3e4",
+                        "on-background": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "surface-gray": "#F1F3F5",
+                        "secondary": "#00696f",
+                        "tertiary-container": "#5d3500",
+                        "tertiary-fixed": "#ffdcbd",
+                        "surface-container": "#edeeef",
+                        "on-tertiary-container": "#f3940f",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1d",
+                        "outline-variant": "#c4c6d4",
+                        "secondary-fixed-dim": "#57d8e2",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001847",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "coastal-teal": "#13AEB8",
+                        "inverse-surface": "#2e3132",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed-variant": "#693c00",
+                        "on-primary-fixed-variant": "#134198",
+                        "surface-container-high": "#e7e8e9",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container-low": "#f3f4f5",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#87a8ff",
+                        "secondary-fixed": "#78f5ff",
+                        "tertiary": "#3f2200",
+                        "surface-tint": "#335ab1",
+                        "on-surface-variant": "#434652",
+                        "on-secondary-container": "#007076",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb86d",
+                        "primary": "#002563",
+                        "energetic-orange": "#EB8E02",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#dae2ff",
+                        "on-secondary-fixed": "#002022",
+                        "inverse-primary": "#b2c5ff",
+                        "text-main": "#1A1C1E"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "container-max": "1280px",
+                        "margin-desktop": "48px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Geist", "sans-serif"],
+                        "headline-lg-mobile": ["Geist", "sans-serif"],
+                        "display-lg": ["Geist", "sans-serif"],
+                        "headline-md": ["Geist", "sans-serif"],
+                        "body-lg": ["Geist", "sans-serif"],
+                        "headline-lg": ["Geist", "sans-serif"],
+                        "button": ["Geist", "sans-serif"],
+                        "label-md": ["Geist", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .ambient-shadow {
+                box-shadow: 0px 4px 20px rgba(1, 57, 144, 0.08);
+            }
+            .glass-panel {
+                @apply bg-surface-container-lowest/90 backdrop-blur-md border border-outline-variant/20;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="bg-surface dark:bg-inverse-surface w-full sticky top-0 z-50 transition-colors duration-300 shadow-sm">
+<!-- Utility Bar -->
+<div class="w-full bg-deep-navy text-on-primary py-2 px-margin-desktop text-sm flex justify-end items-center gap-4 hidden md:flex">
+<span class="font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">call</span> +34 977 553 680
+            </span>
+<div class="flex gap-2 font-label-md text-label-md">
+<a class="hover:text-energetic-orange transition-colors" href="#">CA</a> |
+                <a class="text-energetic-orange font-bold" href="#">ES</a> |
+                <a class="hover:text-energetic-orange transition-colors" href="#">EN</a>
+</div>
+</div>
+<nav class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<!-- Brand -->
+<a class="font-headline-md text-headline-md font-bold text-deep-navy dark:text-primary-fixed-dim flex items-center gap-2" href="#">
+                Empresa Plana
+            </a>
+<!-- Navigation Links (Desktop) -->
+<ul class="hidden md:flex items-center gap-8 h-full">
+<li class="h-full flex items-center">
+<a class="font-button text-button text-on-surface-variant dark:text-outline-variant hover:text-coastal-teal transition-colors duration-200" href="#">
+                        Services
+                    </a>
+</li>
+<li class="h-full flex items-center">
+<a class="font-button text-button text-on-surface-variant dark:text-outline-variant hover:text-coastal-teal transition-colors duration-200" href="#">
+                        Locations
+                    </a>
+</li>
+<!-- Active Item -->
+<li class="h-full flex items-center">
+<a class="font-button text-button text-deep-navy dark:text-primary-fixed-dim border-b-2 border-deep-navy dark:border-primary-fixed-dim pb-1 opacity-80 transition-opacity" href="#">
+                        Downloads
+                    </a>
+</li>
+</ul>
+<!-- Actions -->
+<div class="hidden md:flex items-center gap-4">
+<a class="font-button text-button text-deep-navy hover:text-coastal-teal transition-colors duration-200" href="#">
+                    Contact
+                </a>
+<button class="bg-energetic-orange text-on-primary font-button text-button px-6 py-3 rounded hover:bg-opacity-90 transition-all shadow-sm">
+                    BOOK NOW
+                </button>
+</div>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-deep-navy p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+</header>
+<main class="flex-grow">
+<!-- Hero & Search Widget Section -->
+<section class="relative w-full pt-12 pb-24 md:pt-20 md:pb-32 px-margin-mobile md:px-margin-desktop flex flex-col items-center justify-center min-h-[500px]">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A breathtaking panoramic view of a modern luxury coach bus driving along a sun-drenched Mediterranean coastal highway. The deep blue sea stretches out to the horizon under a clear, bright sky. The lighting is warm and inviting, evoking a sense of safe, comfortable, and scenic travel. The scene perfectly balances the corporate reliability of the bus with the beautiful, relaxing vacation destination vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCT_DQ6eMxgF0yrSOajgjIT1aocZsjEi7wlpLIbaUbLo3Oux_VBSyoMPtR6KZW2G_6x-y7PLBKB5zbHe--97W2rCcZ0t6wduzIaWNvs-pT8x65mppwMQzKjYNde5vFUXI8u_8tJH_cGQCcqZjYsBD1TvQEMJQjY8kwXCsqiTs1FC5Y92j8WqLolI-sTHX-uiqFyYbg_W54ecT8snpGkKtxCBq9tOmaGsZ9ryHtOU4joYjN6Yb-O2li')"></div>
+<div class="absolute inset-0 bg-primary-fixed/80 backdrop-blur-sm mix-blend-multiply"></div>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-background/90"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 w-full max-w-container-max mx-auto flex flex-col gap-stack-lg items-center">
+<div class="text-center max-w-3xl text-on-primary">
+<h1 class="font-display-lg text-display-lg md:text-[56px] leading-tight mb-4 drop-shadow-md">Rutas y Horarios</h1>
+<p class="font-body-lg text-body-lg text-on-primary/90">Localiza fácilmente los horarios de bus y rutas disponibles para llegar a tu destino en transporte público por la Costa Dorada.</p>
+</div>
+<!-- Buscador Widget -->
+<div class="w-full max-w-5xl glass-panel rounded-xl ambient-shadow p-6 md:p-8 mt-6">
+<h2 class="font-headline-md text-headline-md text-deep-navy flex items-center gap-2 mb-6 border-b border-outline-variant/30 pb-4">
+<span class="material-symbols-outlined">directions_bus</span>
+                        Buscador de Líneas
+                    </h2>
+<form class="flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Origin -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Localidad de origen</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">location_on</span>
+<select class="w-full pl-10 pr-4 py-3 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:border-coastal-teal focus:ring-1 focus:ring-coastal-teal transition-colors appearance-none font-body-md text-body-md cursor-pointer">
+<option value="">Seleccionar origen...</option>
+<option value="bcn">Aeroport de Barcelona</option>
+<option value="reu">Aeroport de Reus</option>
+<option value="tgn">Tarragona</option>
+<option value="sal">Salou</option>
+<option value="cam">Cambrils</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Destination -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Localidad de destino</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">pin_drop</span>
+<select class="w-full pl-10 pr-4 py-3 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:border-coastal-teal focus:ring-1 focus:ring-coastal-teal transition-colors appearance-none font-body-md text-body-md cursor-pointer">
+<option value="">Seleccionar destino...</option>
+<option value="tgn">Tarragona</option>
+<option value="sal">Salou</option>
+<option value="cam">Cambrils</option>
+<option value="bcn">Aeroport de Barcelona</option>
+<option value="pva">PortAventura</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Date -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Fecha</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">calendar_today</span>
+<input class="w-full pl-10 pr-4 py-3 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:border-coastal-teal focus:ring-1 focus:ring-coastal-teal transition-colors font-body-md text-body-md" type="date"/>
+</div>
+</div>
+<!-- Time Schedule -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Horario</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">schedule</span>
+<select class="w-full pl-10 pr-4 py-3 rounded border border-outline-variant bg-surface-container-lowest text-on-surface focus:border-coastal-teal focus:ring-1 focus:ring-coastal-teal transition-colors appearance-none font-body-md text-body-md cursor-pointer">
+<option value="any">Cualquier hora</option>
+<option value="morning">07:00 a 12:00</option>
+<option value="afternoon">12:00 a 16:00</option>
+<option value="evening">16:00 a 20:00</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pt-2 border-t border-outline-variant/30">
+<!-- Search Type -->
+<div class="flex items-center gap-6">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-coastal-teal border-outline-variant focus:ring-coastal-teal" name="search_type" type="radio" value="direct"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-deep-navy transition-colors">Rutas directas</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 text-coastal-teal border-outline-variant focus:ring-coastal-teal" name="search_type" type="radio" value="transfer"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-deep-navy transition-colors">Con transbordos</span>
+</label>
+</div>
+<!-- Submit -->
+<button class="w-full md:w-auto bg-energetic-orange text-on-primary font-button text-button px-8 py-3 rounded hover:bg-opacity-90 transition-all ambient-shadow flex items-center justify-center gap-2 min-h-[48px]" type="button">
+<span class="material-symbols-outlined">search</span>
+                                BUSCAR LÍNEAS
+                            </button>
+</div>
+</form>
+<p class="text-xs text-outline mt-4 italic">* El cumplimiento de estos horarios están condicionados a la fluidez del tráfico.</p>
+</div>
+</div>
+</section>
+<!-- Most Searched Lines Section -->
+<section class="w-full py-16 px-margin-mobile md:px-margin-desktop bg-surface-gray">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-2">Las Líneas Más Buscadas</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Descarga los horarios en PDF de nuestras rutas principales.</p>
+</div>
+</div>
+<!-- Bento-style Grid for Downloads -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-deep-navy text-on-primary p-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed">flight_takeoff</span>
+<h3 class="font-headline-md text-headline-md text-[20px] leading-tight">Barcelona - Aeropuerto</h3>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="mb-6">
+<ul class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-coastal-teal flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Barcelona</span>
+</li>
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-energetic-orange flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Tarragona - La Pineda - Salou - Cambrils</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Descargar PDF
+                            </button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-deep-navy text-on-primary p-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed">location_city</span>
+<h3 class="font-headline-md text-headline-md text-[20px] leading-tight">Tarragona - Barcelona</h3>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="mb-6">
+<ul class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-coastal-teal flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Tarragona</span>
+</li>
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-energetic-orange flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Barcelona</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Descargar PDF
+                            </button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-deep-navy text-on-primary p-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed">beach_access</span>
+<h3 class="font-headline-md text-headline-md text-[20px] leading-tight">Costa Dorada Central</h3>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="mb-6">
+<ul class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-coastal-teal flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Tarragona</span>
+</li>
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-energetic-orange flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">La Pineda - Salou - Cambrils</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Descargar PDF
+                            </button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-surface-tint text-on-primary p-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-container">route</span>
+<h3 class="font-headline-md text-headline-md text-[20px] leading-tight">e5 Reus - Salou</h3>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="mb-6">
+<ul class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-coastal-teal flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Reus</span>
+</li>
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-energetic-orange flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Salou</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Descargar PDF
+                            </button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-surface-tint text-on-primary p-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-container">train</span>
+<h3 class="font-headline-md text-headline-md text-[20px] leading-tight">Estació del Camp</h3>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="mb-6">
+<ul class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-coastal-teal flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Tarragona</span>
+</li>
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-energetic-orange flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Estació del Camp AVE</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Descargar PDF
+                            </button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow border border-outline-variant/20 overflow-hidden flex flex-col group hover:-translate-y-1 transition-transform duration-300">
+<div class="bg-surface-tint text-on-primary p-4 border-b border-outline-variant/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-container">map</span>
+<h3 class="font-headline-md text-headline-md text-[20px] leading-tight">L68 Penedés</h3>
+</div>
+<div class="p-6 flex-grow flex flex-col justify-between">
+<div class="mb-6">
+<ul class="flex flex-col gap-3 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30">
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-coastal-teal flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Vilanova i la Geltrú</span>
+</li>
+<li class="flex items-start gap-3 relative">
+<span class="w-6 h-6 rounded-full bg-surface-bright border-2 border-energetic-orange flex-shrink-0 z-10 mt-0.5"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Vilafranca del Penedés</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-3 px-4 rounded border border-outline-variant text-deep-navy font-button text-button flex items-center justify-center gap-2 hover:bg-surface-container-low hover:border-deep-navy transition-all">
+<span class="material-symbols-outlined">download</span>
+                                Descargar PDF
+                            </button>
+</div>
+</div>
+</div>
+<!-- View All Lines CTA -->
+<div class="mt-12 text-center">
+<button class="bg-surface-container-lowest text-deep-navy font-button text-button px-8 py-3 rounded-full hover:bg-surface-container-low transition-colors border border-outline-variant shadow-sm inline-flex items-center gap-2">
+                        Ver todas las líneas en PDF
+                        <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Information Banner (Patinetes) -->
+<section class="w-full py-12 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="max-w-4xl mx-auto bg-surface-bright rounded-xl p-6 md:p-8 border border-outline-variant/30 flex flex-col md:flex-row items-start md:items-center gap-6">
+<div class="bg-error-container text-on-error-container p-4 rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-[32px]">electric_scooter</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-deep-navy mb-2">Acceso de patinetes eléctricos en los autobuses</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Siguiendo las instrucciones de Autoridad Territorial de Movilidad y por motivos de seguridad, no se podrá acceder ni viajar en el transporte público con patinetes eléctricos y otros vehículos eléctricos de movilidad personal, ni siquiera plegados.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="bg-deep-navy dark:bg-surface-container-lowest w-full py-stack-lg px-margin-desktop flex flex-col md:flex-row justify-between items-start gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md font-bold text-on-primary dark:text-primary">
+                Empresa Plana
+            </span>
+<p class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 max-w-sm">
+                © 2024 Empresa Plana. All rights reserved. Efficient Mobility for the Mediterranean.
+            </p>
+</div>
+<div class="flex flex-wrap gap-x-8 gap-y-4">
+<a class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200" href="#">
+                Privacy Policy
+            </a>
+<a class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200" href="#">
+                Terms of Service
+            </a>
+<a class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200" href="#">
+                Cookies
+            </a>
+<a class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200" href="#">
+                Contact Us
+            </a>
+<a class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200" href="#">
+                Fleet
+            </a>
+<a class="font-body-md text-body-md text-on-primary/80 dark:text-on-surface/80 hover:text-secondary-fixed transition-colors duration-200" href="#">
+                Sitemap
+            </a>
+</div>
+</footer>
+</body></html>

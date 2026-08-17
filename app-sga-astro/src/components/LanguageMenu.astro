@@ -1,0 +1,175 @@
+---
+const languages = [
+  { code: 'es', label: 'Español', flag: '🇪🇸', default: true },
+  { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'ca', label: 'Català', flag: '🇦🇩' },
+];
+---
+
+<div class="relative" id="language-menu-container">
+  <button
+    type="button"
+    id="language-menu-button"
+    class="inline-flex items-center justify-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white transition-colors"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" />
+    </svg>
+    <span id="current-lang-label">ES</span>
+    <svg class="size-3" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+    </svg>
+  </button>
+
+  <div
+    id="language-menu"
+    class="absolute right-0 z-50 mt-2 w-40 origin-top-right rounded-xl border border-gray-200 bg-white p-1 shadow-lg dark:border-gray-700 dark:bg-gray-900 hidden"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="language-menu-button"
+  >
+    {languages.map((lang) => (
+      <button
+        type="button"
+        data-lang-value={lang.code}
+        class="language-option flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors"
+        role="menuitem"
+      >
+        <span class="text-base">{lang.flag}</span>
+        <span>{lang.label}</span>
+        <svg class="ml-auto size-4 hidden check-icon" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  function initLanguageMenu() {
+    const container = document.getElementById('language-menu-container');
+    const button = document.getElementById('language-menu-button');
+    const menu = document.getElementById('language-menu');
+    const options = document.querySelectorAll('.language-option');
+    const currentLabel = document.getElementById('current-lang-label');
+
+    if (!container || !button || !menu) return;
+
+    // Get current language
+    function getCurrentLanguage(): string {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('lang')) {
+        return localStorage.getItem('lang')!;
+      }
+      return 'es';
+    }
+
+    // Apply language
+    function applyLanguage(lang: string) {
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang;
+      
+      // Update button label
+      if (currentLabel) {
+        currentLabel.textContent = lang.toUpperCase();
+      }
+      
+      // Update all i18n elements
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        const translatedValue = el.getAttribute(`data-${lang}`);
+        if (translatedValue) {
+          el.textContent = translatedValue;
+        }
+      });
+      
+      updateCheckmarks(lang);
+      
+      // Dispatch event for other components
+      window.dispatchEvent(new CustomEvent('language-changed', { detail: { lang } }));
+    }
+
+    // Update checkmarks
+    function updateCheckmarks(currentLang: string) {
+      options.forEach((option) => {
+        const value = option.getAttribute('data-lang-value');
+        const checkIcon = option.querySelector('.check-icon');
+        if (checkIcon) {
+          if (value === currentLang) {
+            checkIcon.classList.remove('hidden');
+            option.classList.add('bg-gray-100', 'dark:bg-gray-800');
+          } else {
+            checkIcon.classList.add('hidden');
+            option.classList.remove('bg-gray-100', 'dark:bg-gray-800');
+          }
+        }
+      });
+    }
+
+    // Toggle menu
+    function toggleMenu() {
+      const isOpen = !menu.classList.contains('hidden');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    function openMenu() {
+      menu.classList.remove('hidden');
+      button.setAttribute('aria-expanded', 'true');
+      updateCheckmarks(getCurrentLanguage());
+    }
+
+    function closeMenu() {
+      menu.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+    }
+
+    // Event listeners
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        const lang = option.getAttribute('data-lang-value');
+        if (lang) {
+          applyLanguage(lang);
+          closeMenu();
+        }
+      });
+    });
+
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target as Node)) {
+        closeMenu();
+      }
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
+    // Initialize
+    const currentLang = getCurrentLanguage();
+    if (currentLabel) {
+      currentLabel.textContent = currentLang.toUpperCase();
+    }
+    updateCheckmarks(currentLang);
+  }
+
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageMenu);
+  } else {
+    initLanguageMenu();
+  }
+</script>

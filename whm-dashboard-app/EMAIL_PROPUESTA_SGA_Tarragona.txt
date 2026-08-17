@@ -1,0 +1,31 @@
+# Propuesta de digitalización y gestión de almacén (SGA con IA) — Polígono Riu Clar
+
+Hola [Nombre de contacto],
+
+Me presento: soy Sergio Jurado, de ESINSA Gasket S.L., empresa vecina del Polígono Industrial Riu Clar (C/ Ferro 10, Tarragona) dedicada desde 1985 a las soluciones de estanqueidad industrial —juntas, tornillería y oficina técnica— para los sectores químico, petroquímico y energético.
+
+Además de nuestra actividad principal, en los últimos años hemos desarrollado internamente un sistema de gestión de almacén (SGA) con inteligencia artificial que utilizamos a diario en nuestro propio almacén y que hoy ofrecemos como servicio a otras empresas industriales del territorio.
+
+¿Qué resuelve? El control de stock en hojas de cálculo, la falta de trazabilidad, el etiquetado manual y las consultas lentas de inventario son problemas habituales en cualquier almacén. Nuestro SGA digitaliza todo el proceso y lo deja accesible desde cualquier navegador.
+
+Qué incluye:
+
+- Inventario con códigos únicos y ubicaciones de rack (pasillo, nivel, posición).
+- Etiquetado automático A4 con código de barras.
+- Trazabilidad completa de movimientos (recepciones, picking, transferencias).
+- Panel de control con indicadores y alertas de stock bajo.
+- Asistente con IA que responde consultas de stock y pedidos desde la web y WhatsApp, 24/7.
+- Acceso multiusuario con los datos en la nube, sin servidores que mantener.
+- Puesta en marcha, formación de tu equipo y soporte incluidos.
+
+Beneficios: menos errores y menos tiempo de búsqueda, visibilidad del almacén en tiempo real y respuesta inmediata a tus clientes sobre la disponibilidad de material.
+
+Nos encantaría contártelo en una breve reunión y enseñarte cómo funciona en nuestro almacén de Riu Clar, a pocos minutos del tuyo. Si te viene bien, quedamos cuando prefieras.
+
+Quedo a tu disposición. Un saludo,
+
+José Ramón
+ESINSA Gasket S.L.
+C/ Ferro 10, Pol. Ind. Riu Clar, 43006 Tarragona
+Tel: +34 977 553072 · info@esinsa.es
+www.esinsagaskets.com

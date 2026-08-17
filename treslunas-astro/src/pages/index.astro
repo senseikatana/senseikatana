@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { db, Product } from 'astro:db';
+import { AppLayout } from '../components/AppLayout';
+
+// Consultar los productos directamente de Astro DB en tiempo de compilación (SSG)
+const localProducts = await db.select().from(Product).all();
+---
+
+<Layout title="3 Lunas Boutique | Moda Femenina en Cambrils">
+  <!-- Top Bar -->
+  <div class="bg-stone-900 text-stone-100 text-xs py-2 px-4 text-center tracking-wider font-medium uppercase border-b border-stone-850">
+    ✨ Recogida gratis en tienda (Cambrils) o Envío gratis desde 50€ ✨
+  </div>
+
+  <!-- Header & Cart Drawer Hydration -->
+  <AppLayout client:load />
+
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-stone-100 via-amber-50/40 to-stone-100 py-16 md:py-24 overflow-hidden">
+      <div class="absolute inset-0 z-0 opacity-40">
+        <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-rose-200/50 blur-3xl"></div>
+        <div class="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-amber-200/50 blur-3xl"></div>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+        <!-- Content -->
+        <div class="text-center md:text-left space-y-6">
+          <div class="inline-block bg-amber-100 text-amber-900 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+            📍 Tienda Física en Cambrils
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-stone-900 leading-tight">
+            Moda con carácter <br/>
+            <span class="text-amber-800">seleccionada para ti.</span>
+          </h1>
+          <p class="text-stone-600 text-base md:text-lg max-w-lg">
+            Encuentra prendas de vestir y accesorios curados por Erika para expresar tu mejor versión. Visítanos en Cambrils o compra online.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <a href="#coleccion" class="bg-stone-900 text-white hover:bg-stone-850 px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition shadow-lg text-center">
+              Ver Colección
+            </a>
+            <a href="https://wa.me/34600000000" target="_blank" class="border border-stone-300 text-stone-700 hover:bg-stone-50 bg-white px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition text-center flex items-center justify-center gap-2">
+              Asesoría de Erika 💬
+            </a>
+          </div>
+        </div>
+
+        <!-- Visuals -->
+        <div class="relative hidden md:block">
+          <div class="aspect-[3/4] max-w-md mx-auto overflow-hidden shadow-2xl border border-stone-200 bg-stone-300">
+            <img 
+              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" 
+              alt="Moda Femenina Cambrils" 
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phygital Badges -->
+    <section class="bg-white border-y border-stone-100 py-8">
+      <div class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center sm:text-left">
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-800 text-xl font-bold">✓</div>
+          <div>
+            <h4 class="font-bold text-stone-900 text-sm">Click & Collect en Cambrils</h4>
+            <p class="text-xs text-stone-500">Compra online y recoge hoy mismo en tienda</p>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-800 text-xl font-bold">♥</div>
+          <div>
+            <h4 class="font-bold text-stone-900 text-sm">La Selección de Erika</h4>
+            <p class="text-xs text-stone-500">Prendas curadas y asesoría de estilo</p>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-amber-50 flex items-center justify-center text-amber-800 text-xl font-bold">⚡</div>
+          <div>
+            <h4 class="font-bold text-stone-900 text-sm">Envío Local en 24h</h4>
+            <p class="text-xs text-stone-500">Envíos exprés a Cambrils, Reus y Salou</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Collection -->
+    <section id="coleccion" class="py-16 md:py-24 bg-stone-50">
+      <div class="container mx-auto px-4">
+        <header class="text-center max-w-xl mx-auto mb-16 space-y-3">
+          <span class="text-amber-800 text-xs font-bold uppercase tracking-[0.3em]">Catálogo</span>
+          <h2 class="text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
+            Descubre las Novedades
+          </h2>
+          <p class="text-stone-500 text-sm">
+            Elegancia fresca para tu día a día. Ediciones limitadas disponibles en tienda y online.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {localProducts.map((product) => {
+            const parsedImages = JSON.parse(product.images as string);
+            const mainImage = parsedImages[0] || '';
+            return (
+              <div class="group bg-white border border-stone-100 overflow-hidden shadow-sm hover:shadow-md transition">
+                <div class="aspect-[3/4] bg-stone-100 overflow-hidden relative">
+                  <img 
+                    src={mainImage} 
+                    alt={product.title} 
+                    class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  />
+                  <div class="absolute bottom-4 left-4 bg-white/95 px-3 py-1 text-xs font-bold text-stone-900">
+                    {product.price.toFixed(2)} €
+                  </div>
+                </div>
+                <div class="p-6 space-y-2">
+                  <h3 class="font-bold text-stone-900 text-lg group-hover:text-amber-800 transition-colors">
+                    {product.title}
+                  </h3>
+                  <p class="text-stone-500 text-xs line-clamp-2">
+                    {product.description}
+                  </p>
+                  <div class="pt-4 flex justify-between items-center">
+                    <a href={`/productos/${product.slug}`} class="text-xs font-bold uppercase tracking-wider text-stone-900 hover:text-amber-800 transition-colors underline">
+                      Ver Detalles
+                    </a>
+                    <button class="bg-stone-900 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 hover:bg-amber-900 transition">
+                      Añadir al Carrito
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- Erika Personal Brand Section -->
+    <section id="erika" class="py-16 md:py-24 bg-white border-t border-stone-100">
+      <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <span class="text-amber-800 text-xs font-bold uppercase tracking-widest">Estilo Personal</span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900">
+            Hola, soy Erika
+          </h2>
+          <p class="text-stone-600 leading-relaxed text-sm md:text-base">
+            Bienvenidos a **3 Lunas Boutique**. Creé este espacio en Cambrils con la idea de ofrecer algo más que simplemente ropa: quería que cada chica y mujer encontrara prendas con las que se sintiera segura, elegante y cómoda.
+          </p>
+          <p class="text-stone-600 leading-relaxed text-sm md:text-base">
+            Cada vestido, top y accesorio del catálogo es elegido personalmente por mí, buscando tejidos agradables y siluetas favorecedoras. Si tienes dudas con alguna prenda, escríbeme y te aconsejaré encantada de la misma manera que lo haría en nuestra tienda.
+          </p>
+          <div class="pt-4">
+            <a href="https://wa.me/34600000000" target="_blank" class="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-6 py-3 font-semibold text-sm transition shadow-md">
+              💬 Hablar con Erika por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="aspect-[4/3] bg-stone-100 overflow-hidden shadow-xl border border-stone-200">
+          <img 
+            src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" 
+            alt="Boutique en Cambrils" 
+            class="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-850">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h4 class="text-white font-extrabold tracking-widest uppercase mb-4">3 LUNAS</h4>
+        <p class="text-xs max-w-xs leading-relaxed">
+          Boutique de moda femenina en Cambrils. Ropa y accesorios seleccionados para mujeres jóvenes e independientes.
+        </p>
+      </div>
+      <div>
+        <h5 class="text-white font-bold text-sm mb-4">📍 Dónde Estamos</h5>
+        <ul class="text-xs space-y-2">
+          <li>Dirección: Calle Comercial Principal, Cambrils, Tarragona, España</li>
+          <li>Horario: Lunes a Sábado: 10:00 - 13:30 | 17:00 - 20:30</li>
+          <li>Email: contacto@3lunasboutique.com</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="text-white font-bold text-sm mb-4">🛍️ Click & Collect</h5>
+        <p class="text-xs leading-relaxed mb-4">
+          Realiza tu compra online y ven a recogerla a la tienda física de Cambrils en menos de 2 horas sin coste alguno.
+        </p>
+        <span class="text-[10px] uppercase font-bold text-amber-500 tracking-wider">♥ Creado con cariño para Erika</span>
+      </div>
+    </div>
+  </footer>
+</Layout>

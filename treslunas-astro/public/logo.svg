@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" width="100%" height="100%">
+  <defs>
+    <!-- Rose gold gradient for waning & waxing moons -->
+    <linearGradient id="roseGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2B1B1" />
+      <stop offset="40%" stop-color="#C58B8B" />
+      <stop offset="70%" stop-color="#A26363" />
+      <stop offset="100%" stop-color="#7C4646" />
+    </linearGradient>
+
+    <!-- Champagne gold gradient for full moon -->
+    <linearGradient id="classicGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCEBB6" />
+      <stop offset="30%" stop-color="#E9C579" />
+      <stop offset="70%" stop-color="#C59A3F" />
+      <stop offset="100%" stop-color="#9A701C" />
+    </linearGradient>
+
+    <!-- Subtle drop shadow to give premium depth -->
+    <filter id="luxuryShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#4A3B32" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <g filter="url(#luxuryShadow)">
+    <!-- 1. Orbital ring passing behind moons -->
+    <circle cx="120" cy="50" r="54" fill="none" stroke="url(#classicGold)" stroke-width="0.75" opacity="0.4" stroke-dasharray="1.5 2.5" />
+
+    <!-- 2. Sparkles / Stars -->
+    <!-- Top Center Star -->
+    <path d="M 120 4 Q 120 10 114 10 Q 120 10 120 16 Q 120 10 126 10 Q 120 10 120 4" fill="url(#classicGold)" />
+    <!-- Left Star -->
+    <path d="M 32 45 Q 32 50 27 50 Q 32 50 32 55 Q 32 50 37 50 Q 32 50 32 45" fill="url(#roseGold)" />
+    <!-- Right Star -->
+    <path d="M 208 45 Q 208 50 203 50 Q 208 50 208 55 Q 208 50 213 50 Q 208 50 208 45" fill="url(#roseGold)" />
+
+    <!-- 3. Left Moon (Menguante/Waning) -->
+    <path d="M 75 22 A 28 28 0 0 0 75 78 A 36 36 0 0 1 75 22 Z" fill="url(#roseGold)" />
+
+    <!-- 4. Center Moon (Llena/Full) -->
+    <circle cx="120" cy="50" r="28" fill="url(#classicGold)" />
+    <!-- Inner concentric detail ring -->
+    <circle cx="120" cy="50" r="25" fill="none" stroke="#FFFFFF" stroke-width="0.5" opacity="0.5" />
+
+    <!-- 5. Right Moon (Creciente/Waxing) -->
+    <path d="M 165 22 A 28 28 0 0 1 165 78 A 36 36 0 0 0 165 22 Z" fill="url(#roseGold)" />
+  </g>
+</svg>

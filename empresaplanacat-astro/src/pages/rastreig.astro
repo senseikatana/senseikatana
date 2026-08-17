@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BusTrackingPanel from '../components/BusTrackingPanel';
+import { getSiteInfo, getCanonicalUrl } from '../config/site-info';
+import { getLocale, getDictionary } from '../config/i18n';
+
+export const prerender = false;
+
+const locale = getLocale(Astro.url.searchParams.get('lang'));
+const dict = getDictionary(locale);
+const siteInfo = getSiteInfo({
+	title: dict.busTracking.title,
+	description: dict.busTracking.subtitle,
+	lang: locale,
+	ogTitle: dict.busTracking.title,
+	ogDescription: dict.busTracking.subtitle,
+	canonicalUrl: getCanonicalUrl(Astro.url.pathname),
+});
+
+const lineId = 'l68-penedes';
+const lineLabel = dict.routes.lines.cards.penedes.route;
+const stops = [
+	{ id: 'vilanova', name: 'Vilanova i la Geltrú', time: '08:15' },
+	{ id: 'cubelles', name: 'Cubelles', time: '08:32' },
+	{ id: 'vilafranca', name: 'Vilafranca del Penedès', time: '08:55' },
+];
+---
+
+<BaseLayout {...siteInfo} bodyClass="bg-background text-on-background font-body-md antialiased">
+	<header class="bg-deep-navy text-on-primary py-6 px-margin-mobile md:px-margin-desktop">
+		<div class="max-w-2xl mx-auto">
+			<a href="/" class="font-body-md text-body-md text-on-primary/70 hover:text-secondary-fixed transition-colors">
+				← {dict.common.brand}
+			</a>
+			<h1 class="font-headline-lg text-headline-lg font-bold mt-2">{dict.busTracking.title}</h1>
+		</div>
+	</header>
+	<main class="flex-grow max-w-2xl mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
+		<BusTrackingPanel client:load lineId={lineId} lineLabel={lineLabel} stops={stops} t={dict.busTracking} />
+	</main>
+	<footer class="bg-deep-navy text-on-primary/80 py-stack-md px-margin-mobile md:px-margin-desktop">
+		<div class="max-w-2xl mx-auto font-body-md text-body-md">
+			{dict.common.footer.copyright}
+		</div>
+	</footer>
+</BaseLayout>

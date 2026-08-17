@@ -1,0 +1,12 @@
+[build]
+  command = "pnpm install -g bun@latest && bun install --frozen-lockfile && bun run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PUBLIC_APP_URL = ""
+
+[[redirects]]
+  from = "/"
+  to = "/landing/"
+  status = 302
