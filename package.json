@@ -1,0 +1,13 @@
+{
+  "name": "senseikatana-github",
+  "version": "0.1.0",
+  "description": "Proyecto senseikatana-github",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run dev",
+    "build": "bun run build",
+    "test": "bun run test"
+  },
+  "author": "Sergio Jurado",
+  "license": "MIT"
+}

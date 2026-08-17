@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --color-gold-50: #faf6ef;
+  --color-gold-100: #f0e6d0;
+  --color-gold-200: #e3d0a8;
+  --color-gold-300: #d4b87a;
+  --color-gold-400: #c9a55c;
+  --color-gold-500: #b8923e;
+  --color-gold-600: #a07a32;
+  --color-gold-700: #7d5f28;
+  --color-gold-800: #5a4420;
+  --color-gold-900: #3a2c15;
+  --color-cream: #faf8f5;
+  --color-warm-50: #fdfcfa;
+  --color-warm-100: #f7f5f0;
+  --color-warm-200: #ece8df;
+  --color-warm-300: #d9d2c5;
+  --color-warm-400: #b5ab99;
+  --color-warm-500: #918674;
+  --color-warm-600: #6e6455;
+  --color-warm-700: #4d4539;
+  --color-warm-800: #2e2923;
+  --color-warm-900: #1a1714;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom selection */
+::selection {
+  background-color: var(--color-gold-200);
+  color: var(--color-warm-900);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-warm-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-warm-400);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-warm-500);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+
+/* Gold shimmer effect */
+.shimmer-text {
+  background: linear-gradient(
+    110deg,
+    var(--color-gold-600) 0%,
+    var(--color-gold-300) 40%,
+    var(--color-gold-500) 60%,
+    var(--color-gold-600) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Gradient border effect */
+.gold-border {
+  position: relative;
+}
+.gold-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-400), transparent);
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 0.15);
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Grain texture overlay */
+.grain::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}

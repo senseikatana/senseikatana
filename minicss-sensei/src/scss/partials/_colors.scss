@@ -1,0 +1,199 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:color";
+
+// ============================================================
+//  MAPA DE COLORES
+// ============================================================
+
+@function _filter-palettes($map, $keys) {
+  $result: ();
+  @each $key, $value in $map {
+    @if list.index($keys, $key) != null {
+      $result: map.merge($result, ($key: $value));
+    }
+  }
+  @return $result;
+}
+
+$colors: (
+  "neutral": (
+    100: hsl(220, 5%, 96%),
+    200: hsl(220, 9%, 83%),
+    300: hsl(220, 9%, 46%),
+    400: hsl(220, 10%, 21%),
+    500: hsl(220, 13%, 6%)
+  ),
+  "info": (
+    100: hsl(214, 100%, 97%),
+    200: hsl(218, 96%, 78%),
+    300: hsl(217, 91%, 60%),
+    400: hsl(224, 76%, 48%),
+    500: hsl(224, 70%, 33%)
+  ),
+  "amber": (
+    100: hsl(35, 100%, 95%),
+    200: hsl(35, 100%, 85%),
+    300: hsl(35, 100%, 65%),
+    400: hsl(35, 100%, 50%),
+    500: hsl(35, 100%, 30%)
+  ),
+  "danger": (
+    100: hsl(0, 100%, 95%),
+    200: hsl(0, 100%, 85%),
+    300: hsl(0, 100%, 65%),
+    400: hsl(0, 100%, 50%),
+    500: hsl(0, 100%, 30%)
+  ),
+  "success": (
+    100: hsl(120, 100%, 95%),
+    200: hsl(120, 100%, 85%),
+    300: hsl(120, 100%, 65%),
+    400: hsl(120, 100%, 50%),
+    500: hsl(120, 100%, 30%)
+  ),
+  "warning": (
+    100: hsl(45, 100%, 95%),
+    200: hsl(45, 100%, 85%),
+    300: hsl(45, 100%, 65%),
+    400: hsl(45, 100%, 50%),
+    500: hsl(45, 100%, 30%)
+  )
+) !default;
+
+$special-colors: (
+  "white":       hsl(0, 0%, 97%),
+  "black":       hsl(0, 0%, 3%),
+  "transparent": transparent,
+  "current":     currentColor
+) !default;
+
+$shades: (100, 200, 300, 400, 500, 600, 700, 800, 900) !default;
+
+// ============================================================
+//  FUNCIONES DE ACCESO
+// ============================================================
+
+@function get-color($name, $shade: 300, $alpha: 1) {
+  @if map.has-key($special-colors, $name) {
+    $color: map.get($special-colors, $name);
+    @if $alpha != 1 and meta.type-of($color) == "color" {
+      @return color.change($color, $alpha: $alpha);
+    }
+    @return $color;
+  }
+  @if not map.has-key($colors, $name) {
+    @error "get-color(): paleta '#{$name}' no existe.";
+  }
+  $palette: map.get($colors, $name);
+  @if not map.has-key($palette, $shade) {
+    @error "get-color(): tono '#{$shade}' no existe en '#{$name}'.";
+  }
+  $color: map.get($palette, $shade);
+  @if $alpha != 1 {
+    @return color.change($color, $alpha: $alpha);
+  }
+  @return $color;
+}
+
+@function get($name, $alpha: 1) {
+  @return get-color($name, 500, $alpha);
+}
+
+@function alpha($name, $shade: 500, $alpha: 0.5) {
+  @return get-color($name, $shade, $alpha);
+}
+
+// ============================================================
+//  GENERACIÓN DE VARIABLES CSS
+// ============================================================
+
+@mixin generate-css-vars($root: ":root", $palettes: null, $include-special: true) {
+    
+  $palettes: if(sass($palettes == null): $colors; else: _filter-palettes($colors, $palettes));
+  #{$root} {
+    @each $name, $palette in $palettes {
+      @each $shade, $value in $palette {
+        --#{$name}-#{$shade}: #{$value};
+      }
+    }
+    @if $include-special {
+      @each $name, $value in $special-colors {
+        --#{$name}: #{$value};
+      }
+    }
+  }
+}
+
+// ============================================================
+//  CLASES DE UTILIDAD
+// ============================================================
+
+@mixin _utility-classes($property, $class-prefix, $palettes: null, $include-special: true) {
+  $palettes: if(sass($palettes == null): $colors; else: _filter-palettes($colors, $palettes));
+  @each $name, $palette in $palettes {
+    @each $shade, $value in $palette {
+      .#{$class-prefix}-#{$name}-#{$shade} {
+        #{$property}: $value;
+      }
+    }
+  }
+  @if $include-special {
+    @each $name, $value in $special-colors {
+      .#{$class-prefix}-#{$name} {
+        #{$property}: $value;
+      }
+    }
+  }
+}
+
+@mixin text-utilities($palettes: null, $special: true) {
+  @include _utility-classes(color, "text", $palettes, $special);
+}
+@mixin bg-utilities($palettes: null, $special: true) {
+  @include _utility-classes(background-color, "bg", $palettes, $special);
+}
+@mixin border-utilities($palettes: null, $special: true) {
+  @include _utility-classes(border-color, "border", $palettes, $special);
+}
+@mixin hover-utilities($palettes: null, $special: true) {
+  $palettes: if(sass($palettes == null): $colors; else: _filter-palettes($colors, $palettes));
+  @each $name, $palette in $palettes {
+    @each $shade, $value in $palette {
+      .hover-text-#{$name}-#{$shade}:hover { color: $value; }
+      .hover-bg-#{$name}-#{$shade}:hover   { background-color: $value; }
+    }
+  }
+}
+@mixin all-utilities($palettes: null, $special: true) {
+  @include text-utilities($palettes, $special);
+  @include bg-utilities($palettes, $special);
+  @include border-utilities($palettes, $special);
+  @include hover-utilities($palettes, $special);
+}
+
+// ============================================================
+//  TEMAS
+// ============================================================
+
+@mixin theme($mode, $overrides: ()) {
+  $base: $colors;
+  @if $mode == "dark" {
+    $base: ();
+    @each $name, $palette in $colors {
+      $new: (
+        100: map.get($palette, 500),
+        200: map.get($palette, 400),
+        300: map.get($palette, 300),
+        400: map.get($palette, 200),
+        500: map.get($palette, 100)
+      );
+      $base: map.merge($base, ($name: $new));
+    }
+  }
+  @if meta.type-of($overrides) == "map" {
+    $base: map.merge($base, $overrides);
+  }
+  @include generate-css-vars(":root[data-theme='#{$mode}']", $base, false);
+}

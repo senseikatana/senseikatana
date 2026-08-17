@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "email": "admin@numperfume.com",
+      "password": "Admin123!",
+      "displayName": "Admin NUM"
+    },
+    {
+      "email": "maria.garcia@email.com",
+      "password": "Maria2024!",
+      "displayName": "Maria Garcia"
+    },
+    {
+      "email": "carlos.lopez@email.com",
+      "password": "Carlos2024!",
+      "displayName": "Carlos Lopez"
+    },
+    {
+      "email": "ana.martinez@email.com",
+      "password": "Ana2024!",
+      "displayName": "Ana Martinez"
+    },
+    {
+      "email": "pedro.sanchez@email.com",
+      "password": "Pedro2024!",
+      "displayName": "Pedro Sanchez"
+    }
+  ]
+}

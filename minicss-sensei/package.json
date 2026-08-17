@@ -1,0 +1,20 @@
+{
+  "name": "miniframework-css",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "sass src/scss/main.scss:dist/css/main.css --no-source-map --style=compressed",
+    "build:css:dev": "sass src/scss/main.scss:dist/css/main.css --watch",
+    "build:purge": "postcss dist/css/main.css -o dist/css/main.min.css",
+    "build": "npm run build:css && npm run build:purge",
+    "dev": "concurrently \"npm run build:css:dev\" \"live-server\""
+  },
+  "devDependencies": {
+    "sass": "^1.77.0",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "@fullhuman/postcss-purgecss": "^6.0.0",
+    "autoprefixer": "^10.4.19",
+    "concurrently": "^8.2.2",
+    "live-server": "^1.2.2"
+  }
+}

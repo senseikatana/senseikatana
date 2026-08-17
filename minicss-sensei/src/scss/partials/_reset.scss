@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+  margin: var(--m-reset);
+  padding: var(--p-reset);
+  box-sizing: var(--box-sizing);
+  background-repeat:   var(--bg-repeat);
+  background-position: var(--bg-position);
+  min-width: var(--min-w-reset);
+}
+
+
+
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: var(--text-size-adjust);
+  min-height: var(--min-h-screen);
+}
+
+
+
+
+
+
+
+body {
+  height: 100dvh;
+  min-height: 100dvh;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
