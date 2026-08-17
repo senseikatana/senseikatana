@@ -1,11 +1,13 @@
 {
-  "name": "utils-library",
+  "name": "snippets-lib-sensei",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun run --watch --hot src/demo.ts",
+    "dev": "bun run dev",
     "start": "bun index.ts",
-    "typecheck": "bunx tsc --noEmit"
+    "typecheck": "bunx tsc --noEmit",
+    "build": "bun run build",
+    "test": "bun run test"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1",
@@ -16,5 +18,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
-  }
+  },
+  "author": "Sergio Jurado",
+  "version": "0.1.0",
+  "description": "Proyecto snippets-lib-sensei"
 }
