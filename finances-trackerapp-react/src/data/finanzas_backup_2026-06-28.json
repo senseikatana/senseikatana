@@ -1,0 +1,222 @@
+{
+  "settings": {
+    "currency": "€",
+    "month": "Junio",
+    "year": 2026
+  },
+  "income": [
+    {
+      "id": 1,
+      "date": "2026-06-26",
+      "category": "Otros",
+      "concept": "Desempleo Paro Junio 2026",
+      "amount": "493.27",
+      "notes": "Me lo van a quitar, 10 dias para reclamar"
+    }
+  ],
+  "fixedExpenses": [
+    {
+      "id": 1,
+      "category": "Vivienda",
+      "concept": "Alquiler / Hipoteca",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 1,
+      "paid": false
+    },
+    {
+      "id": 2,
+      "category": "Vivienda",
+      "concept": "Agua",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 15,
+      "paid": false
+    },
+    {
+      "id": 3,
+      "category": "Vivienda",
+      "concept": "Luz",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 15,
+      "paid": false
+    },
+    {
+      "id": 4,
+      "category": "Vivienda",
+      "concept": "Internet",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 1,
+      "paid": false
+    },
+    {
+      "id": 5,
+      "category": "Suscripciones",
+      "concept": "Netflix",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 15,
+      "paid": false
+    },
+    {
+      "id": 6,
+      "category": "Suscripciones",
+      "concept": "Spotify",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 15,
+      "paid": false
+    },
+    {
+      "id": 7,
+      "category": "Finanzas",
+      "concept": "Teléfono móvil",
+      "provider": "",
+      "amount": 0,
+      "dueDate": 1,
+      "paid": false
+    },
+    {
+      "id": 8,
+      "category": "Finanzas",
+      "concept": "Compras Diarias ",
+      "provider": "Dinero Luisa",
+      "amount": "15.80",
+      "dueDate": "28",
+      "paid": true
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": 1,
+      "name": "Google One Subs",
+      "category": "Subscriptions",
+      "provider": "Google Inc",
+      "amount": "21.99",
+      "billingCycle": "monthly",
+      "nextPayment": "2026-07-16",
+      "active": true,
+      "notes": "No me sirve, pero si la quiero cancelar, sacar contenido GDrive"
+    },
+    {
+      "id": 2,
+      "name": "Academia MAIBO",
+      "category": "Subscriptions",
+      "provider": "MAIBO ACADEMY",
+      "amount": "17.00",
+      "billingCycle": "monthly",
+      "nextPayment": "2026-07-11",
+      "active": true,
+      "notes": ""
+    }
+  ],
+  "variableExpenses": [],
+  "dailyRegister": [
+    {
+      "id": 1,
+      "date": "2026-06-24",
+      "category": "Ropa",
+      "concept": "Ropa Verano en Mercadillo ",
+      "amount": "50",
+      "type": "Variable",
+      "necessary": false,
+      "notes": "Camisetas y panalones (Dinero de mamá)"
+    }
+  ],
+  "budget": [
+    {
+      "category": "Vivienda",
+      "planned": 0
+    },
+    {
+      "category": "Suscripciones",
+      "planned": 0
+    },
+    {
+      "category": "Seguros",
+      "planned": 0
+    },
+    {
+      "category": "Transporte",
+      "planned": 0
+    },
+    {
+      "category": "Alimentación",
+      "planned": 0
+    },
+    {
+      "category": "Restaurantes",
+      "planned": 0
+    },
+    {
+      "category": "Ocio",
+      "planned": 0
+    },
+    {
+      "category": "Ropa",
+      "planned": 0
+    },
+    {
+      "category": "Salud",
+      "planned": 0
+    },
+    {
+      "category": "Otros",
+      "planned": 0
+    }
+  ],
+  "savingsGoals": [
+    {
+      "id": 1,
+      "name": "Fondo de emergencia (3 meses)",
+      "target": 6000,
+      "saved": 0
+    },
+    {
+      "id": 2,
+      "name": "Vacaciones",
+      "target": 2000,
+      "saved": 0
+    },
+    {
+      "id": 3,
+      "name": "Capricho / Compra grande",
+      "target": 1000,
+      "saved": 0
+    },
+    {
+      "id": 4,
+      "name": "Inversión",
+      "target": 3000,
+      "saved": 0
+    }
+  ],
+  "debts": [],
+  "incomeCategories": [
+    "Subsidio Desempleo (Paro)"
+  ],
+  "fixedCategories": [
+    "Vivienda",
+    "Suscripciones",
+    "Seguros",
+    "Transporte",
+    "Finanzas",
+    "Educación"
+  ],
+  "expenseCategories": [
+    "Alimentación",
+    "Restaurantes",
+    "Transporte",
+    "Ocio",
+    "Ropa",
+    "Salud",
+    "Hogar",
+    "Tecnología",
+    "Regalos",
+    "Viajes",
+    "Mascotas",
+    "Otros"
+  ]
+}
