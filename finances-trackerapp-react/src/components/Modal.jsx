@@ -1,17 +1,21 @@
+'use client';
+
 export default function Modal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <span className="modal-title">{title}</span>
-          <button className="btn btn-ghost btn-sm" onClick={onClose} style={{ fontSize: '18px', padding: '4px' }}>✕</button>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-4 border-b border-border">
+          <h3 className="text-lg font-bold text-primary">{title}</h3>
+          <button onClick={onClose} className="text-muted-foreground hover:text-foreground text-xl">✕</button>
         </div>
-        <div className="modal-body">
+        <div className="p-4">
           {children}
         </div>
       </div>
     </div>
   );
 }
+

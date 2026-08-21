@@ -22,7 +22,9 @@ export async function signInWithEmail(email, password) {
 
 export async function registerWithEmail(email, password, displayName) {
   const cred = await createUserWithEmailAndPassword(auth, email, password);
-  if (displayName) await updateProfile(cred.user, { displayName });
+  if (displayName) {
+    await updateProfile(cred.user, { displayName });
+  }
   return cred;
 }
 
@@ -42,3 +44,7 @@ export function getCurrentUser() {
   return auth.currentUser;
 }
 
+export function getIdToken(forceRefresh = false) {
+  const user = auth.currentUser;
+  return user ? user.getIdToken(forceRefresh) : null;
+}

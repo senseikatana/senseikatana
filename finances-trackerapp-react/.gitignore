@@ -37,3 +37,11 @@ firebase-debug.log
 firebase-debug.*.log
 functions/node_modules
 functions/lib
+# Next.js
+.next/
+out/
+
+# Firebase
+*.log
+firebase-debug.log
+functions/node_modules/

@@ -1,13 +1,6 @@
-import {
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc,
-  onSnapshot,
-  serverTimestamp,
-} from 'firebase/firestore';
+import { doc, getDoc, setDoc, onSnapshot, serverTimestamp } from 'firebase/firestore';
 import { db } from './config';
-import { defaultData, INCOME_CATEGORIES, FIXED_CATEGORIES, EXPENSE_CATEGORIES } from '../data/defaultData';
+import { defaultData } from '@/data/defaultData';
 
 const COLLECTION = 'users';
 const SUBCOLLECTION = 'appData';
@@ -28,36 +21,22 @@ export async function saveUserData(uid, data) {
   await setDoc(ref, { ...data, updatedAt: serverTimestamp() }, { merge: true });
 }
 
-export async function updateUserData(uid, partial) {
-  const ref = getUserDocRef(uid);
-  await updateDoc(ref, { ...partial, updatedAt: serverTimestamp() });
-}
-
 export function subscribeUserData(uid, callback) {
   const ref = getUserDocRef(uid);
-  return onSnapshot(ref, (snap) => {
-    callback(snap.exists() ? snap.data() : null);
-  });
+  return onSnapshot(ref, (snap) => callback(snap.exists() ? snap.data() : null));
 }
 
 export function normalizeData(raw) {
-  const d = raw || {};
+  if (!raw) return defaultData;
   return {
-    settings: {
-      currency: d.settings?.currency || '€',
-      month: d.settings?.month || defaultData.settings.month,
-      year: d.settings?.year || defaultData.settings.year,
-    },
-    incomeCategories: d.incomeCategories?.length ? [...d.incomeCategories] : [...INCOME_CATEGORIES],
-    fixedCategories: d.fixedCategories?.length ? [...d.fixedCategories] : [...FIXED_CATEGORIES],
-    expenseCategories: d.expenseCategories?.length ? [...d.expenseCategories] : [...EXPENSE_CATEGORIES],
-    income: Array.isArray(d.income) ? d.income : [],
-    fixedExpenses: Array.isArray(d.fixedExpenses) ? d.fixedExpenses : [],
-    subscriptions: Array.isArray(d.subscriptions) ? d.subscriptions : [],
-    variableExpenses: Array.isArray(d.variableExpenses) ? d.variableExpenses : [],
-    dailyRegister: Array.isArray(d.dailyRegister) ? d.dailyRegister : [],
-    budget: Array.isArray(d.budget) ? d.budget : defaultData.budget.map(b => ({ ...b })),
-    savingsGoals: Array.isArray(d.savingsGoals) ? d.savingsGoals : [],
-    debts: Array.isArray(d.debts) ? d.debts : [],
+    ...defaultData,
+    ...raw,
+    settings: { ...defaultData.settings, ...raw.settings },
+    incomeCategories: raw.incomeCategories || defaultData.incomeCategories,
+    fixedCategories: raw.fixedCategories || defaultData.fixedCategories,
+    expenseCategories: raw.expenseCategories || defaultData.expenseCategories,
+    businessIncomeCategories: raw.businessIncomeCategories || defaultData.businessIncomeCategories,
+    businessExpenseCategories: raw.businessExpenseCategories || defaultData.businessExpenseCategories,
   };
 }
+
