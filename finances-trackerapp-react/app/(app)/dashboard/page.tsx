@@ -2,7 +2,7 @@
 'use client';
 
 import { useData } from '@/context/DataProvider';
-import { MONTHS, CURRENT_YEAR, sampleData } from '@/data/defaultData';
+import { MONTHS, CURRENT_YEAR, sampleData, defaultData } from '@/data/defaultData';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -11,37 +11,47 @@ export default function DashboardPage() {
   const selectedYear = Number(data.settings?.year || CURRENT_YEAR);
   const cur = data.settings?.currency || '€';
 
-  const isSelectedPeriod = (dateStr: string) => {
+  const isSelectedPeriod = (dateStr) => {
     if (!dateStr) return false;
     const [y, m] = dateStr.split('-');
     return MONTHS[parseInt(m, 10) - 1] === selectedMonth && parseInt(y, 10) === selectedYear;
   };
 
-  const n = (x: any) => Number(x) || 0;
-  const f = (x: any) => n(x).toFixed(2);
+  const n = (x) => Number(x) || 0;
+  const f = (x) => n(x).toFixed(2);
 
-  var incT = (data.income || []).filter((i: any) => isSelectedPeriod(i.date)).reduce((s: number, i: any) => s + n(i.amount), 0);
-  var fixT = (data.fixedExpenses || []).reduce((s: number, e: any) => s + n(e.amount), 0);
-  var varT = (data.variableExpenses || []).filter((e: any) => isSelectedPeriod(e.date)).reduce((s: number, e: any) => s + n(e.amount), 0);
-  var dayT = (data.dailyRegister || []).filter((e: any) => isSelectedPeriod(e.date)).reduce((s: number, e: any) => s + n(e.amount), 0);
-  var subsM = (data.subscriptions || []).filter((s: any) => s.active).reduce((t: number, s: any) => t + (s.billingCycle === 'annual' ? n(s.amount) / 12 : n(s.amount)), 0);
+  var incT = (data.income || []).filter(i => isSelectedPeriod(i.date)).reduce((s, i) => s + n(i.amount), 0);
+  var fixT = (data.fixedExpenses || []).reduce((s, e) => s + n(e.amount), 0);
+  var varT = (data.variableExpenses || []).filter(e => isSelectedPeriod(e.date)).reduce((s, e) => s + n(e.amount), 0);
+  var dayT = (data.dailyRegister || []).filter(e => isSelectedPeriod(e.date)).reduce((s, e) => s + n(e.amount), 0);
+  var subsM = (data.subscriptions || []).filter(s => s.active).reduce((t, s) => t + (s.billingCycle === 'annual' ? n(s.amount) / 12 : n(s.amount)), 0);
   var totExp = fixT + varT + dayT + subsM;
   var net = incT - totExp;
   var savR = incT > 0 ? (net / incT) * 100 : 0;
-  var bizInc = (data.businessIncome || []).filter((i: any) => isSelectedPeriod(i.date)).reduce((s: number, i: any) => s + n(i.amount), 0);
-  var bizExp = (data.businessExpenses || []).filter((e: any) => isSelectedPeriod(e.date)).reduce((s: number, e: any) => s + n(e.amount), 0);
+  var bizInc = (data.businessIncome || []).filter(i => isSelectedPeriod(i.date)).reduce((s, i) => s + n(i.amount), 0);
+  var bizExp = (data.businessExpenses || []).filter(e => isSelectedPeriod(e.date)).reduce((s, e) => s + n(e.amount), 0);
   var bizNet = bizInc - bizExp;
-  var totalSav = (data.savingsGoals || []).reduce((s: number, g: any) => s + n(g.saved), 0);
-  var totalTgt = (data.savingsGoals || []).reduce((s: number, g: any) => s + n(g.target), 0);
+  var totalSav = (data.savingsGoals || []).reduce((s, g) => s + n(g.saved), 0);
+  var totalTgt = (data.savingsGoals || []).reduce((s, g) => s + n(g.target), 0);
   var savProg = totalTgt > 0 ? (totalSav / totalTgt) * 100 : 0;
-  var activeDeals = (data.crmContacts || []).filter((c: any) => !['Ganado', 'Perdido', 'Archivado'].includes(c.status));
-  var pendTix = (data.tickets || []).filter((t: any) => t.status === 'Pendiente');
+  var activeDeals = (data.crmContacts || []).filter(c => !['Ganado', 'Perdido', 'Archivado'].includes(c.status));
+  var pendTix = (data.tickets || []).filter(t => t.status === 'Pendiente');
 
-  const hasData = (data.income?.length || 0) + (data.fixedExpenses?.length || 0) + (data.variableExpenses?.length || 0) + (data.businessIncome?.length || 0) > 0;
+  var hasData = (data.income?.length || 0) + (data.fixedExpenses?.length || 0) + (data.variableExpenses?.length || 0) > 0;
 
-  const loadSampleData = () => {
+  var loadSampleData = () => {
     if (confirm('Cargar datos de ejemplo? Esto reemplazara tus datos actuales.')) {
       setData(sampleData);
+    }
+  };
+
+  var clearAllData = () => {
+    if (confirm('ELIMINAR TODOS LOS DATOS? Esta accion es irreversible. Se borraran todos los ingresos, gastos, suscripciones, tickets, CRM, metas y deudas de TODOS los meses y anios.')) {
+      if (confirm('SEGUNDO CONFIRMACION: Realmente quieres borrar todo?')) {
+        setData(defaultData);
+        localStorage.removeItem('finanzas-app-data-v2');
+        alert('Todos los datos han sido eliminados.');
+      }
     }
   };
 
@@ -50,10 +60,10 @@ export default function DashboardPage() {
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <h1 className="text-2xl font-bold text-primary">Panel de Control</h1>
         <div className="flex gap-2">
-          <select value={data.settings?.month} onChange={e => setData((d: any) => ({...d, settings: {...d.settings, month: e.target.value}}))} className="input w-32">
+          <select value={data.settings?.month} onChange={e => setData(d => ({...d, settings: {...d.settings, month: e.target.value}}))} className="input w-32">
             {MONTHS.map(m => <option key={m} value={m}>{m}</option>)}
           </select>
-          <select value={data.settings?.year} onChange={e => setData((d: any) => ({...d, settings: {...d.settings, year: Number(e.target.value)}}))} className="input w-24">
+          <select value={data.settings?.year} onChange={e => setData(d => ({...d, settings: {...d.settings, year: Number(e.target.value)}}))} className="input w-24">
             {[-1, 0, 1, 2].map(o => { var y = CURRENT_YEAR + o; return <option key={y} value={y}>{y}</option>; })}
           </select>
         </div>
@@ -100,6 +110,17 @@ export default function DashboardPage() {
           <div className="p-3 rounded-lg" style={{background:'var(--color-red-light)'}}><div className="text-xs text-muted-foreground">Diario</div><div className="font-bold text-red">{f(dayT)}{cur}</div></div>
           <div className="p-3 rounded-lg" style={{background:'var(--color-green-light)'}}><div className="text-xs text-muted-foreground">Suscripciones</div><div className="font-bold text-green">{f(subsM)}{cur}</div></div>
           <div className="p-3 rounded-lg" style={{background:'var(--color-gray-light)'}}><div className="text-xs text-muted-foreground">Total</div><div className="font-bold text-primary">{f(totExp)}{cur}</div></div>
+        </div>
+      </div>
+
+      {/* Actions section */}
+      <div className="card mt-6">
+        <h3 className="font-semibold mb-3 text-primary">⚙️ Acciones</h3>
+        <div className="flex flex-wrap gap-3">
+          {!hasData && (
+            <button onClick={loadSampleData} className="px-4 py-2 rounded-lg font-medium text-white text-sm" style={{background:'var(--color-blue)'}}>📊 Cargar datos de ejemplo</button>
+          )}
+          <button onClick={clearAllData} className="px-4 py-2 rounded-lg font-medium text-white text-sm" style={{background:'var(--color-red)'}}>🗑️ Borrar todos los datos</button>
         </div>
       </div>
     </div>
