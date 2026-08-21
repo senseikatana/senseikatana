@@ -1,8 +1,0 @@
-allowBuilds:
-<<<<<<< HEAD
-  '@firebase/util': true
-=======
-  '@google/genai': true
->>>>>>> 76f4a539a2570bae39c1935cc2a93143ec497af7
-  esbuild: true
-  protobufjs: true
