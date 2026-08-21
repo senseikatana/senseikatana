@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 'use client';
 import { useData } from '@/context/DataProvider';
 

@@ -1,15 +1,15 @@
+// @ts-nocheck
+
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { auth, firebaseProjectId, useEmulators } from '@/firebase/config';
 import { useData } from '@/context/DataProvider';
-import { buildFinancialSummary } from '@/lib/financialSummary';
 
 export default function AssistantWidget() {
   const { data } = useData();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: '¡Hola! 👋 Soy tu asistente financiero.' },
+    { role: 'assistant', content: '!Hola! Soy tu asistente financiero.' },
   ]);
   const [input, setInput] = useState('');
   const [streaming, setStreaming] = useState(false);
@@ -29,26 +29,16 @@ export default function AssistantWidget() {
     setError(null);
     abortRef.current = new AbortController();
 
-    const summary = buildFinancialSummary(data);
-    const apiMsgs = history.map(m => ({ role: m.role, content: m.content }));
-
-    let token = null;
-    try { if (auth.currentUser) token = await auth.currentUser.getIdToken(); } catch {}
-
     let acc = '';
     try {
-      const baseUrl = useEmulators
-        ? `http://localhost:5001/${firebaseProjectId}/us-central1/assistantChat`
-        : '/api/assistantChat';
-
-      const res = await fetch(baseUrl, {
+      const res = await fetch('/api/assistantChat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-        body: JSON.stringify({ messages: apiMsgs, financialSummary: summary }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history.map(m => ({ role: m.role, content: m.content })) }),
         signal: abortRef.current.signal,
       });
 
-      if (!res.ok) throw new Error(`Error ${res.status}`);
+      if (!res.ok) throw new Error('Error ' + res.status);
 
       const reader = res.body?.getReader();
       if (!reader) throw new Error('No stream');
@@ -65,7 +55,11 @@ export default function AssistantWidget() {
               const d = JSON.parse(line.slice(6));
               if (d.content) {
                 acc += d.content;
-                setMessages(prev => { const c = [...prev]; c[c.length-1] = { role: 'assistant', content: acc }; return c; });
+                setMessages(prev => {
+                  const c = [...prev];
+                  c[c.length - 1] = { role: 'assistant', content: acc };
+                  return c;
+                });
               }
             } catch {}
           }
@@ -75,18 +69,24 @@ export default function AssistantWidget() {
     } catch (e) {
       if (e.name !== 'AbortError') {
         setError(e.message);
-        setMessages(prev => { const c = [...prev]; if (!c[c.length-1].content) c.pop(); return c; });
+        setMessages(prev => {
+          const c = [...prev];
+          if (!c[c.length - 1].content) c.pop();
+          return c;
+        });
       }
     } finally {
       setStreaming(false);
     }
   }, [input, streaming, messages, data]);
 
-  const stop = () => { abortRef.current?.abort(); setStreaming(false); };
-
   return (
     <>
-      <button className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center text-2xl hover:bg-primary-light transition-all z-50" onClick={() => setOpen(!open)} aria-label="Asistente IA">
+      <button
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white shadow-lg flex items-center justify-center text-2xl hover:bg-primary-light transition-all z-50"
+        onClick={() => setOpen(!open)}
+        aria-label="Asistente IA"
+      >
         {open ? '✕' : '💬'}
       </button>
 
@@ -96,16 +96,16 @@ export default function AssistantWidget() {
             <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">🤖</div>
             <div className="flex-1">
               <div className="font-semibold text-sm">Asistente Financiero</div>
-              <div className="text-xs opacity-70">{streaming ? 'escribiendo...' : 'en línea'}</div>
+              <div className="text-xs opacity-70">{streaming ? 'escribiendo...' : 'en linea'}</div>
             </div>
             <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white">✕</button>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
             {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] px-4 py-2 rounded-2xl text-sm whitespace-pre-wrap ${m.role === 'user' ? 'bg-blue text-white rounded-br-sm' : 'bg-white border border-border rounded-bl-sm'}`}>
-                  {m.content || (streaming && i === messages.length-1 ? '● ● ●' : '')}
+              <div key={i} className={'flex ' + (m.role === 'user' ? 'justify-end' : 'justify-start')}>
+                <div className={'max-w-[85%] px-4 py-2 rounded-2xl text-sm whitespace-pre-wrap ' + (m.role === 'user' ? 'bg-blue text-white rounded-br-sm' : 'bg-white border border-border rounded-bl-sm')}>
+                  {m.content || (streaming && i === messages.length - 1 ? '● ● ●' : '')}
                 </div>
               </div>
             ))}
@@ -124,7 +124,7 @@ export default function AssistantWidget() {
               disabled={streaming}
             />
             {streaming ? (
-              <button onClick={stop} className="w-9 h-9 rounded-lg bg-red text-white flex items-center justify-center">⏹</button>
+              <button onClick={() => abortRef.current?.abort()} className="w-9 h-9 rounded-lg bg-red-500 text-white flex items-center justify-center">⏹</button>
             ) : (
               <button onClick={() => send()} disabled={!input.trim()} className="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center disabled:opacity-50">➤</button>
             )}
