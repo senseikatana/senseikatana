@@ -44,13 +44,28 @@ npx sass src/scss/main.scss dist/css/main.css --watch
 
 ```
 src/scss/
-  _functions.scss      # Unit conversion (rem, px, to-unit, strip-unit), fluid sizing
-  _variables.scss      # Design tokens, access functions, CSS token generator
-  _breakpoints.scss    # Breakpoint mixins (generic + named aliases + feature queries)
-  _colors.scss         # Color palettes, CSS var generation, utility classes, themes
-  _grid.scss           # Grid system mixins (auto-fit, subgrid, masonry, etc.)
-  _utils.scss          # Utility class generators (margin, padding, flex, etc.)
-  main.scss            # Entry point — imports all modules and includes generators
+  _functions.scss        # Unit conversion (rem, px, to-unit, strip-unit), fluid sizing
+  _variables.scss        # Design tokens, access functions, CSS token generator
+  _breakpoints.scss      # Breakpoint mixins (generic + named aliases + feature queries)
+  _colors.scss           # Color palettes, CSS var generation, utility classes, themes
+  _grid.scss             # Grid system mixins (auto-fit, subgrid, masonry, etc.)
+  _flex.scss             # Flexbox layout mixins (flex-container, flex-center, etc.)
+  _reset.scss            # Modern reset (+ custom properties en :root)
+  _theme.scss            # Theme hook (por completar)
+  _apply.scss            # Registro de utilidades para @apply
+  partials/_utils.scss   # Fachada → re-exporta partials/utils/
+  partials/utils/
+    _index.scss          # Índice + @mixin generate-all-utilities()
+    _core.scss           # Mixins genéricos (vars CSS, centrado, generadores)
+    _maps.scss           # Tokens: sizing, spacing, flex, efectos, texto, layout
+    _spacing.scss        # p-* y .gap (activo por defecto)
+    _sizing.scss         # w/h/min/max (ópt-in)
+    _flex.scss           # flex-, items-, justify-, gap-* (ópt-in)
+    _effects.scss        # .shadow, .rounded + shadow/radius/z/transition (ópt-in)
+    _layout.scss         # display, position, overflow, texto (ópt-in)
+  components/
+    _index.scss          # Estilos personalizados usando @apply (ejemplos)
+  main.scss              # Entry point — imports all modules and includes generators
 ```
 
 ---
@@ -299,7 +314,20 @@ Modern CSS Grid mixins with zero bloat.
 
 ## `_utils.scss`
 
-Auto-generated utility classes. Call `@include utils.generate-all-utilities();` to generate all of them.
+Sistema de utilidades modularizado. `partials/_utils.scss` es solo una fachada que
+re-exporta las piezas de `partials/utils/`:
+
+| Módulo | Contenido | Estado |
+|--------|-----------|--------|
+| `core` | Mixins genéricos (`vars-list`, `vars-map`, centrado, `utils-classes`, `utils-classes-hover`) | mixins |
+| `maps` | Tokens: `$sizing-map`, `$spacing-map`, `$flex-*`, `$shadow-map`, `$radius-map`, `$z-layers-map`, transiciones, opacidad, texto, layout | datos |
+| `spacing` | `.p-{n}` + `.gap` | **activo al importar** |
+| `sizing` | `get-sizing-classes()` → `w/h/min/max` | ópt-in |
+| `flex` | `generate-flex-utilities()` → `flex-*`, `items-*`, `justify-*`, `gap-*` | ópt-in |
+| `effects` | `.shadow`, `.rounded` + `generate-effects-utilities()` → `shadow-*`, `rounded-*`, `z-*`, `duration-*`, `ease-*`, `opacity-*` | base activa + ópt-in |
+| `layout` | `generate-layout-utilities()` → display, position, overflow, texto | ópt-in |
+
+Genera todas las utilidades ópt-in con `@include utils.generate-all-utilities();`.
 
 ### Margin & Padding
 

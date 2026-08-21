@@ -6,7 +6,7 @@
 // ============================================================
 //  REGISTRO DE UTILIDADES (para @apply)
 // ============================================================
-$_utility-registry: () !global;
+$_utility-registry: ();
 
 /// Registra una utilidad para que pueda usarse con @apply
 /// @param {String} $name - Nombre de la clase (sin punto)
@@ -73,7 +73,7 @@ $_utility-registry: () !global;
 @include register-utility("grid-cols-4", (grid-template-columns: repeat(4, 1fr)));
 @include register-utility("grid-cols-6", (grid-template-columns: repeat(6, 1fr)));
 @include register-utility("grid-cols-12", (grid-template-columns: repeat(12, 1fr)));
-@include register-utility("col-span-full", (grid-column: 1 / -1));
+@include register-utility("col-span-full", (grid-column: list.slash(1, -1)));
 
 // Spacing (ejemplos - puedes generar más dinámicamente)
 $spacing-scale: (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 0.75rem, 4: 1rem, 6: 1.5rem, 8: 2rem, 12: 3rem, 16: 4rem);

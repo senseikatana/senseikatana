@@ -99,7 +99,7 @@ $base-font-size: 10px !default;
 
 @function contrast($color, $light: white, $dark: black) {
   $brightness: (color.red($color) * 0.299 + color.green($color) * 0.587 + color.blue($color) * 0.114) / 255;
-  @return if($brightness > 0.5, $dark, $light);
+  @return if(sass($brightness > 0.5): $dark; else: $light);
 }
 
 @function color-mix-var($var-name, $amount: 10%, $mix-with: white) {

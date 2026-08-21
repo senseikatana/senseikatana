@@ -113,7 +113,7 @@ $justify-content-map: (
 )!default;
 
 $white-space-list: (nowrap, pre, normal);
-$overflow-wrap-list: (break-word);
+$overflow-wrap-list: (break-word,) !default;
 
 // --- EFECTOS ---
 

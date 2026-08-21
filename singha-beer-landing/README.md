@@ -13,7 +13,7 @@ Landing page premium para la cerveza Singha, con sincronización de video con sc
 | **Base de Datos** | [Supabase](https://supabase.com/) (Postgres + Auth) |
 | **ORM** | [Drizzle ORM](https://orm.drizzle.team/) |
 | **Deploy** | [Vercel](https://vercel.com/) (primario) + [GitHub Pages](https://pages.github.com/) (sync) |
-| **Package Manager** | [pnpm](https://pnpm.io/) |
+| **Package Manager** | [Bun](https://bun.sh/) |
 
 ## 🚀 Características
 
@@ -31,8 +31,7 @@ Landing page premium para la cerveza Singha, con sincronización de video con sc
 
 ### Prerrequisitos
 
-- Node.js >= 22
-- pnpm >= 9
+- [Bun](https://bun.sh/) >= 1.1.0 ( recomendado) o Node.js >= 22
 
 ### Setup
 
@@ -41,7 +40,12 @@ Landing page premium para la cerveza Singha, con sincronización de video con sc
 git clone https://github.com/senseikatana/singha-beer-landing.git
 cd singha-beer-landing
 
-# Instalar dependencias
+# Instalar dependencias con Bun (recomendado)
+bun install
+
+# O con npm/pnpm si lo prefieres
+npm install
+# o
 pnpm install
 
 # Copiar variables de entorno
@@ -50,23 +54,40 @@ cp .env.example .env.local
 # Editar .env.local con tus credenciales de Supabase
 # (Opcional: el proyecto funciona sin Supabase)
 
-# Iniciar servidor de desarrollo
+# Iniciar servidor de desarrollo (con Bun)
+bun run dev
+
+# O con npm/pnpm
+npm run dev
+# o
 pnpm dev
 ```
 
 ## 📦 Scripts Disponibles
 
-```bash
-pnpm dev          # Servidor de desarrollo
-pnpm build        # Build para producción
-pnpm start        # Servidor de producción
-pnpm typecheck    # Verificar tipos TypeScript
+### Desarrollo
 
-# Base de datos (requiere Supabase configurado)
-pnpm db:generate  # Generar migraciones
-pnpm db:migrate   # Ejecutar migraciones
-pnpm db:push      # Push directo a la base de datos
-pnpm db:studio    # Abrir Drizzle Studio
+```bash
+bun run dev           # Servidor de desarrollo + watch (concurrently)
+bun run dev:clean     # Limpiar cache y reiniciar dev
+bun run build         # Build para producción
+bun run build:static  # Build estático (para GitHub Pages)
+bun run preview       # Preview del build de producción
+bun run preview:static # Preview del build estático
+bun run start         # Servidor de producción
+bun run typecheck     # Verificar tipos TypeScript
+bun run clean         # Limpiar cache y node_modules
+bun run reset         # Limpiar e instalar desde cero
+```
+
+### Base de datos (requiere Supabase configurado)
+
+```bash
+bun run db:generate   # Generar migraciones
+bun run db:migrate    # Ejecutar migraciones
+bun run db:push       # Push directo a la base de datos
+bun run db:studio     # Abrir Drizzle Studio
+bun run db:drop       # Eliminar migración
 ```
 
 ## 🗄️ Configuración de Supabase
@@ -87,7 +108,7 @@ DATABASE_URL=postgresql://postgres:password@db.tu-proyecto.supabase.co:5432/post
 4. Ejecutar migraciones:
 
 ```bash
-pnpm db:push
+bun run db:push
 ```
 
 ## 📁 Estructura del Proyecto

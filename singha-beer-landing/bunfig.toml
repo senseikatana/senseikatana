@@ -1,0 +1,35 @@
+# Bun Configuration
+# https://bun.sh/docs/bunfig
+
+[install]
+# Cache directory for dependencies
+cache = ".bun-cache"
+
+# Use Bun's native bundler for faster installs
+nativeBunLockfile = true
+
+# Install dependencies in parallel
+parallel = true
+
+[install.lockfile]
+# Save the lockfile in Bun's native format
+print = "bun.lock"
+
+[run]
+# Default timeout for scripts (30 seconds)
+timeout = 30000
+
+# Run scripts in parallel by default
+parallel = true
+
+[test]
+# Test configuration (for future use)
+coverage = true
+coverageDir = "coverage"
+
+[serve]
+# Development server configuration
+port = 3000
+
+# Enable hot module replacement
+hmr = true

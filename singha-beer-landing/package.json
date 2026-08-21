@@ -4,14 +4,40 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vinxi dev",
+    "dev": "concurrently --names dev,types --prefix-colors blue,yellow \"vinxi dev\" \"bun run typecheck:watch\"",
+    "dev:server": "vinxi dev",
+    "dev:types": "bun run typecheck:watch",
+    "dev:clean": "rm -rf .vinxi .output && bun run dev",
+    "dev:db": "concurrently --names dev,db --prefix-colors blue,green \"vinxi dev\" \"bun run db:studio\"",
     "build": "vinxi build",
+    "build:static": "BUILD_PRESET=static vinxi build",
+    "build:analyze": "vinxi build --analyze",
+    "preview": "vinxi start",
+    "preview:static": "npx serve .output/public -l 3000",
     "start": "vinxi start",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch --preserveWatchOutput",
+    "lint": "echo 'Add ESLint if needed'",
+    "lint:fix": "echo 'Add ESLint fix if needed'",
+    "test": "echo 'Add tests if needed'",
+    "test:watch": "echo 'Add test:watch if needed'",
+    "test:coverage": "echo 'Add test:coverage if needed'",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "typecheck": "tsc --noEmit"
+    "db:drop": "drizzle-kit drop",
+    "db:seed": "echo 'Add seed script if needed'",
+    "clean": "rm -rf .vinxi .output node_modules bun.lock .bun-cache",
+    "clean:cache": "rm -rf .vinxi .output .bun-cache",
+    "clean:modules": "rm -rf node_modules bun.lock",
+    "reset": "bun run clean:cache && bun install",
+    "prepare": "bun run typecheck && bun run lint",
+    "prebuild": "bun run typecheck",
+    "postinstall": "echo '✨ Dependencies installed successfully!'",
+    "info": "bun --version && node --version && echo 'Singha Beer Landing ready!'",
+    "deploy:vercel": "bun run build && vercel --prod",
+    "deploy:gh-pages": "bun run build:static && gh-pages -d .output/public"
   },
   "dependencies": {
     "@corvu/accordion": "^0.2.0",
@@ -31,10 +57,12 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
     "@types/node": "^22.0.0",
+    "concurrently": "^9.1.0",
     "drizzle-kit": "^0.31.0",
     "typescript": "^5.8.0"
   },
   "engines": {
+    "bun": ">=1.1.0",
     "node": ">=22"
   }
 }
