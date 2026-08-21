@@ -1,13 +1,40 @@
 {
-  "name": "app-singha-beverage",
-  "version": "0.1.0",
-  "description": "Proyecto app-singha-beverage",
+  "name": "singha-beer-landing",
+  "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm run dev",
-    "build": "pnpm run build",
-    "test": "pnpm run test"
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "typecheck": "tsc --noEmit"
   },
-  "author": "samuraicoderdev",
-  "license": "MIT"
+  "dependencies": {
+    "@corvu/accordion": "^0.2.0",
+    "@kobalte/core": "^0.13.0",
+    "@solidjs/meta": "^0.29.0",
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "^1.1.0",
+    "@supabase/supabase-js": "^2.49.0",
+    "clsx": "^2.1.0",
+    "drizzle-orm": "^0.39.0",
+    "postgres": "^3.4.0",
+    "solid-js": "^1.9.0",
+    "tailwind-merge": "^3.0.0",
+    "tailwindcss": "^4.1.0",
+    "vinxi": "^0.5.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "drizzle-kit": "^0.31.0",
+    "typescript": "^5.8.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
 }
