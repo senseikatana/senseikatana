@@ -78,8 +78,8 @@ export default function VideoStage(props: VideoStageProps) {
           muted
           playsinline
           preload="metadata"
-          disablePictureInPicture
-          disableRemotePlayback
+          disablepictureinpicture
+          disableremoteplayback
           poster={posterSrc}
         />
       </Show>

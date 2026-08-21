@@ -145,12 +145,12 @@ export default function ContactForm() {
             
             {/* Honeypot field - oculto para humanos, visible para bots */}
             <div style={{ position: "absolute", left: "-9999px" }} aria-hidden="true">
-              <label htmlFor="website">Website</label>
+              <label for="website">Website</label>
               <input type="text" id="website" name="website" tabindex="-1" />
             </div>
             
             <div class={`field ${errors().name ? "field-error" : ""}`}>
-              <label htmlFor="name">Nombre</label>
+              <label for="name">Nombre</label>
               <input
                 type="text"
                 id="name"
@@ -165,7 +165,7 @@ export default function ContactForm() {
             </div>
             
             <div class={`field ${errors().email ? "field-error" : ""}`}>
-              <label htmlFor="email">Email</label>
+              <label for="email">Email</label>
               <input
                 type="email"
                 id="email"
@@ -182,7 +182,7 @@ export default function ContactForm() {
             </div>
             
             <div class={`field ${errors().subject ? "field-error" : ""}`}>
-              <label htmlFor="subject">Asunto</label>
+              <label for="subject">Asunto</label>
               <select
                 id="subject"
                 name="subject"
@@ -200,7 +200,7 @@ export default function ContactForm() {
             </div>
             
             <div class={`field ${errors().message ? "field-error" : ""}`}>
-              <label htmlFor="message">Mensaje</label>
+              <label for="message">Mensaje</label>
               <textarea
                 id="message"
                 name="message"

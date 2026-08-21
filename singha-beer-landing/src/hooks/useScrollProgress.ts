@@ -25,7 +25,7 @@ export function useScrollProgress(options: UseScrollProgressOptions = {}) {
     if (!track) return;
     
     const vh = window.innerHeight;
-    const trackH = Math.max(track.offsetHeight - vh, 1);
+    const trackH = Math.max((track as HTMLElement).offsetHeight - vh, 1);
     const target = Math.min(Math.max(window.scrollY / trackH, 0), 1);
     
     setProgress(target);
@@ -52,7 +52,7 @@ export function useScrollProgress(options: UseScrollProgressOptions = {}) {
     }
     
     const vh = window.innerHeight;
-    const trackH = Math.max(track.offsetHeight - vh, 1);
+    const trackH = Math.max((track as HTMLElement).offsetHeight - vh, 1);
     const target = Math.min(Math.max(window.scrollY / trackH, 0), 1);
     
     smooth += (target - smooth) * 0.12;

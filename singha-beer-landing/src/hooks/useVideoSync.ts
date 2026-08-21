@@ -204,7 +204,7 @@ export function useVideoSync(options: UseVideoSyncOptions) {
     }
     
     const vh = window.innerHeight;
-    const trackH = Math.max(track.offsetHeight - vh, 1);
+    const trackH = Math.max((track as HTMLElement).offsetHeight - vh, 1);
     const target = Math.min(Math.max(window.scrollY / trackH, 0), 1);
     
     smooth += (target - smooth) * K;

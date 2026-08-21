@@ -11,6 +11,8 @@ import VideoStage from "~/home/VideoStage";
 import Loader from "~/layout/Loader";
 import Header from "~/layout/Header";
 import Footer from "~/layout/Footer";
+import Reveal from "~/shared/Reveal";
+import Kicker from "~/shared/Kicker";
 
 /**
  * Página principal con todos los capítulos de la historia de Singha.
