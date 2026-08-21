@@ -48,11 +48,6 @@
   @content;
 }
 
-@mixin center-block {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 // ============================================================
 //  GENERADOR DE CLASES UTILITARIAS GENÉRICO
 // ============================================================
@@ -119,7 +114,7 @@
           #{$property}: #{$value};
         }
       } @else {
-        .#{$value}:hover {
+        .#{$prefix}\:#{$value}:hover {
           #{$property}: #{$value};
         }
       }
@@ -131,7 +126,7 @@
           #{$property}: #{$value};
         }
       } @else {
-        .#{$key}:hover {
+        .#{$prefix}\:#{$key}:hover {
           #{$property}: #{$value};
         }
       }

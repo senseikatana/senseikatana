@@ -63,7 +63,7 @@ $base-font-size: 10px !default;
 // ============================================================
 //  TIPOGRAFÍA FLUIDA (clamp)
 // ============================================================
-@function fluid($min, $max, $min-vw: 320px, $max-vw: 1920px) {
+@function fluid($min, $max, $min-vw: rem(320px), $max-vw: rem(1920px)) {
   $min-val: if(sass(math.is-unitless($min)): $min * 1px; else: $min);
   $max-val: if(sass(math.is-unitless($max)): $max * 1px; else: $max);
   $vw-min: if(sass(math.is-unitless($min-vw)): $min-vw * 1px; else: $min-vw);

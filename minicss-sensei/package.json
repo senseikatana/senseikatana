@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build:css": "sass src/scss/main.scss:dist/css/main.css --no-source-map --style=compressed",
-    "build:css:dev": "sass src/scss/main.scss:dist/css/main.css --watch",
+    "build:css:dev": "sass src/scss/**/*.scss:dist/css/main.css --watch",
     "build:purge": "postcss dist/css/main.css -o dist/css/main.min.css",
     "build": "npm run build:css && npm run build:purge",
     "dev": "concurrently \"npm run build:css:dev\" \"live-server\""

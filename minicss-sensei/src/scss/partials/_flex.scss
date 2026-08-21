@@ -56,8 +56,8 @@
 
 @mixin flex-center($gap: null) {
   @include _flex-base($gap) {
-    align-items: center;
-    justify-content: center;
+    place-items: center;
+    place-content: center;
     @content;
   }
 }
@@ -70,15 +70,15 @@
 // ============================================================
 //  FLEX ITEMS
 // ============================================================
-@mixin flex-item-grow($grow: 1) {
+@mixin flex-grow($grow: 1) {
   flex-grow: $grow;
 }
 
-@mixin flex-item-shrink($shrink: 1) {
+@mixin flex-shrink($shrink: 1) {
   flex-shrink: $shrink;
 }
 
-@mixin flex-item-basis($basis: auto) {
+@mixin flex-basis($basis: auto) {
   flex-basis: $basis;
 }
 
@@ -91,5 +91,6 @@
 }
 
 @mixin flex-item-full {
-  flex: 1 1 100%;
+  @include flex-item(1, 1, 100%);
+  @content;
 }

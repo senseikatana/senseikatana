@@ -77,16 +77,16 @@ $breakpoints: (
 @mixin md     { @include breakpoint("md", up)    { @content; } }
 @mixin lg     { @include breakpoint("lg", up)    { @content; } }
 @mixin xl     { @include breakpoint("xl", up)    { @content; } }
-@mixin xxl    { @include breakpoint("x2l", up)   { @content; } }
-@mixin xxxl   { @include breakpoint("x3l", up)   { @content; } }
+@mixin xxl    { @include breakpoint("2xl", up)   { @content; } }
+@mixin xxxl   { @include breakpoint("3xl", up)   { @content; } }
 
 @mixin xs-down  { @include breakpoint("xs", down)  { @content; } }
 @mixin sm-down  { @include breakpoint("sm", down)  { @content; } }
 @mixin md-down  { @include breakpoint("md", down)  { @content; } }
 @mixin lg-down  { @include breakpoint("lg", down)  { @content; } }
 @mixin xl-down  { @include breakpoint("xl", down)  { @content; } }
-@mixin xxl-down { @include breakpoint("x2l", down) { @content; } }
-@mixin xxxl-down { @include breakpoint("x3l", down) { @content; } }
+@mixin x2l-down { @include breakpoint("2xl", down) { @content; } }
+@mixin x3l-down { @include breakpoint("3xl", down) { @content; } }
 
 // ============================================================
 //  UTILIDADES ADICIONALES (contexto)
