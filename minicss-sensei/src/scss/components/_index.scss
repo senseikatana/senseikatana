@@ -1,9 +1,14 @@
-@use "./partials/apply" as a;
+@use "../partials/apply" as a;
+@use "../partials/breakpoints" as bp;
 
-// Usando @apply con tu framework
+// ============================================================
+//  COMPONENTES DE EJEMPLO (usando @apply)
+//  Aquí van tus estilos personalizados.
+// ============================================================
+
 .card {
   @include a.apply(flex, flex-col, p-4, rounded-lg, shadow-md, bg-white);
-  
+
   &:hover {
     @include a.apply(shadow-lg);
   }
@@ -24,7 +29,7 @@
 
 .container-custom {
   @include a.apply(flex, flex-col, gap-4, p-6);
-  
+
   @include bp.md {
     @include a.apply(flex-row, gap-6, p-8);
   }
@@ -33,7 +38,7 @@
 // Combinando con clases HTML normales
 .hero {
   @include a.apply(grid, grid-cols-1, gap-8, p-8);
-  
+
   @include bp.lg {
     @include a.apply(grid-cols-2, gap-12, p-12);
   }

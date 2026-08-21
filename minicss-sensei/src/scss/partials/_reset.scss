@@ -1,3 +1,19 @@
+// ============================================================
+//  RESET MODERNO
+//  Valores por defecto de las custom properties que usa el reset.
+//  Sobrescríbelas desde tu tema si lo necesitas.
+// ============================================================
+:root {
+  --m-reset: 0;
+  --p-reset: 0;
+  --box-sizing: border-box;
+  --bg-repeat: no-repeat;
+  --bg-position: initial;
+  --min-w-reset: auto;
+  --text-size-adjust: 100%;
+  --min-h-screen: 100vh;
+}
+
 *,
 *::before,
 *::after {

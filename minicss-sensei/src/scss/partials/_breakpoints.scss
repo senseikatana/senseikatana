@@ -56,7 +56,7 @@ $breakpoints: (
 
 @mixin breakpoint($from, $direction: up, $to: null) {
   $from-val: _breakpoint-value($from);
-  $to-val: $if( $to != null, _breakpoint-value($to), null);
+  $to-val: if(sass($to != null): _breakpoint-value($to); else: null);
   @media #{_media-query($direction, $from-val, $to-val)} {
     @content;
   }

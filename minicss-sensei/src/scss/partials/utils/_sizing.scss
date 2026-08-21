@@ -1,0 +1,19 @@
+@use "core";
+@use "maps";
+
+// ============================================================
+//  UTILS · SIZING
+//  Utilidades de ancho/alto (w, min-w, max-w, h, min-h, max-h).
+//  Ópt-in: @include sizing.get-sizing-classes();
+// ============================================================
+
+/// Genera utilidades de sizing desde $sizing-map.
+@mixin get-sizing-classes($map: maps.$sizing-map) {
+  @include core.utils-classes($map, width, "w");
+  @include core.utils-classes($map, min-width, "min-w");
+  @include core.utils-classes($map, max-width, "max-w");
+  @include core.utils-classes($map, height, "h");
+  @include core.utils-classes($map, min-height, "min-h");
+  @include core.utils-classes($map, max-height, "max-h");
+  @content;
+}

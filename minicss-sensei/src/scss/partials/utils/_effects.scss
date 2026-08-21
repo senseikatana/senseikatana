@@ -1,0 +1,31 @@
+@use "core";
+@use "maps";
+
+// ============================================================
+//  UTILS · EFECTOS
+//  Sombras, radios, z-index, transiciones y opacidad.
+//  .shadow y .rounded se emiten al cargar el módulo (como en
+//  el _utils.scss original). El resto es ópt-in vía
+//  @include effects.generate-effects-utilities();
+// ============================================================
+
+// --- CLASES BASE (activas por defecto) ---
+.shadow {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+// --- GENERADOR DESDE MAPAS (ópt-in) ---
+
+/// Genera shadow-*, rounded-*, z-*, duration-*, ease-* y opacity-*.
+@mixin generate-effects-utilities() {
+  @include core.utils-classes(maps.$shadow-map, box-shadow, "shadow");
+  @include core.utils-classes(maps.$radius-map, border-radius, "rounded");
+  @include core.utils-classes(maps.$z-layers-map, z-index, "z");
+  @include core.utils-classes(maps.$transition-duration-map, transition-duration, "duration");
+  @include core.utils-classes(maps.$transition-timing-map, transition-timing-function, "ease");
+  @include core.utils-classes(maps.$opacity-values, opacity, "opacity");
+}

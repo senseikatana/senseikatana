@@ -1,6 +1,3 @@
-@use "sass:map";
-@use "sass:meta";
-@use "sass:math";
 @use "./partials/functions" as f;
 @use "./partials/variables" as v;
 @use "./partials/reset" as r;
@@ -8,12 +5,12 @@
 @use "./partials/theme" as t;
 @use "./partials/colors" as c;
 @use "./partials/grid" as gr;
-@use "./partials/flexbox" as fl;
+@use "./partials/flex" as fl;
 @use "./partials/utils" as u;
 @use "./partials/apply" as a;
 
-// Generar todas las utilidades
-@include c.all-utilities();
-
 // Aquí van tus estilos personalizados usando @apply
-@import "./components";
+@use "./components/index";
+
+// Generar todas las utilidades de color
+@include c.all-utilities();

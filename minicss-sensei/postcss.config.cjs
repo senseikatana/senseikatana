@@ -4,6 +4,8 @@ module.exports = {
     // PurgeCSS configuration (same as Tailwind)
     '@fullhuman/postcss-purgecss': {
       content: [
+        './index.html',
+        './src/scss/**/*.scss',
         './src/**/*.html',
         './src/**/*.js',
         './src/**/*.jsx',
