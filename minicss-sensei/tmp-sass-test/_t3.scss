@@ -1,0 +1,6 @@
+@mixin pal($palettes: null) {
+  $palettes: if(sass($palettes == null): (a: 1); else: $palettes);
+  out: $palettes;
+}
+.c { @include pal(); }
+.d { @include pal((b: 2)); }

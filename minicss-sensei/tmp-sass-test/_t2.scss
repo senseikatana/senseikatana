@@ -1,0 +1,16 @@
+@use "sass:math";
+
+@function _bp($k) {
+  @if $k == null {
+    @error "null key";
+  }
+  @return $k;
+}
+
+@mixin m($to: null) {
+  $v: if(sass($to != null): _bp($to); else: null);
+  result: $v;
+}
+
+.a { @include m(null); }
+.b { @include m(768px); }

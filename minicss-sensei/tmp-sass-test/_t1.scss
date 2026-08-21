@@ -1,0 +1,13 @@
+@function _boom() {
+  @error "branch evaluated";
+  @return 1;
+}
+
+@mixin test($x: null) {
+  $r: if(sass($x == null): 10px; else: _boom());
+  value: $r;
+}
+
+.out {
+  @include test();
+}
