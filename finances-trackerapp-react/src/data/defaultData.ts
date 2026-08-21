@@ -33,6 +33,39 @@ export const FIXED_CATEGORIES = [
   'Vivienda', 'Suscripciones', 'Seguros', 'Transporte', 'Finanzas', 'Educación',
 ];
 
+// ============================================
+// BUSINESS FINANCE CATEGORIES
+// ============================================
+export const BUSINESS_EXPENSE_CATEGORIES = [
+  'Proveedores', 'Materiales', 'Nómina', 'Alquiler Oficina', 'Servicios',
+  'Marketing', 'Logística', 'Honorarios', 'Impuestos', 'Seguros', 'Otros',
+];
+
+export const BUSINESS_INCOME_CATEGORIES = [
+  'Ventas', 'Servicios', 'Consultoría', 'Proyectos', 'Comisiones', 'Subvenciones', 'Otros',
+];
+
+// ============================================
+// CRM CATEGORIES
+// ============================================
+export const CRM_DEAL_TYPES = [
+  'Cliente', 'Proveedor', 'Lead', 'Partner', 'Inversor', 'Otro',
+];
+
+export const CRM_DEAL_STATUSES = [
+  'Prospecto', 'Contactado', 'En negociación', 'Propuesta enviada', 
+  'Ganado', 'Perdido', 'Archivado',
+];
+
+export const TICKET_CATEGORIES = [
+  'Alimentación', 'Transporte', 'Oficina', 'Suministros', 'Marketing',
+  'Restaurantes', 'Hospedaje', 'Viajes', 'Otros',
+];
+
+export const TICKET_STATUS = [
+  'Pendiente', 'Procesado', 'Validado', 'Archivado', 'Rechazado',
+];
+
 export const defaultData = {
   settings: {
     currency: '€',
@@ -70,6 +103,33 @@ export const defaultData = {
   savingsGoals: [],
 
   debts: [],
+
+  // ---- Business Finance ----
+  businessIncomeCategories: [...BUSINESS_INCOME_CATEGORIES],
+  businessExpenseCategories: [...BUSINESS_EXPENSE_CATEGORIES],
+
+  businessIncome: [],
+  businessExpenses: [],
+  businessBudget: [
+    { category: 'Proveedores', planned: 0 },
+    { category: 'Nómina', planned: 0 },
+    { category: 'Alquiler Oficina', planned: 0 },
+    { category: 'Servicios', planned: 0 },
+    { category: 'Marketing', planned: 0 },
+    { category: 'Logística', planned: 0 },
+    { category: 'Honorarios', planned: 0 },
+    { category: 'Impuestos', planned: 0 },
+    { category: 'Seguros', planned: 0 },
+    { category: 'Otros', planned: 0 },
+  ],
+
+  // ---- CRM ----
+  crmContacts: [],
+  crmCategories: [...CRM_DEAL_TYPES],
+
+  // ---- Tickets / Receipts ----
+  ticketCategories: [...TICKET_CATEGORIES],
+  tickets: [],
 };
 
 export const sampleData = {
@@ -161,5 +221,45 @@ export const sampleData = {
   debts: [
     { id: 1, creditor: 'Banco', concept: 'Préstamo Coche', total: 8000, paid: 3200, monthlyPayment: 150, notes: 'Interés 4%' },
   ],
+
+  // ---- Business Income ----
+  businessIncome: [
+    { id: 1, date: '2025-01-05', category: 'Servicios', concept: 'Consultoría web', amount: 1200, client: 'Tech Corp', notes: 'Mensual' },
+    { id: 2, date: '2025-01-15', category: 'Proyectos', concept: 'Desarrollo app', amount: 3500, client: 'StartUp Inc', notes: '30% anticipo' },
+  ],
+
+  // ---- Business Expenses ----
+  businessExpenses: [
+    { id: 1, date: '2025-01-01', category: 'Proveedores', concept: 'Licencia software', amount: 49, provider: 'Adobe', notes: 'Mensual' },
+    { id: 2, date: '2025-01-10', category: 'Marketing', concept: 'Anuncios Google Ads', amount: 150, provider: 'Google', notes: 'Campaña Q1' },
+    { id: 3, date: '2025-01-15', category: 'Servicios', concept: 'Dominio web', amount: 15, provider: 'Namecheap', notes: 'Anual' },
+  ],
+
+  // ---- Business Budget ----
+  businessBudget: [
+    { category: 'Proveedores', planned: 500 },
+    { category: 'Servicios', planned: 200 },
+    { category: 'Marketing', planned: 300 },
+    { category: 'Logística', planned: 100 },
+    { category: 'Otros', planned: 100 },
+  ],
+
+  // ---- CRM Contacts ----
+  crmContacts: [
+    { id: 1, name: 'Tech Corp', type: 'Cliente', status: 'Ganado', value: 15000, phone: '+34 612345678', email: 'info@techcorp.com', notes: 'Cliente recurrente', lastContact: '2025-01-15' },
+    { id: 2, name: 'StartUp Inc', type: 'Cliente', status: 'En negociación', value: 8000, phone: '+34 698765432', email: 'hola@startup.com', notes: 'Interesados en app móvil', lastContact: '2025-01-20' },
+    { id: 3, name: 'Digital Agency', type: 'Lead', status: 'Contactado', value: 5000, phone: '+34 655555555', email: 'info@agency.com', notes: 'Referidos por Tech Corp', lastContact: '2025-01-18' },
+  ],
+
+  // ---- Tickets ----
+  tickets: [
+    { id: 1, date: '2025-01-10', concept: 'Compra supermercado', category: 'Alimentación', amount: 84.50, type: 'personal', status: 'Procesado', files: [], notes: 'Compra semanal' },
+    { id: 2, date: '2025-01-12', concept: 'Gasolina', category: 'Transporte', amount: 45.00, type: 'personal', status: 'Pendiente', files: [], notes: '' },
+    { id: 3, date: '2025-01-15', concept: 'Software licencia', category: 'Oficina', amount: 99.00, type: 'negocio', status: 'Validado', files: [], notes: 'Licencia anual' },
+  ],
 };
+
+// Alias for SDK compatibility
+export const SAMPLE_DATA = sampleData;
+
 
