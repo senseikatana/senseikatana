@@ -1,0 +1,226 @@
+        :root {
+            --bg: #0f0f0f;
+            --panel-bg: #1a1a1a;
+            --fg: #f0f0f0;
+            --accent: #4af;
+            --track-bg: #333;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Layout Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        h1 { text-align: center; margin: 0; font-weight: 300; letter-spacing: 2px; }
+        h1 span { color: var(--accent); font-weight: 700; }
+
+        /* Sección del Dial */
+        .dial-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .dial-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .dial-wrapper:active { cursor: grabbing; }
+
+        .ring {
+            position: absolute;
+            border-radius: 50%;
+            transition: background 0.05s linear;
+        }
+        .hsl-ring {
+            inset: 0;
+            -webkit-mask: radial-gradient(circle, transparent 68%, black 68%);
+            mask: radial-gradient(circle, transparent 68%, black 68%);
+            z-index: 1;
+        }
+        .ring-gap {
+            position: absolute;
+            inset: 40px;
+            background: var(--bg);
+            border-radius: 50%;
+            z-index: 2;
+        }
+        .oklch-ring {
+            inset: 50px;
+            -webkit-mask: radial-gradient(circle, transparent 55%, black 55%);
+            mask: radial-gradient(circle, transparent 55%, black 55%);
+            z-index: 3;
+        }
+
+        .ring-label {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+            z-index: 4;
+            pointer-events: none;
+        }
+        .label-hsl { top: 8px; color: #fff; }
+        .label-oklch { top: 58px; color: #ddd; }
+
+        .pointer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            transform-origin: center center;
+            transform: translateX(-50%) rotate(0deg);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .pointer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0; 
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 16px solid #fff;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+        }
+        .pointer-line {
+            position: absolute;
+            top: 10px; left: 50%;
+            width: 2px; height: 100%;
+            background: #fff;
+            transform: translateX(-50%);
+            opacity: 0.8;
+        }
+
+        .center-hub {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px; height: 80px;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .center-hub small { font-size: 0.6rem; color: #888; font-weight: normal; }
+        .dial-info { text-align: center; font-family: monospace; color: #888; font-size: 0.85rem; }
+
+        /* Paneles de Comparación */
+        .panels-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .panels-grid { grid-template-columns: 1fr; }
+            .dial-wrapper { width: 250px; height: 250px; }
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid #333;
+        }
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+        .panel-title { font-size: 1.2rem; font-weight: bold; margin: 0; }
+        .panel-code {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            background: #0a0a0a;
+            padding: 4px 8px;
+            border-radius: 4px;
+            word-break: break-all;
+            text-align: right;
+        }
+
+        .color-display {
+            width: 100%;
+            height: 150px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            transition: background 0.05s linear;
+        }
+
+        /* Controles Sliders */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        .control-label span { color: #fff; font-family: monospace; }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: var(--track-bg);
+            outline: none;
+            border: 1px solid #444;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: 3px solid var(--accent);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            border: 3px solid var(--accent);
+        }
