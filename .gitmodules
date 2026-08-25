@@ -1,0 +1,3 @@
+[submodule "02_coolor-compass-playground"]
+	path = 02_coolor-compass-playground
+	url = https://github.com/senseikatana/color-compass-playground.git
