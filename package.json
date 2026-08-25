@@ -1,7 +1,7 @@
 {
-  "name": "senseikatana-github",
+  "name": "senseikatana",
   "version": "0.1.0",
-  "description": "Proyecto senseikatana-github",
+  "description": "Proyecto senseikatana",
   "type": "module",
   "scripts": {
     "dev": "bun run dev",
