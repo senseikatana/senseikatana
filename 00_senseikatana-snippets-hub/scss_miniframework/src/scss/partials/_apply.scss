@@ -1,0 +1,179 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:string";
+
+// ============================================================
+//  REGISTRO DE UTILIDADES (para @apply)
+// ============================================================
+$_utility-registry: ();
+
+/// Registra una utilidad para que pueda usarse con @apply
+/// @param {String} $name - Nombre de la clase (sin punto)
+/// @param {Map} $styles - Mapa de propiedades CSS
+@mixin register-utility($name, $styles) {
+  $_utility-registry: map.merge($_utility-registry, ($name: $styles)) !global;
+}
+
+/// Aplica múltiples utilidades registradas
+/// @param {ArgList} $utilities - Lista de nombres de utilidades
+/// @example scss
+///   .card {
+///     @include apply(flex, flex-col, p-4, rounded-lg, shadow-md);
+///   }
+@mixin apply($utilities...) {
+  @each $util in $utilities {
+    $util-str: "#{$util}";
+    
+    @if not map.has-key($_utility-registry, $util-str) {
+      @error "apply(): utilidad '#{$util}' no registrada. Usa register-utility() primero.";
+    }
+    
+    $styles: map.get($_utility-registry, $util-str);
+    
+    @each $prop, $value in $styles {
+      #{$prop}: #{$value};
+    }
+  }
+}
+
+// ============================================================
+//  REGISTRO AUTOMÁTICO DE UTILIDADES COMUNES
+// ============================================================
+
+// Display
+@include register-utility("block", (display: block));
+@include register-utility("inline-block", (display: inline-block));
+@include register-utility("inline", (display: inline));
+@include register-utility("flex", (display: flex));
+@include register-utility("inline-flex", (display: inline-flex));
+@include register-utility("grid", (display: grid));
+@include register-utility("hidden", (display: none));
+
+// Flexbox
+@include register-utility("flex-row", (flex-direction: row));
+@include register-utility("flex-col", (flex-direction: column));
+@include register-utility("flex-wrap", (flex-wrap: wrap));
+@include register-utility("flex-nowrap", (flex-wrap: nowrap));
+@include register-utility("flex-1", (flex: 1 1 0%));
+@include register-utility("flex-auto", (flex: 1 1 auto));
+@include register-utility("flex-none", (flex: none));
+@include register-utility("items-center", (align-items: center));
+@include register-utility("items-start", (align-items: flex-start));
+@include register-utility("items-end", (align-items: flex-end));
+@include register-utility("justify-center", (justify-content: center));
+@include register-utility("justify-between", (justify-content: space-between));
+@include register-utility("justify-around", (justify-content: space-around));
+@include register-utility("justify-evenly", (justify-content: space-evenly));
+
+// Grid
+@include register-utility("grid-cols-1", (grid-template-columns: repeat(1, 1fr)));
+@include register-utility("grid-cols-2", (grid-template-columns: repeat(2, 1fr)));
+@include register-utility("grid-cols-3", (grid-template-columns: repeat(3, 1fr)));
+@include register-utility("grid-cols-4", (grid-template-columns: repeat(4, 1fr)));
+@include register-utility("grid-cols-6", (grid-template-columns: repeat(6, 1fr)));
+@include register-utility("grid-cols-12", (grid-template-columns: repeat(12, 1fr)));
+@include register-utility("col-span-full", (grid-column: list.slash(1, -1)));
+
+// Spacing (ejemplos - puedes generar más dinámicamente)
+$spacing-scale: (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 0.75rem, 4: 1rem, 6: 1.5rem, 8: 2rem, 12: 3rem, 16: 4rem);
+
+@each $key, $value in $spacing-scale {
+  @include register-utility("p-#{$key}", (padding: $value));
+  @include register-utility("px-#{$key}", (padding-left: $value, padding-right: $value));
+  @include register-utility("py-#{$key}", (padding-top: $value, padding-bottom: $value));
+  @include register-utility("pt-#{$key}", (padding-top: $value));
+  @include register-utility("pb-#{$key}", (padding-bottom: $value));
+  @include register-utility("pl-#{$key}", (padding-left: $value));
+  @include register-utility("pr-#{$key}", (padding-right: $value));
+  
+  @include register-utility("m-#{$key}", (margin: $value));
+  @include register-utility("mx-#{$key}", (margin-left: $value, margin-right: $value));
+  @include register-utility("my-#{$key}", (margin-top: $value, margin-bottom: $value));
+  @include register-utility("mt-#{$key}", (margin-top: $value));
+  @include register-utility("mb-#{$key}", (margin-bottom: $value));
+  @include register-utility("ml-#{$key}", (margin-left: $value));
+  @include register-utility("mr-#{$key}", (margin-right: $value));
+  
+  @include register-utility("gap-#{$key}", (gap: $value));
+}
+
+// Typography
+@include register-utility("text-xs", (font-size: 0.75rem));
+@include register-utility("text-sm", (font-size: 0.875rem));
+@include register-utility("text-base", (font-size: 1rem));
+@include register-utility("text-lg", (font-size: 1.125rem));
+@include register-utility("text-xl", (font-size: 1.25rem));
+@include register-utility("text-2xl", (font-size: 1.5rem));
+@include register-utility("text-3xl", (font-size: 1.875rem));
+@include register-utility("text-4xl", (font-size: 2.25rem));
+
+@include register-utility("font-thin", (font-weight: 100));
+@include register-utility("font-light", (font-weight: 300));
+@include register-utility("font-normal", (font-weight: 400));
+@include register-utility("font-medium", (font-weight: 500));
+@include register-utility("font-semibold", (font-weight: 600));
+@include register-utility("font-bold", (font-weight: 700));
+@include register-utility("font-extrabold", (font-weight: 800));
+@include register-utility("font-black", (font-weight: 900));
+
+@include register-utility("text-left", (text-align: left));
+@include register-utility("text-center", (text-align: center));
+@include register-utility("text-right", (text-align: right));
+
+// Sizing
+@include register-utility("w-full", (width: 100%));
+@include register-utility("w-screen", (width: 100vw));
+@include register-utility("w-auto", (width: auto));
+@include register-utility("h-full", (height: 100%));
+@include register-utility("h-screen", (height: 100vh));
+@include register-utility("h-auto", (height: auto));
+
+// Borders
+@include register-utility("rounded", (border-radius: 0.25rem));
+@include register-utility("rounded-md", (border-radius: 0.375rem));
+@include register-utility("rounded-lg", (border-radius: 0.5rem));
+@include register-utility("rounded-xl", (border-radius: 0.75rem));
+@include register-utility("rounded-full", (border-radius: 9999px));
+@include register-utility("border", (border-width: 1px, border-style: solid));
+@include register-utility("border-0", (border-width: 0));
+@include register-utility("border-2", (border-width: 2px, border-style: solid));
+
+// Effects
+@include register-utility("shadow-sm", (box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)));
+@include register-utility("shadow", (box-shadow: (0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1))));
+@include register-utility("shadow-md", (box-shadow: (0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1))));
+@include register-utility("shadow-lg", (box-shadow: (0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1))));
+@include register-utility("shadow-xl", (box-shadow: (0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1))));
+
+@include register-utility("opacity-0", (opacity: 0));
+@include register-utility("opacity-25", (opacity: 0.25));
+@include register-utility("opacity-50", (opacity: 0.5));
+@include register-utility("opacity-75", (opacity: 0.75));
+@include register-utility("opacity-100", (opacity: 1));
+
+// Position
+@include register-utility("static", (position: static));
+@include register-utility("fixed", (position: fixed));
+@include register-utility("absolute", (position: absolute));
+@include register-utility("relative", (position: relative));
+@include register-utility("sticky", (position: sticky));
+
+// Overflow
+@include register-utility("overflow-auto", (overflow: auto));
+@include register-utility("overflow-hidden", (overflow: hidden));
+@include register-utility("overflow-visible", (overflow: visible));
+@include register-utility("overflow-scroll", (overflow: scroll));
+
+// Colors (ejemplos - genera dinámicamente desde tu mapa de colores)
+@include register-utility("text-white", (color: hsl(0, 0%, 97%)));
+@include register-utility("text-black", (color: hsl(0, 0%, 3%)));
+@include register-utility("bg-white", (background-color: hsl(0, 0%, 97%)));
+@include register-utility("bg-black", (background-color: hsl(0, 0%, 3%)));
+@include register-utility("bg-transparent", (background-color: transparent));
+
+// Transitions
+@include register-utility("transition", (transition: all 150ms ease));
+@include register-utility("transition-colors", (transition: (color 150ms ease, background-color 150ms ease, border-color 150ms ease)));
+@include register-utility("transition-opacity", (transition: opacity 150ms ease));
+@include register-utility("transition-transform", (transition: transform 150ms ease));

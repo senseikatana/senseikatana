@@ -1,0 +1,135 @@
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
+
+// ============================================================
+//  UTILS · CORE
+//  Mixins genéricos: variables CSS, centrado y generadores
+//  de clases utilitarias.
+// ============================================================
+@mixin vars-list($list, $prefix: null) {
+  @each $value in $list {
+    @if $prefix != null {
+      --#{$prefix}-#{$value}: #{$value};
+    } @else {
+      --#{$value}: #{$value};
+    }
+  }
+}
+
+@mixin vars-map($map, $prefix: null) {
+  @each $key, $value in $map {
+    @if $prefix != null {
+      --#{$prefix}-#{$key}: #{$value};
+    } @else {
+      --#{$key}: #{$value};
+    }
+  }
+}
+
+// ============================================================
+//  CENTRADO GENÉRICO
+// ============================================================
+@mixin absolute-center($pos: absolute, $y: 50%, $x: 50%) {
+  position: #{$pos};
+  top: #{$y};
+  left: #{$x};
+  transform: translate(-50%, -50%);
+  @content;
+}
+
+@mixin center-mx($xvalue: auto) {
+  margin-inline: #{$xvalue};
+  @content;
+}
+
+@mixin center-my($yvalue: auto) {
+  margin-block: #{$yvalue};
+  @content;
+}
+
+// ============================================================
+//  GENERADOR DE CLASES UTILITARIAS GENÉRICO
+// ============================================================
+
+/// Genera clases utilitarias desde una lista o mapa.
+/// 
+/// @param {List|Map} $input - Lista de valores o mapa clave-valor.
+/// @param {String} $property - Propiedad CSS a aplicar.
+/// @param {String} $prefix [''] - Prefijo para las clases.
+///
+/// @example scss
+///   // Desde lista: (auto, hidden) → .overflow-auto, .overflow-hidden
+///   @include utility-classes((auto, hidden), overflow, 'overflow');
+///   
+///   // Desde mapa: (auto: auto, hidden: hidden) → .overflow-auto, .overflow-hidden
+///   @include utility-classes((auto: auto, hidden: hidden), overflow, 'overflow');
+///   
+///   // Sin prefijo: (flex, grid) → .flex, .grid
+///   @include utility-classes((flex, grid), display);
+@mixin utils-classes($input, $property, $prefix: null) {
+  @if meta.type-of($input) == "list" {
+    @each $value in $input {
+      @if $prefix != null {
+        .#{$prefix}-#{$value} {
+          #{$property}: #{$value};
+        }
+      } @else {
+        .#{$value} {
+          #{$property}: #{$value};
+        }
+      }
+    }
+  } @else if meta.type-of($input) == "map" {
+    @each $key, $value in $input {
+      @if $prefix != null {
+        .#{$prefix}-#{$key} {
+          #{$property}: #{$value};
+        }
+      } @else {
+        .#{$key} {
+          #{$property}: #{$value};
+        }
+      }
+    }
+  } @else {
+    @error "utility-classes(): se esperaba lista o mapa, recibió #{meta.type-of($input)}.";
+  }
+}
+
+/// Genera clases utilitarias con estados hover.
+/// 
+/// @param {List|Map} $input - Lista de valores o mapa clave-valor.
+/// @param {String} $property - Propiedad CSS a aplicar.
+/// @param {String} $prefix [''] - Prefijo para las clases.
+///
+/// @example scss
+///   @include utility-classes-hover((info-300, danger-500), background-color, 'hover-bg');
+///   // Genera: .hover-bg-info-300:hover { background-color: info-300; }
+@mixin utils-classes-hover($input, $property, $prefix: null) {
+  @if meta.type-of($input) == "list" {
+    @each $value in $input {
+      @if $prefix != null {
+        .#{$prefix}-#{$value}:hover {
+          #{$property}: #{$value};
+        }
+      } @else {
+        .#{$prefix}\:#{$value}:hover {
+          #{$property}: #{$value};
+        }
+      }
+    }
+  } @else if meta.type-of($input) == "map" {
+    @each $key, $value in $input {
+      @if $prefix != null {
+        .#{$prefix}-#{$key}:hover {
+          #{$property}: #{$value};
+        }
+      } @else {
+        .#{$prefix}\:#{$key}:hover {
+          #{$property}: #{$value};
+        }
+      }
+    }
+  }
+}

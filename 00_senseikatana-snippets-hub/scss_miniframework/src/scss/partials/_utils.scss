@@ -1,0 +1,21 @@
+// ============================================================
+//  UTILS — Fachada
+//  Antes: un único archivo gigante (mapas + mixins + generación).
+//  Ahora: re-exporta las piezas modularizadas de ./utils/.
+//
+//    utils/_core.scss     Mixins genéricos (vars CSS, centrado,
+//                         generadores de clases).
+//    utils/_maps.scss     Tokens (mapas) de todas las utilidades.
+//    utils/_spacing.scss  Padding y gap (activo por defecto).
+//    utils/_sizing.scss   Utilidades de tamaño (ópt-in).
+//    utils/_flex.scss     Utilidades flexbox (ópt-in).
+//    utils/_effects.scss  Sombras, radios, z, transiciones, opacidad.
+//    utils/_layout.scss   Display, position, overflow y texto.
+//    utils/_index.scss    Índice + @mixin generate-all-utilities.
+//
+//  Uso:
+//    @use "utils" as u;
+//    @include u.generate-all-utilities();
+// ============================================================
+
+@forward "utils/index";

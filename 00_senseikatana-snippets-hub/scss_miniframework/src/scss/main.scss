@@ -1,0 +1,16 @@
+@use "./partials/functions" as f;
+@use "./partials/variables" as v;
+@use "./partials/reset" as r;
+@use "./partials/breakpoints" as bp;
+@use "./partials/theme" as t;
+@use "./partials/colors" as c;
+@use "./partials/grid" as gr;
+@use "./partials/flex" as fl;
+@use "./partials/utils" as u;
+@use "./partials/apply" as a;
+
+// Aquí van tus estilos personalizados usando @apply
+@use "./components/index";
+
+// Generar todas las utilidades de color
+@include c.all-utilities();

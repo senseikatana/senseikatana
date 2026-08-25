@@ -1,0 +1,93 @@
+// ============================================================
+//  RESET MODERNO
+//  Valores por defecto de las custom properties que usa el reset.
+//  Sobrescríbelas desde tu tema si lo necesitas.
+// ============================================================
+:root {
+  --m-reset: 0;
+  --p-reset: 0;
+  --box-sizing: border-box;
+  --bg-repeat: no-repeat;
+  --bg-position: initial;
+  --min-w-reset: auto;
+  --text-size-adjust: 100%;
+  --min-h-screen: 100vh;
+  --aragon: hsla(6, 96%, 50%, 1);
+  --asturias: hsla(46, 96%, 50%, 1);
+  --baleares: hsla(275, 96%, 50%, 1);
+  --reen-basque: hsla(142, 96%, 36%, 1);
+  --ceuta: hsla(228, 90%, 45%, 1);
+  --melilla: hsla(215, 90%, 55%, 1);
+}
+
+*,
+*::before,
+*::after {
+  margin: var(--m-reset);
+  padding: var(--p-reset);
+  box-sizing: var(--box-sizing);
+  background-repeat:   var(--bg-repeat);
+  background-position: var(--bg-position);
+  min-width: var(--min-w-reset);
+}
+
+
+
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: var(--text-size-adjust);
+  min-height: var(--min-h-screen);
+}
+
+
+
+
+
+
+
+body {
+  height: 100dvh;
+  min-height: 100dvh;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

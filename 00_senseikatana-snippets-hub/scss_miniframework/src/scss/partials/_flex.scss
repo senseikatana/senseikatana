@@ -1,0 +1,96 @@
+@use "sass:meta";
+@use "sass:math";
+@use "sass:list";
+
+// ============================================================
+//  HELPERS PRIVADOS
+// ============================================================
+@function _to-rem($value) {
+  @if meta.type-of($value) == "number" and math.is-unitless($value) {
+    @return $value * 1rem;
+  }
+  @return $value;
+}
+
+@mixin _flex-base($gap: null) {
+  display: flex;
+  @if $gap != null {
+    gap: _to-rem($gap);
+  }
+  @content;
+}
+
+// ============================================================
+//  FLEX LAYOUT
+// ============================================================
+@mixin flex-container(
+  $direction: row,
+  $wrap: nowrap,
+  $gap: null,
+  $align-items: stretch,
+  $justify-content: flex-start,
+  $align-content: normal,
+  $place-items: null,
+  $place-content: null
+) {
+  @include _flex-base($gap) {
+    flex-direction: $direction;
+    flex-wrap: $wrap;
+    
+    @if $place-items != null {
+      place-items: $place-items;
+    } @else {
+      align-items: $align-items;
+    }
+    
+    @if $place-content != null {
+      place-content: $place-content;
+    } @else {
+      justify-content: $justify-content;
+      align-content: $align-content;
+    }
+    
+    @content;
+  }
+}
+
+@mixin flex-center($gap: null) {
+  @include _flex-base($gap) {
+    place-items: center;
+    place-content: center;
+    @content;
+  }
+}
+
+@mixin flex-gap($value: 1rem, $var-name: --flex-gap) {
+  #{$var-name}: #{_to-rem($value)};
+  gap: var(#{$var-name});
+}
+
+// ============================================================
+//  FLEX ITEMS
+// ============================================================
+@mixin flex-grow($grow: 1) {
+  flex-grow: $grow;
+}
+
+@mixin flex-shrink($shrink: 1) {
+  flex-shrink: $shrink;
+}
+
+@mixin flex-basis($basis: auto) {
+  flex-basis: $basis;
+}
+
+@mixin flex-item($grow: 1, $shrink: 1, $basis: auto) {
+  flex: $grow $shrink $basis;
+}
+
+@mixin flex-item-center {
+  align-self: center;
+}
+
+@mixin flex-item-full {
+  @include flex-item(1, 1, 100%);
+  @content;
+}
