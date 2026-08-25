@@ -1,3 +1,6 @@
 [submodule "02_coolor-compass-playground"]
 	path = 02_coolor-compass-playground
 	url = https://github.com/senseikatana/color-compass-playground.git
+[submodule "apis-tracker-js"]
+	path = apis-tracker-js
+	url = git@github.com:senseikatana/apis-manager.git
