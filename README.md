@@ -1,5 +1,3 @@
-<div align="center">
-
 # Sergio Jurado · `senseikatana`
 
 **Full-Stack Developer — Astro · TypeScript · Bun**
@@ -7,8 +5,6 @@
 [![GitHub](https://img.shields.io/badge/GitHub-senseikatana-181717?style=flat&logo=github)](https://github.com/senseikatana)
 [![Email](https://img.shields.io/badge/Email-burocracia%40yandex.com-blue?style=flat&logo=maildotru)](mailto:burocracia@yandex.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](LICENSE)
-
-</div>
 
 ---
 
