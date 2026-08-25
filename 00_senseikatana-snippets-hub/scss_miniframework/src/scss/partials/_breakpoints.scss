@@ -1,0 +1,101 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:math";
+
+// ============================================================
+//  CONFIGURACIÓN DE BREAKPOINTS
+// ============================================================
+
+$breakpoints: (
+  "xs": 0,
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "x2l": 1536px,
+  "x3l": 1920px
+) !default;
+
+// ============================================================
+//  HELPERS PRIVADOS
+// ============================================================
+
+@function _breakpoint-value($key) {
+  @if meta.type-of($key) == "number" {
+    @return if(sass(math.is-unitless($key)): $key * 1px; else: $key);
+  }
+  @if not map.has-key($breakpoints, $key) {
+    @error "Breakpoint '#{$key}' no encontrado. Disponibles: #{map.keys($breakpoints)}.";
+  }
+  @return map.get($breakpoints, $key);
+}
+
+@function _media-query($direction, $from, $to: null) {
+  @if $direction == "up" {
+    @return "(min-width: #{$from})";
+  }
+  @if $direction == "down" {
+    $max: calc(#{$from} - 0.02px);
+    @return "(max-width: #{$max})";
+  }
+  @if $direction == "only" {
+    @if $to == null { @error "only requiere un breakpoint 'to'."; }
+    $max: calc(#{$to} - 0.02px);
+    @return "(min-width: #{$from}) and (max-width: #{$max})";
+  }
+  @if $direction == "between" {
+    @if $to == null { @error "between requiere un breakpoint 'to'."; }
+    @return "(min-width: #{$from}) and (max-width: #{$to})";
+  }
+  @error "Dirección '#{$direction}' no válida. Use: up, down, only, between.";
+}
+
+// ============================================================
+//  MIXIN PRINCIPAL
+// ============================================================
+
+@mixin breakpoint($from, $direction: up, $to: null) {
+  $from-val: _breakpoint-value($from);
+  $to-val: if(sass($to != null): _breakpoint-value($to); else: null);
+  @media #{_media-query($direction, $from-val, $to-val)} {
+    @content;
+  }
+}
+
+@mixin bp($args...) {
+  @include breakpoint($args...) {
+    @content;
+  }
+}
+
+// ============================================================
+//  MIXINS NOMBRADOS (mobile-first: up + down)
+// ============================================================
+
+@mixin xs     { @include breakpoint("xs", up)    { @content; } }
+@mixin sm     { @include breakpoint("sm", up)    { @content; } }
+@mixin md     { @include breakpoint("md", up)    { @content; } }
+@mixin lg     { @include breakpoint("lg", up)    { @content; } }
+@mixin xl     { @include breakpoint("xl", up)    { @content; } }
+@mixin xxl    { @include breakpoint("2xl", up)   { @content; } }
+@mixin xxxl   { @include breakpoint("3xl", up)   { @content; } }
+
+@mixin xs-down  { @include breakpoint("xs", down)  { @content; } }
+@mixin sm-down  { @include breakpoint("sm", down)  { @content; } }
+@mixin md-down  { @include breakpoint("md", down)  { @content; } }
+@mixin lg-down  { @include breakpoint("lg", down)  { @content; } }
+@mixin xl-down  { @include breakpoint("xl", down)  { @content; } }
+@mixin x2l-down { @include breakpoint("2xl", down) { @content; } }
+@mixin x3l-down { @include breakpoint("3xl", down) { @content; } }
+
+// ============================================================
+//  UTILIDADES ADICIONALES (contexto)
+// ============================================================
+
+@mixin portrait { @media (orientation: portrait) { @content; } }
+@mixin landscape { @media (orientation: landscape) { @content; } }
+@mixin reduced-motion { @media (prefers-reduced-motion: reduce) { @content; } }
+@mixin hoverable { @media (hover: hover) and (pointer: fine) { @content; } }
+@mixin touch { @media (hover: none) and (pointer: coarse) { @content; } }
+@mixin dark-mode { @media (prefers-color-scheme: dark) { @content; } }
+@mixin light-mode { @media (prefers-color-scheme: light) { @content; } }

@@ -1,0 +1,216 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+@use "sass:color";
+
+// ============================================================
+//  MAPA DE COLORES
+// ============================================================
+@function _filter-palettes($map, $keys) {
+  $result: ();
+  @each $key, $value in $map {
+    @if list.index($keys, $key) != null {
+      $result: map.merge($result, ($key: $value));
+    }
+  }
+  @return $result;
+}
+
+$colors: (
+  "slate": (
+    100: hsla(0, 0%, 93%, 1),
+    200: hsla(0, 0%, 86%, 1),
+    300: hsla(0, 0%, 71%, 1),
+    400: hsla(0, 0%, 50%, 1),
+    500: hsla(0, 0%, 35%, 1),
+    600: hsla(0, 0%, 24%, 1),
+    700: hsla(0, 0%, 12%, 1),
+),
+"purple": (
+    100: hsla(269, 60%, 93%, 1),
+    200: hsla(269, 70%, 86%, 1),
+    300: hsla(269, 70%, 71%, 1),
+    400: hsla(269, 66%, 50%, 1),
+    500: hsla(269, 66%, 35%, 1), 
+    600: hsla(269, 60%, 24%, 1),
+    700: hsla(269, 50%, 12%, 1)
+),
+  "info": (
+    100: hsla(215, 95%, 93%, 1),
+    200: hsla(215, 95%, 86%, 1),
+    300: hsla(215, 95%, 71%, 1),
+    400: hsla(215, 95%, 50%, 1),
+    500: hsla(215, 95%, 35%, 1),
+    600: hsla(215, 95%, 24%, 1),
+    700: hsla(215, 95%, 12%, 1),
+  ),
+  "warning": (
+  100: hsla(49, 100%, 93%, 1),
+  200: hsla(49, 100%, 86%, 1),
+  300: hsla(49, 100%, 71%, 1),
+  400: hsla(49, 100%, 50%, 1), 
+  500: hsla(49, 100%, 35%, 1), 
+  600: hsla(49, 90%,  24%, 1),
+  700: hsla(49, 70%,  12%, 1)
+  ),
+  "danger": (
+  100: hsla(3, 95%, 93%, 1),
+  200: hsla(3, 95%, 86%, 1),
+  300: hsla(3, 95%, 71%, 1),
+  400: hsla(3, 95%, 50%, 1),
+  500: hsla(3, 95%, 35%, 1),
+  600: hsla(3, 95%, 24%, 1),
+  700: hsla(3, 95%, 12%, 1)
+  ),
+  "success": (
+  100: hsla(147, 95%, 93%, 1),
+  200: hsla(147, 95%, 86%, 1),
+  300: hsla(147, 95%, 71%, 1),
+  400: hsla(147, 95%, 50%, 1),
+  500: hsla(147, 95%, 35%, 1), 
+  600: hsla(147, 95%, 24%, 1),
+  700: hsla(147, 95%, 12%, 1)
+  )
+) !default;
+
+$special-colors: (
+  "black":       hsl(0, 0%, 8%),
+  "melilla": hsla(215, 90%, 55%, 1),
+  "current":     currentColor,
+  "basque": hsla(142, 96%, 36%, 1),
+  "ceuta": hsla(228, 90%, 45%, 1),
+  "baleares": hsla(275, 96%, 50%, 1),
+  "aragon": hsla(6, 96%, 50%, 1),
+  "transparent": transparent,
+  "white":       hsl(0, 0%, 98%),
+  "asturias": hsla(46, 96%, 50%, 1)
+) !default;
+
+$shades: (100, 200, 300, 400, 500, 600, 700) !default;
+
+// ============================================================
+//  FUNCIONES DE ACCESO
+// ============================================================
+
+@function get-color($name, $shade: 300, $alpha: 1) {
+  @if map.has-key($special-colors, $name) {
+    $color: map.get($special-colors, $name);
+    @if $alpha != 1 and meta.type-of($color) == "color" {
+      @return color.change($color, $alpha: $alpha);
+    }
+    @return $color;
+  }
+  @if not map.has-key($colors, $name) {
+    @error "get-color(): paleta '#{$name}' no existe.";
+  }
+  $palette: map.get($colors, $name);
+  @if not map.has-key($palette, $shade) {
+    @error "get-color(): tono '#{$shade}' no existe en '#{$name}'.";
+  }
+  $color: map.get($palette, $shade);
+  @if $alpha != 1 {
+    @return color.change($color, $alpha: $alpha);
+  }
+  @return $color;
+}
+
+@function get($name, $alpha: 1) {
+  @return get-color($name, 500, $alpha);
+}
+
+@function alpha($name, $shade: 500, $alpha: 0.5) {
+  @return get-color($name, $shade, $alpha);
+}
+
+// ============================================================
+//  GENERACIÓN DE VARIABLES CSS
+// ============================================================
+
+@mixin generate-css-vars($root: ":root", $palettes: null, $include-special: true) {
+    
+  $palettes: if(sass($palettes == null): $colors; else: _filter-palettes($colors, $palettes));
+  #{$root} {
+    @each $name, $palette in $palettes {
+      @each $shade, $value in $palette {
+        --#{$name}-#{$shade}: #{$value};
+      }
+    }
+    @if $include-special {
+      @each $name, $value in $special-colors {
+        --#{$name}: #{$value};
+      }
+    }
+  }
+}
+
+// ============================================================
+//  CLASES DE UTILIDAD
+// ============================================================
+
+@mixin _utility-classes($property, $class-prefix, $palettes: null, $include-special: true) {
+  $palettes: if(sass($palettes == null): $colors; else: _filter-palettes($colors, $palettes));
+  @each $name, $palette in $palettes {
+    @each $shade, $value in $palette {
+      .#{$class-prefix}-#{$name}-#{$shade} {
+        #{$property}: $value;
+      }
+    }
+  }
+  @if $include-special {
+    @each $name, $value in $special-colors {
+      .#{$class-prefix}-#{$name} {
+        #{$property}: $value;
+      }
+    }
+  }
+}
+
+@mixin text-utilities($palettes: null, $special: true) {
+  @include _utility-classes(color, "text", $palettes, $special);
+}
+@mixin bg-utilities($palettes: null, $special: true) {
+  @include _utility-classes(background-color, "bg", $palettes, $special);
+}
+@mixin border-utilities($palettes: null, $special: true) {
+  @include _utility-classes(border-color, "border", $palettes, $special);
+}
+@mixin hover-utilities($palettes: null, $special: true) {
+  $palettes: if(sass($palettes == null): $colors; else: _filter-palettes($colors, $palettes));
+  @each $name, $palette in $palettes {
+    @each $shade, $value in $palette {
+      .hover-text-#{$name}-#{$shade}:hover { color: $value; }
+      .hover-bg-#{$name}-#{$shade}:hover   { background-color: $value; }
+    }
+  }
+}
+@mixin all-utilities($palettes: null, $special: true) {
+  @include text-utilities($palettes, $special);
+  @include bg-utilities($palettes, $special);
+  @include border-utilities($palettes, $special);
+  @include hover-utilities($palettes, $special);
+}
+
+// ============================================================
+//  TEMAS
+// ============================================================
+
+@mixin theme($mode, $overrides: ()) {
+  $base: $colors;
+  @if $mode == "dark" {
+    $base: ();
+    @each $name, $palette in $colors {
+      $new: (
+        100: map.get($palette, 500),
+        200: map.get($palette, 400),
+        300: map.get($palette, 300),
+        400: map.get($palette, 200),
+        500: map.get($palette, 100)
+      );
+      $base: map.merge($base, ($name: $new));
+    }
+  }
+  @if meta.type-of($overrides) == "map" {
+    $base: map.merge($base, $overrides);
+  }
+  @include generate-css-vars(":root[data-theme='#{$mode}']", $base, false);
+}

@@ -1,0 +1,118 @@
+@use "sass:math";
+@use "sass:color";
+@use "sass:meta";
+@use "sass:string";
+@use "sass:list";
+
+$base-font-size: 10px !default;
+
+// ============================================================
+//  HELPERS PRIVADOS
+// ============================================================
+@function _str-replace($string, $search, $replace: "") {
+  $index: string.index($string, $search);
+  @if not $index { @return $string; }
+  @return string.slice($string, 1, $index - 1) + $replace +
+    _str-replace(string.slice($string, $index + string.length($search)), $search, $replace);
+}
+
+// ============================================================
+//  CONVERSIÓN DE UNIDADES
+// ============================================================
+@function rem($size) {
+  $value: $size;
+  @if meta.type-of($value) != "number" {
+    @error "rem(): se esperaba un número, recibió #{meta.inspect($value)}.";
+  }
+  $px: if(sass(math.is-unitless($value)): $value; else: math.div($value, 1px));
+  @return math.div($px, $base-font-size) * 1rem;
+}
+
+@function px($size) {
+  @if meta.type-of($size) != "number" {
+    @error "px(): se esperaba un número, recibió #{meta.inspect($size)}.";
+  }
+  $num: if(sass(math.is-unitless($size)): $size; else: math.div($size, 1rem));
+  @return ($num * $base-font-size) * 1px;
+}
+
+@function to-unit($value, $unit: "rem") {
+  @if meta.type-of($value) != "number" {
+    @error "to-unit(): se esperaba un número, recibió #{meta.inspect($value)}.";
+  }
+  @if not math.is-unitless($value) {
+    @return $value;
+  }
+  $valid: ("rem", "px", "em", "%");
+  @if not list.index($valid, $unit) {
+    @error "to-unit(): unidad '#{$unit}' no válida. Use: rem, px, em, %.";
+  }
+  @if $unit == "%" {
+    @return $value * 1%;
+  }
+  @return $value * 1#{$unit};
+}
+
+@function strip-unit($value) {
+  @if meta.type-of($value) != "number" {
+    @error "strip-unit(): se esperaba un número.";
+  }
+  @return math.div($value, ($value * 0 + 1));
+}
+
+// ============================================================
+//  TIPOGRAFÍA FLUIDA (clamp)
+// ============================================================
+@function fluid($min, $max, $min-vw: rem(320px), $max-vw: rem(1920px)) {
+  $min-val: if(sass(math.is-unitless($min)): $min * 1px; else: $min);
+  $max-val: if(sass(math.is-unitless($max)): $max * 1px; else: $max);
+  $vw-min: if(sass(math.is-unitless($min-vw)): $min-vw * 1px; else: $min-vw);
+  $vw-max: if(sass(math.is-unitless($max-vw)): $max-vw * 1px; else: $max-vw);
+  
+  $slope: math.div(strip-unit($max-val) - strip-unit($min-val), strip-unit($vw-max) - strip-unit($vw-min));
+  $intercept: strip-unit($min-val) - ($slope * strip-unit($vw-min));
+  
+  $sign: if(sass($intercept >= 0): "+"; else: "-");
+  $preferred: #{$slope * 100}vw #{$sign} #{math.abs($intercept)}px;
+  
+  @return clamp(#{$min-val}, #{$preferred}, #{$max-val});
+}
+
+// ============================================================
+//  MANIPULACIÓN DE COLORES
+// ============================================================
+@function tint($color, $amount: 10%) {
+  @if meta.type-of($color) != "color" { @error "tint(): se esperaba un color."; }
+  $pct: if(sass(math.is-unitless($amount)): $amount * 1%; else: $amount);
+  @return color.mix(white, $color, $pct);
+}
+
+@function shade($color, $amount: 10%) {
+  @if meta.type-of($color) != "color" { @error "shade(): se esperaba un color."; }
+  $pct: if(sass(math.is-unitless($amount)): $amount * 1%; else: $amount);
+  @return color.mix(black, $color, $pct);
+}
+
+@function saturate-color($color, $amount: 10%) { @return color.scale($color, $saturation: $amount); }
+@function desaturate-color($color, $amount: 10%) { @return color.scale($color, $saturation: -$amount); }
+@function complement($color) { @return color.complement($color); }
+
+@function contrast($color, $light: white, $dark: black) {
+  $brightness: (color.red($color) * 0.299 + color.green($color) * 0.587 + color.blue($color) * 0.114) / 255;
+  @return if(sass($brightness > 0.5): $dark; else: $light);
+}
+
+@function color-mix-var($var-name, $amount: 10%, $mix-with: white) {
+  $name: if(sass(string.index($var-name, "var(") == 1): $var-name; else: "var(#{$var-name})");
+  $pct: if(sass(math.is-unitless($amount)): $amount * 1%; else: $amount);
+  $color-pct: 100% - $pct;
+  @return color-mix(in srgb, #{$name} #{$color-pct}, #{$mix-with});
+}
+
+@function to-class($key) {
+  $str: "#{$key}";
+  $str: _str-replace($str, ".", "\\.");
+  $str: _str-replace($str, "/", "\\/");
+  $str: _str-replace($str, "%", "\\%");
+  @return $str;
+}

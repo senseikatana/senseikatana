@@ -1,0 +1,283 @@
+@use "sass:meta";
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+@use "sass:string";
+@use "variables" as v;
+@use "breakpoints" as bp;
+@use "functions" as f;
+
+$grid-gap-default: f.rem(10px) !default;
+$grid-columns-default: 12 !default;
+
+// ============================================================
+//  HELPERS PRIVADOS
+// ============================================================
+@function _to-rem($value) {
+  @if meta.type-of($value) == "number" and math.is-unitless($value) {
+    @return $value * 1rem;
+  }
+  @return $value;
+}
+
+@function _stack-index($value, $name) {
+  @if meta.type-of($value) != "number" {
+    @error "grid-stack(): #{$name} debe ser un número, recibió #{meta.inspect($value)}.";
+  }
+  @if not math.is-unitless($value) {
+    @error "grid-stack(): #{$name} debe ser sin unidad, recibió #{$value}.";
+  }
+  @if $value < 1 {
+    @error "grid-stack(): #{$name} debe ser >= 1, recibió #{$value}.";
+  }
+  @return math.round($value);
+}
+
+@function _stack-parent($parent) {
+  @if meta.type-of($parent) == "string" and string.index($parent, ".") == 1 {
+    @return string.slice($parent, 2);
+  }
+  @return $parent;
+}
+
+@mixin _grid-base($gap: null) {
+  display: grid;
+  @if $gap != null {
+    gap: _to-rem($gap);
+  }
+  @content;
+}
+
+// ============================================================
+//  GRID RESPONSIVE
+// ============================================================
+@mixin grid-responsive($min-size, $mode: fill, $max-size: 1fr, $gap: null) {
+  $keyword: null;
+  
+  @if $mode == fill {
+    $keyword: "auto-fill";
+  } @else if $mode == fit {
+    $keyword: "auto-fit";
+  }
+
+  @if $keyword == null {
+    @error "grid-responsive(): invalid mode '#{$mode}'. Use 'fill' or 'fit'.";
+  }
+  
+  @include _grid-base($gap) {
+    grid-template-columns: repeat(#{$keyword}, minmax(_to-rem($min-size), #{$max-size}));
+    @content;
+  }
+}
+
+
+// ============================================================
+//  GRID AUTO FILL:
+// ============================================================
+@mixin grid-autofill($min-size, $max-size: 1fr, $gap: null) {
+  @include grid-responsive($min-size, fill, $max-size, $gap) { @content; }
+}
+
+// ============================================================
+//  GRID AUTO FIT:
+// ============================================================
+@mixin grid-autofit($min-size, $max-size: 1fr, $gap: null) {
+  @include grid-responsive($min-size, fit, $max-size, $gap) { @content; }
+}
+
+// ============================================================
+//  GRID LAYOUT
+// ============================================================
+@mixin grid-container(
+  $cols: $grid-columns-default,
+  $rows: null,
+  $gap: $grid-gap-default,
+  $place-items: center,
+  $place-content: center,
+  $align-items: null,
+  $justify-content: null
+) {
+  @include _grid-base($gap) {
+    grid-template-columns: repeat($cols, 1fr);
+    grid-template-rows: $rows;
+
+    @if $place-items != null and $place-content != null {
+      place-items: $place-items;
+      place-content: $place-content;
+    } @else {
+      align-items: $align-items;
+      justify-content: $justify-content;
+    }
+    
+    @content;
+  }
+}
+
+// GRID ABSOLUTE CENTER: 
+@mixin grid-center($gap: null) {
+  @include _grid-base($gap) {
+    place-items: center;
+    place-content: center;
+    @content;
+  }
+}
+
+// GRID GUTTER OR GAP with MIXIN: 
+@mixin grid-gap($value: $grid-gap-default, $var-name: --grid-gap) {
+  #{$var-name}: #{_to-rem($value)};
+  gap: var(#{$var-name});
+}
+
+// ============================================================
+//  GRID ITEMS
+// ============================================================
+@mixin grid-span($cols: 1, $rows: null) {
+  grid-column: span $cols;
+  @if $rows != null {
+    grid-row: span $rows;
+  }
+}
+
+// GRID PLACEMENT:  grid-column: 1 / 2; grid-row: 1 / 2;
+@mixin grid-placement($col-start: 1, $col-end: -1, $row-start: null, $row-end: null) {
+  grid-column: #{$col-start} / #{$col-end};
+  @if $row-start != null and $row-end != null {
+    grid-row: #{$row-start} / #{$row-end};
+  } @else if $row-start != null {
+    grid-row: $row-start;
+  }
+
+  @content;
+}
+
+// ============================================================
+//  GRID AREAS:
+// ============================================================
+@mixin grid-areas($areas, $gap: null) {
+  @include _grid-base($gap) {
+    grid-template-areas: $areas;
+    @content;
+  }
+}
+
+// GRID AREA : for individual grid items
+@mixin grid-area($name) {
+  grid-area: $name;
+  @content;
+}
+
+@mixin grid-item-center {
+  place-self: center center;
+}
+
+@mixin grid-item-full($col: 1 / -1, $row: null) {
+  grid-column: 1 / -1;
+  @if $row != null {
+    grid-row: $row;
+  }
+
+  @content;
+}
+
+// ============================================================
+//  GRID AVANZADO
+// ============================================================
+@mixin grid-breakpoint-columns($columns-map, $gap: $grid-gap-default, $align-items: stretch) {
+  @include _grid-base($gap) {
+    align-items: $align-items;
+
+    $default: map.get($columns-map, "default");
+    @if $default {
+      grid-template-columns: repeat($default, 1fr);
+    } @else {
+      $first: list.nth(map.keys($columns-map), 1);
+      grid-template-columns: repeat(map.get($columns-map, $first), 1fr);
+    }
+
+    @each $bp, $cols in $columns-map {
+      @if $bp != "default" {
+        @include bp.breakpoint($bp) {
+          grid-template-columns: repeat($cols, 1fr);
+        }
+      }
+    }
+    @content;
+  }
+}
+
+@mixin subgrid($axis: both) {
+  display: grid;
+  @if $axis == column or $axis == both {
+    grid-template-columns: subgrid;
+  }
+  @if $axis == row or $axis == both {
+    grid-template-rows: subgrid;
+  }
+}
+
+// ============================================================
+//  GRID MASONRY LAYOUT:
+// ============================================================
+@mixin grid-masonry($axis: block, $gap: null) {
+  @include _grid-base($gap) {
+    grid-template-rows: masonry;
+    @if $axis == inline {
+      grid-template-columns: masonry;
+      grid-template-rows: none;
+    }
+    @content;
+  }
+}
+
+@mixin grid-fixed-columns($col-width, $gap: null) {
+  @include _grid-base($gap) {
+
+    grid-template-columns: repeat(auto-fill, _to-rem($col-width));
+    @content;
+  }
+}
+
+// ============================================================
+//  GRID STACKING
+// ============================================================
+@mixin grid-stack($dp: grid, $parent: null, $children: ("*"), $col: 1, $row: 1) {
+  @if $parent != null and meta.type-of($parent) != "string" and meta.type-of($parent) != "number" {
+    @error "grid-stack(): $parent debe ser un string o null, recibió #{meta.inspect($parent)}.";
+  }
+  $col: _stack-index($col, "$col");
+  $row: _stack-index($row, "$row");
+  $parent: _stack-parent($parent);
+
+  @if $parent != null {
+    .#{$parent} {
+      display: #{$dp};
+      @content;
+    }
+  } @else {
+    display: #{$dp};
+    @content;
+  }
+
+  @if $children != null and list.length($children) > 0 {
+    @each $child in $children {
+      @if meta.type-of($child) != "string" and meta.type-of($child) != "number" {
+        @error "grid-stack(): cada child debe ser un string, recibió #{meta.inspect($child)}.";
+      }
+      @if $parent != null {
+        .#{$parent} > #{$child} {
+          @include grid-place($col, $col + 1, $row, $row + 1);
+        }
+      } @else {
+        & > #{$child} {
+          @include grid-place($col, $col + 1, $row, $row + 1);
+        }
+      }
+    }
+  }
+}
+
+@mixin grid-stack-item($col: 1, $row: 1) {
+  $col: _stack-index($col, "$col");
+  $row: _stack-index($row, "$row");
+  @include grid-place($col, $col + 1, $row, $row + 1);
+}
