@@ -1,6 +1,6 @@
 export interface ApiEntry {
   baseUri: string
-  endpoints: Record<string, string>
+  endpoints?: Record<string, string>
   defaultQueryParams?: Record<string, Record<string, string | number>>
 }
 
