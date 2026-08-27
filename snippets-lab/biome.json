@@ -1,0 +1,119 @@
+{
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!src/styles/tailwind.css"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "all",
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "useImportExtensions": "off",
+        "useQwikValidLexicalScope": "off",
+        "useUniqueElementIds": "off",
+        "noProcessGlobal": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "error",
+        "useNamingConvention": "off",
+        "noDefaultExport": "off",
+        "useImportType": "off",
+        "noHeadElement": "off",
+        "noJsxLiterals": "off",
+        "noMagicNumbers": "off",
+        "noTernary": "off",
+        "noHexColors": "off",
+        "noExcessiveLinesPerFile": "off",
+        "noProcessEnv": "off",
+        "noContinue": "off",
+        "useExportsLast": "off",
+        "useDestructuring": "off",
+        "useGlobalThis": "off",
+        "useBlockStatements": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noUnknownAttribute": "off",
+        "noUnassignedVariables": "off",
+        "noLeakedRender": "off",
+        "noUnusedExpressions": "off"
+      },
+      "performance": {
+        "noJsxPropsBind": "off",
+        "useTopLevelRegex": "off"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "warn",
+        "noForEach": "off",
+        "noExcessiveLinesPerFunction": "off",
+        "noVoid": "off",
+        "noRedundantDefaultExport": "off",
+        "useSimplifiedLogicExpression": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "jsxQuoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "quoteStyle": "double",
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["scripts/**"],
+      "linter": {
+        "rules": {
+          "correctness": { "noNodejsModules": "off" },
+          "suspicious": { "noConsole": "off" },
+          "style": { "noNonNullAssertion": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["src/lib/apis/**"],
+      "linter": {
+        "rules": {
+          "complexity": { "noExcessiveCognitiveComplexity": "off" }
+        }
+      }
+    }
+  ]
+}

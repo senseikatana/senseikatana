@@ -1,8 +1,5 @@
 import { LOGGER } from "@/logger";
 
-export type Symbol = '€' | '$';
-export type Locale = 'en-US' | 'es-ES' | 'ja-JP' | 'es-MX';
-export type Currency = 'EUR' | 'USD' | 'JPY' | 'MXN' | 'CAD';
 
 
 

@@ -6,8 +6,17 @@
   "scripts": {
     "dev": "bun run dev",
     "build": "bun run build",
-    "test": "bun run test"
+    "check": "biome check ./snippets-lab/",
+    "format": "biome check --write ./snippets-lab/"
   },
   "author": "Sergio Jurado",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@biomejs/biome": "^2.5.10",
+    "@js-temporal/polyfill": "^0.5.1",
+    "axios": "^1.20.0",
+    "eslint": "^10.9.1",
+    "eslint-prettier": "^0.0.0-empty",
+    "prettier": "^3.9.6"
+  }
 }

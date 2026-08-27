@@ -1,9 +1,4 @@
 import { LOGGER } from '@/logger';
-import { Temporal } from '@js-temporal/polyfill';
-
-export type TemporalInput = string | number | Temporal.PlainDate | Temporal.ZonedDateTime | Temporal.PlainDateTime;
-export type Locale = 'en-US' | 'es-ES' | 'ja-JP' | 'es-MX';
-export type DateFormatOptions = { year: 'numeric', month: 'long', day: 'numeric'}
 
 
 
