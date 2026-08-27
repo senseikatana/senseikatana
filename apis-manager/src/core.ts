@@ -1,6 +1,5 @@
-import { constructor } from "react";
-
 export type ApisConfig = Record<string, ApiEntry>;
+
 export interface ApiEntry {
 	baseUri: string;
 	endpoints?: Record<string, string>;
@@ -9,12 +8,11 @@ export interface ApiEntry {
 
 export interface UrlOptions {
 	params?: Record<string, string | number>;
-	query?: Record<string, string | number | boolean>;
+	query?: Record<string, string | number | boolean | null | undefined>;
 }
 
-export interface FetchOptions<T = unknown>
-	extends UrlOptions,
-		Omit<RequestInit, "body"> {
+export interface FetchOptions extends Omit<RequestInit, "body"> {
+	urlOptions?: UrlOptions;
 	body?: BodyInit | null;
 }
 
@@ -25,148 +23,156 @@ export interface FetchResult<T> {
 	ok: boolean;
 }
 
-export default class ApiManager {
-	private str: string = "";
-	private apis: ApisConfig;
-	private apiEntry: ApiEntry;
-	private options: UrlOptions;
-	private fetchOpts: FetchResult;
-	&&
-	FetchOptions;
+export default abstract class FetchApiManager {
+	private static instance: FetchApiManager;
+	private apis: ApisConfig = {};
 
-	private constructor() {
-		this.apis = {};
-		this.api;
+	// Singleton para acceso global consistente
+	static getInstance(): FetchApiManager {
+		if (!FetchApiManager.instance) {
+			FetchApiManager.instance = new FetchApiManager();
+		}
+		return FetchApiManager.instance;
 	}
 
-	static trim(str: string): string {
-		ApiManager.str.trim();
+	// Inicializa y normaliza la configuración
+	init(source: Record<string, unknown>): void {
+		this.apis = this.normalize(source);
 	}
 
-	static normalizar(raw: Record<string, unknown>): ApisConfig {
-		const out: ApisConfig = {};
+	// Construye la URL final con parámetros y query strings
+	buildUrl(
+		apiName: string,
+		endpointName: string,
+		options: UrlOptions = {},
+	): string {
+		const api = this.getApiEntry(apiName);
+		const path = this.resolvePath(api, endpointName, options.params);
+		const url = new URL(`${api.baseUri}${path}`);
+
+		// Fusionar defaults con query params proporcionados
+		const defaults = api.defaultQueryParams?.[endpointName] ?? {};
+		const mergedQuery: Record<string, string> = {};
+
+		for (const [k, v] of Object.entries(defaults)) {
+			mergedQuery[k] = String(v);
+		}
+
+		if (options.query) {
+			for (const [k, v] of Object.entries(options.query)) {
+				if (v != null) mergedQuery[k] = String(v);
+				else delete mergedQuery[k];
+			}
+		}
+
+		for (const [k, v] of Object.entries(mergedQuery)) {
+			url.searchParams.set(k, v);
+		}
+
+		return url.toString();
+	}
+
+	// Ejecuta la petición usando fetch nativo
+	async fetch<T = unknown>(
+		apiName: string,
+		endpointName: string,
+		options: FetchOptions = {},
+	): Promise<FetchResult<T>> {
+		const { urlOptions, ...requestInit } = options;
+		const url = this.buildUrl(apiName, endpointName, urlOptions);
+
+		const response = await fetch(url, requestInit);
+
+		if (!response.ok) {
+			throw new Error(
+				`API Error [${apiName}/${endpointName}]: ${response.status} ${response.statusText}`,
+			);
+		}
+
+		const data = (await response.json()) as T;
+
+		return {
+			data,
+			url,
+			status: response.status,
+			ok: response.ok,
+		};
+	}
+
+	// Obtiene entrada de API o lanza error descriptivo
+	private getApiEntry(apiName: string): ApiEntry {
+		const api = this.apis[apiName];
+		if (!api) {
+			throw new Error(
+				`API "${apiName}" not found. Available: ${Object.keys(this.apis).join(", ")}`,
+			);
+		}
+		return api;
+	}
+
+	// Resuelve template de ruta con params
+	private resolvePath(
+		api: ApiEntry,
+		endpointName: string,
+		params?: Record<string, string | number>,
+	): string {
+		const template = api.endpoints?.[endpointName];
+		if (!template) {
+			throw new Error(
+				`Endpoint "${endpointName}" not found in "${api.baseUri}". Available: ${Object.keys(api.endpoints ?? {}).join(", ")}`,
+			);
+		}
+
+		if (!params) return template;
+
+		return Object.entries(params).reduce((acc, [key, value]) => {
+			return acc.replace(
+				new RegExp(`:${key}\\b`, "g"),
+				encodeURIComponent(String(value)),
+			);
+		}, template);
+	}
+
+	// Normaliza configuración cruda limpiando espacios y claves
+	private normalize(raw: Record<string, unknown>): ApisConfig {
+		const config: ApisConfig = {};
 
 		for (const [key, val] of Object.entries(raw)) {
-			const v = val as Record<string, unknown>;
-			const endpoints = (v.endpoints ?? v.routes ?? {}) as Record<
+			const entry = val as Record<string, unknown>;
+			const baseUri = String(entry.baseUri ?? entry.baseUrl ?? "")
+				.trim()
+				.replace(/\/+$/, "");
+			const endpoints = (entry.endpoints ?? entry.routes ?? {}) as Record<
 				string,
 				string
 			>;
-			const baseUri = trim(String(v.baseUri ?? v.baseUrl ?? "")).replace(
-				/\/+$/,
-				"",
-			);
-			const rawDefaults = (v.defaultQueryParams ?? {}) as Record<
+			const rawDefaults = (entry.defaultQueryParams ?? {}) as Record<
 				string,
 				Record<string, unknown>
 			>;
 
-			const defaults: Record<string, Record<string, string | number>> = {};
+			const defaultQueryParams: Record<
+				string,
+				Record<string, string | number>
+			> = {};
 			for (const [ep, qs] of Object.entries(rawDefaults)) {
-				defaults[trim(ep)] = {};
+				defaultQueryParams[ep.trim()] = {};
 				for (const [qk, qv] of Object.entries(qs)) {
-					defaults[trim(ep)][trim(qk)] = qv as string | number;
+					defaultQueryParams[ep.trim()][qk.trim()] = qv as string | number;
 				}
 			}
 
-			out[trim(key)] = {
+			config[key.trim()] = {
 				baseUri,
 				endpoints: Object.fromEntries(
-					Object.entries(endpoints).map(([k, p]) => [trim(k), trim(p)]),
+					Object.entries(endpoints).map(([k, p]) => [k.trim(), p.trim()]),
 				),
-				defaultQueryParams: defaults,
+				defaultQueryParams,
 			};
 		}
 
-		return out;
-	}
-
-	static initApis(source: Record<string, unknown>): ApisConfig {
-		ApiManager.apis = ApiManager.normalizar(source);
-		return ApiManager.apis;
+		return config;
 	}
 }
 
-export function initApis(source: Record<string, unknown>): ApisConfig {
-	_apis = normalizar(source);
-	return _apis;
-}
 
-export function getApis(): ApisConfig {
-	return _apis;
-}
-
-export function buildApiUrl(
-	apiName: string,
-	endpointName: string,
-	options: UrlOptions = {},
-): string {
-	const api = _apis[apiName];
-	if (!api) {
-		throw new Error(
-			`API "${apiName}" not found. Available: ${Object.keys(_apis).join(", ")}`,
-		);
-	}
-
-	const template = api.endpoints[endpointName];
-	if (!template) {
-		throw new Error(
-			`Endpoint "${endpointName}" not found in "${apiName}". Available: ${Object.keys(api.endpoints).join(", ")}`,
-		);
-	}
-
-	let path = template;
-	if (options.params) {
-		for (const [k, v] of Object.entries(options.params)) {
-			path = path.replace(
-				new RegExp(`:${k}\\b`, "g"),
-				encodeURIComponent(String(v)),
-			);
-		}
-	}
-
-	const defaults = api.defaultQueryParams?.[endpointName] ?? {};
-	const merged: Record<string, string> = {};
-
-	for (const [k, v] of Object.entries(defaults)) {
-		merged[k] = String(v);
-	}
-
-	if (options.query) {
-		for (const [k, v] of Object.entries(options.query)) {
-			if (v === undefined || v === null) {
-				delete merged[k];
-			} else {
-				merged[k] = String(v);
-			}
-		}
-	}
-
-	const url = new URL(`${api.baseUri}${path}`);
-	for (const [k, v] of Object.entries(merged)) {
-		url.searchParams.set(k, v);
-	}
-
-	return url.toString();
-}
-
-export async function fetchApi<T = unknown>(
-	apiName: string,
-	endpointName: string,
-	options: FetchOptions = {},
-): Promise<FetchResult<T>> {
-	const { params, query, ...init } = options;
-	const url = buildApiUrl(apiName, endpointName, { params, query });
-
-	const res = await fetch(url, init);
-
-	if (!res.ok) {
-		throw new Error(
-			`API Error [${apiName}/${endpointName}]: ${res.status} ${res.statusText}`,
-		);
-	}
-
-	const data = (await res.json()) as T;
-
-	return { data, url, status: res.status, ok: res.ok };
-}

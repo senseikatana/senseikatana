@@ -1,6 +1,5 @@
 import type { Temporal } from "@js-temporal/polyfill";
 
-export type LogLevel = "log" | "warn" | "error" | "info";
 export type Symbol = "€" | "$";
 export type Locale = "en-US" | "es-ES" | "ja-JP" | "es-MX";
 export type Currency = "EUR" | "USD" | "JPY" | "MXN" | "CAD";
