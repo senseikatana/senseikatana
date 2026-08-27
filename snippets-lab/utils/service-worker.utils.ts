@@ -1,5 +1,5 @@
+import type { WorkerFunc, WorkerPoolEntry } from "../types";
 import LOGGER from "./logger.utils";
-import type { WorkerFunc, WorkerPoolEntry } from "./types";
 
 export default class WORKER {
 	private static instance: WORKER;
@@ -152,14 +152,8 @@ export default class WORKER {
 // TODO: Usage and demo:
 // ============================================================
 
-const {
-	CREATE_POOL,
-	RUN,
-	RUN_POOL,
-	TERMINATE,
-	TERMINATE_ALL,
-	KEYS,
-}: WORKER = WORKER.getInstance();
+const { CREATE_POOL, RUN, RUN_POOL, TERMINATE, TERMINATE_ALL, KEYS }: WORKER =
+	WORKER.getInstance();
 
 // 1. Ejecución one-shot (crea y destruye automáticamente)
 const result = await RUN(

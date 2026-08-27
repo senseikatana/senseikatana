@@ -22,5 +22,5 @@
 		"noUnusedParameters": true,
 		"noPropertyAccessFromIndexSignature": false
 	},
-	"include": ["index.ts", "src"]
+	"include": ["utils/index.ts", "src"]
 }

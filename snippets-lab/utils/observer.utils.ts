@@ -1,11 +1,11 @@
-import LOGGER from "./logger.utils";
 import type {
 	LazyLoaderEntry,
 	ObserverCallback,
 	ObserverConfig,
 	ObserverEntry,
 	ObserverTarget,
-} from "./types";
+} from "../types";
+import LOGGER from "./logger.utils";
 
 export class OBSERVER {
 	private static instance: OBSERVER;
