@@ -1,64 +1,114 @@
 // services/GeneratorService.ts
-import crypto from "crypto";
+// import crypto from "crypto";
 
-export default class GeneratorService {
-	private static instance: GeneratorService;
-	private counter: number = 0;
-
-	private constructor() {}
-
-	static getInstance(): GeneratorService {
-		if (!GeneratorService.instance) {
-			GeneratorService.instance = new GeneratorService();
-		}
-		return GeneratorService.instance;
-	}
-
-	numericId(): number {
-		return ++this.counter;
-	}
-
-	uuid(): string {
-		return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-			const r = (Math.random() * 16) | 0;
-			const v = c === "x" ? r : (r & 0x3) | 0x8;
-			return v.toString(16);
-		});
-	}
-
-	slugify(text: string): string {
-		if (!text) throw new Error("Text is required for slugify");
-
-		return text
-			.toString()
-			.trim()
-			.toLowerCase()
-			.replace(/\s+/g, "-")
-			.replace(/[^\w-]+/g, "")
-			.replace(/--+/g, "-")
-			.replace(/^-+/, "")
-			.replace(/-+$/, "");
-	}
-
-	token(): number {
-		return Math.floor(100000 + Math.random() * 900000);
-	}
-
-	async encrypt(plainText: string, salt: string = "default-salt"): Promise<string> {
-		const rounds = crypto.randomBytes(32).toString("hex");
-		const hash = crypto
-			.pbkdf2Sync(plainText, salt, 100000, 64, "sha512")
-			.toString("hex");
-
-		return `${rounds}:${hash}`;
-	}
+export function NUMERIC_ID(counter = 0): number {
+  return Number(++counter);
 }
 
+export function UUID(): string {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
+    const random: number | string = (Math.random() * 16) | 0;
+    const value: number | string = char === "x" ? random : (random & 0x3) | 0x8;
+    return value.toString(16);
+  });
+}
 
-export const {uuid, token, slugify}: GeneratorService = GeneratorService.getInstance()
+export function SHORT_UID(length = 16): string {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  return Array.from({ length }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join(
+    "",
+  );
+}
 
+export function generateUUIDs(count: number): string[] {
+  return Array.from({ length: count }, () => UUID().toString());
+}
 
-console.log('Slugify: ', slugify('title of my post blog with Astro, which generate a slug automatically'));
+export function SLUGIFY(text: string): string {
+  if (!text) throw new Error("Text is required for slugify");
 
+  return text
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
+}
 
-console.log(uuid())
+export function TOKEN(): number {
+  return Math.floor(100_000 + Math.random() * 900_000);
+}
+
+export async function ENCRYPT(plainText: string, salt = ""): Promise<string> {
+  const rounds: string | number = crypto.randomBytes(32).toString("hex");
+  const hash: string | CryptoKey = crypto
+    .pbkdf2Sync(plainText, salt, 100_000, 64, "sha512")
+    .toString("hex");
+
+  return `${rounds}:${hash}`;
+}
+
+export default class GeneratorService {
+  private static instance: GeneratorService;
+  private counter = 0;
+
+  private constructor() {}
+
+  static getInstance(): GeneratorService {
+    if (!GeneratorService.instance) {
+      GeneratorService.instance = new GeneratorService();
+    }
+    return GeneratorService.instance;
+  }
+
+  numericId(): number {
+    return ++this.counter;
+  }
+
+  generateUUID(): string {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (char) => {
+      const random = (Math.random() * 16) | 0;
+      const value = char === "x" ? random : (random & 0x3) | 0x8;
+      return value.toString(16);
+    });
+  }
+
+  generateShortId(length = 16): string {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return Array.from({ length }, () =>
+      chars.charAt(Math.floor(Math.random() * chars.length)),
+    ).join("");
+  }
+
+  generateUUIDs(count: number): string[] {
+    return Array.from({ length: count }, () => generateUUID());
+  }
+
+  slugify(text: string): string {
+    if (!text) throw new Error("Text is required for slugify");
+
+    return text
+      .toString()
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-")
+      .replace(/^-+/, "")
+      .replace(/-+$/, "");
+  }
+
+  token(): number {
+    return Math.floor(100_000 + Math.random() * 900_000);
+  }
+
+  async encrypt(plainText: string, salt = "default-salt"): Promise<string> {
+    const rounds = crypto.randomBytes(32).toString("hex");
+    const hash = crypto.pbkdf2Sync(plainText, salt, 100_000, 64, "sha512").toString("hex");
+
+    return `${rounds}:${hash}`;
+  }
+}

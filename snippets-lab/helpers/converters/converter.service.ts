@@ -2,6 +2,18 @@
 import { NumberFormatOptions } from "../../types";
 import { FormatterService } from "./FormatterService";
 
+export function formatter(): string {
+
+}
+
+
+export function TO_CELSIUS(fahrenheit: number, options?: NumberFormatOptions): string {
+	const celsius:number | string = (fahrenheit - 32) / 1.8;
+		return formatter.formatNumber(celsius, options);
+}
+
+
+
 export class ConverterService {
 	private static instance: ConverterService;
 	private formatter: FormatterService;
