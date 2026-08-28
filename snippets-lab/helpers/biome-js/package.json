@@ -1,0 +1,22 @@
+// https://biomejs.dev/reference/cli/
+
+{
+	"scripts": {
+		"build:css": "postcss src/styles/main.css -o public/styles.css",
+		"watch:css": "postcss src/styles/main.css -o public/styles.css --watch",
+    "lint": "biome lint ./src",
+    "lint:fix": "biome lint --apply ./src",
+    "format": "biome format ./src",
+    "format:fix": "biome format --write ./src",
+    "check": "biome check ./src",
+    "check:fix": "biome check --apply ./src"
+	},
+	"devDependencies": {
+		"postcss": "^8.4.31",
+		"postcss-cli": "^10.1.0",
+		"tailwindcss": "^3.3.5",
+		"autoprefixer": "^10.4.16",
+		"cssnano": "^6.0.1",
+		"@fullhuman/postcss-purgecss": "^5.0.0"
+	}
+}
