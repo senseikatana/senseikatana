@@ -8,7 +8,6 @@ export type ProductType = {
 	price: number;
 };
 
-
 export class ProductController {
 	private products: ProductType[] = [];
 
@@ -20,14 +19,11 @@ export class ProductController {
 	// GET /products/:id
 	getProductById(req: Request, res: Response): void {
 		const getProductid: number = parseInt(req.params.id) as number;
-		const product: ProductType = this.products.find(({ id, name, price }) => id === getProductid);
+		const product: ProductType = this.products.find(
+			({ id }) => id === getProductid,
+		);
 
-		if (!product) {
-			res.status(404).json({ error: 'Product not found' });
-			return;
-		}
-
-		res.json({productById: product });
+		if (!product) res.json({ productById: product });
 	}
 
 	// POST /products
@@ -46,11 +42,13 @@ export class ProductController {
 
 	// PUT /products/:id
 	upsertProduct(req: Request, res: Response): void {
-		const id:number = parseInt(req.params.id);
-		const product: ProductType = this.products.find(({ id: productId }) => productId === id);
+		const id: number = parseInt(req.params.id);
+		const product: ProductType = this.products.find(
+			({ id: productId }) => productId === id,
+		);
 
 		if (!product) {
-			res.status(404).json({ error: 'Product not found' });
+			res.status(404).json({ error: "Product not found" });
 			return;
 		}
 
@@ -64,10 +62,12 @@ export class ProductController {
 	// DELETE /products/:id
 	deleteProductById(req: Request, res: Response): void {
 		const getProductById: number = parseInt(req.params.id);
-		const getProductIndex: number = this.products.findIndex(({ id: productId }) => productId === getProductById);
+		const getProductIndex: number = this.products.findIndex(
+			({ id: productId }) => productId === getProductById,
+		);
 
 		if (getProductIndex === -1) {
-			res.status(404).json({ error: 'Product not found' });
+			res.status(404).json({ error: "Product not found" });
 			return;
 		}
 
