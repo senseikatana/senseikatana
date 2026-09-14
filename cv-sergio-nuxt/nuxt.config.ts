@@ -54,9 +54,9 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Sergio Esteban - Full Stack Developer',
+      title: 'Sergio Jurado Casado — CV',
       meta: [
-        { name: 'description', content: 'Portfolio, CV, Blog y Tienda de Sergio Esteban' },
+        { name: 'description', content: 'CV digital de Sergio Jurado Casado: logística, almacén, comercio y atención al cliente. Cambrils, Tarragona.' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
       link: [

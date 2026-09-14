@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { useCartStore } from '~/stores/cart'
 import { profiles } from '~~/data/profiles'
+import { useCartStore } from '~/stores/cart'
 
 const cart = useCartStore()
-const resumeSlug = profiles.find(p => p.lang === 'es')?.slug ?? 'fullstack'
+const profile = profiles.find(p => p.lang === 'es')!
+const resumeSlug = profile.slug
 
 const navigation = [
   { label: 'Home', to: '/' },
+  { label: 'Hola', to: '/hola' },
   { label: 'Resume', to: `/es/resume/${resumeSlug}` },
   { label: 'Blog', to: '/blog' },
   { label: 'Store', to: '/store' },
@@ -14,8 +16,7 @@ const navigation = [
 ]
 
 const socials = [
-  { icon: 'i-simple-icons-github', to: 'https://github.com/senseikatana', label: 'GitHub' },
-  { icon: 'i-simple-icons-linkedin', to: 'https://linkedin.com/in/sergioesteban', label: 'LinkedIn' },
+  { icon: 'i-simple-icons-linkedin', to: profile.linkedin, label: 'LinkedIn' },
 ]
 </script>
 
@@ -24,7 +25,7 @@ const socials = [
     <UHeader>
       <template #title>
         <NuxtLink to="/" class="font-bold text-xl tracking-tight">
-          SE
+          SJ
         </NuxtLink>
       </template>
 
@@ -72,7 +73,7 @@ const socials = [
     <UFooter>
       <template #left>
         <span class="text-sm text-white-500">
-          &copy; {{ new Date().getFullYear() }} Sergio Esteban
+          &copy; {{ new Date().getFullYear() }} {{ profile.name }}
         </span>
       </template>
 
