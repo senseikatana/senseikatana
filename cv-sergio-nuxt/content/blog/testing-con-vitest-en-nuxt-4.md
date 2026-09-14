@@ -3,7 +3,7 @@ title: Testing con Vitest en Nuxt 4
 description: Guia completa para escribir tests unitarios y de integracion en proyectos Nuxt 4 usando Vitest.
 date: '2025-08-15'
 tags: ['testing', 'vitest', 'nuxt', 'typescript']
-author: Sergio Esteban
+author: Sergio Jurado Casado
 published: true
 ---
 

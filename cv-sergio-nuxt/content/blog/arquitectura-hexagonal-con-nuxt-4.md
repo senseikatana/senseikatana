@@ -3,7 +3,7 @@ title: Arquitectura Hexagonal con Nuxt 4
 description: Como aplicar los principios de Clean Architecture y Hexagonal Architecture en un proyecto Nuxt 4 real.
 date: '2025-09-01'
 tags: ['arquitectura', 'nuxt', 'clean-architecture', 'typescript']
-author: Sergio Esteban
+author: Sergio Jurado Casado
 published: true
 ---
 

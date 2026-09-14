@@ -1,17 +1,23 @@
 <script setup lang="ts">
+const { locale, t } = useI18n()
+
 const { data: posts } = await useAsyncData('blog-list', () =>
   queryCollection('blog')
     .where('published', '=', true)
     .order('date', 'DESC')
-    .all()
+    .all(),
 )
+
+useSeoMeta({
+  title: t('blog.title'),
+})
 </script>
 
 <template>
   <UContainer class="py-12">
     <div class="mb-10">
-      <h1 class="text-3xl font-bold text-white-50 mb-2">Blog</h1>
-      <p class="text-white-400">Thoughts on development, architecture, and tech</p>
+      <h1 class="text-3xl font-bold text-white-50 mb-2">{{ t('blog.title') }}</h1>
+      <p class="text-white-400">{{ t('blog.subtitle') }}</p>
     </div>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -39,7 +45,7 @@ const { data: posts } = await useAsyncData('blog-list', () =>
         <template #footer>
           <div class="flex items-center justify-between text-sm text-white-500">
             <span>{{ post.author }}</span>
-            <time>{{ new Date(post.date).toLocaleDateString('es-AR') }}</time>
+            <time>{{ new Date(post.date).toLocaleDateString(locale) }}</time>
           </div>
         </template>
       </UCard>
@@ -47,7 +53,7 @@ const { data: posts } = await useAsyncData('blog-list', () =>
 
     <div v-if="!posts?.length" class="text-center py-16 text-white-400">
       <UIcon name="i-lucide-file-text" class="text-4xl mb-4 text-dark-500" />
-      <p>No hay posts publicados aun.</p>
+      <p>{{ t('blog.empty') }}</p>
     </div>
   </UContainer>
 </template>

@@ -3,7 +3,7 @@ title: Deployment de Nuxt 4 en Produccion
 description: Guia paso a paso para deployar una aplicacion Nuxt 4 en Vercel, Railway o un VPS con Docker.
 date: '2025-07-20'
 tags: ['deployment', 'nuxt', 'docker', 'vercel', 'devops']
-author: Sergio Esteban
+author: Sergio Jurado Casado
 published: true
 ---
 

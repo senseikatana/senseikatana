@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import { profiles } from '~~/data/profiles'
-import { useCartStore } from '~/stores/cart'
+import { site } from '~~/data/site'
 
-const cart = useCartStore()
-const profile = profiles.find(p => p.lang === 'es')!
-const resumeSlug = profile.slug
+const { t } = useI18n()
+const localePath = useLocalePath()
 
-const navigation = [
-  { label: 'Home', to: '/' },
-  { label: 'Hola', to: '/hola' },
-  { label: 'Resume', to: `/es/resume/${resumeSlug}` },
-  { label: 'Blog', to: '/blog' },
-  { label: 'Store', to: '/store' },
-  { label: 'Contact', to: '/contact' },
-]
+const navigation = computed(() => [
+  { label: t('nav.home'), to: localePath('/') },
+  { label: t('nav.about'), to: localePath('/about') },
+  { label: t('nav.blog'), to: localePath('/blog') },
+  { label: t('nav.contact'), to: localePath('/contact') },
+])
 
 const socials = [
-  { icon: 'i-simple-icons-linkedin', to: profile.linkedin, label: 'LinkedIn' },
+  { icon: 'i-simple-icons-linkedin', to: site.linkedin, label: 'LinkedIn' },
 ]
 </script>
 
@@ -24,7 +20,7 @@ const socials = [
   <div class="min-h-screen flex flex-col">
     <UHeader>
       <template #title>
-        <NuxtLink to="/" class="font-bold text-xl tracking-tight">
+        <NuxtLink :to="localePath('/')" class="font-bold text-xl tracking-tight">
           SJ
         </NuxtLink>
       </template>
@@ -32,21 +28,8 @@ const socials = [
       <UNavigationMenu :items="navigation" />
 
       <template #right>
-        <UButton
-          color="gray"
-          variant="ghost"
-          icon="i-lucide-shopping-cart"
-          @click="cart.isOpen = true"
-        >
-          <UBadge
-            v-if="cart.totalItems > 0"
-            :label="cart.totalItems"
-            color="primary"
-            size="xs"
-            class="ml-1"
-          />
-        </UButton>
-        <UColorModeButton />
+        <ThemeSwitcher />
+        <LangSwitcher />
         <UButton
           v-for="s in socials"
           :key="s.icon"
@@ -64,8 +47,6 @@ const socials = [
       </template>
     </UHeader>
 
-    <CartSlideover />
-
     <UMain>
       <slot />
     </UMain>
@@ -73,7 +54,7 @@ const socials = [
     <UFooter>
       <template #left>
         <span class="text-sm text-white-500">
-          &copy; {{ new Date().getFullYear() }} {{ profile.name }}
+          &copy; {{ new Date().getFullYear() }} {{ site.name }}
         </span>
       </template>
 

@@ -2,14 +2,16 @@
 const route = useRoute()
 const slug = route.params.slug as string
 
+const { locale, t } = useI18n()
+
 const { data: post } = await useAsyncData(`blog-${slug}`, () =>
   queryCollection('blog')
     .where('_path', '=', `/blog/${slug}`)
-    .first()
+    .first(),
 )
 
 if (!post.value) {
-  throw createError({ statusCode: 404, message: 'Post no encontrado' })
+  throw createError({ statusCode: 404, message: t('blog.notFound') })
 }
 
 useSeoMeta({
@@ -30,7 +32,7 @@ useSeoMeta({
           </span>
           <span class="flex items-center gap-1.5">
             <UIcon name="i-lucide-calendar" class="text-xs" />
-            <time>{{ new Date(post.date).toLocaleDateString('es-AR') }}</time>
+            <time>{{ new Date(post.date).toLocaleDateString(locale) }}</time>
           </span>
         </div>
         <div class="flex flex-wrap gap-2 mt-4">
@@ -46,7 +48,7 @@ useSeoMeta({
 
       <div class="mt-12 pt-8 border-t border-dark-700/50">
         <UButton to="/blog" variant="ghost" icon="i-lucide-arrow-left" class="text-white-400 hover:text-white-100">
-          Volver al Blog
+          {{ t('blog.back') }}
         </UButton>
       </div>
     </article>

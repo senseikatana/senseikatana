@@ -12,7 +12,7 @@ const { lang, page } = Astro.params as { lang: Lang; page: string };
 const validProfiles = ['logistica', 'fullstack', 'generico'];
 const isProfile = validProfiles.includes(page);
 const t = ui[lang];
-const prefix = lang === 'es' ? '' : `${lang}/`;
+const prefix = `${lang}/`;
 
 if (!isProfile && !['about', 'services', 'contact', 'shop'].includes(page)) {
   return Astro.redirect('/resume/es/');
@@ -66,12 +66,12 @@ if (!isProfile && !['about', 'services', 'contact', 'shop'].includes(page)) {
       <h1>{t.services}</h1>
       <p class="muted">{t.whatIDo}</p>
       <div class="card-grid" style="margin-top:2rem">
-        {t.services.map((s: any) => (
+        {t.servicesList.map((s: any) => (
           <article class="card"><h3>{s.t}</h3><p>{s.d}</p></article>
         ))}
       </div>
       <hr />
-      <p><a href={`/resume/${prefix}contact`}>{t.contact}</a></p>
+      <p><a href={`/resume/${prefix}contact/`}>{t.contact}</a></p>
     </>
   )}
 

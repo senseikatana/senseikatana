@@ -1,21 +1,29 @@
 <script setup lang="ts">
-import { products, externalPlatformLabel } from '~~/data/products'
-import { profiles } from '~~/data/profiles'
+import { site } from '~~/data/site'
 
-const profile = profiles.find(p => p.lang === 'es')!
-const resumeSlug = profile.slug
+const { locale, t } = useI18n()
+const localePath = useLocalePath()
+
+const { data } = await useAsyncData(`home-${locale.value}`, () =>
+  queryCollection('resume').where('lang', '=', locale.value).first(),
+)
+
+const resume = computed(() => data.value as {
+  name: string
+  title: string
+  summary: string
+  linkedin: string
+  pdfUrl: string
+  hardSkills: string[]
+} | null)
 
 const socials = [
-  { icon: 'i-simple-icons-linkedin', to: profile.linkedin, label: 'LinkedIn' },
+  { icon: 'i-simple-icons-linkedin', to: site.linkedin, label: 'LinkedIn' },
 ]
-
-const tags = ['#LOGÍSTICA', '#ALMACÉN', '#COMERCIO', '#ATENCIÓN-CLIENTE', '#CARRETILLAS']
-
-const featuredProducts = computed(() => products.filter(p => p.featured))
 </script>
 
 <template>
-  <div>
+  <div v-if="resume">
     <section class="relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-950" />
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--color-sky-900)_0%,_transparent_50%)] opacity-20" />
@@ -24,20 +32,20 @@ const featuredProducts = computed(() => products.filter(p => p.featured))
         <div class="flex flex-col lg:flex-row items-center gap-16">
           <div class="flex-1 max-w-2xl">
             <div class="inline-block px-3 py-1 mb-6 rounded-full bg-sky-900/30 border border-sky-800/40 text-sky-300 text-xs font-medium tracking-wide uppercase">
-              {{ profile.title }}
+              {{ resume.title }}
             </div>
 
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white-50">
-              {{ profile.name }}
+              {{ resume.name }}
             </h1>
 
             <p class="text-lg md:text-xl text-white-400 mb-8 leading-relaxed">
-              {{ profile.summary }}
+              {{ resume.summary }}
             </p>
 
             <div class="flex flex-wrap gap-2 mb-10">
               <span
-                v-for="tag in tags"
+                v-for="tag in $tm('home.tags')"
                 :key="tag"
                 class="font-mono text-xs text-sky-300/80 bg-sky-900/20 border border-sky-800/30 px-3 py-1.5 rounded-full"
               >
@@ -46,21 +54,19 @@ const featuredProducts = computed(() => products.filter(p => p.featured))
             </div>
 
             <div class="flex flex-wrap gap-3">
-              <UButton to="/hola" size="lg" class="px-8">
-                Hola — CV digital
+              <UButton :to="localePath('/about')" size="lg" class="px-8">
+                {{ t('home.ctaCv') }}
               </UButton>
-              <UButton
-                :href="profile.pdfUrl"
-                download="CV_sergiojurado_photo_2026.pdf"
-                variant="outline"
-                size="lg"
-                icon="i-lucide-download"
-                class="px-8 border-white-200/20 text-white-200 hover:bg-white-50/5"
+              <a
+                :href="resume.pdfUrl"
+                download
+                class="inline-flex items-center gap-2 h-11 px-8 rounded-md border border-white-200/20 text-white-200 hover:bg-white-50/5 text-sm font-medium transition-colors"
               >
-                Descargar PDF
-              </UButton>
-              <UButton to="/contact" variant="ghost" size="lg" class="px-8 text-white-300">
-                Contacto
+                <UIcon name="i-lucide-download" class="size-5" />
+                {{ t('home.ctaPdf') }}
+              </a>
+              <UButton :to="localePath('/contact')" variant="ghost" size="lg" class="px-8 text-white-300">
+                {{ t('home.ctaContact') }}
               </UButton>
             </div>
 
@@ -83,7 +89,7 @@ const featuredProducts = computed(() => products.filter(p => p.featured))
           <div class="flex-shrink-0">
             <img
               src="/cv/sergio-jurado.jpg"
-              :alt="profile.name"
+              :alt="resume.name"
               class="w-56 h-72 lg:w-72 lg:h-96 object-cover rounded-2xl border-2 border-teal-800/40 shadow-2xl shadow-teal-900/20"
             >
           </div>
@@ -91,74 +97,12 @@ const featuredProducts = computed(() => products.filter(p => p.featured))
       </UContainer>
     </section>
 
-    <section class="py-20 bg-dark-950">
-      <UContainer>
-        <div class="flex items-end justify-between mb-12">
-          <div>
-            <h2 class="text-3xl font-bold text-white-50 mb-2">Recursos destacados</h2>
-            <p class="text-white-400">Productos y anuncios de la tienda</p>
-          </div>
-          <UButton to="/store" variant="ghost" class="text-sky-400 hover:text-sky-300 hidden md:flex">
-            Ver todos &rarr;
-          </UButton>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-          <UCard
-            v-for="product in featuredProducts"
-            :key="product.slug"
-            class="bg-dark-800/60 border-dark-700/50 hover:border-teal-700/40 transition-all duration-300 group"
-          >
-            <template #header>
-              <div class="aspect-video bg-dark-900 rounded-t-lg flex items-center justify-center">
-                <UIcon name="i-lucide-shopping-bag" class="text-4xl text-dark-600 group-hover:text-teal-600 transition-colors" />
-              </div>
-            </template>
-
-            <h3 class="font-semibold mb-2 text-white-100">
-              <NuxtLink :to="`/store/${product.slug}`" class="hover:text-sky-300 transition-colors">
-                {{ product.name }}
-              </NuxtLink>
-            </h3>
-            <p class="text-white-400 text-sm mb-4 line-clamp-2">{{ product.description }}</p>
-
-            <div class="flex items-center justify-between">
-              <span class="text-xl font-bold text-white-100">
-                ${{ product.price.toFixed(2) }}
-              </span>
-              <UButton
-                v-if="product.externalUrl"
-                :to="product.externalUrl"
-                target="_blank"
-                size="sm"
-                color="gray"
-                variant="ghost"
-                class="text-sky-400"
-                icon="i-lucide-external-link"
-              >
-                Ver en {{ externalPlatformLabel(product.externalPlatform) }}
-              </UButton>
-              <UButton v-else :to="`/store/${product.slug}`" size="sm" color="gray" variant="ghost" class="text-sky-400">
-                Ver detalle
-              </UButton>
-            </div>
-          </UCard>
-        </div>
-
-        <div class="text-center mt-10 md:hidden">
-          <UButton to="/store" variant="outline" class="border-dark-600 text-white-300">
-            Ver todos &rarr;
-          </UButton>
-        </div>
-      </UContainer>
-    </section>
-
     <section class="py-20 bg-dark-900">
       <UContainer>
-        <h2 class="text-3xl font-bold text-white-50 mb-12 text-center">Hard skills</h2>
+        <h2 class="text-3xl font-bold text-white-50 mb-12 text-center">{{ t('home.hardSkillsTitle') }}</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <div
-            v-for="skill in profile.hardSkills"
+            v-for="skill in resume.hardSkills"
             :key="skill"
             class="text-center p-5 bg-dark-800/50 border border-dark-700/30 rounded-xl hover:border-teal-700/40 hover:bg-dark-800 transition-all duration-200"
           >
@@ -172,20 +116,17 @@ const featuredProducts = computed(() => products.filter(p => p.featured))
       <UContainer>
         <div class="text-center max-w-2xl mx-auto">
           <h2 class="text-2xl md:text-3xl font-bold text-white-50 mb-4">
-            Incorporación inmediata
+            {{ t('home.availabilityTitle') }}
           </h2>
           <p class="text-white-400 mb-8">
-            Disponible para equipos de logística, almacén, comercio y atención al cliente.
+            {{ t('home.availabilitySubtitle') }}
           </p>
           <div class="flex flex-wrap justify-center gap-3">
-            <UButton to="/hola" size="lg" class="px-8">
-              Ver CV digital
+            <UButton :to="localePath('/about')" size="lg" class="px-8">
+              {{ t('home.ctaCv') }}
             </UButton>
-            <UButton to="/contact" variant="outline" size="lg" class="px-8 border-dark-600 text-white-300">
-              Contacto
-            </UButton>
-            <UButton :to="`/es/resume/${resumeSlug}`" variant="ghost" size="lg" class="text-sky-400">
-              Resume completo
+            <UButton :to="localePath('/contact')" variant="outline" size="lg" class="px-8 border-dark-600 text-white-300">
+              {{ t('home.ctaContact') }}
             </UButton>
           </div>
         </div>

@@ -1,0 +1,103 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "lang": {
+    "title": "Language"
+  },
+  "theme": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "home": {
+    "tags": ["#LOGISTICS", "#WAREHOUSE", "#COMMERCE", "#CUSTOMER-SERVICE", "#FORKLIFTS"],
+    "ctaCv": "View my CV",
+    "ctaPdf": "Download PDF",
+    "ctaContact": "Contact",
+    "hardSkillsTitle": "Hard skills",
+    "availabilityTitle": "Available immediately",
+    "availabilitySubtitle": "Available for logistics, warehouse, commerce and customer service teams."
+  },
+  "about": {
+    "eyebrow": "senseikatana.com/about",
+    "intro": "This page is the digital version of my CV: the same content as the PDF, easier to read on mobile or in the browser.",
+    "ctaPdf": "Download PDF",
+    "ctaReadWeb": "Read online",
+    "ctaEmail": "Send email",
+    "sections": {
+      "perfil": "Professional profile",
+      "experiencia": "Experience",
+      "formacion": "Education",
+      "skills": "Skills",
+      "extra": "Availability"
+    },
+    "perfilTitle": "Professional profile",
+    "experienciaTitle": "Professional experience",
+    "experienciaSubtitle": "Same roles as in the PDF, with the details of each one.",
+    "formacionTitle": "Education",
+    "skillsTitle": "Skills",
+    "softSkills": "Soft skills",
+    "hardSkills": "Hard skills",
+    "languages": "Languages",
+    "extraTitle": "Additional information",
+    "extraNote": "Prefer the classic document? Download the PDF or write to me directly."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have an offer or want to talk? Write to me.",
+    "intro": "Immediate start (until 10 July, afternoons only; afterwards mornings and afternoons). Open to logistics, warehouse, commerce and customer service.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you{'@'}email.com",
+    "message": "Message",
+    "messagePlaceholder": "Your message...",
+    "send": "Send message",
+    "sent": "Message sent!",
+    "sentSub": "I'll get back to you as soon as possible.",
+    "pdf": "PDF"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts on development, architecture and technology.",
+    "empty": "No posts published yet.",
+    "back": "Back to Blog",
+    "notFound": "Post not found"
+  },
+  "store": {
+    "title": "Store",
+    "subtitle": "Resources, templates and services.",
+    "viewDetails": "View details",
+    "featured": "Featured",
+    "viewOn": "View on",
+    "buyOn": "Buy on",
+    "addToCart": "Add to cart",
+    "back": "Back to store",
+    "notFound": "Product not found",
+    "categories": {
+      "all": "All",
+      "cursos": "Courses",
+      "templates": "Templates",
+      "ebooks": "E-books",
+      "componentes": "Components",
+      "servicios": "Services",
+      "segunda-mano": "Second hand"
+    }
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "total": "Total",
+    "checkout": "Proceed to checkout"
+  },
+  "success": {
+    "title": "Payment Successful!",
+    "subtitle": "Thank you for your purchase. You'll receive an email with the details shortly.",
+    "back": "Back to Store"
+  }
+}

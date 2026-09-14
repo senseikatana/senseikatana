@@ -51,15 +51,15 @@ const htmlLang = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : 'en-GB';
     <nav>
       <a href="/resume/" class="logo">senseikatana<span class="muted">/resume</span></a>
       <ul>
-        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}`}>{ui[lang].home}</a></li>
-        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}about`}>{ui[lang].about}</a></li>
-        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}services`}>{ui[lang].services}</a></li>
-        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}shop`}>{ui[lang].shop}</a></li>
-        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}contact`}>{ui[lang].contact}</a></li>
+        <li><a href={`/resume/${lang}/`}>{ui[lang].home}</a></li>
+        <li><a href={`/resume/${lang}/about/`}>{ui[lang].about}</a></li>
+        <li><a href={`/resume/${lang}/services/`}>{ui[lang].services}</a></li>
+        <li><a href={`/resume/${lang}/shop/`}>{ui[lang].shop}</a></li>
+        <li><a href={`/resume/${lang}/contact/`}>{ui[lang].contact}</a></li>
       </ul>
       <div class="tools">
         <div class="lang-switcher">
-          <a href="/resume/" class={lang === 'es' ? 'active' : ''}>ES</a>
+          <a href="/resume/es/" class={lang === 'es' ? 'active' : ''}>ES</a>
           <a href="/resume/ca/" class={lang === 'ca' ? 'active' : ''}>CA</a>
           <a href="/resume/en/" class={lang === 'en' ? 'active' : ''}>EN</a>
         </div>

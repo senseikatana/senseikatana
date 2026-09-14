@@ -3,7 +3,6 @@
 
 /* ─── Brand Tokens ─────────────────────────────────────────────── */
 /* Palette: Senseikatana Brand v3.0.0                               */
-/* Source: public/Senseikatana Brand Palette - v2.0.0.pdf           */
 :root {
   --rose: oklch(0.63 0.23 17);
   --teal: oklch(0.45 0.06 185);
@@ -13,6 +12,61 @@
   --dark: oklch(0.15 0.02 260);
   --white: oklch(0.93 0.005 260);
   --lavender: oklch(0.58 0.05 270);
+
+  /*
+   * Surface (`dark-*`) + ink (`white-*`) respond to color mode.
+   * Pages use these utilities for backgrounds/text; header/footer use Nuxt UI tokens.
+   * Light (default :root): light surfaces, dark text.
+   */
+  --palette-dark-50: oklch(0.22 0.02 260);
+  --palette-dark-100: oklch(0.28 0.02 260);
+  --palette-dark-200: oklch(0.38 0.02 260);
+  --palette-dark-300: oklch(0.50 0.02 260);
+  --palette-dark-400: oklch(0.62 0.02 260);
+  --palette-dark-500: oklch(0.72 0.015 260);
+  --palette-dark-600: oklch(0.82 0.01 260);
+  --palette-dark-700: oklch(0.88 0.008 260);
+  --palette-dark-800: oklch(0.94 0.005 260);
+  --palette-dark-900: oklch(0.97 0.004 260);
+  --palette-dark-950: oklch(0.99 0.002 260);
+
+  --palette-white-50: oklch(0.14 0.02 260);
+  --palette-white-100: oklch(0.18 0.02 260);
+  --palette-white-200: oklch(0.24 0.02 260);
+  --palette-white-300: oklch(0.32 0.02 260);
+  --palette-white-400: oklch(0.42 0.02 260);
+  --palette-white-500: oklch(0.50 0.015 260);
+  --palette-white-600: oklch(0.58 0.01 260);
+  --palette-white-700: oklch(0.68 0.008 260);
+  --palette-white-800: oklch(0.78 0.005 260);
+  --palette-white-900: oklch(0.88 0.004 260);
+  --palette-white-950: oklch(0.94 0.002 260);
+}
+
+.dark {
+  --palette-dark-50: oklch(0.95 0.01 260);
+  --palette-dark-100: oklch(0.90 0.01 260);
+  --palette-dark-200: oklch(0.80 0.02 260);
+  --palette-dark-300: oklch(0.65 0.03 260);
+  --palette-dark-400: oklch(0.45 0.03 260);
+  --palette-dark-500: oklch(0.32 0.03 260);
+  --palette-dark-600: oklch(0.25 0.02 260);
+  --palette-dark-700: oklch(0.20 0.02 260);
+  --palette-dark-800: oklch(0.15 0.02 260);
+  --palette-dark-900: oklch(0.10 0.02 260);
+  --palette-dark-950: oklch(0.06 0.01 260);
+
+  --palette-white-50: oklch(0.99 0.002 260);
+  --palette-white-100: oklch(0.97 0.003 260);
+  --palette-white-200: oklch(0.94 0.004 260);
+  --palette-white-300: oklch(0.90 0.005 260);
+  --palette-white-400: oklch(0.85 0.005 260);
+  --palette-white-500: oklch(0.78 0.005 260);
+  --palette-white-600: oklch(0.65 0.004 260);
+  --palette-white-700: oklch(0.50 0.004 260);
+  --palette-white-800: oklch(0.38 0.003 260);
+  --palette-white-900: oklch(0.28 0.002 260);
+  --palette-white-950: oklch(0.18 0.001 260);
 }
 
 /* ─── Tailwind v4 Theme ─────────────────────────────────────────── */
@@ -82,32 +136,6 @@
   --color-sky-900: oklch(0.33 0.05 225);
   --color-sky-950: oklch(0.22 0.03 225);
 
-  /* ── dark (#11151C) — neutral ── */
-  --color-dark-50: oklch(0.95 0.01 260);
-  --color-dark-100: oklch(0.90 0.01 260);
-  --color-dark-200: oklch(0.80 0.02 260);
-  --color-dark-300: oklch(0.65 0.03 260);
-  --color-dark-400: oklch(0.45 0.03 260);
-  --color-dark-500: oklch(0.32 0.03 260);
-  --color-dark-600: oklch(0.25 0.02 260);
-  --color-dark-700: oklch(0.20 0.02 260);
-  --color-dark-800: oklch(0.15 0.02 260);
-  --color-dark-900: oklch(0.10 0.02 260);
-  --color-dark-950: oklch(0.06 0.01 260);
-
-  /* ── white (#E4E4E7) — contrast against dark ── */
-  --color-white-50: oklch(0.99 0.002 260);
-  --color-white-100: oklch(0.97 0.003 260);
-  --color-white-200: oklch(0.94 0.004 260);
-  --color-white-300: oklch(0.90 0.005 260);
-  --color-white-400: oklch(0.85 0.005 260);
-  --color-white-500: oklch(0.78 0.005 260);
-  --color-white-600: oklch(0.65 0.004 260);
-  --color-white-700: oklch(0.50 0.004 260);
-  --color-white-800: oklch(0.38 0.003 260);
-  --color-white-900: oklch(0.28 0.002 260);
-  --color-white-950: oklch(0.18 0.001 260);
-
   /* ── lavender (#8C86AA) — decorative accent ── */
   --color-lavender-50: oklch(0.97 0.01 270);
   --color-lavender-100: oklch(0.93 0.02 270);
@@ -120,4 +148,31 @@
   --color-lavender-800: oklch(0.35 0.03 270);
   --color-lavender-900: oklch(0.28 0.02 270);
   --color-lavender-950: oklch(0.18 0.01 270);
+}
+
+/* Runtime surface/ink scales (flip with .dark) — must not be @theme static */
+@theme {
+  --color-dark-50: var(--palette-dark-50);
+  --color-dark-100: var(--palette-dark-100);
+  --color-dark-200: var(--palette-dark-200);
+  --color-dark-300: var(--palette-dark-300);
+  --color-dark-400: var(--palette-dark-400);
+  --color-dark-500: var(--palette-dark-500);
+  --color-dark-600: var(--palette-dark-600);
+  --color-dark-700: var(--palette-dark-700);
+  --color-dark-800: var(--palette-dark-800);
+  --color-dark-900: var(--palette-dark-900);
+  --color-dark-950: var(--palette-dark-950);
+
+  --color-white-50: var(--palette-white-50);
+  --color-white-100: var(--palette-white-100);
+  --color-white-200: var(--palette-white-200);
+  --color-white-300: var(--palette-white-300);
+  --color-white-400: var(--palette-white-400);
+  --color-white-500: var(--palette-white-500);
+  --color-white-600: var(--palette-white-600);
+  --color-white-700: var(--palette-white-700);
+  --color-white-800: var(--palette-white-800);
+  --color-white-900: var(--palette-white-900);
+  --color-white-950: var(--palette-white-950);
 }

@@ -9,6 +9,7 @@ const globals = {
   computed: 'readonly',
   reactive: 'readonly',
   watch: 'readonly',
+  watchEffect: 'readonly',
   onMounted: 'readonly',
   // Nuxt
   useRoute: 'readonly',
@@ -17,9 +18,17 @@ const globals = {
   useFetch: 'readonly',
   useRuntimeConfig: 'readonly',
   useSeoMeta: 'readonly',
+  useHead: 'readonly',
   createError: 'readonly',
   queryCollection: 'readonly',
   navigateTo: 'readonly',
+  // i18n
+  useI18n: 'readonly',
+  useSwitchLocalePath: 'readonly',
+  useLocalePath: 'readonly',
+  useLocaleHead: 'readonly',
+  // color mode
+  useColorMode: 'readonly',
   $fetch: 'readonly',
   defineNuxtConfig: 'readonly',
   defineAppConfig: 'readonly',
@@ -35,6 +44,9 @@ const globals = {
   setTimeout: 'readonly',
   clearTimeout: 'readonly',
   URL: 'readonly',
+  document: 'readonly',
+  window: 'readonly',
+  navigator: 'readonly',
 }
 
 export default tseslint.config(

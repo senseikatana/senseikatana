@@ -3,7 +3,7 @@ title: Bienvenido a mi Blog
 description: Primer post de mi nuevo blog construido con Nuxt Content v3.
 date: '2025-01-08'
 tags: ['nuxt', 'vue', 'introduccion']
-author: Sergio Esteban
+author: Sergio Jurado Casado
 published: true
 ---
 

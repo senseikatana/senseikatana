@@ -32,7 +32,7 @@ const profileIds = ['logistica', 'fullstack', 'generico'] as const;
 
   <h2>{t.whatIDo}</h2>
   <div class="card-grid">
-    {t.services.map((s: any) => (
+    {t.servicesList.map((s: any) => (
       <article class="card">
         <h3>{s.t}</h3>
         <p class="muted">{s.d}</p>
@@ -46,7 +46,7 @@ const profileIds = ['logistica', 'fullstack', 'generico'] as const;
   <div class="card-grid">
     {profileIds.map((id) => {
       const p = profiles[id][lang];
-      const href = `/resume/${lang === 'es' ? '' : lang + '/'}${id}/`;
+      const href = `/resume/${lang}/${id}/`;
       return (
         <a href={href} class="card profile-card">
           <h3>{p.title}</h3>
@@ -63,8 +63,8 @@ const profileIds = ['logistica', 'fullstack', 'generico'] as const;
   <p>
     <a href={meta.linkedin} target="_blank" rel="noopener">LinkedIn</a> ·
     <a href={meta.github} target="_blank" rel="noopener">GitHub</a> ·
-    <a href={`/resume/${lang === 'es' ? '' : lang + '/'}shop`}>{t.shopTitle}</a> ·
-    <a href={`/resume/${lang === 'es' ? '' : lang + '/'}contact`}>{t.contact}</a>
+    <a href={`/resume/${lang}/shop/`}>{t.shopTitle}</a> ·
+    <a href={`/resume/${lang}/contact/`}>{t.contact}</a>
   </p>
 </ResumeLayout>
 

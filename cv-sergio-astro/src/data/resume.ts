@@ -4,7 +4,7 @@ export type Profile = 'logistica' | 'fullstack' | 'generico';
 
 export const meta = {
   name: 'Sergio Jurado Casado',
-  email: 'contacto.sergiojurado@protonmail.com',
+  email: 'sergiojurado.casado@gmail.com',
   phone: '+34 637 723 747',
   linkedin: 'https://www.linkedin.com/in/senseijurado/',
   github: 'https://github.com/senseikatana',
@@ -26,7 +26,7 @@ export const ui: Record<Lang, any> = {
     license: 'Licencia de conducir B',
     availability: 'Incorporación inmediata',
     whatIDo: 'Lo que hago',
-    services: [
+    servicesList: [
       { t: 'Logística y almacén', d: 'Gestión de inventario, carretillas (frontal, retráctil, apiladoras), picking y expedición.' },
       { t: 'Desarrollo web', d: 'Sitios y apps pequeñas con Astro, TypeScript y Node. Portfolios, catálogos y tiendas.' },
       { t: 'Mantenimiento y jardinería', d: 'Desbroce, siembra y mantenimiento fitosanitario.' },
@@ -67,7 +67,7 @@ export const ui: Record<Lang, any> = {
     license: 'Permís de conduir B',
     availability: 'Incorporació immediata',
     whatIDo: 'Què faig',
-    services: [
+    servicesList: [
       { t: 'Logística i magatzem', d: 'Gestió d\'inventari, carretons, picking i expedició.' },
       { t: 'Desenvolupament web', d: 'Llocs i petites apps amb Astro, TypeScript i Node.' },
       { t: 'Manteniment i jardineria', d: 'Desbrossament, sembra i manteniment fitosanitari.' },
@@ -108,7 +108,7 @@ export const ui: Record<Lang, any> = {
     license: 'Driving licence B',
     availability: 'Immediate availability',
     whatIDo: 'What I do',
-    services: [
+    servicesList: [
       { t: 'Logistics & warehouse', d: 'Inventory, forklifts (front, reach, stacker), picking and dispatch.' },
       { t: 'Web development', d: 'Sites and small apps with Astro, TypeScript and Node.' },
       { t: 'Maintenance & gardening', d: 'Brush clearing, planting and phytosanitary upkeep.' },
@@ -139,6 +139,7 @@ export const ui: Record<Lang, any> = {
 export const experience: Record<Lang, any[]> = {
   es: [
     { role: 'Personal de Mantenimiento y Jardinería', company: 'Ayuntamiento de Salou', dates: '2025', tasks: ['Uso de desbrozadora para jardines públicos', 'Siembra y mantenimiento fitosanitario'] },
+    { role: 'Prácticas No Remuneradas', company: 'Esinsa Gaskets', dates: '2026', tasks: ['Picking de espárragos, arandelas, tornillos y tuercas', 'Mover cajas y realizar pedidos manuales'] },
     { role: 'Asistente de Hostelería', company: 'Bar Las Cadenas', dates: '2024', tasks: ['Servicio en barra y mesa', 'Supervisión de orden y limpieza'] },
     { role: 'Reparto Logístico', company: 'Passos de Cuinar, Cambrils', dates: '2024', tasks: ['Transporte logístico puntual'] },
     { role: 'Reparto Logístico', company: 'Uber Eats, Cambrils', dates: '2023', tasks: ['Programación de itinerarios', 'Distribución de pedidos'] },
@@ -147,6 +148,7 @@ export const experience: Record<Lang, any[]> = {
   ],
   ca: [
     { role: 'Personal de Manteniment i Jardineria', company: 'Ajuntament de Salou', dates: '2025', tasks: ['Desbrossadora per a jardins públics', 'Sembra i manteniment fitosanitari'] },
+    { role: 'Pràctiques No Remunerades', company: 'Esinsa Gaskets', dates: '2026', tasks: ['Picking d\'espàrrecs, volanderes, cargols i femelles', 'Moure caixes i fer comandes manuals'] },
     { role: 'Assistent d\'Hostaleria', company: 'Bar Las Cadenas', dates: '2024', tasks: ['Servei en barra i taula', 'Supervisió d\'ordre i neteja'] },
     { role: 'Repartiment Logístic', company: 'Passos de Cuinar, Cambrils', dates: '2024', tasks: ['Transport logístic puntual'] },
     { role: 'Repartiment Logístic', company: 'Uber Eats, Cambrils', dates: '2023', tasks: ['Programació d\'itineraris', 'Distribució de comandes'] },
@@ -155,6 +157,7 @@ export const experience: Record<Lang, any[]> = {
   ],
   en: [
     { role: 'Maintenance & Gardening Staff', company: 'Salou City Council', dates: '2025', tasks: ['Brush clearing in public gardens', 'Planting and phytosanitary upkeep'] },
+    { role: 'Unpaid Internship', company: 'Esinsa Gaskets', dates: '2026', tasks: ['Picking of studs, washers, screws and nuts', 'Moving boxes and fulfilling manual orders'] },
     { role: 'Hospitality Assistant', company: 'Bar Las Cadenas', dates: '2024', tasks: ['Bar and table service', 'Cleanliness supervision'] },
     { role: 'Logistics Delivery', company: 'Passos de Cuinar, Cambrils', dates: '2024', tasks: ['Timely goods transport'] },
     { role: 'Logistics Delivery', company: 'Uber Eats, Cambrils', dates: '2023', tasks: ['Route planning', 'Food distribution'] },
@@ -166,24 +169,30 @@ export const experience: Record<Lang, any[]> = {
 export const education: Record<Lang, any[]> = {
   es: [
     { t: 'Certificado Profesional Auxiliar Comercio Marketing', p: 'Novatecnica', d: '2026' },
+    { t: 'PRL (Prevención de Riesgos Laborales)', p: 'Novatecnica, Vila-seca', d: '2026' },
     { t: 'Operador de Carretons Elevadors', p: 'IDFO', d: '2024' },
     { t: 'Diseño Multimedia y 3D', p: 'ESI Valladolid', d: '2020' },
     { t: 'CFGS ICTI', p: 'I.E.S. Vega del Prado', d: '2017 — 2019' },
-    { t: 'CFGM Laboratorio de Imagen', p: 'Valladolid', d: '2008 — 2010' }
+    { t: 'CFGM Laboratorio de Imagen', p: 'Valladolid', d: '2008 — 2010' },
+    { t: 'E.S.O.', p: 'Valladolid', d: '2005 — 2008' }
   ],
   ca: [
     { t: 'Certificat Professional Auxiliar Comerç Màrqueting', p: 'Novatecnica', d: '2026' },
+    { t: 'PRL (Prevenció de Riscos Laborals)', p: 'Novatecnica, Vila-seca', d: '2026' },
     { t: 'Operador de Carretons Elevadors', p: 'IDFO', d: '2024' },
     { t: 'Disseny Multimèdia i 3D', p: 'ESI Valladolid', d: '2020' },
     { t: 'CFGS ICTI', p: 'I.E.S. Vega del Prado', d: '2017 — 2019' },
-    { t: 'CFGM Laboratori d\'Imatge', p: 'Valladolid', d: '2008 — 2010' }
+    { t: 'CFGM Laboratori d\'Imatge', p: 'Valladolid', d: '2008 — 2010' },
+    { t: 'E.S.O.', p: 'Valladolid', d: '2005 — 2008' }
   ],
   en: [
     { t: 'Professional Certificate in Trade & Marketing Assistant', p: 'Novatecnica', d: '2026' },
+    { t: 'Occupational Risk Prevention (PRL)', p: 'Novatecnica, Vila-seca', d: '2026' },
     { t: 'Forklift Operator Certificate', p: 'IDFO', d: '2024' },
     { t: 'Multimedia & 3D Design', p: 'ESI Valladolid', d: '2020' },
     { t: 'Higher Diploma in ICTI', p: 'I.E.S. Vega del Prado', d: '2017 — 2019' },
-    { t: 'Vocational Diploma in Image Lab', p: 'Valladolid', d: '2008 — 2010' }
+    { t: 'Vocational Diploma in Image Lab', p: 'Valladolid', d: '2008 — 2010' },
+    { t: 'Compulsory Secondary Education (ESO)', p: 'Valladolid', d: '2005 — 2008' }
   ]
 };
 
