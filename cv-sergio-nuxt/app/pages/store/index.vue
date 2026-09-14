@@ -1,27 +1,42 @@
 <script setup lang="ts">
-import { products, categories, externalPlatformLabel } from '~~/data/products'
+import { products, externalPlatformLabel } from '~~/data/products'
+
+const { locale, t } = useI18n()
+const localePath = useLocalePath()
 
 const selectedCategory = ref('all')
+
+const categoryItems = computed(() => [
+  'all',
+  'cursos',
+  'templates',
+  'ebooks',
+  'componentes',
+  'servicios',
+  'segunda-mano',
+].map(id => ({ id, label: t(`store.categories.${id}`) })))
 
 const filteredProducts = computed(() => {
   if (selectedCategory.value === 'all') return products
   return products.filter(p => p.category === selectedCategory.value)
 })
+
+const productPath = (slug: string) => localePath(`/store/${slug}`)
 </script>
 
 <template>
   <UContainer class="py-12">
     <div class="mb-10">
-      <h1 class="text-3xl font-bold text-white-50 mb-2">Store</h1>
-      <p class="text-white-400">Resources, templates, and services</p>
+      <h1 class="text-3xl font-bold text-white-50 mb-2">{{ t('store.title') }}</h1>
+      <p class="text-white-400">{{ t('store.subtitle') }}</p>
     </div>
 
     <div class="flex flex-wrap gap-2 mb-10">
       <UButton
-        v-for="cat in categories"
+        v-for="cat in categoryItems"
         :key="cat.id"
         :variant="selectedCategory === cat.id ? 'solid' : 'outline'"
-        :color="selectedCategory === cat.id ? 'primary' : 'gray'"
+        :color="selectedCategory === cat.id ? 'primary' : 'neutral'"
         size="sm"
         @click="selectedCategory = cat.id"
       >
@@ -42,7 +57,7 @@ const filteredProducts = computed(() => {
         </template>
 
         <h2 class="text-xl font-semibold mb-2 text-white-100">
-          <NuxtLink :to="`/store/${product.slug}`" class="hover:text-sky-300 transition-colors">
+          <NuxtLink :to="productPath(product.slug)" class="hover:text-sky-300 transition-colors">
             {{ product.name }}
           </NuxtLink>
         </h2>
@@ -51,10 +66,10 @@ const filteredProducts = computed(() => {
 
         <div class="flex items-center justify-between">
           <span class="text-2xl font-bold text-white-100">
-            ${{ product.price.toFixed(2) }}
+            {{ formatPrice(product.price, product.currency, locale) }}
           </span>
           <UBadge v-if="product.featured" color="warning" variant="soft">
-            Featured
+            {{ t('store.featured') }}
           </UBadge>
         </div>
 
@@ -63,13 +78,14 @@ const filteredProducts = computed(() => {
             v-if="product.externalUrl"
             :to="product.externalUrl"
             target="_blank"
+            rel="noopener noreferrer"
             block
             icon="i-lucide-external-link"
           >
-            Ver en {{ externalPlatformLabel(product.externalPlatform) }}
+            {{ t('store.viewOn') }} {{ externalPlatformLabel(product.externalPlatform) }}
           </UButton>
-          <UButton v-else :to="`/store/${product.slug}`" block>
-            View Details
+          <UButton v-else :to="productPath(product.slug)" block>
+            {{ t('store.viewDetails') }}
           </UButton>
         </template>
       </UCard>

@@ -2,27 +2,38 @@
 import { useCartStore } from '~/stores/cart'
 
 const cart = useCartStore()
+const { locale, t } = useI18n()
+const toast = useToast()
 
 const checkoutLoading = ref(false)
 
+const totalCurrency = computed(() => cart.items[0]?.product.currency ?? 'EUR')
+
 const handleCheckout = async () => {
+  const stripeItems = cart.items
+    .filter(item => item.product.stripePriceId && !item.product.externalUrl)
+    .map(item => ({
+      priceId: item.product.stripePriceId,
+      quantity: item.quantity,
+    }))
+
+  if (stripeItems.length === 0) {
+    toast.add({ title: t('cart.onlyExternal'), color: 'warning' })
+    return
+  }
+
   checkoutLoading.value = true
   try {
     const data = await $fetch('/api/checkout', {
       method: 'POST',
-      body: {
-        items: cart.items.map(item => ({
-          priceId: item.product.stripePriceId,
-          quantity: item.quantity,
-        })),
-      },
+      body: { items: stripeItems },
     })
 
     if (data?.url) {
       await navigateTo(data.url, { external: true })
     }
-  } catch (error) {
-    console.error('Checkout error:', error)
+  } catch {
+    toast.add({ title: t('cart.checkoutError'), color: 'error' })
   } finally {
     checkoutLoading.value = false
   }
@@ -33,9 +44,9 @@ const handleCheckout = async () => {
   <USlideover v-model="cart.isOpen">
     <div class="flex flex-col h-full bg-dark-900">
       <div class="flex items-center justify-between p-4 border-b border-dark-700/50">
-        <h2 class="text-xl font-bold text-white-50">Cart</h2>
+        <h2 class="text-xl font-bold text-white-50">{{ t('cart.title') }}</h2>
         <UButton
-          color="gray"
+          color="neutral"
           variant="ghost"
           icon="i-lucide-x"
           class="text-white-400"
@@ -46,7 +57,7 @@ const handleCheckout = async () => {
       <div class="flex-1 overflow-y-auto p-4">
         <div v-if="cart.items.length === 0" class="text-center py-12 text-white-400">
           <UIcon name="i-lucide-shopping-cart" class="text-4xl mb-3 text-dark-500" />
-          <p>Your cart is empty</p>
+          <p>{{ t('cart.empty') }}</p>
         </div>
 
         <div v-else class="space-y-3">
@@ -58,14 +69,14 @@ const handleCheckout = async () => {
             <div class="flex-1">
               <h3 class="font-semibold text-white-100 text-sm">{{ item.product.name }}</h3>
               <p class="text-xs text-white-400 mt-1">
-                ${{ item.product.price.toFixed(2) }} x {{ item.quantity }}
+                {{ formatPrice(item.product.price, item.product.currency, locale) }} x {{ item.quantity }}
               </p>
             </div>
 
             <div class="flex items-center gap-2">
               <UButton
                 size="xs"
-                color="gray"
+                color="neutral"
                 variant="soft"
                 icon="i-lucide-minus"
                 @click="cart.updateQuantity(item.product.slug, item.quantity - 1)"
@@ -73,7 +84,7 @@ const handleCheckout = async () => {
               <span class="w-8 text-center text-sm text-white-200">{{ item.quantity }}</span>
               <UButton
                 size="xs"
-                color="gray"
+                color="neutral"
                 variant="soft"
                 icon="i-lucide-plus"
                 @click="cart.updateQuantity(item.product.slug, item.quantity + 1)"
@@ -92,9 +103,9 @@ const handleCheckout = async () => {
 
       <div v-if="cart.items.length > 0" class="p-4 border-t border-dark-700/50">
         <div class="flex justify-between mb-4">
-          <span class="text-lg font-semibold text-white-200">Total</span>
+          <span class="text-lg font-semibold text-white-200">{{ t('cart.total') }}</span>
           <span class="text-lg font-bold text-white-50">
-            ${{ cart.totalPrice.toFixed(2) }}
+            {{ formatPrice(cart.totalPrice, totalCurrency, locale) }}
           </span>
         </div>
 
@@ -104,7 +115,7 @@ const handleCheckout = async () => {
           :loading="checkoutLoading"
           @click="handleCheckout"
         >
-          Proceed to checkout
+          {{ t('cart.checkout') }}
         </UButton>
       </div>
     </div>

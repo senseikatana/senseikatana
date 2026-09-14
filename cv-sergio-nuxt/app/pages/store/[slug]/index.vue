@@ -4,13 +4,19 @@ import { useCartStore } from '~/stores/cart'
 
 const route = useRoute()
 const cart = useCartStore()
+const { locale, t } = useI18n()
+const localePath = useLocalePath()
 
 const slug = route.params.slug as string
+
+if (!/^[a-z0-9-]+$/.test(slug)) {
+  throw createError({ statusCode: 404, message: t('store.notFound'), fatal: true })
+}
 
 const product = computed(() => products.find(p => p.slug === slug))
 
 if (!product.value) {
-  throw createError({ statusCode: 404, message: 'Product not found' })
+  throw createError({ statusCode: 404, message: t('store.notFound'), fatal: true })
 }
 
 useSeoMeta({
@@ -34,7 +40,7 @@ const addToCart = () => {
 
       <div>
         <UBadge color="primary" variant="soft" class="mb-4">
-          {{ product.category }}
+          {{ t(`store.categories.${product.category}`) }}
         </UBadge>
 
         <h1 class="text-3xl font-bold text-white-50 mb-4">{{ product.name }}</h1>
@@ -42,7 +48,7 @@ const addToCart = () => {
         <p class="text-white-300 mb-6 leading-relaxed">{{ product.description }}</p>
 
         <div class="text-4xl font-bold text-white-50 mb-8">
-          ${{ product.price.toFixed(2) }}
+          {{ formatPrice(product.price, product.currency, locale) }}
         </div>
 
         <div class="flex flex-wrap gap-3">
@@ -51,17 +57,18 @@ const addToCart = () => {
             size="lg"
             :to="product.externalUrl"
             target="_blank"
+            rel="noopener noreferrer"
             icon="i-lucide-external-link"
           >
-            Comprar en {{ externalPlatformLabel(product.externalPlatform) }}
+            {{ t('store.buyOn') }} {{ externalPlatformLabel(product.externalPlatform) }}
           </UButton>
           <UButton v-else size="lg" @click="addToCart">
             <UIcon name="i-lucide-shopping-cart" class="mr-2" />
-            Add to Cart
+            {{ t('store.addToCart') }}
           </UButton>
 
-          <UButton size="lg" variant="outline" to="/store" class="border-dark-600 text-white-300">
-            Back to Store
+          <UButton size="lg" variant="outline" :to="localePath('/store')" class="border-dark-600 text-white-300">
+            {{ t('store.back') }}
           </UButton>
         </div>
       </div>

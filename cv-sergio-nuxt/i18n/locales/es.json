@@ -3,7 +3,8 @@
     "home": "Inicio",
     "about": "Sobre mí",
     "blog": "Blog",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "store": "Tienda"
   },
   "lang": {
     "title": "Idioma"
@@ -51,15 +52,11 @@
     "title": "Contacto",
     "subtitle": "¿Tienes una oferta o quieres hablar? Escríbeme.",
     "intro": "Incorporación inmediata (hasta el 10 de julio, solo tardes; después mañana y tarde). Abierto a logística, almacén, comercio y atención al cliente.",
-    "name": "Nombre",
-    "namePlaceholder": "Tu nombre",
-    "email": "Email",
-    "emailPlaceholder": "tu{'@'}email.com",
-    "message": "Mensaje",
-    "messagePlaceholder": "Tu mensaje...",
-    "send": "Enviar mensaje",
-    "sent": "¡Mensaje enviado!",
-    "sentSub": "Te responderé lo antes posible.",
+    "whatsappTitle": "Escríbeme por WhatsApp",
+    "whatsappSub": "La vía más rápida: te contesto en el día.",
+    "whatsappCta": "Abrir WhatsApp",
+    "whatsappPrefill": "Hola Sergio, te contacto desde senseikatana.com",
+    "orEmail": "O escríbeme a",
     "pdf": "PDF"
   },
   "blog": {
@@ -93,11 +90,13 @@
     "title": "Carrito",
     "empty": "Tu carrito está vacío",
     "total": "Total",
-    "checkout": "Proceder al pago"
+    "checkout": "Proceder al pago",
+    "onlyExternal": "Tu carrito solo tiene productos de segunda mano: se compran en Wallapop o Vinted.",
+    "checkoutError": "No se pudo iniciar el pago. Inténtalo de nuevo."
   },
   "success": {
-    "title": "¡Pago completado!",
-    "subtitle": "Gracias por tu compra. Recibirás un email con los detalles en breve.",
+    "title": "¡Gracias por tu compra!",
+    "subtitle": "Si el pago se ha completado, recibirás un email con los detalles en breve.",
     "back": "Volver a la tienda"
   }
 }

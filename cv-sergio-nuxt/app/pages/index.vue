@@ -4,8 +4,9 @@ import { site } from '~~/data/site'
 const { locale, t } = useI18n()
 const localePath = useLocalePath()
 
-const { data } = await useAsyncData(`home-${locale.value}`, () =>
+const { data } = await useAsyncData('home-resume', () =>
   queryCollection('resume').where('lang', '=', locale.value).first(),
+  { watch: [locale] },
 )
 
 const resume = computed(() => data.value as {
@@ -75,11 +76,12 @@ const socials = [
                 v-for="s in socials"
                 :key="s.icon"
                 :icon="s.icon"
-                color="gray"
+                color="neutral"
                 variant="ghost"
                 size="sm"
                 :to="s.to"
                 target="_blank"
+                rel="noopener noreferrer"
                 :aria-label="s.label"
                 class="text-white-400 hover:text-white-100"
               />

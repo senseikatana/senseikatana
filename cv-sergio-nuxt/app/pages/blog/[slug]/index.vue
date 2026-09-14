@@ -3,6 +3,11 @@ const route = useRoute()
 const slug = route.params.slug as string
 
 const { locale, t } = useI18n()
+const localePath = useLocalePath()
+
+if (!/^[a-z0-9-]+$/.test(slug)) {
+  throw createError({ statusCode: 404, message: t('blog.notFound'), fatal: true })
+}
 
 const { data: post } = await useAsyncData(`blog-${slug}`, () =>
   queryCollection('blog')
@@ -11,7 +16,7 @@ const { data: post } = await useAsyncData(`blog-${slug}`, () =>
 )
 
 if (!post.value) {
-  throw createError({ statusCode: 404, message: t('blog.notFound') })
+  throw createError({ statusCode: 404, message: t('blog.notFound'), fatal: true })
 }
 
 useSeoMeta({
@@ -47,7 +52,7 @@ useSeoMeta({
       </div>
 
       <div class="mt-12 pt-8 border-t border-dark-700/50">
-        <UButton to="/blog" variant="ghost" icon="i-lucide-arrow-left" class="text-white-400 hover:text-white-100">
+        <UButton :to="localePath('/blog')" variant="ghost" icon="i-lucide-arrow-left" class="text-white-400 hover:text-white-100">
           {{ t('blog.back') }}
         </UButton>
       </div>

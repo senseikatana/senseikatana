@@ -29,6 +29,8 @@ const globals = {
   useLocaleHead: 'readonly',
   // color mode
   useColorMode: 'readonly',
+  // Nuxt UI
+  useToast: 'readonly',
   $fetch: 'readonly',
   defineNuxtConfig: 'readonly',
   defineAppConfig: 'readonly',

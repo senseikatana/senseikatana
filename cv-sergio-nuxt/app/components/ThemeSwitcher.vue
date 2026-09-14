@@ -32,7 +32,7 @@ const items = computed(() => [
 <template>
   <UDropdownMenu :items="items" :content="{ align: 'end' }">
     <UButton
-      color="gray"
+      color="neutral"
       variant="ghost"
       :icon="icon"
       :aria-label="t('theme.title')"

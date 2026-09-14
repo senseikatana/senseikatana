@@ -3,7 +3,8 @@
     "home": "Inici",
     "about": "Sobre mi",
     "blog": "Blog",
-    "contact": "Contacte"
+    "contact": "Contacte",
+    "store": "Botiga"
   },
   "lang": {
     "title": "Idioma"
@@ -51,15 +52,11 @@
     "title": "Contacte",
     "subtitle": "Tens una oferta o vols parlar? Escriu-me.",
     "intro": "Incorporació immediata (fins al 10 de juliol, només tardes; després matí i tarda). Obert a logística, magatzem, comerç i atenció al client.",
-    "name": "Nom",
-    "namePlaceholder": "El teu nom",
-    "email": "Email",
-    "emailPlaceholder": "tu{'@'}email.com",
-    "message": "Missatge",
-    "messagePlaceholder": "El teu missatge...",
-    "send": "Enviar missatge",
-    "sent": "Missatge enviat!",
-    "sentSub": "Et respondré el més aviat possible.",
+    "whatsappTitle": "Escriu-me per WhatsApp",
+    "whatsappSub": "La via més ràpida: et contesto el mateix dia.",
+    "whatsappCta": "Obrir WhatsApp",
+    "whatsappPrefill": "Hola Sergio, et contacto des de senseikatana.com",
+    "orEmail": "O escriu-me a",
     "pdf": "PDF"
   },
   "blog": {
@@ -93,11 +90,13 @@
     "title": "Cistella",
     "empty": "La teva cistella està buida",
     "total": "Total",
-    "checkout": "Procedir al pagament"
+    "checkout": "Procedir al pagament",
+    "onlyExternal": "La teva cistella només té productes de segona mà: es compren a Wallapop o Vinted.",
+    "checkoutError": "No s'ha pogut iniciar el pagament. Torna-ho a provar."
   },
   "success": {
-    "title": "Pagament completat!",
-    "subtitle": "Gràcies per la teva compra. Rebràs un email amb els detalls aviat.",
+    "title": "Gràcies per la teva compra!",
+    "subtitle": "Si el pagament s'ha completat, rebràs un email amb els detalls aviat.",
     "back": "Tornar a la botiga"
   }
 }

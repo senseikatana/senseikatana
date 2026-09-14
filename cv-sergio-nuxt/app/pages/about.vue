@@ -34,8 +34,9 @@ interface Resume {
 
 const { locale, t } = useI18n()
 
-const { data } = await useAsyncData(`resume-${locale.value}`, () =>
+const { data } = await useAsyncData('about-resume', () =>
   queryCollection('resume').where('lang', '=', locale.value).first(),
+  { watch: [locale] },
 )
 
 const resume = computed(() => data.value as Resume | null)
@@ -85,7 +86,7 @@ useSeoMeta({
                 <UIcon name="i-lucide-map-pin" class="text-teal-400" />
                 {{ resume.location }}
               </span>
-              <a :href="`tel:${resume.phone.replace(/\s/g, '')}`" class="flex items-center gap-1.5 hover:text-white-100 transition-colors">
+              <a :href="`tel:${resume.phone?.replace(/\s/g, '')}`" class="flex items-center gap-1.5 hover:text-white-100 transition-colors">
                 <UIcon name="i-lucide-phone" class="text-teal-400" />
                 {{ resume.phone }}
               </a>

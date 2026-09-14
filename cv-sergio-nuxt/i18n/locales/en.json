@@ -3,7 +3,8 @@
     "home": "Home",
     "about": "About",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "store": "Store"
   },
   "lang": {
     "title": "Language"
@@ -51,15 +52,11 @@
     "title": "Contact",
     "subtitle": "Have an offer or want to talk? Write to me.",
     "intro": "Immediate start (until 10 July, afternoons only; afterwards mornings and afternoons). Open to logistics, warehouse, commerce and customer service.",
-    "name": "Name",
-    "namePlaceholder": "Your name",
-    "email": "Email",
-    "emailPlaceholder": "you{'@'}email.com",
-    "message": "Message",
-    "messagePlaceholder": "Your message...",
-    "send": "Send message",
-    "sent": "Message sent!",
-    "sentSub": "I'll get back to you as soon as possible.",
+    "whatsappTitle": "Message me on WhatsApp",
+    "whatsappSub": "The fastest way: I reply the same day.",
+    "whatsappCta": "Open WhatsApp",
+    "whatsappPrefill": "Hi Sergio, I'm contacting you from senseikatana.com",
+    "orEmail": "Or write to me at",
     "pdf": "PDF"
   },
   "blog": {
@@ -93,11 +90,13 @@
     "title": "Cart",
     "empty": "Your cart is empty",
     "total": "Total",
-    "checkout": "Proceed to checkout"
+    "checkout": "Proceed to checkout",
+    "onlyExternal": "Your cart only has second-hand items: they're sold on Wallapop or Vinted.",
+    "checkoutError": "Could not start checkout. Please try again."
   },
   "success": {
-    "title": "Payment Successful!",
-    "subtitle": "Thank you for your purchase. You'll receive an email with the details shortly.",
+    "title": "Thank you for your purchase!",
+    "subtitle": "If the payment went through, you'll receive an email with the details shortly.",
     "back": "Back to Store"
   }
 }

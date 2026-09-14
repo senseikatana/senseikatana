@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { locale, t } = useI18n()
+const localePath = useLocalePath()
 
 const { data: posts } = await useAsyncData('blog-list', () =>
   queryCollection('blog')
@@ -28,7 +29,7 @@ useSeoMeta({
       >
         <template #header>
           <h2 class="text-xl font-semibold text-white-100">
-            <NuxtLink :to="post._path" class="hover:text-sky-300 transition-colors">
+              <NuxtLink :to="localePath(post._path)" class="hover:text-sky-300 transition-colors">
               {{ post.title }}
             </NuxtLink>
           </h2>

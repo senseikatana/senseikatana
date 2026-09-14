@@ -8,6 +8,7 @@ const navigation = computed(() => [
   { label: t('nav.home'), to: localePath('/') },
   { label: t('nav.about'), to: localePath('/about') },
   { label: t('nav.blog'), to: localePath('/blog') },
+  { label: t('nav.store'), to: localePath('/store') },
   { label: t('nav.contact'), to: localePath('/contact') },
 ])
 
@@ -34,10 +35,11 @@ const socials = [
           v-for="s in socials"
           :key="s.icon"
           :icon="s.icon"
-          color="gray"
+          color="neutral"
           variant="ghost"
           :to="s.to"
           target="_blank"
+          rel="noopener noreferrer"
           :aria-label="s.label"
         />
       </template>
@@ -64,10 +66,11 @@ const socials = [
             v-for="s in socials"
             :key="s.icon"
             :icon="s.icon"
-            color="gray"
+            color="neutral"
             variant="ghost"
             :to="s.to"
             target="_blank"
+            rel="noopener noreferrer"
             :aria-label="s.label"
           />
         </div>
