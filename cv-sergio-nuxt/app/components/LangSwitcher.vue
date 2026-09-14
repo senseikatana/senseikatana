@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const { locale, locales, t } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
-
 const current = computed(() => locale.value.toUpperCase())
 
 const items = computed(() => [

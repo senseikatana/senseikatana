@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const colorMode = useColorMode()
 const { t } = useI18n()
-
 const icon = computed(() => (colorMode.value === 'dark' ? 'i-lucide-moon' : 'i-lucide-sun'))
 
 const items = computed(() => [
