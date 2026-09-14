@@ -1,6 +1,6 @@
 {
   "name": "labcolor-human",
-  "version": "0.0.1",
+  "version": "1.7.0",
   "description": "Proyecto de rueda de color para OKLCH vs HSL",
   "type": "module",
   "scripts": {

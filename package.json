@@ -1,9 +1,13 @@
 {
   "name": "senseikatana",
-  "version": "0.1.0",
+  "version": "1.7.0",
   "description": "Proyecto senseikatana",
   "type": "module",
   "scripts": {
+    "release:bump": "bun scripts/bump.mjs",
+    "release:major": "bun scripts/bump.mjs major",
+    "release:minor": "bun scripts/bump.mjs minor",
+    "release:patch": "bun scripts/bump.mjs patch",
     "dev": "bun run dev",
     "build": "bun run build",
     "check": "biome check ./snippets-lab/",

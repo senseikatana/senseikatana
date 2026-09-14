@@ -1,5 +1,6 @@
 {
   "name": "cv-sergio-nuxt",
+  "version": "1.7.0",
   "type": "module",
   "private": true,
   "scripts": {
