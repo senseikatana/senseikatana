@@ -1,0 +1,107 @@
+---
+import { meta, ui } from '../data/resume';
+export interface Props { title: string; lang: 'es' | 'ca' | 'en'; }
+const { title, lang } = Astro.props;
+const htmlLang = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : 'en-GB';
+---
+<!doctype html>
+<html lang={htmlLang} data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} · {meta.name}</title>
+  <meta name="description" content={`Portfolio profesional de ${meta.name} — ${lang === 'es' ? 'Cambrils, Tarragona' : 'Cambrils, Tarragona'}.`} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style is:global>
+    :root {
+      --bg: #fafaf7; --fg: #1a1a1a; --muted: #6b6b6b;
+      --accent: #c05621; --card: #fff; --border: #e7e5e0;
+      --font: 'Charter', 'Georgia', system-ui, serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 14px;
+    }
+    [data-theme="dark"] {
+      --bg: #121210; --fg: #f1efe9; --muted: #9a9a9a;
+      --accent: #f59e0b; --card: #1c1c1a; --border: #2e2e2c;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    html, body { background: var(--bg); color: var(--fg); font-family: var(--font); line-height: 1.6; transition: background .3s, color .3s; }
+    .container { max-width: 760px; margin: 0 auto; padding: 2rem 1.5rem; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.02em; }
+    h2 { font-size: 1.4rem; margin: 2.5rem 0 1rem; border-left: 4px solid var(--accent); padding-left: .75rem; }
+    h3 { font-size: 1.1rem; margin: 1rem 0 0.5rem; }
+    p { color: var(--fg); margin-bottom: 1rem; }
+    .muted { color: var(--muted); }
+    hr { border: 0; border-top: 1px dashed var(--border); margin: 2.5rem 0; }
+    ul { padding-left: 1.25rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.4rem; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; box-shadow: 0 4px 16px rgba(58,46,42,0.08); transition: transform .2s, border-color .2s; }
+    .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .pill { display: inline-block; font-size: 0.8rem; background: var(--border); color: var(--fg); padding: 0.2rem 0.6rem; border-radius: 999px; margin: 0.2rem 0.3rem 0.2rem 0; font-family: var(--font-mono); }
+    .btn { display: inline-block; background: var(--accent); color: var(--card); padding: .65rem 1.25rem; border-radius: 999px; border: 0; font-weight: 600; cursor: pointer; transition: background .2s; text-decoration: none; }
+    .btn:hover { background: var(--muted); text-decoration: none; }
+    @media print { header, footer, .no-print { display: none !important; } body { background: white; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav>
+      <a href="/resume/" class="logo">senseikatana<span class="muted">/resume</span></a>
+      <ul>
+        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}`}>{ui[lang].home}</a></li>
+        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}about`}>{ui[lang].about}</a></li>
+        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}services`}>{ui[lang].services}</a></li>
+        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}shop`}>{ui[lang].shop}</a></li>
+        <li><a href={`/resume/${lang === 'es' ? '' : lang + '/'}contact`}>{ui[lang].contact}</a></li>
+      </ul>
+      <div class="tools">
+        <div class="lang-switcher">
+          <a href="/resume/" class={lang === 'es' ? 'active' : ''}>ES</a>
+          <a href="/resume/ca/" class={lang === 'ca' ? 'active' : ''}>CA</a>
+          <a href="/resume/en/" class={lang === 'en' ? 'active' : ''}>EN</a>
+        </div>
+        <button id="theme-toggle" aria-label="Theme">🌓</button>
+      </div>
+    </nav>
+  </header>
+  <main class="container">
+    <slot />
+  </main>
+  <footer class="site-footer">
+    <p>&copy; {new Date().getFullYear()} {meta.name}. Portfolio profesional.</p>
+    <div class="socials">
+      <a href={`mailto:${meta.email}`}>Email</a>
+      <a href={meta.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <a href={meta.github} target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+  <style>
+    .site-header { border-bottom: 1px solid var(--border); padding: .9rem 1.5rem; position: sticky; top: 0; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); z-index: 10; }
+    nav { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .logo { font-weight: 700; font-family: var(--font-mono); color: var(--fg); }
+    ul { list-style: none; padding: 0; display: flex; gap: 1.1rem; flex: 1; flex-wrap: wrap; }
+    ul a { color: var(--fg); font-size: .95rem; }
+    .tools { display: flex; align-items: center; gap: .75rem; }
+    .lang-switcher { display: flex; gap: .4rem; font-size: .85rem; }
+    .lang-switcher a { color: var(--muted); padding: .15rem .5rem; border-radius: 6px; border: 1px solid transparent; }
+    .lang-switcher a.active { color: var(--accent); border-color: var(--accent); font-weight: 700; }
+    #theme-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 50%; width: 38px; height: 38px; font-size: 1rem; color: var(--fg); cursor: pointer; }
+    .site-footer { border-top: 1px dashed var(--border); margin-top: 3rem; padding: 1.5rem 0; text-align: center; color: var(--muted); font-size: .9rem; }
+    .socials { margin-top: .75rem; display: flex; gap: 1rem; justify-content: center; }
+    @media (max-width: 640px) { ul { order: 3; width: 100%; } }
+  </style>
+  <script is:inline>
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.dataset.theme = saved;
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
+      const h = document.documentElement;
+      const next = h.dataset.theme === 'dark' ? 'light' : 'dark';
+      h.dataset.theme = next;
+      localStorage.setItem('theme', next);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* ─── Brand Tokens ─────────────────────────────────────────────── */
+/* Palette: Senseikatana Brand v3.0.0                               */
+/* Source: public/Senseikatana Brand Palette - v2.0.0.pdf           */
+:root {
+  --rose: oklch(0.63 0.23 17);
+  --teal: oklch(0.45 0.06 185);
+  --emerald: oklch(0.72 0.19 162);
+  --yellow: oklch(0.90 0.12 85);
+  --sky: oklch(0.72 0.12 225);
+  --dark: oklch(0.15 0.02 260);
+  --white: oklch(0.93 0.005 260);
+  --lavender: oklch(0.58 0.05 270);
+}
+
+/* ─── Tailwind v4 Theme ─────────────────────────────────────────── */
+@theme static {
+  /* ── rose (#F43F5E) — primary / error ── */
+  --color-rose-50: oklch(0.97 0.01 17);
+  --color-rose-100: oklch(0.93 0.03 17);
+  --color-rose-200: oklch(0.87 0.07 17);
+  --color-rose-300: oklch(0.78 0.13 17);
+  --color-rose-400: oklch(0.70 0.19 17);
+  --color-rose-500: oklch(0.63 0.23 17);
+  --color-rose-600: oklch(0.55 0.22 17);
+  --color-rose-700: oklch(0.47 0.19 17);
+  --color-rose-800: oklch(0.39 0.15 17);
+  --color-rose-900: oklch(0.32 0.11 17);
+  --color-rose-950: oklch(0.22 0.07 17);
+
+  /* ── teal (#38686B) — secondary ── */
+  --color-teal-50: oklch(0.96 0.01 185);
+  --color-teal-100: oklch(0.91 0.02 185);
+  --color-teal-200: oklch(0.83 0.03 185);
+  --color-teal-300: oklch(0.70 0.04 185);
+  --color-teal-400: oklch(0.55 0.05 185);
+  --color-teal-500: oklch(0.45 0.06 185);
+  --color-teal-600: oklch(0.38 0.06 185);
+  --color-teal-700: oklch(0.32 0.05 185);
+  --color-teal-800: oklch(0.25 0.04 185);
+  --color-teal-900: oklch(0.18 0.03 185);
+  --color-teal-950: oklch(0.10 0.02 185);
+
+  /* ── emerald (#10B981) — success ── */
+  --color-emerald-50: oklch(0.97 0.02 162);
+  --color-emerald-100: oklch(0.93 0.05 162);
+  --color-emerald-200: oklch(0.87 0.09 162);
+  --color-emerald-300: oklch(0.80 0.13 162);
+  --color-emerald-400: oklch(0.74 0.16 162);
+  --color-emerald-500: oklch(0.72 0.19 162);
+  --color-emerald-600: oklch(0.62 0.18 162);
+  --color-emerald-700: oklch(0.52 0.15 162);
+  --color-emerald-800: oklch(0.42 0.12 162);
+  --color-emerald-900: oklch(0.33 0.09 162);
+  --color-emerald-950: oklch(0.22 0.06 162);
+
+  /* ── yellow (#F6DC8E) — warning ── */
+  --color-yellow-50: oklch(0.98 0.01 85);
+  --color-yellow-100: oklch(0.96 0.03 85);
+  --color-yellow-200: oklch(0.93 0.07 85);
+  --color-yellow-300: oklch(0.90 0.12 85);
+  --color-yellow-400: oklch(0.85 0.14 85);
+  --color-yellow-500: oklch(0.78 0.15 85);
+  --color-yellow-600: oklch(0.68 0.14 85);
+  --color-yellow-700: oklch(0.55 0.11 85);
+  --color-yellow-800: oklch(0.42 0.09 85);
+  --color-yellow-900: oklch(0.32 0.07 85);
+  --color-yellow-950: oklch(0.22 0.04 85);
+
+  /* ── sky (#25ABE4) — info ── */
+  --color-sky-50: oklch(0.97 0.02 225);
+  --color-sky-100: oklch(0.93 0.04 225);
+  --color-sky-200: oklch(0.87 0.07 225);
+  --color-sky-300: oklch(0.80 0.10 225);
+  --color-sky-400: oklch(0.74 0.12 225);
+  --color-sky-500: oklch(0.72 0.12 225);
+  --color-sky-600: oklch(0.62 0.11 225);
+  --color-sky-700: oklch(0.52 0.09 225);
+  --color-sky-800: oklch(0.42 0.07 225);
+  --color-sky-900: oklch(0.33 0.05 225);
+  --color-sky-950: oklch(0.22 0.03 225);
+
+  /* ── dark (#11151C) — neutral ── */
+  --color-dark-50: oklch(0.95 0.01 260);
+  --color-dark-100: oklch(0.90 0.01 260);
+  --color-dark-200: oklch(0.80 0.02 260);
+  --color-dark-300: oklch(0.65 0.03 260);
+  --color-dark-400: oklch(0.45 0.03 260);
+  --color-dark-500: oklch(0.32 0.03 260);
+  --color-dark-600: oklch(0.25 0.02 260);
+  --color-dark-700: oklch(0.20 0.02 260);
+  --color-dark-800: oklch(0.15 0.02 260);
+  --color-dark-900: oklch(0.10 0.02 260);
+  --color-dark-950: oklch(0.06 0.01 260);
+
+  /* ── white (#E4E4E7) — contrast against dark ── */
+  --color-white-50: oklch(0.99 0.002 260);
+  --color-white-100: oklch(0.97 0.003 260);
+  --color-white-200: oklch(0.94 0.004 260);
+  --color-white-300: oklch(0.90 0.005 260);
+  --color-white-400: oklch(0.85 0.005 260);
+  --color-white-500: oklch(0.78 0.005 260);
+  --color-white-600: oklch(0.65 0.004 260);
+  --color-white-700: oklch(0.50 0.004 260);
+  --color-white-800: oklch(0.38 0.003 260);
+  --color-white-900: oklch(0.28 0.002 260);
+  --color-white-950: oklch(0.18 0.001 260);
+
+  /* ── lavender (#8C86AA) — decorative accent ── */
+  --color-lavender-50: oklch(0.97 0.01 270);
+  --color-lavender-100: oklch(0.93 0.02 270);
+  --color-lavender-200: oklch(0.85 0.03 270);
+  --color-lavender-300: oklch(0.75 0.04 270);
+  --color-lavender-400: oklch(0.65 0.05 270);
+  --color-lavender-500: oklch(0.58 0.05 270);
+  --color-lavender-600: oklch(0.50 0.05 270);
+  --color-lavender-700: oklch(0.42 0.04 270);
+  --color-lavender-800: oklch(0.35 0.03 270);
+  --color-lavender-900: oklch(0.28 0.02 270);
+  --color-lavender-950: oklch(0.18 0.01 270);
+}

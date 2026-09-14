@@ -1,0 +1,166 @@
+---
+import ResumeLayout from '../../../layouts/ResumeLayout.astro';
+import { meta, ui, experience, education, shopItems, profiles, type Lang } from '../../../data/resume';
+
+export function getStaticPaths() {
+  const langs = ['es', 'ca', 'en'] as const;
+  const pages = ['about', 'services', 'contact', 'shop', 'logistica', 'fullstack', 'generico'] as const;
+  return langs.flatMap(lang => pages.map(page => ({ params: { lang, page } })));
+}
+
+const { lang, page } = Astro.params as { lang: Lang; page: string };
+const validProfiles = ['logistica', 'fullstack', 'generico'];
+const isProfile = validProfiles.includes(page);
+const t = ui[lang];
+const prefix = lang === 'es' ? '' : `${lang}/`;
+
+if (!isProfile && !['about', 'services', 'contact', 'shop'].includes(page)) {
+  return Astro.redirect('/resume/es/');
+}
+---
+<ResumeLayout title={isProfile ? profiles[page as keyof typeof profiles][lang].title : t[page as keyof typeof t]} lang={lang}>
+
+  {/* ===== ABOUT ===== */}
+  {page === 'about' && (
+    <>
+      <h1>{t.about}</h1>
+      <p class="muted">{meta.name} · {t.location} · {t.license}</p>
+      <p><span class="pill">{t.teaCert}</span></p>
+
+      <h2>{t.about}</h2>
+      {t.bio.map((p: string) => <p>{p}</p>)}
+
+      <h2>Hard skills</h2>
+      <div>{t.skillsHard.map((s: string) => <span class="pill">{s}</span>)}</div>
+
+      <h3 style="margin-top:1.5rem">Soft skills</h3>
+      <div>{t.skillsSoft.map((s: string) => <span class="pill">{s}</span>)}</div>
+
+      <h2>{t.languages.length > 3 ? 'Languages' : 'Idiomas'}</h2>
+      <div>{t.languages.map((l: string) => <span class="pill">{l}</span>)}</div>
+
+      <h2>{t.recentExp}</h2>
+      {experience[lang].map((e: any) => (
+        <article style="margin-bottom:1.5rem">
+          <h3>{e.role}</h3>
+          <p class="muted">{e.company} · {e.dates}</p>
+          <ul>{e.tasks.map((tk: string) => <li>{tk}</li>)}</ul>
+        </article>
+      ))}
+
+      <h2>{t.educationTitle}</h2>
+      <ul>
+        {education[lang].map((e: any) => <li><strong>{e.t}</strong> <span class="muted">· {e.p} · {e.d}</span></li>)}
+      </ul>
+
+      <h2>{t.availability}</h2>
+      <p><span class="pill">{t.availability}</span> <span class="pill">{t.license}</span></p>
+
+      <p style="margin-top:2rem"><a href={`mailto:${meta.email}`} class="btn">{t.contact}</a></p>
+    </>
+  )}
+
+  {/* ===== SERVICES ===== */}
+  {page === 'services' && (
+    <>
+      <h1>{t.services}</h1>
+      <p class="muted">{t.whatIDo}</p>
+      <div class="card-grid" style="margin-top:2rem">
+        {t.services.map((s: any) => (
+          <article class="card"><h3>{s.t}</h3><p>{s.d}</p></article>
+        ))}
+      </div>
+      <hr />
+      <p><a href={`/resume/${prefix}contact`}>{t.contact}</a></p>
+    </>
+  )}
+
+  {/* ===== CONTACT ===== */}
+  {page === 'contact' && (
+    <>
+      <h1>{t.contact}</h1>
+      <p>{t.contactIntro}</p>
+      <ul style="margin-top:2rem;list-style:none;padding:0">
+        <li style="margin-bottom:1rem">Email: <a href={`mailto:${meta.email}`}>{meta.email}</a></li>
+        <li style="margin-bottom:1rem">Tel: <a href={`tel:${meta.phone}`}>{meta.phone}</a></li>
+        <li style="margin-bottom:1rem">LinkedIn: <a href={meta.linkedin} target="_blank" rel="noopener">Perfil</a></li>
+        <li style="margin-bottom:1rem">GitHub: <a href={meta.github} target="_blank" rel="noopener">Repositorios</a></li>
+      </ul>
+      <form action={`mailto:${meta.email}`} method="POST" enctype="text/plain"
+        style="display:flex;flex-direction:column;gap:.75rem;margin-top:2rem">
+        <input name="nombre" placeholder={t.formName} required
+          style="padding:.75rem;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--fg);font-family:inherit" />
+        <input name="email" type="email" placeholder={t.formEmail} required
+          style="padding:.75rem;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--fg);font-family:inherit" />
+        <textarea name="mensaje" placeholder={t.formMsg} rows="5" required
+          style="padding:.75rem;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--fg);font-family:inherit"></textarea>
+        <button type="submit" class="btn" style="align-self:flex-start">{t.send}</button>
+      </form>
+    </>
+  )}
+
+  {/* ===== SHOP ===== */}
+  {page === 'shop' && (
+    <>
+      <h1>{t.shopTitle}</h1>
+      <p>{t.shopIntro}</p>
+      <div class="card-grid" style="margin-top:2rem">
+        {shopItems[lang].map((item: any) => (
+          <article class="card">
+            <div class="img-placeholder"></div>
+            <h3 style="margin-top:1rem">{item.name}</h3>
+            <p class="muted" style="font-size:.9rem">{item.condition}</p>
+            <p style="font-size:1.4rem;font-weight:700;color:var(--accent)">{item.price}</p>
+            <a href={`mailto:${meta.email}?subject=${encodeURIComponent(item.name)}`}>{t.contact} →</a>
+          </article>
+        ))}
+      </div>
+      <hr />
+      <p class="muted">{t.pickup}</p>
+    </>
+  )}
+
+  {/* ===== PROFILES ===== */}
+  {isProfile && (() => {
+    const data = profiles[page as keyof typeof profiles][lang];
+    return (
+      <>
+        <header style="text-align:center;padding:1.5rem 0">
+          <h1>{data.title}</h1>
+          <p class="roles">{data.role}</p>
+          <p class="muted">
+            <span class="pill">{t.location}</span>
+            <span class="pill">{t.teaCert}</span>
+          </p>
+        </header>
+        <hr />
+        <h2>{t.about}</h2>
+        <p>{data.about}</p>
+        <p class="muted" style="font-style:italic">{data.desc}</p>
+        <hr />
+        <h2>Skills</h2>
+        <div>{data.skills.map((s: string) => <span class="pill">{s}</span>)}</div>
+        <hr />
+        <h2>{t.recentExp}</h2>
+        {data.exp.map((e: any) => (
+          <article style="margin-bottom:1.5rem">
+            <h3>{e.t}</h3>
+            <p class="muted">{e.c} · {e.d}</p>
+            <ul>{e.b.map((b: string) => <li>{b}</li>)}</ul>
+          </article>
+        ))}
+        <hr />
+        <p>
+          <a href={`/resume/${prefix}`} class="btn">← {t.home}</a>
+          <a href={`mailto:${meta.email}`} class="btn" style="margin-left:.5rem">{t.contact}</a>
+        </p>
+      </>
+    );
+  })()}
+
+</ResumeLayout>
+
+<style>
+  .roles { font-family: var(--font-mono); color: var(--accent); font-size: 1rem; margin: .5rem 0; }
+  .img-placeholder { width: 100%; height: 160px; border-radius: 8px; background: linear-gradient(135deg, var(--card) 0%, var(--border) 100%); }
+</style>

@@ -1,0 +1,13 @@
+{
+  "name": "cv-sergio-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "bunx astro dev --host",
+    "build": "bunx astro build",
+    "preview": "bunx astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.12.0"
+  }
+}

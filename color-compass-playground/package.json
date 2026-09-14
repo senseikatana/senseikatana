@@ -1,7 +1,7 @@
 {
-  "name": "lch-dial-lab",
-  "version": "0.1.0",
-  "description": "Proyecto lch-dial-lab",
+  "name": "labcolor-human",
+  "version": "0.0.1",
+  "description": "Proyecto de rueda de color para OKLCH vs HSL",
   "type": "module",
   "scripts": {
     "dev": "bun run dev",
@@ -9,5 +9,7 @@
     "test": "bun run test"
   },
   "author": "Sergio Jurado",
-  "license": "MIT"
+  "license": "MIT",
+  "main": "index.js",
+  "private": false
 }

@@ -1,0 +1,77 @@
+---
+import ResumeLayout from '../../../layouts/ResumeLayout.astro';
+import { meta, ui, profiles } from '../../../data/resume';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'es' } }, { params: { lang: 'ca' } }, { params: { lang: 'en' } }];
+}
+
+const { lang } = Astro.params as { lang: 'es' | 'ca' | 'en' };
+const t = ui[lang];
+const profileIds = ['logistica', 'fullstack', 'generico'] as const;
+---
+<ResumeLayout title={t.subtitle} lang={lang}>
+  <section class="hero">
+    <p class="greeting">{t.greeting}</p>
+    <h1>{t.subtitle}</h1>
+    <p class="roles">{t.roles}</p>
+    <p class="muted">
+      <span class="pill">{t.location}</span>
+      <span class="pill">{t.teaCert}</span>
+      <span class="pill">{t.availability}</span>
+    </p>
+  </section>
+
+  <hr />
+
+  <h2>Sobre mí</h2>
+  {t.bio.map((p: string) => <p>{p}</p>)}
+  <p><a href={`mailto:${meta.email}`}>{meta.email}</a> · <a href={`tel:${meta.phone}`}>{meta.phone}</a></p>
+
+  <hr />
+
+  <h2>{t.whatIDo}</h2>
+  <div class="card-grid">
+    {t.services.map((s: any) => (
+      <article class="card">
+        <h3>{s.t}</h3>
+        <p class="muted">{s.d}</p>
+      </article>
+    ))}
+  </div>
+
+  <hr />
+
+  <h2>{t.choose}</h2>
+  <div class="card-grid">
+    {profileIds.map((id) => {
+      const p = profiles[id][lang];
+      const href = `/resume/${lang === 'es' ? '' : lang + '/'}${id}/`;
+      return (
+        <a href={href} class="card profile-card">
+          <h3>{p.title}</h3>
+          <p class="muted">{p.desc}</p>
+          <span class="arrow">{t.view}</span>
+        </a>
+      );
+    })}
+  </div>
+
+  <hr />
+
+  <h2>{t.links}</h2>
+  <p>
+    <a href={meta.linkedin} target="_blank" rel="noopener">LinkedIn</a> ·
+    <a href={meta.github} target="_blank" rel="noopener">GitHub</a> ·
+    <a href={`/resume/${lang === 'es' ? '' : lang + '/'}shop`}>{t.shopTitle}</a> ·
+    <a href={`/resume/${lang === 'es' ? '' : lang + '/'}contact`}>{t.contact}</a>
+  </p>
+</ResumeLayout>
+
+<style>
+  .hero { text-align: center; padding: 2rem 0; }
+  .greeting { font-size: 1.4rem; color: var(--muted); margin-bottom: .25rem; }
+  .roles { font-family: var(--font-mono); color: var(--accent); font-size: 1.05rem; margin: .5rem 0; }
+  .profile-card { text-decoration: none; color: inherit; display: block; }
+  .arrow { color: var(--accent); font-weight: 700; font-size: .9rem; display: block; margin-top: .5rem; }
+</style>
