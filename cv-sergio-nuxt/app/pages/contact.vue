@@ -6,8 +6,6 @@ const { data } = await useAsyncData(`contact-${locale.value}`, () =>
 )
 
 const resume = computed(() => data.value as {
-  email: string
-  phone: string
   location: string
   linkedin: string
   pdfUrl: string
@@ -19,14 +17,18 @@ const form = reactive({
   message: '',
 })
 
-const loading = ref(false)
-const submitted = ref(false)
+/*
+  Frontend only — no backend yet.
 
-const handleSubmit = async () => {
-  loading.value = true
-  await new Promise(resolve => setTimeout(resolve, 1000))
-  submitted.value = true
-  loading.value = false
+  There is no delivery endpoint, so this must NOT report success. Faking
+  "sent" loses leads: the visitor believes they reached Sergio and moves on.
+  Until a provider is wired up, the form explains itself and points at the
+  channels that genuinely work (WhatsApp, phone, LinkedIn, PDF).
+*/
+const hasBackend = false
+
+const handleSubmit = () => {
+  if (!hasBackend) return
 }
 </script>
 
@@ -52,19 +54,19 @@ const handleSubmit = async () => {
 
         <div class="space-y-4">
           <a
-            :href="`mailto:${resume.email}`"
+            href="/contact/whatsapp"
             class="flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
             <div class="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700/50 flex items-center justify-center">
               <UIcon
-                name="i-lucide-mail"
+                name="i-lucide-message-circle"
                 class="text-sky-400"
               />
             </div>
-            <span class="text-white-200">{{ resume.email }}</span>
+            <span class="text-white-200">{{ t('contact.whatsappAction') }}</span>
           </a>
           <a
-            :href="`tel:${resume.phone.replace(/\s/g, '')}`"
+            href="/contact/call"
             class="flex items-center gap-3 hover:opacity-90 transition-opacity"
           >
             <div class="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700/50 flex items-center justify-center">
@@ -73,7 +75,7 @@ const handleSubmit = async () => {
                 class="text-sky-400"
               />
             </div>
-            <span class="text-white-200">{{ resume.phone }}</span>
+            <span class="text-white-200">{{ t('contact.callAction') }}</span>
           </a>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-lg bg-dark-800 border border-dark-700/50 flex items-center justify-center">
@@ -112,7 +114,7 @@ const handleSubmit = async () => {
       </div>
 
       <UCard
-        v-if="!submitted"
+        v-if="hasBackend"
         class="bg-dark-800/60 border-dark-700/50"
       >
         <UForm
@@ -164,20 +166,48 @@ const handleSubmit = async () => {
         </UForm>
       </UCard>
 
+      <!--
+        Shown while there is no delivery endpoint. It states the truth and
+        routes the visitor to a channel that actually reaches Sergio, instead
+        of swallowing their message behind a fake success state.
+      -->
       <UCard
         v-else
-        class="text-center bg-dark-800/60 border-dark-700/50"
+        class="bg-dark-800/60 border-dark-700/50"
       >
-        <UIcon
-          name="i-lucide-check-circle"
-          class="text-5xl text-emerald-400 mb-4"
-        />
-        <h3 class="text-xl font-semibold text-white-100 mb-2">
-          {{ t('contact.sent') }}
-        </h3>
-        <p class="text-white-400">
-          {{ t('contact.sentSub') }}
-        </p>
+        <div class="flex items-start gap-3">
+          <UIcon
+            name="i-lucide-info"
+            class="size-5 shrink-0 mt-0.5 text-amber-400"
+          />
+          <div>
+            <p class="text-white-200">
+              {{ t('contact.noBackendTitle') }}
+            </p>
+            <p class="text-white-400 mt-1">
+              {{ t('contact.noBackendBody') }}
+            </p>
+            <div class="flex flex-wrap gap-3 mt-4">
+              <UButton
+                href="/contact/whatsapp"
+                icon="i-lucide-message-circle"
+                size="sm"
+                variant="solid"
+              >
+                {{ t('contact.whatsappAction') }}
+              </UButton>
+              <UButton
+                href="/contact/call"
+                icon="i-lucide-phone"
+                size="sm"
+                variant="outline"
+                class="border-dark-600 text-white-300"
+              >
+                {{ t('contact.callAction') }}
+              </UButton>
+            </div>
+          </div>
+        </div>
       </UCard>
     </div>
   </UContainer>

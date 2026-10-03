@@ -6,30 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- ====== SEO PRINCIPAL ====== -->
-    <title>Color Compass: HSL vs OKLCH Playground</title>
-    <meta name="description" content="An interactive visual tool to compare HSL and OKLCH color models. Drag the dial, adjust sliders, and understand why OKLCH is the future of CSS colors.">
+    <title>Color Compass: HSL vs OKLCH vs LCH Playground</title>
+    <meta name="description" content="An interactive visual tool to compare the HSL, OKLCH and CIE LCH color models. Paste a hex or hsl() value, get its exact equivalents, and edit everything by hand.">
     <meta name="author" content="Sergio Jurado">
     <link rel="canonical" href="https://senseikatana.com/hueplay/">
-    <meta name="keywords" content="oklch, hsl, css, color picker, color space, frontend, web design, ui design, css colors">
+    <meta name="keywords" content="oklch, lch, hsl, css, color picker, color space, frontend, web design, ui design, css colors">
     
     <!-- Evita que los robots indexen si estás haciendo pruebas (Bórralo cuando quieras indexar) -->
     <!-- <meta name="robots" content="noindex, nofollow"> -->
 
     <!-- ====== OPEN GRAPH (Facebook, WhatsApp, LinkedIn, Slack) ====== -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Color Compass: HSL vs OKLCH Playground">
-    <meta property="og:description" content="Discover the visual difference between HSL and OKLCH. An interactive dial and slider tool for modern CSS color spaces.">
-    <!-- IMPORTANTE: Cambia esta URL por la de tu GitHub Pages cuando lo subas -->
+    <meta property="og:title" content="Color Compass: HSL vs OKLCH vs LCH Playground">
+    <meta property="og:description" content="Paste a hex color, get its exact OKLCH and LCH equivalents, then keep editing every slider.">
     <meta property="og:url" content="https://senseikatana.com/hueplay/">
-    <!-- IMPORTANTE: Crea una captura de pantalla de tu herramienta, súbela a la raiz y ponle el nombre "preview.png" -->
     <meta property="og:image" content="https://senseikatana.com/hueplay/preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- ====== TWITTER CARDS ====== -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Color Compass: HSL vs OKLCH Playground">
-    <meta name="twitter:description" content="Discover the visual difference between HSL and OKLCH. An interactive dial and slider tool for modern CSS color spaces.">
+    <meta name="twitter:title" content="Color Compass: HSL vs OKLCH vs LCH Playground">
+    <meta name="twitter:description" content="Paste a hex color, get its exact OKLCH and LCH equivalents, then keep editing every slider.">
     <meta name="twitter:image" content="https://senseikatana.com/hueplay/preview.png">
 
     <!-- ====== RECURSOS EXTERNOS ====== -->
@@ -45,7 +43,33 @@
 <body>
 
 <div class="container">
-    <h1>Playground <span>HSL</span> vs <span>OKLCH</span></h1>
+    <h1>Playground <span>HSL</span> vs <span>OKLCH</span> vs <span>LCH</span></h1>
+
+    <!-- ENTRADA DE COLOR + EQUIVALENCIAS -->
+    <div class="input-bar">
+        <div class="input-row">
+            <label class="input-label" for="colorInput">Pegar color</label>
+            <input type="text" class="color-input" id="colorInput" spellcheck="false" autocomplete="off"
+                   placeholder="#ff0000 · hsl(49 100% 50%) · oklch(62.8% 64.42% 29.23) · lch(54.29% 106.84 40.86)">
+            <button type="button" class="apply-btn" id="applyColor">Aplicar</button>
+        </div>
+        <p class="input-error" id="colorInputError" role="alert" hidden></p>
+        <div class="output-chips" id="outputChips">
+            <button type="button" class="chip" data-fmt="hex" title="Copiar">
+                <span class="chip-key">#hex</span><code id="chipHex">#000000</code>
+            </button>
+            <button type="button" class="chip" data-fmt="hsl" title="Copiar">
+                <span class="chip-key">hsl()</span><code id="chipHsl">hsl(0, 0%, 0%)</code>
+            </button>
+            <button type="button" class="chip" data-fmt="oklch" title="Copiar">
+                <span class="chip-key">oklch()</span><code id="chipOklch">oklch(0% 0% 0)</code>
+            </button>
+            <button type="button" class="chip" data-fmt="lch" title="Copiar">
+                <span class="chip-key">lch()</span><code id="chipLch">lch(0% 0 0)</code>
+            </button>
+        </div>
+        <p class="input-note">Los chips equivalen al color del panel HSL. El alfa se ignora: la herramienta no tiene canal alfa.</p>
+    </div>
 
     <!-- DIAL CENTRAL SUPERIOR -->
     <div class="dial-section">
@@ -74,44 +98,126 @@
         <!-- Panel HSL -->
         <div class="panel">
             <div class="panel-header">
-                <h2 class="panel-title">HSL</h2>
-                <div class="panel-code" id="hslCode">hsl(0, 65%, 50%)</div>
+                <div class="panel-heading"><h2 class="panel-title">HSL</h2></div>
+                <div class="panel-code" id="hslCode">hsl(0, 0%, 0%)</div>
             </div>
             <div class="color-display" id="hslPreview"></div>
             
             <div class="control-group">
-                <div class="control-label" id="hslHueLabel">Tono (Hue) <span id="hslHueVal">0°</span></div>
-                <input type="range" id="hslHueSlider" min="0" max="360" value="0" aria-labelledby="hslHueLabel">
+                <div class="control-label">
+                    <span id="hslHueLabel">Tono (Hue)</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="hslHueNum" min="0" max="360" step="1" value="0" aria-labelledby="hslHueLabel">
+                        <span class="num-unit">°</span>
+                    </span>
+                </div>
+                <input type="range" id="hslHueSlider" min="0" max="360" step="1" value="0" aria-labelledby="hslHueLabel">
             </div>
             <div class="control-group">
-                <div class="control-label" id="hslSatLabel">Saturación <span id="hslSatVal">65%</span></div>
-                <input type="range" id="hslSatSlider" min="0" max="100" value="65" aria-labelledby="hslSatLabel">
+                <div class="control-label">
+                    <span id="hslSatLabel">Saturación</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="hslSatNum" min="0" max="100" step="1" value="0" aria-labelledby="hslSatLabel">
+                        <span class="num-unit">%</span>
+                    </span>
+                </div>
+                <input type="range" id="hslSatSlider" min="0" max="100" step="1" value="0" aria-labelledby="hslSatLabel">
             </div>
             <div class="control-group">
-                <div class="control-label" id="hslLightLabel">Luz <span id="hslLightVal">50%</span></div>
-                <input type="range" id="hslLightSlider" min="0" max="100" value="50" aria-labelledby="hslLightLabel">
+                <div class="control-label">
+                    <span id="hslLightLabel">Luz</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="hslLightNum" min="0" max="100" step="1" value="0" aria-labelledby="hslLightLabel">
+                        <span class="num-unit">%</span>
+                    </span>
+                </div>
+                <input type="range" id="hslLightSlider" min="0" max="100" step="1" value="0" aria-labelledby="hslLightLabel">
             </div>
         </div>
 
         <!-- Panel OKLCH -->
         <div class="panel">
             <div class="panel-header">
-                <h2 class="panel-title">OKLCH</h2>
-                <div class="panel-code" id="oklchCode">oklch(50% 65% 29)</div>
+                <div class="panel-heading">
+                    <h2 class="panel-title">OKLCH</h2>
+                    <span class="gamut-badge" id="oklchGamut" hidden>Fuera de gamut</span>
+                </div>
+                <div class="panel-code" id="oklchCode">oklch(0% 0% 0)</div>
             </div>
             <div class="color-display" id="oklchPreview"></div>
             
             <div class="control-group">
-                <div class="control-label" id="oklchHueLabel">Tono (Hue) <span id="oklchHueVal">29°</span></div>
-                <input type="range" id="oklchHueSlider" min="0" max="360" value="29" aria-labelledby="oklchHueLabel">
+                <div class="control-label">
+                    <span id="oklchHueLabel">Tono (Hue)</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="oklchHueNum" min="0" max="360" step="1" value="0" aria-labelledby="oklchHueLabel">
+                        <span class="num-unit">°</span>
+                    </span>
+                </div>
+                <input type="range" id="oklchHueSlider" min="0" max="360" step="1" value="0" aria-labelledby="oklchHueLabel">
             </div>
             <div class="control-group">
-                <div class="control-label" id="oklchChromaLabel">Croma <span id="oklchChromaVal">65%</span></div>
-                <input type="range" id="oklchChromaSlider" min="0" max="100" value="65" aria-labelledby="oklchChromaLabel">
+                <div class="control-label">
+                    <span id="oklchChromaLabel">Croma</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="oklchChromaNum" min="0" max="100" step="1" value="0" aria-labelledby="oklchChromaLabel">
+                        <span class="num-unit">%</span>
+                    </span>
+                </div>
+                <input type="range" id="oklchChromaSlider" min="0" max="100" step="1" value="0" aria-labelledby="oklchChromaLabel">
             </div>
             <div class="control-group">
-                <div class="control-label" id="oklchLightLabel">Luz <span id="oklchLightVal">50%</span></div>
-                <input type="range" id="oklchLightSlider" min="0" max="100" value="50" aria-labelledby="oklchLightLabel">
+                <div class="control-label">
+                    <span id="oklchLightLabel">Luz</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="oklchLightNum" min="0" max="100" step="1" value="0" aria-labelledby="oklchLightLabel">
+                        <span class="num-unit">%</span>
+                    </span>
+                </div>
+                <input type="range" id="oklchLightSlider" min="0" max="100" step="1" value="0" aria-labelledby="oklchLightLabel">
+            </div>
+        </div>
+
+        <!-- Panel LCH (CIE) -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-heading">
+                    <h2 class="panel-title">LCH <span class="panel-sub">CIE</span></h2>
+                    <span class="gamut-badge" id="lchGamut" hidden>Fuera de gamut</span>
+                </div>
+                <div class="panel-code" id="lchCode">lch(0% 0 0)</div>
+            </div>
+            <div class="color-display" id="lchPreview"></div>
+            
+            <div class="control-group">
+                <div class="control-label">
+                    <span id="lchHueLabel">Tono (Hue)</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="lchHueNum" min="0" max="360" step="1" value="0" aria-labelledby="lchHueLabel">
+                        <span class="num-unit">°</span>
+                    </span>
+                </div>
+                <input type="range" id="lchHueSlider" min="0" max="360" step="1" value="0" aria-labelledby="lchHueLabel">
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <span id="lchChromaLabel">Croma</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="lchChromaNum" min="0" max="150" step="1" value="0" aria-labelledby="lchChromaLabel">
+                        <span class="num-unit"></span>
+                    </span>
+                </div>
+                <input type="range" id="lchChromaSlider" min="0" max="150" step="1" value="0" aria-labelledby="lchChromaLabel">
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <span id="lchLightLabel">Luz</span>
+                    <span class="num-wrap">
+                        <input type="number" class="num-input" id="lchLightNum" min="0" max="100" step="1" value="0" aria-labelledby="lchLightLabel">
+                        <span class="num-unit">%</span>
+                    </span>
+                </div>
+                <input type="range" id="lchLightSlider" min="0" max="100" step="1" value="0" aria-labelledby="lchLightLabel">
             </div>
         </div>
 

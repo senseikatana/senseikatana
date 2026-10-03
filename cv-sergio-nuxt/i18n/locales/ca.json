@@ -34,7 +34,6 @@
     "intro": "Aquesta pàgina és la versió digital del meu CV: el mateix contingut que el PDF, més còmode de llegir al mòbil o al navegador.",
     "ctaPdf": "Descarregar PDF",
     "ctaReadWeb": "Llegir a la web",
-    "ctaEmail": "Enviar email",
     "sections": {
       "perfil": "Perfil professional",
       "experiencia": "Experiència",
@@ -51,7 +50,8 @@
     "hardSkills": "Hard skills",
     "languages": "Idiomes",
     "extraTitle": "Informació addicional",
-    "extraNote": "Prefereixes el document clàssic? Descarrega el PDF o escriu-me directament."
+    "extraNote": "Prefereixes el document clàssic? Descarrega el PDF o escriu-me directament.",
+    "ctaWhatsapp": "WhatsApp"
   },
   "contact": {
     "title": "Contacte",
@@ -66,7 +66,11 @@
     "send": "Enviar missatge",
     "sent": "Missatge enviat!",
     "sentSub": "Et respondré el més aviat possible.",
-    "pdf": "PDF"
+    "pdf": "PDF",
+    "callAction": "Trucar",
+    "whatsappAction": "WhatsApp",
+    "noBackendTitle": "El formulari encara no està disponible.",
+    "noBackendBody": "Per assurances el missatge sense intermediaris, usa WhatsApp o truca'm directament. També pots descarregar el PDF o escriure'm per LinkedIn."
   },
   "blog": {
     "title": "Blog",

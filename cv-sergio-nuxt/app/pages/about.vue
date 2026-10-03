@@ -18,11 +18,9 @@ interface Resume {
   name: string
   title: string
   summary: string
-  email: string
-  phone: string
   location: string
   linkedin: string
-  note?: string
+  certificationOnRequest?: string
   pdfUrl: string
   experience: ResumeExperience[]
   education: ResumeEducation[]
@@ -89,24 +87,24 @@ useSeoMeta({
                 {{ resume.location }}
               </span>
               <a
-                :href="`tel:${resume.phone.replace(/\s/g, '')}`"
+                href="/contact/call"
                 class="flex items-center gap-1.5 hover:text-white-100 transition-colors"
               >
                 <UIcon
                   name="i-lucide-phone"
                   class="text-teal-400"
                 />
-                {{ resume.phone }}
+                {{ t('contact.callAction') }}
               </a>
               <a
-                :href="`mailto:${resume.email}`"
+                href="/contact/whatsapp"
                 class="flex items-center gap-1.5 hover:text-white-100 transition-colors"
               >
                 <UIcon
-                  name="i-lucide-mail"
+                  name="i-lucide-message-circle"
                   class="text-teal-400"
                 />
-                {{ resume.email }}
+                {{ t('contact.whatsappAction') }}
               </a>
               <a
                 :href="resume.linkedin"
@@ -411,12 +409,12 @@ useSeoMeta({
               {{ t('about.ctaPdf') }}
             </a>
             <UButton
-              :href="`mailto:${resume.email}`"
+              href="/contact/whatsapp"
               variant="outline"
               size="lg"
               class="px-8 border-dark-600 text-white-300"
             >
-              {{ t('about.ctaEmail') }}
+              {{ t('about.ctaWhatsapp') }}
             </UButton>
           </div>
         </div>

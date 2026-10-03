@@ -34,7 +34,6 @@
     "intro": "This page is the digital version of my CV: the same content as the PDF, easier to read on mobile or in the browser.",
     "ctaPdf": "Download PDF",
     "ctaReadWeb": "Read online",
-    "ctaEmail": "Send email",
     "sections": {
       "perfil": "Professional profile",
       "experiencia": "Experience",
@@ -51,7 +50,8 @@
     "hardSkills": "Hard skills",
     "languages": "Languages",
     "extraTitle": "Additional information",
-    "extraNote": "Prefer the classic document? Download the PDF or write to me directly."
+    "extraNote": "Prefer the classic document? Download the PDF or write to me directly.",
+    "ctaWhatsapp": "WhatsApp"
   },
   "contact": {
     "title": "Contact",
@@ -66,7 +66,11 @@
     "send": "Send message",
     "sent": "Message sent!",
     "sentSub": "I'll get back to you as soon as possible.",
-    "pdf": "PDF"
+    "pdf": "PDF",
+    "callAction": "Call",
+    "whatsappAction": "WhatsApp",
+    "noBackendTitle": "The form is not available yet.",
+    "noBackendBody": "To reach me without intermediaries, use WhatsApp or call me directly. You can also download the PDF or message me on LinkedIn."
   },
   "blog": {
     "title": "Blog",

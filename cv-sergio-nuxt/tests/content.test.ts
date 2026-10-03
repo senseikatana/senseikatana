@@ -117,4 +117,56 @@ describe('Content collections', () => {
       }
     }
   })
+
+  /*
+    Contact details must never appear in the published collection.
+
+    Not in the source JSON, and — critically — not in the schema either. If
+    `email`/`phone` were declared, @nuxt/content would serialise them into
+    `_payload.json`, which the browser downloads unasked. A `mailto:` removed
+    from a template does NOT stop that leak.
+  */
+  it('no contact details are declared in the resume collection', () => {
+    const dir = join(CONTENT_DIR, 'resume')
+    const files = readdirSync(dir).filter(f => f.endsWith('.json'))
+
+    expect(files.length).toBeGreaterThan(0)
+
+    for (const file of files) {
+      const raw = readFileSync(join(dir, file), 'utf8')
+      const resume = JSON.parse(raw)
+
+      expect('email' in resume, `${file}: "email" no debe existir — va en runtimeConfig`).toBe(false)
+      expect('phone' in resume, `${file}: "phone" no debe existir — va en runtimeConfig`).toBe(false)
+
+      // The literal address and digits must not be in the content source.
+      expect(raw, `${file}: contiene el email literal`).not.toMatch(/[\w.+-]+@[\w-]+\.[\w.]+/)
+      expect(raw.replace(/\D/g, ''), `${file}: contiene dígitos de teléfono`).not.toContain('637723747')
+    }
+  })
+
+  /*
+    Schema-level guard.
+
+    Read as source rather than imported: `defineCollection` needs the Nuxt
+    module runtime to resolve Zod, so `import('../content.config')` throws
+    outside a build. A static check on the resume block is what actually
+    protects the payload, and it runs anywhere.
+  */
+  it('the resume schema does not declare contact or health fields', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'content.config.ts'),
+      'utf8',
+    )
+
+    // Isolate the resume collection block.
+    const start = source.indexOf("source: 'resume/**'")
+    expect(start, 'no se encontró la collection resume en content.config.ts').toBeGreaterThan(-1)
+
+    const block = source.slice(start, source.indexOf('})', start))
+
+    expect(block, 'el schema no debe declarar "email"').not.toMatch(/^\s*email:\s*z\./m)
+    expect(block, 'el schema no debe declarar "phone"').not.toMatch(/^\s*phone:\s*z\./m)
+    expect(block, 'el schema no debe declarar "note" (dato de salud)').not.toMatch(/^\s*note:\s*z\./m)
+  })
 })

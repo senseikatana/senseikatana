@@ -73,7 +73,16 @@ globalThis.ColorMath = (() => {
     ];
   }
 
-  const inGamut = (lin) => lin.every((v) => v >= -1e-6 && v <= 1 + 1e-6);
+  // Tolerancia generosa a propósito. Los primarios sRGB viven justo en el borde
+  // del gamut y el redondeo al formatear (un decimal) los empuja apenas fuera
+  // (medido: hasta 3.1e-3 en lineal). En ese caso interesa RECORRAR el exceso,
+  // no reducir croma, porque la croma no es monótona en el gamut: el canal
+  // lineal es cúbico en C, así que cruza cero y vuelve, y una búsqueda binaria
+  // sobre C converge al primer cruce (p. ej. 0.266 en vez de 0.313 para el
+  // azul) y devuelve un color muy distinto. 1e-2 deja margen de sobra y los
+  // colores realmente fuera de gamut (exceso ~0.16) siguen reduciendo croma.
+  const GAMUT_EPS = 1e-2;
+  const inGamut = (lin) => lin.every((v) => v >= -GAMUT_EPS && v <= 1 + GAMUT_EPS);
 
   // OKLCH -> sRGB [0,1]. Si la croma no cabe en sRGB, se reduce hasta que quepa.
   function oklchToRgb(l, c, h) {
@@ -113,21 +122,120 @@ globalThis.ColorMath = (() => {
     return o.c < ACHROMATIC_C ? null : o.h;
   }
 
-  // Tono HSL cuyo color tiene el tono OKLCH indicado, para hsl(*,s,l).
+
+  // Los tonos OKLCH de los primarios HSL (0..360 cada 60°) a saturación/luz plenas.
+  function primaryOklchHues(s = 100, l = 50) {
+    const out = [];
+    for (let h = 0; h <= 360; h += 60) out.push(hslHueToOklchHue(h, s, l));
+    return out;
+  }
+
+  // ------------------------------------------------------------------ LCH (CIE)
   //
-  // Cerca de los primarios (p. ej. el azul) el tono OKLCH apenas reacciona al
-  // tono HSL: un tramo de 10-15° de HSL se aplana en un solo grado de OKLCH.
-  // Por eso la inversa no es continua y sólo se puede resolver así:
-  //   1. si el tono actual ya redondea al objetivo, se devuelve tal cual
-  //      (eso hace exacto el recorrido de ida y vuelta);
-  //   2. si no, el tono más cercano al objetivo, desempatando por cercanía a
-  //      `preferH` para no dar saltos gratuitos.
-  // null si el tono no está definido.
-  function oklchHueToHslHue(targetH, s, l, preferH = null) {
+  // Según CSS Color 4, lab()/lch() usan el blanco D50, así que hace falta
+  // adaptación cromática (Bradford lineal) desde D65, el blanco nativo de sRGB:
+  //   sRGB lineal -> XYZ D65 -> XYZ D50 -> Lab -> LCH
+  // Porcentajes: en lch() L 100% = 100 y C 100% = 150
+  // (en oklch() en cambio L 100% = 1 y C 100% = 0.4, ver CHROMA_UNIT).
+
+  const LCH_CHROMA_UNIT = 150;
+  // Blanco D50 de la spec: [0.3457/0.3585, 1, (1 - 0.3457 - 0.3585)/0.3585]
+  const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
+  const LAB_EPS = 216 / 24389;
+  const LAB_KAPPA = 24389 / 27;
+
+  const mul3 = (m, v) => [
+    m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2],
+    m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2],
+    m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2],
+  ];
+
+  // De la sección "Sample code for Color Conversions" de CSS Color 4.
+  const LIN_SRGB_TO_XYZ_D65 = [
+    [506752 / 1228815, 87881 / 245763, 12673 / 70218],
+    [87098 / 409605, 175762 / 245763, 12673 / 175545],
+    [7918 / 409605, 87881 / 737289, 1001167 / 1053270],
+  ];
+  const XYZ_D65_TO_D50 = [
+    [1.0479297925449969, 0.022946870601609652, -0.05019226628920524],
+    [0.02962780877005599, 0.9904344267538799, -0.017073799063418826],
+    [-0.009243040646204504, 0.015055191490298152, 0.7518742814281371],
+  ];
+  const XYZ_D50_TO_D65 = [
+    [0.955473421488075, -0.02309845494876471, 0.06325924320057072],
+    [-0.0283697093338637, 1.0099953980813041, 0.021041441191917323],
+    [0.012314014864481998, -0.020507649298898964, 1.330365926242124],
+  ];
+  const XYZ_D65_TO_LIN_SRGB = [
+    [12831 / 3959, -329 / 214, -1974 / 3959],
+    [-851781 / 878810, 1648619 / 878810, 36519 / 878810],
+    [705 / 12673, -2585 / 12673, 705 / 667],
+  ];
+
+  function xyzToLab([X, Y, Z]) {
+    const f = (t) => (t > LAB_EPS ? Math.cbrt(t) : (LAB_KAPPA * t + 16) / 116);
+    const fx = f(X / D50[0]);
+    const fy = f(Y / D50[1]);
+    const fz = f(Z / D50[2]);
+    return [116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
+  }
+
+  function labToXyz([L, a, b]) {
+    const fy = (L + 16) / 116;
+    const inv = (v) => (v * v * v > LAB_EPS ? v * v * v : (116 * v - 16) / LAB_KAPPA);
+    return [inv(fy + a / 500) * D50[0], inv(fy) * D50[1], inv(fy - b / 200) * D50[2]];
+  }
+
+  // LCH de CIE: L en 0..100, C en 0..~150, H en grados.
+  function lchToLinear(l, c, h) {
+    const rad = (h * Math.PI) / 180;
+    const xyz50 = labToXyz([l, c * Math.cos(rad), c * Math.sin(rad)]);
+    return mul3(XYZ_D65_TO_LIN_SRGB, mul3(XYZ_D50_TO_D65, xyz50));
+  }
+
+  function rgbToLch(r, g, b) {
+    const lin = [toLinear(r), toLinear(g), toLinear(b)];
+    const xyz50 = mul3(XYZ_D65_TO_D50, mul3(LIN_SRGB_TO_XYZ_D65, lin));
+    const [L, aLab, bLab] = xyzToLab(xyz50);
+    let H = (Math.atan2(bLab, aLab) * 180) / Math.PI;
+    if (H < 0) H += 360;
+    return { l: L, c: Math.hypot(aLab, bLab), h: H };
+  }
+
+  // Misma estrategia que oklchToRgb: si la croma no cabe en sRGB, se reduce.
+  function lchToRgb(l, c, h) {
+    const L = clamp(l, 0, 100);
+    const encode = (lin) => lin.map((v) => clamp(toSrgb(clamp(v, 0, 1)), 0, 1));
+    if (!inGamut(lchToLinear(L, 0, h))) return encode(lchToLinear(L, 0, h));
+    if (inGamut(lchToLinear(L, c, h))) return encode(lchToLinear(L, c, h));
+    let lo = 0;
+    let hi = c;
+    for (let i = 0; i < 24; i++) {
+      const mid = (lo + hi) / 2;
+      if (inGamut(lchToLinear(L, mid, h))) lo = mid;
+      else hi = mid;
+    }
+    return encode(lchToLinear(L, lo, h));
+  }
+
+  function hslHueToLchHue(h, s, l) {
+    if (s <= 0 || l <= 0 || l >= 100) return null;
+    const [r, g, b] = hslToRgb(h, s, l);
+    const o = rgbToLch(r, g, b);
+    return o.c < ACHROMATIC_C ? null : o.h;
+  }
+
+  // ------------------------------------------------------------------ inversa
+  //
+  // Compartida por OKLCH y LCH: la relación no es inyectiva cerca de los
+  // primarios, así que primero se reconoce si el tono actual ya representa al
+  // objetivo (eso hace exacto el recorrido de ida y vuelta) y sólo si no, se
+  // busca el más cercano desempatando por cercanía a `preferH`.
+  function inverseHue(targetH, s, l, forward, preferH) {
     if (s <= 0 || l <= 0 || l >= 100) return null;
 
     const wanted = roundHue(targetH);
-    const preferCur = preferH === null ? null : hslHueToOklchHue(preferH, s, l);
+    const preferCur = preferH === null ? null : forward(preferH, s, l);
     if (preferCur !== null && roundHue(preferCur) === wanted) return preferH;
 
     let bestH = -1;
@@ -136,7 +244,7 @@ globalThis.ColorMath = (() => {
     let tieD = Infinity;
 
     for (let h = 0; h < 360; h++) {
-      const cur = hslHueToOklchHue(h, s, l);
+      const cur = forward(h, s, l);
       if (cur === null) continue;
       const d = circularDistance(cur, targetH);
       if (d < bestD - 1e-12) {
@@ -157,21 +265,194 @@ globalThis.ColorMath = (() => {
     return tieH < 0 ? bestH : tieH;
   }
 
-  // Los tonos OKLCH de los primarios HSL (0..360 cada 60°) a saturación/luz plenas.
-  function primaryOklchHues(s = 100, l = 50) {
-    const out = [];
-    for (let h = 0; h <= 360; h += 60) out.push(hslHueToOklchHue(h, s, l));
-    return out;
+  function oklchHueToHslHue(targetH, s, l, preferH = null) {
+    return inverseHue(targetH, s, l, hslHueToOklchHue, preferH);
   }
+
+  function lchHueToHslHue(targetH, s, l, preferH = null) {
+    return inverseHue(targetH, s, l, hslHueToLchHue, preferH);
+  }
+
+  // --------------------------------------------------------------- parseo CSS
+  //
+  // Se acepta sintaxis moderna (`rgb(255 0 0)`, `rgb(255 0 0 / .5)`) y legada
+  // (`rgb(255, 0, 0)`). El alfa se lee pero se descarta: la herramienta no
+  // tiene canal alfa.
+
+  function matchFunc(str, names) {
+    const m = String(str).trim().match(/^([a-z]+)\((.*)\)$/is);
+    if (!m || !names.includes(m[1].toLowerCase())) return null;
+    return m[2];
+  }
+
+  // Máximo 4 argumentos: los tres componentes y, opcionalmente, el alfa
+  // (`rgb(255 0 0 / .5)`). Más que eso no es un color CSS.
+  const MAX_ARGS = 4;
+  const splitArgs = (inner) => {
+    const parts = inner
+      .replace(/\//g, " ")
+      .replace(/,/g, " ")
+      .trim()
+      .split(/\s+/)
+      .filter((t) => t !== "");
+    return parts.length > MAX_ARGS ? [] : parts;
+  };
+
+  // Valor con % o en número: `x%` -> pct/100*unit, número -> tal cual.
+  const readRatio = (tok, unit) => {
+    const s = String(tok).trim();
+    if (s.endsWith("%")) {
+      const v = parseFloat(s);
+      return Number.isFinite(v) ? (v / 100) * unit : NaN;
+    }
+    return parseFloat(s);
+  };
+
+  function parseHex(str) {
+    const s = String(str).trim().replace(/^#/, "");
+    if (!/^[0-9a-f]+$/i.test(s)) return null;
+    let hex = s;
+    if (hex.length === 3 || hex.length === 4) hex = [...hex].map((c) => c + c).join("");
+    if (hex.length !== 6 && hex.length !== 8) return null;
+    const n = parseInt(hex, 16);
+    if (hex.length === 8) {
+      return {
+        r: ((n >>> 24) & 255) / 255,
+        g: ((n >>> 16) & 255) / 255,
+        b: ((n >>> 8) & 255) / 255,
+        a: (n & 255) / 255,
+      };
+    }
+    return { r: ((n >>> 16) & 255) / 255, g: ((n >>> 8) & 255) / 255, b: (n & 255) / 255, a: 1 };
+  }
+
+  function parseRgb(str) {
+    const inner = matchFunc(str, ["rgb", "rgba"]);
+    if (inner === null) return null;
+    const t = splitArgs(inner);
+    if (t.length < 3) return null;
+    const chan = (tok) => {
+      const s = String(tok).trim();
+      if (s.endsWith("%")) {
+        const v = parseFloat(s);
+        return Number.isFinite(v) ? clamp(v / 100, 0, 1) : NaN;
+      }
+      const v = parseFloat(s);
+      return Number.isFinite(v) ? clamp(v / 255, 0, 1) : NaN;
+    };
+    const r = chan(t[0]);
+    const g = chan(t[1]);
+    const b = chan(t[2]);
+    if (![r, g, b].every(Number.isFinite)) return null;
+    return { r, g, b, a: 1 };
+  }
+
+  function parseHsl(str) {
+    const inner = matchFunc(str, ["hsl", "hsla"]);
+    if (inner === null) return null;
+    const t = splitArgs(inner);
+    if (t.length < 3) return null;
+    const h = parseFloat(t[0]);
+    const s = readRatio(t[1], 100);
+    const l = readRatio(t[2], 100);
+    if (![h, s, l].every(Number.isFinite)) return null;
+    const [r, g, b] = hslToRgb(h, s, l);
+    return { r, g, b, a: 1 };
+  }
+
+  function parseOkLch(str) {
+    const inner = matchFunc(str, ["oklch"]);
+    if (inner === null) return null;
+    const t = splitArgs(inner);
+    if (t.length < 3) return null;
+    const L = readRatio(t[0], 1);
+    const C = readRatio(t[1], CHROMA_UNIT);
+    const H = parseFloat(t[2]);
+    if (![L, C, H].every(Number.isFinite)) return null;
+    const [r, g, b] = oklchToRgb(L, C, H);
+    return { r, g, b, a: 1 };
+  }
+
+  function parseLch(str) {
+    const inner = matchFunc(str, ["lch"]);
+    if (inner === null) return null;
+    const t = splitArgs(inner);
+    if (t.length < 3) return null;
+    const L = readRatio(t[0], 100);
+    const C = readRatio(t[1], LCH_CHROMA_UNIT);
+    const H = parseFloat(t[2]);
+    if (![L, C, H].every(Number.isFinite)) return null;
+    const [r, g, b] = lchToRgb(L, C, H);
+    return { r, g, b, a: 1 };
+  }
+
+  function parseCssColor(str) {
+    const s = String(str).trim();
+    if (!s) return null;
+    const bareHex = /^[0-9a-f]{3}$/i.test(s) || /^[0-9a-f]{4}$/i.test(s) ||
+      /^[0-9a-f]{6}$/i.test(s) || /^[0-9a-f]{8}$/i.test(s);
+    if (s.startsWith("#") || bareHex) return parseHex(s);
+    return parseRgb(s) ?? parseHsl(s) ?? parseOkLch(s) ?? parseLch(s);
+  }
+
+  // --------------------------------------------------------------- formato CSS
+
+  // Quita ceros sobrantes: 50.00 -> "50", 62.7955 -> "62.8".
+  // Dos decimales no son capricho: con uno la vuelta al color original se
+  // desvía hasta 3.3/255 en los primarios; con dos, 0.4/255.
+  const fmt = (n, d = 2) => String(Number(n.toFixed(d)));
+  const clampInt = (x, lo, hi) => clamp(Math.round(x), lo, hi);
+
+  function formatHex(r, g, b) {
+    const q = (v) => clampInt(v * 255, 0, 255).toString(16).padStart(2, "0");
+    return `#${q(r)}${q(g)}${q(b)}`;
+  }
+
+  function formatHsl(r, g, b) {
+    const { h, s, l } = rgbToHsl(r, g, b);
+    return `hsl(${clampInt(h, 0, 359)}, ${fmt(s)}%, ${fmt(l)}%)`;
+  }
+
+  function formatOklch(r, g, b) {
+    const o = rgbToOklch(r, g, b);
+    return `oklch(${fmt(o.l * 100)}% ${fmt((o.c / CHROMA_UNIT) * 100)}% ${fmt(o.h)})`;
+  }
+
+  function formatLch(r, g, b) {
+    const o = rgbToLch(r, g, b);
+    return `lch(${fmt(o.l)}% ${fmt(o.c)} ${fmt(o.h)})`;
+  }
+
+  // ¿Cabe el triple OKLCH en sRGB tal cual, o el navegador va a recortar?
+  const inSrgbGamut = (l, c, h) => inGamut(oklchToLinear(clamp(l, 0, 1), c, h));
+  // Lo mismo para LCH de CIE (l en 0..100, c en 0..150).
+  const inSrgbGamutLch = (l, c, h) => inGamut(lchToLinear(clamp(l, 0, 100), c, h));
 
   return {
     CHROMA_UNIT,
+    LCH_CHROMA_UNIT,
     hslToRgb,
     rgbToHsl,
     rgbToOklch,
     oklchToRgb,
+    rgbToLch,
+    lchToRgb,
     hslHueToOklchHue,
     oklchHueToHslHue,
+    hslHueToLchHue,
+    lchHueToHslHue,
     primaryOklchHues,
+    inSrgbGamut,
+    inSrgbGamutLch,
+    parseHex,
+    parseRgb,
+    parseHsl,
+    parseOkLch,
+    parseLch,
+    parseCssColor,
+    formatHex,
+    formatHsl,
+    formatOklch,
+    formatLch,
   };
 })();

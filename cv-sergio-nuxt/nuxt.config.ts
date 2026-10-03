@@ -88,7 +88,21 @@ export default defineNuxtConfig({
     },
   },
 
+  /*
+    Contact details are PRIVATE runtime config on purpose.
+
+    They must never live in `content/resume/*` — @nuxt/content serialises the
+    whole collection into `_payload.json`, which ships to the browser unasked.
+    Hiding a `mailto:` in the template does NOT hide it; the payload leaks it.
+
+    Instead the browser only ever sees `/contact/call` and `/contact/whatsapp`,
+    and the server resolves those to the real targets via 302.
+
+    Env: NUXT_CONTACT_PHONE=+34...  NUXT_CONTACT_WHATSAPP=34...
+  */
   runtimeConfig: {
+    contactPhone: '',
+    contactWhatsapp: '',
     public: {
       siteUrl: process.env.SITE_URL || 'http://localhost:3000',
     },

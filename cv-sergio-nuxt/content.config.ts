@@ -91,11 +91,15 @@ export default defineContentConfig({
         name: z.string(),
         title: z.string(),
         summary: z.string(),
-        email: z.string(),
-        phone: z.string(),
+        /*
+          Deliberately ABSENT: `email` and `phone`.
+
+          They are private runtime config (see nuxt.config.ts). Keeping them
+          here would put them in `_payload.json`, which the browser downloads
+          unasked — hiding the `mailto:` in a template would not help.
+        */
         location: z.string(),
         linkedin: z.string(),
-        note: z.string().optional(),
         pdfUrl: z.string(),
         /**
          * Datos de salud (RGPD art. 9) — NUNCA se publican en la web.
