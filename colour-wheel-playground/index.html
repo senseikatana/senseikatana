@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <!-- ====== BÁSICOS ====== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ====== SEO PRINCIPAL ====== -->
+    <title>OKLCH Dial Lab: HSL vs OKLCH Playground</title>
+    <meta name="description" content="An interactive visual tool to compare HSL and OKLCH color models. Drag the dial, adjust sliders, and understand why OKLCH is the future of CSS colors.">
+    <meta name="author" content="Tu Nombre o Usuario de GitHub">
+    <meta name="keywords" content="oklch, hsl, css, color picker, color space, frontend, web design, ui design, css colors">
+    
+    <!-- Evita que los robots indexen si estás haciendo pruebas (Bórralo cuando quieras indexar) -->
+    <!-- <meta name="robots" content="noindex, nofollow"> -->
+
+    <!-- ====== OPEN GRAPH (Facebook, WhatsApp, LinkedIn, Slack) ====== -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OKLCH Dial Lab: HSL vs OKLCH Playground">
+    <meta property="og:description" content="Discover the visual difference between HSL and OKLCH. An interactive dial and slider tool for modern CSS color spaces.">
+    <!-- IMPORTANTE: Cambia esta URL por la de tu GitHub Pages cuando lo subas -->
+    <meta property="og:url" content="https://tu-usuario.github.io/oklch-dial-lab/">
+    <!-- IMPORTANTE: Crea una captura de pantalla de tu herramienta, súbela a la raiz y ponle el nombre "preview.png" -->
+    <meta property="og:image" content="https://tu-usuario.github.io/oklch-dial-lab/preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- ====== TWITTER CARDS ====== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OKLCH Dial Lab: HSL vs OKLCH Playground">
+    <meta name="twitter:description" content="Discover the visual difference between HSL and OKLCH. An interactive dial and slider tool for modern CSS color spaces.">
+    <meta name="twitter:image" content="https://tu-usuario.github.io/oklch-dial-lab/preview.png">
+
+    <!-- ====== RECURSOS EXTERNOS ====== -->
+    <!-- El favicon (el icono de la pestaña del navegador) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230f0f0f' stroke='%234af' stroke-width='5'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23ff0099'/%3E%3C/svg%3E">
+    
+    <!-- Tu hoja de estilos -->
+    <link rel="stylesheet" href="/styles.css">
+    
+    <!-- Color de tema para el navegador (solo estético en móviles) -->
+    <meta name="theme-color" content="#0f0f0f">
+</head>
+<body>
+
+<div class="container">
+    <h1>Playground <span>HSL</span> vs <span>OKLCH</span></h1>
+
+    <!-- DIAL CENTRAL SUPERIOR -->
+    <div class="dial-section">
+        <div class="dial-wrapper" id="dialWrapper">
+            <div class="ring hsl-ring" id="hslRing"></div>
+            <div class="ring-label label-hsl">HSL</div>
+            <div class="ring-gap"></div>
+            <div class="ring oklch-ring" id="oklchRing"></div>
+            <div class="ring-label label-oklch">OKLCH</div>
+            
+            <div class="pointer" id="pointer">
+                <div class="pointer-line"></div>
+            </div>
+            
+            <div class="center-hub">
+                <span id="angleDisplay">0°</span>
+                <small>HUE (HSL)</small>
+            </div>
+        </div>
+        <div class="dial-info">Arrastra el dial para cambiar el Tono (Hue) sincronizadamente</div>
+    </div>
+
+    <!-- PANELES INFERIORES -->
+    <div class="panels-grid">
+        
+        <!-- Panel HSL -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2 class="panel-title">HSL</h2>
+                <div class="panel-code" id="hslCode">hsl(0, 65%, 50%)</div>
+            </div>
+            <div class="color-display" id="hslPreview"></div>
+            
+            <div class="control-group">
+                <div class="control-label">Tono (Hue) <span id="hslHueVal">0°</span></div>
+                <input type="range" id="hslHueSlider" min="0" max="360" value="0">
+            </div>
+            <div class="control-group">
+                <div class="control-label">Saturación <span id="hslSatVal">65%</span></div>
+                <input type="range" id="hslSatSlider" min="0" max="100" value="65">
+            </div>
+            <div class="control-group">
+                <div class="control-label">Luz <span id="hslLightVal">50%</span></div>
+                <input type="range" id="hslLightSlider" min="0" max="100" value="50">
+            </div>
+        </div>
+
+        <!-- Panel OKLCH -->
+        <div class="panel">
+            <div class="panel-header">
+                <h2 class="panel-title">OKLCH</h2>
+                <div class="panel-code" id="oklchCode">oklch(50% 65% 29)</div>
+            </div>
+            <div class="color-display" id="oklchPreview"></div>
+            
+            <div class="control-group">
+                <div class="control-label">Tono (Hue) <span id="oklchHueVal">29°</span></div>
+                <input type="range" id="oklchHueSlider" min="0" max="360" value="29">
+            </div>
+            <div class="control-group">
+                <div class="control-label">Croma <span id="oklchChromaVal">65%</span></div>
+                <input type="range" id="oklchChromaSlider" min="0" max="100" value="65">
+            </div>
+            <div class="control-group">
+                <div class="control-label">Luz <span id="oklchLightVal">50%</span></div>
+                <input type="range" id="oklchLightSlider" min="0" max="100" value="50">
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="/index.js"></script>
+</body>
+</html>
