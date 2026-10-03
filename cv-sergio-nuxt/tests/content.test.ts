@@ -73,8 +73,15 @@ describe('Content collections', () => {
     const dir = join(CONTENT_DIR, 'resume')
     const files = readdirSync(dir).filter(f => f.endsWith('.json'))
 
-    const FORBIDDEN = [
-      'discapac', 'discap', 'TEA', 'ASD', 'autis', 'disabil', 'disabilitat',
+    /*
+      Bare `TEA`/`ASD` MUST be word-bounded: as plain substrings they match
+      innocent words — "TEA" hits "teams", "ASD" would hit any acronym soup.
+      Only the spelled-out disability terms may match as substrings.
+    */
+    const FORBIDDEN: RegExp[] = [
+      /discapac|discap|disabil|disabilitat|autis/i,
+      /\bTEA\b/,
+      /\bASD\b/,
     ]
 
     expect(files.length).toBeGreaterThan(0)
@@ -105,7 +112,7 @@ describe('Content collections', () => {
           expect(
             line,
             `${file}: término de dato de salud fuera de certificationOnRequest → "${line.trim()}"`,
-          ).not.toMatch(new RegExp(term, 'i'))
+          ).not.toMatch(term)
         }
       }
     }

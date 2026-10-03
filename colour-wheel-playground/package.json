@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "build": "bash scripts/build.sh",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "bun test"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
