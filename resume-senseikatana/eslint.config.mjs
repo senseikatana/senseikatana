@@ -12,9 +12,13 @@ const globals = {
   watch: 'readonly',
   watchEffect: 'readonly',
   onMounted: 'readonly',
+  onBeforeUnmount: 'readonly',
+  onUnmounted: 'readonly',
+  nextTick: 'readonly',
   // Nuxt
   useRoute: 'readonly',
   useRouter: 'readonly',
+  useNuxtApp: 'readonly',
   useAsyncData: 'readonly',
   useFetch: 'readonly',
   useRuntimeConfig: 'readonly',
@@ -54,6 +58,11 @@ const globals = {
 
   // Auto-imported project composables (app/composables/**)
   useDateRange: 'readonly',
+  useCountUp: 'readonly',
+  // Auto-imported project utils (app/utils/**)
+  revealAll: 'readonly',
+  onReveal: 'readonly',
+  whenVisible: 'readonly',
 }
 
 export default tseslint.config(

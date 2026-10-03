@@ -13,16 +13,27 @@ const navigation = computed(() => [
 
 const socials = [
   { icon: 'i-simple-icons-linkedin', to: site.linkedin, label: 'LinkedIn' },
+  { icon: 'i-simple-icons-whatsapp', to: '/contact/whatsapp', label: 'WhatsApp' },
+  { icon: 'i-lucide-phone', to: '/contact/call', label: 'Teléfono' },
 ]
 
-const marquee = computed(() => t('brand.marquee') as unknown as string[])
-
 const NAV_UI = {
-  link: 'relative font-heading text-xs uppercase tracking-[0.18em] text-white-400 transition-colors hover:text-white-50 data-[active]:text-forge-500',
+  link: 'q-nav-link relative font-heading text-xs uppercase tracking-[0.18em] text-white-400 transition-colors hover:text-white-50 data-[active]:text-forge-500',
   linkIcon: 'hidden',
 }
 
-onMounted(() => revealAll())
+/*
+ * Observa los `.reveal` del primer render y de CADA navegación: `revealAll`
+ * solo en onMounted dejaba invisible el contenido al cambiar de página (los
+ * elementos nuevos nunca recibían `in-view`).
+ */
+onMounted(() => {
+  revealAll()
+  useNuxtApp().hook('page:finish', async () => {
+    await nextTick()
+    revealAll()
+  })
+})
 </script>
 
 <template>
@@ -38,12 +49,12 @@ onMounted(() => revealAll())
           <span class="relative grid size-9 place-items-center bg-forge-500">
             <UIcon
               name="i-lucide-zap"
-              class="size-4 text-dark-950"
+              class="size-4 text-on-accent"
             />
             <span class="absolute -inset-1 border border-forge-500 opacity-0 transition-opacity group-hover:opacity-100" />
           </span>
           <span class="hidden sm:block">
-            <span class="block font-display text-2xl leading-none tracking-wider text-white-50">SJ</span>
+            <span class="q-gradient-text block font-display text-2xl leading-none tracking-wider">SJ</span>
             <span class="mt-0.5 block font-mono text-[10px] tracking-[0.3em] text-white-500">
               {{ t('brand.tagline') }}
             </span>
@@ -63,20 +74,18 @@ onMounted(() => revealAll())
         <ThemeSwitcher />
         <LangSwitcher />
         <UButton
-          v-for="s in socials"
-          :key="s.icon"
-          :icon="s.icon"
+          :icon="socials[0].icon"
           color="gray"
           variant="ghost"
-          :to="s.to"
+          :to="socials[0].to"
           target="_blank"
           rel="noopener noreferrer"
-          :aria-label="s.label"
+          :aria-label="socials[0].label"
           class="hidden sm:inline-flex"
         />
         <UButton
           :to="localePath('/about')"
-          class="hidden font-heading text-xs uppercase tracking-[0.2em]"
+          class="q-btn q-btn-primary q-btn-sm max-sm:hidden! font-heading uppercase tracking-[0.2em]"
         >
           {{ t('nav.cta') }}
         </UButton>
@@ -95,102 +104,43 @@ onMounted(() => revealAll())
       <slot />
     </UMain>
 
-    <UFooter class="relative overflow-hidden border-t border-dark-700/60 bg-dark-950">
-      <p
-        class="pointer-events-none absolute inset-x-0 -bottom-4 select-none text-center font-display text-[22vw] leading-none text-outline-dim opacity-30"
-        aria-hidden="true"
-      >
-        {{ site.name.split(' ').map(part => part[0]).join('') }}
-      </p>
+    <UFooter class="border-t border-dark-700/60 bg-dark-950">
+      <UContainer class="py-14 text-center">
+        <NuxtLink
+          :to="localePath('/')"
+          class="q-gradient-text inline-block font-display text-4xl tracking-wide"
+        >
+          {{ site.name }}
+        </NuxtLink>
 
-      <div class="relative">
-        <UContainer>
-          <div class="grid gap-10 py-14 md:grid-cols-12">
-            <div class="md:col-span-5">
-              <div class="mb-5 flex items-center gap-3">
-                <span class="grid size-10 place-items-center bg-forge-500">
-                  <UIcon
-                    name="i-lucide-zap"
-                    class="size-5 text-dark-950"
-                  />
-                </span>
-                <span>
-                  <span class="block font-display text-2xl leading-none tracking-wider text-white-50">{{ site.name }}</span>
-                  <span class="mt-0.5 block font-mono text-[10px] tracking-[0.3em] text-white-500">{{ site.location }}</span>
-                </span>
-              </div>
-              <p class="max-w-md text-sm leading-relaxed text-white-400">
-                {{ t('footer.summary') }}
-              </p>
-              <div class="mt-6 flex gap-3">
-                <UButton
-                  v-for="s in socials"
-                  :key="s.icon"
-                  :icon="s.icon"
-                  color="gray"
-                  variant="ghost"
-                  :to="s.to"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  :aria-label="s.label"
-                />
-              </div>
-            </div>
+        <p class="mt-2 font-mono text-[11px] uppercase tracking-[0.3em] text-white-500">
+          {{ site.location }}
+        </p>
 
-            <div class="md:col-span-3 md:col-start-7">
-              <h2 class="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-forge-500">
-                {{ t('footer.navTitle') }}
-              </h2>
-              <ul class="space-y-2 text-sm">
-                <li
-                  v-for="item in navigation"
-                  :key="item.to"
-                >
-                  <NuxtLink
-                    :to="item.to"
-                    class="link-underline text-white-400 transition-colors hover:text-white-50"
-                  >
-                    {{ item.label }}
-                  </NuxtLink>
-                </li>
-              </ul>
-            </div>
+        <p class="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-white-400">
+          {{ t('footer.summary') }}
+        </p>
 
-            <div class="md:col-span-4">
-              <h2 class="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-forge-500">
-                {{ t('footer.contactTitle') }}
-              </h2>
-              <div class="space-y-2.5 text-sm">
-                <a
-                  href="/contact/whatsapp"
-                  class="flex items-center gap-3 text-white-400 transition-colors hover:text-forge-500"
-                >
-                  <UIcon
-                    name="i-lucide-message-circle"
-                    class="size-4 text-forge-500"
-                  />
-                  {{ t('contact.whatsappAction') }}
-                </a>
-                <a
-                  href="/contact/call"
-                  class="flex items-center gap-3 text-white-400 transition-colors hover:text-forge-500"
-                >
-                  <UIcon
-                    name="i-lucide-phone"
-                    class="size-4 text-forge-500"
-                  />
-                  {{ t('contact.callAction') }}
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="mt-7 flex justify-center gap-4">
+          <UButton
+            v-for="s in socials"
+            :key="s.icon"
+            :icon="s.icon"
+            color="gray"
+            variant="ghost"
+            :to="s.to"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="s.label"
+            class="q-footer-social"
+          />
+        </div>
 
-          <div class="flex flex-col justify-between gap-4 border-t border-dark-700/60 py-6 font-mono text-[11px] uppercase tracking-[0.15em] text-white-500 md:flex-row">
-            <span>&copy; {{ new Date().getFullYear() }} {{ site.name }}</span>
-            <span>{{ site.location }}</span>
-          </div>
-        </UContainer>
-      </div>
+        <div class="mt-8 flex flex-col items-center gap-3 border-t border-dark-700/60 pt-6 font-mono text-[11px] uppercase tracking-[0.15em] text-white-500 sm:flex-row sm:justify-between">
+          <span>&copy; {{ new Date().getFullYear() }} {{ site.name }}</span>
+          <span>{{ site.location }}</span>
+        </div>
+      </UContainer>
     </UFooter>
   </div>
 </template>

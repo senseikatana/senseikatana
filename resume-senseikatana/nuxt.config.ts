@@ -80,9 +80,15 @@ export default defineNuxtConfig({
     baseUrl: process.env.SITE_URL || 'http://localhost:3000',
   },
 
+  /*
+   * `dark` es la rampa de superficies/tinta del propio sitio (se invierte con
+   * el modo claro). `slate` es el neutral ESTÁNDAR de Nuxt UI: los tokens de
+   * componentes (--ui-bg, --ui-text, menús) usan slate para no heredar la
+   * semántica invertida de `dark-*` en modo claro.
+   */
   ui: {
     theme: {
-      colors: ['forge', 'dark', 'white'],
+      colors: ['forge', 'dark', 'white', 'slate'],
     },
   },
 

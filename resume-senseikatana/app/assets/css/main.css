@@ -1,23 +1,96 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+@import "./qwen.css";
 
 /*
- * Lenguaje de diseño IRONFORGE aplicado al CV de Sergio Jurado Casado.
+ * Lenguaje de diseño del CV de Sergio Jurado Casado.
  *
- * Todos los colores van en OKLCH, nunca hex ni RGB. La rampa de acento se
- * verificó contra el gamut sRGB en tono 38.6: el chroma está topado en el
- * límite para que el navegador nunca lo recorte en silencio.
+ * Todos los colores van en OKLCH, nunca hex ni RGB. La rampa de acento es el
+ * azul de la maqueta qwen (#2563eb); cada paso se verificó con oklch→sRGB para
+ * que el navegador nunca recorte en silencio.
  *
- * El sitio mantiene soporte claro/oscuro: `dark-*` son superficies, `white-*`
- * son tinta, y ambas se invierten con `.dark` (ver ThemeSwitcher).
+ * Soporte claro/oscuro REAL (ThemeSwitcher): `:root` es el modo CLARO y
+ * `.dark` el modo OSCURO. Dos familias de tokens se invierten con la clase:
+ *
+ *   - `dark-*`  → SUPERFICIES. En claro el 950 es casi blanco (bandas, header)
+ *                 y en oscuro es casi negro; los bordes van al revés.
+ *   - `white-*` → TINTA. En claro la tinta es oscura; en oscuro, clara.
+ *
+ * El acento también se invierte (`--forge-500`): #2563eb sobre fondo claro y
+ * #60a5fa sobre fondo oscuro, para mantener ≥4.5:1 en ambos modos.
  */
 
-/* ─── Paleta Forge ──────────────────────────────────────────────────────── */
+/* ─── Modo claro (:root) ────────────────────────────────────────────────── */
 :root {
-  /* Acento — naranja IRONFORGE, rampa anclada en 500 */
-  --forge-accent: oklch(0.6748 0.2116 38.6);
-  --forge-accent-bright: oklch(0.7250 0.1811 45.3);
-  --forge-accent-dim: oklch(0.5194 0.1659 39.1);
+  /* Acento — azul qwen, rampa anclada en 500 */
+  --forge-accent: oklch(0.5461 0.2152 262.88);
+  --forge-accent-bright: oklch(0.6231 0.188 259.81);
+  --forge-accent-dim: oklch(0.4882 0.2172 264.38);
+
+  /* Pasos del acento que se invierten con `.dark` */
+  --forge-400: oklch(0.4882 0.2172 264.38);
+  --forge-500: oklch(0.5461 0.2152 262.88);
+  --forge-700: oklch(0.4882 0.2172 264.38);
+
+  /* Tinta sobre relleno de acento (botones, badges) */
+  --forge-on-accent: oklch(0.99 0 0);
+
+  /* Neutros — superficies de la página en modo claro */
+  --forge-bg: oklch(0.9842 0.0034 247.86);
+  --forge-bg-darker: oklch(0.965 0.005 250);
+  --forge-bg-card: oklch(1 0 0);
+  --forge-bg-card-hover: oklch(0.974 0.005 250);
+  --forge-border: oklch(0.9 0.012 255);
+  --forge-border-light: oklch(0.94 0.009 255);
+  --forge-fg: oklch(0.2077 0.0398 265.75);
+  --forge-fg-dim: oklch(0.37 0.03 262);
+  --forge-muted: oklch(0.5544 0.0407 257.42);
+  --forge-silver: oklch(0.75 0.015 255);
+  --forge-silver-dim: oklch(0.48 0.03 257);
+
+  /*
+   * Superficies (`dark-*`) — MODO CLARO: el 950 es casi blanco.
+   * Solo 600–950 se usan en plantillas (bandas, paneles, bordes); en modo
+   * claro la escala se invierte respecto al oscuro para que `bg-dark-950`
+   * (hero/footer) sea una banda clara y `border-dark-700` un divisor suave.
+   */
+  --palette-dark-50: oklch(0.72 0.016 257);
+  --palette-dark-100: oklch(0.68 0.016 257);
+  --palette-dark-200: oklch(0.63 0.017 257);
+  --palette-dark-300: oklch(0.58 0.018 257);
+  --palette-dark-400: oklch(0.53 0.018 257);
+  --palette-dark-500: oklch(0.47 0.019 257);
+  --palette-dark-600: oklch(0.78 0.013 255);
+  --palette-dark-700: oklch(0.86 0.01 254);
+  --palette-dark-800: oklch(0.925 0.007 252);
+  --palette-dark-900: oklch(0.955 0.005 250);
+  --palette-dark-950: oklch(0.975 0.003 248);
+
+  /* Tinta (`white-*`) — MODO CLARO: la tinta es oscura */
+  --palette-white-50: oklch(0.17 0.03 265);
+  --palette-white-100: oklch(0.21 0.033 264);
+  --palette-white-200: oklch(0.28 0.035 260);
+  --palette-white-300: oklch(0.37 0.033 258);
+  --palette-white-400: oklch(0.45 0.03 257);
+  --palette-white-500: oklch(0.54 0.026 256);
+  --palette-white-600: oklch(0.63 0.021 256);
+  --palette-white-700: oklch(0.72 0.016 256);
+  --palette-white-800: oklch(0.83 0.011 255);
+  --palette-white-900: oklch(0.9 0.008 255);
+  --palette-white-950: oklch(0.96 0.004 250);
+}
+
+.dark {
+  /* Acento — azul claro para tinta sobre fondo oscuro */
+  --forge-accent: oklch(0.7137 0.1434 254.62);
+  --forge-accent-bright: oklch(0.8091 0.0956 251.81);
+  --forge-accent-dim: oklch(0.6231 0.188 259.81);
+
+  --forge-400: oklch(0.6231 0.188 259.81);
+  --forge-500: oklch(0.7137 0.1434 254.62);
+  --forge-700: oklch(0.6231 0.188 259.81);
+
+  --forge-on-accent: oklch(0.17 0.03 265);
 
   /* Neutros — negros suavizados, tono 285 */
   --forge-bg: oklch(0.1749 0.0082 285.5);
@@ -32,38 +105,6 @@
   --forge-silver: oklch(0.8328 0 0);
   --forge-silver-dim: oklch(0.5416 0.0154 285.9);
 
-  /*
-   * Superficies (`dark-*`). El modo claro es el `:root` por defecto.
-   * Deliberadamente suaves: el negro puro mata el contraste en OLED y deja
-   * invisible la capa de grano.
-   */
-  --palette-dark-50: oklch(0.99 0.002 285);
-  --palette-dark-100: oklch(0.975 0.003 285);
-  --palette-dark-200: oklch(0.94 0.004 285);
-  --palette-dark-300: oklch(0.86 0.006 285);
-  --palette-dark-400: oklch(0.72 0.008 285);
-  --palette-dark-500: oklch(0.58 0.01 285);
-  --palette-dark-600: oklch(0.44 0.012 285);
-  --palette-dark-700: oklch(0.34 0.012 285);
-  --palette-dark-800: oklch(0.26 0.011 285);
-  --palette-dark-900: oklch(0.215 0.009 285);
-  --palette-dark-950: oklch(0.175 0.007 285);
-
-  /* Tinta (`white-*`) */
-  --palette-white-50: oklch(0.14 0.006 285);
-  --palette-white-100: oklch(0.19 0.006 285);
-  --palette-white-200: oklch(0.26 0.007 285);
-  --palette-white-300: oklch(0.34 0.008 285);
-  --palette-white-400: oklch(0.44 0.009 285);
-  --palette-white-500: oklch(0.52 0.01 285);
-  --palette-white-600: oklch(0.60 0.009 285);
-  --palette-white-700: oklch(0.68 0.008 285);
-  --palette-white-800: oklch(0.78 0.005 285);
-  --palette-white-900: oklch(0.88 0.004 285);
-  --palette-white-950: oklch(0.94 0.002 285);
-}
-
-.dark {
   /* Superficies IRONFORGE — casi negro, sin aplastarse */
   --palette-dark-50: oklch(0.97 0.003 285);
   --palette-dark-100: oklch(0.92 0.004 285);
@@ -99,19 +140,19 @@
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
 }
 
-/* ─── Rampa de acento (topada por gamut, tono 38.6) ─────────────────────── */
+/* ─── Rampa de acento (azul qwen, verificada en gamut sRGB) ──────────────── */
 @theme static {
-  --color-forge-50: oklch(0.97 0.0148 38.6);
-  --color-forge-100: oklch(0.935 0.033 38.6);
-  --color-forge-200: oklch(0.88 0.0638 38.6);
-  --color-forge-300: oklch(0.79 0.1214 38.6);
-  --color-forge-400: oklch(0.73 0.1658 38.6);
-  --color-forge-500: oklch(0.6748 0.2116 38.6);
-  --color-forge-600: oklch(0.59 0.1851 38.6);
-  --color-forge-700: oklch(0.49 0.1538 38.6);
-  --color-forge-800: oklch(0.395 0.1241 38.6);
-  --color-forge-900: oklch(0.305 0.09 38.6);
-  --color-forge-950: oklch(0.205 0.05 38.6);
+  --color-forge-50: oklch(0.9705 0.0142 254.6);
+  --color-forge-100: oklch(0.9319 0.0316 255.59);
+  --color-forge-200: oklch(0.8823 0.0571 254.13);
+  --color-forge-300: oklch(0.8091 0.0956 251.81);
+  --color-forge-400: var(--forge-400);
+  --color-forge-500: var(--forge-500);
+  --color-forge-600: oklch(0.4882 0.2172 264.38);
+  --color-forge-700: var(--forge-700);
+  --color-forge-800: oklch(0.4244 0.1809 265.64);
+  --color-forge-900: oklch(0.3791 0.1378 265.52);
+  --color-forge-950: oklch(0.2823 0.0874 267.94);
 }
 
 /* ─── Escalas runtime de superficie/tinta (se invierten con .dark) ───────── */
@@ -153,7 +194,7 @@
 
   ::selection {
     background: var(--forge-accent);
-    color: oklch(0.15 0.006 285);
+    color: var(--forge-on-accent);
   }
 
   ::-webkit-scrollbar {
@@ -175,8 +216,8 @@
 @utility bg-forge {
   background-color: var(--forge-bg);
   background-image:
-    radial-gradient(circle at 20% 30%, oklch(0.6748 0.2116 38.6 / 0.07) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, oklch(1 0 0 / 0.05) 0%, transparent 40%);
+    radial-gradient(circle at 20% 30%, color-mix(in oklab, var(--forge-accent) 7%, transparent) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--forge-fg) 5%, transparent) 0%, transparent 40%);
 }
 
 /** Grano de película. Capa fija, por encima de todo, ignora el puntero. */
@@ -281,6 +322,20 @@
 
 @utility number-display {
   font-variant-numeric: tabular-nums;
+}
+
+/** Tinta correcta sobre un relleno de acento (`bg-forge-500`, primarios). */
+@utility text-on-accent {
+  color: var(--forge-on-accent);
+}
+
+/** Halo radial de acento para las bandas de héroe. */
+@utility glow-accent {
+  background-image: radial-gradient(
+    ellipse at var(--glow-at, top right),
+    color-mix(in oklab, var(--forge-accent) 14%, transparent) 0%,
+    transparent 55%
+  );
 }
 
 /* ─── Primitivas de componente ──────────────────────────────────────────── */
@@ -388,10 +443,10 @@
 
 @keyframes forge-pulse {
   0%, 100% {
-    box-shadow: 0 0 0 0 oklch(0.6748 0.2116 38.6 / 0.55), 0 0 40px oklch(0.6748 0.2116 38.6 / 0.3);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--forge-accent) 55%, transparent), 0 0 40px color-mix(in oklab, var(--forge-accent) 30%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 18px oklch(0.6748 0.2116 38.6 / 0), 0 0 40px oklch(0.6748 0.2116 38.6 / 0.3);
+    box-shadow: 0 0 0 18px color-mix(in oklab, var(--forge-accent) 0%, transparent), 0 0 40px color-mix(in oklab, var(--forge-accent) 30%, transparent);
   }
 }
 

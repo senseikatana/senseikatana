@@ -1,6 +1,5 @@
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
-import process from 'node:process'
 import sharp from 'sharp'
 
 const SOURCE = join(import.meta.dirname, '..', 'public', 'cv', 'sergio-jurado.jpg')

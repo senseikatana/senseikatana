@@ -7,7 +7,7 @@ export default defineAppConfig({
       warning: 'forge',
       error: 'forge',
       info: 'forge',
-      neutral: 'dark',
+      neutral: 'slate',
     },
   },
 })

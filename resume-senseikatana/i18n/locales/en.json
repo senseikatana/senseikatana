@@ -44,7 +44,20 @@
     "skillsMarker": "01 — Skills",
     "skillsTitle": "What I bring",
     "skillsHighlight": "to the floor.",
-    "skillsBody": "Picking, receiving, inventory and forklift loading. An ordered, methodical and verifiable process."
+    "skillsBody": "Picking, receiving, inventory and forklift loading. An ordered, methodical and verifiable process.",
+    "hello": "Hi, I'm",
+    "greeting": "Available now",
+    "photoAlt": "Photo of Sergio Jurado Casado",
+    "badgeProfile": "Profile",
+    "badgeAvailable": "Immediate",
+    "workTitle": "My journey",
+    "workSubtitle": "Experience, education and languages. Search or filter.",
+    "searchPlaceholder": "Search the journey…",
+    "filterAll": "All",
+    "workEmpty": "No results.",
+    "loadMore": "Load more",
+    "phoneValue": "Direct call",
+    "contactTitle": "Let's talk soon"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",

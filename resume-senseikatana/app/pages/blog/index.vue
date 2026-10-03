@@ -24,7 +24,10 @@ useSeoMeta({
     <!-- ── Cabecera ─────────────────────────────────────────────────────── -->
     <section class="relative overflow-hidden border-b border-dark-700/60">
       <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950" />
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_40%,oklch(0.6748_0.2116_38.6/0.13)_0%,transparent_50%)]" />
+      <div
+        class="glow-accent absolute inset-0"
+        style="--glow-at: 20% 40%"
+      />
       <div class="scanline absolute inset-0" />
 
       <UContainer class="relative py-20 lg:py-24">
@@ -89,7 +92,7 @@ useSeoMeta({
         >
           <UIcon
             name="i-lucide-file-text"
-            class="mx-auto mb-4 size-10 text-dark-600"
+            class="mx-auto mb-4 size-10 text-white-400"
           />
           <p class="text-white-400">
             {{ t('blog.empty') }}

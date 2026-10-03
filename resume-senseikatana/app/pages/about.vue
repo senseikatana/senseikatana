@@ -61,7 +61,7 @@ useSeoMeta({
     <!-- ── Cabecera ─────────────────────────────────────────────────────── -->
     <section class="relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950" />
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.6748_0.2116_38.6/0.14)_0%,transparent_45%)]" />
+      <div class="glow-accent absolute inset-0" />
       <div class="scanline absolute inset-0" />
 
       <UContainer class="relative py-20 lg:py-28">
@@ -135,7 +135,7 @@ useSeoMeta({
               <a
                 :href="resume.pdfUrl"
                 download
-                class="inline-flex h-11 items-center gap-2 bg-forge-500 px-8 text-sm font-medium text-dark-950 transition-colors hover:bg-forge-400"
+                class="inline-flex h-11 items-center gap-2 bg-forge-500 px-8 text-sm font-medium text-on-accent transition-colors hover:bg-forge-400"
               >
                 <UIcon
                   name="i-lucide-download"
@@ -154,7 +154,10 @@ useSeoMeta({
             </div>
           </div>
 
-          <div class="reveal shrink-0" style="--reveal-delay: 0.2s">
+          <div
+            class="reveal shrink-0"
+            style="--reveal-delay: 0.2s"
+          >
             <div class="notch-corner p-2">
               <div class="size-48 md:size-56 lg:size-64">
                 <ProfileAvatar
@@ -408,7 +411,7 @@ useSeoMeta({
             <a
               :href="resume.pdfUrl"
               download
-              class="inline-flex h-11 items-center gap-2 bg-forge-500 px-8 text-sm font-medium text-dark-950 transition-colors hover:bg-forge-400"
+              class="inline-flex h-11 items-center gap-2 bg-forge-500 px-8 text-sm font-medium text-on-accent transition-colors hover:bg-forge-400"
             >
               <UIcon
                 name="i-lucide-download"

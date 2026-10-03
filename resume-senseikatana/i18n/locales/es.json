@@ -44,7 +44,20 @@
     "skillsMarker": "01 — Aptitudes",
     "skillsTitle": "Lo que aporto",
     "skillsHighlight": "en el almacén.",
-    "skillsBody": "Picking, recepción, inventario y carga de carretillas. Un proceso ordenado, metódico y verificable."
+    "skillsBody": "Picking, recepción, inventario y carga de carretillas. Un proceso ordenado, metódico y verificable.",
+    "hello": "Hola, soy",
+    "greeting": "Disponible ahora",
+    "photoAlt": "Foto de Sergio Jurado Casado",
+    "badgeProfile": "Perfil",
+    "badgeAvailable": "Inmediata",
+    "workTitle": "Mi trayectoria",
+    "workSubtitle": "Experiencia, formación e idiomas. Busca o filtra.",
+    "searchPlaceholder": "Buscar en la trayectoria…",
+    "filterAll": "Todo",
+    "workEmpty": "No hay resultados.",
+    "loadMore": "Ver más",
+    "phoneValue": "Llamada directa",
+    "contactTitle": "Hablemos pronto"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",

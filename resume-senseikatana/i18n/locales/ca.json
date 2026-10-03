@@ -44,7 +44,20 @@
     "skillsMarker": "01 — Aptituds",
     "skillsTitle": "El que aporto",
     "skillsHighlight": "al magatzem.",
-    "skillsBody": "Picking, recepció, inventari i càrrega de carretons. Un procés ordenat, metòdic i verificable."
+    "skillsBody": "Picking, recepció, inventari i càrrega de carretons. Un procés ordenat, metòdic i verificable.",
+    "hello": "Hola, sóc",
+    "greeting": "Disponible ara",
+    "photoAlt": "Foto de Sergio Jurado Casado",
+    "badgeProfile": "Perfil",
+    "badgeAvailable": "Immediata",
+    "workTitle": "El meu recorregut",
+    "workSubtitle": "Experiència, formació i idiomes. Cerca o filtra.",
+    "searchPlaceholder": "Cerca en el recorregut…",
+    "filterAll": "Tot",
+    "workEmpty": "No hi ha resultats.",
+    "loadMore": "Veure més",
+    "phoneValue": "Trucada directa",
+    "contactTitle": "Parlem aviat"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
