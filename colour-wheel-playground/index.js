@@ -1,36 +1,47 @@
-// Referencias DOM
-const wrapper = document.getElementById("dialWrapper");
-const pointer = document.getElementById("pointer");
-const angleDisplay = document.getElementById("angleDisplay");
-const hslRing = document.getElementById("hslRing");
-const oklchRing = document.getElementById("oklchRing");
+// ---------------------------------------------------------------------------
+// Estado y referencias DOM
+// ---------------------------------------------------------------------------
+const $ = (id) => document.getElementById(id);
 
-// Sliders
-const hslHueSlider = document.getElementById("hslHueSlider");
-const hslSatSlider = document.getElementById("hslSatSlider");
-const hslLightSlider = document.getElementById("hslLightSlider");
-const oklchHueSlider = document.getElementById("oklchHueSlider");
-const oklchChromaSlider = document.getElementById("oklchChromaSlider");
-const oklchLightSlider = document.getElementById("oklchLightSlider");
+const wrapper = $("dialWrapper");
+const pointer = $("pointer");
+const angleDisplay = $("angleDisplay");
+const hslRing = $("hslRing");
+const oklchRing = $("oklchRing");
 
-// Lecturas numéricas
-const hslHueVal = document.getElementById("hslHueVal");
-const hslSatVal = document.getElementById("hslSatVal");
-const hslLightVal = document.getElementById("hslLightVal");
-const oklchHueVal = document.getElementById("oklchHueVal");
-const oklchChromaVal = document.getElementById("oklchChromaVal");
-const oklchLightVal = document.getElementById("oklchLightVal");
+// [clave, id del slider, id del número, mínimo, máximo]
+const FIELDS = [
+  ["hslHue", "hslHueSlider", "hslHueNum", 0, 360],
+  ["hslSat", "hslSatSlider", "hslSatNum", 0, 100],
+  ["hslLight", "hslLightSlider", "hslLightNum", 0, 100],
+  ["oklchHue", "oklchHueSlider", "oklchHueNum", 0, 360],
+  ["oklchChroma", "oklchChromaSlider", "oklchChromaNum", 0, 100],
+  ["oklchLight", "oklchLightSlider", "oklchLightNum", 0, 100],
+];
 
-// Previews y código
-const hslPreview = document.getElementById("hslPreview");
-const hslCode = document.getElementById("hslCode");
-const oklchPreview = document.getElementById("oklchPreview");
-const oklchCode = document.getElementById("oklchCode");
+const RANGE = {};
+const NUM = {};
+for (const [key, rangeId, numId, min, max] of FIELDS) {
+  RANGE[key] = $(rangeId);
+  NUM[key] = $(numId);
+  RANGE[key].dataset.min = String(min);
+  RANGE[key].dataset.max = String(max);
+}
 
-const MIN_DRAG_RADIUS = 30;
+const value = (key) => Number(RANGE[key].value);
+const setRange = (key, v) => {
+  RANGE[key].value = String(v);
+};
 
-// 1. Anillos del dial. Los sectores OKLCH se derivan de la conversión real
-//    (primarios HSL a saturación/luz plenas), no de una tabla fija.
+const round2 = (n) => Math.round(n * 100) / 100;
+const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
+
+// ---------------------------------------------------------------------------
+// Anillos del dial
+//
+// Los sectores OKLCH se derivan de la conversión real (primarios HSL a
+// saturación/luz plenas), no de una tabla fija.
+// ---------------------------------------------------------------------------
 function updateDialRings(s, l, c, ol) {
   hslRing.style.background = `conic-gradient(
       from 0deg,
@@ -47,17 +58,19 @@ function updateDialRings(s, l, c, ol) {
   const stops = [];
   for (let i = 0; i < hues.length - 1; i++) {
     const from = i === 0 ? 0 : hues[i - 1];
-    stops.push(`oklch(${ol}% ${c}% ${round2(hues[i])}) ${round2(from)}deg ${round2(hues[i])}deg`);
+    stops.push(
+      `oklch(${ol}% ${c}% ${round2(hues[i])}) ${round2(from)}deg ${round2(hues[i])}deg`,
+    );
   }
-  // Último tramo: de la magenta al roto de 360°, pintado con el rojo (vuelta al 0).
-  stops.push(`oklch(${ol}% ${c}% ${round2(hues[0])}) ${round2(hues[hues.length - 2])}deg 360deg`);
+  // Último tramo: de la magenta al cierre de 360°, pintado con el rojo.
+  stops.push(
+    `oklch(${ol}% ${c}% ${round2(hues[0])}) ${round2(hues[hues.length - 2])}deg 360deg`,
+  );
 
   oklchRing.style.background = `conic-gradient(from 0deg, ${stops.join(", ")})`;
 }
 
-const round2 = (n) => Math.round(n * 100) / 100;
-
-// Gradientes de los sliders de tono. Son estáticos: se construyen una sola vez.
+// Gradientes de los sliders de tono. Son estáticos: se pintan una sola vez.
 function paintHueTracks() {
   const hslStops = [];
   const oklchStops = [];
@@ -65,62 +78,215 @@ function paintHueTracks() {
     hslStops.push(`hsl(${h}, 100%, 50%)`);
     oklchStops.push(`oklch(50% 50% ${h})`);
   }
-  hslHueSlider.style.background = `linear-gradient(to right, ${hslStops.join(", ")})`;
-  oklchHueSlider.style.background = `linear-gradient(to right, ${oklchStops.join(", ")})`;
+  RANGE.hslHue.style.background = `linear-gradient(to right, ${hslStops.join(", ")})`;
+  RANGE.oklchHue.style.background = `linear-gradient(to right, ${oklchStops.join(", ")})`;
 }
 
-// 2. UI principal. El tono OKLCH se deriva del color HSL actual: mover la
-//    saturación o la luz cambia el tono equivalente, y es exactamente el
-//    motivo por el que un hex/hsla no "equivale" a un único oklch().
-function updateUI(source) {
-  const s = Number(hslSatSlider.value);
-  const l = Number(hslLightSlider.value);
+// ---------------------------------------------------------------------------
+// Sincronización de tono
+//
+// El tono OKLCH se DERIVA del color del panel HSL: mover la saturación o la
+// luz cambia el tono equivalente, y es justo el motivo por el que un
+// hex/hsla no "equivale" a un único oklch().
+// ---------------------------------------------------------------------------
+function syncHue(source) {
+  // Tras pegar un color ya están los tres tonos puestos a mano: no re-derivar.
+  if (source === "apply") return;
+
+  const s = value("hslSat");
+  const l = value("hslLight");
 
   if (source === "oklchHue") {
-    const resolved = ColorMath.oklchHueToHslHue(
-      Number(oklchHueSlider.value),
-      s,
-      l,
-      Number(hslHueSlider.value),
-    );
-    if (resolved !== null) hslHueSlider.value = resolved;
-  } else {
-    const derived = ColorMath.hslHueToOklchHue(Number(hslHueSlider.value), s, l);
-    if (derived !== null) oklchHueSlider.value = Math.round(derived);
+    const resolved = ColorMath.oklchHueToHslHue(value("oklchHue"), s, l, value("hslHue"));
+    if (resolved !== null) setRange("hslHue", resolved);
+    return;
   }
 
-  const hslH = Number(hslHueSlider.value);
-  const okH = Number(oklchHueSlider.value);
-  const c = Number(oklchChromaSlider.value);
-  const ol = Number(oklchLightSlider.value);
+  const h = value("hslHue");
+  const ok = ColorMath.hslHueToOklchHue(h, s, l);
+  if (ok !== null) setRange("oklchHue", Math.round(ok));
+}
+
+// ---------------------------------------------------------------------------
+// UI principal
+// ---------------------------------------------------------------------------
+function updateUI(source) {
+  syncHue(source);
+
+  const hslH = value("hslHue");
+  const s = value("hslSat");
+  const l = value("hslLight");
+  const okH = value("oklchHue");
+  const c = value("oklchChroma");
+  const ol = value("oklchLight");
 
   // Puntero y centro del dial
   pointer.style.transform = `translateX(-50%) rotate(${hslH}deg)`;
   angleDisplay.innerText = `${hslH}°`;
 
-  // Etiquetas
-  hslHueVal.innerText = `${hslH}°`;
-  hslSatVal.innerText = `${s}%`;
-  hslLightVal.innerText = `${l}%`;
-  oklchHueVal.innerText = `${okH}°`;
-  oklchChromaVal.innerText = `${c}%`;
-  oklchLightVal.innerText = `${ol}%`;
+  // Números (no pisar el que se está escribiendo a mano)
+  const editing = document.activeElement;
+  for (const [key] of FIELDS) {
+    if (NUM[key] !== editing) NUM[key].value = String(value(key));
+  }
 
   // Los anillos no dependen del tono
-  if (source !== "hslHue" && source !== "oklchHue") updateDialRings(s, l, c, ol);
+  if (source !== "hslHue" && source !== "oklchHue") {
+    updateDialRings(s, l, c, ol);
+  }
 
-  // Cajas físicas y código CSS
+  // Colores de cada panel
+  const hslRgb = ColorMath.hslToRgb(hslH, s, l);
+  const okRgb = ColorMath.oklchToRgb(ol / 100, (c / 100) * ColorMath.CHROMA_UNIT, okH);
+
   const hslColor = `hsl(${hslH}, ${s}%, ${l}%)`;
   const oklchColor = `oklch(${ol}% ${c}% ${okH})`;
 
-  hslPreview.style.backgroundColor = hslColor;
-  hslCode.innerText = hslColor;
+  $("hslPreview").style.backgroundColor = hslColor;
+  $("oklchPreview").style.backgroundColor = oklchColor;
 
-  oklchPreview.style.backgroundColor = oklchColor;
-  oklchCode.innerText = oklchColor;
+  $("hslCode").innerText = hslColor;
+  $("oklchCode").innerText = oklchColor;
+
+  // ¿Cabe en sRGB o el navegador va a recortar?
+  $("oklchGamut").hidden = ColorMath.inSrgbGamut(
+    ol / 100,
+    (c / 100) * ColorMath.CHROMA_UNIT,
+    okH,
+  );
+
+  // Equivalencias exactas del color del panel HSL
+  $("chipHex").innerText = ColorMath.formatHex(hslRgb[0], hslRgb[1], hslRgb[2]);
+  $("chipHsl").innerText = ColorMath.formatHsl(hslRgb[0], hslRgb[1], hslRgb[2]);
+  $("chipOklch").innerText = ColorMath.formatOklch(hslRgb[0], hslRgb[1], hslRgb[2]);
+
+  writeUrl();
 }
 
-// 3. Arrastre del dial (Pointer Events: cubre ratón, lápiz y táctil).
+// Estado en la URL para poder compartir un color. replaceState para no llenar
+// el historial al arrastrar, y en try/catch porque file:// lo prohíbe.
+function writeUrl() {
+  try {
+    const params = new URLSearchParams();
+    for (const [key] of FIELDS) params.set(key, String(value(key)));
+    history.replaceState(null, "", `${location.pathname}?${params}`);
+  } catch {
+    /* noop */
+  }
+}
+
+function readUrl() {
+  try {
+    const params = new URLSearchParams(location.search);
+    let found = false;
+    for (const [key, , , min, max] of FIELDS) {
+      const raw = params.get(key);
+      if (raw === null) continue;
+      const n = Number(raw);
+      if (!Number.isFinite(n)) continue;
+      setRange(key, clamp(Math.round(n), min, max));
+      found = true;
+    }
+    return found;
+  } catch {
+    return false;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Pegar un color
+// ---------------------------------------------------------------------------
+// `oklchTriple` es el triple tecleado, si el input era un oklch(). Manda
+// sobre el derivado del rgb: así el panel muestra lo que se pidió aunque no
+// quepa en sRGB y el aviso "Fuera de Gamut" se enciende.
+function applyColor(parsed, oklchTriple) {
+  const { h, s, l } = ColorMath.rgbToHsl(parsed.r, parsed.g, parsed.b);
+  const o = ColorMath.rgbToOklch(parsed.r, parsed.g, parsed.b);
+
+  // roundHue normaliza a [0,360): sin esto un color casi-rojo redondea a 360
+  // y sale hsl(360, …) en el código, que es el mismo color que hsl(0, …).
+  const roundHue = (v) => Math.round(v) % 360;
+
+  setRange("hslHue", roundHue(h));
+  setRange("hslSat", Math.round(s));
+  setRange("hslLight", Math.round(l));
+  const typed = oklchTriple ?? { h: o.h, l: o.l, c: o.c };
+  setRange("oklchHue", roundHue(typed.h));
+  setRange("oklchChroma", clamp(Math.round((typed.c / ColorMath.CHROMA_UNIT) * 100), 0, 100));
+  setRange("oklchLight", clamp(Math.round(typed.l * 100), 0, 100));
+
+  updateUI("apply");
+}
+
+function applyFromInput() {
+  const field = $("colorInput");
+  const error = $("colorInputError");
+  const raw = field.value.trim();
+
+  if (!raw) {
+    error.textContent = "Escribe un color: #ff0000, hsl(49 100% 50%) u oklch(…)";
+    error.hidden = false;
+    return;
+  }
+
+  const parsed = ColorMath.parseCssColor(raw);
+  if (parsed === null) {
+    error.textContent = `No reconozco «${raw}». Prueba con #ff0000, hsl(49 100% 50%) u oklch(62.8% 64.42% 29.23). (CIE LCH no está soportado.)`;
+    error.hidden = false;
+    return;
+  }
+
+  error.hidden = true;
+  applyColor(parsed, ColorMath.parseOkLchTriple(raw));
+  // Deja normalizado lo que se ha entendido
+  field.value = ColorMath.formatHex(parsed.r, parsed.g, parsed.b);
+}
+
+// ---------------------------------------------------------------------------
+// Copiar chips
+// ---------------------------------------------------------------------------
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    /* seguimos con el fallback */
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
+$("outputChips").addEventListener("click", async (e) => {
+  const chip = e.target.closest(".chip");
+  if (!chip) return;
+  const key = chip.querySelector(".chip-key");
+  const original = key.dataset.label || key.innerText;
+  key.dataset.label = original;
+  const ok = await copyText(chip.querySelector("code").innerText);
+  key.innerText = ok ? "✓ copiado" : "¡fallo!";
+  chip.classList.toggle("copied", ok);
+  setTimeout(() => {
+    key.innerText = original;
+    chip.classList.remove("copied");
+  }, 1200);
+});
+
+// ---------------------------------------------------------------------------
+// Arrastre del dial (Pointer Events: cubre ratón, lápiz y táctil)
+// ---------------------------------------------------------------------------
+const MIN_DRAG_RADIUS = 30;
 let isDragging = false;
 
 function handleDrag(e) {
@@ -134,7 +300,7 @@ function handleDrag(e) {
   let angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI + 90;
   angle = ((angle % 360) + 360) % 360;
 
-  hslHueSlider.value = Math.round(angle);
+  setRange("hslHue", Math.round(angle));
   updateUI("hslHue");
 }
 
@@ -157,15 +323,41 @@ const endDrag = () => {
 wrapper.addEventListener("pointerup", endDrag);
 wrapper.addEventListener("pointercancel", endDrag);
 
-// 4. Sliders
-hslHueSlider.addEventListener("input", () => updateUI("hslHue"));
-hslSatSlider.addEventListener("input", () => updateUI("hslSat"));
-hslLightSlider.addEventListener("input", () => updateUI("hslLight"));
+// ---------------------------------------------------------------------------
+// Listeners de sliders y de los inputs numéricos
+// ---------------------------------------------------------------------------
+for (const [key, , , min, max] of FIELDS) {
+  RANGE[key].addEventListener("input", () => updateUI(key));
 
-oklchHueSlider.addEventListener("input", () => updateUI("oklchHue"));
-oklchChromaSlider.addEventListener("input", () => updateUI("oklchChroma"));
-oklchLightSlider.addEventListener("input", () => updateUI("oklchLight"));
+  NUM[key].addEventListener("input", () => {
+    const raw = NUM[key].value.trim();
+    if (raw === "") return; // dejando escribir
+    const n = Number(raw);
+    if (!Number.isFinite(n) || n < min || n > max) return; // aún incompleto
+    setRange(key, Math.round(n));
+    updateUI(key);
+  });
 
-// 5. Inicializar
+  NUM[key].addEventListener("change", () => {
+    const n = Number(NUM[key].value);
+    const fixed = clamp(Math.round(Number.isFinite(n) ? n : value(key)), min, max);
+    NUM[key].value = String(fixed);
+    setRange(key, fixed);
+    updateUI(key);
+  });
+}
+
+$("applyColor").addEventListener("click", applyFromInput);
+$("colorInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    applyFromInput();
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Inicializar
+// ---------------------------------------------------------------------------
 paintHueTracks();
+readUrl();
 updateUI("init");

@@ -99,56 +99,6 @@ describe("casos degenerados", () => {
   });
 });
 
-describe("LCH de CIE (CSS Color 4: D50 + Bradford lineal)", () => {
-  // Vectores de referencia de la propia spec (sección Lab):
-  //   #0000ff -> lab(29.567% 68.298 -112.0294)
-  //   #ffff00 -> lab(97.607% -15.753 93.388)
-  test("azul y amarillo coinciden con los valores de la spec", () => {
-    const blue = CM.rgbToLch(0, 0, 1);
-    const yellow = CM.rgbToLch(1, 1, 0);
-    expect(blue.l).toBeCloseTo(29.567, 2);
-    expect(yellow.l).toBeCloseTo(97.607, 2);
-    // croma y tono derivados del a/b de la spec
-    expect(blue.c).toBeCloseTo(Math.hypot(68.298, -112.0294), 1);
-    expect(yellow.c).toBeCloseTo(Math.hypot(-15.753, 93.388), 1);
-  });
-
-  test("rojo #ff0000 da el Lab/D50 canónico (L 54.29, a 80.80, b 69.89)", () => {
-    const o = CM.rgbToLch(1, 0, 0);
-    const a = o.c * Math.cos((o.h * Math.PI) / 180);
-    const b = o.c * Math.sin((o.h * Math.PI) / 180);
-    expect(o.l).toBeCloseTo(54.29, 1);
-    expect(a).toBeCloseTo(80.8, 1);
-    expect(b).toBeCloseTo(69.89, 1);
-  });
-
-  test("round-trip LCH -> RGB", () => {
-    let worst = 0;
-    for (let h = 0; h < 360; h += 10) {
-      const rgb = CM.hslToRgb(h, 70, 45);
-      const o = CM.rgbToLch(...rgb);
-      const back = CM.lchToRgb(o.l, o.c, o.h);
-      for (let i = 0; i < 3; i++) worst = Math.max(worst, Math.abs(back[i] - rgb[i]));
-    }
-    expect(worst).toBeLessThan(1e-6);
-  });
-
-  test("round-trip del tono HSL <-> LCH", () => {
-    let n = 0;
-    for (let s = 10; s <= 100; s += 10) {
-      for (let l = 10; l <= 90; l += 10) {
-        for (let h = 0; h < 360; h += 3) {
-          const f = CM.hslHueToLchHue(h, s, l);
-          if (f === null) continue;
-          n++;
-          expect(CM.lchHueToHslHue(Math.round(f), s, l, h)).toBe(h);
-        }
-      }
-    }
-    expect(n).toBeGreaterThan(10000);
-  });
-});
-
 describe("parseo de colores CSS", () => {
   const hexOf = (s) => {
     const p = CM.parseCssColor(s);
@@ -192,28 +142,35 @@ describe("parseo de colores CSS", () => {
     expect(Math.abs(a.r - b.r)).toBeLessThan(0.01);
   });
 
-  test("lch acepta croma en número (100% = 150) y en porcentaje", () => {
-    const a = CM.parseCssColor("lch(54.3% 106.8 40.9)");
-    const b = CM.parseCssColor("lch(54.3 106.8 40.9)");
-    expect(a).not.toBeNull();
-    expect(b).not.toBeNull();
-    // Las dos notaciones tienen que resolver a exactamente el mismo color
-    expect(CM.formatHex(a.r, a.g, a.b)).toBe(CM.formatHex(b.r, b.g, b.b));
-    const pct = CM.parseCssColor("lch(50% 100% 30)");
-    const num = CM.parseCssColor("lch(50 150 30)");
-    expect(pct).not.toBeNull();
-    expect(Math.abs(pct.r - num.r)).toBeLessThan(1e-6);
+  test("lch() ya no es una notación soportada (se retiró por estar fuera de gamut en web)", () => {
+    expect(CM.parseCssColor("lch(54.29% 106.84 40.86)")).toBeNull();
+    expect(CM.parseCssColor("lch(54.3 106.8 40.9)")).toBeNull();
+    expect(CM.parseLch).toBeUndefined();
+    expect(CM.formatLch).toBeUndefined();
+    expect(CM.rgbToLch).toBeUndefined();
+    expect(CM.lchToRgb).toBeUndefined();
+  });
+
+  test("parseOkLchTriple devuelve el triple escrito, sin recortar al gamut", () => {
+    const t = CM.parseOkLchTriple("oklch(50% 100% 30)");
+    expect(t).toEqual({ l: 0.5, c: 0.4, h: 30 });
+    expect(CM.inSrgbGamut(t.l, t.c, t.h)).toBe(false);
+    const inGamut = CM.parseOkLchTriple("oklch(62.8% 64.42% 29.23)");
+    expect(inGamut.h).toBeCloseTo(29.23, 2);
+    expect(CM.inSrgbGamut(inGamut.l, inGamut.c, inGamut.h)).toBe(true);
+    expect(CM.parseOkLchTriple("hsl(0 100% 50%)")).toBeNull();
+    expect(CM.parseOkLchTriple("oklch(1 2)")).toBeNull();
   });
 
   test("entradas que no son colores devuelven null", () => {
-    for (const bad of ["", "  ", "hola", "rgb()", "oklch(1 2)", "lch(1 2 3 4 5 6)", "12345678901234"]) {
+    for (const bad of ["", "  ", "hola", "rgb()", "oklch(1 2)", "12345678901234"]) {
       expect(CM.parseCssColor(bad)).toBeNull();
     }
   });
 
   test("formatear y volver a parsear conserva el color", () => {
     for (const [r, g, b] of [[1, 0, 0], [0.5, 0.25, 0.75], [0, 1, 1], [0.13, 0.47, 0.9]]) {
-      for (const s of [CM.formatHex(r, g, b), CM.formatHsl(r, g, b), CM.formatOklch(r, g, b), CM.formatLch(r, g, b)]) {
+      for (const s of [CM.formatHex(r, g, b), CM.formatHsl(r, g, b), CM.formatOklch(r, g, b)]) {
         const p = CM.parseCssColor(s);
         expect(p).not.toBeNull();
         expect(Math.abs(p.r - r)).toBeLessThan(2 / 255);
@@ -227,7 +184,6 @@ describe("parseo de colores CSS", () => {
     expect(CM.formatHex(1, 0, 0)).toBe("#ff0000");
     expect(CM.formatHsl(1, 0, 0)).toBe("hsl(0, 100%, 50%)");
     expect(CM.formatOklch(1, 0, 0)).toBe("oklch(62.8% 64.42% 29.23)");
-    expect(CM.formatLch(1, 0, 0).startsWith("lch(54.")).toBe(true);
   });
 });
 

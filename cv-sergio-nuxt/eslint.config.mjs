@@ -38,6 +38,9 @@ const globals = {
   readBody: 'readonly',
   readRawBody: 'readonly',
   getHeader: 'readonly',
+  // Server response helpers (server/routes/**)
+  setResponseStatus: 'readonly',
+  setHeader: 'readonly',
   // Runtime
   process: 'readonly',
   console: 'readonly',
@@ -48,6 +51,9 @@ const globals = {
   document: 'readonly',
   window: 'readonly',
   navigator: 'readonly',
+
+  // Auto-imported project composables (app/composables/**)
+  useDateRange: 'readonly',
 }
 
 export default tseslint.config(

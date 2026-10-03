@@ -110,14 +110,24 @@ export default defineContentConfig({
         experience: z.array(z.object({
           company: z.string(),
           role: z.string(),
-          period: z.string(),
+          /*
+           * Partial-precision dates, because most entries are only known to
+           * the year. Accepts 'YYYY', 'YYYY-MM' or 'YYYY-MM-DD'; inventing
+           * the missing precision would be fabricating data.
+           *
+           * `end: null` means ongoing and renders as "actualidad" /
+           * "actualitat" / "present" — see app/composables/useDateRange.ts.
+           */
+          start: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, 'start debe ser YYYY, YYYY-MM o YYYY-MM-DD'),
+          end: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, 'end debe ser YYYY, YYYY-MM o YYYY-MM-DD').nullable(),
           description: z.string(),
           highlights: z.array(z.string()),
         })),
         education: z.array(z.object({
           institution: z.string(),
           degree: z.string(),
-          period: z.string(),
+          start: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, 'start debe ser YYYY, YYYY-MM o YYYY-MM-DD'),
+          end: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/, 'end debe ser YYYY, YYYY-MM o YYYY-MM-DD').nullable(),
           note: z.string().optional(),
         })),
         softSkills: z.array(z.string()),

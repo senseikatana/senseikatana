@@ -130,101 +130,6 @@ globalThis.ColorMath = (() => {
     return out;
   }
 
-  // ------------------------------------------------------------------ LCH (CIE)
-  //
-  // Según CSS Color 4, lab()/lch() usan el blanco D50, así que hace falta
-  // adaptación cromática (Bradford lineal) desde D65, el blanco nativo de sRGB:
-  //   sRGB lineal -> XYZ D65 -> XYZ D50 -> Lab -> LCH
-  // Porcentajes: en lch() L 100% = 100 y C 100% = 150
-  // (en oklch() en cambio L 100% = 1 y C 100% = 0.4, ver CHROMA_UNIT).
-
-  const LCH_CHROMA_UNIT = 150;
-  // Blanco D50 de la spec: [0.3457/0.3585, 1, (1 - 0.3457 - 0.3585)/0.3585]
-  const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
-  const LAB_EPS = 216 / 24389;
-  const LAB_KAPPA = 24389 / 27;
-
-  const mul3 = (m, v) => [
-    m[0][0] * v[0] + m[0][1] * v[1] + m[0][2] * v[2],
-    m[1][0] * v[0] + m[1][1] * v[1] + m[1][2] * v[2],
-    m[2][0] * v[0] + m[2][1] * v[1] + m[2][2] * v[2],
-  ];
-
-  // De la sección "Sample code for Color Conversions" de CSS Color 4.
-  const LIN_SRGB_TO_XYZ_D65 = [
-    [506752 / 1228815, 87881 / 245763, 12673 / 70218],
-    [87098 / 409605, 175762 / 245763, 12673 / 175545],
-    [7918 / 409605, 87881 / 737289, 1001167 / 1053270],
-  ];
-  const XYZ_D65_TO_D50 = [
-    [1.0479297925449969, 0.022946870601609652, -0.05019226628920524],
-    [0.02962780877005599, 0.9904344267538799, -0.017073799063418826],
-    [-0.009243040646204504, 0.015055191490298152, 0.7518742814281371],
-  ];
-  const XYZ_D50_TO_D65 = [
-    [0.955473421488075, -0.02309845494876471, 0.06325924320057072],
-    [-0.0283697093338637, 1.0099953980813041, 0.021041441191917323],
-    [0.012314014864481998, -0.020507649298898964, 1.330365926242124],
-  ];
-  const XYZ_D65_TO_LIN_SRGB = [
-    [12831 / 3959, -329 / 214, -1974 / 3959],
-    [-851781 / 878810, 1648619 / 878810, 36519 / 878810],
-    [705 / 12673, -2585 / 12673, 705 / 667],
-  ];
-
-  function xyzToLab([X, Y, Z]) {
-    const f = (t) => (t > LAB_EPS ? Math.cbrt(t) : (LAB_KAPPA * t + 16) / 116);
-    const fx = f(X / D50[0]);
-    const fy = f(Y / D50[1]);
-    const fz = f(Z / D50[2]);
-    return [116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)];
-  }
-
-  function labToXyz([L, a, b]) {
-    const fy = (L + 16) / 116;
-    const inv = (v) => (v * v * v > LAB_EPS ? v * v * v : (116 * v - 16) / LAB_KAPPA);
-    return [inv(fy + a / 500) * D50[0], inv(fy) * D50[1], inv(fy - b / 200) * D50[2]];
-  }
-
-  // LCH de CIE: L en 0..100, C en 0..~150, H en grados.
-  function lchToLinear(l, c, h) {
-    const rad = (h * Math.PI) / 180;
-    const xyz50 = labToXyz([l, c * Math.cos(rad), c * Math.sin(rad)]);
-    return mul3(XYZ_D65_TO_LIN_SRGB, mul3(XYZ_D50_TO_D65, xyz50));
-  }
-
-  function rgbToLch(r, g, b) {
-    const lin = [toLinear(r), toLinear(g), toLinear(b)];
-    const xyz50 = mul3(XYZ_D65_TO_D50, mul3(LIN_SRGB_TO_XYZ_D65, lin));
-    const [L, aLab, bLab] = xyzToLab(xyz50);
-    let H = (Math.atan2(bLab, aLab) * 180) / Math.PI;
-    if (H < 0) H += 360;
-    return { l: L, c: Math.hypot(aLab, bLab), h: H };
-  }
-
-  // Misma estrategia que oklchToRgb: si la croma no cabe en sRGB, se reduce.
-  function lchToRgb(l, c, h) {
-    const L = clamp(l, 0, 100);
-    const encode = (lin) => lin.map((v) => clamp(toSrgb(clamp(v, 0, 1)), 0, 1));
-    if (!inGamut(lchToLinear(L, 0, h))) return encode(lchToLinear(L, 0, h));
-    if (inGamut(lchToLinear(L, c, h))) return encode(lchToLinear(L, c, h));
-    let lo = 0;
-    let hi = c;
-    for (let i = 0; i < 24; i++) {
-      const mid = (lo + hi) / 2;
-      if (inGamut(lchToLinear(L, mid, h))) lo = mid;
-      else hi = mid;
-    }
-    return encode(lchToLinear(L, lo, h));
-  }
-
-  function hslHueToLchHue(h, s, l) {
-    if (s <= 0 || l <= 0 || l >= 100) return null;
-    const [r, g, b] = hslToRgb(h, s, l);
-    const o = rgbToLch(r, g, b);
-    return o.c < ACHROMATIC_C ? null : o.h;
-  }
-
   // ------------------------------------------------------------------ inversa
   //
   // Compartida por OKLCH y LCH: la relación no es inyectiva cerca de los
@@ -267,10 +172,6 @@ globalThis.ColorMath = (() => {
 
   function oklchHueToHslHue(targetH, s, l, preferH = null) {
     return inverseHue(targetH, s, l, hslHueToOklchHue, preferH);
-  }
-
-  function lchHueToHslHue(targetH, s, l, preferH = null) {
-    return inverseHue(targetH, s, l, hslHueToLchHue, preferH);
   }
 
   // --------------------------------------------------------------- parseo CSS
@@ -373,17 +274,19 @@ globalThis.ColorMath = (() => {
     return { r, g, b, a: 1 };
   }
 
-  function parseLch(str) {
-    const inner = matchFunc(str, ["lch"]);
+  // Triple OKLCH tal y como está escrito (L 0..1, C 0..0.4+, H en grados),
+  // sin recortarlo al gamut. Lo usa la UI para enseñar un oklch() fuera de
+  // gamut tal cual se tecleó y poder mostrar el aviso "Fuera de Gamut".
+  function parseOkLchTriple(str) {
+    const inner = matchFunc(str, ["oklch"]);
     if (inner === null) return null;
     const t = splitArgs(inner);
     if (t.length < 3) return null;
-    const L = readRatio(t[0], 100);
-    const C = readRatio(t[1], LCH_CHROMA_UNIT);
+    const L = readRatio(t[0], 1);
+    const C = readRatio(t[1], CHROMA_UNIT);
     const H = parseFloat(t[2]);
     if (![L, C, H].every(Number.isFinite)) return null;
-    const [r, g, b] = lchToRgb(L, C, H);
-    return { r, g, b, a: 1 };
+    return { l: L, c: C, h: ((H % 360) + 360) % 360 };
   }
 
   function parseCssColor(str) {
@@ -392,7 +295,7 @@ globalThis.ColorMath = (() => {
     const bareHex = /^[0-9a-f]{3}$/i.test(s) || /^[0-9a-f]{4}$/i.test(s) ||
       /^[0-9a-f]{6}$/i.test(s) || /^[0-9a-f]{8}$/i.test(s);
     if (s.startsWith("#") || bareHex) return parseHex(s);
-    return parseRgb(s) ?? parseHsl(s) ?? parseOkLch(s) ?? parseLch(s);
+    return parseRgb(s) ?? parseHsl(s) ?? parseOkLch(s);
   }
 
   // --------------------------------------------------------------- formato CSS
@@ -418,41 +321,27 @@ globalThis.ColorMath = (() => {
     return `oklch(${fmt(o.l * 100)}% ${fmt((o.c / CHROMA_UNIT) * 100)}% ${fmt(o.h)})`;
   }
 
-  function formatLch(r, g, b) {
-    const o = rgbToLch(r, g, b);
-    return `lch(${fmt(o.l)}% ${fmt(o.c)} ${fmt(o.h)})`;
-  }
-
   // ¿Cabe el triple OKLCH en sRGB tal cual, o el navegador va a recortar?
   const inSrgbGamut = (l, c, h) => inGamut(oklchToLinear(clamp(l, 0, 1), c, h));
-  // Lo mismo para LCH de CIE (l en 0..100, c en 0..150).
-  const inSrgbGamutLch = (l, c, h) => inGamut(lchToLinear(clamp(l, 0, 100), c, h));
 
   return {
     CHROMA_UNIT,
-    LCH_CHROMA_UNIT,
     hslToRgb,
     rgbToHsl,
     rgbToOklch,
     oklchToRgb,
-    rgbToLch,
-    lchToRgb,
     hslHueToOklchHue,
     oklchHueToHslHue,
-    hslHueToLchHue,
-    lchHueToHslHue,
     primaryOklchHues,
     inSrgbGamut,
-    inSrgbGamutLch,
     parseHex,
     parseRgb,
     parseHsl,
     parseOkLch,
-    parseLch,
+    parseOkLchTriple,
     parseCssColor,
     formatHex,
     formatHsl,
     formatOklch,
-    formatLch,
   };
 })();

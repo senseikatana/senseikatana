@@ -1,4 +1,4 @@
-# 🎨 Color Compass: LCH vs HSL Playground
+# 🎨 Color Compass: OKLCH vs HSL Playground
 
 An interactive, visual, and educational tool designed to help developers and designers understand the differences between the traditional HSL color model and the modern, perceptually uniform OKLCH color space.
 
@@ -10,12 +10,18 @@ If you've ever been confused by why a 50% lightness in HSL looks completely diff
 
 ## 🚀 Features
 
+* **Paste a color, get every equivalent.** One field accepts `#f00`, `#rrggbb`, `#rrggbbaa`, `rgb()`, `hsl()` and `oklch()` — modern *and* legacy comma syntax. Press **Aplicar** and all six sliders are seeded with the exact conversion of that color: the two swatches line up and **every control stays editable**.
+* **Exact output chips.** `#hex`, `hsl()` and `oklch()` for the color on screen, click to copy. These are the exact conversion (two decimals), not the rounded slider values.
+* **Two models side by side:** HSL and OKLCH, each with its own Hue / Chroma / Lightness controls and live CSS output.
+* **Type instead of dragging.** Every slider has a numeric field next to it, kept in sync in both directions.
+* **Gamut warning.** The OKLCH panel shows a **Fuera de Gamut** badge as soon as the value has no sRGB representation — whether you typed it or dragged to it. That is exactly when the browser will silently clip it.
+* **Shareable state.** The full nine-slider state lives in the query string, so a URL reproduces the color.
 * Interactive 360° Dial: A draggable dial that synchronizes the Hue for both HSL and OKLCH simultaneously.
 * Dual Color Rings: The dial features two concentric rings. The outer ring shows the perfect 60° divisions of HSL, while the inner ring shows the physically accurate, deformed divisions of OKLCH.
 * Independent Sliders: Separate controls for Lightness and Saturation (HSL) / Chroma (OKLCH) in both panels — plus one synchronized Hue slider per panel — so you can see how the same numeric values produce different visual results.
 * Dynamic Slider Tracks: the two Hue sliders carry a live gradient track (a full sRGB hue wheel on the HSL side, a full OKLCH hue wheel on the OKLCH side) that acts as a mini color-picker while you drag.
-* Real-time CSS Code Output: Instantly generates the exact hsl() and oklch() CSS strings, ready to copy to your clipboard.
-* Zero runtime dependencies: pure HTML, CSS, and Vanilla JavaScript — no frameworks, no bundler. The only script is a copy step for deployment.
+* Real-time CSS Code Output: Instantly generates the exact `hsl()` and `oklch()` CSS strings, ready to copy to your clipboard.
+* Zero runtime dependencies: pure HTML, CSS, and Vanilla JavaScript — no frameworks, no bundler. The only script is a copy step for deployment. Tests run with Bun's built-in runner, so there is no test dependency either.
 
 ## 🧠 The Core Concept: Why OKLCH?
 
@@ -39,6 +45,35 @@ To see the power of OKLCH in action, try this in the playground:
 
 ---
 
+## 📋 Paste a Color
+
+The bar above the dial is the fastest way in: type or paste a color and press **Aplicar** (or `Enter`).
+
+```text
+#ffd000                    -> hsl(49, 100%, 50%)   oklch(87.35% 44.68% 92.34)
+hsl(49 100% 50%)           -> identical (modern syntax)
+hsl(49, 100%, 50%)         -> identical (legacy syntax)
+oklch(87.35% 44.68% 92.34) -> identical
+```
+
+What happens, step by step:
+
+1. `color.js` parses the string into an sRGB color (`parseCssColor`).
+2. **All six sliders** are seeded from that color: the HSL panel gets `h, s, l` and the OKLCH panel gets `L, C, H`.
+3. The two swatches agree, and the dial and every slider keep working exactly as before — nothing becomes read-only.
+4. The field normalizes to canonical `#rrggbb`, so you can see what was understood.
+5. Anything unparseable shows an inline error and leaves the current state untouched.
+
+Things worth knowing:
+
+* **Alpha is ignored.** `#rrggbbaa` and `rgba(…, .5)` parse, but the tool has no alpha channel, so the result is opaque. An alpha slider was considered and deliberately left out.
+* **Out-of-gamut input.** Paste an `oklch()` that sRGB cannot represent and the OKLCH panel keeps **exactly what you typed** while the **Fuera de Gamut** badge lights up; the swatch shows what the browser will actually draw. So the badge answers, before you ship it, the question Tailwind users hit constantly: *is this OKLCH still inside sRGB?*
+* **Chips vs. panel code.** The three chips are the exact conversion of the color on screen. The code box inside each panel echoes that panel's own slider values, so the two can differ by one rounding step.
+
+---
+
+---
+
 ## 📐 Why Your Hex and `hsl()` Values Don't Match `oklch()`
 
 This is the section to read if you have ever pasted `#ff0000` (or `hsl(0, 100%, 50%)`) into a converter, got `oklch(62.8% 64.4% 29.2)` back, and wondered where those numbers came from. Two separate things are going on: the two models are different coordinate systems, and the conversion path is nonlinear. The playground itself converts exactly — section 6 explains what that does and does not guarantee.
@@ -48,7 +83,7 @@ This is the section to read if you have ever pasted `#ff0000` (or `hsl(0, 100%, 
 - `#rrggbb`, `rgb()` and `hsl()` are all **sRGB** coordinates. They are *gamma-encoded* (the stored numbers are not proportional to emitted light, the sRGB transfer function approximates a ~2.2 gamma) and they are **not perceptually uniform**: `hsl(60, 100%, 50%)` yellow looks blindingly bright while `hsl(240, 100%, 50%)` blue looks dark, even though both say "50% lightness".
 - `oklch()` is the polar form of **OKLab**, a space Björn Ottosson derived from human cone (LMS) responses so that equal numeric steps *feel* equal. It is a different coordinate system for the same physical colors, so there is no one-to-one numeric correspondence: `60` in HSL means nothing in OKLCH, and `0.15` chroma does not mean "15% saturated".
 - Even the "equivalent hue" of an HSL hue is not a single fixed number, because OKLCH hue is computed from the whole color, not from the HSL hue angle alone. HSL blue `#0000ff` converts to OKLCH hue **264.1°**, but `hsl(240, 50%, 50%)` converts to **275.6°** and `hsl(240, 25%, 50%)` to **282.4°**.
-- The same applies to CIE `lch()`: sRGB green sits at **142.5°** in OKLCH but at **134.4°** in CIE LCH. "The equivalent hue" always depends on which space you are converting into.
+- "The equivalent hue" is not a property of the HSL angle: it depends on which space you are converting into, and on the saturation and lightness of the color you started from.
 
 ### 2. The path is not linear
 
@@ -160,6 +195,7 @@ bun install
 | `bun run dev` | Local server via `wrangler dev` at `http://localhost:8787` |
 | `bun run build` | Copies the static files into `dist/` |
 | `bun run deploy` | Builds and deploys to Cloudflare Workers |
+| `bun test` | Runs the color-math test suite in `tests/` |
 
 ---
 
@@ -197,7 +233,7 @@ the actual color described by the HSL panel:
 
 ```js
 // color.js
-hslHueToOklchHue(h, s, l) // hsl -> sRGB -> linearize -> OKLab -> atan2(b, a)
+hslHueToOklchHue(h, s, l)           // hsl -> sRGB -> linearize -> OKLab -> atan2(b, a)
 oklchHueToHslHue(targetH, s, l, preferH) // inverse, keeping the dial continuous
 ```
 
@@ -220,13 +256,20 @@ at their *true* OKLCH hues (29.2°, 109.8°, 142.5°, 194.8°, 264.1°, 328.4°)
 its sectors are visibly uneven. That deformation is the whole point of the
 second ring.
 
+> **Why not CIE `lch()`?** It was implemented and then removed on purpose.
+> `lab()`/`lch()` are defined against the **D50** white point (an ICC/print
+> convention) and a large part of its gamut falls outside sRGB, so for web,
+> Tailwind and digital branding it adds a space you cannot ship. This tool
+> sticks to sRGB-reachable coordinates: `#hex`, `hsl()` and `oklch()`.
+
 ---
 
 ## 🧩 Tech Stack
 
 * **HTML5:** semantic structure and native range inputs.
 * **CSS3:** `conic-gradient` for the color wheels, `mask-image` for ring shaping, `linear-gradient` for dynamic slider tracks.
-* **Vanilla JS:** `color.js` for the sRGB ↔ OKLCH math, `index.js` for the DOM, pointer events and rendering.
+* **Vanilla JS:** `color.js` for the color math (sRGB ↔ OKLCH, parsing and formatting), `index.js` for the DOM, pointer events and rendering.
+* **Bun test:** `tests/color.test.mjs` covers the conversions, the parser and the round trips (~32k assertions). No test framework is installed — `bun test` ships with Bun.
 * **Cloudflare Workers:** edge routing and static asset serving for the `/hueplay/*` mount point.
 
 ## 📄 License

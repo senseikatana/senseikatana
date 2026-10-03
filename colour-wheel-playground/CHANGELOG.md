@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Color input.** A field above the dial accepts `#f00`, `#rrggbb`, `#rrggbbaa`, `rgb()`, `hsl()`,
+  `oklch()` in both modern and legacy syntax. *Aplicar* (or `Enter`) seeds all six sliders with
+  the exact conversion, normalizes the field to `#rrggbb`, and shows an inline error without
+  touching the state when the string cannot be parsed. Alpha is parsed but ignored — the tool
+  has no alpha channel.
+- **Exact equivalence chips.** `#hex`, `hsl()` and `oklch()` for the color on screen, click to
+  copy. They are the full conversion (two decimals), not the rounded slider values.
+- **Numeric fields** next to every slider, synced in both directions. They do not write while the
+  value is still outside range, and clamp on blur.
+- **Fuera de Gamut badge** on the OKLCH panel when the triple has no sRGB representation. It
+  lights up both when you drag the chroma up and when you paste an out-of-gamut `oklch()` — in
+  that case the panel keeps the numbers exactly as typed instead of the gamut-mapped round trip.
+- **Shareable URL**: the six-slider state is written to the query string with `replaceState`.
+- **Test suite**: `tests/color.test.mjs` with `bun test` (~43k assertions) covering conversions,
+  the parser, formatting and every round trip.
+
+### Fixed
+
+- `oklchToRgb` collapsed to the wrong color when the triple sat barely outside the
+  gamut. The sRGB primaries lie exactly on the boundary and two-decimal formatting pushes them
+  past it; chroma reduction is unsound there because the linear channel is cubic in chroma, so
+  the in-gamut set is not an interval and the binary search converged to the first crossing
+  (chroma 0.266 instead of 0.313 for blue, a 46/255 error). A `GAMUT_EPS` tolerance now clips
+  instead, which is both correct and what round trips need.
+
+### Removed
+
+- **CIE LCH / `lab()` support** (panel, `lch()` input, `lch()` chip, hue sync and all the color
+  math). It was implemented, tested against CSS Color 4 (D50 + linear Bradford) and then taken
+  out on purpose: `lab()`/`lch()` are an ICC/print convention with a large part of the gamut
+  outside sRGB, and this tool is for web projects, Tailwind and digital branding, where only
+  sRGB-reachable coordinates are useful. The decision is recorded in `AGENTS.md` so it does not
+  get reintroduced by accident.
+- The hue sliders could report `hsl(360, …)` instead of `hsl(0, …)` after pasting a near-red
+  color; hues are normalized to `[0, 360)` now.
+
+
 ## [0.2.0] - 2026-10-03
 
 ### Changed

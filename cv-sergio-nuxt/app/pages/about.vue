@@ -2,7 +2,8 @@
 interface ResumeExperience {
   company: string
   role: string
-  period: string
+  start: string
+  end: string | null
   description: string
   highlights: string[]
 }
@@ -10,7 +11,8 @@ interface ResumeExperience {
 interface ResumeEducation {
   institution: string
   degree: string
-  period: string
+  start: string
+  end: string | null
   note?: string
 }
 
@@ -31,6 +33,8 @@ interface Resume {
 }
 
 const { locale, t } = useI18n()
+
+const { formatRange, duration, isCurrent } = useDateRange()
 
 const { data } = await useAsyncData(`resume-${locale.value}`, () =>
   queryCollection('resume').where('lang', '=', locale.value).first(),
@@ -221,15 +225,27 @@ useSeoMeta({
         <div class="space-y-10">
           <article
             v-for="exp in resume.experience"
-            :key="`${exp.company}-${exp.period}`"
+            :key="`${exp.company}-${exp.start}`"
             class="relative pl-6 border-l-2 border-teal-700/50"
           >
             <div class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-teal-500 border-2 border-dark-950" />
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
               <h3 class="text-xl font-semibold text-white-100">
                 {{ exp.role }}
+                <span
+                  v-if="isCurrent(exp)"
+                  class="ml-2 align-middle text-xs font-medium text-teal-300 border border-teal-700/60 rounded-full px-2 py-0.5"
+                >
+                  {{ t('resume.current') }}
+                </span>
               </h3>
-              <span class="text-sm text-white-500 font-mono">{{ exp.period }}</span>
+              <span class="text-sm text-white-500 font-mono">
+                {{ formatRange(exp) }}
+                <span
+                  v-if="duration(exp)"
+                  class="ml-1 text-teal-400/80"
+                >· {{ duration(exp) }}</span>
+              </span>
             </div>
             <p class="text-sky-400 text-sm mb-2">
               {{ exp.company }}
@@ -271,14 +287,14 @@ useSeoMeta({
         <div class="space-y-4">
           <div
             v-for="edu in resume.education"
-            :key="`${edu.degree}-${edu.period}`"
+            :key="`${edu.degree}-${edu.start}`"
             class="px-4 py-4 rounded-lg border border-dark-700/40 bg-dark-800/40"
           >
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
               <h3 class="font-semibold text-white-100">
                 {{ edu.degree }}
               </h3>
-              <span class="text-xs text-white-500 font-mono">{{ edu.period }}</span>
+              <span class="text-xs text-white-500 font-mono">{{ formatRange(edu) }}</span>
             </div>
             <p class="text-sky-400 text-sm mt-1">
               {{ edu.institution }}

@@ -78,5 +78,16 @@
     "empty": "No hay posts publicados aún.",
     "back": "Volver al Blog",
     "notFound": "Post no encontrado"
+  },
+  "resume": {
+    "present": "actualidad",
+    "years": "{count} años",
+    "months": "{count} meses",
+    "yearsMonths": "{years} años {months} meses",
+    "current": "Actualidad",
+    "availability": "Disponibilidad",
+    "year": "{count} año",
+    "month": "{count} mes",
+    "yearMonths": "{years} año {months} meses"
   }
 }

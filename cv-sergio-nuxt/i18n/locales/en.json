@@ -78,5 +78,16 @@
     "empty": "No posts published yet.",
     "back": "Back to Blog",
     "notFound": "Post not found"
+  },
+  "resume": {
+    "present": "present",
+    "years": "{count} years",
+    "months": "{count} months",
+    "yearsMonths": "{years} yrs {months} mo",
+    "current": "Present",
+    "availability": "Availability",
+    "year": "{count} year",
+    "month": "{count} month",
+    "yearMonths": "{years} yr {months} mo"
   }
 }

@@ -10,118 +10,133 @@
     {
       "company": "Fundación Onada",
       "role": "Peón de Jardinería",
-      "period": "2026 – 2027",
       "description": "Mantenimiento y limpieza en el Parque Torre en Dolça.",
       "highlights": [
         "Uso de desbrozadora",
         "Limpieza de canaletas",
         "Mantenimiento del parque en buen estado"
-      ]
+      ],
+      "start": "2026-10",
+      "end": null
     },
     {
       "company": "Ayuntamiento de Salou",
       "role": "Personal de Mantenimiento y Jardinería",
-      "period": "2025",
       "description": "Mantenimiento de espacios verdes municipales.",
       "highlights": [
         "Uso de desbrozadora para el saneamiento de jardines públicos",
         "Siembra y mantenimiento fitosanitario floral en el municipio"
-      ]
+      ],
+      "start": "2025",
+      "end": "2025"
     },
     {
       "company": "Esinsa Gaskets",
       "role": "Prácticas no remuneradas",
-      "period": "2026",
       "description": "Apoyo operativo en almacén y pedidos.",
       "highlights": [
         "Picking de espárragos, arandelas, tornillos y tuercas",
         "Mover cajas y realizar pedidos manuales"
-      ]
+      ],
+      "start": "2026",
+      "end": null
     },
     {
       "company": "Bar Las Cadenas",
       "role": "Asistente de Hostelería",
-      "period": "2024",
       "description": "Servicio en barra y atención en sala.",
       "highlights": [
         "Prestación de servicio de calidad en barra y atención directa en mesa",
         "Supervisión del orden, limpieza integral y correcta adecuación del local"
-      ]
+      ],
+      "start": "2024",
+      "end": "2024"
     },
     {
       "company": "Passos de Cuinar, Cambrils",
       "role": "Reparto Logístico",
-      "period": "2024",
       "description": "Transporte y entrega de mercancías.",
       "highlights": [
         "Transporte logístico de mercancías asegurando la puntualidad en cada envío"
-      ]
+      ],
+      "start": "2024",
+      "end": "2024"
     },
     {
       "company": "Uber Eats, Cambrils",
       "role": "Reparto Logístico",
-      "period": "2023",
       "description": "Distribución de pedidos de alimentación.",
       "highlights": [
         "Programación de itinerarios y distribución efectiva de pedidos de alimentación"
-      ]
+      ],
+      "start": "2023",
+      "end": "2023"
     },
     {
       "company": "GlovoApp S.L, Cambrils",
       "role": "Reparto Logístico",
-      "period": "2021 – 2023",
       "description": "Reparto a domicilio y soporte a restauración.",
       "highlights": [
         "Reparto a domicilio con enfoque en la eficiencia de las trayectorias",
         "Soporte operativo en la cadena de entrega para socios de restauración"
-      ]
+      ],
+      "start": "2021",
+      "end": "2023"
     },
     {
       "company": "Centro Municipal Deportivo, Valladolid",
       "role": "Responsable de Recepción",
-      "period": "2020",
       "description": "Atención al usuario y gestión administrativa.",
       "highlights": [
         "Administración de altas de usuarios y resolución eficiente de incidencias"
-      ]
+      ],
+      "start": "2020",
+      "end": "2020"
     }
   ],
   "education": [
     {
       "institution": "Novatecnica",
       "degree": "Certificado Profesional en Auxiliar Comercio Marketing",
-      "period": "2026",
-      "note": "Carretillas y Ventas"
+      "note": "Carretillas y Ventas",
+      "start": "2026",
+      "end": null
     },
     {
       "institution": "Novatecnica, Vila-seca",
       "degree": "PRL",
-      "period": "2026"
+      "start": "2026",
+      "end": null
     },
     {
       "institution": "IDFO",
       "degree": "Operador de Carretons Elevadors",
-      "period": "2024"
+      "start": "2024",
+      "end": "2024"
     },
     {
       "institution": "ESI Valladolid",
       "degree": "Curso de Diseño Multimedia y 3D",
-      "period": "2020"
+      "start": "2020",
+      "end": "2020"
     },
     {
       "institution": "I.E.S. Vega del Prado",
       "degree": "CFGS — ICTI",
-      "period": "2017 – 2019"
+      "start": "2017",
+      "end": "2019"
     },
     {
       "institution": "Valladolid",
       "degree": "CFGM — Laboratorio de Imagen",
-      "period": "2008 – 2010"
+      "start": "2008",
+      "end": "2010"
     },
     {
       "institution": "Valladolid",
       "degree": "E.S.O.",
-      "period": "2005 – 2008"
+      "start": "2005",
+      "end": "2008"
     }
   ],
   "softSkills": [
@@ -153,7 +168,8 @@
   ],
   "additional": [
     "Titular de licencia de conducción B",
-    "Incorporación inmediata (hasta finalizar el curso el 10 de julio, solo por las tardes); después, disponibilidad de mañana y tarde"
+    "Trabajando actualmente en Fundación Onada (contrato 1 oct 2026 – 30 sep 2027)",
+    "Abierto a nuevas oportunidades en logística, comercio y almacén"
   ],
   "certificationOnRequest": "Certificación de discapacidad (TEA 35%) disponible bajo petición"
 }

@@ -10,118 +10,133 @@
     {
       "company": "Onada Foundation",
       "role": "Gardening Worker",
-      "period": "2026 – 2027",
       "description": "Maintenance and cleaning at Torre Park in Dolça.",
       "highlights": [
         "Brush cutter use",
         "Gutter cleaning",
         "Keeping the park in good condition"
-      ]
+      ],
+      "start": "2026-10",
+      "end": null
     },
     {
       "company": "Salou City Council",
       "role": "Maintenance & Gardening Staff",
-      "period": "2025",
       "description": "Maintenance of municipal green spaces.",
       "highlights": [
         "Brush cutter work for public garden upkeep",
         "Planting and phytosanitary floral maintenance in the municipality"
-      ]
+      ],
+      "start": "2025",
+      "end": "2025"
     },
     {
       "company": "Esinsa Gaskets",
       "role": "Unpaid internship",
-      "period": "2026",
       "description": "Warehouse and order support.",
       "highlights": [
         "Picking of bolts, washers, screws and nuts",
         "Moving boxes and fulfilling manual orders"
-      ]
+      ],
+      "start": "2026",
+      "end": null
     },
     {
       "company": "Bar Las Cadenas",
       "role": "Hospitality Assistant",
-      "period": "2024",
       "description": "Bar service and table wait.",
       "highlights": [
         "Quality service at the bar and direct table attention",
         "Keeping the venue ordered, clean and properly set up"
-      ]
+      ],
+      "start": "2024",
+      "end": "2024"
     },
     {
       "company": "Passos de Cuinar, Cambrils",
       "role": "Logistics Delivery",
-      "period": "2024",
       "description": "Goods transport and delivery.",
       "highlights": [
         "Logistics transport of goods ensuring on-time delivery for every shipment"
-      ]
+      ],
+      "start": "2024",
+      "end": "2024"
     },
     {
       "company": "Uber Eats, Cambrils",
       "role": "Logistics Delivery",
-      "period": "2023",
       "description": "Food order distribution.",
       "highlights": [
         "Route planning and effective distribution of food orders"
-      ]
+      ],
+      "start": "2023",
+      "end": "2023"
     },
     {
       "company": "GlovoApp S.L, Cambrils",
       "role": "Logistics Delivery",
-      "period": "2021 – 2023",
       "description": "Home delivery and restaurant partner support.",
       "highlights": [
         "Home delivery focused on efficient routes",
         "Operational support in the delivery chain for restaurant partners"
-      ]
+      ],
+      "start": "2021",
+      "end": "2023"
     },
     {
       "company": "Municipal Sports Centre, Valladolid",
       "role": "Reception Lead",
-      "period": "2020",
       "description": "User care and administrative management.",
       "highlights": [
         "User registrations and efficient incident resolution"
-      ]
+      ],
+      "start": "2020",
+      "end": "2020"
     }
   ],
   "education": [
     {
       "institution": "Novatecnica",
       "degree": "Professional Certificate — Commerce & Marketing Assistant",
-      "period": "2026",
-      "note": "Forklifts and Sales"
+      "note": "Forklifts and Sales",
+      "start": "2026",
+      "end": null
     },
     {
       "institution": "Novatecnica, Vila-seca",
       "degree": "Occupational Risk Prevention (PRL)",
-      "period": "2026"
+      "start": "2026",
+      "end": null
     },
     {
       "institution": "IDFO",
       "degree": "Forklift Operator Certificate",
-      "period": "2024"
+      "start": "2024",
+      "end": "2024"
     },
     {
       "institution": "ESI Valladolid",
       "degree": "Multimedia & 3D Design Course",
-      "period": "2020"
+      "start": "2020",
+      "end": "2020"
     },
     {
       "institution": "I.E.S. Vega del Prado",
       "degree": "Higher VET — ICTI",
-      "period": "2017 – 2019"
+      "start": "2017",
+      "end": "2019"
     },
     {
       "institution": "Valladolid",
       "degree": "Intermediate VET — Image Laboratory",
-      "period": "2008 – 2010"
+      "start": "2008",
+      "end": "2010"
     },
     {
       "institution": "Valladolid",
       "degree": "Compulsory Secondary Education (ESO)",
-      "period": "2005 – 2008"
+      "start": "2005",
+      "end": "2008"
     }
   ],
   "softSkills": [
@@ -152,8 +167,9 @@
     }
   ],
   "additional": [
-    "Holder of driving licence B",
-    "Immediate start (until course ends on 10 July, evenings only); afterwards available mornings and evenings"
+    "Full B driving licence",
+    "Currently working at Onada Foundation (contract 1 Oct 2026 – 30 Sep 2027)",
+    "Open to new opportunities in logistics, commerce and warehouse operations"
   ],
   "certificationOnRequest": "Disability certification (ASD 35%) available on request"
 }

@@ -5,8 +5,8 @@ Guidance for AI coding agents working in this repository.
 ## Project overview
 
 Color Compass (package name: `hueplay`) is a zero-dependency, single-page teaching tool that
-compares the HSL and OKLCH color models: a 360° dual-ring dial, two slider panels, and live
-CSS output. It is deployed as a Cloudflare Worker with Static Assets on
+compares the HSL and OKLCH color models: a 360° dual-ring dial, two slider panels, a color
+input that accepts any CSS color notation, exact equivalence chips, and live CSS output. It is deployed as a Cloudflare Worker with Static Assets on
 `https://senseikatana.com/hueplay/*`.
 
 ## Architecture
@@ -15,7 +15,8 @@ CSS output. It is deployed as a Cloudflare Worker with Static Assets on
   the browser as classic scripts (no modules). No bundler, no framework — `scripts/build.sh`
   just copies files into `dist/`.
 - `color.js` owns all color math and exposes a single global, `ColorMath`. It has no DOM access,
-  so it can be imported from Node to run assertions against it.
+  so it can be imported from Node to run assertions against it. It covers sRGB ↔ OKLCH, hue
+  forward/inverse mapping, gamut checks, and parsing/formatting CSS color strings.
 - `index.js` owns the DOM, the pointer-event drag, and rendering. Every UI write goes through
   `updateUI()`.
 - `worker.js` is the edge router: redirects `/` and `/hueplay`, strips the `/hueplay` prefix,
@@ -29,12 +30,13 @@ CSS output. It is deployed as a Cloudflare Worker with Static Assets on
 
 | Path | Role |
 |---|---|
-| `index.html` | Markup, meta/OG tags, element ids, `aria-labelledby` wiring |
+| `index.html` | Markup, meta/OG tags, the color input and chips, element ids, `aria-labelledby` wiring |
 | `styles.css` | Layout, dial rings (`conic-gradient` + `mask`), slider chrome, `:focus-visible` |
-| `color.js` | Pure color math: sRGB ↔ OKLCH, hue forward/inverse, gamut mapping |
-| `index.js` | Dial drag (Pointer Events), `updateUI()`, ring and track gradients |
+| `color.js` | Pure color math: sRGB ↔ OKLCH, hue forward/inverse, gamut mapping, CSS parse/format |
+| `index.js` | Dial drag (Pointer Events), `updateUI()`, color input, chips, URL state, ring and track gradients |
 | `worker.js` | Edge router for `/hueplay/*` |
 | `wrangler.jsonc` | Worker + static assets configuration |
+| `tests/color.test.mjs` | Conversions, parser and round-trip assertions — run with `bun test` |
 | `scripts/build.sh` | Copies static files (and `preview.png`) into `dist/` |
 | `dist/` | Build output (git-ignored), served as assets |
 | `README.md`, `CHANGELOG.md` | Docs — keep them in sync with code changes |
@@ -46,6 +48,7 @@ bun install      # once
 bun run dev      # wrangler dev (runs the build command) -> http://localhost:8787/hueplay/
 bun run build    # populate dist/
 bun run deploy   # build + wrangler deploy
+bun test         # color-math test suite (run this before touching color.js)
 ```
 
 `bun run build` runs `rm -rf dist`, so rebuilding while `wrangler dev` is serving will make the
@@ -75,18 +78,40 @@ ambiguous near the primaries (a 10-15° span of HSL hue collapses into one OKLCH
 blue); `oklchHueToHslHue` resolves that by recognising the current hue first, so the
 HSL → OKLCH → HSL round trip stays exact.
 
+**CIE `lch()`/`lab()` is deliberately NOT implemented.** It was built and then removed: those
+notations are defined against the **D50** white point (ICC/print) and much of their gamut is
+outside sRGB, so for web/Tailwind/branding work it is not shippable. Do not reintroduce it
+without an explicit decision from the owner. The tool stays on sRGB-reachable coordinates:
+`#hex`, `hsl()`, `oklch()`.
+
+Two invariants the tests guard:
+
+* `oklchToRgb` accept a tolerance of `GAMUT_EPS = 1e-2` before falling back to
+  chroma reduction. The sRGB primaries sit exactly on the gamut boundary and formatting to two
+  decimals pushes them out; chroma reduction is not valid there because the linear channel is
+  *cubic* in chroma, so the in-gamut set is not an interval and a binary search converges to the
+  wrong crossing. Raising that tolerance is not an optimisation — changing it breaks round trips.
+* The formatters use two decimals on purpose. One decimal loses up to 3.3/255 on round trip.
+
 ## Verification
 
-There is no test suite. Verify manually:
-
-1. `bun run dev` and load `http://localhost:8787/hueplay/`.
+1. `bun test` first — it covers conversions, the parser and every round trip (~43k assertions).
+   Anything that touches `color.js` must leave it green.
+2. `bun run dev` and load `http://localhost:8787/hueplay/`.
 2. Drag the dial: the pointer, both hue sliders, both swatches and both code strings must move
    together.
 3. Round trip: set an HSL hue, note the OKLCH hue, drag the OKLCH hue slider back onto that
    number — the HSL hue must return to where it started.
 4. Move HSL saturation: the OKLCH hue must re-derive (it is derived from the color, not copied).
 5. Set HSL saturation to 0%: nothing may break, and the OKLCH hue must simply stop updating.
-6. Keyboard: `Tab` must reach every slider and show the `:focus-visible` outline.
+6. Paste `#ffd000` in the input: the field normalizes, both swatches agree, and the chips read
+   `oklch(87.35% 44.68% 92.34)`. Paste garbage: an inline error appears and the state is
+   untouched. Paste `oklch(50% 100% 30)`: the OKLCH panel keeps those numbers and the
+   **Fuera de Gamut** badge lights up. Paste `lch(…)`: rejected with an inline error.
+7. Type into any numeric field: the slider and the other two panels follow. Type `999`: nothing
+   moves until blur, then it clamps to the max.
+8. Keyboard: `Tab` must reach the input, the button, the chips and every slider, and show the
+   `:focus-visible` outline.
 
 ## Rules
 
