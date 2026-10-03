@@ -11,5 +11,12 @@ mkdir -p dist
 
 cp index.html styles.css index.js dist/
 
+# Social preview (og:image / twitter:image) — 1200x630
+if [ -f preview.png ]; then
+  cp preview.png dist/preview.png
+else
+  echo "⚠️  preview.png ausente: og:image quedará roto" >&2
+fi
+
 echo "✅ build -> dist/"
 ls -1 dist

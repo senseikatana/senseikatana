@@ -16,6 +16,10 @@
     {
       "pattern": "senseikatana.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "www.senseikatana.com",
+      "custom_domain": true
     }
   ]
 }

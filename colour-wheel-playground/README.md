@@ -4,7 +4,9 @@ An interactive, visual, and educational tool designed to help developers and des
 
 If you've ever been confused by why a 50% lightness in HSL looks completely different depending on the hue, or why the oklch() hue angles seem "rotated" compared to HSL, this tool is for you.
 
-> Dial Preview(Note: Replace this image with an actual GIF or screenshot of the tool in action)
+![Dial Preview](preview.png)
+
+**Live:** https://senseikatana.com/showcase/
 
 ## 🚀 Features
 
@@ -13,7 +15,7 @@ If you've ever been confused by why a 50% lightness in HSL looks completely diff
 * Independent Sliders: Separate controls for Lightness, Saturation/Chroma, and Alpha for both models, allowing you to see how the same numeric values produce different visual results.
 * Dynamic Slider Tracks: The background of every slider updates in real-time, acting as a mini color-picker to show exactly what values you are traversing.
 * Real-time CSS Code Output: Instantly generates the exact hsl() and oklch() CSS strings, ready to copy to your clipboard.
-* Zero Dependencies: Built with pure HTML, CSS, and Vanilla JavaScript. No frameworks, no build steps.
+* Zero runtime dependencies: pure HTML, CSS, and Vanilla JavaScript — no frameworks, no bundler. The only script is a copy step for deployment.
 
 ## 🧠 The Core Concept: Why OKLCH?
 
@@ -38,19 +40,40 @@ To see the power of OKLCH in action, try this in the playground:
 ---
 
 ## 🛠️ How to Use
-No installation required.
 
-1. Clone the repository:
+No installation required to try it — just open `index.html` in your browser.
 
-`git clone https://github.com/your-username/oklch-dial-lab.git`
+For development and deployment you only need [Bun](https://bun.sh):
 
-2. Navigate to the folder:
-
-```bash 
-cd oklch-dial-lab
+```bash
+git clone https://github.com/senseikatana/senseikatana.git
+cd senseikatana/colour-wheel-playground
+bun install
 ```
 
-3. Open index.html in your favorite web browser. That's it!
+| Command | What it does |
+|---|---|
+| `bun run dev` | Local server via `wrangler dev` at `http://localhost:8787` |
+| `bun run build` | Copies the static files into `dist/` |
+| `bun run deploy` | Builds and deploys to Cloudflare Workers |
+
+---
+
+## ☁️ Deployment
+
+The site is served by a **Cloudflare Worker with Static Assets** (not GitHub Pages, not Cloudflare Pages) mounted on the `/showcase/*` path of the apex domain.
+
+`wrangler.jsonc` points `custom_domain` at `senseikatana.com` and `www.senseikatana.com`. Cloudflare provisions the DNS records (A + AAAA) and the TLS certificate automatically, so no manual DNS setup is needed.
+
+`worker.js` is the edge router: it strips the `/showcase` prefix, fetches the asset, and falls back to `index.html` for unknown routes (SPA behaviour). It also sets cache and security headers.
+
+```
+senseikatana.com/                 -> 302 /showcase/
+senseikatana.com/showcase         -> 301 /showcase/
+senseikatana.com/showcase/*       -> asset (or index.html fallback)
+```
+
+> **Note:** use the local `wrangler` from `node_modules` (`bun run deploy`). A globally installed `wrangler` in this environment ships a broken `workerd` symlink and fails with `ERR_RUNTIME_FAILURE`.
 
 ---
 
@@ -71,10 +94,16 @@ const map = [
 
 When you drag the HSL dial, the tool calculates the percentage of the segment you are in and applies that same percentage to the equivalent OKLCH segment.
 
-🧩 Tech Stack
-HTML5: Semantic structure and native range inputs.
-CSS3: conic-gradient for color wheels, CSS mask-image for ring shaping, and linear-gradient for dynamic slider tracks.
-Vanilla JS: DOM manipulation, touch/mouse drag events, and mathematical interpolation.
-📄 License
+---
+
+## 🧩 Tech Stack
+
+* **HTML5:** semantic structure and native range inputs.
+* **CSS3:** `conic-gradient` for the color wheels, `mask-image` for ring shaping, `linear-gradient` for dynamic slider tracks.
+* **Vanilla JS:** DOM manipulation, touch/mouse drag events, and mathematical interpolation.
+* **Cloudflare Workers:** edge routing and static asset serving for the `/showcase/*` mount point.
+
+## 📄 License
+
 This project is open source and available under the MIT License.
 
