@@ -3,7 +3,8 @@
     "home": "Home",
     "about": "About",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "cta": "View CV"
   },
   "lang": {
     "title": "Language"
@@ -27,7 +28,23 @@
     "ctaContact": "Contact",
     "hardSkillsTitle": "Hard skills",
     "availabilityTitle": "Available immediately",
-    "availabilitySubtitle": "Available for logistics, warehouse, commerce and customer service teams."
+    "availabilitySubtitle": "Available for logistics, warehouse, commerce and customer service teams.",
+    "marker": "CAMBILS · TARRAGONA",
+    "headline": {
+      "1": "ORDER IN",
+      "2": "EVERY MOVE.",
+      "3": "CONSISTENCY"
+    },
+    "stats": {
+      "years": "Years of experience",
+      "roles": "Roles",
+      "hardSkills": "Hard skills",
+      "languages": "Languages"
+    },
+    "skillsMarker": "01 — Skills",
+    "skillsTitle": "What I bring",
+    "skillsHighlight": "to the floor.",
+    "skillsBody": "Picking, receiving, inventory and forklift loading. An ordered, methodical and verifiable process."
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
@@ -51,7 +68,8 @@
     "languages": "Languages",
     "extraTitle": "Additional information",
     "extraNote": "Prefer the classic document? Download the PDF or write to me directly.",
-    "ctaWhatsapp": "WhatsApp"
+    "ctaWhatsapp": "WhatsApp",
+    "caption": "Logistics and warehouse operative · Cambrils, Tarragona"
   },
   "contact": {
     "title": "Contact",
@@ -89,5 +107,21 @@
     "year": "{count} year",
     "month": "{count} month",
     "yearMonths": "{years} yr {months} mo"
+  },
+  "brand": {
+    "tagline": "LOGISTICS · WAREHOUSE",
+    "marquee": [
+      "LOGISTICS",
+      "PRECISION",
+      "ORDER",
+      "CONSISTENCY",
+      "RESULTS",
+      "NO EXCUSES"
+    ]
+  },
+  "footer": {
+    "summary": "Logistics and warehouse operative with experience in picking, inventory and customer service. Looking for a stable role to contribute.",
+    "navTitle": "Navigation",
+    "contactTitle": "Direct contact"
   }
 }

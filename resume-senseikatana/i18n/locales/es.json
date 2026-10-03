@@ -3,7 +3,8 @@
     "home": "Inicio",
     "about": "Sobre mí",
     "blog": "Blog",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "cta": "Ver CV"
   },
   "lang": {
     "title": "Idioma"
@@ -27,7 +28,23 @@
     "ctaContact": "Contacto",
     "hardSkillsTitle": "Hard skills",
     "availabilityTitle": "Incorporación inmediata",
-    "availabilitySubtitle": "Disponible para equipos de logística, almacén, comercio y atención al cliente."
+    "availabilitySubtitle": "Disponible para equipos de logística, almacén, comercio y atención al cliente.",
+    "marker": "CAMBILS · TARRAGONA",
+    "headline": {
+      "1": "ORDEN EN",
+      "2": "CADA MOVIMIENTO.",
+      "3": "CONSTANCIA"
+    },
+    "stats": {
+      "years": "Años de experiencia",
+      "roles": "Puestos",
+      "hardSkills": "Hard skills",
+      "languages": "Idiomas"
+    },
+    "skillsMarker": "01 — Aptitudes",
+    "skillsTitle": "Lo que aporto",
+    "skillsHighlight": "en el almacén.",
+    "skillsBody": "Picking, recepción, inventario y carga de carretillas. Un proceso ordenado, metódico y verificable."
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
@@ -51,7 +68,8 @@
     "languages": "Idiomas",
     "extraTitle": "Información adicional",
     "extraNote": "¿Prefieres el documento clásico? Descarga el PDF o escríbeme directamente.",
-    "ctaWhatsapp": "WhatsApp"
+    "ctaWhatsapp": "WhatsApp",
+    "caption": "Operario de logística y almacén · Cambrils, Tarragona"
   },
   "contact": {
     "title": "Contacto",
@@ -89,5 +107,21 @@
     "year": "{count} año",
     "month": "{count} mes",
     "yearMonths": "{years} año {months} meses"
+  },
+  "brand": {
+    "tagline": "LOGÍSTICA · ALMACÉN",
+    "marquee": [
+      "LOGÍSTICA",
+      "PRECISIÓN",
+      "ORDEN",
+      "CONSTANCIA",
+      "RESULTADOS",
+      "SIN EXCUSAS"
+    ]
+  },
+  "footer": {
+    "summary": "Operario de logística y almacén con experiencia en picking, inventario y atención al cliente. Busco un puesto estable donde aportar.",
+    "navTitle": "Navegación",
+    "contactTitle": "Contacto directo"
   }
 }

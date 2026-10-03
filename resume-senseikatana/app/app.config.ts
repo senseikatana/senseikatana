@@ -1,12 +1,12 @@
 export default defineAppConfig({
   ui: {
     colors: {
-      primary: 'rose',
-      secondary: 'teal',
-      success: 'emerald',
-      warning: 'yellow',
-      error: 'rose',
-      info: 'sky',
+      primary: 'forge',
+      secondary: 'forge',
+      success: 'forge',
+      warning: 'forge',
+      error: 'forge',
+      info: 'forge',
       neutral: 'dark',
     },
   },

@@ -6,9 +6,23 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxtjs/i18n',
+    '@nuxt/fonts',
   ],
 
   css: ['~/assets/css/main.css'],
+
+  /*
+   * Fuentes self-hosted — @nuxt/fonts las descarga en build y emite reglas
+   * @font-face locales. Sin CDN, así la CSP de abajo se puede seguir cumpliendo.
+   */
+  fonts: {
+    families: [
+      { name: 'Bebas Neue', provider: 'google', weights: [400] },
+      { name: 'Oswald', provider: 'google', weights: [300, 400, 500, 600, 700] },
+      { name: 'Archivo', provider: 'google', weights: [400, 500, 600, 700, 800, 900] },
+      { name: 'JetBrains Mono', provider: 'google', weights: [400, 500, 700] },
+    ],
+  },
 
   routeRules: {
     '/**': {
@@ -68,7 +82,7 @@ export default defineNuxtConfig({
 
   ui: {
     theme: {
-      colors: ['rose', 'teal', 'emerald', 'yellow', 'sky', 'dark', 'white', 'lavender'],
+      colors: ['forge', 'dark', 'white'],
     },
   },
 

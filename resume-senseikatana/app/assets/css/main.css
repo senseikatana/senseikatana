@@ -1,156 +1,120 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* ─── Brand Tokens ─────────────────────────────────────────────── */
-/* Palette: Senseikatana Brand v3.0.0                               */
+/*
+ * Lenguaje de diseño IRONFORGE aplicado al CV de Sergio Jurado Casado.
+ *
+ * Todos los colores van en OKLCH, nunca hex ni RGB. La rampa de acento se
+ * verificó contra el gamut sRGB en tono 38.6: el chroma está topado en el
+ * límite para que el navegador nunca lo recorte en silencio.
+ *
+ * El sitio mantiene soporte claro/oscuro: `dark-*` son superficies, `white-*`
+ * son tinta, y ambas se invierten con `.dark` (ver ThemeSwitcher).
+ */
+
+/* ─── Paleta Forge ──────────────────────────────────────────────────────── */
 :root {
-  --rose: oklch(0.63 0.23 17);
-  --teal: oklch(0.45 0.06 185);
-  --emerald: oklch(0.72 0.19 162);
-  --yellow: oklch(0.90 0.12 85);
-  --sky: oklch(0.72 0.12 225);
-  --dark: oklch(0.15 0.02 260);
-  --white: oklch(0.93 0.005 260);
-  --lavender: oklch(0.58 0.05 270);
+  /* Acento — naranja IRONFORGE, rampa anclada en 500 */
+  --forge-accent: oklch(0.6748 0.2116 38.6);
+  --forge-accent-bright: oklch(0.7250 0.1811 45.3);
+  --forge-accent-dim: oklch(0.5194 0.1659 39.1);
+
+  /* Neutros — negros suavizados, tono 285 */
+  --forge-bg: oklch(0.1749 0.0082 285.5);
+  --forge-bg-darker: oklch(0.1510 0.0064 285.6);
+  --forge-bg-card: oklch(0.2166 0.0136 285.2);
+  --forge-bg-card-hover: oklch(0.2517 0.0169 285.1);
+  --forge-border: oklch(0.2729 0.0184 285.1);
+  --forge-border-light: oklch(0.3260 0.0211 285.2);
+  --forge-fg: oklch(0.9702 0 0);
+  --forge-fg-dim: oklch(0.8078 0 0);
+  --forge-muted: oklch(0.5896 0.0151 285.9);
+  --forge-silver: oklch(0.8328 0 0);
+  --forge-silver-dim: oklch(0.5416 0.0154 285.9);
 
   /*
-   * Surface (`dark-*`) + ink (`white-*`) respond to color mode.
-   * Pages use these utilities for backgrounds/text; header/footer use Nuxt UI tokens.
-   * Light (default :root): light surfaces, dark text.
+   * Superficies (`dark-*`). El modo claro es el `:root` por defecto.
+   * Deliberadamente suaves: el negro puro mata el contraste en OLED y deja
+   * invisible la capa de grano.
    */
-  --palette-dark-50: oklch(0.22 0.02 260);
-  --palette-dark-100: oklch(0.28 0.02 260);
-  --palette-dark-200: oklch(0.38 0.02 260);
-  --palette-dark-300: oklch(0.50 0.02 260);
-  --palette-dark-400: oklch(0.62 0.02 260);
-  --palette-dark-500: oklch(0.72 0.015 260);
-  --palette-dark-600: oklch(0.82 0.01 260);
-  --palette-dark-700: oklch(0.88 0.008 260);
-  --palette-dark-800: oklch(0.94 0.005 260);
-  --palette-dark-900: oklch(0.97 0.004 260);
-  --palette-dark-950: oklch(0.99 0.002 260);
+  --palette-dark-50: oklch(0.99 0.002 285);
+  --palette-dark-100: oklch(0.975 0.003 285);
+  --palette-dark-200: oklch(0.94 0.004 285);
+  --palette-dark-300: oklch(0.86 0.006 285);
+  --palette-dark-400: oklch(0.72 0.008 285);
+  --palette-dark-500: oklch(0.58 0.01 285);
+  --palette-dark-600: oklch(0.44 0.012 285);
+  --palette-dark-700: oklch(0.34 0.012 285);
+  --palette-dark-800: oklch(0.26 0.011 285);
+  --palette-dark-900: oklch(0.215 0.009 285);
+  --palette-dark-950: oklch(0.175 0.007 285);
 
-  --palette-white-50: oklch(0.14 0.02 260);
-  --palette-white-100: oklch(0.18 0.02 260);
-  --palette-white-200: oklch(0.24 0.02 260);
-  --palette-white-300: oklch(0.32 0.02 260);
-  --palette-white-400: oklch(0.42 0.02 260);
-  --palette-white-500: oklch(0.50 0.015 260);
-  --palette-white-600: oklch(0.58 0.01 260);
-  --palette-white-700: oklch(0.68 0.008 260);
-  --palette-white-800: oklch(0.78 0.005 260);
-  --palette-white-900: oklch(0.88 0.004 260);
-  --palette-white-950: oklch(0.94 0.002 260);
+  /* Tinta (`white-*`) */
+  --palette-white-50: oklch(0.14 0.006 285);
+  --palette-white-100: oklch(0.19 0.006 285);
+  --palette-white-200: oklch(0.26 0.007 285);
+  --palette-white-300: oklch(0.34 0.008 285);
+  --palette-white-400: oklch(0.44 0.009 285);
+  --palette-white-500: oklch(0.52 0.01 285);
+  --palette-white-600: oklch(0.60 0.009 285);
+  --palette-white-700: oklch(0.68 0.008 285);
+  --palette-white-800: oklch(0.78 0.005 285);
+  --palette-white-900: oklch(0.88 0.004 285);
+  --palette-white-950: oklch(0.94 0.002 285);
 }
 
 .dark {
-  --palette-dark-50: oklch(0.95 0.01 260);
-  --palette-dark-100: oklch(0.90 0.01 260);
-  --palette-dark-200: oklch(0.80 0.02 260);
-  --palette-dark-300: oklch(0.65 0.03 260);
-  --palette-dark-400: oklch(0.45 0.03 260);
-  --palette-dark-500: oklch(0.32 0.03 260);
-  --palette-dark-600: oklch(0.25 0.02 260);
-  --palette-dark-700: oklch(0.20 0.02 260);
-  --palette-dark-800: oklch(0.15 0.02 260);
-  --palette-dark-900: oklch(0.10 0.02 260);
-  --palette-dark-950: oklch(0.06 0.01 260);
+  /* Superficies IRONFORGE — casi negro, sin aplastarse */
+  --palette-dark-50: oklch(0.97 0.003 285);
+  --palette-dark-100: oklch(0.92 0.004 285);
+  --palette-dark-200: oklch(0.83 0.006 285);
+  --palette-dark-300: oklch(0.72 0.008 285);
+  --palette-dark-400: oklch(0.5416 0.0154 285.9);
+  --palette-dark-500: oklch(0.472 0.016 285);
+  --palette-dark-600: oklch(0.326 0.0211 285.2);
+  --palette-dark-700: oklch(0.2517 0.0169 285.1);
+  --palette-dark-800: oklch(0.2166 0.0136 285.2);
+  --palette-dark-900: oklch(0.1749 0.0082 285.5);
+  --palette-dark-950: oklch(0.151 0.0064 285.6);
 
-  --palette-white-50: oklch(0.99 0.002 260);
-  --palette-white-100: oklch(0.97 0.003 260);
-  --palette-white-200: oklch(0.94 0.004 260);
-  --palette-white-300: oklch(0.90 0.005 260);
-  --palette-white-400: oklch(0.85 0.005 260);
-  --palette-white-500: oklch(0.78 0.005 260);
-  --palette-white-600: oklch(0.65 0.004 260);
-  --palette-white-700: oklch(0.50 0.004 260);
-  --palette-white-800: oklch(0.38 0.003 260);
-  --palette-white-900: oklch(0.28 0.002 260);
-  --palette-white-950: oklch(0.18 0.001 260);
+  /* Tinta IRONFORGE */
+  --palette-white-50: oklch(0.9702 0 0);
+  --palette-white-100: oklch(0.94 0 0);
+  --palette-white-200: oklch(0.91 0 0);
+  --palette-white-300: oklch(0.8078 0 0);
+  --palette-white-400: oklch(0.72 0 0);
+  --palette-white-500: oklch(0.5896 0.0151 285.9);
+  --palette-white-600: oklch(0.46 0.012 285);
+  --palette-white-700: oklch(0.37 0.01 285);
+  --palette-white-800: oklch(0.28 0.008 285);
+  --palette-white-900: oklch(0.21 0.006 285);
+  --palette-white-950: oklch(0.155 0.005 285);
 }
 
-/* ─── Tailwind v4 Theme ─────────────────────────────────────────── */
+/* ─── Tipografía ────────────────────────────────────────────────────────── */
+@theme {
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+}
+
+/* ─── Rampa de acento (topada por gamut, tono 38.6) ─────────────────────── */
 @theme static {
-  /* ── rose (#F43F5E) — primary / error ── */
-  --color-rose-50: oklch(0.97 0.01 17);
-  --color-rose-100: oklch(0.93 0.03 17);
-  --color-rose-200: oklch(0.87 0.07 17);
-  --color-rose-300: oklch(0.78 0.13 17);
-  --color-rose-400: oklch(0.70 0.19 17);
-  --color-rose-500: oklch(0.63 0.23 17);
-  --color-rose-600: oklch(0.55 0.22 17);
-  --color-rose-700: oklch(0.47 0.19 17);
-  --color-rose-800: oklch(0.39 0.15 17);
-  --color-rose-900: oklch(0.32 0.11 17);
-  --color-rose-950: oklch(0.22 0.07 17);
-
-  /* ── teal (#38686B) — secondary ── */
-  --color-teal-50: oklch(0.96 0.01 185);
-  --color-teal-100: oklch(0.91 0.02 185);
-  --color-teal-200: oklch(0.83 0.03 185);
-  --color-teal-300: oklch(0.70 0.04 185);
-  --color-teal-400: oklch(0.55 0.05 185);
-  --color-teal-500: oklch(0.45 0.06 185);
-  --color-teal-600: oklch(0.38 0.06 185);
-  --color-teal-700: oklch(0.32 0.05 185);
-  --color-teal-800: oklch(0.25 0.04 185);
-  --color-teal-900: oklch(0.18 0.03 185);
-  --color-teal-950: oklch(0.10 0.02 185);
-
-  /* ── emerald (#10B981) — success ── */
-  --color-emerald-50: oklch(0.97 0.02 162);
-  --color-emerald-100: oklch(0.93 0.05 162);
-  --color-emerald-200: oklch(0.87 0.09 162);
-  --color-emerald-300: oklch(0.80 0.13 162);
-  --color-emerald-400: oklch(0.74 0.16 162);
-  --color-emerald-500: oklch(0.72 0.19 162);
-  --color-emerald-600: oklch(0.62 0.18 162);
-  --color-emerald-700: oklch(0.52 0.15 162);
-  --color-emerald-800: oklch(0.42 0.12 162);
-  --color-emerald-900: oklch(0.33 0.09 162);
-  --color-emerald-950: oklch(0.22 0.06 162);
-
-  /* ── yellow (#F6DC8E) — warning ── */
-  --color-yellow-50: oklch(0.98 0.01 85);
-  --color-yellow-100: oklch(0.96 0.03 85);
-  --color-yellow-200: oklch(0.93 0.07 85);
-  --color-yellow-300: oklch(0.90 0.12 85);
-  --color-yellow-400: oklch(0.85 0.14 85);
-  --color-yellow-500: oklch(0.78 0.15 85);
-  --color-yellow-600: oklch(0.68 0.14 85);
-  --color-yellow-700: oklch(0.55 0.11 85);
-  --color-yellow-800: oklch(0.42 0.09 85);
-  --color-yellow-900: oklch(0.32 0.07 85);
-  --color-yellow-950: oklch(0.22 0.04 85);
-
-  /* ── sky (#25ABE4) — info ── */
-  --color-sky-50: oklch(0.97 0.02 225);
-  --color-sky-100: oklch(0.93 0.04 225);
-  --color-sky-200: oklch(0.87 0.07 225);
-  --color-sky-300: oklch(0.80 0.10 225);
-  --color-sky-400: oklch(0.74 0.12 225);
-  --color-sky-500: oklch(0.72 0.12 225);
-  --color-sky-600: oklch(0.62 0.11 225);
-  --color-sky-700: oklch(0.52 0.09 225);
-  --color-sky-800: oklch(0.42 0.07 225);
-  --color-sky-900: oklch(0.33 0.05 225);
-  --color-sky-950: oklch(0.22 0.03 225);
-
-  /* ── lavender (#8C86AA) — decorative accent ── */
-  --color-lavender-50: oklch(0.97 0.01 270);
-  --color-lavender-100: oklch(0.93 0.02 270);
-  --color-lavender-200: oklch(0.85 0.03 270);
-  --color-lavender-300: oklch(0.75 0.04 270);
-  --color-lavender-400: oklch(0.65 0.05 270);
-  --color-lavender-500: oklch(0.58 0.05 270);
-  --color-lavender-600: oklch(0.50 0.05 270);
-  --color-lavender-700: oklch(0.42 0.04 270);
-  --color-lavender-800: oklch(0.35 0.03 270);
-  --color-lavender-900: oklch(0.28 0.02 270);
-  --color-lavender-950: oklch(0.18 0.01 270);
+  --color-forge-50: oklch(0.97 0.0148 38.6);
+  --color-forge-100: oklch(0.935 0.033 38.6);
+  --color-forge-200: oklch(0.88 0.0638 38.6);
+  --color-forge-300: oklch(0.79 0.1214 38.6);
+  --color-forge-400: oklch(0.73 0.1658 38.6);
+  --color-forge-500: oklch(0.6748 0.2116 38.6);
+  --color-forge-600: oklch(0.59 0.1851 38.6);
+  --color-forge-700: oklch(0.49 0.1538 38.6);
+  --color-forge-800: oklch(0.395 0.1241 38.6);
+  --color-forge-900: oklch(0.305 0.09 38.6);
+  --color-forge-950: oklch(0.205 0.05 38.6);
 }
 
-/* Runtime surface/ink scales (flip with .dark) — must not be @theme static */
+/* ─── Escalas runtime de superficie/tinta (se invierten con .dark) ───────── */
 @theme {
   --color-dark-50: var(--palette-dark-50);
   --color-dark-100: var(--palette-dark-100);
@@ -175,4 +139,319 @@
   --color-white-800: var(--palette-white-800);
   --color-white-900: var(--palette-white-900);
   --color-white-950: var(--palette-white-950);
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--forge-accent);
+    color: oklch(0.15 0.006 285);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--forge-bg-darker);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--forge-accent-dim);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--forge-accent);
+  }
+}
+
+/* ─── Textura ───────────────────────────────────────────────────────────── */
+@utility bg-forge {
+  background-color: var(--forge-bg);
+  background-image:
+    radial-gradient(circle at 20% 30%, oklch(0.6748 0.2116 38.6 / 0.07) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, oklch(1 0 0 / 0.05) 0%, transparent 40%);
+}
+
+/** Grano de película. Capa fija, por encima de todo, ignora el puntero. */
+@utility grain {
+  position: fixed;
+  inset: -10%;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  will-change: transform;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/** Scanlines horizontales tipo CRT — sutil, solo decorativo. */
+@utility scanline {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    oklch(0 0 0 / 0.16) 3px 4px
+  );
+}
+
+/* ─── Entrada al hacer scroll ───────────────────────────────────────────── */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(48px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+@utility reveal-stagger {
+  & > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &.in-view > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.in-view > *:nth-child(1) { transition-delay: 0s; }
+  &.in-view > *:nth-child(2) { transition-delay: 0.1s; }
+  &.in-view > *:nth-child(3) { transition-delay: 0.2s; }
+  &.in-view > *:nth-child(4) { transition-delay: 0.3s; }
+  &.in-view > *:nth-child(5) { transition-delay: 0.4s; }
+  &.in-view > *:nth-child(6) { transition-delay: 0.5s; }
+}
+
+/** Entrada de titular línea a línea con máscara. */
+@utility headline-line {
+  display: block;
+  overflow: hidden;
+
+  & > span {
+    display: inline-block;
+    transform: translateY(110%);
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &.in-view > span {
+    transform: translateY(0);
+  }
+}
+
+/* ─── Efectos tipográficos ──────────────────────────────────────────────── */
+@utility text-outline-dim {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--forge-silver-dim);
+}
+
+@utility text-outline-accent {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--forge-accent);
+}
+
+@utility link-underline {
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1px;
+    background: var(--forge-accent);
+    transition: width 0.4s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+@utility number-display {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Primitivas de componente ──────────────────────────────────────────── */
+@utility card-forge {
+  background: var(--forge-bg-card);
+  border: 1px solid var(--forge-border);
+  transition:
+    border-color 0.4s ease,
+    background 0.4s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:hover {
+    background: var(--forge-bg-card-hover);
+    border-color: var(--forge-accent-dim);
+  }
+}
+
+/** Corchetes de esquina — superior izquierda e inferior derecha, en acento. */
+@utility notch-corner {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--forge-accent);
+    pointer-events: none;
+  }
+
+  &::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  &::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+  }
+}
+
+/** Variante grande de corchetes, usada para enmarcar el panel de contacto. */
+@utility bracket-frame {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    pointer-events: none;
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+    border-top: 2px solid var(--forge-accent);
+    border-left: 2px solid var(--forge-accent);
+  }
+
+  &::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid var(--forge-accent);
+    border-right: 2px solid var(--forge-accent);
+  }
+}
+
+/** Antetítulo de sección: guion + etiqueta monoespaciada. */
+@utility section-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--forge-accent);
+
+  &::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--forge-accent);
+  }
+}
+
+/* ─── Movimiento ────────────────────────────────────────────────────────── */
+@keyframes forge-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: forge-marquee 38s linear infinite;
+}
+
+@keyframes forge-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 oklch(0.6748 0.2116 38.6 / 0.55), 0 0 40px oklch(0.6748 0.2116 38.6 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 18px oklch(0.6748 0.2116 38.6 / 0), 0 0 40px oklch(0.6748 0.2116 38.6 / 0.3);
+  }
+}
+
+@utility pulse-cta {
+  animation: forge-pulse 2.4s ease-out infinite;
+}
+
+@keyframes forge-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@utility rec-dot {
+  animation: forge-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes forge-wave {
+  0%, 100% { height: 3px; }
+  50% { height: 16px; }
+}
+
+@utility wave-bar {
+  display: inline-block;
+  width: 2px;
+  height: 3px;
+  margin: 0 1.5px;
+  vertical-align: bottom;
+  background: var(--forge-accent);
+
+  .unmuted & {
+    animation: forge-wave 0.7s ease-in-out infinite;
+  }
+
+  &:nth-child(2) { animation-delay: 0.1s; }
+  &:nth-child(3) { animation-delay: 0.2s; }
+  &:nth-child(4) { animation-delay: 0.3s; }
+  &:nth-child(5) { animation-delay: 0.4s; }
+}
+
+/* ─── Accesibilidad ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
 }

@@ -58,55 +58,55 @@ useSeoMeta({
 
 <template>
   <div v-if="resume">
+    <!-- ── Cabecera ─────────────────────────────────────────────────────── -->
     <section class="relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-800 to-dark-950" />
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--color-rose-900)_0%,_transparent_45%)] opacity-25" />
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--color-teal-900)_0%,_transparent_40%)] opacity-25" />
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-900 via-dark-950 to-dark-950" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.6748_0.2116_38.6/0.14)_0%,transparent_45%)]" />
+      <div class="scanline absolute inset-0" />
 
       <UContainer class="relative py-20 lg:py-28">
-        <div class="flex flex-col lg:flex-row items-start gap-10 lg:gap-16">
-          <div class="flex-1 max-w-2xl">
-            <p class="font-mono text-sm text-sky-300/90 tracking-wide mb-4">
-              {{ t('about.eyebrow') }}
-            </p>
+        <div class="flex flex-col items-start gap-12 lg:flex-row lg:gap-16">
+          <div class="reveal max-w-2xl flex-1">
+            <SectionMarker :label="t('about.eyebrow')" />
 
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white-50 mb-4">
-              {{ t('nav.about') }}, {{ resume.name }}
+            <h1 class="mb-4 font-display text-5xl leading-[0.9] md:text-7xl">
+              {{ t('nav.about') }}<br>
+              <span class="text-forge-500">{{ resume.name }}</span>
             </h1>
 
-            <p class="text-lg md:text-xl text-sky-300 mb-4">
+            <p class="mb-6 text-lg text-white-300 md:text-xl">
               {{ resume.title }}
             </p>
 
-            <p class="text-white-400 max-w-2xl leading-relaxed mb-8">
+            <p class="mb-8 max-w-2xl leading-relaxed text-white-400">
               {{ t('about.intro') }}
             </p>
 
-            <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-white-400 mb-10">
+            <div class="mb-10 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white-400">
               <span class="flex items-center gap-1.5">
                 <UIcon
                   name="i-lucide-map-pin"
-                  class="text-teal-400"
+                  class="text-forge-500"
                 />
                 {{ resume.location }}
               </span>
               <a
                 href="/contact/call"
-                class="flex items-center gap-1.5 hover:text-white-100 transition-colors"
+                class="flex items-center gap-1.5 transition-colors hover:text-white-50"
               >
                 <UIcon
                   name="i-lucide-phone"
-                  class="text-teal-400"
+                  class="text-forge-500"
                 />
                 {{ t('contact.callAction') }}
               </a>
               <a
                 href="/contact/whatsapp"
-                class="flex items-center gap-1.5 hover:text-white-100 transition-colors"
+                class="flex items-center gap-1.5 transition-colors hover:text-white-50"
               >
                 <UIcon
                   name="i-lucide-message-circle"
-                  class="text-teal-400"
+                  class="text-forge-500"
                 />
                 {{ t('contact.whatsappAction') }}
               </a>
@@ -114,11 +114,11 @@ useSeoMeta({
                 :href="resume.linkedin"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex items-center gap-1.5 hover:text-white-100 transition-colors"
+                class="flex items-center gap-1.5 transition-colors hover:text-white-50"
               >
                 <UIcon
                   name="i-simple-icons-linkedin"
-                  class="text-teal-400"
+                  class="text-forge-500"
                 />
                 LinkedIn
               </a>
@@ -126,7 +126,7 @@ useSeoMeta({
 
             <p
               v-if="resume.certificationOnRequest"
-              class="text-sm text-white-500 mb-8"
+              class="mb-8 text-sm text-white-500"
             >
               {{ resume.certificationOnRequest }}
             </p>
@@ -135,7 +135,7 @@ useSeoMeta({
               <a
                 :href="resume.pdfUrl"
                 download
-                class="inline-flex items-center gap-2 h-11 px-8 rounded-md bg-rose-500 hover:bg-rose-400 text-white text-sm font-medium transition-colors"
+                class="inline-flex h-11 items-center gap-2 bg-forge-500 px-8 text-sm font-medium text-dark-950 transition-colors hover:bg-forge-400"
               >
                 <UIcon
                   name="i-lucide-download"
@@ -147,40 +147,47 @@ useSeoMeta({
                 href="#perfil"
                 variant="outline"
                 size="lg"
-                class="px-8 border-white-200/20 text-white-200 hover:bg-white-50/5"
+                class="border-dark-600 px-8 text-white-300"
               >
                 {{ t('about.ctaReadWeb') }}
               </UButton>
             </div>
           </div>
 
-          <div class="shrink-0">
-            <img
-              src="/cv/sergio-jurado.jpg"
-              :alt="resume.name"
-              class="w-48 h-64 md:w-56 md:h-72 object-cover rounded-2xl border border-teal-800/40 shadow-2xl shadow-teal-900/20"
-            >
+          <div class="reveal shrink-0" style="--reveal-delay: 0.2s">
+            <div class="notch-corner p-2">
+              <div class="size-48 md:size-56 lg:size-64">
+                <ProfileAvatar
+                  :alt="resume.name"
+                  :size="384"
+                />
+              </div>
+              <p class="mt-4 max-w-56 font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-white-500">
+                {{ t('about.caption') }}
+              </p>
+            </div>
           </div>
         </div>
       </UContainer>
     </section>
 
+    <!-- ── Índice de secciones ──────────────────────────────────────────── -->
     <nav
-      class="sticky top-16 z-40 py-3 bg-dark-950/90 backdrop-blur-md border-y border-dark-800/60 supports-[backdrop-filter]:bg-dark-950/75"
-      aria-label="Secciones del CV"
+      class="sticky top-16 z-40 border-y border-dark-700/60 bg-dark-950/90 py-3 backdrop-blur-md supports-[backdrop-filter]:bg-dark-950/75"
+      :aria-label="t('about.sectionsLabel')"
     >
       <UContainer>
-        <div class="flex flex-nowrap gap-2 overflow-x-auto pb-1 scrollbar-thin">
+        <div class="scrollbar-thin flex flex-nowrap gap-2 overflow-x-auto pb-1">
           <a
             v-for="section in sections"
             :key="section.id"
             :href="`#${section.id}`"
-            class="inline-flex shrink-0 items-center gap-2 px-4 py-2 rounded-lg border border-dark-700/50 bg-dark-900/70 text-sm text-white-300 hover:border-teal-700/50 hover:text-sky-300 transition-colors"
+            class="inline-flex shrink-0 items-center gap-2 rounded-lg border border-dark-700 bg-dark-900/70 px-4 py-2 text-sm text-white-300 transition-colors hover:border-forge-500 hover:text-forge-500"
           >
-            <span class="font-mono text-xs text-rose-400">{{ section.label }}</span>
+            <span class="font-mono text-xs text-forge-500">{{ section.label }}</span>
             <UIcon
               :name="section.icon"
-              class="text-sky-400"
+              class="text-white-400"
             />
             {{ section.title }}
           </a>
@@ -188,37 +195,33 @@ useSeoMeta({
       </UContainer>
     </nav>
 
+    <!-- ── Perfil ───────────────────────────────────────────────────────── -->
     <section
       id="perfil"
-      class="py-20 bg-dark-900 scroll-mt-40"
+      class="scroll-mt-40 bg-dark-950 py-20"
     >
       <UContainer class="max-w-3xl">
-        <h2 class="text-3xl font-bold text-white-50 mb-6 flex items-center gap-3">
-          <UIcon
-            name="i-lucide-user"
-            class="text-rose-400"
-          />
+        <SectionMarker :label="t('about.sections.perfil')" />
+        <h2 class="mb-6 font-display text-4xl md:text-5xl">
           {{ t('about.perfilTitle') }}
         </h2>
-        <p class="text-lg text-white-300 leading-relaxed">
+        <p class="text-lg leading-relaxed text-white-300">
           {{ resume.summary }}
         </p>
       </UContainer>
     </section>
 
+    <!-- ── Experiencia ──────────────────────────────────────────────────── -->
     <section
       id="experiencia"
-      class="py-20 bg-dark-950 scroll-mt-40"
+      class="scroll-mt-40 bg-dark-900 py-20"
     >
       <UContainer class="max-w-3xl">
-        <h2 class="text-3xl font-bold text-white-50 mb-3 flex items-center gap-3">
-          <UIcon
-            name="i-lucide-briefcase"
-            class="text-rose-400"
-          />
+        <SectionMarker :label="t('about.sections.experiencia')" />
+        <h2 class="mb-3 font-display text-4xl md:text-5xl">
           {{ t('about.experienciaTitle') }}
         </h2>
-        <p class="text-white-400 mb-10">
+        <p class="mb-10 text-white-400">
           {{ t('about.experienciaSubtitle') }}
         </p>
 
@@ -226,42 +229,41 @@ useSeoMeta({
           <article
             v-for="exp in resume.experience"
             :key="`${exp.company}-${exp.start}`"
-            class="relative pl-6 border-l-2 border-teal-700/50"
+            class="card-forge notch-corner relative p-6 pl-8"
           >
-            <div class="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-teal-500 border-2 border-dark-950" />
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-              <h3 class="text-xl font-semibold text-white-100">
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+              <h3 class="text-xl font-semibold text-white-50">
                 {{ exp.role }}
                 <span
                   v-if="isCurrent(exp)"
-                  class="ml-2 align-middle text-xs font-medium text-teal-300 border border-teal-700/60 rounded-full px-2 py-0.5"
+                  class="ml-2 rounded-full border border-forge-500/40 px-2 py-0.5 align-middle font-mono text-xs text-forge-500"
                 >
                   {{ t('resume.current') }}
                 </span>
               </h3>
-              <span class="text-sm text-white-500 font-mono">
+              <span class="font-mono text-sm text-white-500">
                 {{ formatRange(exp) }}
                 <span
                   v-if="duration(exp)"
-                  class="ml-1 text-teal-400/80"
+                  class="ml-1 text-forge-500"
                 >· {{ duration(exp) }}</span>
               </span>
             </div>
-            <p class="text-sky-400 text-sm mb-2">
+            <p class="mb-3 mt-2 font-heading text-sm uppercase tracking-wider text-forge-500">
               {{ exp.company }}
             </p>
-            <p class="text-white-400 text-sm mb-3">
+            <p class="mb-4 text-sm text-white-400">
               {{ exp.description }}
             </p>
             <ul class="space-y-2">
               <li
                 v-for="item in exp.highlights"
                 :key="item"
-                class="flex gap-2 text-white-300 text-sm leading-relaxed"
+                class="flex gap-2 text-sm leading-relaxed text-white-300"
               >
                 <UIcon
                   name="i-lucide-check"
-                  class="text-teal-400 mt-0.5 shrink-0"
+                  class="mt-0.5 size-4 shrink-0 text-forge-500"
                 />
                 <span>{{ item }}</span>
               </li>
@@ -271,16 +273,14 @@ useSeoMeta({
       </UContainer>
     </section>
 
+    <!-- ── Formación ────────────────────────────────────────────────────── -->
     <section
       id="formacion"
-      class="py-20 bg-dark-900 scroll-mt-40"
+      class="scroll-mt-40 bg-dark-950 py-20"
     >
       <UContainer class="max-w-3xl">
-        <h2 class="text-3xl font-bold text-white-50 mb-10 flex items-center gap-3">
-          <UIcon
-            name="i-lucide-graduation-cap"
-            class="text-rose-400"
-          />
+        <SectionMarker :label="t('about.sections.formacion')" />
+        <h2 class="mb-10 font-display text-4xl md:text-5xl">
           {{ t('about.formacionTitle') }}
         </h2>
 
@@ -288,20 +288,20 @@ useSeoMeta({
           <div
             v-for="edu in resume.education"
             :key="`${edu.degree}-${edu.start}`"
-            class="px-4 py-4 rounded-lg border border-dark-700/40 bg-dark-800/40"
+            class="card-forge p-5"
           >
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-              <h3 class="font-semibold text-white-100">
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+              <h3 class="font-semibold text-white-50">
                 {{ edu.degree }}
               </h3>
-              <span class="text-xs text-white-500 font-mono">{{ formatRange(edu) }}</span>
+              <span class="font-mono text-xs text-white-500">{{ formatRange(edu) }}</span>
             </div>
-            <p class="text-sky-400 text-sm mt-1">
+            <p class="mt-1 text-sm text-forge-500">
               {{ edu.institution }}
             </p>
             <p
               v-if="edu.note"
-              class="text-white-500 text-sm mt-1"
+              class="mt-1 text-sm text-white-500"
             >
               {{ edu.note }}
             </p>
@@ -310,22 +310,20 @@ useSeoMeta({
       </UContainer>
     </section>
 
+    <!-- ── Aptitudes ────────────────────────────────────────────────────── -->
     <section
       id="skills"
-      class="py-20 bg-dark-950 scroll-mt-40"
+      class="scroll-mt-40 bg-dark-900 py-20"
     >
       <UContainer class="max-w-3xl">
-        <h2 class="text-3xl font-bold text-white-50 mb-10 flex items-center gap-3">
-          <UIcon
-            name="i-lucide-sparkles"
-            class="text-rose-400"
-          />
+        <SectionMarker :label="t('about.sections.skills')" />
+        <h2 class="mb-10 font-display text-4xl md:text-5xl">
           {{ t('about.skillsTitle') }}
         </h2>
 
-        <div class="grid md:grid-cols-2 gap-10 mb-12">
+        <div class="mb-12 grid gap-10 md:grid-cols-2">
           <div>
-            <h3 class="text-lg font-semibold text-white-100 mb-4">
+            <h3 class="mb-4 font-heading text-sm uppercase tracking-[0.2em] text-forge-500">
               {{ t('about.softSkills') }}
             </h3>
             <ul class="space-y-3">
@@ -335,15 +333,15 @@ useSeoMeta({
                 class="flex gap-2 text-sm text-white-300"
               >
                 <UIcon
-                  name="i-lucide-heart"
-                  class="text-rose-400 mt-0.5 shrink-0"
+                  name="i-lucide-check"
+                  class="mt-0.5 size-4 shrink-0 text-forge-500"
                 />
                 {{ skill }}
               </li>
             </ul>
           </div>
           <div>
-            <h3 class="text-lg font-semibold text-white-100 mb-4">
+            <h3 class="mb-4 font-heading text-sm uppercase tracking-[0.2em] text-forge-500">
               {{ t('about.hardSkills') }}
             </h3>
             <ul class="space-y-3">
@@ -353,8 +351,8 @@ useSeoMeta({
                 class="flex gap-2 text-sm text-white-300"
               >
                 <UIcon
-                  name="i-lucide-wrench"
-                  class="text-sky-400 mt-0.5 shrink-0"
+                  name="i-lucide-check"
+                  class="mt-0.5 size-4 shrink-0 text-forge-500"
                 />
                 {{ skill }}
               </li>
@@ -362,61 +360,55 @@ useSeoMeta({
           </div>
         </div>
 
-        <h3 class="text-lg font-semibold text-white-100 mb-4 flex items-center gap-2">
-          <UIcon
-            name="i-lucide-languages"
-            class="text-sky-400"
-          />
+        <h3 class="mb-4 font-heading text-sm uppercase tracking-[0.2em] text-forge-500">
           {{ t('about.languages') }}
         </h3>
         <div class="flex flex-wrap gap-3">
           <div
             v-for="language in resume.languages"
             :key="language.name"
-            class="px-4 py-2 rounded-lg border border-dark-700/40 bg-dark-800/40 text-sm"
+            class="card-forge px-4 py-2 text-sm"
           >
-            <span class="text-white-200 font-medium">{{ language.name }}</span>
+            <span class="font-medium text-white-200">{{ language.name }}</span>
             <span class="text-white-500"> · {{ language.level }}</span>
           </div>
         </div>
       </UContainer>
     </section>
 
+    <!-- ── Extra ────────────────────────────────────────────────────────── -->
     <section
       id="extra"
-      class="py-20 bg-dark-900 scroll-mt-40"
+      class="scroll-mt-40 bg-dark-950 py-20"
     >
       <UContainer class="max-w-3xl">
-        <h2 class="text-3xl font-bold text-white-50 mb-6 flex items-center gap-3">
-          <UIcon
-            name="i-lucide-info"
-            class="text-rose-400"
-          />
+        <SectionMarker :label="t('about.sections.extra')" />
+        <h2 class="mb-6 font-display text-4xl md:text-5xl">
           {{ t('about.extraTitle') }}
         </h2>
-        <ul class="space-y-4 mb-12">
+        <ul class="mb-12 space-y-4">
           <li
             v-for="item in resume.additional"
             :key="item"
-            class="flex gap-3 text-white-300 leading-relaxed"
+            class="flex gap-3 leading-relaxed text-white-300"
           >
             <UIcon
               name="i-lucide-circle-check"
-              class="text-emerald-400 mt-1 shrink-0"
+              class="mt-1 size-4 shrink-0 text-forge-500"
             />
             <span>{{ item }}</span>
           </li>
         </ul>
 
-        <div class="pt-8 border-t border-dark-700/50 text-center">
-          <p class="text-white-400 mb-6">
+        <div class="bracket-frame border border-dark-700 bg-dark-900/40 p-8 text-center">
+          <p class="mb-6 text-white-400">
             {{ t('about.extraNote') }}
           </p>
           <div class="flex flex-wrap justify-center gap-3">
             <a
               :href="resume.pdfUrl"
               download
-              class="inline-flex items-center gap-2 h-11 px-8 rounded-md bg-rose-500 hover:bg-rose-400 text-white text-sm font-medium transition-colors"
+              class="inline-flex h-11 items-center gap-2 bg-forge-500 px-8 text-sm font-medium text-dark-950 transition-colors hover:bg-forge-400"
             >
               <UIcon
                 name="i-lucide-download"
@@ -428,7 +420,7 @@ useSeoMeta({
               href="/contact/whatsapp"
               variant="outline"
               size="lg"
-              class="px-8 border-dark-600 text-white-300"
+              class="border-dark-600 px-8 text-white-300"
             >
               {{ t('about.ctaWhatsapp') }}
             </UButton>

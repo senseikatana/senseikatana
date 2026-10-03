@@ -3,7 +3,8 @@
     "home": "Inici",
     "about": "Sobre mi",
     "blog": "Blog",
-    "contact": "Contacte"
+    "contact": "Contacte",
+    "cta": "Veure CV"
   },
   "lang": {
     "title": "Idioma"
@@ -27,7 +28,23 @@
     "ctaContact": "Contacte",
     "hardSkillsTitle": "Hard skills",
     "availabilityTitle": "Incorporació immediata",
-    "availabilitySubtitle": "Disponible per a equips de logística, magatzem, comerç i atenció al client."
+    "availabilitySubtitle": "Disponible per a equips de logística, magatzem, comerç i atenció al client.",
+    "marker": "CAMBILS · TARRAGONA",
+    "headline": {
+      "1": "ORDRE EN",
+      "2": "CADA MOUVEMENT.",
+      "3": "CONSTÀNCIA"
+    },
+    "stats": {
+      "years": "Anys d’experiència",
+      "roles": "Places ocupades",
+      "hardSkills": "Hard skills",
+      "languages": "Idiomes"
+    },
+    "skillsMarker": "01 — Aptituds",
+    "skillsTitle": "El que aporto",
+    "skillsHighlight": "al magatzem.",
+    "skillsBody": "Picking, recepció, inventari i càrrega de carretons. Un procés ordenat, metòdic i verificable."
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
@@ -51,7 +68,8 @@
     "languages": "Idiomes",
     "extraTitle": "Informació addicional",
     "extraNote": "Prefereixes el document clàssic? Descarrega el PDF o escriu-me directament.",
-    "ctaWhatsapp": "WhatsApp"
+    "ctaWhatsapp": "WhatsApp",
+    "caption": "Operari de logística i magatzem · Cambrils, Tarragona"
   },
   "contact": {
     "title": "Contacte",
@@ -89,5 +107,21 @@
     "year": "{count} any",
     "month": "{count} mes",
     "yearMonths": "{years} any {months} mesos"
+  },
+  "brand": {
+    "tagline": "LOGÍSTICA · MAGATZEM",
+    "marquee": [
+      "LOGÍSTICA",
+      "PRECISIÓ",
+      "ORDRE",
+      "CONSTÀNCIA",
+      "RESULTATS",
+      "SENSE EXCUSES"
+    ]
+  },
+  "footer": {
+    "summary": "Operari de logística i magatzem amb experiència en picking, inventari i atenció al client. Busco un lloc estable on aportar.",
+    "navTitle": "Navegació",
+    "contactTitle": "Contacte directe"
   }
 }
