@@ -118,6 +118,3 @@ is:inline>` (tema y formulario), o habría que convertirlos a scripts externos.
   almacén y jardinería. Es honesto —el propio copy del perfil lo dice— pero
   conviene decidir si se filtra por relevancia o se deja así a propósito.
 - **Los datos de la tienda son de demostración.** Reemplazar antes de publicar.
-- **Las skills están todas en inglés** en el catálogo `es` (`Hard skills`,
-  `Soft skills`, `Skills`) mientras `ca` sí las traduce (`Habilitats tècniques`).
-  A revisar.
