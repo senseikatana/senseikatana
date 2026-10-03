@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.11.1] - 2026-10-03
+
+### Changed
+- test(colour-wheel-playground): add test coverage for 3 files
+
 ## [1.11.0] - 2026-10-03
 
 ### Changed
