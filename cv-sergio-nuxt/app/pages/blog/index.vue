@@ -16,8 +16,12 @@ useSeoMeta({
 <template>
   <UContainer class="py-12">
     <div class="mb-10">
-      <h1 class="text-3xl font-bold text-white-50 mb-2">{{ t('blog.title') }}</h1>
-      <p class="text-white-400">{{ t('blog.subtitle') }}</p>
+      <h1 class="text-3xl font-bold text-white-50 mb-2">
+        {{ t('blog.title') }}
+      </h1>
+      <p class="text-white-400">
+        {{ t('blog.subtitle') }}
+      </p>
     </div>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -28,16 +32,27 @@ useSeoMeta({
       >
         <template #header>
           <h2 class="text-xl font-semibold text-white-100">
-            <NuxtLink :to="post._path" class="hover:text-sky-300 transition-colors">
+            <NuxtLink
+              :to="post.path"
+              class="hover:text-sky-300 transition-colors"
+            >
               {{ post.title }}
             </NuxtLink>
           </h2>
         </template>
 
-        <p class="text-white-400 mb-4 line-clamp-3">{{ post.description }}</p>
+        <p class="text-white-400 mb-4 line-clamp-3">
+          {{ post.description }}
+        </p>
 
         <div class="flex flex-wrap gap-2">
-          <UBadge v-for="tag in post.tags" :key="tag" color="info" variant="soft" size="sm">
+          <UBadge
+            v-for="tag in post.tags"
+            :key="tag"
+            color="info"
+            variant="soft"
+            size="sm"
+          >
             {{ tag }}
           </UBadge>
         </div>
@@ -51,8 +66,14 @@ useSeoMeta({
       </UCard>
     </div>
 
-    <div v-if="!posts?.length" class="text-center py-16 text-white-400">
-      <UIcon name="i-lucide-file-text" class="text-4xl mb-4 text-dark-500" />
+    <div
+      v-if="!posts?.length"
+      class="text-center py-16 text-white-400"
+    >
+      <UIcon
+        name="i-lucide-file-text"
+        class="text-4xl mb-4 text-dark-500"
+      />
       <p>{{ t('blog.empty') }}</p>
     </div>
   </UContainer>

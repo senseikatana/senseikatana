@@ -20,7 +20,10 @@ const socials = [
   <div class="min-h-screen flex flex-col">
     <UHeader>
       <template #title>
-        <NuxtLink :to="localePath('/')" class="font-bold text-xl tracking-tight">
+        <NuxtLink
+          :to="localePath('/')"
+          class="font-bold text-xl tracking-tight"
+        >
           SJ
         </NuxtLink>
       </template>
@@ -38,12 +41,16 @@ const socials = [
           variant="ghost"
           :to="s.to"
           target="_blank"
+          rel="noopener noreferrer"
           :aria-label="s.label"
         />
       </template>
 
       <template #body>
-        <UNavigationMenu :items="navigation" orientation="vertical" />
+        <UNavigationMenu
+          :items="navigation"
+          orientation="vertical"
+        />
       </template>
     </UHeader>
 
@@ -68,6 +75,7 @@ const socials = [
             variant="ghost"
             :to="s.to"
             target="_blank"
+            rel="noopener noreferrer"
             :aria-label="s.label"
           />
         </div>

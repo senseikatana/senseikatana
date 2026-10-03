@@ -30,7 +30,10 @@ const items = computed(() => [
 </script>
 
 <template>
-  <UDropdownMenu :items="items" :content="{ align: 'end' }">
+  <UDropdownMenu
+    :items="items"
+    :content="{ align: 'end' }"
+  >
     <UButton
       color="gray"
       variant="ghost"

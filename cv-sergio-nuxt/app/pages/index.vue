@@ -54,7 +54,11 @@ const socials = [
             </div>
 
             <div class="flex flex-wrap gap-3">
-              <UButton :to="localePath('/about')" size="lg" class="px-8">
+              <UButton
+                :to="localePath('/about')"
+                size="lg"
+                class="px-8"
+              >
                 {{ t('home.ctaCv') }}
               </UButton>
               <a
@@ -62,10 +66,18 @@ const socials = [
                 download
                 class="inline-flex items-center gap-2 h-11 px-8 rounded-md border border-white-200/20 text-white-200 hover:bg-white-50/5 text-sm font-medium transition-colors"
               >
-                <UIcon name="i-lucide-download" class="size-5" />
+                <UIcon
+                  name="i-lucide-download"
+                  class="size-5"
+                />
                 {{ t('home.ctaPdf') }}
               </a>
-              <UButton :to="localePath('/contact')" variant="ghost" size="lg" class="px-8 text-white-300">
+              <UButton
+                :to="localePath('/contact')"
+                variant="ghost"
+                size="lg"
+                class="px-8 text-white-300"
+              >
                 {{ t('home.ctaContact') }}
               </UButton>
             </div>
@@ -80,6 +92,7 @@ const socials = [
                 size="sm"
                 :to="s.to"
                 target="_blank"
+                rel="noopener noreferrer"
                 :aria-label="s.label"
                 class="text-white-400 hover:text-white-100"
               />
@@ -99,7 +112,9 @@ const socials = [
 
     <section class="py-20 bg-dark-900">
       <UContainer>
-        <h2 class="text-3xl font-bold text-white-50 mb-12 text-center">{{ t('home.hardSkillsTitle') }}</h2>
+        <h2 class="text-3xl font-bold text-white-50 mb-12 text-center">
+          {{ t('home.hardSkillsTitle') }}
+        </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <div
             v-for="skill in resume.hardSkills"
@@ -122,10 +137,19 @@ const socials = [
             {{ t('home.availabilitySubtitle') }}
           </p>
           <div class="flex flex-wrap justify-center gap-3">
-            <UButton :to="localePath('/about')" size="lg" class="px-8">
+            <UButton
+              :to="localePath('/about')"
+              size="lg"
+              class="px-8"
+            >
               {{ t('home.ctaCv') }}
             </UButton>
-            <UButton :to="localePath('/contact')" variant="outline" size="lg" class="px-8 border-dark-600 text-white-300">
+            <UButton
+              :to="localePath('/contact')"
+              variant="outline"
+              size="lg"
+              class="px-8 border-dark-600 text-white-300"
+            >
               {{ t('home.ctaContact') }}
             </UButton>
           </div>

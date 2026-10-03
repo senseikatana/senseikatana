@@ -139,7 +139,12 @@ function handleDrag(e) {
 }
 
 wrapper.addEventListener("pointerdown", (e) => {
-  wrapper.setPointerCapture(e.pointerId);
+  try {
+    wrapper.setPointerCapture(e.pointerId);
+  } catch {
+    // Sin captura el arrastre sigue funcionando: sólo se pierde el
+    // seguimiento cuando el puntero sale del dial.
+  }
   isDragging = true;
   handleDrag(e);
 });

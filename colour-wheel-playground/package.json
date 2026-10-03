@@ -1,7 +1,7 @@
 {
   "name": "hueplay",
-  "version": "0.0.1",
-  "description": "OKLCH vs HSL colour dial — served at senseikatana.com/showcase/*",
+  "version": "0.2.0",
+  "description": "OKLCH vs HSL colour dial — served at senseikatana.com/hueplay/*",
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",

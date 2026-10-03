@@ -7,9 +7,19 @@
   "phone": "+34 637 723 747",
   "location": "Cambrils, Tarragona",
   "linkedin": "https://www.linkedin.com/in/senseijurado/",
-  "note": "Certified disability — ASD (35%)",
   "pdfUrl": "/cv/sergio-jurado.pdf",
   "experience": [
+    {
+      "company": "Onada Foundation",
+      "role": "Gardening Worker",
+      "period": "TODO: year",
+      "description": "Maintenance and cleaning at Torre Park in Dolça.",
+      "highlights": [
+        "Brush cutter use",
+        "Gutter cleaning",
+        "Keeping the park in good condition"
+      ]
+    },
     {
       "company": "Salou City Council",
       "role": "Maintenance & Gardening Staff",
@@ -130,12 +140,22 @@
     "Maintenance and gardening"
   ],
   "languages": [
-    { "name": "Spanish", "level": "Native (spoken and written)" },
-    { "name": "Catalan", "level": "Elementary (comprehension)" },
-    { "name": "English", "level": "A2 — basic operational knowledge" }
+    {
+      "name": "Spanish",
+      "level": "Native (spoken and written)"
+    },
+    {
+      "name": "Catalan",
+      "level": "Elementary (comprehension)"
+    },
+    {
+      "name": "English",
+      "level": "A2 — basic operational knowledge"
+    }
   ],
   "additional": [
     "Holder of driving licence B",
     "Immediate start (until course ends on 10 July, evenings only); afterwards available mornings and evenings"
-  ]
+  ],
+  "certificationOnRequest": "Disability certification (ASD 35%) available on request"
 }

@@ -1,32 +1,28 @@
-# CV Sergio Nuxt
+# Senseikatana
 
-Portfolio, CV, Blog y Tienda de **Sergio Esteban** — construido con Nuxt 4, Nuxt UI v4, Nuxt Content, Pinia y Stripe.
+Portfolio, CV y Blog de **Sergio Jurado Casado** — construido con Nuxt 4, Nuxt UI v4 y Nuxt Content.
 
 **Live**: [senseikatana.com](https://senseikatana.com)
 
 ## Características
 
-- **CV/Resume**: Páginas dinámicas multi-idioma (ES/EN) con perfiles flat
-- **Blog**: CMS basado en archivos con Nuxt Content v3 (Markdown)
-- **Tienda**: Catálogo de productos con carrito (Pinia) y checkout con Stripe
-- **Catálogo externo**: Productos de segunda mano (Wallapop, Vinted) que enlazan al anuncio externo sin pasar por Stripe
-- **Checkout seguro**: El servidor valida y normaliza la entrada (solo `priceId` del catálogo, `quantity` 1-10); el cliente nunca decide qué se cobra
-- **Webhook de Stripe**: `POST /api/webhook` verifica la firma y maneja `checkout.session.completed` / `expired`
-- **UI**: Nuxt UI v4, dark mode, paleta brand OKLCH
-- **Testing**: Tests unitarios con Vitest
+- **CV/Resume**: Páginas multi-idioma (ES/CA/EN) servidas desde una colección de `@nuxt/content`
+- **Blog**: CMS basado en archivos con Nuxt Content v3 (Markdown), con soporte de `draft`
+- **Dark-first**: `preference: 'dark'` con toggle light/dark/system persistido
+- **Seguridad**: CSP, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` en todas las rutas
+- **UI**: Nuxt UI v4, paleta brand en OKLCH
+- **Testing**: Vitest sobre la integridad de las colecciones de contenido
 - **Lint**: ESLint flat config con soporte de TypeScript y Vue/Nuxt auto-imports
-- **Slugs**: Generados con `useSlugify()` de KatanaKit (`katanakit-js`)
 
 ## Stack Tecnológico
 
 - Nuxt 4 (compatibility version 4)
 - Nuxt UI v4
 - Nuxt Content v3
-- Pinia
-- Stripe
-- KatanaKit (`katanakit-js`)
-- Prisma (ORM — conexión a InsForge Postgres)
+- `@nuxtjs/i18n` v10
+- better-sqlite3 (backend de contenido)
 - Vitest
+- ESLint
 - TypeScript
 
 ## Brand Palette
@@ -42,7 +38,23 @@ Portfolio, CV, Blog y Tienda de **Sergio Esteban** — construido con Nuxt 4, Nu
 | white | #E4E4E7 | contrast |
 | lavender | #8C86AA | accent |
 
-See [DESIGN.md](./DESIGN.md) for full design system documentation.
+Los tokens se definen en `app/assets/css/main.css` con `@theme` en OKLCH, y las
+escalas `dark-*` / `white-*` se invierten bajo `.dark`.
+
+## Colecciones de contenido
+
+Definidas en `content.config.ts`, cada una con schema Zod:
+
+| Collection | Tipo | Source | Notas |
+|---|---|---|---|
+| `blog` | page | `blog/**` | Requiere `title`, `description`, `date`. Soporta `draft`. |
+| `resume` | data | `resume/**` | Un JSON por idioma (`es`, `ca`, `en`). |
+| `services` | page | `services/**` | Cards de servicios. Estado inicial: placeholders `draft: true`. |
+| `projects` | page | `projects/**` | Casos de estudio con `challenge` / `solution` / `outcome`. Estado inicial: placeholder `draft: true`. |
+| `testimonials` | data | `testimonials/**` | `source` es obligatorio: ninguna cita se publica sin procedencia. |
+
+Los placeholders en `services/`, `projects/` y `testimonials/` están marcados
+`draft: true` y `tests/content.test.ts` falla si alguno se publica sin editar.
 
 ## Configuración
 
@@ -61,10 +73,7 @@ See [DESIGN.md](./DESIGN.md) for full design system documentation.
 
 | Variable | Descripción |
 |---|---|
-| `STRIPE_SECRET_KEY` | Clave secreta de Stripe (`sk_test_...` o `sk_live_...`) |
-| `STRIPE_PUBLISHABLE_KEY` | Clave pública de Stripe (`pk_test_...`) |
-| `STRIPE_WEBHOOK_SECRET` | Secreto del webhook de Stripe (`whsec_...`) — necesario para `POST /api/webhook` |
-| `SITE_URL` | URL del sitio (usada en las URLs de redirect del checkout) |
+| `SITE_URL` | URL del sitio |
 
 ## Scripts
 
@@ -73,10 +82,9 @@ See [DESIGN.md](./DESIGN.md) for full design system documentation.
 | `bun run dev` | Servidor de desarrollo |
 | `bun run build` | Build de producción |
 | `bun run preview` | Preview del build |
+| `bun run generate` | Generate estático |
 | `bun run test` | Ejecutar tests |
 | `bun run lint` | Lint con ESLint |
-| `bun run seed:stripe` | Crea Products/Prices en Stripe para los productos digitales (no toca archivos) |
-| `bun run seed:stripe --update` | Además reescribe los `stripePriceId` reales en `data/products.ts` |
 
 ## Estructura
 
@@ -85,36 +93,33 @@ See [DESIGN.md](./DESIGN.md) for full design system documentation.
 │   ├── assets/css/     # Tokens y tema (main.css)
 │   ├── components/     # Componentes Vue
 │   ├── layouts/        # Layouts de la aplicación
-│   ├── pages/          # Páginas (file-based routing)
-│   └── stores/         # Stores de Pinia
+│   └── pages/          # Páginas (file-based routing)
 ├── content/
-│   └── blog/           # Posts del blog en Markdown
+│   ├── blog/           # Posts en Markdown
+│   ├── resume/         # CV por idioma (JSON)
+│   ├── services/       # Servicios
+│   ├── projects/       # Casos de estudio
+│   └── testimonials/   # Testimonios
 ├── data/
-│   ├── products.ts     # Datos de productos (digitales + externos, useSlugify)
-│   └── profiles.ts     # Datos del CV (flat array, multi-lang)
-├── server/
-│   └── api/            # API routes (checkout, webhook de Stripe)
-├── scripts/
-│   └── seed-stripe.ts  # Seed de Products/Prices en Stripe (idempotente)
-├── prisma/
-│   └── schema.prisma   # Prisma schema (InsForge Postgres)
+│   └── site.ts         # Nombre y enlaces del sitio
+├── i18n/locales/       # Traducciones (es, ca, en)
 ├── tests/              # Tests con Vitest
 └── eslint.config.mjs   # ESLint flat config (TS + Vue/Nuxt)
 ```
 
 ## Seguridad
 
-- **Checkout validado en servidor** (`server/api/checkout.post.ts`): solo acepta `priceId` existentes en `~~/data/products` y `quantity` entero entre 1 y 10. El servidor decide qué se cobra, nunca el cliente.
-- **Webhook firmado** (`server/api/webhook.post.ts`): `POST /api/webhook` verifica la firma `stripe-signature` con `stripe.webhooks.constructEvent` (sobre el body crudo) y maneja `checkout.session.completed` y `checkout.session.expired`. Requiere `STRIPE_WEBHOOK_SECRET`.
-- **Cabeceras de seguridad** (`nuxt.config.ts` → `routeRules`): `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` y `Permissions-Policy` (cámara, micrófono y geolocalización deshabilitados).
-
-## Productos externos
-
-Los productos con `externalUrl` (segunda mano en Wallapop/Vinted) **no** usan Stripe:
-
-- En la card y la página de detalle, el botón se muestra como "Ver en Wallapop" / "Ver en Vinted" (según `externalPlatformLabel()`) y abre el enlace en pestaña nueva con `i-lucide-external-link`.
-- Los productos digitales (sin `externalUrl`) mantienen el flujo View Details → Add to Cart → checkout.
-- El seed de Stripe ignora los productos externos (no tienen `stripePriceId`).
+- **CSP** (`nuxt.config.ts` → `routeRules`): `default-src 'self'` con `frame-src`,
+  `frame-ancestors 'none'`, `object-src 'none'` y `base-uri 'self'`.
+- **Cabeceras**: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
+  `Referrer-Policy: strict-origin-when-cross-origin` y `Permissions-Policy`
+  (cámara, micrófono y geolocalización deshabilitados), aplicadas a `/**` — cubren
+  también las rutas con prefijo de locale.
+- **Markdown**: `@nuxt/content` / `@nuxtjs/mdc` elimina atributos peligrosos
+  (`onerror`, `javascript:`, `@click`, `v-on:click`) y renderiza `<script>` y
+  `<base>` como texto escapado. No hay `v-html` en la aplicación.
+- **Dependencias**: `bun audit` limpio para paquetes que llegan a producción
+  (`devalue` fijado a `5.9.4` vía `resolutions`).
 
 ## Deployment
 

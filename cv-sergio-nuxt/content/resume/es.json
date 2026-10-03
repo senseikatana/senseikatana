@@ -7,9 +7,19 @@
   "phone": "+34 637 723 747",
   "location": "Cambrils, Tarragona",
   "linkedin": "https://www.linkedin.com/in/senseijurado/",
-  "note": "Certif. Discapacitat TEA (35%)",
   "pdfUrl": "/cv/sergio-jurado.pdf",
   "experience": [
+    {
+      "company": "Fundación Onada",
+      "role": "Peón de Jardinería",
+      "period": "TODO: año",
+      "description": "Mantenimiento y limpieza en el Parque Torre en Dolça.",
+      "highlights": [
+        "Uso de desbrozadora",
+        "Limpieza de canaletas",
+        "Mantenimiento del parque en buen estado"
+      ]
+    },
     {
       "company": "Ayuntamiento de Salou",
       "role": "Personal de Mantenimiento y Jardinería",
@@ -130,12 +140,22 @@
     "Mantenimiento y jardinería"
   ],
   "languages": [
-    { "name": "Castellano", "level": "Nativo (oral y escrita)" },
-    { "name": "Catalán", "level": "Elemental (comprensión)" },
-    { "name": "Inglés", "level": "A2 — conocimientos básicos operativos" }
+    {
+      "name": "Castellano",
+      "level": "Nativo (oral y escrita)"
+    },
+    {
+      "name": "Catalán",
+      "level": "Elemental (comprensión)"
+    },
+    {
+      "name": "Inglés",
+      "level": "A2 — conocimientos básicos operativos"
+    }
   ],
   "additional": [
     "Titular de licencia de conducción B",
     "Incorporación inmediata (hasta finalizar el curso el 10 de julio, solo por las tardes); después, disponibilidad de mañana y tarde"
-  ]
+  ],
+  "certificationOnRequest": "Certificación de discapacidad (TEA 35%) disponible bajo petición"
 }

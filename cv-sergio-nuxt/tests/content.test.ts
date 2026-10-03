@@ -59,4 +59,55 @@ describe('Content collections', () => {
       expect(entry.author, `${file}: falta author`).toBeTruthy()
     }
   })
+
+  /*
+    RGPD art. 9 — special-category data must never reach the public collection.
+
+    Health data (disability certification) belongs in the downloadable PDF,
+    requested privately. If someone re-adds it to the root `note`, this fails.
+
+    NOTE: only the ROOT `note` is forbidden. `education[].note` is a legitimate
+    field ("Carretillas y Ventas") and is untouched.
+  */
+  it('no special-category health data is published in the resume collection', () => {
+    const dir = join(CONTENT_DIR, 'resume')
+    const files = readdirSync(dir).filter(f => f.endsWith('.json'))
+
+    const FORBIDDEN = [
+      'discapac', 'discap', 'TEA', 'ASD', 'autis', 'disabil', 'disabilitat',
+    ]
+
+    expect(files.length).toBeGreaterThan(0)
+
+    for (const file of files) {
+      const raw = readFileSync(join(dir, file), 'utf8')
+      const resume = JSON.parse(raw)
+
+      // 1. The root `note` field (the health data carrier) must be gone.
+      expect(
+        'note' in resume,
+        `${file}: el "note" raíz no debe existir — es el campo que llevaba el dato de salud`,
+      ).toBe(false)
+
+      // 2. Every language must declare the neutral, non-identifying line.
+      expect(
+        resume.certificationOnRequest,
+        `${file}: falta certificationOnRequest en ${file}`,
+      ).toBeTruthy()
+
+      // 3. No forbidden term may appear anywhere except that neutral line.
+      const neutralLine = raw.split('\n').find(l => l.includes('certificationOnRequest')) ?? ''
+
+      for (const line of raw.split('\n')) {
+        if (line === neutralLine) continue
+
+        for (const term of FORBIDDEN) {
+          expect(
+            line,
+            `${file}: término de dato de salud fuera de certificationOnRequest → "${line.trim()}"`,
+          ).not.toMatch(new RegExp(term, 'i'))
+        }
+      }
+    }
+  })
 })

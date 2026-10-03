@@ -97,6 +97,12 @@ export default defineContentConfig({
         linkedin: z.string(),
         note: z.string().optional(),
         pdfUrl: z.string(),
+        /**
+         * Datos de salud (RGPD art. 9) — NUNCA se publican en la web.
+         * El texto público (`certificationOnRequest`) es la única versión
+         * que se renderiza; el detalle va solo en el PDF descargable.
+         */
+        certificationOnRequest: z.string().optional(),
         experience: z.array(z.object({
           company: z.string(),
           role: z.string(),
