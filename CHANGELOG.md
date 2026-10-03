@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.11.0] - 2026-10-03
+
+### Changed
+- docs(colour-wheel-playground): update documentation in 26 files
+
 ## [1.10.0] - 2026-10-03
 
 ### Added
