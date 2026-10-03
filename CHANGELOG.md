@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.9.0] - 2026-10-03
+
+### Changed
+- **colour-wheel-playground**: update dependencies or build settings in 21 files
+
 ## [1.8.0] - 2026-10-03
 
 ### Changed
