@@ -15,7 +15,13 @@
     "system": "System"
   },
   "home": {
-    "tags": ["#LOGISTICS", "#WAREHOUSE", "#COMMERCE", "#CUSTOMER-SERVICE", "#FORKLIFTS"],
+    "tags": [
+      "#LOGISTICS",
+      "#WAREHOUSE",
+      "#COMMERCE",
+      "#CUSTOMER-SERVICE",
+      "#FORKLIFTS"
+    ],
     "ctaCv": "View my CV",
     "ctaPdf": "Download PDF",
     "ctaContact": "Contact",
@@ -68,36 +74,5 @@
     "empty": "No posts published yet.",
     "back": "Back to Blog",
     "notFound": "Post not found"
-  },
-  "store": {
-    "title": "Store",
-    "subtitle": "Resources, templates and services.",
-    "viewDetails": "View details",
-    "featured": "Featured",
-    "viewOn": "View on",
-    "buyOn": "Buy on",
-    "addToCart": "Add to cart",
-    "back": "Back to store",
-    "notFound": "Product not found",
-    "categories": {
-      "all": "All",
-      "cursos": "Courses",
-      "templates": "Templates",
-      "ebooks": "E-books",
-      "componentes": "Components",
-      "servicios": "Services",
-      "segunda-mano": "Second hand"
-    }
-  },
-  "cart": {
-    "title": "Cart",
-    "empty": "Your cart is empty",
-    "total": "Total",
-    "checkout": "Proceed to checkout"
-  },
-  "success": {
-    "title": "Payment Successful!",
-    "subtitle": "Thank you for your purchase. You'll receive an email with the details shortly.",
-    "back": "Back to Store"
   }
 }

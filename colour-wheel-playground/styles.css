@@ -207,6 +207,10 @@
             outline: none;
             border: 1px solid #444;
         }
+        input[type="range"]:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;

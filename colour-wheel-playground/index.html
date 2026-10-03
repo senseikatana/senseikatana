@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- ====== SEO PRINCIPAL ====== -->
-    <title>OKLCH Dial Lab: HSL vs OKLCH Playground</title>
+    <title>Color Compass: HSL vs OKLCH Playground</title>
     <meta name="description" content="An interactive visual tool to compare HSL and OKLCH color models. Drag the dial, adjust sliders, and understand why OKLCH is the future of CSS colors.">
-    <meta name="author" content="Tu Nombre o Usuario de GitHub">
+    <meta name="author" content="Sergio Jurado">
+    <link rel="canonical" href="https://senseikatana.com/hueplay/">
     <meta name="keywords" content="oklch, hsl, css, color picker, color space, frontend, web design, ui design, css colors">
     
     <!-- Evita que los robots indexen si estás haciendo pruebas (Bórralo cuando quieras indexar) -->
@@ -16,20 +17,20 @@
 
     <!-- ====== OPEN GRAPH (Facebook, WhatsApp, LinkedIn, Slack) ====== -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="OKLCH Dial Lab: HSL vs OKLCH Playground">
+    <meta property="og:title" content="Color Compass: HSL vs OKLCH Playground">
     <meta property="og:description" content="Discover the visual difference between HSL and OKLCH. An interactive dial and slider tool for modern CSS color spaces.">
     <!-- IMPORTANTE: Cambia esta URL por la de tu GitHub Pages cuando lo subas -->
-    <meta property="og:url" content="https://senseikatana.com/showcase/">
+    <meta property="og:url" content="https://senseikatana.com/hueplay/">
     <!-- IMPORTANTE: Crea una captura de pantalla de tu herramienta, súbela a la raiz y ponle el nombre "preview.png" -->
-    <meta property="og:image" content="https://senseikatana.com/showcase/preview.png">
+    <meta property="og:image" content="https://senseikatana.com/hueplay/preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
     <!-- ====== TWITTER CARDS ====== -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="OKLCH Dial Lab: HSL vs OKLCH Playground">
+    <meta name="twitter:title" content="Color Compass: HSL vs OKLCH Playground">
     <meta name="twitter:description" content="Discover the visual difference between HSL and OKLCH. An interactive dial and slider tool for modern CSS color spaces.">
-    <meta name="twitter:image" content="https://senseikatana.com/showcase/preview.png">
+    <meta name="twitter:image" content="https://senseikatana.com/hueplay/preview.png">
 
     <!-- ====== RECURSOS EXTERNOS ====== -->
     <!-- El favicon (el icono de la pestaña del navegador) -->
@@ -79,16 +80,16 @@
             <div class="color-display" id="hslPreview"></div>
             
             <div class="control-group">
-                <div class="control-label">Tono (Hue) <span id="hslHueVal">0°</span></div>
-                <input type="range" id="hslHueSlider" min="0" max="360" value="0">
+                <div class="control-label" id="hslHueLabel">Tono (Hue) <span id="hslHueVal">0°</span></div>
+                <input type="range" id="hslHueSlider" min="0" max="360" value="0" aria-labelledby="hslHueLabel">
             </div>
             <div class="control-group">
-                <div class="control-label">Saturación <span id="hslSatVal">65%</span></div>
-                <input type="range" id="hslSatSlider" min="0" max="100" value="65">
+                <div class="control-label" id="hslSatLabel">Saturación <span id="hslSatVal">65%</span></div>
+                <input type="range" id="hslSatSlider" min="0" max="100" value="65" aria-labelledby="hslSatLabel">
             </div>
             <div class="control-group">
-                <div class="control-label">Luz <span id="hslLightVal">50%</span></div>
-                <input type="range" id="hslLightSlider" min="0" max="100" value="50">
+                <div class="control-label" id="hslLightLabel">Luz <span id="hslLightVal">50%</span></div>
+                <input type="range" id="hslLightSlider" min="0" max="100" value="50" aria-labelledby="hslLightLabel">
             </div>
         </div>
 
@@ -101,21 +102,22 @@
             <div class="color-display" id="oklchPreview"></div>
             
             <div class="control-group">
-                <div class="control-label">Tono (Hue) <span id="oklchHueVal">29°</span></div>
-                <input type="range" id="oklchHueSlider" min="0" max="360" value="29">
+                <div class="control-label" id="oklchHueLabel">Tono (Hue) <span id="oklchHueVal">29°</span></div>
+                <input type="range" id="oklchHueSlider" min="0" max="360" value="29" aria-labelledby="oklchHueLabel">
             </div>
             <div class="control-group">
-                <div class="control-label">Croma <span id="oklchChromaVal">65%</span></div>
-                <input type="range" id="oklchChromaSlider" min="0" max="100" value="65">
+                <div class="control-label" id="oklchChromaLabel">Croma <span id="oklchChromaVal">65%</span></div>
+                <input type="range" id="oklchChromaSlider" min="0" max="100" value="65" aria-labelledby="oklchChromaLabel">
             </div>
             <div class="control-group">
-                <div class="control-label">Luz <span id="oklchLightVal">50%</span></div>
-                <input type="range" id="oklchLightSlider" min="0" max="100" value="50">
+                <div class="control-label" id="oklchLightLabel">Luz <span id="oklchLightVal">50%</span></div>
+                <input type="range" id="oklchLightSlider" min="0" max="100" value="50" aria-labelledby="oklchLightLabel">
             </div>
         </div>
 
     </div>
 </div>
+<script src="./color.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>
