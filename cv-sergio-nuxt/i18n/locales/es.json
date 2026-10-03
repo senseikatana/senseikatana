@@ -15,7 +15,13 @@
     "system": "Sistema"
   },
   "home": {
-    "tags": ["#LOGÍSTICA", "#ALMACÉN", "#COMERCIO", "#ATENCIÓN-CLIENTE", "#CARRETILLAS"],
+    "tags": [
+      "#LOGÍSTICA",
+      "#ALMACÉN",
+      "#COMERCIO",
+      "#ATENCIÓN-CLIENTE",
+      "#CARRETILLAS"
+    ],
     "ctaCv": "Ver mi CV",
     "ctaPdf": "Descargar PDF",
     "ctaContact": "Contacto",
@@ -68,36 +74,5 @@
     "empty": "No hay posts publicados aún.",
     "back": "Volver al Blog",
     "notFound": "Post no encontrado"
-  },
-  "store": {
-    "title": "Tienda",
-    "subtitle": "Recursos, plantillas y servicios.",
-    "viewDetails": "Ver detalle",
-    "featured": "Destacado",
-    "viewOn": "Ver en",
-    "buyOn": "Comprar en",
-    "addToCart": "Añadir al carrito",
-    "back": "Volver a la tienda",
-    "notFound": "Producto no encontrado",
-    "categories": {
-      "all": "Todos",
-      "cursos": "Cursos",
-      "templates": "Plantillas",
-      "ebooks": "E-books",
-      "componentes": "Componentes",
-      "servicios": "Servicios",
-      "segunda-mano": "Segunda mano"
-    }
-  },
-  "cart": {
-    "title": "Carrito",
-    "empty": "Tu carrito está vacío",
-    "total": "Total",
-    "checkout": "Proceder al pago"
-  },
-  "success": {
-    "title": "¡Pago completado!",
-    "subtitle": "Gracias por tu compra. Recibirás un email con los detalles en breve.",
-    "back": "Volver a la tienda"
   }
 }

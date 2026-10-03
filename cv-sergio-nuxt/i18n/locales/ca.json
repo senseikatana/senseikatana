@@ -15,7 +15,13 @@
     "system": "Sistema"
   },
   "home": {
-    "tags": ["#LOGÍSTICA", "#MAGATZEM", "#COMERÇ", "#ATENCIÓ-CLIENT", "#CARRETONS"],
+    "tags": [
+      "#LOGÍSTICA",
+      "#MAGATZEM",
+      "#COMERÇ",
+      "#ATENCIÓ-CLIENT",
+      "#CARRETONS"
+    ],
     "ctaCv": "Veure el meu CV",
     "ctaPdf": "Descarregar PDF",
     "ctaContact": "Contacte",
@@ -68,36 +74,5 @@
     "empty": "No hi ha posts publicats encara.",
     "back": "Tornar al Blog",
     "notFound": "Post no trobat"
-  },
-  "store": {
-    "title": "Botiga",
-    "subtitle": "Recursos, plantilles i serveis.",
-    "viewDetails": "Veure detall",
-    "featured": "Destacat",
-    "viewOn": "Veure a",
-    "buyOn": "Comprar a",
-    "addToCart": "Afegeix al carret",
-    "back": "Tornar a la botiga",
-    "notFound": "Producte no trobat",
-    "categories": {
-      "all": "Tots",
-      "cursos": "Cursos",
-      "templates": "Plantilles",
-      "ebooks": "E-books",
-      "componentes": "Components",
-      "servicios": "Serveis",
-      "segunda-mano": "Segona mà"
-    }
-  },
-  "cart": {
-    "title": "Cistella",
-    "empty": "La teva cistella està buida",
-    "total": "Total",
-    "checkout": "Procedir al pagament"
-  },
-  "success": {
-    "title": "Pagament completat!",
-    "subtitle": "Gràcies per la teva compra. Rebràs un email amb els detalls aviat.",
-    "back": "Tornar a la botiga"
   }
 }

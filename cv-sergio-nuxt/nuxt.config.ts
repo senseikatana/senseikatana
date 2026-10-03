@@ -5,7 +5,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxt/content',
-    '@pinia/nuxt',
     '@nuxtjs/i18n',
   ],
 
@@ -28,6 +27,17 @@ export default defineNuxtConfig({
     '/es/resume/**': { redirect: '/about' },
     '/ca/resume/**': { redirect: '/ca/about' },
     '/en/resume/**': { redirect: '/en/about' },
+  },
+
+  /*
+   * Dark-first. `preference` is only the fallback for first-time visitors with
+   * no stored choice; once they pick, @nuxt/color-mode persists their choice
+   * and never overrides it again.
+   */
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+    classSuffix: '',
   },
 
   i18n: {
@@ -66,10 +76,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
-    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
     public: {
-      stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || '',
       siteUrl: process.env.SITE_URL || 'http://localhost:3000',
     },
   },

@@ -1,181 +1,166 @@
-    // Referencias DOM
-    const wrapper = document.getElementById('dialWrapper');
-    const pointer = document.getElementById('pointer');
-    const angleDisplay = document.getElementById('angleDisplay');
-    const hslRing = document.getElementById('hslRing');
-    const oklchRing = document.getElementById('oklchRing');
-    
-    // Sliders HSL
-    const hslHueSlider = document.getElementById('hslHueSlider');
-    const hslSatSlider = document.getElementById('hslSatSlider');
-    const hslLightSlider = document.getElementById('hslLightSlider');
-    
-    // Sliders OKLCH
-    const oklchHueSlider = document.getElementById('oklchHueSlider');
-    const oklchChromaSlider = document.getElementById('oklchChromaSlider');
-    const oklchLightSlider = document.getElementById('oklchLightSlider');
-    
-    // Previews y Codes
-    const hslPreview = document.getElementById('hslPreview');
-    const hslCode = document.getElementById('hslCode');
-    const oklchPreview = document.getElementById('oklchPreview');
-    const oklchCode = document.getElementById('oklchCode');
+// Referencias DOM
+const wrapper = document.getElementById("dialWrapper");
+const pointer = document.getElementById("pointer");
+const angleDisplay = document.getElementById("angleDisplay");
+const hslRing = document.getElementById("hslRing");
+const oklchRing = document.getElementById("oklchRing");
 
-    // Estado de sincronización (evita bucles infinitos entre sliders)
-    let isSyncing = false;
+// Sliders
+const hslHueSlider = document.getElementById("hslHueSlider");
+const hslSatSlider = document.getElementById("hslSatSlider");
+const hslLightSlider = document.getElementById("hslLightSlider");
+const oklchHueSlider = document.getElementById("oklchHueSlider");
+const oklchChromaSlider = document.getElementById("oklchChromaSlider");
+const oklchLightSlider = document.getElementById("oklchLightSlider");
 
-    // 1. Función de mapeo matemático HSL -> OKLCH
-    function mapHslToOklch(hslDeg) {
-        const map = [ [0, 29], [60, 90], [120, 142], [180, 195], [240, 264], [300, 360] ];
-        for (let i = 0; i < map.length - 1; i++) {
-            if (hslDeg >= map[i][0] && hslDeg <= map[i+1][0]) {
-                const pct = (hslDeg - map[i][0]) / (map[i+1][0] - map[i][0]);
-                return Math.round(map[i][1] + pct * (map[i+1][1] - map[i][1]));
-            }
-        }
-        if (hslDeg >= 300) {
-            const pct = (hslDeg - 300) / 60;
-            return Math.round(360 + pct * 29) % 360; 
-        }
-        return 29;
-    }
+// Lecturas numéricas
+const hslHueVal = document.getElementById("hslHueVal");
+const hslSatVal = document.getElementById("hslSatVal");
+const hslLightVal = document.getElementById("hslLightVal");
+const oklchHueVal = document.getElementById("oklchHueVal");
+const oklchChromaVal = document.getElementById("oklchChromaVal");
+const oklchLightVal = document.getElementById("oklchLightVal");
 
-    // 2. Función inversa aproximada OKLCH -> HSL (para el slider de OKLCH)
-    function mapOklchToHsl(oklchDeg) {
-        const map = [ [29, 0], [90, 60], [142, 120], [195, 180], [264, 240], [360, 300] ];
-        for (let i = 0; i < map.length - 1; i++) {
-            if (oklchDeg >= map[i][0] && oklchDeg <= map[i+1][0]) {
-                const pct = (oklchDeg - map[i][0]) / (map[i+1][0] - map[i][0]);
-                return Math.round(map[i][1] + pct * (map[i+1][1] - map[i][1]));
-            }
-        }
-        if (oklchDeg < 29) {
-            const pct = oklchDeg / 29;
-            return Math.round(300 + pct * 60) % 360; 
-        }
-        return 0;
-    }
+// Previews y código
+const hslPreview = document.getElementById("hslPreview");
+const hslCode = document.getElementById("hslCode");
+const oklchPreview = document.getElementById("oklchPreview");
+const oklchCode = document.getElementById("oklchCode");
 
-    // 3. Actualizar Anillos del Dial (Visual)
-    function updateDialRings() {
-        const s = hslSatSlider.value;
-        const l = hslLightSlider.value;
-        const c = oklchChromaSlider.value;
-        const ol = oklchLightSlider.value;
-        
-        hslRing.style.background = `conic-gradient(
-            from 0deg,
-            hsl(0, ${s}%, ${l}%) 0deg 60deg,
-            hsl(60, ${s}%, ${l}%) 60deg 120deg,
-            hsl(120, ${s}%, ${l}%) 120deg 180deg,
-            hsl(180, ${s}%, ${l}%) 180deg 240deg,
-            hsl(240, ${s}%, ${l}%) 240deg 300deg,
-            hsl(300, ${s}%, ${l}%) 300deg 360deg
-        )`;
-        
-        oklchRing.style.background = `conic-gradient(
-            from 0deg,
-            oklch(${ol}% ${c}% 29) 0deg 29deg,
-            oklch(${ol}% ${c}% 90) 29deg 90deg,
-            oklch(${ol}% ${c}% 142) 90deg 142deg,
-            oklch(${ol}% ${c}% 195) 142deg 195deg,
-            oklch(${ol}% ${c}% 264) 195deg 264deg,
-            oklch(${ol}% ${c}% 360) 264deg 360deg
-        )`;
-    }
+const MIN_DRAG_RADIUS = 30;
 
-    // 4. Actualizar UI Principal
-    function updateUI(source) {
-        // Sincronizar sliders de Tono si el cambio viene de uno de ellos
-        if (!isSyncing) {
-            isSyncing = true;
-            if (source === 'hslHue') {
-                const oklchH = mapHslToOklch(parseInt(hslHueSlider.value));
-                oklchHueSlider.value = oklchH;
-                document.getElementById('oklchHueVal').innerText = `${oklchH}°`;
-            } else if (source === 'oklchHue') {
-                const hslH = mapOklchToHsl(parseInt(oklchHueSlider.value));
-                hslHueSlider.value = hslH;
-                document.getElementById('hslHueVal').innerText = `${hslH}°`;
-            }
-            isSyncing = false;
-        }
+// 1. Anillos del dial. Los sectores OKLCH se derivan de la conversión real
+//    (primarios HSL a saturación/luz plenas), no de una tabla fija.
+function updateDialRings(s, l, c, ol) {
+  hslRing.style.background = `conic-gradient(
+      from 0deg,
+      hsl(0, ${s}%, ${l}%) 0deg 60deg,
+      hsl(60, ${s}%, ${l}%) 60deg 120deg,
+      hsl(120, ${s}%, ${l}%) 120deg 180deg,
+      hsl(180, ${s}%, ${l}%) 180deg 240deg,
+      hsl(240, ${s}%, ${l}%) 240deg 300deg,
+      hsl(300, ${s}%, ${l}%) 300deg 360deg
+  )`;
 
-        // Actualizar puntero y centro del dial
-        const hslH = parseInt(hslHueSlider.value);
-        pointer.style.transform = `translateX(-50%) rotate(${hslH}deg)`;
-        angleDisplay.innerText = `${hslH}°`;
+  const raw = ColorMath.primaryOklchHues(100, 50);
+  const hues = raw.map((v, i) => (i > 0 && v < raw[i - 1] - 180 ? v + 360 : v));
+  const stops = [];
+  for (let i = 0; i < hues.length - 1; i++) {
+    const from = i === 0 ? 0 : hues[i - 1];
+    stops.push(`oklch(${ol}% ${c}% ${round2(hues[i])}) ${round2(from)}deg ${round2(hues[i])}deg`);
+  }
+  // Último tramo: de la magenta al roto de 360°, pintado con el rojo (vuelta al 0).
+  stops.push(`oklch(${ol}% ${c}% ${round2(hues[0])}) ${round2(hues[hues.length - 2])}deg 360deg`);
 
-        // Actualizar textos de los sliders
-        document.getElementById('hslHueVal').innerText = `${hslH}°`;
-        document.getElementById('hslSatVal').innerText = `${hslSatSlider.value}%`;
-        document.getElementById('hslLightVal').innerText = `${hslLightSlider.value}%`;
-        document.getElementById('oklchHueVal').innerText = `${oklchHueSlider.value}°`;
-        document.getElementById('oklchChromaVal').innerText = `${oklchChromaSlider.value}%`;
-        document.getElementById('oklchLightVal').innerText = `${oklchLightSlider.value}%`;
+  oklchRing.style.background = `conic-gradient(from 0deg, ${stops.join(", ")})`;
+}
 
-        // Actualizar Anillos
-        updateDialRings();
+const round2 = (n) => Math.round(n * 100) / 100;
 
-        // Actualizar Cajas Físicas y Código
-        const hslColor = `hsl(${hslH}, ${hslSatSlider.value}%, ${hslLightSlider.value}%)`;
-        const oklchColor = `oklch(${oklchLightSlider.value}% ${oklchChromaSlider.value}% ${oklchHueSlider.value})`;
-        
-        hslPreview.style.backgroundColor = hslColor;
-        hslCode.innerText = hslColor;
-        
-        oklchPreview.style.backgroundColor = oklchColor;
-        oklchCode.innerText = oklchColor;
+// Gradientes de los sliders de tono. Son estáticos: se construyen una sola vez.
+function paintHueTracks() {
+  const hslStops = [];
+  const oklchStops = [];
+  for (let h = 0; h <= 360; h += 15) {
+    hslStops.push(`hsl(${h}, 100%, 50%)`);
+    oklchStops.push(`oklch(50% 50% ${h})`);
+  }
+  hslHueSlider.style.background = `linear-gradient(to right, ${hslStops.join(", ")})`;
+  oklchHueSlider.style.background = `linear-gradient(to right, ${oklchStops.join(", ")})`;
+}
 
-        // Actualizar fondos de los sliders de Tono (gradientes)
-        hslHueSlider.style.background = `linear-gradient(to right, hsl(0,100%,50%), hsl(60,100%,50%), hsl(120,100%,50%), hsl(180,100%,50%), hsl(240,100%,50%), hsl(300,100%,50%), hsl(360,100%,50%))`;
-        
-        // Para el gradiente del slider OKLCH usamos los colores base del anillo
-        oklchHueSlider.style.background = `linear-gradient(to right, 
-            oklch(50% 50% 0), oklch(50% 50% 29), 
-            oklch(50% 50% 90), oklch(50% 50% 142), 
-            oklch(50% 50% 195), oklch(50% 50% 264), 
-            oklch(50% 50% 360), oklch(50% 50% 360))`;
-    }
+// 2. UI principal. El tono OKLCH se deriva del color HSL actual: mover la
+//    saturación o la luz cambia el tono equivalente, y es exactamente el
+//    motivo por el que un hex/hsla no "equivale" a un único oklch().
+function updateUI(source) {
+  const s = Number(hslSatSlider.value);
+  const l = Number(hslLightSlider.value);
 
-    // 5. Lógica de arrastre del Dial
-    function handleDrag(e) {
-        e.preventDefault(); 
-        const rect = wrapper.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
-        const deltaX = clientX - centerX;
-        const deltaY = clientY - centerY;
-        
-        let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
-        if (angle < 0) angle += 360;
-        
-        hslHueSlider.value = Math.round(angle);
-        updateUI('hslHue');
-    }
+  if (source === "oklchHue") {
+    const resolved = ColorMath.oklchHueToHslHue(
+      Number(oklchHueSlider.value),
+      s,
+      l,
+      Number(hslHueSlider.value),
+    );
+    if (resolved !== null) hslHueSlider.value = resolved;
+  } else {
+    const derived = ColorMath.hslHueToOklchHue(Number(hslHueSlider.value), s, l);
+    if (derived !== null) oklchHueSlider.value = Math.round(derived);
+  }
 
-    // Listeners Dial
-    let isDragging = false;
-    wrapper.addEventListener('mousedown', (e) => { isDragging = true; handleDrag(e); });
-    document.addEventListener('mousemove', (e) => { if (isDragging) handleDrag(e); });
-    document.addEventListener('mouseup', () => isDragging = false);
-    wrapper.addEventListener('touchstart', (e) => { isDragging = true; handleDrag(e); }, { passive: false });
-    document.addEventListener('touchmove', (e) => { if (isDragging) handleDrag(e); }, { passive: false });
-    document.addEventListener('touchend', () => isDragging = false);
+  const hslH = Number(hslHueSlider.value);
+  const okH = Number(oklchHueSlider.value);
+  const c = Number(oklchChromaSlider.value);
+  const ol = Number(oklchLightSlider.value);
 
-    // Listeners Sliders HSL
-    hslHueSlider.addEventListener('input', () => updateUI('hslHue'));
-    hslSatSlider.addEventListener('input', () => updateUI('hslSat'));
-    hslLightSlider.addEventListener('input', () => updateUI('hslLight'));
+  // Puntero y centro del dial
+  pointer.style.transform = `translateX(-50%) rotate(${hslH}deg)`;
+  angleDisplay.innerText = `${hslH}°`;
 
-    // Listeners Sliders OKLCH
-    oklchHueSlider.addEventListener('input', () => updateUI('oklchHue'));
-    oklchChromaSlider.addEventListener('input', () => updateUI('oklchChroma'));
-    oklchLightSlider.addEventListener('input', () => updateUI('oklchLight'));
+  // Etiquetas
+  hslHueVal.innerText = `${hslH}°`;
+  hslSatVal.innerText = `${s}%`;
+  hslLightVal.innerText = `${l}%`;
+  oklchHueVal.innerText = `${okH}°`;
+  oklchChromaVal.innerText = `${c}%`;
+  oklchLightVal.innerText = `${ol}%`;
 
-    // Inicializar
-    updateUI('init');
+  // Los anillos no dependen del tono
+  if (source !== "hslHue" && source !== "oklchHue") updateDialRings(s, l, c, ol);
+
+  // Cajas físicas y código CSS
+  const hslColor = `hsl(${hslH}, ${s}%, ${l}%)`;
+  const oklchColor = `oklch(${ol}% ${c}% ${okH})`;
+
+  hslPreview.style.backgroundColor = hslColor;
+  hslCode.innerText = hslColor;
+
+  oklchPreview.style.backgroundColor = oklchColor;
+  oklchCode.innerText = oklchColor;
+}
+
+// 3. Arrastre del dial (Pointer Events: cubre ratón, lápiz y táctil).
+let isDragging = false;
+
+function handleDrag(e) {
+  const rect = wrapper.getBoundingClientRect();
+  const deltaX = e.clientX - (rect.left + rect.width / 2);
+  const deltaY = e.clientY - (rect.top + rect.height / 2);
+
+  // Clics sobre el buje central: atan2(0,0) daría un ángulo arbitrario.
+  if (Math.hypot(deltaX, deltaY) < MIN_DRAG_RADIUS) return;
+
+  let angle = (Math.atan2(deltaY, deltaX) * 180) / Math.PI + 90;
+  angle = ((angle % 360) + 360) % 360;
+
+  hslHueSlider.value = Math.round(angle);
+  updateUI("hslHue");
+}
+
+wrapper.addEventListener("pointerdown", (e) => {
+  wrapper.setPointerCapture(e.pointerId);
+  isDragging = true;
+  handleDrag(e);
+});
+wrapper.addEventListener("pointermove", (e) => {
+  if (isDragging) handleDrag(e);
+});
+const endDrag = () => {
+  isDragging = false;
+};
+wrapper.addEventListener("pointerup", endDrag);
+wrapper.addEventListener("pointercancel", endDrag);
+
+// 4. Sliders
+hslHueSlider.addEventListener("input", () => updateUI("hslHue"));
+hslSatSlider.addEventListener("input", () => updateUI("hslSat"));
+hslLightSlider.addEventListener("input", () => updateUI("hslLight"));
+
+oklchHueSlider.addEventListener("input", () => updateUI("oklchHue"));
+oklchChromaSlider.addEventListener("input", () => updateUI("oklchChroma"));
+oklchLightSlider.addEventListener("input", () => updateUI("oklchLight"));
+
+// 5. Inicializar
+paintHueTracks();
+updateUI("init");

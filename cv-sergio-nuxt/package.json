@@ -10,19 +10,14 @@
     "test": "vitest",
     "test:unit": "vitest --project unit",
     "test:nuxt": "vitest --project nuxt",
-    "lint": "eslint .",
-    "seed:stripe": "bunx tsx scripts/seed-stripe.ts"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@nuxt/content": "^3.16.0",
     "@nuxt/ui": "^4.11.0",
     "@nuxtjs/i18n": "^10.6.0",
-    "@pinia/nuxt": "^0.9.0",
     "better-sqlite3": "^13.0.3",
-    "katanakit-js": "^2.2.1",
-    "nuxt": "^4.5.0",
-    "pinia": "^3.0.0",
-    "stripe": "^17.0.0"
+    "nuxt": "^4.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
