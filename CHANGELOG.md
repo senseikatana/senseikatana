@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.10.0] - 2026-10-03
+
+### Added
+- **colour-wheel-playground**: deploy on Cloudflare Workers at /showcase/*
+
+### Fixed
+- **cv-sergio-astro**: translate skill section titles to Spanish
+
 ## [1.9.0] - 2026-10-03
 
 ### Changed
