@@ -1,8 +1,14 @@
 ---
-import { meta, ui } from '../data/resume';
-export interface Props { title: string; lang: 'es' | 'ca' | 'en'; }
+import { meta, ui, profiles, LANGS, PROFILE_IDS, type Lang } from '../data/resume';
+
+export interface Props {
+  title: string;
+  lang: Lang;
+}
+
 const { title, lang } = Astro.props;
-const htmlLang = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : 'en-GB';
+const t = ui[lang];
+const htmlLang = lang === 'ca' ? 'ca' : lang === 'es' ? 'es' : 'en';
 ---
 <!doctype html>
 <html lang={htmlLang} data-theme="light">
@@ -10,8 +16,38 @@ const htmlLang = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : 'en-GB';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title} · {meta.name}</title>
-  <meta name="description" content={`Portfolio profesional de ${meta.name} — ${lang === 'es' ? 'Cambrils, Tarragona' : 'Cambrils, Tarragona'}.`} />
+  <meta name="description" content={`${title} — ${meta.name}, ${t.location}.`} />
+  <link rel="canonical" href={Astro.url.href} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  {/**
+    Va en `<head>` y es `is:inline` a propósito: si espera al bundle, el tema
+    se aplica después del primer paint y se ve el destello del tema claro.
+    El `try/catch` importa porque `localStorage` **lanza** `SecurityError` si el
+    storage está bloqueado (Firefox con `dom.storage.enabled=false`, políticas
+    corporativas, algunos WebView). Sin catch, la excepción aborta el IIFE: el
+    `data-theme` nunca se setea y el listener nunca se registra, o sea el botón
+    queda muerto sin dejar rastro en la consola.
+  */}
+  <script is:inline>
+    (() => {
+      const KEY = 'theme';
+      const read = () => {
+        try { return localStorage.getItem(KEY) === 'dark' ? 'dark' : 'light'; }
+        catch { return 'light'; }
+      };
+      const write = (value) => {
+        try { localStorage.setItem(KEY, value); } catch { /* storage bloqueado */ }
+      };
+      document.documentElement.dataset.theme = read();
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('theme-toggle')?.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          write(next);
+        });
+      });
+    })();
+  </script>
   <style is:global>
     :root {
       --bg: #fafaf7; --fg: #1a1a1a; --muted: #6b6b6b;
@@ -47,35 +83,45 @@ const htmlLang = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : 'en-GB';
   </style>
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header no-print">
     <nav>
       <a href="/resume/" class="logo">senseikatana<span class="muted">/resume</span></a>
       <ul>
-        <li><a href={`/resume/${lang}/`}>{ui[lang].home}</a></li>
-        <li><a href={`/resume/${lang}/about/`}>{ui[lang].about}</a></li>
-        <li><a href={`/resume/${lang}/services/`}>{ui[lang].services}</a></li>
-        <li><a href={`/resume/${lang}/shop/`}>{ui[lang].shop}</a></li>
-        <li><a href={`/resume/${lang}/contact/`}>{ui[lang].contact}</a></li>
+        <li><a href={`/resume/${lang}/`}>{t.home}</a></li>
+        <li><a href={`/resume/${lang}/about/`}>{t.about}</a></li>
+        <li><a href={`/resume/${lang}/services/`}>{t.services}</a></li>
+        <li><a href={`/resume/${lang}/shop/`}>{t.shop}</a></li>
+        <li><a href={`/resume/${lang}/contact/`}>{t.contact}</a></li>
+        <li class="has-submenu">
+          <details>
+            <summary>{t.choose}</summary>
+            <ul class="submenu">
+              {PROFILE_IDS.map((id) => (
+                <li><a href={`/resume/${lang}/${id}/`}>{profiles[id][lang].title}</a></li>
+              ))}
+            </ul>
+          </details>
+        </li>
       </ul>
       <div class="tools">
         <div class="lang-switcher">
-          <a href="/resume/es/" class={lang === 'es' ? 'active' : ''}>ES</a>
-          <a href="/resume/ca/" class={lang === 'ca' ? 'active' : ''}>CA</a>
-          <a href="/resume/en/" class={lang === 'en' ? 'active' : ''}>EN</a>
+          {LANGS.map((code) => (
+            <a href={`/resume/${code}/`} class={lang === code ? 'active' : ''} aria-current={lang === code ? 'true' : undefined}>{code.toUpperCase()}</a>
+          ))}
         </div>
-        <button id="theme-toggle" aria-label="Theme">🌓</button>
+        <button id="theme-toggle" type="button" aria-label={t.toggleTheme} title={t.toggleTheme}>🌓</button>
       </div>
     </nav>
   </header>
   <main class="container">
     <slot />
   </main>
-  <footer class="site-footer">
-    <p>&copy; {new Date().getFullYear()} {meta.name}. Portfolio profesional.</p>
+  <footer class="site-footer no-print">
+    <p>&copy; {new Date().getFullYear()} {meta.name}. {t.footer}</p>
     <div class="socials">
       <a href={`mailto:${meta.email}`}>Email</a>
-      <a href={meta.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-      <a href={meta.github} target="_blank" rel="noopener">GitHub</a>
+      <a href={meta.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={meta.github} target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   </footer>
   <style>
@@ -91,17 +137,20 @@ const htmlLang = lang === 'ca' ? 'ca-ES' : lang === 'es' ? 'es-ES' : 'en-GB';
     #theme-toggle { background: var(--card); border: 1px solid var(--border); border-radius: 50%; width: 38px; height: 38px; font-size: 1rem; color: var(--fg); cursor: pointer; }
     .site-footer { border-top: 1px dashed var(--border); margin-top: 3rem; padding: 1.5rem 0; text-align: center; color: var(--muted); font-size: .9rem; }
     .socials { margin-top: .75rem; display: flex; gap: 1rem; justify-content: center; }
-    @media (max-width: 640px) { ul { order: 3; width: 100%; } }
+    .has-submenu { position: relative; }
+    .has-submenu summary { cursor: pointer; color: var(--fg); font-size: .95rem; list-style: none; }
+    .has-submenu summary::-webkit-details-marker { display: none; }
+    .has-submenu summary::after { content: ' ▾'; color: var(--muted); }
+    .submenu {
+      position: absolute; top: 100%; left: 0; z-index: 20; min-width: 15rem;
+      flex-direction: column; gap: 0; margin-top: .5rem; padding: .35rem;
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: 0 12px 32px rgba(0,0,0,.14);
+    }
+    .submenu li { margin: 0; }
+    .submenu a { display: block; padding: .45rem .6rem; border-radius: 8px; white-space: nowrap; }
+    .submenu a:hover { background: var(--border); }
+    @media (max-width: 640px) { ul { order: 3; width: 100%; } .submenu { position: static; box-shadow: none; } }
   </style>
-  <script is:inline>
-    const saved = localStorage.getItem('theme') || 'light';
-    document.documentElement.dataset.theme = saved;
-    document.getElementById('theme-toggle')?.addEventListener('click', () => {
-      const h = document.documentElement;
-      const next = h.dataset.theme === 'dark' ? 'light' : 'dark';
-      h.dataset.theme = next;
-      localStorage.setItem('theme', next);
-    });
-  </script>
 </body>
 </html>

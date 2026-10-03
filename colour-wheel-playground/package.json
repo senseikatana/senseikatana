@@ -1,21 +1,17 @@
 {
-  "name": "labcolor-human",
+  "name": "hueplay",
   "version": "0.0.1",
-  "description": "Proyecto de rueda de color para OKLCH vs HSL",
+  "description": "OKLCH vs HSL colour dial — served at senseikatana.com/showcase/*",
   "type": "module",
   "scripts": {
-    "dev": "bun run dev",
-    "build": "bun run build",
-    "test": "bun run test"
+    "dev": "wrangler dev",
+    "build": "bash scripts/build.sh",
+    "deploy": "wrangler deploy"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
-  "main": "index.js",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^7"
+    "wrangler": "^4.147.0"
   }
 }

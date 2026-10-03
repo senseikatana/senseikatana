@@ -1,0 +1,21 @@
+{
+  "name": "hueplay",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-03",
+  "build": {
+    "command": "bash scripts/build.sh"
+  },
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  "routes": [
+    {
+      "pattern": "senseikatana.com",
+      "custom_domain": true
+    }
+  ]
+}

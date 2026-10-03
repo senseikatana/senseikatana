@@ -17,6 +17,10 @@ const description = `CV digital de ${profile.name}: perfil, experiencia, formaci
   <meta property="og:description" content={description} />
   <meta property="og:url" content="https://senseikatana.com/hola/" />
   <meta property="og:image" content="https://senseikatana.com/cv/sergio-jurado.jpg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://senseikatana.com/hola/" />
+  <link rel="alternate" hreflang="es" href="https://senseikatana.com/hola/" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <style is:global>
     :root {
@@ -53,6 +57,189 @@ const description = `CV digital de ${profile.name}: perfil, experiencia, formaci
     @media (min-width: 1024px) { .container { padding: 0 2rem; } }
     .icon { width: 1rem; height: 1rem; flex-shrink: 0; }
   </style>
+  <style>
+  /* ─── Header ─── */
+  .site-header {
+    position: sticky; top: 0; z-index: 50; height: 4rem;
+    background: color-mix(in oklab, var(--dark-900) 80%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent);
+  }
+  .header-inner { display: flex; align-items: center; gap: 1.5rem; height: 4rem; }
+  .logo { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em; color: var(--white-50); }
+  .site-nav { display: none; gap: 1.5rem; flex: 1; }
+  .site-nav a { font-size: 0.875rem; color: var(--white-300); transition: color .15s; }
+  .site-nav a:hover { color: var(--white-100); }
+  .header-social {
+    margin-left: auto; display: inline-flex; align-items: center; justify-content: center;
+    width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; color: var(--white-300);
+    transition: color .15s, background-color .15s;
+  }
+  .header-social:hover { color: var(--white-50); background: var(--dark-800); }
+  .header-social .icon { width: 1.125rem; height: 1.125rem; }
+  @media (min-width: 768px) { .site-nav { display: flex; } }
+
+  /* ─── Hero ─── */
+  .hero { position: relative; overflow: hidden; padding: 5rem 0; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom right, var(--dark-900), var(--dark-800), var(--dark-950));
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; opacity: 0.25;
+    background:
+      radial-gradient(ellipse at bottom left, var(--rose-900) 0%, transparent 45%),
+      radial-gradient(ellipse at top right, var(--teal-900) 0%, transparent 40%);
+  }
+  .hero-inner {
+    position: relative; display: flex; flex-direction: column; gap: 2.5rem;
+    align-items: flex-start;
+  }
+  .hero-url { font-family: var(--font-mono); font-size: 0.875rem; letter-spacing: 0.025em; color: color-mix(in oklab, var(--sky-300) 90%, transparent); margin-bottom: 1rem; }
+  .hero-title { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: var(--white-50); margin-bottom: 1rem; }
+  .hero-role { font-size: 1.125rem; color: var(--sky-300); margin-bottom: 1rem; }
+  .hero-desc { color: var(--white-400); max-width: 42rem; line-height: 1.625; margin-bottom: 2rem; }
+  .hero-contact { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.875rem; color: var(--white-400); margin-bottom: 2.5rem; }
+  .hero-contact-item { display: flex; align-items: center; gap: 0.375rem; }
+  .hero-contact-item.link { transition: color .15s; }
+  .hero-contact-item.link:hover { color: var(--white-100); }
+  .contact-icon { color: var(--teal-400); }
+  .hero-note { font-size: 0.875rem; color: var(--white-500); margin-bottom: 2rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .hero-photo-wrap { flex-shrink: 0; }
+  .hero-photo {
+    width: 12rem; height: 16rem; object-fit: cover; border-radius: 1rem;
+    border: 1px solid color-mix(in oklab, var(--teal-800) 40%, transparent);
+    box-shadow: 0 25px 50px -12px color-mix(in oklab, var(--teal-900) 20%, transparent);
+  }
+  @media (min-width: 768px) {
+    .hero-title { font-size: 3.75rem; }
+    .hero-role { font-size: 1.25rem; }
+    .hero-photo { width: 14rem; height: 18rem; }
+  }
+  @media (min-width: 1024px) {
+    .hero { padding: 7rem 0; }
+    .hero-inner { flex-direction: row; gap: 4rem; }
+    .hero-copy { flex: 1; max-width: 42rem; }
+  }
+
+  /* ─── Botones ─── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    font-size: 0.875rem; font-weight: 500; padding: 0.625rem 1rem;
+    border-radius: 0.5rem; border: 1px solid transparent; cursor: pointer;
+    transition: background-color .15s, border-color .15s, color .15s;
+  }
+  .btn-lg { padding: 0.625rem 2rem; font-size: 1rem; }
+  .icon-lg { width: 1.125rem; height: 1.125rem; }
+  .btn-primary { background: var(--rose-500); color: #fff; }
+  .btn-primary:hover { background: var(--rose-600); }
+  .btn-outline { border-color: color-mix(in oklab, var(--white-200) 20%, transparent); color: var(--white-200); }
+  .btn-outline:hover { background: color-mix(in oklab, var(--white-50) 5%, transparent); }
+  .btn-outline-dark { border-color: var(--dark-600); color: var(--white-300); }
+  .btn-outline-dark:hover { background: var(--dark-800); }
+  .btn-ghost { color: var(--sky-400); }
+  .btn-ghost:hover { color: var(--sky-300); }
+
+  /* ─── Nav de secciones ─── */
+  .section-nav {
+    position: sticky; top: 4rem; z-index: 40; padding: 0.75rem 0;
+    background: color-mix(in oklab, var(--dark-950) 90%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent);
+  }
+  .section-nav-inner { display: flex; flex-wrap: nowrap; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: thin; }
+  .section-chip {
+    display: inline-flex; flex-shrink: 0; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; color: var(--white-300);
+    border: 1px solid color-mix(in oklab, var(--dark-700) 50%, transparent);
+    background: color-mix(in oklab, var(--dark-900) 70%, transparent);
+    transition: border-color .15s, color .15s;
+  }
+  .section-chip:hover { border-color: color-mix(in oklab, var(--teal-700) 50%, transparent); color: var(--sky-300); }
+  .section-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--rose-400); }
+  .section-icon { color: var(--sky-400); }
+
+  /* ─── Secciones ─── */
+  .block { padding: 5rem 0; scroll-margin-top: 10rem; }
+  .block-a { background: var(--dark-900); }
+  .block-b { background: var(--dark-950); }
+  .block-title {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 1.875rem; font-weight: 700; color: var(--white-50); margin-bottom: 1.5rem;
+  }
+  .block-sub { color: var(--white-400); margin-bottom: 2.5rem; }
+  .icon-xl { width: 1.5rem; height: 1.5rem; }
+  .accent-rose { color: var(--rose-400); }
+  .accent-teal { color: var(--teal-400); }
+  .accent-sky { color: var(--sky-400); }
+  .accent-emerald { color: var(--emerald-400); }
+  .lead { font-size: 1.125rem; color: var(--white-300); line-height: 1.625; }
+
+  /* ─── Experiencia ─── */
+  .timeline > * + * { margin-top: 2.5rem; }
+  .timeline-item { position: relative; padding-left: 1.5rem; border-left: 2px solid color-mix(in oklab, var(--teal-700) 50%, transparent); }
+  .timeline-dot {
+    position: absolute; left: -7px; top: 0.25rem; width: 0.75rem; height: 0.75rem;
+    border-radius: 9999px; background: var(--teal-500); border: 2px solid var(--dark-950);
+  }
+  .entry-head { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.25rem; }
+  .entry-role { font-size: 1.25rem; font-weight: 600; color: var(--white-100); }
+  .entry-period { font-size: 0.875rem; color: var(--white-500); font-family: var(--font-mono); }
+  .entry-company { font-size: 0.875rem; color: var(--sky-400); margin-bottom: 0.5rem; }
+  .entry-desc { font-size: 0.875rem; color: var(--white-400); margin-bottom: 0.75rem; }
+  .entry-list { list-style: none; padding: 0; }
+  .entry-list > li + li { margin-top: 0.5rem; }
+  .entry-list li, .skills-list li, .extra-list li { display: flex; gap: 0.5rem; font-size: 0.875rem; color: var(--white-300); line-height: 1.625; }
+  .mt { margin-top: 0.125rem; }
+  .mt-lg { margin-top: 0.25rem; }
+  @media (min-width: 640px) {
+    .entry-head { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 0.25rem; }
+  }
+
+  /* ─── Formación ─── */
+  .card-list > * + * { margin-top: 1rem; }
+  .card {
+    padding: 1rem; border-radius: 0.5rem;
+    border: 1px solid color-mix(in oklab, var(--dark-700) 40%, transparent);
+    background: color-mix(in oklab, var(--dark-800) 40%, transparent);
+  }
+  .card-title { font-weight: 600; color: var(--white-100); }
+  .card-period { font-size: 0.75rem; color: var(--white-500); font-family: var(--font-mono); }
+  .card-note { font-size: 0.875rem; color: var(--white-500); margin-top: 0.25rem; }
+
+  /* ─── Skills ─── */
+  .skills-grid { display: grid; gap: 2.5rem; margin-bottom: 3rem; }
+  .skills-head { font-size: 1.125rem; font-weight: 600; color: var(--white-100); margin-bottom: 1rem; }
+  .skills-list { list-style: none; padding: 0; }
+  .skills-list > li + li { margin-top: 0.75rem; }
+  .lang-head { display: flex; align-items: center; gap: 0.5rem; }
+  .lang-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .lang-chip {
+    padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem;
+    border: 1px solid color-mix(in oklab, var(--dark-700) 40%, transparent);
+    background: color-mix(in oklab, var(--dark-800) 40%, transparent);
+  }
+  .lang-name { color: var(--white-200); font-weight: 500; }
+  .lang-level { color: var(--white-500); }
+  @media (min-width: 768px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* ─── Información adicional + CTA ─── */
+  .extra-list { list-style: none; padding: 0; margin-bottom: 3rem; }
+  .extra-list > li + li { margin-top: 1rem; }
+  .extra-list li { font-size: 1rem; }
+  .cta { padding-top: 2rem; border-top: 1px solid color-mix(in oklab, var(--dark-700) 50%, transparent); text-align: center; }
+  .cta-text { color: var(--white-400); margin-bottom: 1.5rem; }
+  .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+
+  /* ─── Footer ─── */
+  .site-footer { border-top: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent); background: var(--dark-900); padding: 1.5rem 0; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .footer-text { font-size: 0.875rem; color: var(--white-500); }
+  .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; color: var(--white-400); transition: color .15s, background-color .15s; }
+  .footer-social:hover { color: var(--white-50); background: var(--dark-800); }
+  </style>
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
@@ -75,11 +262,11 @@ const description = `CV digital de ${profile.name}: perfil, experiencia, formaci
 
   <header class="site-header">
     <div class="container header-inner">
-      <a href="/" class="logo">SJ</a>
+      <a href="/hola/" class="logo">SJ</a>
       <nav class="site-nav" aria-label="Navegación principal">
         {siteNav.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
-      <a href={profile.linkedin} target="_blank" rel="noopener" class="header-social" aria-label="LinkedIn">
+      <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="header-social" aria-label="LinkedIn">
         <svg class="icon"><use href="#i-linkedin" /></svg>
       </a>
     </div>
@@ -107,7 +294,7 @@ const description = `CV digital de ${profile.name}: perfil, experiencia, formaci
             <a href={`mailto:${profile.email}`} class="hero-contact-item link">
               <svg class="icon contact-icon"><use href="#i-mail" /></svg>{profile.email}
             </a>
-            <a href={profile.linkedin} target="_blank" rel="noopener" class="hero-contact-item link">
+            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="hero-contact-item link">
               <svg class="icon contact-icon"><use href="#i-linkedin" /></svg>LinkedIn
             </a>
           </div>
@@ -290,7 +477,7 @@ const description = `CV digital de ${profile.name}: perfil, experiencia, formaci
   <footer class="site-footer">
     <div class="container footer-inner">
       <span class="footer-text">© {new Date().getFullYear()} {profile.name}</span>
-      <a href={profile.linkedin} target="_blank" rel="noopener" class="footer-social" aria-label="LinkedIn">
+      <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="LinkedIn">
         <svg class="icon"><use href="#i-linkedin" /></svg>
       </a>
     </div>
@@ -298,186 +485,4 @@ const description = `CV digital de ${profile.name}: perfil, experiencia, formaci
 </body>
 </html>
 
-<style>
-  /* ─── Header ─── */
-  .site-header {
-    position: sticky; top: 0; z-index: 50; height: 4rem;
-    background: color-mix(in oklab, var(--dark-900) 80%, transparent);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent);
-  }
-  .header-inner { display: flex; align-items: center; gap: 1.5rem; height: 4rem; }
-  .logo { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em; color: var(--white-50); }
-  .site-nav { display: none; gap: 1.5rem; flex: 1; }
-  .site-nav a { font-size: 0.875rem; color: var(--white-300); transition: color .15s; }
-  .site-nav a:hover { color: var(--white-100); }
-  .header-social {
-    margin-left: auto; display: inline-flex; align-items: center; justify-content: center;
-    width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; color: var(--white-300);
-    transition: color .15s, background-color .15s;
-  }
-  .header-social:hover { color: var(--white-50); background: var(--dark-800); }
-  .header-social .icon { width: 1.125rem; height: 1.125rem; }
-  @media (min-width: 768px) { .site-nav { display: flex; } }
 
-  /* ─── Hero ─── */
-  .hero { position: relative; overflow: hidden; padding: 5rem 0; }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to bottom right, var(--dark-900), var(--dark-800), var(--dark-950));
-  }
-  .hero::after {
-    content: ''; position: absolute; inset: 0; opacity: 0.25;
-    background:
-      radial-gradient(ellipse at bottom left, var(--rose-900) 0%, transparent 45%),
-      radial-gradient(ellipse at top right, var(--teal-900) 0%, transparent 40%);
-  }
-  .hero-inner {
-    position: relative; display: flex; flex-direction: column; gap: 2.5rem;
-    align-items: flex-start;
-  }
-  .hero-url { font-family: var(--font-mono); font-size: 0.875rem; letter-spacing: 0.025em; color: color-mix(in oklab, var(--sky-300) 90%, transparent); margin-bottom: 1rem; }
-  .hero-title { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.025em; color: var(--white-50); margin-bottom: 1rem; }
-  .hero-role { font-size: 1.125rem; color: var(--sky-300); margin-bottom: 1rem; }
-  .hero-desc { color: var(--white-400); max-width: 42rem; line-height: 1.625; margin-bottom: 2rem; }
-  .hero-contact { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.875rem; color: var(--white-400); margin-bottom: 2.5rem; }
-  .hero-contact-item { display: flex; align-items: center; gap: 0.375rem; }
-  .hero-contact-item.link { transition: color .15s; }
-  .hero-contact-item.link:hover { color: var(--white-100); }
-  .contact-icon { color: var(--teal-400); }
-  .hero-note { font-size: 0.875rem; color: var(--white-500); margin-bottom: 2rem; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .hero-photo-wrap { flex-shrink: 0; }
-  .hero-photo {
-    width: 12rem; height: 16rem; object-fit: cover; border-radius: 1rem;
-    border: 1px solid color-mix(in oklab, var(--teal-800) 40%, transparent);
-    box-shadow: 0 25px 50px -12px color-mix(in oklab, var(--teal-900) 20%, transparent);
-  }
-  @media (min-width: 768px) {
-    .hero-title { font-size: 3.75rem; }
-    .hero-role { font-size: 1.25rem; }
-    .hero-photo { width: 14rem; height: 18rem; }
-  }
-  @media (min-width: 1024px) {
-    .hero { padding: 7rem 0; }
-    .hero-inner { flex-direction: row; gap: 4rem; }
-    .hero-copy { flex: 1; max-width: 42rem; }
-  }
-
-  /* ─── Botones ─── */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    font-size: 0.875rem; font-weight: 500; padding: 0.625rem 1rem;
-    border-radius: 0.5rem; border: 1px solid transparent; cursor: pointer;
-    transition: background-color .15s, border-color .15s, color .15s;
-  }
-  .btn-lg { padding: 0.625rem 2rem; font-size: 1rem; }
-  .icon-lg { width: 1.125rem; height: 1.125rem; }
-  .btn-primary { background: var(--rose-500); color: #fff; }
-  .btn-primary:hover { background: var(--rose-600); }
-  .btn-outline { border-color: color-mix(in oklab, var(--white-200) 20%, transparent); color: var(--white-200); }
-  .btn-outline:hover { background: color-mix(in oklab, var(--white-50) 5%, transparent); }
-  .btn-outline-dark { border-color: var(--dark-600); color: var(--white-300); }
-  .btn-outline-dark:hover { background: var(--dark-800); }
-  .btn-ghost { color: var(--sky-400); }
-  .btn-ghost:hover { color: var(--sky-300); }
-
-  /* ─── Nav de secciones ─── */
-  .section-nav {
-    position: sticky; top: 4rem; z-index: 40; padding: 0.75rem 0;
-    background: color-mix(in oklab, var(--dark-950) 90%, transparent);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent);
-    border-bottom: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent);
-  }
-  .section-nav-inner { display: flex; flex-wrap: nowrap; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.25rem; scrollbar-width: thin; }
-  .section-chip {
-    display: inline-flex; flex-shrink: 0; align-items: center; gap: 0.5rem;
-    padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; color: var(--white-300);
-    border: 1px solid color-mix(in oklab, var(--dark-700) 50%, transparent);
-    background: color-mix(in oklab, var(--dark-900) 70%, transparent);
-    transition: border-color .15s, color .15s;
-  }
-  .section-chip:hover { border-color: color-mix(in oklab, var(--teal-700) 50%, transparent); color: var(--sky-300); }
-  .section-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--rose-400); }
-  .section-icon { color: var(--sky-400); }
-
-  /* ─── Secciones ─── */
-  .block { padding: 5rem 0; scroll-margin-top: 10rem; }
-  .block-a { background: var(--dark-900); }
-  .block-b { background: var(--dark-950); }
-  .block-title {
-    display: flex; align-items: center; gap: 0.75rem;
-    font-size: 1.875rem; font-weight: 700; color: var(--white-50); margin-bottom: 1.5rem;
-  }
-  .block-sub { color: var(--white-400); margin-bottom: 2.5rem; }
-  .icon-xl { width: 1.5rem; height: 1.5rem; }
-  .accent-rose { color: var(--rose-400); }
-  .accent-teal { color: var(--teal-400); }
-  .accent-sky { color: var(--sky-400); }
-  .accent-emerald { color: var(--emerald-400); }
-  .lead { font-size: 1.125rem; color: var(--white-300); line-height: 1.625; }
-
-  /* ─── Experiencia ─── */
-  .timeline > * + * { margin-top: 2.5rem; }
-  .timeline-item { position: relative; padding-left: 1.5rem; border-left: 2px solid color-mix(in oklab, var(--teal-700) 50%, transparent); }
-  .timeline-dot {
-    position: absolute; left: -7px; top: 0.25rem; width: 0.75rem; height: 0.75rem;
-    border-radius: 9999px; background: var(--teal-500); border: 2px solid var(--dark-950);
-  }
-  .entry-head { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.25rem; }
-  .entry-role { font-size: 1.25rem; font-weight: 600; color: var(--white-100); }
-  .entry-period { font-size: 0.875rem; color: var(--white-500); font-family: var(--font-mono); }
-  .entry-company { font-size: 0.875rem; color: var(--sky-400); margin-bottom: 0.5rem; }
-  .entry-desc { font-size: 0.875rem; color: var(--white-400); margin-bottom: 0.75rem; }
-  .entry-list { list-style: none; padding: 0; }
-  .entry-list > li + li { margin-top: 0.5rem; }
-  .entry-list li, .skills-list li, .extra-list li { display: flex; gap: 0.5rem; font-size: 0.875rem; color: var(--white-300); line-height: 1.625; }
-  .mt { margin-top: 0.125rem; }
-  .mt-lg { margin-top: 0.25rem; }
-  @media (min-width: 640px) {
-    .entry-head { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 0.25rem; }
-  }
-
-  /* ─── Formación ─── */
-  .card-list > * + * { margin-top: 1rem; }
-  .card {
-    padding: 1rem; border-radius: 0.5rem;
-    border: 1px solid color-mix(in oklab, var(--dark-700) 40%, transparent);
-    background: color-mix(in oklab, var(--dark-800) 40%, transparent);
-  }
-  .card-title { font-weight: 600; color: var(--white-100); }
-  .card-period { font-size: 0.75rem; color: var(--white-500); font-family: var(--font-mono); }
-  .card-note { font-size: 0.875rem; color: var(--white-500); margin-top: 0.25rem; }
-
-  /* ─── Skills ─── */
-  .skills-grid { display: grid; gap: 2.5rem; margin-bottom: 3rem; }
-  .skills-head { font-size: 1.125rem; font-weight: 600; color: var(--white-100); margin-bottom: 1rem; }
-  .skills-list { list-style: none; padding: 0; }
-  .skills-list > li + li { margin-top: 0.75rem; }
-  .lang-head { display: flex; align-items: center; gap: 0.5rem; }
-  .lang-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .lang-chip {
-    padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem;
-    border: 1px solid color-mix(in oklab, var(--dark-700) 40%, transparent);
-    background: color-mix(in oklab, var(--dark-800) 40%, transparent);
-  }
-  .lang-name { color: var(--white-200); font-weight: 500; }
-  .lang-level { color: var(--white-500); }
-  @media (min-width: 768px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
-
-  /* ─── Información adicional + CTA ─── */
-  .extra-list { list-style: none; padding: 0; margin-bottom: 3rem; }
-  .extra-list > li + li { margin-top: 1rem; }
-  .extra-list li { font-size: 1rem; }
-  .cta { padding-top: 2rem; border-top: 1px solid color-mix(in oklab, var(--dark-700) 50%, transparent); text-align: center; }
-  .cta-text { color: var(--white-400); margin-bottom: 1.5rem; }
-  .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
-
-  /* ─── Footer ─── */
-  .site-footer { border-top: 1px solid color-mix(in oklab, var(--dark-800) 60%, transparent); background: var(--dark-900); padding: 1.5rem 0; }
-  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .footer-text { font-size: 0.875rem; color: var(--white-500); }
-  .footer-social { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; color: var(--white-400); transition: color .15s, background-color .15s; }
-  .footer-social:hover { color: var(--white-50); background: var(--dark-800); }
-</style>

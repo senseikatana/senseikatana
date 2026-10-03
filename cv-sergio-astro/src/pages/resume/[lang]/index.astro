@@ -1,15 +1,20 @@
 ---
 import ResumeLayout from '../../../layouts/ResumeLayout.astro';
-import { meta, ui, profiles } from '../../../data/resume';
+import { meta, ui, profiles, LANGS, PROFILE_IDS, type Lang } from '../../../data/resume';
 
+/**
+ * `getStaticPaths()` corre en un scope aislado: no puede leer variables del
+ * frontmatter, pero sí los imports a nivel de módulo. Por eso `LANGS` vive en
+ * `data/resume.ts` en vez de redeclararse acá.
+ */
 export function getStaticPaths() {
-  return [{ params: { lang: 'es' } }, { params: { lang: 'ca' } }, { params: { lang: 'en' } }];
+  return LANGS.map((lang) => ({ params: { lang } }));
 }
 
-const { lang } = Astro.params as { lang: 'es' | 'ca' | 'en' };
+const { lang } = Astro.params as { lang: Lang };
 const t = ui[lang];
-const profileIds = ['logistica', 'fullstack', 'generico'] as const;
 ---
+
 <ResumeLayout title={t.subtitle} lang={lang}>
   <section class="hero">
     <p class="greeting">{t.greeting}</p>
@@ -24,18 +29,21 @@ const profileIds = ['logistica', 'fullstack', 'generico'] as const;
 
   <hr />
 
-  <h2>Sobre mí</h2>
-  {t.bio.map((p: string) => <p>{p}</p>)}
-  <p><a href={`mailto:${meta.email}`}>{meta.email}</a> · <a href={`tel:${meta.phone}`}>{meta.phone}</a></p>
+  <h2>{t.aboutHeading}</h2>
+  {t.bio.map((paragraph) => <p>{paragraph}</p>)}
+  <p>
+    <a href={`mailto:${meta.email}`}>{meta.email}</a> ·
+    <a href={`tel:${meta.phone.replace(/\s/g, '')}`}>{meta.phone}</a>
+  </p>
 
   <hr />
 
   <h2>{t.whatIDo}</h2>
   <div class="card-grid">
-    {t.servicesList.map((s: any) => (
+    {t.servicesList.map((service) => (
       <article class="card">
-        <h3>{s.t}</h3>
-        <p class="muted">{s.d}</p>
+        <h3>{service.t}</h3>
+        <p class="muted">{service.d}</p>
       </article>
     ))}
   </div>
@@ -44,25 +52,22 @@ const profileIds = ['logistica', 'fullstack', 'generico'] as const;
 
   <h2>{t.choose}</h2>
   <div class="card-grid">
-    {profileIds.map((id) => {
-      const p = profiles[id][lang];
-      const href = `/resume/${lang}/${id}/`;
-      return (
-        <a href={href} class="card profile-card">
-          <h3>{p.title}</h3>
-          <p class="muted">{p.desc}</p>
-          <span class="arrow">{t.view}</span>
-        </a>
-      );
-    })}
+    {PROFILE_IDS.map((id) => (
+      <a href={`/resume/${lang}/${id}/`} class="card profile-card">
+        <h3>{profiles[id][lang].title}</h3>
+        <p class="muted">{profiles[id][lang].desc}</p>
+        <span class="arrow">{t.view}</span>
+      </a>
+    ))}
   </div>
 
   <hr />
 
   <h2>{t.links}</h2>
   <p>
-    <a href={meta.linkedin} target="_blank" rel="noopener">LinkedIn</a> ·
-    <a href={meta.github} target="_blank" rel="noopener">GitHub</a> ·
+    <a href={meta.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
+    <a href={meta.github} target="_blank" rel="noopener noreferrer">GitHub</a> ·
+    <a href={`/resume/${lang}/about/`}>{t.about}</a> ·
     <a href={`/resume/${lang}/shop/`}>{t.shopTitle}</a> ·
     <a href={`/resume/${lang}/contact/`}>{t.contact}</a>
   </p>
@@ -70,8 +75,9 @@ const profileIds = ['logistica', 'fullstack', 'generico'] as const;
 
 <style>
   .hero { text-align: center; padding: 2rem 0; }
-  .greeting { font-size: 1.4rem; color: var(--muted); margin-bottom: .25rem; }
-  .roles { font-family: var(--font-mono); color: var(--accent); font-size: 1.05rem; margin: .5rem 0; }
+  .greeting { font-size: 1.4rem; color: var(--muted); margin-bottom: 0.25rem; }
+  .roles { font-family: var(--font-mono); color: var(--accent); font-size: 1.05rem; margin: 0.5rem 0; }
   .profile-card { text-decoration: none; color: inherit; display: block; }
-  .arrow { color: var(--accent); font-weight: 700; font-size: .9rem; display: block; margin-top: .5rem; }
+  .profile-card:hover h3 { color: var(--accent); }
+  .arrow { color: var(--accent); font-weight: 700; font-size: 0.9rem; display: block; margin-top: 0.5rem; }
 </style>
