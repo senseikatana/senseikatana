@@ -41,6 +41,12 @@ jobs:
             exit 0
           fi
 
+          # A newer run may have published this commit before a delayed run starts.
+          if git merge-base --is-ancestor "$head" "$main"; then
+            echo "main already contains ${head:0:7}; nothing to sync"
+            exit 0
+          fi
+
           # Divergence means someone pushed to main by hand. Fail loudly instead
           # of silently drifting, and never force without a pinned lease.
           if ! git merge-base --is-ancestor "$main" "$head"; then
