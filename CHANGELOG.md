@@ -7,11 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.14.0] - 2026-10-17
+
+### Changed
+
+- Repository scope is now the GitHub profile README only
+
+### Removed
+
+- **resume-senseikatana**: moved out of this repository to a standalone project (69 files)
+
 ## [1.13.3] - 2026-10-17
 
 Maintenance release with 1 change.
 
-- [x] 🔹 ]7;file://localhost/home/senseikatana/Proyectos/senseikatana added 114 packages, and audited 115 packages in 7s
+- [x] 🔹 added 114 packages, and audited 115 packages in 7s
   - `colour-wheel-playground/.gitignore`
   - `colour-wheel-playground/AGENTS.md`
   - `colour-wheel-playground/CHANGELOG.md`
