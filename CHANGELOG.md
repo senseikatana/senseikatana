@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.0.2] - 2026-10-17
+
+Highlights: fix(ci): sync main with full history, concurrency guard and single-writer ref, plus 1 more change.
+
+- [x] 🧹 chore(gitignore): drop leftover eslint config exception
+  - `.gitignore`
+- [x] 🐛 fix(ci): sync main with full history, concurrency guard and single-writer ref
+  - `.github/workflows/sync-main.yml`
+  - `AGENTS.md`
+- [x] 🐛 fix!: update dependencies, add husky, and sync main with dev
+- [x] 📝 docs(agents): add AGENTS.md with verified repo traps
+- [x] 📝 docs(readme): rewrite profile README with verified links
+- [x] 🐛 fix(changelog): repair malformed 1.7.0 list entry
+
 ## [2.0.0] - 2026-10-17
 
 Highlights: fix!: update dependencies, add husky, and sync main with dev.
