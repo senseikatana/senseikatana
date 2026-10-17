@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.1.1] - 2026-10-17
+
+Highlights: fix: update dependencies and package-lock.json to latest versions.
+
+- [x] 🐛 fix: update dependencies and package-lock.json to latest versions
+  - `package-lock.json`
+  - `package.json`
+- [x] 📝 docs(readme): switch contact email to github-senseikatana@protonmail.com
+- [x] 🧹 chore(gitignore): drop leftover eslint config exception
+- [x] 🐛 fix(ci): sync main with full history, concurrency guard and single-writer ref
+- [x] 🐛 fix!: update dependencies, add husky, and sync main with dev
+- [x] 📝 docs(agents): add AGENTS.md with verified repo traps
+
 ## [2.1.0] - 2026-10-17
 
 Maintenance release with 1 change.
