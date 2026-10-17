@@ -6,7 +6,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-senseikatana-181717?style=flat&logo=github&logoColor=white)](https://github.com/senseikatana)
 [![Docs](https://img.shields.io/badge/Docs-docs.senseikatana.com-000000?style=flat&logo=readthedocs&logoColor=white)](https://docs.senseikatana.com)
-[![Email](https://img.shields.io/badge/Email-burocracia%40yandex.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:burocracia@yandex.com)
+[![Email](https://img.shields.io/badge/Email-github--senseikatana%40protonmail.com-6D4AFF?style=flat&logo=protonmail&logoColor=white)](mailto:github-senseikatana@protonmail.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
 </div>
@@ -108,6 +108,6 @@
 
 - **GitHub** — [senseikatana](https://github.com/senseikatana)
 - **Docs** — [docs.senseikatana.com](https://docs.senseikatana.com)
-- **Email** — [burocracia@yandex.com](mailto:burocracia@yandex.com)
+- **Email** — [github-senseikatana@protonmail.com](mailto:github-senseikatana@protonmail.com)
 
 Released under the [MIT License](LICENSE) © 2026 Sergio Jurado.
