@@ -1,0 +1,17 @@
+name: Sync main
+
+on:
+  push:
+    branches:
+      - dev
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push dev to main
+        run: git push origin HEAD:main

@@ -9,6 +9,9 @@ bun.lockb
 # Carpetas y archivos ocultos del sistema
 .*
 !.gitignore
+!.github/
+!.husky/
+!.nojekyll
 !.env.example
 !.prettierrc
 !.eslintrc.json
@@ -45,4 +48,3 @@ coverage/
 # OS
 .DS_Store
 Thumbs.db
-

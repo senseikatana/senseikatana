@@ -2,9 +2,8 @@
 
 Guidance for agents working in this repository. Verified 2026-10-17.
 
-Known repo defects are tracked as GitHub issues (#4 to #10). Check
-`gh issue list --state open` before changing anything here — several of the traps below are
-already filed with a proposed fix.
+The remaining repository maintenance issue is tracked in GitHub issue #10. Check
+`gh issue list --state open` before changing anything here.
 
 ## What this repo is
 
@@ -22,35 +21,29 @@ silently removes the README from the profile. A showcase site belongs in a separ
 `main` is the default branch and the one GitHub renders. `dev` is where work happens.
 They are expected to be identical.
 
-They drift silently: if the local `main` is behind, `git push origin dev main` pushes only
-`dev` and reports success. Always confirm with `git ls-remote --heads origin` after pushing.
+Pushes to `dev` are synchronized to `main` by `.github/workflows/sync-main.yml`. Always
+confirm with `git ls-remote --heads origin` after pushing.
 
-## Scripts: none of them work
+## Scripts
 
-Do not try to run this project — there is no app, no build and no test.
-
-- `npm run dev` / `npm run build` — the script is `"bun run dev"`, which calls itself. It
-  recurses until `E2BIG: Argument list too long` **and still exits 0**, so CI and any script
-  checking the exit code reads the failure as a pass.
-- `npm run check` / `npm run format` — point at `./snippets-lab/`, which no longer exists in
-  this repo. Biome fails with `INTERNAL / No such file or directory`. Exits 1.
+This repository contains no app, build, or test suite. The `dev` and `build` scripts are
+intentionally absent. `npm run check` and `npm run format` run Prettier on the maintained
+Markdown and package manifest files.
 
 ## Committing
 
 - Conventional commits only. No `Co-Authored-By`, no AI attribution.
 - The pre-commit hook runs `npx lint-staged`. Markdown, JSON, YAML, CSS and HTML go through
   `prettier --write` only.
-- **JS/TS files go through `eslint --fix`, and there is no ESLint config at the root**, so the
-  hook fails on the first commit that touches a `.js`/`.ts`/`.mjs`/`.cjs` file. Expect it, and
-  do not silence it with `--no-verify` without asking.
+- This is a documentation-only repository; JavaScript and TypeScript files are not configured
+  for linting.
 
-## `.gitignore` landmines
+## `.gitignore`
 
-- Line 10 is `.*`, which silently ignores `.github/`, `.husky/` and `.nojekyll`. A CI workflow
-  will appear to save and never be committed. Husky hooks are **not** tracked, so a fresh clone
-  has no hooks at all.
+- The `.*` rule is followed by exceptions for `.github/`, `.husky/` and `.nojekyll`; keep these
+  exceptions if changing the ignore rules.
 - `dist/` is ignored everywhere, so build output cannot be committed without `git add -f`.
-- Before writing any workflow here, add `!.github/` to `.gitignore`.
+- Prefer deploying from CI artifacts rather than committing build output.
 
 ## README rules
 

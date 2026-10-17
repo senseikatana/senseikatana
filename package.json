@@ -4,27 +4,18 @@
   "description": "Proyecto senseikatana",
   "type": "module",
   "scripts": {
-    "dev": "bun run dev",
-    "build": "bun run build",
-    "check": "biome check ./snippets-lab/",
-    "format": "biome check --write ./snippets-lab/",
+    "check": "prettier --check README.md CHANGELOG.md AGENTS.md package.json",
+    "format": "prettier --write README.md CHANGELOG.md AGENTS.md package.json",
     "prepare": "husky"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
   "dependencies": {
-    "@biomejs/biome": "^2.5.10",
     "@js-temporal/polyfill": "^0.5.1",
     "axios": "^1.20.0",
-    "eslint": "^10.9.1",
-    "eslint-prettier": "^0.0.0-empty",
     "prettier": "^3.9.6"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
     "*.{json,jsonc,md,yml,yaml,css,scss,html}": [
       "prettier --write"
     ]

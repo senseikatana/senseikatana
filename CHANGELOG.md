@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- Repair ignored GitHub Actions, Husky, and `.nojekyll` paths.
+- Remove recursive and stale package scripts; use Prettier for maintained files.
+- Synchronize `main` from pushes to `dev`.
+- Verify the public project and documentation links in the profile README.
+
 ## [1.15.0] - 2026-10-17
 
 Highlights: fix(changelog): repair malformed 1.7.0 list entry, plus 3 more changes.
