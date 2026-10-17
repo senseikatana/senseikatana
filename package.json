@@ -7,7 +7,8 @@
     "dev": "bun run dev",
     "build": "bun run build",
     "check": "biome check ./snippets-lab/",
-    "format": "biome check --write ./snippets-lab/"
+    "format": "biome check --write ./snippets-lab/",
+    "prepare": "husky"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
@@ -18,5 +19,18 @@
     "eslint": "^10.9.1",
     "eslint-prettier": "^0.0.0-empty",
     "prettier": "^3.9.6"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,jsonc,md,yml,yaml,css,scss,html}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0"
   }
 }
