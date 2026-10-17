@@ -1,109 +1,98 @@
-# Sergio Jurado · `senseikatana`
+<div align="center">
 
-**Full-Stack Developer — Astro · TypeScript · Bun**
+# Sergio Jurado
 
-[![GitHub](https://img.shields.io/badge/GitHub-senseikatana-181717?style=flat&logo=github)](https://github.com/senseikatana)
-[![Email](https://img.shields.io/badge/Email-burocracia%40yandex.com-blue?style=flat&logo=maildotru)](mailto:burocracia@yandex.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](LICENSE)
+**Full-Stack Developer — Barcelona, Spain**
+
+[![GitHub](https://img.shields.io/badge/GitHub-senseikatana-181717?style=flat&logo=github&logoColor=white)](https://github.com/senseikatana)
+[![Docs](https://img.shields.io/badge/Docs-docs.senseikatana.com-000000?style=flat&logo=readthedocs&logoColor=white)](https://docs.senseikatana.com)
+[![Email](https://img.shields.io/badge/Email-burocracia%40yandex.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:burocracia@yandex.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat&logo=opensourceinitiative&logoColor=white)](LICENSE)
+
+</div>
+
+<br />
+
+<p align="center">
+  Full-stack developer building industrial software, e-commerce and internal tools.
+  Author of the <b>KatanaKit</b> family of open-source tools.
+</p>
 
 ---
 
-## About me
+### 👨‍💻 About
 
-Full-stack developer based in Catalonia, Spain. I build production-ready web applications with a focus on server-side rendering, design systems, and industrial-grade tooling.
+- **Focus** — Production web apps with server-side rendering, strong typing and boring, dependable tooling.
+- **Architecture** — Hexagonal boundaries, SOLID, design systems built as tokens first and components second.
+- **Domain** — Warehouse and inventory systems for manufacturing and logistics, plus storefronts for local businesses.
+- **Open source** — Four KatanaKit libraries: a TypeScript service toolkit, an SCSS framework, a systemd TUI and a Docker-driven WordPress config.
+- **Off the clock** — Minimalist photography, Arch and Debian tinkering, and a second-brain Obsidian vault run with the CODE method.
 
-My work spans warehouse management systems, e-commerce storefronts, reusable SCSS/TypeScript libraries, and multilingual personal sites — all engineered around clean architecture, SOLID principles, and strong typing.
+---
 
-## Tech stack
+### 🛠️ Tech
 
-![Astro](https://img.shields.io/badge/Astro-FF5D01?style=flat&logo=astro&logoColor=white)
+<div align="center">
+
+**Core**
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Bun](https://img.shields.io/badge/Bun-000000?style=flat&logo=bun&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+
+**Frontend**
+
+![Astro](https://img.shields.io/badge/Astro-FF5D01?style=flat&logo=astro&logoColor=white)
+![Nuxt](https://img.shields.io/badge/Nuxt-00DC82?style=flat&logo=nuxtjs&logoColor=white)
+![Vue](https://img.shields.io/badge/Vue-42b883?style=flat&logo=vuedotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
-![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat&logo=sass&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
-![Drizzle](https://img.shields.io/badge/Drizzle-C5F74F?style=flat&logo=drizzle&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vitedotjs&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat&logo=sass&logoColor=white)
+
+**Backend & Data**
+
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=flat&logo=prisma&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
-![Zod](https://img.shields.io/badge/Zod-3E67B1?style=flat&logo=zod&logoColor=white)
-![Auth.js](https://img.shields.io/badge/Auth.js-000000?style=flat&logo=auth0&logoColor=white)
+
+**Systems**
+
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat&logo=gnubash&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat&logo=linux&logoColor=black)
+![WordPress](https://img.shields.io/badge/WordPress-21759B?style=flat&logo=wordpress&logoColor=white)
+
+</div>
 
 ---
 
-## Featured projects
+### 📦 Projects
 
-### Warehouse & Industrial
+**KatanaKit — open source**
 
-#### [app-sga-astro](./app-sga-astro/)
-**ESINSA WMS** — custom Warehouse Management System for Esinsa Gaskets (Tarragona, Spain). NUT code generation, rack/location management, A4 label printing with Code128 barcodes, bidirectional Google Sheets sync, and OAuth-based staff access.
+- **[katanakit-js](https://github.com/senseikatana/katanakit-js)** — Framework-agnostic TypeScript service toolkit built on hexagonal architecture. [Docs](https://docs.senseikatana.com)
+- **[katanakit-css](https://github.com/senseikatana/katanakit-css)** — Modular SCSS framework: design tokens, utility classes and an `@apply`-style system.
+- **[katanakit-sysli](https://github.com/senseikatana/katanakit-sysli)** — `ksys`, a TUI for units, timers, journal, boot, network and sessions.
+- **[katanakit-wp](https://github.com/senseikatana/katanakit-wp)** — Code-first WordPress configuration. Bun scripts wrapping PHP in Docker.
 
-`Astro` `TypeScript` `Drizzle ORM` `Zod` `Auth.js` `Google Sheets API` `@react-pdf/renderer`
+**Apps**
 
-#### [whm-dashboard-app](./whm-dashboard-app/)
-**WHM Dashboard** — warehouse management dashboard built with Astro SSR and Prisma, with multi-language (ES/EN/CA) routing and role-based authentication.
+- **[hueplay](https://github.com/senseikatana/hueplay)** — Interactive tool for reading the difference between HSL and OKLCH.
+- **[empresaplana.cat](https://github.com/senseikatana/empresaplana.cat)** — Transport company site and dashboard. Astro with Vue islands, Prisma and PostgreSQL.
+- **[erp-lite-dashboard](https://github.com/senseikatana/erp-lite-dashboard)** — Multi-company ERP for logistics and distribution. FastAPI, SQLAlchemy and Nuxt, SQLite by default.
+- **[pos-system](https://github.com/senseikatana/pos-system)** — Point of sale and inventory platform on Nuxt 4, Prisma and hexagonal boundaries.
 
-`Astro` `TypeScript` `Prisma` `Tailwind CSS`
+**Personal**
 
-### E-commerce & Business
-
-#### [numperfume-astro](./numperfume-astro/)
-**NUM Perfumes** — digital storefront for a fragrance brand offering equivalent/inspired perfumes in 50ml and 100ml formats. SEO-optimized catalog and responsive product browsing.
-
-`Astro` `TypeScript` `Tailwind CSS`
-
-#### [treslunas-astro](./treslunas-astro/)
-**Tres Lunas Boutique** — e-commerce site for a boutique in Cambrils, Catalonia.
-
-`Astro` `TypeScript` `SQLite`
-
-#### [empresaplanacat-astro](./empresaplanacat-astro/)
-**Empresa Plana** — business site with Drizzle ORM persistence and Google Sheets integration.
-
-`Astro` `TypeScript` `Drizzle ORM` `Google Sheets API`
-
-### Landing pages
-
-#### [singha-beer-landing](./singha-beer-landing/)
-**Singha Beer** — beverage landing page built with React and Vite.
-
-`React` `JavaScript` `Vite`
-
-### Personal
-
-#### [resume-cv-withastro](./resume-cv-withastro/)
-**CV / Portfolio** — multilingual (Spanish, Catalan, English) digital résumé with dedicated variants for logistics, fullstack, and generic profiles.
-
-`Astro` `TypeScript`
-
-### Libraries & Tools
-
-#### [apify-sensei](./apify-sensei/)
-**Universal API Manager** — framework-agnostic API URL builder and fetch utility. Pure TypeScript, zero dependencies, tree-shakeable, with whitespace-resilient JSON normalization.
-
-`TypeScript` `Zero-dependencies`
-
-#### [minicss-sensei](./minicss-sensei/)
-**Katana Kami** — lightweight, modular SCSS framework. Design-token driven with functions, variables, breakpoints, colors, grid, and auto-generated utility classes.
-
-`SCSS` `Design System`
-
-#### [snippets-lib-sensei](./snippets-lib-sensei/)
-**Utils Library Hub** — modular, tree-shakeable utility functions for TypeScript/Bun plus a class-based `Lambda` facade (dates, math, http, objects, strings, logger).
-
-`TypeScript` `Bun`
-
-### Experiments
-
-#### [astrofy-tmp](./astrofy-tmp/)
-Astro starter project used as a sandbox for templates and experiments.
-
-`Astro`
+- **[plate-numerology](https://github.com/senseikatana/plate-numerology)** — Numerology plate generator, built as a side project.
 
 ---
 
-## GitHub stats
+### 📊 GitHub Stats
 
 <div align="center">
 
@@ -115,13 +104,10 @@ Astro starter project used as a sandbox for templates and experiments.
 
 ---
 
-## Contact
+### Let's Connect
 
-- **GitHub:** [senseikatana](https://github.com/senseikatana)
-- **Email:** [burocracia@yandex.com](mailto:burocracia@yandex.com)
-
----
-
-## License
+- **GitHub** — [senseikatana](https://github.com/senseikatana)
+- **Docs** — [docs.senseikatana.com](https://docs.senseikatana.com)
+- **Email** — [burocracia@yandex.com](mailto:burocracia@yandex.com)
 
 Released under the [MIT License](LICENSE) © 2026 Sergio Jurado.
