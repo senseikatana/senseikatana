@@ -8,10 +8,45 @@ on:
 permissions:
   contents: write
 
+# One writer per ref. Without this, two pushes in quick succession race each
+# other and the slower run pushes a stale main, reintroducing the drift.
+concurrency:
+  group: sync-main
+  cancel-in-progress: false
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # v4 targets the deprecated node20 runtime; v7 runs on node24.
+      # Pinned by SHA: this job holds write access to the branch GitHub renders
+      # publicly, so the ref is the trust boundary and must not be a mutable tag.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history is mandatory here. With the default shallow clone
+          # (fetch-depth: 1) git cannot prove HEAD descends from origin/main,
+          # so the push is rejected as non-fast-forward ("fetch first").
+          # It also makes the merge-base divergence guard below trustworthy:
+          # is-ancestor can answer wrongly against a shallow boundary.
+          fetch-depth: 0
       - name: Push dev to main
-        run: git push origin HEAD:main
+        shell: bash
+        run: |
+          git fetch origin main
+          head=$(git rev-parse HEAD)
+          main=$(git rev-parse origin/main)
+
+          if [ "$head" = "$main" ]; then
+            echo "main is already at ${head:0:7}; nothing to sync"
+            exit 0
+          fi
+
+          # Divergence means someone pushed to main by hand. Fail loudly instead
+          # of silently drifting, and never force without a pinned lease.
+          if ! git merge-base --is-ancestor "$main" "$head"; then
+            echo "::error::main ($main) has diverged from dev ($head). Resolve by hand."
+            exit 1
+          fi
+
+          git push origin HEAD:main
+          echo "main advanced ${main:0:7} -> ${head:0:7}"

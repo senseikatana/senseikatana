@@ -2,15 +2,14 @@
 
 Guidance for agents working in this repository. Verified 2026-10-17.
 
-The remaining repository maintenance issue is tracked in GitHub issue #10. Check
-`gh issue list --state open` before changing anything here.
+Check `gh issue list --state open` before changing anything here.
 
 ## What this repo is
 
 `senseikatana/senseikatana` is the **GitHub profile README repo**. It renders at
 `github.com/senseikatana`. It holds no application code — the only tracked files are
 `README.md`, `CHANGELOG.md`, `AGENTS.md`, `LICENSE`, `package.json`, `package-lock.json`,
-`.gitignore`.
+`.gitignore`, `.github/workflows/sync-main.yml` and `.husky/pre-commit`.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
@@ -21,8 +20,20 @@ silently removes the README from the profile. A showcase site belongs in a separ
 `main` is the default branch and the one GitHub renders. `dev` is where work happens.
 They are expected to be identical.
 
-Pushes to `dev` are synchronized to `main` by `.github/workflows/sync-main.yml`. Always
-confirm with `git ls-remote --heads origin` after pushing.
+**Never push `main` by hand. `main` has exactly one writer: the CI sync workflow.**
+Pushing `origin dev main` alongside every commit is what silently kept `main` alive while
+the workflow was broken, and it races the workflow when both are active. Work on `dev`,
+then:
+
+```bash
+git push origin dev
+```
+
+Pushes to `dev` are synchronized to `main` by `.github/workflows/sync-main.yml`, which
+checks out with `fetch-depth: 0`, serializes runs with a `concurrency` group, no-ops when
+`main` already matches, and fails loudly with `::error::` if the branches diverged.
+Confirm with `git ls-remote --heads origin` after pushing, and confirm the workflow run
+with `gh run list --workflow sync-main.yml`.
 
 ## Scripts
 
@@ -71,7 +82,7 @@ Markdown and package manifest files.
   tag points at it, the rewrite is a public event and needs the user's explicit go-ahead.
 - Rewrite with `git commit-tree <tree> -p <parent>` so the content is identical by construction,
   then move the ref with `git update-ref <ref> <new> <old>` (compare-and-swap).
-- Rollback refs from the 2026-10-17 rewrite: `refs/backup/pre-rewrite-old1` (`1ab191a`) and
-  `refs/backup/pre-rewrite-old2` (`38df417`). Delete them once the user is satisfied.
+- The local-only rollback refs from the 2026-10-17 rewrite were deleted once the replacement
+  was confirmed good. Recover that state from GitHub's reflog, not from a local ref.
 - `CHANGELOG.md` is hand-maintained Keep a Changelog. A version bump touches `CHANGELOG.md` and
   `package.json` together, committed as `docs(changelog): v<version>`.
