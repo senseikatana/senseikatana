@@ -7,14 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.0.0] - 2026-10-17
 
-### Fixed
+Highlights: fix!: update dependencies, add husky, and sync main with dev.
 
-- Repair ignored GitHub Actions, Husky, and `.nojekyll` paths.
-- Remove recursive and stale package scripts; use Prettier for maintained files.
-- Synchronize `main` from pushes to `dev`.
-- Verify the public project and documentation links in the profile README.
+- [x] 🐛 fix!: update dependencies, add husky, and sync main with dev
+  - `.github/workflows/sync-main.yml`
+  - `.gitignore`
+  - `.husky/pre-commit`
+  - `AGENTS.md`
+  - `package-lock.json`
+  - `package.json`
+- [x] 📝 docs(agents): add AGENTS.md with verified repo traps
+- [x] 📝 docs(readme): rewrite profile README with verified links
+- [x] 🐛 fix(changelog): repair malformed 1.7.0 list entry
+- [x] ♻️ refactor(repo): drop resume-senseikatana, keep profile README only
+- [x] 🔹 ]7;file://localhost/home/senseikatana/Proyectos/senseikatana added 114 packages, and audited 115 packages in 7s
 
 ## [1.15.0] - 2026-10-17
 
