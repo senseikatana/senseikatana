@@ -115,5 +115,5 @@ Maintenance release with 1 change.
 
 ### Changed
 
-- **resume-senseikatana**: update dependencies or build settings in 2 files$'
-  '- **layouts**: update dependencies or build settings in 10 files
+- **resume-senseikatana**: update dependencies or build settings in 2 files
+  - **layouts**: update dependencies or build settings in 10 files
