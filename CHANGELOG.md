@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.2] - 2026-11-01
+
+Highlights: feat: ignore vitepress build output and env files in .gitignore (#12).
+
+- 🚀 feat: ignore vitepress build output and env files in .gitignore (#12) `7584eae`
+  - `bun.lock`
+  - `package.json`
+- 🚀 feat: ignore vitepress build output and env files in .gitignore (#12) `72a8b4f`
+- 🧹 chore: move katanakit-js to monorepo `182bc74`
+- 🧹 chore(katanakit-js): update 1 file (+1/-0) `f89c842`
+- 🐛 fix: update dependencies and package-lock.json to latest versions `05576cb`
+- 🐛 fix(ci): skip sync when main already contains the commit `90019c6`
+
 ## [2.2.1] - 2026-11-01
 
 Highlights: feat: ignore vitepress build output and env files in .gitignore (#12), plus 1 more change.
