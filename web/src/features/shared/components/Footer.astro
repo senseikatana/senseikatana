@@ -18,7 +18,11 @@ import Logo from './Logo.astro';
             <ul class="mt-4 space-y-3 text-[13px]">
               {column.links.map(([label, href]) => (
                 <li>
-                  <a href={href} class="text-steel hover:text-ink">
+                  <a
+                    href={href}
+                    class="text-steel hover:text-ink"
+                    rel={href.startsWith('http') ? 'me noopener' : undefined}
+                  >
                     {label}
                   </a>
                 </li>
