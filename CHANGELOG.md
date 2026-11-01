@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.2] - 2026-11-01
+
+Maintenance release with 1 change.
+
+- 🧹 chore(i18n): add body, element and endpoint `028ee66`
+  - `.env.example`
+  - `web/src/config/site.ts`
+  - `web/src/configs/i18n/ca.json`
+  - `web/src/configs/i18n/en.json`
+  - `web/src/configs/i18n/es.json`
+  - `web/src/env.d.ts`
+  - `web/src/features/contact/components/ContactForm.astro`
+  - `web/src/pages/contact.astro`
+- 🤖 ci(components): add alternates, bare and barePath `14cd5d9`
+- ♻️ refactor(web): move app shell out of features and keep FBA for domain slices `4d35968`
+- 📝 docs(agents): describe the Astro workspace and the root tooling `58f8ef6`
+- 🐛 fix(web): add reduced-motion guard and rel on external footer links `40ed2b5`
+- 🧹 chore(repo): remove stale npm lockfile `df56283`
+
 ## [3.1.1] - 2026-11-01
 
 Highlights: feat(web): rebuild the site on Astro with feature-based architecture and fix(web): add reduced-motion guard and rel on external footer links, plus 6 more changes.
