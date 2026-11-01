@@ -1,13 +1,31 @@
 {
   "name": "senseikatana",
-  "version": "2.3.0",
-  "description": "Proyecto senseikatana",
+  "version": "3.0.0",
+  "description": "Monorepo: KatanaKit library, personal website, and docs",
+  "private": true,
   "type": "module",
+  "packageManager": "bun@1.4.4",
+  "workspaces": [
+    "katana-kit",
+    "katana-kit/packages/ui",
+    "apps/web",
+    "workers/router"
+  ],
+  "trustedDependencies": [
+    "better-sqlite3",
+    "sharp",
+    "esbuild"
+  ],
   "scripts": {
-    "check": "prettier --check README.md CHANGELOG.md AGENTS.md package.json",
+    "check": "prettier --check README.md CHANGELOG.md AGENTS.md package.json && bun run --filter katanakit-js check",
     "format": "prettier --write README.md CHANGELOG.md AGENTS.md package.json",
     "prepare": "husky",
-    "build": "rimraf node_modules && rimraf dist/"
+    "docs": "bun run --filter katanakit-js docs",
+    "docs:dev": "bun run --filter katanakit-js docs:dev",
+    "web:dev": "bun run --filter @senseikatana/web dev",
+    "web:build": "bun run --filter @senseikatana/web build",
+    "router:dev": "bun run --cwd workers/router dev",
+    "router:deploy": "bun run --cwd workers/router deploy"
   },
   "author": "Sergio Jurado",
   "license": "MIT",

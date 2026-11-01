@@ -8,10 +8,10 @@ bun.lockb
 
 
 # VitePress build output
-katanakit-js/docs/.vitepress/dist/
-katanakit-js/docs/.vitepress/cache/
-katanakit-js/.env
-katanakit-js/.env.*
+katana-kit/docs/.vitepress/dist/
+katana-kit/docs/.vitepress/cache/
+katana-kit/.env
+katana-kit/.env.*
 
 # Carpetas y archivos ocultos del sistema
 .*

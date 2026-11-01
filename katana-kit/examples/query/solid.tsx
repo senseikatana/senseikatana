@@ -5,10 +5,9 @@
  * `query.isFetching`, etc. directly. Pass a getter (`() => ({ … })`) so the
  * query follows signals.
  */
-import { createSignal, Show } from "solid-js";
-
+import { defineApiConfig, useGetApi, usePost } from "katanakit-js";
 import { useMutation, useQuery, useQueryClient, useSafeQueryFn } from "katanakit-js/adapters/solid";
-import { useGetApi, defineApiConfig, usePost } from "katanakit-js";
+import { createSignal, Show } from "solid-js";
 
 // App bootstrap: register the APIs once (in a real app this lives in your entry file).
 defineApiConfig({

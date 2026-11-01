@@ -8,9 +8,9 @@
 
 import {
 	defineWordPressConfig,
-	useWpListAllPosts,
 	useWpFindPostBySlug,
 	useWpGetComments,
+	useWpListAllPosts,
 } from "katanakit-js/adapters/wordpress";
 
 defineWordPressConfig({

@@ -8,8 +8,7 @@
  *
  * Result shape is TanStack's: `{ data, error, isPending, isFetching, isSuccess, isError, status, refetch }`.
  */
-import { useState } from "react";
-
+import { defineApiConfig, useGetApi, usePost } from "katanakit-js";
 import {
 	useCreateQueryClient,
 	useMutation,
@@ -17,7 +16,7 @@ import {
 	useQueryClient,
 	useSafeQueryFn,
 } from "katanakit-js/adapters/react";
-import { useGetApi, defineApiConfig, usePost } from "katanakit-js";
+import { useState } from "react";
 
 // App bootstrap: register the APIs once (in a real app this lives in your entry file).
 defineApiConfig({

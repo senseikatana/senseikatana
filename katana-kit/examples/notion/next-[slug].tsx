@@ -8,8 +8,8 @@
 
 import {
 	defineNotionConfig,
-	useNotionListAllDatabasePages,
 	useNotionListAllBlockChildren,
+	useNotionListAllDatabasePages,
 } from "katanakit-js/adapters/notion";
 
 defineNotionConfig({ token: process.env.NOTION_TOKEN! });

@@ -1,0 +1,14 @@
+{
+  "name": "senseikatana-router",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "wrangler types --check"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}

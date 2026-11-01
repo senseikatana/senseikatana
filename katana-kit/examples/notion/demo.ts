@@ -12,21 +12,21 @@
 
 import {
 	defineNotionConfig,
-	useNotionGetPage,
-	useNotionCreatePage,
-	useNotionUpdatePage,
-	useNotionArchivePage,
-	useNotionGetBlockChildren,
-	useNotionListAllBlockChildren,
 	useNotionAppendBlocks,
-	useNotionGetDatabase,
-	useNotionQueryDatabase,
-	useNotionListAllDatabasePages,
+	useNotionArchivePage,
 	useNotionCreateDatabase,
-	useNotionUpdateDatabase,
+	useNotionCreatePage,
+	useNotionGetBlockChildren,
+	useNotionGetDatabase,
+	useNotionGetPage,
 	useNotionGetUser,
+	useNotionListAllBlockChildren,
+	useNotionListAllDatabasePages,
 	useNotionListUsers,
+	useNotionQueryDatabase,
 	useNotionSearchContent,
+	useNotionUpdateDatabase,
+	useNotionUpdatePage,
 } from "../../src/adapters/notion/index.js";
 
 /* ------------------------------------------------------------------ */

@@ -8,13 +8,13 @@
  * observer. Swap the fake `apiGetPokemon` for `useGetApi`/`useFetch` and the
  * pattern is identical.
  */
+import type { FetchResult } from "katanakit-js";
 import {
 	useMutation,
 	useQuery,
 	useQueryClient,
 	useSafeQueryFn,
 } from "katanakit-js/adapters/vanilla";
-import type { FetchResult } from "katanakit-js";
 
 interface Pokemon {
 	id: number;

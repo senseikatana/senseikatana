@@ -9,13 +9,13 @@
 
 import {
 	defineApiConfig,
+	useBuildUrl,
+	useDelete,
+	useFetch,
 	useGetApi,
+	usePatch,
 	usePost,
 	usePut,
-	usePatch,
-	useDelete,
-	useBuildUrl,
-	useFetch,
 } from "../../src/core/services/http.service.js";
 
 /* ------------------------------------------------------------------ */

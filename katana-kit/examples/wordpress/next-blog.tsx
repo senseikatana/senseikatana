@@ -10,8 +10,8 @@
 
 import {
 	defineWordPressConfig,
-	useWpGetPosts,
 	useWpGetCategories,
+	useWpGetPosts,
 } from "katanakit-js/adapters/wordpress";
 
 // Init once at module level

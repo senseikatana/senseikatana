@@ -60,32 +60,41 @@ await useFakeSetDefaultRefDate("2026-01-01");
 
 // ---------------------------------------------------------------------------
 // 2. Users — `useFakeList` calls the factory `count` times
-const users: SeedUser[] = await useFakeList(async () => ({
-	id: await useFakeUuid(),
-	fullName: await useFakeFullName(),
-	email: await useFakeEmail(),
-	createdAt: (await useFakeDate("2024-01-01")).toISOString(),
-}), 5);
+const users: SeedUser[] = await useFakeList(
+	async () => ({
+		id: await useFakeUuid(),
+		fullName: await useFakeFullName(),
+		email: await useFakeEmail(),
+		createdAt: (await useFakeDate("2024-01-01")).toISOString(),
+	}),
+	5,
+);
 
 // ---------------------------------------------------------------------------
 // 3. Products — compose helpers into your own domain shape
-const products: SeedProduct[] = await useFakeList(async () => ({
-	id: await useFakeUuid(),
-	name: toTitleCase(await useFakeText(2)),
-	description: toTitleCase(await useFakeText(10)),
-	price: await useFakeNumber(5, 250),
-	stock: await useFakeNumber(0, 120),
-}), 8);
+const products: SeedProduct[] = await useFakeList(
+	async () => ({
+		id: await useFakeUuid(),
+		name: toTitleCase(await useFakeText(2)),
+		description: toTitleCase(await useFakeText(10)),
+		price: await useFakeNumber(5, 250),
+		stock: await useFakeNumber(0, 120),
+	}),
+	8,
+);
 
 // ---------------------------------------------------------------------------
 // 4. Orders — the factory receives the index, handy for relations
-const orders: SeedOrder[] = await useFakeList(async (index) => ({
-	id: await useFakeUuid(),
-	userId: users[index % users.length].id,
-	productId: products[index % products.length].id,
-	quantity: await useFakeNumber(1, 6),
-	placedAt: (await useFakeDate("2025-01-01")).toISOString(),
-}), 12);
+const orders: SeedOrder[] = await useFakeList(
+	async (index) => ({
+		id: await useFakeUuid(),
+		userId: users[index % users.length].id,
+		productId: products[index % products.length].id,
+		quantity: await useFakeNumber(1, 6),
+		placedAt: (await useFakeDate("2025-01-01")).toISOString(),
+	}),
+	12,
+);
 
 // ---------------------------------------------------------------------------
 // 5. Write the JSON files next to this module (`out/` is git-ignored)

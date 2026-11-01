@@ -8,14 +8,13 @@
  * the constructor) so it can auto-cleanup via `DestroyRef`. Requires Angular 16+.
  */
 import { Component, input } from "@angular/core";
-
+import { defineApiConfig, useGetApi, usePost } from "katanakit-js";
 import {
 	useMutation,
 	useQuery,
 	useQueryClient,
 	useSafeQueryFn,
 } from "katanakit-js/adapters/angular";
-import { useGetApi, defineApiConfig, usePost } from "katanakit-js";
 
 // App bootstrap: register the APIs once (in a real app this lives in your entry file).
 defineApiConfig({
