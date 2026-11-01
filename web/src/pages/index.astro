@@ -1,15 +1,15 @@
 ---
-import Base from '../features/shared/layouts/Base.astro';
-import Section from '../features/shared/components/Section.astro';
-import SectionHead from '../features/shared/components/SectionHead.astro';
-import CtaSection from '../features/shared/components/CtaSection.astro';
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CtaSection from '../components/CtaSection.astro';
 import ServiceCard from '../features/services/components/ServiceCard.astro';
 import WorkCard from '../features/works/components/WorkCard.astro';
 import PostCard from '../features/blog/components/PostCard.astro';
 import { getServices } from '../features/services/queries';
 import { getFeaturedWorks } from '../features/works/queries';
 import { getPosts } from '../features/blog/queries';
-import { site } from '../features/shared/config/site';
+import { site } from '../config/site';
 
 const services = await getServices();
 const works = (await getFeaturedWorks()).slice(0, 3);

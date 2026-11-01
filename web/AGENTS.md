@@ -1,8 +1,13 @@
 ## Architecture
 
-Feature-Based Architecture. `src/pages/` is a thin route layer: it composes feature modules and
-never holds data queries. Each feature under `src/features/` owns its components and `queries.ts`.
-Shared UI, layout and site config live in `src/features/shared/`.
+Feature-Based Architecture, scoped to domain slices only.
+
+- `src/features/<name>/` owns one domain: its components and its `queries.ts`. Nothing imports
+  across features.
+- App shell is **not** a feature: `src/layouts/`, `src/components/`, `src/config/`, `src/i18n/`,
+  `src/lib/` and `src/styles/` sit at the root of `src/`, following Astro conventions.
+- There is no `features/shared/`. Shared code belongs in `src/components/` or `src/lib/`.
+- `src/pages/` is a thin route layer. It composes features and never queries collections directly.
 
 Content is Markdown under `src/content/`, validated by `src/content.config.ts`.
 

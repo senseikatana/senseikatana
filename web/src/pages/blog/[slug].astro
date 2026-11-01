@@ -1,10 +1,10 @@
 ---
 import { render } from 'astro:content';
-import Base from '../../features/shared/layouts/Base.astro';
-import Section from '../../features/shared/components/Section.astro';
-import Cover from '../../features/shared/components/Cover.astro';
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Cover from '../../components/Cover.astro';
 import { formatDate, getPosts, getRelated, readingTime } from '../../features/blog/queries';
-import { articleJsonLd, absoluteUrl } from '../../features/seo/json-ld';
+import { articleJsonLd, absoluteUrl } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const posts = await getPosts();

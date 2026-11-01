@@ -1,9 +1,9 @@
 ---
-import Base from '../../features/shared/layouts/Base.astro';
-import Section from '../../features/shared/components/Section.astro';
-import SectionHead from '../../features/shared/components/SectionHead.astro';
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import SectionHead from '../../components/SectionHead.astro';
 import WorkCard from '../../features/works/components/WorkCard.astro';
-import CtaSection from '../../features/shared/components/CtaSection.astro';
+import CtaSection from '../../components/CtaSection.astro';
 import { getWorks } from '../../features/works/queries';
 
 const works = await getWorks();

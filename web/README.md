@@ -6,32 +6,31 @@ Astro site for [senseikatana.com](https://senseikatana.com): services, case stud
 
 ```
 src/
+├── components/       # Global UI used by more than one feature
+├── config/           # Site, brand and navigation data
 ├── content/          # Markdown collections (blog, services, works)
 ├── content.config.ts # Collection schemas
-├── features/         # Feature-Based Architecture
-│   ├── blog/         # components + queries
-│   ├── i18n/         # locales + t() helper
-│   ├── seo/          # JSON-LD builders
-│   ├── services/     # components + queries
-│   ├── shared/       # layout, UI primitives, site config
-│   └── works/        # components + queries
-├── pages/            # Thin route layer: compose features only
+├── features/         # Vertical slices — only real domains
+│   ├── blog/         # components/ + queries.ts
+│   ├── services/     # components/ + queries.ts
+│   └── works/        # components/ + queries.ts
+├── i18n/             # Locales and the t() helper
+├── layouts/          # App shell (Base.astro)
+├── lib/              # Cross-cutting helpers (JSON-LD)
+├── pages/            # Thin route layer: composes features only
 └── styles/           # Design tokens and global CSS
 ```
 
-## Rules
+## Architecture rule
 
-- `src/pages/` never contains business logic or data queries. It composes feature modules.
-- Each feature owns its `components/` and `queries.ts`. Nothing imports across features except through `features/shared`.
-- Content lives in `src/content/<collection>/` and is validated by `src/content.config.ts`.
+Feature-Based Architecture applies to **domain slices**, not to infrastructure.
 
-## Commands
+- `features/<name>/` holds the components and data queries that belong to one domain. A slice
+  owns its UI and its data access; nothing reaches into another slice.
+- The app shell — layout, global components, site config, i18n, SEO helpers — is **not** a
+  feature. It lives in the conventional Astro folders at the root of `src/`.
+- `src/pages/` never queries a collection directly. It imports from a feature's `queries.ts`.
+- There is no `features/shared/`. If something is shared, it is not a feature.
 
-From the repository root (Bun workspace):
-
-```bash
-bun run dev      # astro dev
-bun run build    # astro build
-bun run preview  # astro preview
-bun run check    # prettier + eslint + astro check
-```
+This is deliberate FBA-lite: three slices that each earn their keep, and no boilerplate around
+them. Adding a fourth slice means adding a real domain, not a folder for leftovers.

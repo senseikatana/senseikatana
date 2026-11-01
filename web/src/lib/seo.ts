@@ -1,4 +1,4 @@
-import { site } from '../shared/config/site';
+import { site } from '../config/site';
 
 /** Absolute URL for a path, using the configured site origin. */
 export function absoluteUrl(path = '/'): string {

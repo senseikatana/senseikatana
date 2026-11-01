@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getPosts } from '../features/blog/queries';
 import { getServices } from '../features/services/queries';
 import { getWorks } from '../features/works/queries';
-import { site } from '../features/shared/config/site';
+import { site } from '../config/site';
 
 /**
  * llms.txt — a compact, machine-readable map of the site for LLM crawlers.
