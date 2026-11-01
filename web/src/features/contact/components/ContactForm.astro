@@ -1,0 +1,245 @@
+---
+import { site } from '../../../config/site';
+import { getLocale, useTranslations } from '../../../i18n';
+
+interface Props {
+  endpoint?: string;
+}
+
+const { endpoint = '' } = Astro.props;
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+
+const field =
+  'w-full border border-rule bg-canvas px-3.5 py-3 text-[14px] text-ink placeholder:text-stone focus:border-ink focus:outline-none';
+---
+
+<form
+  class="border border-ink bg-canvas"
+  action={`mailto:${site.contact.email}`}
+  method="post"
+  enctype="text/plain"
+  data-contact-form
+  data-endpoint={endpoint}
+  data-email={site.contact.email}
+  data-subject={tr('contact.formTitle')}
+  data-fallback-message={tr('contact.mailtoFallback')}
+  data-error-message={tr('contact.formError')}
+  data-sending-message={tr('contact.sending')}
+  data-success-message={tr('contact.formSuccess')}
+  data-send-error-message={tr('contact.formSendError')}
+  novalidate
+>
+  <div
+    class="flex flex-wrap items-center justify-between gap-3 border-b border-ink bg-tint px-5 py-3"
+  >
+    <p class="label"><b>[01]</b> {tr('contact.formTitle')}</p>
+    <span class="text-[11px] uppercase tracking-[0.08em] text-smoke">{tr('contact.label')}</span>
+  </div>
+
+  <div class="p-5 sm:p-6">
+    <p class="max-w-[60ch] text-[14px] leading-[1.6] text-steel">{tr('contact.formSubtitle')}</p>
+
+    <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div>
+        <label for="name" class="label mb-2 block"
+          >{tr('contact.name')} <span class="text-cta" aria-hidden="true">*</span></label
+        >
+        <input
+          id="name"
+          name="name"
+          type="text"
+          autocomplete="name"
+          required
+          placeholder={tr('contact.namePlaceholder')}
+          class={field}
+        />
+      </div>
+
+      <div>
+        <label for="email" class="label mb-2 block"
+          >{tr('contact.email')} <span class="text-cta" aria-hidden="true">*</span></label
+        >
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          placeholder={tr('contact.emailPlaceholder')}
+          class={field}
+        />
+      </div>
+
+      <div>
+        <label for="company" class="label mb-2 block">{tr('contact.company')}</label>
+        <input
+          id="company"
+          name="company"
+          type="text"
+          autocomplete="organization"
+          placeholder={tr('contact.companyPlaceholder')}
+          class={field}
+        />
+      </div>
+
+      <div>
+        <label for="type" class="label mb-2 block">{tr('contact.projectType')}</label>
+        <select id="type" name="type" class={field}>
+          <option value="web">{tr('contact.typeWeb')}</option>
+          <option value="tools">{tr('contact.typeTools')}</option>
+          <option value="integrations">{tr('contact.typeIntegrations')}</option>
+          <option value="performance">{tr('contact.typePerformance')}</option>
+          <option value="other">{tr('contact.typeOther')}</option>
+        </select>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="budget" class="label mb-2 block">{tr('contact.budget')}</label>
+        <select id="budget" name="budget" class={field}>
+          <option value="">{tr('contact.budgetTbd')}</option>
+          <option value="under-1k">{tr('contact.budgetUnder1k')}</option>
+          <option value="1k-3k">{tr('contact.budget1k3k')}</option>
+          <option value="3k-6k">{tr('contact.budget3k6k')}</option>
+          <option value="over-6k">{tr('contact.budgetOver6k')}</option>
+        </select>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="message" class="label mb-2 block"
+          >{tr('contact.message')} <span class="text-cta" aria-hidden="true">*</span></label
+        >
+        <textarea
+          id="message"
+          name="message"
+          rows="6"
+          required
+          placeholder={tr('contact.messagePlaceholder')}
+          class={field}></textarea>
+      </div>
+    </div>
+
+    <label class="mt-5 flex items-start gap-3 text-[12px] leading-[1.5] text-steel">
+      <input
+        id="consent"
+        name="consent"
+        type="checkbox"
+        required
+        class="mt-0.5 size-4 shrink-0 accent-[var(--ink)]"
+      />
+      <span>{tr('contact.consent')}</span>
+    </label>
+
+    <div class="hidden" aria-hidden="true">
+      <label for="website">Website</label>
+      <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center gap-4">
+      <button type="submit" class="btn btn-primary max-sm:w-full">
+        {tr('contact.submit')} -&gt;
+      </button>
+      <p data-form-status role="status" aria-live="polite" class="min-h-5 text-[13px]"></p>
+    </div>
+  </div>
+</form>
+
+<style>
+  [data-contact-form] :is(input, select, textarea):user-invalid {
+    border-color: var(--cta);
+  }
+
+  [data-form-status][data-tone='error'] {
+    color: var(--cta);
+  }
+
+  [data-form-status][data-tone='ok'] {
+    color: var(--ok);
+  }
+
+  [data-form-status][data-tone='info'] {
+    color: var(--steel);
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-form-status]');
+    const fields = ['name', 'email', 'company', 'type', 'budget', 'message'] as const;
+
+    const valueOf = (name: string) => {
+      const element = form.elements.namedItem(name);
+      if (element instanceof HTMLSelectElement) {
+        return element.selectedOptions[0]?.textContent?.trim() ?? '';
+      }
+      if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+        return element.value.trim();
+      }
+      return '';
+    };
+
+    const setStatus = (message: string, tone: 'ok' | 'error' | 'info') => {
+      if (!status) return;
+      status.textContent = message;
+      status.dataset.tone = tone;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!form.reportValidity()) {
+        setStatus(form.dataset.errorMessage ?? '', 'error');
+        return;
+      }
+
+      const honey = form.elements.namedItem('website');
+      if (honey instanceof HTMLInputElement && honey.value.trim()) return;
+
+      const payload = Object.fromEntries(fields.map((name) => [name, valueOf(name)])) as Record<
+        string,
+        string
+      >;
+      const endpoint = form.dataset.endpoint;
+
+      if (!endpoint) {
+        const subject = payload.type
+          ? `${form.dataset.subject ?? ''}: ${payload.type}`
+          : (form.dataset.subject ?? '');
+        const body = fields
+          .map((name) => {
+            const label =
+              form.querySelector(`label[for="${name}"]`)?.textContent?.replace('*', '').trim() ??
+              name;
+            return `${label}: ${payload[name]}`;
+          })
+          .join('\n');
+
+        window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(
+          subject,
+        )}&body=${encodeURIComponent(body)}`;
+        setStatus(form.dataset.fallbackMessage ?? '', 'info');
+        return;
+      }
+
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      setStatus(form.dataset.sendingMessage ?? '', 'info');
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ ...payload, locale: document.documentElement.lang }),
+        });
+        if (!response.ok) throw new Error(String(response.status));
+        form.reset();
+        setStatus(form.dataset.successMessage ?? '', 'ok');
+      } catch {
+        setStatus(form.dataset.sendErrorMessage ?? '', 'error');
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+    });
+  }
+</script>

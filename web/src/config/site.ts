@@ -13,6 +13,13 @@ export const site = {
   lang: 'es',
   location: 'Cambrils · Tarragona',
   cv: '/cv/sergio-jurado.pdf',
+  contact: {
+    phone: '+34637723747',
+    phoneDisplay: '+34 637 723 747',
+    whatsapp: '34637723747',
+    email: 'sergiojurado.casado@gmail.com',
+    telegram: '',
+  },
   social: {
     github: 'https://github.com/senseikatana',
     linkedin: 'https://www.linkedin.com/in/senseijurado/',

@@ -2,10 +2,17 @@
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import SectionHead from '../components/SectionHead.astro';
+import ContactForm from '../features/contact/components/ContactForm.astro';
 import { site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 
 const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+
+const whatsapp = `https://wa.me/${site.contact.whatsapp}?${new URLSearchParams({
+  text: tr('contact.whatsappMessage'),
+})}`;
+const telegram = site.contact.telegram ? `https://t.me/${site.contact.telegram}` : '';
 ---
 
 <Base title={tr('contact.title')} description={tr('contact.subtitle')}>
@@ -18,21 +25,63 @@ const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
       size="lg"
     />
 
-    <div class="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-14">
-      <div>
-        <p class="label">{tr('contact.channels')}</p>
-        <ul class="mt-4 border-t border-rule">
+    <div class="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <ContactForm endpoint={endpoint} />
+
+      <aside class="space-y-8">
+        <div>
+          <p class="label">{tr('contact.channels')}</p>
+          <a href={whatsapp} class="btn btn-primary mt-4 w-full" rel="noopener">WhatsApp -&gt;</a>
+          {
+            telegram && (
+              <a href={telegram} class="btn btn-ghost btn-s mt-2 w-full" rel="noopener">
+                Telegram -&gt;
+              </a>
+            )
+          }
+          <p class="mt-3 text-[13px] text-smoke">{tr('contact.whatsappHint')}</p>
+        </div>
+
+        <ul class="border-t border-rule">
+          <li class="border-b border-rule">
+            <a
+              href={`mailto:${site.contact.email}`}
+              class="group flex items-center justify-between py-4"
+            >
+              <span>
+                <span class="block text-[15px] font-bold text-ink group-hover:text-link"
+                  >{tr('contact.emailAction')}</span
+                >
+                <span class="mt-1 block text-[13px] text-smoke">{site.contact.email}</span>
+              </span>
+              <span class="text-stone" aria-hidden="true">-&gt;</span>
+            </a>
+          </li>
+          <li class="border-b border-rule">
+            <a
+              href={`tel:${site.contact.phone}`}
+              class="group flex items-center justify-between py-4"
+            >
+              <span>
+                <span class="block text-[15px] font-bold text-ink group-hover:text-link"
+                  >{tr('contact.callAction')}</span
+                >
+                <span class="mt-1 block text-[13px] text-smoke">{site.contact.phoneDisplay}</span>
+              </span>
+              <span class="text-stone" aria-hidden="true">-&gt;</span>
+            </a>
+          </li>
           <li class="border-b border-rule">
             <a
               href={site.social.linkedin}
-              class="flex items-center justify-between py-5 group"
+              class="group flex items-center justify-between py-4"
               rel="me noopener"
             >
               <span>
-                <span class="block text-[16px] font-bold text-ink group-hover:text-link"
+                <span class="block text-[15px] font-bold text-ink group-hover:text-link"
                   >LinkedIn</span
                 >
-                <span class="block mt-1 text-[13px] text-smoke">{tr('contact.linkedinHint')}</span>
+                <span class="mt-1 block text-[13px] text-smoke">{tr('contact.linkedinHint')}</span>
               </span>
               <span class="text-stone" aria-hidden="true">-&gt;</span>
             </a>
@@ -40,31 +89,27 @@ const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
           <li class="border-b border-rule">
             <a
               href={site.social.github}
-              class="flex items-center justify-between py-5 group"
+              class="group flex items-center justify-between py-4"
               rel="me noopener"
             >
               <span>
-                <span class="block text-[16px] font-bold text-ink group-hover:text-link"
+                <span class="block text-[15px] font-bold text-ink group-hover:text-link"
                   >GitHub</span
                 >
-                <span class="block mt-1 text-[13px] text-smoke">{tr('contact.githubHint')}</span>
+                <span class="mt-1 block text-[13px] text-smoke">{tr('contact.githubHint')}</span>
               </span>
               <span class="text-stone" aria-hidden="true">-&gt;</span>
             </a>
           </li>
         </ul>
-        <p class="mt-6 text-[13px] text-steel">{tr('contact.location')}</p>
-      </div>
 
-      <div>
-        <p class="label">{tr('contact.responseTitle')}</p>
-        <p class="mt-4 text-[15px] leading-[1.65] text-steel">
-          {tr('contact.responseBody')}
-        </p>
-        <p class="mt-6 border border-rule bg-tint px-4 py-3 text-[13px] text-steel">
-          {tr('contact.directNote')}
-        </p>
-      </div>
+        <div>
+          <p class="label">{tr('contact.responseTitle')}</p>
+          <p class="mt-3 text-[14px] leading-[1.6] text-steel">{tr('contact.responseBody')}</p>
+        </div>
+
+        <p class="text-[13px] text-steel">{tr('contact.location')}</p>
+      </aside>
     </div>
   </Section>
 </Base>
