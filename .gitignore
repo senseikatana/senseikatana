@@ -1,17 +1,9 @@
-# Dependencias
+# Dependencies
 node_modules/
 /**/node_modules/
-/**/.vscode
 .pnpm-store/
 .yarn/
 bun.lockb
-
-
-# VitePress build output
-katana-kit/docs/.vitepress/dist/
-katana-kit/docs/.vitepress/cache/
-katana-kit/.env
-katana-kit/.env.*
 
 # Carpetas y archivos ocultos del sistema
 .*
@@ -21,8 +13,9 @@ katana-kit/.env.*
 !.nojekyll
 !.env.example
 !.prettierrc
+!.prettierignore
 
-# Compilaciones y logs
+# Build output and logs
 dist/
 build/
 *.log
@@ -31,7 +24,7 @@ yarn-debug.log*
 pnpm-debug.log*
 bun-debug.log*
 
-# Archivos de entorno
+# Environment
 .env
 .env.local
 .env.*.local
@@ -41,7 +34,9 @@ bun-debug.log*
 .parcel-cache/
 .next/
 .nuxt/
+.astro/
 .output/
+.wrangler/
 coverage/
 
 # IDEs

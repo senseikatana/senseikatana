@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.wrangler
+coverage
+bun.lock
+package-lock.json
+CHANGELOG.md

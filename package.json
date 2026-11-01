@@ -1,15 +1,12 @@
 {
   "name": "senseikatana",
   "version": "3.1.0",
-  "description": "Monorepo: KatanaKit library, personal website, and docs",
+  "description": "Personal site and digital CV — senseikatana.com",
   "private": true,
   "type": "module",
   "packageManager": "bun@1.4.4",
   "workspaces": [
-    "katana-kit",
-    "katana-kit/packages/ui",
-    "apps/web",
-    "workers/router"
+    "web"
   ],
   "trustedDependencies": [
     "better-sqlite3",
@@ -17,32 +14,43 @@
     "esbuild"
   ],
   "scripts": {
-    "check": "prettier --check README.md CHANGELOG.md AGENTS.md package.json && bun run --filter katanakit-js check",
-    "format": "prettier --write README.md CHANGELOG.md AGENTS.md package.json",
     "prepare": "husky",
-    "docs": "bun run --filter katanakit-js docs",
-    "docs:dev": "bun run --filter katanakit-js docs:dev",
-    "web:dev": "bun run --filter @senseikatana/web dev",
-    "web:build": "bun run --filter @senseikatana/web build",
-    "router:dev": "bun run --cwd workers/router dev",
-    "router:deploy": "bun run --cwd workers/router deploy"
+    "dev": "bun run --filter @senseikatana/web dev",
+    "build": "bun run --filter @senseikatana/web build",
+    "preview": "bun run --filter @senseikatana/web preview",
+    "check": "prettier --check . && eslint . && bun run --filter @senseikatana/web check",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
-  "dependencies": {
-    "@js-temporal/polyfill": "^0.5.1",
-    "axios": "^1.20.0",
-    "rimraf": "^6.1.3"
-  },
   "lint-staged": {
-    "*.{json,jsonc,md,yml,yaml,css,scss,html}": [
+    "*.{json,jsonc,md,mdx,yml,yaml,css,scss,html,astro}": [
       "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "eslint --fix --no-warn-ignored"
     ]
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^10.14.0",
+    "eslint-plugin-astro": "^1.6.0",
+    "globals": "^17.13.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.9.10"
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript-eslint": "^8.71.0"
+  },
+  "overrides": {
+    "shiki": "4.4.3",
+    "@shikijs/core": "4.4.3",
+    "@shikijs/engine-javascript": "4.4.3",
+    "@shikijs/engine-oniguruma": "4.4.3",
+    "@shikijs/langs": "4.4.3",
+    "@shikijs/themes": "4.4.3",
+    "@shikijs/types": "4.4.3"
   }
 }
