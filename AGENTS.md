@@ -53,6 +53,21 @@ bun run format     # prettier --write
 
 There is no test suite yet. `bun run check` is the gate that must pass before committing.
 
+## Deploy
+
+Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
+
+- Pages project: `senseikatana-web`. Build: `bun run build`. Output: `web/dist`.
+- CI: `.github/workflows/deploy.yml` runs after a successful `Sync main` run, or manually with
+  `workflow_dispatch`. It requires the `CLOUDFLARE_API_TOKEN` (Pages: Edit) and
+  `CLOUDFLARE_ACCOUNT_ID` repository secrets.
+- Local: `bun run deploy` (production) and `bun run deploy:preview` (a `dev` preview alias).
+- Remote preview of the dev server: `bun run tunnel` (cloudflared quick tunnel to port 4321).
+
+The apex currently serves the KatanaKit VitePress docs project (it redirects to `/en/`). Move the
+docs to `docs.senseikatana.com` before attaching `senseikatana.com` to `senseikatana-web`, or the
+docs disappear from the apex. `/docs/` does not exist today.
+
 ## Committing
 
 - Conventional commits only. No `Co-Authored-By`, no AI attribution.

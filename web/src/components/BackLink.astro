@@ -1,0 +1,16 @@
+---
+import { getLocale, useTranslations } from '../i18n';
+
+interface Props {
+  href: string;
+  label?: string;
+}
+
+const { href, label } = Astro.props;
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+---
+
+<a href={href} class="btn btn-ghost btn-s inline-flex">
+  <span aria-hidden="true">&lt;-</span>
+  <span>{label ?? tr('common.back')}</span>
+</a>

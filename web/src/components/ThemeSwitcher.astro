@@ -1,11 +1,14 @@
 ---
 // Segmented light / dark control. Any number of instances stay in sync.
+import { getLocale, useTranslations } from '../i18n';
+
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
 ---
 
 <div
   class="theme-switch inline-flex border border-rule text-[12px]"
   role="group"
-  aria-label="Color theme"
+  aria-label={tr('theme.title')}
 >
   {
     ['light', 'dark'].map((t) => (
@@ -18,7 +21,7 @@
           class:list={['size-[7px] border border-current', t === 'dark' && 'bg-current']}
           aria-hidden="true"
         />
-        {t}
+        {tr(`theme.${t}`)}
       </button>
     ))
   }

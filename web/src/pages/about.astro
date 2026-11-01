@@ -1,0 +1,262 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CtaSection from '../components/CtaSection.astro';
+import { site } from '../config/site';
+import { getExperience } from '../features/experience/queries';
+import { getLocale, useList, useTranslations } from '../i18n';
+
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
+const experience = await getExperience();
+const principles = useList<{ title: string; body: string }>(locale, 'about.principles');
+
+const languages =
+  locale === 'ca'
+    ? 'Castellà · Català · English'
+    : locale === 'en'
+      ? 'Spanish · Catalan · English'
+      : 'Castellano · Català · English';
+
+const facts = [
+  [tr('about.facts.location'), site.location],
+  [tr('about.facts.languages'), languages],
+  [tr('about.facts.availability'), tr('about.availability')],
+  [tr('about.facts.focus'), tr('home.stats.fullstack')],
+];
+
+const education = [
+  {
+    year: '2026',
+    heading: 'Novatecnica',
+    place: 'Vila-seca',
+    items: [
+      'Certificado Profesional en Auxiliar de Comercio y Marketing',
+      'Prevención de Riesgos Laborales',
+    ],
+  },
+  { year: '2024', heading: 'Operador de carretillas elevadoras', place: 'IDFO' },
+  { year: '2020', heading: 'Diseño Multimedia y 3D', place: 'ESI Valladolid' },
+  { year: '2017–2019', heading: 'CFGS en ICTI', place: 'I.E.S. Vega del Prado' },
+  { year: '2008–2010', heading: 'CFGM en Laboratorio de Imagen', place: 'Valladolid' },
+];
+
+const stack = [
+  'TypeScript',
+  'Nuxt',
+  'Vue',
+  'Astro',
+  'Next',
+  'Python',
+  'FastAPI',
+  'PostgreSQL',
+  'Prisma',
+  'Docker',
+  'Cloudflare',
+  'Tailwind',
+];
+
+const openSource = [
+  ['katanakit-js', 'Toolkit TypeScript', 'https://github.com/senseikatana/katanakit-js'],
+  ['katanakit-css', 'Framework SCSS', 'https://github.com/senseikatana/katanakit-css'],
+  ['katanakit-sysli', 'TUI para systemd', 'https://github.com/senseikatana/katanakit-sysli'],
+  ['katanakit-wp', 'WordPress code-first', 'https://github.com/senseikatana/katanakit-wp'],
+];
+---
+
+<Base title={tr('about.title')} description={tr('about.lead')}>
+  <Section top={false} inner="px-6 pt-16 pb-14 max-md:px-5">
+    <SectionHead
+      idx="01"
+      label={tr('about.label')}
+      title={tr('about.headline')}
+      lede={tr('about.lead')}
+      size="lg"
+    />
+  </Section>
+
+  <Section top={false} inner="px-6 pb-20 max-md:px-5">
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_260px] gap-12 lg:gap-16 items-start">
+      <div>
+        <div class="prose-content max-w-[64ch]">
+          <p>{tr('about.bio1')}</p>
+          <p>{tr('about.bio2')}</p>
+        </div>
+
+        <dl class="mt-10 grid grid-cols-2 border-t border-l border-rule max-sm:grid-cols-1">
+          {
+            facts.map(([label, value]) => (
+              <div class="px-4 py-5 border-r border-b border-rule">
+                <dt class="label">{label}</dt>
+                <dd class="mt-2 text-[14px] font-bold text-ink">{value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href={site.cv} class="btn btn-primary btn-s" download>{tr('about.downloadCv')} -&gt;</a
+          >
+          <a href={site.social.linkedin} class="btn btn-ghost btn-s" rel="me noopener"
+            >LinkedIn -&gt;</a
+          >
+          <a href={site.social.github} class="btn btn-ghost btn-s" rel="me noopener">GitHub -&gt;</a
+          >
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center gap-4 lg:sticky lg:top-24">
+        <div class="size-52 overflow-hidden rounded-full border border-ink lg:size-64">
+          <img
+            src="/cv/sergio-jurado-avatar.jpg"
+            alt={tr('home.photoAlt')}
+            width="640"
+            height="640"
+            class="block h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <p class="label text-center">{tr('about.caption')}</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section label={tr('about.experienceLabel')}>
+    <SectionHead
+      idx="02"
+      label={tr('about.experienceLabel')}
+      title={tr('about.experienceTitle')}
+      lede={tr('about.experienceLede')}
+    />
+    <ol class="mt-10 border-t border-rule">
+      {
+        experience.map((item) => (
+          <li class="group grid grid-cols-[140px_1fr] gap-4 py-6 border-b border-rule max-md:grid-cols-1">
+            <span class="label pt-1 tabular-nums">{item.data.year}</span>
+            <div>
+              <a
+                href={`/about/${item.id}`}
+                class="text-[16px] font-bold text-ink group-hover:text-link"
+                transition:name={`experience-title-${item.id}`}
+              >
+                {item.data.role}
+              </a>
+              <p class="mt-1 text-[13px] text-smoke">{item.data.org}</p>
+              <p class="mt-2 max-w-[62ch] text-[14px] leading-[1.6] text-steel">
+                {item.data.summary}
+              </p>
+              <a href={`/about/${item.id}`} class="link mt-3 inline-block text-[13px]">
+                {tr('about.viewRole')} -&gt;
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section label={tr('about.educationLabel')}>
+    <SectionHead
+      idx="03"
+      label={tr('about.educationLabel')}
+      title={tr('about.educationTitle')}
+      lede={tr('about.educationLede')}
+    />
+    <ul class="mt-10 grid grid-cols-1 border-t border-l border-rule sm:grid-cols-2">
+      {
+        education.map((item) => (
+          <li class="border-r border-b border-rule px-5 py-6">
+            <span class="label tabular-nums">{item.year}</span>
+            <p class="mt-3 text-[15px] font-bold text-ink">{item.heading}</p>
+            <p class="mt-1 text-[13px] text-smoke">{item.place}</p>
+            {item.items && (
+              <ul class="mt-3 space-y-1.5 text-[14px] leading-[1.5] text-steel">
+                {item.items.map((title) => (
+                  <li class="flex gap-2">
+                    <span class="text-smoke">+</span>
+                    {title}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section label={tr('about.principlesTitle')}>
+    <SectionHead
+      idx="04"
+      label={tr('about.principlesTitle')}
+      title={tr('about.principlesHeadline')}
+      lede={tr('about.principlesLede')}
+    />
+    <ul class="mt-10 grid grid-cols-1 border-t border-l border-rule sm:grid-cols-2">
+      {
+        principles.map((item, index) => (
+          <li class="border-r border-b border-rule px-5 py-6">
+            <span class="label tabular-nums">{String(index + 1).padStart(2, '0')}</span>
+            <p class="mt-3 text-[16px] font-bold text-ink">{item.title}</p>
+            <p class="mt-2 max-w-[48ch] text-[14px] leading-[1.6] text-steel">{item.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section label={tr('about.stackTitle')}>
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div>
+        <SectionHead
+          idx="05"
+          label={tr('about.stackLabel')}
+          title={tr('about.stackHeadline')}
+          lede={tr('about.stackSubtitle')}
+        />
+        <ul class="mt-8 flex flex-wrap gap-1.5">
+          {
+            stack.map((tech) => (
+              <li class="border border-rule px-2.5 py-1 text-[12px] text-smoke">{tech}</li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <p class="label">[06] {tr('about.openSourceLabel')}</p>
+        <h2 class="mt-4 text-[clamp(28px,3.4vw,40px)] font-bold leading-[1.1] tracking-[-0.035em]">
+          KatanaKit
+        </h2>
+        <p class="mt-4 max-w-[52ch] text-[15px] leading-[1.6] text-steel">
+          {tr('about.openSourceBody')}
+        </p>
+        <ul class="mt-8 border-t border-rule">
+          {
+            openSource.map(([name, description, href]) => (
+              <li class="border-b border-rule">
+                <a
+                  href={href}
+                  rel="me noopener"
+                  class="group flex items-center justify-between gap-4 py-4"
+                >
+                  <span>
+                    <span class="block text-[15px] font-bold text-ink group-hover:text-link">
+                      {name}
+                    </span>
+                    <span class="mt-1 block text-[13px] text-smoke">{description}</span>
+                  </span>
+                  <span class="text-stone" aria-hidden="true">
+                    -&gt;
+                  </span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <CtaSection title={tr('about.ctaTitle')} lede={tr('about.ctaBody')} />
+</Base>

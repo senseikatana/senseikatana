@@ -12,6 +12,7 @@ export const site = {
   locale: 'es_ES',
   lang: 'es',
   location: 'Cambrils · Tarragona',
+  cv: '/cv/sergio-jurado.pdf',
   social: {
     github: 'https://github.com/senseikatana',
     linkedin: 'https://www.linkedin.com/in/senseijurado/',
@@ -21,12 +22,14 @@ export const site = {
   nav: [
     { label: 'Servicios', href: '/services' },
     { label: 'Proyectos', href: '/works' },
+    { label: 'Sobre mí', href: '/about' },
     { label: 'Blog', href: '/blog' },
   ],
   menu: [
     { label: 'Inicio', href: '/' },
     { label: 'Servicios', href: '/services' },
     { label: 'Proyectos', href: '/works' },
+    { label: 'Sobre mí', href: '/about' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contacto', href: '/contact' },
   ],
@@ -37,6 +40,7 @@ export const site = {
         ['Inicio', '/'],
         ['Servicios', '/services'],
         ['Proyectos', '/works'],
+        ['Sobre mí', '/about'],
         ['Blog', '/blog'],
       ] as [string, string][],
     },

@@ -1,8 +1,18 @@
 {
+  "a11y": {
+    "skip": "Salta al contingut",
+    "mainNav": "Navegació principal",
+    "menu": "[menú]",
+    "close": "[tanca]",
+    "menuLabel": "Menú"
+  },
+  "common": {
+    "back": "Tornar"
+  },
   "nav": {
     "home": "Inici",
     "services": "Serveis",
-    "works": "Works",
+    "works": "Projectes",
     "about": "Sobre mi",
     "blog": "Blog",
     "contact": "Contacte",
@@ -27,20 +37,34 @@
     "intro": "Dissenyo i construeixo aplicacions web per a operacions reals: magatzem, logística, retail i back-office. Del model de dades al deploy, sense capes de més.",
     "ctaServices": "Veure serveis",
     "ctaContact": "Explica'm el teu projecte",
+    "worksCta": "Veure projectes",
     "photoAlt": "Retrat de Sergio Jurado",
     "marker": "CAMBRILS · TARRAGONA",
     "tags": ["#NUXT", "#ASTRO", "#NEXT", "#PYTHON", "#POSTGRES"],
+    "profileTitle": "Perfil",
+    "stats": {
+      "years": "anys construint",
+      "languages": "idiomes suportats",
+      "fullstack": "de la dada al desplegament",
+      "edge": "edge i estàtics"
+    },
+    "labels": {
+      "presentation": "presentació",
+      "services": "serveis",
+      "works": "projectes",
+      "blog": "blog"
+    },
     "servicesTitle": "Què faig",
     "servicesSubtitle": "Quatre maneres d'entrar-hi. Abast clar, entregables concrets i codi que es pot mantenir.",
     "servicesAll": "Tots els serveis",
     "worksTitle": "Treball recent",
     "worksSubtitle": "Sistemes en producció, no mockups. Cada cas explica el repte, la solució i què va canviar.",
-    "worksAll": "Veure tots els works",
+    "worksAll": "Veure tots els projectes",
     "aboutTitle": "Com treballo",
     "aboutBody": "Arquitectura primer, frameworks després. Límits clars entre domini, aplicació i infraestructura, i un design system amb tokens abans que components.",
     "aboutCta": "Coneix-me",
     "blogTitle": "Blog",
-    "blogSubtitle": "Notes sobre arquitectura, rendiment i les decisions darrere del codi.",
+    "blogSubtitle": "Notes sobre tecnologia, actualitat i opinió: el que passa a Espanya i Europa.",
     "blogAll": "Llegir el blog",
     "ctaTitle": "La teva operació no quadra?",
     "ctaBody": "Explica'm on fa mal: fulls de càlcul paral·lels, estoc que no quadra, processos que depenen d'una persona. Et responc amb un diagnòstic, no amb una proposta a cegues.",
@@ -48,45 +72,73 @@
   },
   "services": {
     "eyebrow": "senseikatana.com/serveis",
+    "label": "serveis",
     "title": "Serveis",
+    "headline": "Quatre maneres de\nentrar-hi al problema.",
     "subtitle": "Software a mida per a negocis que viuen de la seva operació. Sense plantilles genèriques ni promeses de resultats que no depenen de mi.",
     "empty": "Encara no hi ha serveis publicats.",
     "back": "Tornar als serveis",
+    "deliverables": "Lliurables",
     "includesTitle": "Què inclou",
-    "stackTitle": "Stack habitual",
+    "stackTitle": "Stack",
+    "viewScope": "Veure abast",
     "ctaTitle": "Encaixa amb el que necessites?",
     "ctaBody": "Escriu-me amb el context: quin procés vols ordenar, què uses avui i quin termini tens. Et dic si puc ajudar-te i com.",
     "ctaButton": "Parlem"
   },
   "works": {
     "eyebrow": "senseikatana.com/works",
+    "label": "projectes",
     "title": "Works",
+    "headline": "Sistemes en ús,\nno maquetes.",
     "subtitle": "Projectes reals, propis i de clients. El repte, la solució i el resultat, sense mètriques inventades.",
     "empty": "Encara no hi ha casos publicats.",
-    "back": "Tornar a works",
+    "back": "Tornar a projectes",
     "view": "Veure cas",
     "challenge": "El repte",
     "solution": "La solució",
     "outcome": "El resultat",
     "stack": "Stack",
+    "metrics": "Mètriques",
     "role": "Rol",
     "year": "Any",
     "sector": "Sector",
     "client": "Client",
     "visit": "Veure en viu",
     "repo": "Veure codi",
+    "demo": "Demo",
+    "project": "Projecte",
     "ctaTitle": "Tens un repte semblant?",
     "ctaBody": "Cada operació té les seves rareses. Explica'm la teva i veiem què es pot simplificar.",
     "ctaButton": "Parlem"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
+    "label": "sobre mi",
     "title": "Sobre mi",
+    "headline": "De l'operació\nal codi.",
     "lead": "Soc Sergio Jurado, desenvolupador full-stack. Construeixo software per a operacions que no es poden permetre perdre el fil: magatzem, logística, retail i back-office.",
     "bioTitle": "De l'operació al codi",
     "bio1": "Vaig començar resolent problemes de magatzem i comerç, i vaig acabar escrivint el software que els resol. Aquesta doble mirada marca com treballo: primer entenc el procés, després trio l'eina.",
     "bio2": "Treballo amb Nuxt, Astro, Next, Python i Postgres. M'interessa el software avorrit i fiable: tipus forts, tests on importen, deploy reproduïble i documentació que no menteix.",
+    "facts": {
+      "location": "Ubicació",
+      "languages": "Idiomes",
+      "availability": "Disponibilitat",
+      "focus": "Enfocament"
+    },
+    "availability": "Projectes i col·laboracions",
+    "downloadCv": "Descarregar CV (PDF)",
+    "experienceLabel": "trajectòria",
+    "experienceTitle": "L'operació\nva primer.",
+    "experienceLede": "Anys gestionant comandes, estoc i lliuraments. Aquesta experiència és la que fa que el software comenci pel procés i no per la pantalla.",
+    "viewRole": "Veure detall",
+    "educationLabel": "formació",
+    "educationTitle": "Base tècnica\ni ofici.",
+    "educationLede": "Formació en sistemes, imatge i operacions. Cada etapa va aportar una part del criteri que faig servir avui per construir.",
     "principlesTitle": "Com treballo",
+    "principlesHeadline": "Decisions que\nse sostenen.",
+    "principlesLede": "No és una llista de valors: és el que aplico a cada projecte abans d'escriure la primera línia.",
     "principles": [
       {
         "title": "Límits primer",
@@ -105,10 +157,16 @@
         "body": "Rendiment i SEO es comproven amb dades, no amb opinions. Si no es mesura, no es toca."
       }
     ],
+    "stackLabel": "stack",
     "stackTitle": "Stack",
+    "stackHeadline": "Eines\nque faig servir cada dia.",
     "stackSubtitle": "El que faig servir cada dia, no una llista de logos per impressionar.",
+    "openSourceLabel": "open source",
     "openSourceTitle": "Open source",
     "openSourceBody": "Autor de la família KatanaKit: un toolkit TypeScript, un framework SCSS, una TUI per a systemd i una configuració de WordPress code-first. Quatre llibreries, quatre problemes diferents.",
+    "tasksLabel": "Què feia",
+    "skillsLabel": "Competències",
+    "backToAbout": "Tornar a sobre mi",
     "ctaTitle": "Treballam junts?",
     "ctaBody": "Si tens un procés que depèn de fulls de càlcul, correus o memòria, probablement es pot convertir en software.",
     "ctaButton": "Parlem",
@@ -116,6 +174,7 @@
     "location": "Cambrils, Tarragona"
   },
   "contact": {
+    "label": "contacte",
     "title": "Contacte",
     "subtitle": "Explica'm què necessites. Responc jo, no un formulari automàtic.",
     "intro": "Projecte nou, millora d'alguna cosa existent o una consulta tècnica. Envia'm el context i et dic si puc ajudar-te.",
@@ -132,27 +191,52 @@
     "whatsappAction": "WhatsApp",
     "linkedinAction": "LinkedIn",
     "location": "Cambrils, Tarragona",
+    "channels": "Canals",
+    "linkedinHint": "La via més ràpida per escriure'm",
+    "githubHint": "Codi, projectes i activitat",
     "responseTitle": "Què convé explicar-me",
     "responseBody": "El procés que vols ordenar, les eines que uses avui i el termini que tens al cap. Amb això et puc donar una primera lectura útil.",
+    "directNote": "No hi ha formulari: els missatges van directes per LinkedIn o GitHub, sense intermediaris ni base de dades pel mig.",
     "noBackendTitle": "El formulari encara no està disponible.",
     "noBackendBody": "Perquè el missatge arribi sense intermediaris, usa WhatsApp, truca'm o escriu-me per LinkedIn."
   },
   "blog": {
+    "label": "blog",
     "title": "Blog",
-    "subtitle": "Reflexions sobre desenvolupament, arquitectura i tecnologia.",
+    "headline": "Notes de camp.",
+    "subtitle": "Tecnologia, actualitat i opinió. El que passa a Espanya i Europa, amb context.",
+    "lede": "Articles sobre tecnologia, actualitat i opinió: el que passa a Espanya i Europa, amb context i sense soroll.",
     "eyebrow": "senseikatana.com/blog",
     "empty": "No hi ha posts publicats encara.",
-    "back": "Tornar al Blog",
+    "back": "Tornar al blog",
+    "readMore": "Llegir",
+    "readingTime": "{minutes} min de lectura",
+    "writtenBy": "Escrit per",
+    "published": "Publicat",
+    "reading": "Lectura",
+    "onThisPage": "En aquesta pàgina",
+    "keepReading": "Segueix llegint",
+    "cover": "Portada",
     "notFound": "Post no trobat"
-  },
-  "brand": {
-    "tagline": "SOFTWARE · OPERACIONS",
-    "marquee": ["ARQUITECTURA", "OPERACIONS", "RENDIMENT", "TIPUS", "TESTS", "DEPLOY"]
   },
   "footer": {
     "summary": "Desenvolupo software a mida per a magatzem, logística, retail i back-office. Aplicacions web, panells interns i integracions.",
     "navTitle": "Navegació",
     "contactTitle": "Contacte",
-    "rights": "Tots els drets reservats."
+    "rights": "Tots els drets reservats.",
+    "builtWith": "Construït amb Astro i desplegat a Cloudflare"
+  },
+  "notFound": {
+    "title": "Pàgina no trobada",
+    "description": "La pàgina que busques no existeix.",
+    "label": "no trobat",
+    "headline": "Aquesta ruta no existeix.",
+    "body": "Pot ser que l'enllaç estigui malament o que la pàgina s'hagi mogut.",
+    "home": "Tornar a l'inici",
+    "blog": "Llegir el blog"
+  },
+  "brand": {
+    "tagline": "SOFTWARE · OPERACIONS",
+    "marquee": ["ARQUITECTURA", "OPERACIONS", "RENDIMENT", "TIPUS", "TESTS", "DEPLOY"]
   }
 }

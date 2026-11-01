@@ -1,8 +1,11 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../config/site';
+import { getLocale, useTranslations } from '../i18n';
+import { defaultLocale, locales } from '../i18n/config';
 import { personJsonLd } from '../lib/seo';
 
 interface Props {
@@ -23,20 +26,69 @@ const {
   type = 'website',
 } = Astro.props;
 
+const pathname = Astro.url.pathname;
+const locale = getLocale(pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
+const barePath = pathname.replace(/^\/(ca|en)(?=\/|$)/, '') || '/';
+const baseUrl = Astro.site ?? site.url;
+const ogLocale = { es: 'es_ES', ca: 'ca_ES', en: 'en_US' } as const;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.role}`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
-const ogImage = new URL(image, Astro.site ?? site.url).href;
+const localizedPath =
+  locale === defaultLocale ? barePath : `/${locale}${barePath === '/' ? '' : barePath}`;
+const canonical = new URL(localizedPath, baseUrl).href;
+const defaultHref = new URL(barePath, baseUrl).href;
+const ogImage = new URL(image, baseUrl).href;
+const alternates = locales.map((item) => ({
+  locale: item,
+  href: new URL(
+    item === defaultLocale ? barePath : `/${item}${barePath === '/' ? '' : barePath}`,
+    baseUrl,
+  ).href,
+}));
 const jsonLd = personJsonLd();
+
+const pageAnimation = {
+  forwards: {
+    old: {
+      name: 'page-out',
+      duration: 180,
+      easing: 'cubic-bezier(0.76, 0, 0.24, 1)',
+      fillMode: 'both' as const,
+    },
+    new: {
+      name: 'page-in',
+      duration: 420,
+      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      fillMode: 'both' as const,
+    },
+  },
+  backwards: {
+    old: {
+      name: 'page-out',
+      duration: 180,
+      easing: 'cubic-bezier(0.76, 0, 0.24, 1)',
+      fillMode: 'both' as const,
+    },
+    new: {
+      name: 'page-in',
+      duration: 420,
+      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      fillMode: 'both' as const,
+    },
+  },
+};
 ---
 
 <!doctype html>
-<html lang={site.lang}>
+<html lang={locale} transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((item) => <link rel="alternate" hreflang={item.locale} href={item.href} />)}
+    <link rel="alternate" hreflang="x-default" href={defaultHref} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
@@ -47,9 +99,11 @@ const jsonLd = personJsonLd();
       title={`${site.name} · Blog`}
     />
 
+    <ClientRouter />
+
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:locale" content={site.locale} />
+    <meta property="og:locale" content={ogLocale[locale]} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -74,12 +128,40 @@ const jsonLd = personJsonLd();
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] btn btn-inverse btn-s"
-      >Skip to content</a
+      >{tr('a11y.skip')}</a
     >
     {header ? <Header /> : <slot name="header" />}
-    <main id="main">
+    <main id="main" transition:animate={pageAnimation}>
       <slot />
     </main>
     {footer && <Footer />}
   </body>
 </html>
+
+<style is:global>
+  @keyframes page-out {
+    to {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.995);
+    }
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px) scale(0.995);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+</style>

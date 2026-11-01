@@ -5,20 +5,19 @@ import SectionHead from '../../components/SectionHead.astro';
 import ServiceCard from '../../features/services/components/ServiceCard.astro';
 import CtaSection from '../../components/CtaSection.astro';
 import { getServices } from '../../features/services/queries';
+import { getLocale, useTranslations } from '../../i18n';
 
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
 const services = await getServices();
 ---
 
-<Base
-  title="Servicios"
-  description="Aplicaciones web, paneles internos, integraciones y rendimiento para operaciones reales."
->
+<Base title={tr('services.title')} description={tr('services.subtitle')}>
   <Section top={false} inner="px-6 pt-16 pb-14 max-md:px-5">
     <SectionHead
       idx="01"
-      label="servicios"
-      title={'Cuatro formas de\nentrarle al problema.'}
-      lede="Alcance claro, entregables concretos y código que se puede mantener."
+      label={tr('services.label')}
+      title={tr('services.headline')}
+      lede={tr('services.subtitle')}
       size="lg"
     />
   </Section>
@@ -35,5 +34,5 @@ const services = await getServices();
     </ul>
   </Section>
 
-  <CtaSection />
+  <CtaSection title={tr('services.ctaTitle')} lede={tr('services.ctaBody')} />
 </Base>

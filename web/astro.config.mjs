@@ -12,10 +12,14 @@ export default defineConfig({
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'ca', 'en'],
-    routing: { prefixDefaultLocale: false },
+    fallback: { ca: 'es', en: 'es' },
+    routing: { prefixDefaultLocale: false, fallbackType: 'rewrite' },
   },
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ['.trycloudflare.com'],
+    },
   },
   build: {
     inlineStylesheets: 'auto',

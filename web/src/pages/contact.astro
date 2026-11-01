@@ -3,24 +3,24 @@ import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import SectionHead from '../components/SectionHead.astro';
 import { site } from '../config/site';
+import { getLocale, useTranslations } from '../i18n';
+
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
 ---
 
-<Base
-  title="Contacto"
-  description="Cuéntame qué necesitas. Respondo yo, no un formulario automático."
->
+<Base title={tr('contact.title')} description={tr('contact.subtitle')}>
   <Section top={false} inner="px-6 pt-16 pb-24 max-md:px-5">
     <SectionHead
       idx="01"
-      label="contacto"
-      title={'Cuéntame qué\nnecesitas.'}
-      lede="Proyecto nuevo, mejora de algo existente o una consulta técnica. Mándame el contexto y te digo si puedo ayudarte."
+      label={tr('contact.label')}
+      title={tr('contact.subtitle')}
+      lede={tr('contact.intro')}
       size="lg"
     />
 
     <div class="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-14">
       <div>
-        <p class="label">Canales</p>
+        <p class="label">{tr('contact.channels')}</p>
         <ul class="mt-4 border-t border-rule">
           <li class="border-b border-rule">
             <a
@@ -32,9 +32,7 @@ import { site } from '../config/site';
                 <span class="block text-[16px] font-bold text-ink group-hover:text-link"
                   >LinkedIn</span
                 >
-                <span class="block mt-1 text-[13px] text-smoke"
-                  >La vía más rápida para escribirme</span
-                >
+                <span class="block mt-1 text-[13px] text-smoke">{tr('contact.linkedinHint')}</span>
               </span>
               <span class="text-stone" aria-hidden="true">-&gt;</span>
             </a>
@@ -49,24 +47,22 @@ import { site } from '../config/site';
                 <span class="block text-[16px] font-bold text-ink group-hover:text-link"
                   >GitHub</span
                 >
-                <span class="block mt-1 text-[13px] text-smoke">Código, proyectos y actividad</span>
+                <span class="block mt-1 text-[13px] text-smoke">{tr('contact.githubHint')}</span>
               </span>
               <span class="text-stone" aria-hidden="true">-&gt;</span>
             </a>
           </li>
         </ul>
-        <p class="mt-6 text-[13px] text-steel">{site.location}</p>
+        <p class="mt-6 text-[13px] text-steel">{tr('contact.location')}</p>
       </div>
 
       <div>
-        <p class="label">Qué conviene contarme</p>
+        <p class="label">{tr('contact.responseTitle')}</p>
         <p class="mt-4 text-[15px] leading-[1.65] text-steel">
-          El proceso que quieres ordenar, las herramientas que usas hoy y el plazo que tienes en
-          mente. Con eso puedo darte una primera lectura útil.
+          {tr('contact.responseBody')}
         </p>
         <p class="mt-6 border border-rule bg-tint px-4 py-3 text-[13px] text-steel">
-          No hay formulario: los mensajes van directos por LinkedIn o GitHub, sin intermediarios ni
-          base de datos de por medio.
+          {tr('contact.directNote')}
         </p>
       </div>
     </div>

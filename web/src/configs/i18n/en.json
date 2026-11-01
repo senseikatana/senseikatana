@@ -1,4 +1,14 @@
 {
+  "a11y": {
+    "skip": "Skip to content",
+    "mainNav": "Main navigation",
+    "menu": "[menu]",
+    "close": "[close]",
+    "menuLabel": "Menu"
+  },
+  "common": {
+    "back": "Back"
+  },
   "nav": {
     "home": "Home",
     "services": "Services",
@@ -27,9 +37,23 @@
     "intro": "I design and build web applications for real operations: warehouse, logistics, retail and back office. From the data model to deploy, without extra layers.",
     "ctaServices": "See services",
     "ctaContact": "Tell me about your project",
+    "worksCta": "See projects",
     "photoAlt": "Portrait of Sergio Jurado",
     "marker": "CAMBRILS · TARRAGONA",
     "tags": ["#NUXT", "#ASTRO", "#NEXT", "#PYTHON", "#POSTGRES"],
+    "profileTitle": "Profile",
+    "stats": {
+      "years": "years building",
+      "languages": "languages supported",
+      "fullstack": "from data to deploy",
+      "edge": "edge and static"
+    },
+    "labels": {
+      "presentation": "presentation",
+      "services": "services",
+      "works": "works",
+      "blog": "blog"
+    },
     "servicesTitle": "What I do",
     "servicesSubtitle": "Four ways into the problem. Clear scope, concrete deliverables and code you can maintain.",
     "servicesAll": "All services",
@@ -40,7 +64,7 @@
     "aboutBody": "Architecture first, frameworks second. Clear boundaries between domain, application and infrastructure, and a design system built on tokens before components.",
     "aboutCta": "About me",
     "blogTitle": "Blog",
-    "blogSubtitle": "Notes on architecture, performance and the decisions behind the code.",
+    "blogSubtitle": "Notes on technology, current affairs and opinion: what's happening in Spain and Europe.",
     "blogAll": "Read the blog",
     "ctaTitle": "Is your operation falling apart?",
     "ctaBody": "Tell me where it hurts: parallel spreadsheets, stock that never matches, processes that depend on one person. You get a diagnosis, not a blind proposal.",
@@ -48,19 +72,25 @@
   },
   "services": {
     "eyebrow": "senseikatana.com/services",
+    "label": "services",
     "title": "Services",
+    "headline": "Four ways\ninto the problem.",
     "subtitle": "Custom software for businesses that live off their operation. No generic templates, no promises of results that don't depend on me.",
     "empty": "No services published yet.",
     "back": "Back to services",
+    "deliverables": "Deliverables",
     "includesTitle": "What it includes",
-    "stackTitle": "Usual stack",
+    "stackTitle": "Stack",
+    "viewScope": "View scope",
     "ctaTitle": "Does this fit what you need?",
     "ctaBody": "Write to me with the context: which process you want to order, what you use today and your timeline. I'll tell you if I can help and how.",
     "ctaButton": "Let's talk"
   },
   "works": {
     "eyebrow": "senseikatana.com/works",
+    "label": "works",
     "title": "Works",
+    "headline": "Systems in use,\nnot mockups.",
     "subtitle": "Real projects, my own and for clients. The challenge, the solution and the outcome, without invented metrics.",
     "empty": "No case studies published yet.",
     "back": "Back to works",
@@ -69,24 +99,46 @@
     "solution": "The solution",
     "outcome": "The outcome",
     "stack": "Stack",
+    "metrics": "Metrics",
     "role": "Role",
     "year": "Year",
     "sector": "Sector",
     "client": "Client",
     "visit": "View live",
     "repo": "View code",
+    "demo": "Demo",
+    "project": "Project",
     "ctaTitle": "Got a similar challenge?",
     "ctaBody": "Every operation has its quirks. Tell me yours and we'll see what can be simplified.",
     "ctaButton": "Let's talk"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
+    "label": "about me",
     "title": "About",
+    "headline": "From operations\nto code.",
     "lead": "I'm Sergio Jurado, a full-stack developer. I build software for operations that can't afford to lose the thread: warehouse, logistics, retail and back office.",
     "bioTitle": "From the floor to the code",
     "bio1": "I started solving warehouse and retail problems, and ended up writing the software that solves them. That double perspective shapes how I work: understand the process first, choose the tool second.",
     "bio2": "I work with Nuxt, Astro, Next, Python and Postgres. I care about boring, dependable software: strong types, tests where they matter, reproducible deploys and documentation that doesn't lie.",
+    "facts": {
+      "location": "Location",
+      "languages": "Languages",
+      "availability": "Availability",
+      "focus": "Focus"
+    },
+    "availability": "Projects and collaborations",
+    "downloadCv": "Download CV (PDF)",
+    "experienceLabel": "experience",
+    "experienceTitle": "Operations\ncome first.",
+    "experienceLede": "Years managing orders, stock and deliveries. That experience is why the software starts with the process, not the screen.",
+    "viewRole": "View detail",
+    "educationLabel": "education",
+    "educationTitle": "Technical base\nand craft.",
+    "educationLede": "Training in systems, image and operations. Each stage added a piece of the judgement I use to build today.",
     "principlesTitle": "How I work",
+    "principlesHeadline": "Decisions that\nhold up.",
+    "principlesLede": "It is not a list of values: it is what I apply to every project before writing the first line.",
     "principles": [
       {
         "title": "Boundaries first",
@@ -105,10 +157,16 @@
         "body": "Performance and SEO are checked with data, not opinions. If it isn't measured, it doesn't get touched."
       }
     ],
+    "stackLabel": "stack",
     "stackTitle": "Stack",
+    "stackHeadline": "Tools\nI use every day.",
     "stackSubtitle": "What I use daily, not a list of logos to impress.",
+    "openSourceLabel": "open source",
     "openSourceTitle": "Open source",
     "openSourceBody": "Author of the KatanaKit family: a TypeScript toolkit, a SCSS framework, a systemd TUI and a code-first WordPress configuration. Four libraries, four different problems.",
+    "tasksLabel": "What I did",
+    "skillsLabel": "Skills",
+    "backToAbout": "Back to about",
     "ctaTitle": "Shall we work together?",
     "ctaBody": "If you have a process that depends on spreadsheets, email or memory, it can probably become software.",
     "ctaButton": "Let's talk",
@@ -116,6 +174,7 @@
     "location": "Cambrils, Tarragona"
   },
   "contact": {
+    "label": "contact",
     "title": "Contact",
     "subtitle": "Tell me what you need. I answer, not an automated form.",
     "intro": "A new project, an improvement to something existing or a technical question. Send me the context and I'll tell you if I can help.",
@@ -132,27 +191,52 @@
     "whatsappAction": "WhatsApp",
     "linkedinAction": "LinkedIn",
     "location": "Cambrils, Tarragona",
+    "channels": "Channels",
+    "linkedinHint": "The fastest way to reach me",
+    "githubHint": "Code, projects and activity",
     "responseTitle": "What to tell me",
     "responseBody": "The process you want to order, the tools you use today and the timeline you have in mind. With that I can give you a useful first read.",
+    "directNote": "There is no form: messages go directly through LinkedIn or GitHub, with no middlemen or database.",
     "noBackendTitle": "The form is not available yet.",
     "noBackendBody": "So your message reaches me directly, use WhatsApp, call me or write on LinkedIn."
   },
   "blog": {
+    "label": "blog",
     "title": "Blog",
-    "subtitle": "Notes on development, architecture and technology.",
+    "headline": "Field notes.",
+    "subtitle": "Technology, current affairs and opinion. What's happening in Spain and Europe, with context.",
+    "lede": "Articles on technology, current affairs and opinion: what's happening in Spain and Europe, with context and without the noise.",
     "eyebrow": "senseikatana.com/blog",
     "empty": "No posts published yet.",
-    "back": "Back to Blog",
+    "back": "Back to blog",
+    "readMore": "Read",
+    "readingTime": "{minutes} min read",
+    "writtenBy": "Written by",
+    "published": "Published",
+    "reading": "Reading",
+    "onThisPage": "On this page",
+    "keepReading": "Keep reading",
+    "cover": "Cover",
     "notFound": "Post not found"
-  },
-  "brand": {
-    "tagline": "SOFTWARE · OPERATIONS",
-    "marquee": ["ARCHITECTURE", "OPERATIONS", "PERFORMANCE", "TYPES", "TESTS", "DEPLOY"]
   },
   "footer": {
     "summary": "Custom software for warehouse, logistics, retail and back office. Web applications, internal dashboards and integrations.",
     "navTitle": "Navigation",
     "contactTitle": "Contact",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Astro and deployed on Cloudflare"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist.",
+    "label": "not found",
+    "headline": "This route does not exist.",
+    "body": "The link may be wrong or the page may have moved.",
+    "home": "Back to home",
+    "blog": "Read the blog"
+  },
+  "brand": {
+    "tagline": "SOFTWARE · OPERATIONS",
+    "marquee": ["ARCHITECTURE", "OPERATIONS", "PERFORMANCE", "TYPES", "TESTS", "DEPLOY"]
   }
 }

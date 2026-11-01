@@ -1,0 +1,44 @@
+name: Deploy
+
+# `main` is written by the Sync main workflow. A push made with GITHUB_TOKEN
+# does not trigger another `push` workflow, so deploy on the sync run instead.
+on:
+  workflow_run:
+    workflows: ['Sync main']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      # Pinned by SHA: this job holds a Cloudflare token, so the ref is part of
+      # the trust boundary and must not be a mutable tag.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.4.4
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        run: bun run build
+
+      - name: Deploy to Cloudflare Pages
+        run: bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,19 +1,33 @@
 ---
 import { site } from '../config/site';
+import { getLocale, useTranslations } from '../i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 import Logo from './Logo.astro';
 import ThemeSwitcher from './ThemeSwitcher.astro';
 
 const path = Astro.url.pathname;
+const tr = useTranslations(getLocale(path, Astro.currentLocale));
+
+const navKeys: Record<string, string> = {
+  '/': 'home',
+  '/services': 'services',
+  '/works': 'works',
+  '/about': 'about',
+  '/blog': 'blog',
+  '/contact': 'contact',
+};
+
+const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
 ---
 
 <!-- Fixed header: sticky once the announcement bar scrolls away; data-scrolled toggles the blurred state -->
 <header class="site-header sticky top-0 z-50 border-b border-rule bg-canvas">
   <nav
     class="frame flex items-center gap-8 h-16 px-6 max-md:h-14 max-md:px-5"
-    aria-label="Principal"
+    aria-label={tr('a11y.mainNav')}
   >
     <Logo />
-    <ul class="hidden md:flex gap-7 text-[14px]">
+    <ul class="hidden md:flex gap-5 text-[14px] lg:gap-7">
       {
         site.nav.map((link) => (
           <li>
@@ -24,20 +38,22 @@ const path = Astro.url.pathname;
                 path.startsWith(link.href) ? 'text-ink' : 'text-steel',
               ]}
             >
-              {link.label}
+              {labelFor(link.href)}
             </a>
           </li>
         ))
       }
     </ul>
-    <div class="ml-auto flex items-center gap-5">
+    <div class="ml-auto flex items-center gap-3 lg:gap-5">
       <div class="hidden md:block"><ThemeSwitcher /></div>
-      <a href={site.cta.href} class="btn btn-primary btn-s">{site.cta.label}</a>
+      <LanguageSwitcher />
+      <a href={site.cta.href} class="btn btn-primary btn-s hidden md:inline-flex">{tr('nav.cta')}</a
+      >
       <button
         type="button"
         class="md:hidden text-[13px] text-ink"
         data-menu-open
-        aria-haspopup="dialog">[menu]</button
+        aria-haspopup="dialog">{tr('a11y.menu')}</button
       >
     </div>
   </nav>
@@ -46,12 +62,14 @@ const path = Astro.url.pathname;
 <!-- Mobile menu: full-screen dialog, 100dvh, Esc closes, body scroll locked -->
 <dialog
   class="mobile-menu m-0 h-dvh max-h-none w-screen max-w-none bg-canvas text-steel p-0"
-  aria-label="Menú"
+  aria-label={tr('a11y.menuLabel')}
 >
   <div class="flex flex-col h-full">
     <div class="flex items-center h-14 px-5 border-b border-rule">
       <Logo />
-      <button type="button" class="ml-auto text-[13px] text-ink" data-menu-close>[cerrar]</button>
+      <button type="button" class="ml-auto text-[13px] text-ink" data-menu-close
+        >{tr('a11y.close')}</button
+      >
     </div>
     <ul class="px-5 pt-3">
       {
@@ -59,7 +77,9 @@ const path = Astro.url.pathname;
           <li>
             <a href={link.href} class="flex items-center gap-3.5 py-4 border-b border-rule">
               <span class="text-[12px] text-smoke">{String(index + 1).padStart(2, '0')}</span>
-              <span class="text-[28px] font-bold tracking-[-0.03em] text-ink">{link.label}</span>
+              <span class="text-[28px] font-bold tracking-[-0.03em] text-ink">
+                {labelFor(link.href)}
+              </span>
               <span class="ml-auto text-stone" aria-hidden="true">
                 -&gt;
               </span>
@@ -70,9 +90,9 @@ const path = Astro.url.pathname;
     </ul>
     <div class="mt-auto px-5 pt-5 pb-7 border-t border-rule flex flex-col gap-4">
       <div class="flex items-center">
-        <span class="label">Tema</span><span class="ml-auto"><ThemeSwitcher /></span>
+        <span class="label">{tr('theme.title')}</span><span class="ml-auto"><ThemeSwitcher /></span>
       </div>
-      <a href={site.cta.href} class="btn btn-primary w-full">{site.cta.label} -&gt;</a>
+      <a href={site.cta.href} class="btn btn-primary w-full">{tr('nav.cta')} -&gt;</a>
     </div>
   </div>
 </dialog>

@@ -10,7 +10,9 @@ import { getServices } from '../features/services/queries';
 import { getFeaturedWorks } from '../features/works/queries';
 import { getPosts } from '../features/blog/queries';
 import { site } from '../config/site';
+import { getLocale, useTranslations } from '../i18n';
 
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
 const services = await getServices();
 const works = (await getFeaturedWorks()).slice(0, 3);
 const posts = (await getPosts()).slice(0, 3);
@@ -21,33 +23,34 @@ const posts = (await getPosts()).slice(0, 3);
   <Section
     top={false}
     inner="px-6 pt-16 pb-20 lg:pt-24 lg:pb-28 max-md:px-5 overflow-hidden"
-    label="Presentación"
+    label={tr('home.labels.presentation')}
   >
     <div class="grid-bg" style="--gx:74%;--gy:50%" aria-hidden="true"></div>
     <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-14 lg:gap-12 items-center">
       <div>
         <p class="label"><b>[00]</b> {site.location}</p>
         <h1 class="mt-5 text-[clamp(40px,5.4vw,66px)] leading-[1.02] font-bold tracking-[-0.045em]">
-          Software que<br />ordena la<br /><span class="text-cta">operación.</span>
+          {tr('home.headline.1')}<br />{tr('home.headline.2')}<br /><span class="text-cta"
+            >{tr('home.headline.3')}</span
+          >
         </h1>
         <p class="mt-6 max-w-[48ch] text-[16px] leading-[1.6] text-steel max-md:text-[15px]">
-          Diseño y construyo aplicaciones web para operaciones reales: almacén, logística, retail y
-          back-office. Del modelo de datos al deploy, sin capas de más.
+          {tr('home.intro')}
         </p>
         <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
-          <a href={site.cta.href} class="btn btn-primary max-md:w-full">{site.cta.label} -&gt;</a>
-          <a href={site.secondary.href} class="link text-[15px]">{site.secondary.label} -&gt;</a>
+          <a href={site.cta.href} class="btn btn-primary max-md:w-full">{tr('nav.cta')} -&gt;</a>
+          <a href={site.secondary.href} class="link text-[15px]">{tr('home.worksCta')} -&gt;</a>
         </div>
       </div>
       <div class="border border-ink bg-canvas p-6">
-        <p class="label">Perfil</p>
+        <p class="label">{tr('home.profileTitle')}</p>
         <dl class="mt-5 grid grid-cols-2 border-t border-l border-rule">
           {
             [
-              ['+10', 'años construyendo'],
-              ['ES · CA · EN', 'idiomas soportados'],
-              ['Full-stack', 'del dato al deploy'],
-              ['Cloudflare', 'edge y estáticos'],
+              ['+10', tr('home.stats.years')],
+              ['ES · CA · EN', tr('home.stats.languages')],
+              ['Full-stack', tr('home.stats.fullstack')],
+              ['Cloudflare', tr('home.stats.edge')],
             ].map(([value, label]) => (
               <div class="px-4 py-5 border-r border-b border-rule">
                 <dd class="text-[20px] font-bold tracking-[-0.03em] text-ink">{value}</dd>
@@ -61,15 +64,15 @@ const posts = (await getPosts()).slice(0, 3);
   </Section>
 
   <!-- [01] Servicios -->
-  <Section id="servicios" label="Servicios">
+  <Section id="servicios" label={tr('home.labels.services')}>
     <div class="flex flex-wrap items-end justify-between gap-6">
       <SectionHead
         idx="01"
-        label="servicios"
-        title={'Cuatro formas de\nentrarle al problema.'}
-        lede="Alcance claro, entregables concretos y código que se puede mantener."
+        label={tr('home.labels.services')}
+        title={tr('services.headline')}
+        lede={tr('home.servicesSubtitle')}
       />
-      <a href="/services" class="link text-[14px]">Ver todos -&gt;</a>
+      <a href="/services" class="link text-[14px]">{tr('home.servicesAll')} -&gt;</a>
     </div>
     <ul class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-rule">
       {
@@ -83,15 +86,15 @@ const posts = (await getPosts()).slice(0, 3);
   </Section>
 
   <!-- [02] Proyectos -->
-  <Section label="Proyectos">
+  <Section label={tr('home.labels.works')}>
     <div class="flex flex-wrap items-end justify-between gap-6">
       <SectionHead
         idx="02"
-        label="proyectos"
-        title={'Sistemas en uso,\nno maquetas.'}
-        lede="Casos con cliente, sector y resultado. Lo que se construyó y para qué."
+        label={tr('home.labels.works')}
+        title={tr('works.headline')}
+        lede={tr('home.worksSubtitle')}
       />
-      <a href="/works" class="link text-[14px]">Ver todos -&gt;</a>
+      <a href="/works" class="link text-[14px]">{tr('home.worksAll')} -&gt;</a>
     </div>
     <ul class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
       {
@@ -105,15 +108,15 @@ const posts = (await getPosts()).slice(0, 3);
   </Section>
 
   <!-- [03] Blog -->
-  <Section label="Blog">
+  <Section label={tr('home.labels.blog')}>
     <div class="flex flex-wrap items-end justify-between gap-6">
       <SectionHead
         idx="03"
-        label="blog"
-        title={'Notas de campo.'}
-        lede="Lo que aprendo construyendo: arquitectura, rendimiento y operaciones."
+        label={tr('home.labels.blog')}
+        title={tr('blog.headline')}
+        lede={tr('home.blogSubtitle')}
       />
-      <a href="/blog" class="link text-[14px]">Ver todo -&gt;</a>
+      <a href="/blog" class="link text-[14px]">{tr('home.blogAll')} -&gt;</a>
     </div>
     <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10">
       {posts.map((post) => <PostCard post={post} />)}

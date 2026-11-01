@@ -1,9 +1,13 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import BackLink from '../../components/BackLink.astro';
 import Section from '../../components/Section.astro';
 import CtaSection from '../../components/CtaSection.astro';
 import { getWorks } from '../../features/works/queries';
+import { getLocale, useTranslations } from '../../i18n';
+
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
 
 export async function getStaticPaths() {
   const works = await getWorks();
@@ -13,21 +17,23 @@ export async function getStaticPaths() {
 const { work } = Astro.props;
 const { Content } = await render(work);
 const beats = [
-  ['Reto', work.data.challenge],
-  ['Solución', work.data.solution],
-  ['Resultado', work.data.outcome],
+  [tr('works.challenge'), work.data.challenge],
+  [tr('works.solution'), work.data.solution],
+  [tr('works.outcome'), work.data.outcome],
 ].filter(([, body]) => Boolean(body)) as [string, string][];
 ---
 
 <Base title={work.data.title} description={work.data.description}>
   <Section top={false} inner="px-6 pt-16 pb-10 max-md:px-5">
+    <div class="mb-6"><BackLink href="/works" /></div>
     <p class="flex items-center gap-2 text-[12px] text-smoke">
-      <a href="/works" class="hover:text-ink">Proyectos</a>
+      <a href="/works" class="hover:text-ink">{tr('works.title')}</a>
       <span class="text-stone">/</span>
       <span>{work.data.title}</span>
     </p>
     <h1
       class="mt-6 text-[clamp(32px,4.6vw,56px)] leading-[1.04] font-bold tracking-[-0.045em] max-w-[20ch]"
+      transition:name={`work-title-${work.id}`}
     >
       {work.data.title}
     </h1>
@@ -39,7 +45,7 @@ const beats = [
         work.data.client && (
           <span>
             <>
-              <span class="label block">Cliente</span>
+              <span class="label block">{tr('works.client')}</span>
               <span class="text-ink">{work.data.client}</span>
             </>
           </span>
@@ -49,7 +55,7 @@ const beats = [
         work.data.sector && (
           <span>
             <>
-              <span class="label block">Sector</span>
+              <span class="label block">{tr('works.sector')}</span>
               <span class="text-ink">{work.data.sector}</span>
             </>
           </span>
@@ -59,7 +65,7 @@ const beats = [
         work.data.year && (
           <span>
             <>
-              <span class="label block">Año</span>
+              <span class="label block">{tr('works.year')}</span>
               <span class="text-ink">{work.data.year}</span>
             </>
           </span>
@@ -69,7 +75,7 @@ const beats = [
         work.data.role && (
           <span>
             <>
-              <span class="label block">Rol</span>
+              <span class="label block">{tr('works.role')}</span>
               <span class="text-ink">{work.data.role}</span>
             </>
           </span>
@@ -79,7 +85,7 @@ const beats = [
         work.data.liveUrl && (
           <span>
             <>
-              <span class="label block">En vivo</span>
+              <span class="label block">{tr('works.visit')}</span>
               <a href={work.data.liveUrl} class="link">
                 {new URL(work.data.liveUrl).hostname} -&gt;
               </a>
@@ -91,9 +97,9 @@ const beats = [
         work.data.repoUrl && (
           <span>
             <>
-              <span class="label block">Código</span>
+              <span class="label block">{tr('works.repo')}</span>
               <a href={work.data.repoUrl} class="link">
-                Repositorio -&gt;
+                {tr('works.repo')} -&gt;
               </a>
             </>
           </span>
@@ -123,7 +129,7 @@ const beats = [
         {
           work.data.stack.length > 0 && (
             <div>
-              <p class="label">Stack</p>
+              <p class="label">{tr('works.stack')}</p>
               <ul class="mt-4 flex flex-wrap gap-1.5">
                 {work.data.stack.map((tech) => (
                   <li class="border border-rule px-2 py-1 text-[12px] text-smoke">{tech}</li>
@@ -135,7 +141,7 @@ const beats = [
         {
           work.data.metrics.length > 0 && (
             <div>
-              <p class="label">Métricas</p>
+              <p class="label">{tr('works.metrics')}</p>
               <dl class="mt-4 border-t border-rule">
                 {work.data.metrics.map((metric) => (
                   <div class="py-3 border-b border-rule">

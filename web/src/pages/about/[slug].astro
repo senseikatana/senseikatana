@@ -1,0 +1,81 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import BackLink from '../../components/BackLink.astro';
+import Section from '../../components/Section.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { getExperience } from '../../features/experience/queries';
+import { getLocale, useTranslations } from '../../i18n';
+
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+
+export async function getStaticPaths() {
+  const experience = await getExperience();
+  return experience.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { role, org, year, location, summary, tasks, skills } = entry.data;
+---
+
+<Base title={role} description={summary}>
+  <Section top={false} inner="px-6 pt-16 pb-10 max-md:px-5">
+    <div class="mb-6"><BackLink href="/about" /></div>
+    <p class="flex items-center gap-2 text-[12px] text-smoke">
+      <a href="/about" class="hover:text-ink">{tr('nav.about')}</a>
+      <span class="text-stone">/</span>
+      <span>{role}</span>
+    </p>
+    <p class="label mt-6">{year}{location && ` · ${location}`}</p>
+    <h1
+      class="mt-3 text-[clamp(32px,4.6vw,56px)] leading-[1.04] font-bold tracking-[-0.045em] max-w-[20ch]"
+      transition:name={`experience-title-${entry.id}`}
+    >
+      {role}
+    </h1>
+    <p class="mt-3 text-[15px] font-bold text-ink">{org}</p>
+    <p class="mt-5 text-[18px] max-md:text-[15px] leading-[1.5] text-steel max-w-[60ch]">
+      {summary}
+    </p>
+  </Section>
+
+  <Section top={false} inner="px-6 pb-24 max-md:px-5">
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,680px)_300px] gap-14">
+      <div>
+        {
+          tasks.length > 0 && (
+            <div>
+              <p class="label">{tr('about.tasksLabel')}</p>
+              <ul class="mt-4 border-t border-rule">
+                {tasks.map((task) => (
+                  <li class="flex gap-3 py-3 border-b border-rule text-[14px] leading-[1.6] text-steel">
+                    <span class="text-smoke">+</span>
+                    {task}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+        <div class="prose-content mt-10 min-w-0"><Content /></div>
+      </div>
+      <aside class="space-y-8">
+        {
+          skills.length > 0 && (
+            <div>
+              <p class="label">{tr('about.skillsLabel')}</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5">
+                {skills.map((skill) => (
+                  <li class="border border-rule px-2 py-1 text-[12px] text-smoke">{skill}</li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </Section>
+
+  <CtaSection />
+</Base>
