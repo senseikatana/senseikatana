@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<title>Katana UI — e2e fixture</title>
+		<link rel="stylesheet" href="/ui.css" />
+		<style>
+			/* The kit pins its stack to the viewport; this keeps the page tall
+			   enough that the fixture can scroll to the stack. */
+			body {
+				margin: 0;
+				min-height: 120vh;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="spawn-success" type="button">success</button>
+		<button id="spawn-error" type="button">error</button>
+		<button id="spawn-loading" type="button">loading</button>
+		<button id="spawn-timed" type="button">timed</button>
+		<button id="spawn-pinned" type="button">pinned</button>
+		<button id="spawn-update" type="button">update</button>
+		<button id="clear" type="button">clear toast</button>
+
+		<button id="open-modal" type="button">open modal</button>
+		<button id="open-pinned-modal" type="button">open un-dismissable modal</button>
+		<button id="steal-focus" type="button">steal focus</button>
+		<button id="close-modal" type="button">close modals</button>
+
+		<div id="widgets"></div>
+
+		<script type="module">
+			import { buttonClass, modal, toast, useSelect, useTabs } from "/ui.js";
+
+			// Exposed for the assertions. Importing the module is SSR-safe: nothing
+			// here touches the DOM until a handler runs.
+			window.toast = toast;
+			window.modal = modal;
+			window.buttonClass = buttonClass;
+			window.modalHandles = [];
+
+			const spawn = (type, options) => () => toast[type]("Fixture toast", options);
+
+			document.getElementById("spawn-success").addEventListener("click", spawn("success"));
+			document.getElementById("spawn-error").addEventListener("click", spawn("error"));
+			document.getElementById("spawn-loading").addEventListener("click", spawn("loading"));
+			document.getElementById("spawn-timed").addEventListener("click", spawn("info", { duration: 1000 }));
+			document.getElementById("spawn-pinned").addEventListener("click", spawn("info", { duration: 0 }));
+			document.getElementById("clear").addEventListener("click", () => toast.clear());
+
+			document.getElementById("spawn-update").addEventListener("click", () => {
+				const handle = toast.loading("Uploading…", { duration: 0 });
+				window.__handle = handle;
+				handle.update({ type: "success", message: "Done." });
+			});
+
+			/**
+			 * Opens a dialog whose body holds three buttons.
+			 *
+			 * More than one tab stop is what makes the focus-trap boundary
+			 * observable: with a single stop, first and last are the same element
+			 * and a wrap cannot be told apart from a normal Tab.
+			 */
+			window.modalOpen = (options = {}) => {
+				const body = document.createElement("div");
+				for (const label of ["Alpha", "Bravo", "Charlie"]) {
+					const button = document.createElement("button");
+					button.type = "button";
+					button.dataset.label = label;
+					button.textContent = label;
+					body.append(button);
+				}
+
+				window.modalHandles.push(
+					modal.open({
+						title: "Fixture dialog",
+						message: "Body copy.",
+						content: body,
+						...options,
+					}),
+				);
+			};
+
+			/** Simulates a third party moving focus out of an open dialog. */
+			window.modalStealFocus = () => {
+				document.getElementById("spawn-success").focus();
+			};
+
+			document.getElementById("open-modal").addEventListener("click", () => window.modalOpen());
+			document.getElementById("open-pinned-modal").addEventListener("click", () =>
+				window.modalOpen({ dismissOnEscape: false }),
+			);
+			document.getElementById("steal-focus").addEventListener("click", () => window.modalStealFocus());
+			document.getElementById("close-modal").addEventListener("click", () => modal.closeAll());
+
+			// ── Tabs and Select ────────────────────────────────────────────────
+			window.mountTabs = (mode = "automatic") => {
+				const host = document.getElementById("widgets");
+				host.replaceChildren();
+				host.append(
+					useTabs({
+						label: "Sections",
+						activation: mode,
+						tabs: [
+							{ id: "one", label: "One", content: "First panel" },
+							{ id: "two", label: "Two", content: "Second panel" },
+							{ id: "three", label: "Three", content: "Third panel", disabled: true },
+							{ id: "four", label: "Four", content: "Fourth panel" },
+						],
+					}).root,
+				);
+			};
+
+			window.mountSelect = () => {
+				const host = document.getElementById("widgets");
+				host.replaceChildren();
+				host.append(
+					useSelect({
+						label: "Country",
+						name: "country",
+						options: [
+							{ value: "es", label: "Spain" },
+							{ value: "ar", label: "Argentina" },
+							{ value: "br", label: "Brazil" },
+							{ value: "cl", label: "Chile", disabled: true },
+						],
+					}).root,
+				);
+			};
+		</script>
+	</body>
+</html>

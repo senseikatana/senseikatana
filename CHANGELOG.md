@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.2.0] - 2026-11-01
+
+Highlights: fix(ci): skip sync when main already contains the commit, plus 2 more changes.
+
+- 🧹 chore(katanakit-js): update 1 file (+1/-0) `f89c842`
+  - `katanakit-js`
+- 🐛 fix(ci): skip sync when main already contains the commit `90019c6`
+  - `.github/workflows/sync-main.yml`
+- 🔹 Initial plan `141443f`
+- 🐛 fix: update dependencies and package-lock.json to latest versions `05576cb`
+- 📝 docs(readme): switch contact email to github-senseikatana@protonmail.com `dc5822f`
+- 🧹 chore(gitignore): drop leftover eslint config exception `ab5126b`
+
 ## [2.1.1] - 2026-10-17
 
 Highlights: fix: update dependencies and package-lock.json to latest versions.

@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Katana Admin — katanakit-js dashboard example</title>
+		<meta
+			name="description"
+			content="A dashboard built only with the documented katanakit-js UI components and CSS utilities."
+		/>
+		<link rel="stylesheet" href="../../packages/ui/dist/styles.css" />
+		<link rel="stylesheet" href="./dashboard.css" />
+	</head>
+	<body>
+		<a class="skip-link" href="#content">Skip to content</a>
+
+		<div class="shell">
+			<aside class="sidebar">
+				<a class="brand" href="#overview">
+					<span class="brand__mark" aria-hidden="true">K</span>
+					<span>
+						<span class="brand__name">Katana Admin</span>
+						<span class="brand__meta">katanakit-js example</span>
+					</span>
+				</a>
+
+				<nav class="nav" aria-label="Dashboard sections">
+					<p class="nav__group">Overview</p>
+					<a class="nav__link" href="#overview">Dashboard</a>
+
+					<p class="nav__group">UI kit</p>
+					<a class="nav__link" href="#buttons">Buttons</a>
+					<a class="nav__link" href="#badges">Badges</a>
+					<a class="nav__link" href="#alerts">Alerts</a>
+					<a class="nav__link" href="#forms">Forms</a>
+					<a class="nav__link" href="#tabs">Tabs</a>
+					<a class="nav__link" href="#cards">Cards</a>
+					<a class="nav__link" href="#modal">Modal</a>
+					<a class="nav__link" href="#toasts">Toasts</a>
+
+					<p class="nav__group">Data</p>
+					<a class="nav__link" href="#orders">Orders</a>
+
+					<p class="nav__group">CSS framework</p>
+					<a class="nav__link" href="#utilities">Utilities</a>
+					<a class="nav__link" href="#settings">Settings</a>
+				</nav>
+
+				<div class="sidebar__footer">
+					<span class="badge badge--neutral">v7.1.2</span>
+					<button id="theme-toggle" class="btn btn--secondary btn--sm" type="button" aria-pressed="false">
+						Dark mode
+					</button>
+				</div>
+			</aside>
+
+			<div class="main">
+				<header class="topbar">
+					<div>
+						<p class="eyebrow">Operations</p>
+						<h1>Dashboard</h1>
+					</div>
+					<div class="topbar__actions">
+						<button id="new-order" class="btn btn--primary" type="button">New order</button>
+					</div>
+				</header>
+
+				<main id="content" class="content">
+					<!-- Overview ------------------------------------------------------ -->
+					<section id="overview" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Overview</p>
+							<h2>This month</h2>
+							<p class="section__note">
+								Stat cards, alerts and tabs composed from the documented foundations.
+							</p>
+						</header>
+
+						<div id="stats" class="stats"></div>
+						<div id="overview-alert" class="stack"></div>
+						<div id="overview-tabs"></div>
+					</section>
+
+					<!-- Buttons ------------------------------------------------------ -->
+					<section id="buttons" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Buttons</h2>
+							<p class="section__note">
+								<code>useButton()</code> — four variants, three sizes, loading and disabled
+								states.
+							</p>
+						</header>
+						<div class="stack">
+							<div id="buttons-variants" class="row"></div>
+							<div id="buttons-sizes" class="row"></div>
+							<div id="buttons-states" class="row"></div>
+						</div>
+					</section>
+
+					<!-- Badges ------------------------------------------------------- -->
+					<section id="badges" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Badges</h2>
+							<p class="section__note">
+								<code>useBadge()</code> — one role per semantic variant, never colour alone.
+							</p>
+						</header>
+						<div id="badges-demo" class="row"></div>
+					</section>
+
+					<!-- Alerts ------------------------------------------------------- -->
+					<section id="alerts" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Alerts</h2>
+							<p class="section__note">
+								<code>useAlert()</code> — dangerous variants announce with <code>role="alert"</code>.
+							</p>
+						</header>
+						<div id="alerts-demo" class="stack"></div>
+					</section>
+
+					<!-- Forms -------------------------------------------------------- -->
+					<section id="forms" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Forms</h2>
+							<p class="section__note">
+								<code>useInput()</code> and <code>useSelect()</code> — labels wired, errors
+								announced, keyboard support included.
+							</p>
+						</header>
+						<form id="order-form" class="card" novalidate>
+							<div class="card__body form-grid" id="form-fields"></div>
+							<div class="card__footer row row--between">
+								<span>Fields validate on submit; errors never replace the value.</span>
+								<button id="form-submit" class="btn btn--primary" type="submit">Create order</button>
+							</div>
+						</form>
+					</section>
+
+					<!-- Tabs --------------------------------------------------------- -->
+					<section id="tabs" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Tabs</h2>
+							<p class="section__note">
+								<code>useTabs()</code> — WAI-ARIA tablist with roving tabindex and arrow keys.
+							</p>
+						</header>
+						<div id="tabs-demo"></div>
+					</section>
+
+					<!-- Cards -------------------------------------------------------- -->
+					<section id="cards" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Cards</h2>
+							<p class="section__note">
+								<code>useCard()</code> — header, body and footer slots; elevated variant.
+							</p>
+						</header>
+						<div id="cards-demo" class="two-col"></div>
+					</section>
+
+					<!-- Modal -------------------------------------------------------- -->
+					<section id="modal" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Modal</h2>
+							<p class="section__note">
+								<code>modal.open()</code> — native <code>&lt;dialog&gt;</code> in the top layer,
+								focus trapped and restored.
+							</p>
+						</header>
+						<div id="modal-demo" class="row"></div>
+					</section>
+
+					<!-- Toasts ------------------------------------------------------- -->
+					<section id="toasts" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Components</p>
+							<h2>Toasts</h2>
+							<p class="section__note">
+								<code>toast</code> — one stack, four semantic types, pause on hover, exit
+								animation.
+							</p>
+						</header>
+						<div id="toasts-demo" class="row"></div>
+					</section>
+
+					<!-- Orders ------------------------------------------------------- -->
+					<section id="orders" class="section">
+						<header class="section__header">
+							<p class="section__kicker">Data</p>
+							<h2>Orders</h2>
+							<p class="section__note">
+								A real table with badges, a live filter and row actions. No framework, no
+								virtual DOM.
+							</p>
+						</header>
+
+						<div class="card">
+							<div class="card__header row row--between">
+								<strong id="orders-count">7 orders</strong>
+								<div id="orders-search" class="orders-search"></div>
+							</div>
+							<div class="table-wrap">
+								<table class="table data-table">
+									<thead>
+										<tr>
+											<th scope="col">Order</th>
+											<th scope="col">Customer</th>
+											<th scope="col">Date</th>
+											<th scope="col" class="text-right">Total</th>
+											<th scope="col">Status</th>
+											<th scope="col"><span class="visually-hidden">Actions</span></th>
+										</tr>
+									</thead>
+									<tbody id="orders-body"></tbody>
+								</table>
+							</div>
+						</div>
+					</section>
+
+					<!-- Utilities ---------------------------------------------------- -->
+					<section id="utilities" class="section">
+						<header class="section__header">
+							<p class="section__kicker">CSS framework</p>
+							<h2>Utilities</h2>
+							<p class="section__note">
+								Generated from the token maps: spacing, colours, typography, grid and
+								effects. Everything below is a class, not a runtime.
+							</p>
+						</header>
+
+						<div class="utilities">
+							<div class="card">
+								<div class="card__header"><h3 class="card__title">Spacing</h3></div>
+								<div class="card__body row row--wrap">
+									<div class="p-2 bg-neutral-100 rounded-lg">p-2</div>
+									<div class="p-4 bg-neutral-100 rounded-lg">p-4</div>
+									<div class="p-6 bg-neutral-100 rounded-lg">p-6</div>
+									<div class="p-8 bg-neutral-100 rounded-lg">p-8</div>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card__header"><h3 class="card__title">Colours</h3></div>
+								<div class="card__body swatches">
+									<span class="swatch bg-purple-600 text-white">purple</span>
+									<span class="swatch bg-info-500 text-white">info</span>
+									<span class="swatch bg-success-500 text-white">success</span>
+									<span class="swatch bg-warning-500 text-neutral-900">warning</span>
+									<span class="swatch bg-danger-500 text-white">danger</span>
+									<span class="swatch bg-neutral-200 text-neutral-900">neutral</span>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card__header"><h3 class="card__title">Typography</h3></div>
+								<div class="card__body stack">
+									<p class="text-xs">text-xs — captions and metadata</p>
+									<p class="text-sm">text-sm — secondary copy</p>
+									<p class="text-base">text-base — body copy</p>
+									<p class="text-lg">text-lg — lead paragraphs</p>
+									<p class="text-xl">text-xl — section titles</p>
+									<p class="text-2xl font-bold">text-2xl — page numbers</p>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card__header"><h3 class="card__title">Grid &amp; effects</h3></div>
+								<div class="card__body stack">
+									<div class="grid grid-cols-3 gap-4">
+										<div class="p-4 bg-neutral-100 rounded-lg">1</div>
+										<div class="p-4 bg-neutral-100 rounded-lg">2</div>
+										<div class="p-4 bg-neutral-100 rounded-lg">3</div>
+									</div>
+									<div class="row row--wrap">
+										<div class="p-4 bg-neutral-50 rounded-lg shadow-sm">shadow-sm</div>
+										<div class="p-4 bg-neutral-50 rounded-lg shadow-md">shadow-md</div>
+										<div class="p-4 bg-neutral-50 rounded-lg shadow-lg">shadow-lg</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<!-- Settings ----------------------------------------------------- -->
+					<section id="settings" class="section">
+						<header class="section__header">
+							<p class="section__kicker">CSS framework</p>
+							<h2>Settings</h2>
+							<p class="section__note">
+								Token-based dark mode via <code>data-theme="dark"</code>, plus a destructive
+								flow that confirms in a modal.
+							</p>
+						</header>
+
+						<div class="two-col">
+							<div class="card">
+								<div class="card__header"><h3 class="card__title">Appearance</h3></div>
+								<div class="card__body stack">
+									<p class="text-sm text-neutral-500">
+										The dark palette is an override of the same custom properties, so every
+										component follows without recompiling.
+									</p>
+									<div class="row">
+										<button id="theme-toggle-2" class="btn btn--secondary" type="button">
+											Toggle dark mode
+										</button>
+										<button id="clear-toasts" class="btn btn--ghost" type="button">
+											Clear toasts
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card__header"><h3 class="card__title">Danger zone</h3></div>
+								<div class="card__body stack">
+									<p class="text-sm text-neutral-500">
+										Destructive actions confirm in a dialog with an explicit footer — no
+										browser <code>confirm()</code>.
+									</p>
+									<div class="row">
+										<button id="danger-action" class="btn btn--danger" type="button">
+											Delete workspace
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</main>
+
+				<footer class="footer">
+					<span>Built with katanakit-js — no framework runtime, no bundler.</span>
+					<span>Every component on this page is documented in the UI kit docs.</span>
+				</footer>
+			</div>
+		</div>
+
+		<script type="module" src="./dashboard.js"></script>
+	</body>
+</html>

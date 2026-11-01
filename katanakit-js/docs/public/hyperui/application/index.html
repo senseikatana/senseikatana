@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Application — HyperUI — HyperUI in KatanaKit UI Kit</title>
+<style>
+:root { color-scheme: light dark; }
+body { font-family: ui-sans-serif, system-ui, sans-serif; margin: 0; padding: 2rem; background: #f8fafc; color: #0f172a; }
+@media (prefers-color-scheme: dark) { body { background: #020617; color: #e2e8f0; } }
+.hk-wrap { max-width: 72rem; margin: 0 auto; }
+.hk-crumb { font-size: .8rem; opacity: .7; margin-bottom: .5rem; }
+.hk-crumb a { color: inherit; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.hk-sub { opacity: .75; margin: 0 0 1.5rem; }
+.hk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
+.hk-card { display: block; padding: 1rem 1.2rem; border: 1px solid #cbd5e1; border-radius: .75rem; text-decoration: none; color: inherit; background: #fff; }
+@media (prefers-color-scheme: dark) { .hk-card { border-color: #334155; background: #0f172a; } }
+.hk-card:hover { border-color: #6366f1; }
+.hk-card strong { display: block; font-size: 1rem; }
+.hk-card span { font-size: .8rem; opacity: .7; }
+.hk-variant { margin: 0 0 2rem; border: 1px solid #cbd5e1; border-radius: .75rem; overflow: hidden; background: #fff; }
+@media (prefers-color-scheme: dark) { .hk-variant { border-color: #334155; background: #0f172a; } }
+.hk-variant header { display: flex; justify-content: space-between; align-items: center; padding: .6rem 1rem; font-size: .85rem; }
+.hk-variant header a { color: #6366f1; }
+.hk-variant iframe { display: block; width: 100%; border: 0; border-top: 1px solid #e2e8f0; background: #fff; }
+.hk-foot { margin-top: 2.5rem; font-size: .8rem; opacity: .65; }
+.hk-foot a { color: inherit; }
+</style>
+</head>
+<body>
+<div class="hk-wrap">
+<nav class="hk-crumb"><a href="/hyperui/">hyperui</a> / application</nav>
+<h1>Application — HyperUI</h1>
+<p class="hk-sub">HyperUI (MIT, by Mark Mead) vendored in KatanaKit UI Kit. <a href="https://github.com/markmead/hyperui/tree/main/public/examples/application">Upstream source</a></p>
+<div class="hk-grid">
+<a class="hk-card" href="./accordions/"><strong>Accordions</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./badges/"><strong>Badges</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./breadcrumbs/"><strong>Breadcrumbs</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./button-groups/"><strong>Button Groups</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./charts/"><strong>Charts</strong><span>22 snippets</span></a>
+<a class="hk-card" href="./checkboxes/"><strong>Checkboxes</strong><span>6 snippets</span></a>
+<a class="hk-card" href="./details-list/"><strong>Details List</strong><span>8 snippets</span></a>
+<a class="hk-card" href="./dividers/"><strong>Dividers</strong><span>12 snippets</span></a>
+<a class="hk-card" href="./dropdown/"><strong>Dropdown</strong><span>6 snippets</span></a>
+<a class="hk-card" href="./empty-states/"><strong>Empty States</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./file-uploaders/"><strong>File Uploaders</strong><span>4 snippets</span></a>
+<a class="hk-card" href="./filters/"><strong>Filters</strong><span>4 snippets</span></a>
+<a class="hk-card" href="./grids/"><strong>Grids</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./inputs/"><strong>Inputs</strong><span>8 snippets</span></a>
+<a class="hk-card" href="./loaders/"><strong>Loaders</strong><span>14 snippets</span></a>
+<a class="hk-card" href="./media/"><strong>Media</strong><span>8 snippets</span></a>
+<a class="hk-card" href="./modals/"><strong>Modals</strong><span>12 snippets</span></a>
+<a class="hk-card" href="./pagination/"><strong>Pagination</strong><span>6 snippets</span></a>
+<a class="hk-card" href="./progress-bars/"><strong>Progress Bars</strong><span>4 snippets</span></a>
+<a class="hk-card" href="./quantity-inputs/"><strong>Quantity Inputs</strong><span>8 snippets</span></a>
+<a class="hk-card" href="./radio-groups/"><strong>Radio Groups</strong><span>5 snippets</span></a>
+<a class="hk-card" href="./range-inputs/"><strong>Range Inputs</strong><span>5 snippets</span></a>
+<a class="hk-card" href="./selects/"><strong>Selects</strong><span>6 snippets</span></a>
+<a class="hk-card" href="./side-menu/"><strong>Side Menu</strong><span>4 snippets</span></a>
+<a class="hk-card" href="./skip-links/"><strong>Skip Links</strong><span>3 snippets</span></a>
+<a class="hk-card" href="./stats/"><strong>Stats</strong><span>12 snippets</span></a>
+<a class="hk-card" href="./steps/"><strong>Steps</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./tables/"><strong>Tables</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./tabs/"><strong>Tabs</strong><span>10 snippets</span></a>
+<a class="hk-card" href="./textareas/"><strong>Textareas</strong><span>6 snippets</span></a>
+<a class="hk-card" href="./timelines/"><strong>Timelines</strong><span>6 snippets</span></a>
+<a class="hk-card" href="./toasts/"><strong>Toasts</strong><span>12 snippets</span></a>
+<a class="hk-card" href="./toggles/"><strong>Toggles</strong><span>8 snippets</span></a>
+<a class="hk-card" href="./vertical-menu/"><strong>Vertical Menu</strong><span>16 snippets</span></a>
+</div>
+<p class="hk-foot">Rendered from <a href="https://github.com/markmead/hyperui/tree/main/public/examples/application">application</a> · styled by <code>/component.css</code> when served from the docs site.</p>
+</div>
+</body>
+</html>

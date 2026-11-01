@@ -1,0 +1,352 @@
+{
+	"name": "katanakit-js",
+	"version": "7.1.4",
+	"description": "KatanaKit — a sharp, framework-agnostic TypeScript service toolkit organized with hexagonal architecture.",
+	"type": "module",
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"bin": {
+		"kai": "dist/adapters/cli/bin.js"
+	},
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./adapters/cli": {
+			"types": "./dist/adapters/cli/index.d.ts",
+			"import": "./dist/adapters/cli/index.js",
+			"default": "./dist/adapters/cli/index.js"
+		},
+		"./adapters/express": {
+			"types": "./dist/adapters/express/index.d.ts",
+			"import": "./dist/adapters/express/index.js",
+			"default": "./dist/adapters/express/index.js"
+		},
+		"./adapters/hono": {
+			"types": "./dist/adapters/hono/index.d.ts",
+			"import": "./dist/adapters/hono/index.js",
+			"default": "./dist/adapters/hono/index.js"
+		},
+		"./adapters/bun": {
+			"types": "./dist/adapters/bun/index.d.ts",
+			"import": "./dist/adapters/bun/index.js",
+			"default": "./dist/adapters/bun/index.js"
+		},
+		"./adapters/nuxt": {
+			"types": "./dist/adapters/nuxt/index.d.ts",
+			"import": "./dist/adapters/nuxt/index.js",
+			"default": "./dist/adapters/nuxt/index.js"
+		},
+		"./adapters/vue": {
+			"types": "./dist/adapters/vue/index.d.ts",
+			"import": "./dist/adapters/vue/index.js",
+			"default": "./dist/adapters/vue/index.js"
+		},
+		"./adapters/astro": {
+			"types": "./dist/adapters/astro/index.d.ts",
+			"import": "./dist/adapters/astro/index.js",
+			"default": "./dist/adapters/astro/index.js"
+		},
+		"./adapters/next": {
+			"types": "./dist/adapters/next/index.d.ts",
+			"import": "./dist/adapters/next/index.js",
+			"default": "./dist/adapters/next/index.js"
+		},
+		"./adapters/photoswipe": {
+			"types": "./dist/adapters/photoswipe/index.d.ts",
+			"import": "./dist/adapters/photoswipe/index.js",
+			"default": "./dist/adapters/photoswipe/index.js"
+		},
+		"./adapters/better-auth": {
+			"types": "./dist/adapters/better-auth/index.d.ts",
+			"import": "./dist/adapters/better-auth/index.js",
+			"default": "./dist/adapters/better-auth/index.js"
+		},
+		"./adapters/assistant": {
+			"types": "./dist/adapters/assistant/index.d.ts",
+			"import": "./dist/adapters/assistant/index.js",
+			"default": "./dist/adapters/assistant/index.js"
+		},
+		"./adapters/notion": {
+			"types": "./dist/adapters/notion/index.d.ts",
+			"import": "./dist/adapters/notion/index.js",
+			"default": "./dist/adapters/notion/index.js"
+		},
+		"./adapters/wordpress": {
+			"types": "./dist/adapters/wordpress/index.d.ts",
+			"import": "./dist/adapters/wordpress/index.js",
+			"default": "./dist/adapters/wordpress/index.js"
+		},
+		"./adapters/react": {
+			"types": "./dist/adapters/react/index.d.ts",
+			"import": "./dist/adapters/react/index.js",
+			"default": "./dist/adapters/react/index.js"
+		},
+		"./adapters/solid": {
+			"types": "./dist/adapters/solid/index.d.ts",
+			"import": "./dist/adapters/solid/index.js",
+			"default": "./dist/adapters/solid/index.js"
+		},
+		"./adapters/svelte": {
+			"types": "./dist/adapters/svelte/index.d.ts",
+			"import": "./dist/adapters/svelte/index.js",
+			"default": "./dist/adapters/svelte/index.js"
+		},
+		"./adapters/angular": {
+			"types": "./dist/adapters/angular/index.d.ts",
+			"import": "./dist/adapters/angular/index.js",
+			"default": "./dist/adapters/angular/index.js"
+		},
+		"./adapters/vanilla": {
+			"types": "./dist/adapters/vanilla/index.d.ts",
+			"import": "./dist/adapters/vanilla/index.js",
+			"default": "./dist/adapters/vanilla/index.js"
+		},
+		"./adapters/insforge": {
+			"types": "./dist/adapters/insforge/index.d.ts",
+			"import": "./dist/adapters/insforge/index.js",
+			"default": "./dist/adapters/insforge/index.js"
+		},
+		"./adapters/nestjs": {
+			"types": "./dist/adapters/nestjs/index.d.ts",
+			"import": "./dist/adapters/nestjs/index.js",
+			"default": "./dist/adapters/nestjs/index.js"
+		},
+		"./prisma": {
+			"types": "./dist/prisma/index.d.ts",
+			"import": "./dist/prisma/index.js",
+			"default": "./dist/prisma/index.js"
+		},
+		"./schemas": {
+			"types": "./dist/schemas/index.d.ts",
+			"import": "./dist/schemas/index.js",
+			"default": "./dist/schemas/index.js"
+		},
+		"./styles.css": "./dist/styles.css",
+		"./dist/styles.css": "./dist/styles.css",
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"dist",
+		"scss"
+	],
+	"sass": "scss/main.scss",
+	"style": "./dist/styles.css",
+	"sideEffects": [
+		"*.css"
+	],
+	"engines": {
+		"node": ">=22.18.0"
+	},
+	"workspaces": [
+		"packages/ui"
+	],
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"prepare": "husky",
+
+		"clean": "node scripts/clean.mjs",
+
+		"lint": "eslint ./src packages/ui/src",
+		"lint:fix": "eslint --fix ./src packages/ui/src",
+		"typecheck": "tsc6 --noEmit && tsc6 -p packages/ui/tsconfig.json --noEmit",
+		"test": "vitest run",
+		"test:e2e": "playwright test",
+		"check": "bun run lint && bun run typecheck && bun run test",
+		"test:all": "bun run check && bun run test:e2e",
+
+		"build:ui": "bun run --filter @katanakit/ui build",
+		"build:lib": "tsc6 -p tsconfig.json && tsc-alias -p tsconfig.json && bun run build:ui && node -e \"require('node:fs').copyFileSync('packages/ui/dist/styles.css','dist/styles.css')\" && node scripts/copy-prisma-artifacts.mjs && node scripts/generate-release-notes.mjs --sync-versions && node scripts/verify-package.mjs",
+		"build:examples": "tsc6 -p tsconfig.examples.json && tsc6 -p tsconfig.examples.solid.json",
+		"build": "bun run clean && bun run build:lib && bun run build:examples",
+
+		"docs": "node scripts/docs.mjs build",
+		"docs:preview": "node scripts/docs.mjs preview",
+		"docs:clean": "node scripts/docs.mjs clean",
+
+		"deploy": "bun run check && bun run build && node scripts/docs.mjs deploy --skip-ui",
+		"deploy:gh": "bun run check && bun run build && node scripts/docs.mjs gh --skip-ui",
+		"release": "bun run check && bun run build && node scripts/generate-release-notes.mjs \"v$(node -p \"require('./package.json').version\")\" --write && node scripts/npm-publish.mjs",
+
+		"dev": "bunx lint-staged && concurrently -n docs,api -c magenta,cyan --kill-others \"bun run docs:dev\" \"bun run api:dev\"",
+		"docs:dev": "node scripts/docs.mjs dev",
+		"api:dev": "tsx src/adapters/express/main.ts",
+		"bun:dev": "bun run src/adapters/bun/main.ts"
+	},
+	"lint-staged": {
+		"**/*.{ts,tsx}": "eslint --fix --quiet"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/senseikatana/katanakit-js.git"
+	},
+	"keywords": [
+		"api",
+		"fetch",
+		"http-client",
+		"url-builder",
+		"typescript",
+		"hexagonal-architecture",
+		"astro",
+		"express",
+		"nuxt",
+		"vue",
+		"react",
+		"solid",
+		"svelte",
+		"angular",
+		"singleton",
+		"observer",
+		"factory",
+		"notion",
+		"wordpress"
+	],
+	"author": "senseikatana - Sergio Jurado",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/senseikatana/katanakit-js/issues"
+	},
+	"unpkg": "./dist/index.js",
+	"jsdelivr": "./dist/index.js",
+	"dependencies": {
+		"@js-temporal/polyfill": "0.5.1",
+		"@tanstack/query-core": "5.104.1",
+		"zod": "^4.6.5"
+	},
+	"peerDependencies": {
+		"@angular/core": ">=16.0.0",
+		"@faker-js/faker": ">=9.0.0",
+		"@insforge/sdk": ">=1.5.0",
+		"@nestjs/common": ">=10.0.0",
+		"@prisma/orm-postgres": ">=8.0.0-rc.18",
+		"cors": ">=2.8.0",
+		"dotenv": ">=18.0.5",
+		"express": ">=5.0.0",
+		"express-rate-limit": ">=8.0.0",
+		"hono": ">=4.0.0",
+		"react": ">=18.0.0",
+		"react-dom": ">=18.0.0",
+		"solid-js": ">=1.7.0",
+		"svelte": ">=3.0.0",
+		"vue": ">=3.0.0",
+		"photoswipe": ">=5.0.0",
+		"better-auth": ">=1.0.0"
+	},
+	"peerDependenciesMeta": {
+		"@angular/core": {
+			"optional": true
+		},
+		"@faker-js/faker": {
+			"optional": true
+		},
+		"@insforge/sdk": {
+			"optional": true
+		},
+		"@nestjs/common": {
+			"optional": true
+		},
+		"@prisma/orm-postgres": {
+			"optional": true
+		},
+		"cors": {
+			"optional": true
+		},
+		"dotenv": {
+			"optional": true
+		},
+		"express": {
+			"optional": true
+		},
+		"express-rate-limit": {
+			"optional": true
+		},
+		"hono": {
+			"optional": true
+		},
+		"react": {
+			"optional": true
+		},
+		"react-dom": {
+			"optional": true
+		},
+		"solid-js": {
+			"optional": true
+		},
+		"svelte": {
+			"optional": true
+		},
+		"vue": {
+			"optional": true
+		},
+		"photoswipe": {
+			"optional": true
+		},
+		"better-auth": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@angular/core": "^22.2.1",
+		"@eslint/js": "^10.0.1",
+		"@faker-js/faker": "^10.6.0",
+		"@insforge/sdk": "^1.5.2",
+		"@nestjs/common": "^12.1.2",
+		"@playwright/test": "^1.64.1",
+		"@prisma/cli-engine": "0.7.0",
+		"@prisma/orm-postgres": "8.0.0-rc.18",
+		"@tailwindcss/vite": "^4.3.3",
+		"@testing-library/react": "^16.3.3",
+		"@types/cors": "2.8.19",
+		"@types/express": "5.0.6",
+		"@types/node": "26.6.4",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@vitest/coverage-v8": "5.0.3",
+		"better-auth": "^1.7.7",
+		"bun-types": "^1.4.2",
+		"concurrently": "^10.0.5",
+		"cors": "2.8.6",
+		"dotenv": "18.0.5",
+		"eslint": "^10.12.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.6",
+		"eslint-plugin-simple-import-sort": "^14.0.0",
+		"express": "5.2.1",
+		"express-rate-limit": "8.7.0",
+		"globals": "^17.13.0",
+		"hono": "^4.13.13",
+		"husky": "^9.1.7",
+		"jsdom": "^30.1.2",
+		"lint-staged": "^17.6.0",
+		"photoswipe": "^5.4.4",
+		"prettier": "^3.9.9",
+		"prisma": "8.0.0-rc.22",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0",
+		"reflect-metadata": "^0.2.2",
+		"rimraf": "^6.1.3",
+		"rxjs": "^7.8.2",
+		"solid-js": "^1.9.15",
+		"svelte": "^5.57.1",
+		"tailwindcss": "^4.3.3",
+		"tsc-alias": "^1.9.8",
+		"tslib": "^2.8.1",
+		"tsx": "4.23.15",
+		"typedoc": "^0.28.20",
+		"typedoc-plugin-markdown": "^4.13.1",
+		"typedoc-vitepress-theme": "^1.1.4",
+		"typescript": "npm:@typescript/typescript6@6.0.2",
+		"typescript-eslint": "^8.71.0",
+		"vite": "8.3.2",
+		"vitepress": "^1.6.4",
+		"vitest": "5.0.3",
+		"vue": "3.5.43",
+		"wrangler": "4.149.0",
+		"zone.js": "^0.16.3"
+	}
+}

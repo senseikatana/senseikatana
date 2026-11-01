@@ -1,0 +1,29 @@
+# The `gh-pages` branch is a generated artifact (see scripts/docs-publish.mjs).
+# These patterns keep `git status` clean when that branch is inspected from a
+# dev checkout; they are not part of the published site.
+node_modules/
+dist/
+site/
+src/
+tests/
+examples/
+scripts/
+prisma/
+docs/
+.vitepress/
+.github/
+.vscode/
+.atl/
+.idea/
+*.log
+.env*
+package.json
+bun.lock
+tsconfig*.json
+typedoc.json
+AGENTS.md
+CHANGELOG.md
+CONTRIBUTING.md
+README.md
+SECURITY.md
+LICENSE

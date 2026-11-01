@@ -1,0 +1,63 @@
+name: Sync documentation to GitHub Wiki
+
+on:
+ push:
+  branches:
+   - main
+  paths:
+   - README.md
+   - docs/**/*.md
+   - examples/**/*.md
+   - packages/ui/README.md
+   - packages/ui/**/*.md
+   - scripts/sync-wiki.mjs
+   - .github/workflows/wiki-sync.yml
+ workflow_dispatch:
+
+permissions:
+ contents: read
+
+concurrency:
+ group: wiki-sync
+ cancel-in-progress: false
+
+jobs:
+ sync:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Check out source repository
+     uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+   - name: Generate Wiki pages and publish changes
+     env:
+      WIKI_SYNC_TOKEN: ${{ secrets.WIKI_SYNC_TOKEN }}
+     run: |
+      if [ -z "$WIKI_SYNC_TOKEN" ]; then
+        echo "::error::Add a WIKI_SYNC_TOKEN Actions secret with permission to write to this repository's Wiki."
+        exit 1
+      fi
+
+      cat > "$RUNNER_TEMP/wiki-askpass" <<'ASKPASS'
+      #!/bin/sh
+      case "$1" in
+        *Username*) printf '%s\n' x-access-token ;;
+        *Password*) printf '%s\n' "$WIKI_SYNC_TOKEN" ;;
+      esac
+      ASKPASS
+      chmod 700 "$RUNNER_TEMP/wiki-askpass"
+
+      export GIT_ASKPASS="$RUNNER_TEMP/wiki-askpass"
+      export GIT_TERMINAL_PROMPT=0
+      git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git" wiki
+      node scripts/sync-wiki.mjs wiki
+
+      git -C wiki config user.name "github-actions[bot]"
+      git -C wiki config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      git -C wiki add --all
+      if git -C wiki diff --cached --quiet; then
+        echo "Wiki is already up to date."
+        exit 0
+      fi
+
+      git -C wiki commit -m "docs(wiki): sync from ${GITHUB_REPOSITORY}"
+      git -C wiki push origin HEAD:master
