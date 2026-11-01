@@ -1,0 +1,22 @@
+---
+import { formatDate, type BlogPost } from '../queries';
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="group border-t border-rule pt-6">
+  <p class="label flex items-center gap-2">
+    <b>{formatDate(post.data.date)}</b>
+    {post.data.tags[0] && <span class="text-stone">/</span>}
+    {post.data.tags[0] && <span>{post.data.tags[0]}</span>}
+  </p>
+  <h3 class="mt-3 text-[22px] font-bold tracking-[-0.03em] leading-[1.2]">
+    <a href={`/blog/${post.id}`} class="hover:text-link">{post.data.title}</a>
+  </h3>
+  <p class="mt-2 text-[14px] leading-[1.55] text-steel max-w-[60ch]">{post.data.description}</p>
+  <a href={`/blog/${post.id}`} class="link inline-block mt-4 text-[13px]">Leer -&gt;</a>
+</article>

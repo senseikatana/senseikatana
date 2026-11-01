@@ -1,0 +1,32 @@
+---
+import Base from '../../features/shared/layouts/Base.astro';
+import Section from '../../features/shared/components/Section.astro';
+import SectionHead from '../../features/shared/components/SectionHead.astro';
+import PostCard from '../../features/blog/components/PostCard.astro';
+import { getPosts } from '../../features/blog/queries';
+
+const posts = await getPosts();
+---
+
+<Base title="Blog" description="Artículos sobre arquitectura, rendimiento y operaciones.">
+  <Section top={false} inner="px-6 pt-16 pb-24 max-md:px-5">
+    <SectionHead
+      idx="01"
+      label="blog"
+      title={'Notas de campo.'}
+      lede="Artículos técnicos sobre arquitectura, rendimiento y software para operaciones."
+      size="lg"
+    />
+    {
+      posts.length === 0 ? (
+        <p class="mt-12 text-[14px] text-smoke">Todavía no hay artículos publicados.</p>
+      ) : (
+        <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      )
+    }
+  </Section>
+</Base>

@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "home": "Inici",
+    "services": "Serveis",
+    "works": "Works",
+    "about": "Sobre mi",
+    "blog": "Blog",
+    "contact": "Contacte",
+    "cta": "Parlem"
+  },
+  "lang": {
+    "title": "Idioma"
+  },
+  "theme": {
+    "title": "Tema",
+    "light": "Clar",
+    "dark": "Fosc",
+    "system": "Sistema"
+  },
+  "home": {
+    "greeting": "Disponible per a projectes",
+    "headline": {
+      "1": "SOFTWARE QUE",
+      "2": "ORDENA LA",
+      "3": "OPERACIÓ"
+    },
+    "intro": "Dissenyo i construeixo aplicacions web per a operacions reals: magatzem, logística, retail i back-office. Del model de dades al deploy, sense capes de més.",
+    "ctaServices": "Veure serveis",
+    "ctaContact": "Explica'm el teu projecte",
+    "photoAlt": "Retrat de Sergio Jurado",
+    "marker": "CAMBRILS · TARRAGONA",
+    "tags": ["#NUXT", "#ASTRO", "#NEXT", "#PYTHON", "#POSTGRES"],
+    "servicesTitle": "Què faig",
+    "servicesSubtitle": "Quatre maneres d'entrar-hi. Abast clar, entregables concrets i codi que es pot mantenir.",
+    "servicesAll": "Tots els serveis",
+    "worksTitle": "Treball recent",
+    "worksSubtitle": "Sistemes en producció, no mockups. Cada cas explica el repte, la solució i què va canviar.",
+    "worksAll": "Veure tots els works",
+    "aboutTitle": "Com treballo",
+    "aboutBody": "Arquitectura primer, frameworks després. Límits clars entre domini, aplicació i infraestructura, i un design system amb tokens abans que components.",
+    "aboutCta": "Coneix-me",
+    "blogTitle": "Blog",
+    "blogSubtitle": "Notes sobre arquitectura, rendiment i les decisions darrere del codi.",
+    "blogAll": "Llegir el blog",
+    "ctaTitle": "La teva operació no quadra?",
+    "ctaBody": "Explica'm on fa mal: fulls de càlcul paral·lels, estoc que no quadra, processos que depenen d'una persona. Et responc amb un diagnòstic, no amb una proposta a cegues.",
+    "ctaButton": "Parlem"
+  },
+  "services": {
+    "eyebrow": "senseikatana.com/serveis",
+    "title": "Serveis",
+    "subtitle": "Software a mida per a negocis que viuen de la seva operació. Sense plantilles genèriques ni promeses de resultats que no depenen de mi.",
+    "empty": "Encara no hi ha serveis publicats.",
+    "back": "Tornar als serveis",
+    "includesTitle": "Què inclou",
+    "stackTitle": "Stack habitual",
+    "ctaTitle": "Encaixa amb el que necessites?",
+    "ctaBody": "Escriu-me amb el context: quin procés vols ordenar, què uses avui i quin termini tens. Et dic si puc ajudar-te i com.",
+    "ctaButton": "Parlem"
+  },
+  "works": {
+    "eyebrow": "senseikatana.com/works",
+    "title": "Works",
+    "subtitle": "Projectes reals, propis i de clients. El repte, la solució i el resultat, sense mètriques inventades.",
+    "empty": "Encara no hi ha casos publicats.",
+    "back": "Tornar a works",
+    "view": "Veure cas",
+    "challenge": "El repte",
+    "solution": "La solució",
+    "outcome": "El resultat",
+    "stack": "Stack",
+    "role": "Rol",
+    "year": "Any",
+    "sector": "Sector",
+    "client": "Client",
+    "visit": "Veure en viu",
+    "repo": "Veure codi",
+    "ctaTitle": "Tens un repte semblant?",
+    "ctaBody": "Cada operació té les seves rareses. Explica'm la teva i veiem què es pot simplificar.",
+    "ctaButton": "Parlem"
+  },
+  "about": {
+    "eyebrow": "senseikatana.com/about",
+    "title": "Sobre mi",
+    "lead": "Soc Sergio Jurado, desenvolupador full-stack. Construeixo software per a operacions que no es poden permetre perdre el fil: magatzem, logística, retail i back-office.",
+    "bioTitle": "De l'operació al codi",
+    "bio1": "Vaig començar resolent problemes de magatzem i comerç, i vaig acabar escrivint el software que els resol. Aquesta doble mirada marca com treballo: primer entenc el procés, després trio l'eina.",
+    "bio2": "Treballo amb Nuxt, Astro, Next, Python i Postgres. M'interessa el software avorrit i fiable: tipus forts, tests on importen, deploy reproduïble i documentació que no menteix.",
+    "principlesTitle": "Com treballo",
+    "principles": [
+      {
+        "title": "Límits primer",
+        "body": "Domini, aplicació i infraestructura separats. Si el framework desapareix demà, les regles del negoci segueixen dempeus."
+      },
+      {
+        "title": "Tokens abans que components",
+        "body": "Color, tipografia i espaiat es defineixen una vegada. Els components consumeixen el sistema, no improvisen valors."
+      },
+      {
+        "title": "Eines avorrides",
+        "body": "TypeScript estricte, Postgres, tests i CI. La novetat no és un requisit; la previsibilitat sí."
+      },
+      {
+        "title": "Mesurar abans d'optimitzar",
+        "body": "Rendiment i SEO es comproven amb dades, no amb opinions. Si no es mesura, no es toca."
+      }
+    ],
+    "stackTitle": "Stack",
+    "stackSubtitle": "El que faig servir cada dia, no una llista de logos per impressionar.",
+    "openSourceTitle": "Open source",
+    "openSourceBody": "Autor de la família KatanaKit: un toolkit TypeScript, un framework SCSS, una TUI per a systemd i una configuració de WordPress code-first. Quatre llibreries, quatre problemes diferents.",
+    "ctaTitle": "Treballam junts?",
+    "ctaBody": "Si tens un procés que depèn de fulls de càlcul, correus o memòria, probablement es pot convertir en software.",
+    "ctaButton": "Parlem",
+    "caption": "Desenvolupador full-stack · Cambrils, Tarragona",
+    "location": "Cambrils, Tarragona"
+  },
+  "contact": {
+    "title": "Contacte",
+    "subtitle": "Explica'm què necessites. Responc jo, no un formulari automàtic.",
+    "intro": "Projecte nou, millora d'alguna cosa existent o una consulta tècnica. Envia'm el context i et dic si puc ajudar-te.",
+    "name": "Nom",
+    "namePlaceholder": "El teu nom",
+    "email": "Email",
+    "emailPlaceholder": "tu{'@'}email.com",
+    "message": "Missatge",
+    "messagePlaceholder": "Què necessites, què uses avui i per a quan...",
+    "send": "Enviar missatge",
+    "sent": "Missatge enviat!",
+    "sentSub": "Et respondré el més aviat possible.",
+    "callAction": "Trucar",
+    "whatsappAction": "WhatsApp",
+    "linkedinAction": "LinkedIn",
+    "location": "Cambrils, Tarragona",
+    "responseTitle": "Què convé explicar-me",
+    "responseBody": "El procés que vols ordenar, les eines que uses avui i el termini que tens al cap. Amb això et puc donar una primera lectura útil.",
+    "noBackendTitle": "El formulari encara no està disponible.",
+    "noBackendBody": "Perquè el missatge arribi sense intermediaris, usa WhatsApp, truca'm o escriu-me per LinkedIn."
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Reflexions sobre desenvolupament, arquitectura i tecnologia.",
+    "eyebrow": "senseikatana.com/blog",
+    "empty": "No hi ha posts publicats encara.",
+    "back": "Tornar al Blog",
+    "notFound": "Post no trobat"
+  },
+  "brand": {
+    "tagline": "SOFTWARE · OPERACIONS",
+    "marquee": ["ARQUITECTURA", "OPERACIONS", "RENDIMENT", "TIPUS", "TESTS", "DEPLOY"]
+  },
+  "footer": {
+    "summary": "Desenvolupo software a mida per a magatzem, logística, retail i back-office. Aplicacions web, panells interns i integracions.",
+    "navTitle": "Navegació",
+    "contactTitle": "Contacte",
+    "rights": "Tots els drets reservats."
+  }
+}

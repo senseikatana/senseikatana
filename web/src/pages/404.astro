@@ -1,0 +1,20 @@
+---
+import Base from '../features/shared/layouts/Base.astro';
+import Section from '../features/shared/components/Section.astro';
+---
+
+<Base title="Página no encontrada" description="La página que buscas no existe.">
+  <Section top={false} inner="px-6 py-32 max-md:px-5 text-center">
+    <p class="label"><b>[404]</b> no encontrado</p>
+    <h1 class="mt-5 text-[clamp(40px,6vw,72px)] leading-none font-bold tracking-[-0.05em]">
+      Esta ruta no existe.
+    </h1>
+    <p class="mt-5 text-[15px] text-steel">
+      Puede que el enlace esté mal o que la página se haya movido.
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-x-7 gap-y-4">
+      <a href="/" class="btn btn-primary">Volver al inicio -&gt;</a>
+      <a href="/blog" class="link text-[15px]">Leer el blog -&gt;</a>
+    </div>
+  </Section>
+</Base>

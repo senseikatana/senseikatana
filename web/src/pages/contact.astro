@@ -1,0 +1,74 @@
+---
+import Base from '../features/shared/layouts/Base.astro';
+import Section from '../features/shared/components/Section.astro';
+import SectionHead from '../features/shared/components/SectionHead.astro';
+import { site } from '../features/shared/config/site';
+---
+
+<Base
+  title="Contacto"
+  description="Cuéntame qué necesitas. Respondo yo, no un formulario automático."
+>
+  <Section top={false} inner="px-6 pt-16 pb-24 max-md:px-5">
+    <SectionHead
+      idx="01"
+      label="contacto"
+      title={'Cuéntame qué\nnecesitas.'}
+      lede="Proyecto nuevo, mejora de algo existente o una consulta técnica. Mándame el contexto y te digo si puedo ayudarte."
+      size="lg"
+    />
+
+    <div class="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-14">
+      <div>
+        <p class="label">Canales</p>
+        <ul class="mt-4 border-t border-rule">
+          <li class="border-b border-rule">
+            <a
+              href={site.social.linkedin}
+              class="flex items-center justify-between py-5 group"
+              rel="me noopener"
+            >
+              <span>
+                <span class="block text-[16px] font-bold text-ink group-hover:text-link"
+                  >LinkedIn</span
+                >
+                <span class="block mt-1 text-[13px] text-smoke"
+                  >La vía más rápida para escribirme</span
+                >
+              </span>
+              <span class="text-stone" aria-hidden="true">-&gt;</span>
+            </a>
+          </li>
+          <li class="border-b border-rule">
+            <a
+              href={site.social.github}
+              class="flex items-center justify-between py-5 group"
+              rel="me noopener"
+            >
+              <span>
+                <span class="block text-[16px] font-bold text-ink group-hover:text-link"
+                  >GitHub</span
+                >
+                <span class="block mt-1 text-[13px] text-smoke">Código, proyectos y actividad</span>
+              </span>
+              <span class="text-stone" aria-hidden="true">-&gt;</span>
+            </a>
+          </li>
+        </ul>
+        <p class="mt-6 text-[13px] text-steel">{site.location}</p>
+      </div>
+
+      <div>
+        <p class="label">Qué conviene contarme</p>
+        <p class="mt-4 text-[15px] leading-[1.65] text-steel">
+          El proceso que quieres ordenar, las herramientas que usas hoy y el plazo que tienes en
+          mente. Con eso puedo darte una primera lectura útil.
+        </p>
+        <p class="mt-6 border border-rule bg-tint px-4 py-3 text-[13px] text-steel">
+          No hay formulario: los mensajes van directos por LinkedIn o GitHub, sin intermediarios ni
+          base de datos de por medio.
+        </p>
+      </div>
+    </div>
+  </Section>
+</Base>

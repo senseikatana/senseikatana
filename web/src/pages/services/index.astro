@@ -1,0 +1,39 @@
+---
+import Base from '../../features/shared/layouts/Base.astro';
+import Section from '../../features/shared/components/Section.astro';
+import SectionHead from '../../features/shared/components/SectionHead.astro';
+import ServiceCard from '../../features/services/components/ServiceCard.astro';
+import CtaSection from '../../features/shared/components/CtaSection.astro';
+import { getServices } from '../../features/services/queries';
+
+const services = await getServices();
+---
+
+<Base
+  title="Servicios"
+  description="Aplicaciones web, paneles internos, integraciones y rendimiento para operaciones reales."
+>
+  <Section top={false} inner="px-6 pt-16 pb-14 max-md:px-5">
+    <SectionHead
+      idx="01"
+      label="servicios"
+      title={'Cuatro formas de\nentrarle al problema.'}
+      lede="Alcance claro, entregables concretos y código que se puede mantener."
+      size="lg"
+    />
+  </Section>
+
+  <Section top={false} inner="px-6 pb-24 max-md:px-5">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 border-t border-l border-rule">
+      {
+        services.map((service) => (
+          <li>
+            <ServiceCard service={service} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <CtaSection />
+</Base>

@@ -1,0 +1,39 @@
+---
+import Base from '../../features/shared/layouts/Base.astro';
+import Section from '../../features/shared/components/Section.astro';
+import SectionHead from '../../features/shared/components/SectionHead.astro';
+import WorkCard from '../../features/works/components/WorkCard.astro';
+import CtaSection from '../../features/shared/components/CtaSection.astro';
+import { getWorks } from '../../features/works/queries';
+
+const works = await getWorks();
+---
+
+<Base
+  title="Proyectos"
+  description="Casos de estudio: sistemas en producción para logística, retail y back-office."
+>
+  <Section top={false} inner="px-6 pt-16 pb-14 max-md:px-5">
+    <SectionHead
+      idx="01"
+      label="proyectos"
+      title={'Sistemas en uso,\nno maquetas.'}
+      lede="Cada caso incluye el reto, la solución y el resultado. Sin métricas inventadas."
+      size="lg"
+    />
+  </Section>
+
+  <Section top={false} inner="px-6 pb-24 max-md:px-5">
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {
+        works.map((work) => (
+          <li class="contents">
+            <WorkCard work={work} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <CtaSection />
+</Base>
