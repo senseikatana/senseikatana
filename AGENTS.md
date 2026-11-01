@@ -6,14 +6,18 @@ Check `gh issue list --state open` before changing anything here.
 
 ## What this repo is
 
-`senseikatana/senseikatana` is the **GitHub profile README repo**. It renders at
-`github.com/senseikatana`. It holds no application code — the only tracked files are
-`README.md`, `CHANGELOG.md`, `AGENTS.md`, `LICENSE`, `package.json`, `package-lock.json`,
-`.gitignore`, `.github/workflows/sync-main.yml` and `.husky/pre-commit`.
+`senseikatana/senseikatana` is two things at once:
+
+1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
+2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
+
+The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
+Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
+queries, and `web/src/content/` holds the Markdown collections.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
-silently removes the README from the profile. A showcase site belongs in a separate repo.
+silently removes the README from the profile.
 
 ## Branches
 
@@ -37,17 +41,27 @@ with `gh run list --workflow sync-main.yml`.
 
 ## Scripts
 
-This repository contains no app, build, or test suite. The `dev` and `build` scripts are
-intentionally absent. `npm run check` and `npm run format` run Prettier on the maintained
-Markdown and package manifest files.
+Run everything with Bun from the repository root:
+
+```bash
+bun install        # single lockfile at the root; never commit web/bun.lock
+bun run dev        # astro dev for web/
+bun run build      # static build into web/dist/
+bun run check      # prettier --check, eslint, astro check
+bun run format     # prettier --write
+```
+
+There is no test suite yet. `bun run check` is the gate that must pass before committing.
 
 ## Committing
 
 - Conventional commits only. No `Co-Authored-By`, no AI attribution.
-- The pre-commit hook runs `npx lint-staged`. Markdown, JSON, YAML, CSS and HTML go through
-  `prettier --write` only.
-- This is a documentation-only repository; JavaScript and TypeScript files are not configured
-  for linting.
+- The pre-commit hook runs `bunx lint-staged`. Never use `npx` here: it resolves binaries
+  outside the Bun workspace and fails with `ENOENT`.
+- All tooling (Prettier, ESLint, lint-staged, Husky) lives at the root. There is exactly one
+  `.husky/` in the repo; do not add one inside `web/`.
+- lint-staged formats Markdown, JSON, YAML, CSS, HTML and Astro files with `prettier --write`,
+  and runs `eslint --fix` on JS/TS.
 
 ## `.gitignore`
 
