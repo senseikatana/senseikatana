@@ -25,14 +25,33 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      - name: Debug Pages API
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          raw_token="${CLOUDFLARE_API_TOKEN}"
+          raw_account="${CLOUDFLARE_ACCOUNT_ID}"
+          token=$(printf '%s' "${raw_token}" | tr -d '[:space:]')
+          account=$(printf '%s' "${raw_account}" | tr -d '[:space:]')
+          code_raw=$(curl -sS -o /tmp/raw -w '%{http_code}' -H "Authorization: Bearer ${raw_token}" "https://api.cloudflare.com/client/v4/accounts/${raw_account}/pages/projects")
+          code_trim=$(curl -sS -o /tmp/trim -w '%{http_code}' -H "Authorization: Bearer ${token}" "https://api.cloudflare.com/client/v4/accounts/${account}/pages/projects")
+          echo "raw HTTP ${code_raw} / trimmed HTTP ${code_trim}"
+          echo "raw body: $(head -c 300 /tmp/raw)"
+          echo "trimmed body: $(head -c 300 /tmp/trim)"
+          echo "raw lengths: token ${#raw_token} / account ${#raw_account}"
+          echo "trimmed lengths: token ${#token} / account ${#account}"
+
       - name: Move the apex to senseikatana-web
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          api="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
-          auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" -H "Content-Type: application/json")
+          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
+          account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
+          api="https://api.cloudflare.com/client/v4/accounts/${account}"
+          auth=(-H "Authorization: Bearer ${token}" -H "Content-Type: application/json")
           host="senseikatana.com"
           site="senseikatana-web"
 
@@ -63,8 +82,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          api="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
-          auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}")
+          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
+          account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
+          api="https://api.cloudflare.com/client/v4/accounts/${account}"
+          auth=(-H "Authorization: Bearer ${token}")
           routes=$(curl -sS --fail-with-body "${auth[@]}" "${api}/workers/routes")
           for id in $(echo "${routes}" | jq -r '.result[] | select(.pattern == "senseikatana.com/" or .pattern == "senseikatana.com/en" or .pattern == "senseikatana.com/en/") | .id'); do
             pattern=$(echo "${routes}" | jq -r --arg id "${id}" '.result[] | select(.id == $id) | .pattern')
