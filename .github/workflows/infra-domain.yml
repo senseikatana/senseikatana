@@ -1,10 +1,11 @@
 name: Infra · apex domain
 
-# Idempotent maintenance for the apex: moves senseikatana.com to the site Pages
-# project and frees the site root from the docs proxy Worker. The docs keep
-# working under /en/docs — the Worker fetches them from their Pages deployment.
+# Idempotent maintenance for the apex: points senseikatana.com at the site
+# Pages project and frees the site root from the docs proxy Worker. The docs
+# keep working under /en/docs — the Worker fetches them from their deployment.
 #
-# Run manually from the Actions tab after the site project exists.
+# Run manually from the Actions tab. The job prints the state of every step so
+# a missing token permission is visible instead of silent.
 on:
   workflow_dispatch:
 
@@ -25,7 +26,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Move the apex to senseikatana-web
+      - name: Diagnose and point the apex at the site
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -34,48 +35,74 @@ jobs:
           token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
           account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
           api="https://api.cloudflare.com/client/v4/accounts/${account}"
+          cf="https://api.cloudflare.com/client/v4"
           auth=(-H "Authorization: Bearer ${token}")
+          json=(-H "Content-Type: application/json")
           host="senseikatana.com"
           site="senseikatana-web"
 
-          projects=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects")
+          echo "== Pages projects and domains =="
+          projects=$(curl -sS "${auth[@]}" "${api}/pages/projects")
           for name in $(echo "${projects}" | jq -r '.result[].name'); do
-            domains=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${name}/domains" || echo '{"result":[]}')
-            echo "project ${name}: $(echo "${domains}" | jq -r '[.result[]?.name] | join(", ")')"
-            if echo "${domains}" | jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
-              if [ "${name}" != "${site}" ]; then
-                echo "Detaching ${host} from ${name}"
-                curl -sS --fail-with-body -X DELETE "${auth[@]}" "${api}/pages/projects/${name}/domains/${host}" >/dev/null
-              fi
-            fi
+            domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${name}/domains" || echo '{"result":[]}')
+            echo "  ${name}: $(echo "${domains}" | jq -r '[.result[]? | "\(.name) [\(.status)]"] | join(", ")')"
           done
 
-          if curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${site}/domains" |
-            jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
-            echo "${host} already attached to ${site}"
+          echo "== Attach the apex to ${site} if missing =="
+          mine=$(curl -sS "${auth[@]}" "${api}/pages/projects/${site}/domains")
+          if echo "${mine}" | jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
+            echo "  already attached: $(echo "${mine}" | jq -r --arg host "${host}" '.result[] | select(.name == $host) | .status')"
           else
-            echo "Attaching ${host} to ${site}"
-            curl -sS --fail-with-body -X POST "${auth[@]}" \
-              -H "Content-Type: application/json" \
-              "${api}/pages/projects/${site}/domains" \
-              --data "{\"name\":\"${host}\"}" | jq -c '.result'
+            curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${site}/domains" \
+              --data "{\"name\":\"${host}\"}" | jq -c '.result // .errors'
           fi
 
-      - name: Free the site root from the docs proxy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          echo "== Zone lookup =="
+          zones=$(curl -sS -o /tmp/zones -w '%{http_code}' "${auth[@]}" "${cf}/zones?name=${host}")
+          echo "  HTTP ${zones}"
+          head -c 300 /tmp/zones; echo
+          zone=$(jq -r '.result[0].id // empty' /tmp/zones 2>/dev/null || true)
+
+          if [ -n "${zone}" ]; then
+            echo "== Apex DNS records =="
+            records=$(curl -sS -o /tmp/records -w '%{http_code}' "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${host}")
+            echo "  HTTP ${records}"
+            jq -c '.result[]? | {id, type, content, proxied}' /tmp/records 2>/dev/null || head -c 300 /tmp/records
+
+            rid=$(jq -r '.result[]? | select(.type == "CNAME") | .id' /tmp/records 2>/dev/null | head -1)
+            if [ -n "${rid}" ]; then
+              current=$(jq -r --arg id "${rid}" '.result[] | select(.id == $id) | .content' /tmp/records)
+              if [ "${current}" = "${site}.pages.dev" ]; then
+                echo "  apex already points at ${site}.pages.dev"
+              else
+                echo "  patching apex CNAME ${current} -> ${site}.pages.dev"
+                curl -sS "${auth[@]}" "${json[@]}" -X PATCH "${cf}/zones/${zone}/dns_records/${rid}" \
+                  --data "{\"content\":\"${site}.pages.dev\",\"proxied\":true}" | jq -c '.success // .errors'
+              fi
+            else
+              echo "  ::warning::no CNAME at the apex — DNS left untouched"
+            fi
+          else
+            echo "  ::warning::zone not accessible with this token (needs DNS:Edit to change it)"
+          fi
+
+          echo "== Worker routes =="
+          code=$(curl -sS -o /tmp/routes -w '%{http_code}' "${auth[@]}" "${api}/workers/routes")
+          echo "  HTTP ${code}"
+          head -c 400 /tmp/routes; echo
+          if [ "${code}" = "200" ]; then
+            for id in $(jq -r '.result[] | select(.pattern == "senseikatana.com/" or .pattern == "senseikatana.com/en" or .pattern == "senseikatana.com/en/") | .id' /tmp/routes); do
+              pattern=$(jq -r --arg id "${id}" '.result[] | select(.id == $id) | .pattern' /tmp/routes)
+              curl -sS "${auth[@]}" -X DELETE "${api}/workers/routes/${id}" >/dev/null
+              echo "  deleted route ${pattern}"
+            done
+          else
+            echo "  ::warning::token cannot manage Worker routes (needs Workers Routes:Edit)"
+          fi
+
+      - name: Verify the apex
         run: |
-          set -euo pipefail
-          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
-          account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
-          api="https://api.cloudflare.com/client/v4/accounts/${account}"
-          auth=(-H "Authorization: Bearer ${token}")
-          routes=$(curl -sS --fail-with-body "${auth[@]}" "${api}/workers/routes")
-          for id in $(echo "${routes}" | jq -r '.result[] | select(.pattern == "senseikatana.com/" or .pattern == "senseikatana.com/en" or .pattern == "senseikatana.com/en/") | .id'); do
-            pattern=$(echo "${routes}" | jq -r --arg id "${id}" '.result[] | select(.id == $id) | .pattern')
-            curl -sS --fail-with-body -X DELETE "${auth[@]}" "${api}/workers/routes/${id}" >/dev/null
-            echo "Deleted route ${pattern}"
+          sleep 20
+          for path in / /posts /about /es/posts/ /en/docs/start/getting-started; do
+            echo "${path} -> $(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
           done
-          echo "Remaining routes:"
-          curl -sS --fail-with-body "${auth[@]}" "${api}/workers/routes" | jq -r '.result[] | .pattern'
