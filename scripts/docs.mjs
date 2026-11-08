@@ -4,7 +4,7 @@
  * Wraps katanakit-js docs preparation and runs VitePress.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, rmSync, copyFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, rmSync, copyFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -79,14 +79,20 @@ function syncFromKit() {
     console.log('docs: copied signals.json');
   }
 
-  // 3. Vendor the UI kit stylesheet the docs theme imports, so the build does
-  // not depend on a local packages/ui/dist checkout.
-  const srcStyles = join(KATANAKIT_ROOT, 'packages', 'ui', 'dist', 'styles.css');
-  const dstStyles = join(ROOT, 'docs', '.vitepress', 'vendor', 'kit-styles.css');
-  if (existsSync(srcStyles)) {
-    mkdirSync(dirname(dstStyles), { recursive: true });
-    copyFileSync(srcStyles, dstStyles);
-    console.log('docs: copied packages/ui/dist/styles.css');
+  // 3. Vendor the UI kit package (styles + JS) the docs import, so the build
+  // does not depend on a local packages/ui/dist checkout.
+  const srcUi = join(KATANAKIT_ROOT, 'packages', 'ui', 'dist');
+  const dstUi = join(ROOT, 'docs', '.vitepress', 'vendor', 'kit-ui');
+  if (existsSync(srcUi)) {
+    mkdirSync(join(dstUi, 'components'), { recursive: true });
+    copyFileSync(join(srcUi, 'styles.css'), join(dstUi, 'styles.css'));
+    copyFileSync(join(srcUi, 'index.js'), join(dstUi, 'index.js'));
+    for (const file of readdirSync(join(srcUi, 'components'))) {
+      if (file.endsWith('.js')) {
+        copyFileSync(join(srcUi, 'components', file), join(dstUi, 'components', file));
+      }
+    }
+    console.log('docs: vendored packages/ui/dist (styles + js)');
   }
 
   // 4. Copy sync-tailwind-components output if needed
