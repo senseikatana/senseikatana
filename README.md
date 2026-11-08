@@ -145,4 +145,20 @@ Native URLs on **senseikatana.com**. English is the default locale; every site p
 - `/en/*` → same path without the prefix
 - `/docs/*` → `/en/docs/*` · `/getting-started` → `/en/docs/start/getting-started`
 
+### 🌍 Cloudflare domains
+
+**senseikatana.com** — site, blog and docs
+
+- [`/`](https://senseikatana.com/) · [`/posts`](https://senseikatana.com/posts) · [`/projects`](https://senseikatana.com/projects) · [`/services`](https://senseikatana.com/services) · [`/about`](https://senseikatana.com/about)
+- [`/en/docs/`](https://senseikatana.com/en/docs/) — KatanaKit documentation
+- [`www.senseikatana.com`](https://www.senseikatana.com/) → apex (301)
+- Mirrors: [`/es`](https://senseikatana.com/es/) · [`/ca`](https://senseikatana.com/ca/)
+
+**samuraicoder.dev** — apps (auth-gated)
+
+- [`/apps/dock-dashboard/`](https://samuraicoder.dev/apps/dock-dashboard/) · [`/apps/panel-ola/`](https://samuraicoder.dev/apps/panel-ola/) · [`/numplate`](https://samuraicoder.dev/numplate)
+- Pages previews: `dock-dashboard-6wu.pages.dev` · `panel-ola.pages.dev` · `cymento-financeapp.pages.dev`
+
+**katanakami.com** — reserved, no routes yet
+
 Released under the [MIT License](LICENSE) © 2026 Sergio Jurado.
