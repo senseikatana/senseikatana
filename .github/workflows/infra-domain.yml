@@ -83,18 +83,25 @@ jobs:
             echo "  HTTP ${records}"
             jq -c '.result[]? | {id, type, content, proxied}' /tmp/records 2>/dev/null || head -c 300 /tmp/records
 
-            rid=$(jq -r '.result[]? | select(.type == "CNAME") | .id' /tmp/records 2>/dev/null | head -1)
-            if [ -n "${rid}" ]; then
-              current=$(jq -r --arg id "${rid}" '.result[] | select(.id == $id) | .content' /tmp/records)
+            cname_id=$(jq -r '.result[]? | select(.type == "CNAME") | .id' /tmp/records 2>/dev/null | head -1)
+            if [ -n "${cname_id}" ]; then
+              current=$(jq -r --arg id "${cname_id}" '.result[] | select(.id == $id) | .content' /tmp/records)
               if [ "${current}" = "${site}.pages.dev" ]; then
-                echo "  apex already points at ${site}.pages.dev"
+                echo "  apex CNAME already points at ${site}.pages.dev"
               else
-                echo "  patching apex CNAME ${current} -> ${site}.pages.dev"
-                curl -sS "${auth[@]}" "${json[@]}" -X PATCH "${cf}/zones/${zone}/dns_records/${rid}" \
+                echo "  patching CNAME ${current} -> ${site}.pages.dev"
+                curl -sS "${auth[@]}" "${json[@]}" -X PATCH "${cf}/zones/${zone}/dns_records/${cname_id}" \
                   --data "{\"content\":\"${site}.pages.dev\",\"proxied\":true}" | jq -c '.success // .errors'
               fi
             else
-              echo "  ::warning::no CNAME at the apex — DNS left untouched"
+              echo "  no CNAME: replacing the apex A/AAAA placeholder with a CNAME"
+              for id in $(jq -r '.result[]? | select(.type == "AAAA" or .type == "A") | .id' /tmp/records); do
+                echo "  deleting $(jq -r --arg id "$id" '.result[] | select(.id == $id) | "\(.type) \(.content)"' /tmp/records)"
+                curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" >/dev/null
+              done
+              curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" \
+                --data "{\"type\":\"CNAME\",\"name\":\"${host}\",\"content\":\"${site}.pages.dev\",\"proxied\":true,\"ttl\":1}" |
+                jq -c '.success // .errors'
             fi
           else
             echo "  ::warning::zone not accessible with this token (needs DNS:Edit to change it)"
@@ -117,7 +124,7 @@ jobs:
 
       - name: Verify the apex
         run: |
-          sleep 5
+          sleep 75
           for path in / /posts /about /es/posts/ /en/docs/start/getting-started; do
             echo "${path} -> $(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
           done
