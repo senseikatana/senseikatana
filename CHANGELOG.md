@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.6] - 2026-11-08
+
+Highlights: fix(docs): update redirects and configuration for docs.senseikatana.com.
+
+- 🐛 fix(docs): update redirects and configuration for docs.senseikatana.com `a63c01f`
+  - `docs/.vitepress/config.ts`
+  - `docs/public/_redirects`
+  - `scripts/docs.mjs`
+  - `web/src/components/Header.astro`
+  - `web/src/config/site.ts`
+  - `web/src/styles/global.css`
+  - `workers/showcase-proxy/src/index.ts`
+  - `workers/showcase-proxy/wrangler.jsonc`
+- 📝 docs(theme): update v7 · 20 releases section `6e0672d`
+- 🐛 fix(docs): mount the build under /en/docs before deploying `2efefa3`
+- 🐛 fix(docs): vendor the UI kit JavaScript too `321c545`
+- 🐛 fix(docs): vendor the UI kit stylesheet so CI can build `24deb9b`
+- 🤖 ci(docs): publish the documentation on every docs change `ac6bdb5`
+
 ## [3.1.5] - 2026-11-08
 
 Highlights: feat(web): add dropdown navigation for projects and documentation and fix(docs): mount the build under /en/docs before deploying, plus 11 more changes.
