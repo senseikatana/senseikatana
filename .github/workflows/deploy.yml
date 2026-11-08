@@ -27,6 +27,18 @@ jobs:
           ref: main
           fetch-depth: 1
 
+      # Fail before the build when the deployment credentials are not set, so
+      # the error says what to fix instead of surfacing as a wrangler auth error.
+      - name: Check Cloudflare credentials
+        run: |
+          if [ -z "${CLOUDFLARE_API_TOKEN}" ] || [ -z "${CLOUDFLARE_ACCOUNT_ID}" ]; then
+            echo "::error::Missing CLOUDFLARE_API_TOKEN (Pages: Edit) or CLOUDFLARE_ACCOUNT_ID repository secret. Add them in Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
         with:
           bun-version: 1.4.4
