@@ -1,16 +1,7 @@
-name: Infra · apex domain
+name: Infra · apex DNS
 
-# Moves senseikatana.com to the site Pages project.
-#
-# The apex is currently bound to the docs-proxy Worker as a *custom domain*,
-# which owns the hostname and blocks the Pages custom domain. This job:
-#   1. binds the docs proxy as a route (senseikatana.com/en/docs*) instead,
-#   2. removes the Worker custom domain from the apex,
-#   3. points the apex CNAME at senseikatana-web.pages.dev,
-#   4. attaches the Pages custom domain and verifies.
-#
-# Every step prints its state; missing token permissions are reported instead
-# of failing silently.
+# Ensures the apex and www point at the site Pages project. The Worker custom
+# domains were removed and the docs proxy now only owns /en/docs*.
 on:
   workflow_dispatch:
 
@@ -18,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  apex:
+  dns:
     runs-on: ubuntu-latest
     steps:
       - name: Check Cloudflare credentials
@@ -31,7 +22,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Free the apex and attach the site
+      - name: Ensure apex CNAMEs and Pages domains
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -43,97 +34,43 @@ jobs:
           cf="https://api.cloudflare.com/client/v4"
           auth=(-H "Authorization: Bearer ${token}")
           json=(-H "Content-Type: application/json")
-          host="senseikatana.com"
-          site="senseikatana-web"
+          target="senseikatana-web.pages.dev"
 
-          echo "== Worker custom domains =="
-          code=$(curl -sS -o /tmp/wd -w '%{http_code}' "${auth[@]}" "${api}/workers/domains")
-          echo "  HTTP ${code}"
-          head -c 600 /tmp/wd; echo
-          if [ "${code}" != "200" ]; then
-            echo "::error::The token cannot read Worker custom domains (needs Workers Scripts:Edit)."
-            exit 1
-          fi
+          zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id')
+          echo "zone: ${zone}"
 
-          wd=$(jq -c --arg host "${host}" '.result[]? | select(.hostname == $host)' /tmp/wd)
-          if [ -z "${wd}" ]; then
-            echo "  no Worker custom domain on ${host}"
-          else
-            echo "  found: ${wd}"
-            wd_id=$(echo "${wd}" | jq -r '.id')
-            script=$(echo "${wd}" | jq -r '.service // .script // empty')
-            if [ -z "${script}" ]; then
-              echo "::error::Could not read the Worker script name from the custom domain."
-              exit 1
-            fi
-            echo "  binding the docs proxy as a route (${host}/en/docs*) before freeing the apex"
-            ok=$(curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/workers/routes" \
-              --data "{\"pattern\":\"${host}/en/docs*\",\"script\":\"${script}\"}" | jq -r '.success')
-            if [ "${ok}" != "true" ]; then
-              echo "::error::Could not create the /en/docs* route; the apex was left untouched."
-              exit 1
-            fi
-            echo "  removing the Worker custom domain"
-            curl -sS "${auth[@]}" -X DELETE "${api}/workers/domains/${wd_id}" | jq -c '.success // .errors'
-          fi
-
-          echo "== Zone and apex DNS =="
-          zones=$(curl -sS -o /tmp/zones -w '%{http_code}' "${auth[@]}" "${cf}/zones?name=${host}")
-          echo "  zone HTTP ${zones}"
-          jq -c '.result[]? | {id, name, status, account: .account.id}' /tmp/zones 2>/dev/null || head -c 300 /tmp/zones
-          echo "  configured account: ${account}"
-          zone=$(jq -r '.result[0].id // empty' /tmp/zones 2>/dev/null || true)
-          if [ -z "${zone}" ]; then
-            echo "::error::Zone not accessible with this token."
-            exit 1
-          fi
-
-          records=$(curl -sS -o /tmp/records -w '%{http_code}' "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${host}")
-          echo "  records HTTP ${records}"
-          jq -c '.result[]? | {id, type, content, proxied}' /tmp/records 2>/dev/null || head -c 300 /tmp/records
-
-          cname_id=$(jq -r '.result[]? | select(.type == "CNAME") | .id' /tmp/records 2>/dev/null | head -1)
-          if [ -n "${cname_id}" ]; then
-            current=$(jq -r --arg id "${cname_id}" '.result[] | select(.id == $id) | .content' /tmp/records)
-            if [ "${current}" = "${site}.pages.dev" ]; then
-              echo "  apex CNAME already points at ${site}.pages.dev"
+          for name in senseikatana.com www.senseikatana.com; do
+            echo "== ${name} =="
+            records=$(curl -sS "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${name}")
+            if echo "${records}" | jq -e --arg target "${target}" '.result[]? | select(.type == "CNAME" and .content == $target)' >/dev/null; then
+              echo "  CNAME already points at ${target}"
             else
-              echo "  patching CNAME ${current} -> ${site}.pages.dev"
-              curl -sS "${auth[@]}" "${json[@]}" -X PATCH "${cf}/zones/${zone}/dns_records/${cname_id}" \
-                --data "{\"content\":\"${site}.pages.dev\",\"proxied\":true}" | jq -c '.success // .errors'
+              for id in $(echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA") | .id'); do
+                echo "  removing stale $(echo "${records}" | jq -r --arg id "$id" '.result[] | select(.id == $id) | "\(.type) \(.content)"')"
+                curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" | jq -c '.success // .errors'
+              done
+              echo "  creating CNAME ${name} -> ${target}"
+              curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" \
+                --data "{\"type\":\"CNAME\",\"name\":\"${name}\",\"content\":\"${target}\",\"proxied\":true,\"ttl\":1}" |
+                jq -c '{success, errors, result: (.result | {type, name, content, proxied})}'
             fi
-          else
-            for id in $(jq -r '.result[]? | select(.type == "AAAA" or .type == "A") | .id' /tmp/records); do
-              echo "  removing stale $(jq -r --arg id "$id" '.result[] | select(.id == $id) | "\(.type) \(.content)"' /tmp/records)"
-              curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" | jq -c '.success // .errors'
-            done
-            echo "  creating CNAME ${host} -> ${site}.pages.dev"
-            curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" \
-              --data "{\"type\":\"CNAME\",\"name\":\"${host}\",\"content\":\"${site}.pages.dev\",\"proxied\":true,\"ttl\":1}" |
-              jq -c '.success // .errors'
-          fi
+          done
 
-          echo "== Pages custom domain =="
-          curl -sS "${auth[@]}" -X DELETE "${api}/pages/projects/${site}/domains/${host}" >/dev/null || true
-          sleep 3
-          curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${site}/domains" \
-            --data "{\"name\":\"${host}\"}" | jq -c '.result // .errors'
+          echo "== Pages domains =="
+          domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/senseikatana-web/domains")
+          for name in senseikatana.com www.senseikatana.com; do
+            if echo "${domains}" | jq -e --arg name "$name" '.result[]? | select(.name == $name)' >/dev/null; then
+              echo "  ${name}: attached ($(echo "${domains}" | jq -r --arg name "$name" '.result[] | select(.name == $name) | .status'))"
+            else
+              echo "  ${name}: attaching"
+              curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/senseikatana-web/domains" \
+                --data "{\"name\":\"${name}\"}" | jq -c '.result // .errors'
+            fi
+          done
 
-      - name: Verify the apex
+      - name: Verify
         run: |
-          sleep 75
+          sleep 60
           for path in / /posts /about /es/posts/ /en/docs/ /en/docs/start/getting-started; do
             echo "${path} -> $(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
           done
-
-      - name: Domain status
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
-          account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
-          api="https://api.cloudflare.com/client/v4/accounts/${account}"
-          auth=(-H "Authorization: Bearer ${token}")
-          curl -sS "${auth[@]}" "${api}/pages/projects/senseikatana-web/domains" |
-            jq '.result[]? | select(.name == "senseikatana.com") | {status, verification_data, validation_data}'
