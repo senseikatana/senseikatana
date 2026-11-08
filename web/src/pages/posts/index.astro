@@ -6,8 +6,9 @@ import PostCard from '../../features/blog/components/PostCard.astro';
 import { getPosts } from '../../features/blog/queries';
 import { getLocale, useTranslations } from '../../i18n';
 
-const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
-const posts = await getPosts();
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
+const posts = await getPosts(locale);
 ---
 
 <Base title={tr('blog.title')} description={tr('blog.subtitle')}>

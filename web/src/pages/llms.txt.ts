@@ -3,49 +3,56 @@ import { getPosts } from '../features/blog/queries';
 import { getServices } from '../features/services/queries';
 import { getProjects } from '../features/projects/queries';
 import { site } from '../config/site';
+import { defaultLocale } from '../i18n/config';
+import { contentSlug } from '../lib/content';
 
 /**
  * llms.txt — a compact, machine-readable map of the site for LLM crawlers.
  * @see https://llmstxt.org
  */
 export const GET: APIRoute = async () => {
-  const [posts, services, projects] = await Promise.all([getPosts(), getServices(), getProjects()]);
+  const [posts, services, projects] = await Promise.all([
+    getPosts(defaultLocale),
+    getServices(defaultLocale),
+    getProjects(defaultLocale),
+  ]);
 
   const lines = [
     `# ${site.name}`,
     '',
-    `> ${site.description}`,
+    `> ${site.description.en}`,
     '',
-    `Ubicación: ${site.location}`,
-    `Idioma principal: español`,
+    `Location: ${site.location}`,
+    `Primary language: English`,
     '',
-    '## Páginas',
+    '## Pages',
     '',
-    `- [Inicio](${site.url}/): presentación y resumen de servicios`,
-    `- [Servicios](${site.url}/services): alcance de cada servicio`,
-    `- [Proyectos](${site.url}/projects): casos de estudio`,
-    `- [Blog](${site.url}/posts): artículos técnicos`,
-    `- [Documentación](${site.url}/en/docs/): documentación de KatanaKit`,
-    `- [Contacto](${site.url}/contact)`,
+    `- [Home](${site.url}/): intro and services overview`,
+    `- [Services](${site.url}/services): scope of each service`,
+    `- [Projects](${site.url}/projects): case studies`,
+    `- [Blog](${site.url}/posts): technical articles`,
+    `- [Documentation](${site.url}/en/docs/): KatanaKit documentation`,
+    `- [Contact](${site.url}/contact)`,
     '',
-    '## Servicios',
+    '## Services',
     '',
     ...services.map(
       (service) =>
-        `- [${service.data.title}](${site.url}/services/${service.id}): ${service.data.description}`,
+        `- [${service.data.title}](${site.url}/services/${contentSlug(service.id)}): ${service.data.description}`,
     ),
     '',
-    '## Proyectos',
+    '## Projects',
     '',
     ...projects.map(
       (project) =>
-        `- [${project.data.title}](${site.url}/projects/${project.id}): ${project.data.description}`,
+        `- [${project.data.title}](${site.url}/projects/${contentSlug(project.id)}): ${project.data.description}`,
     ),
     '',
     '## Blog',
     '',
     ...posts.map(
-      (post) => `- [${post.data.title}](${site.url}/posts/${post.id}): ${post.data.description}`,
+      (post) =>
+        `- [${post.data.title}](${site.url}/posts/${contentSlug(post.id)}): ${post.data.description}`,
     ),
     '',
   ];

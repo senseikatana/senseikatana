@@ -10,9 +10,9 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [mdx(), sitemap()],
   i18n: {
-    defaultLocale: 'es',
-    locales: ['es', 'ca', 'en'],
-    fallback: { ca: 'es', en: 'es' },
+    defaultLocale: 'en',
+    locales: ['en', 'es', 'ca'],
+    fallback: { es: 'en', ca: 'en' },
     routing: { prefixDefaultLocale: false, fallbackType: 'rewrite' },
   },
   vite: {

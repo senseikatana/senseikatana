@@ -1,19 +1,24 @@
 # AGENTS.md
 
-Guidance for agents working in this repository. Verified 2026-10-17.
+Guidance for agents working in this repository. Verified 2026-11-08.
 
 Check `gh issue list --state open` before changing anything here.
 
 ## What this repo is
 
-`senseikatana/senseikatana` is two things at once:
+`senseikatana/senseikatana` is three things at once:
 
 1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
 2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
+3. The **KatanaKit documentation source** (`docs/`), a VitePress site deployed to the
+   `senseikatana-docs` Pages project and proxied under `/en/docs/` by the docs-proxy Worker
+   (lives in `katanakit-js/workers/docs-proxy`).
 
 The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
-queries, and `web/src/content/` holds the Markdown collections.
+queries, and `web/src/content/` holds the Markdown collections (`<collection>/<locale>/<slug>.md`).
+i18n: English is the default locale at the root; `es` and `ca` are prefixed. Site sections are
+`/posts`, `/projects`, `/services`, `/about`; docs live under `/en/docs/`.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
@@ -49,7 +54,17 @@ bun run dev        # astro dev for web/
 bun run build      # static build into web/dist/
 bun run check      # prettier --check, eslint, astro check
 bun run format     # prettier --write
+
+bun run docs:dev      # vitepress dev for docs/
+bun run docs:build    # sync generated content from ../katanakit-js, then build
+bun run docs:preview  # build and preview locally
+bun run docs:deploy   # build and deploy to the senseikatana-docs Pages project
+bun run docs:clean    # remove VitePress caches and build output
 ```
+
+`docs:build` and `docs:deploy` call `../katanakit-js/scripts/docs-prepare.mjs` when that
+checkout exists (generates `docs/api/`, `docs/changelog.md`, the Tailwind catalogue); without
+it they skip the sync and build from the committed content.
 
 There is no test suite yet. `bun run check` is the gate that must pass before committing.
 
@@ -64,9 +79,10 @@ Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
 - Local: `bun run deploy` (production) and `bun run deploy:preview` (a `dev` preview alias).
 - Remote preview of the dev server: `bun run tunnel` (cloudflared quick tunnel to port 4321).
 
-The apex currently serves the KatanaKit VitePress docs project (it redirects to `/en/`). Move the
-docs to `docs.senseikatana.com` before attaching `senseikatana.com` to `senseikatana-web`, or the
-docs disappear from the apex. `/docs/` does not exist today.
+Docs deploy separately: `bun run docs:deploy` publishes `docs/.vitepress/dist` to the
+`senseikatana-docs` Pages project (branch `main`). The `katanakit-docs-proxy` Worker in
+`katanakit-js/workers/docs-proxy` mounts that project under `senseikatana.com/en/docs/` and
+serves `/` and `/en/` from the docs landing page.
 
 ## Committing
 
@@ -80,8 +96,8 @@ docs disappear from the apex. `/docs/` does not exist today.
 
 ## `.gitignore`
 
-- The `.*` rule is followed by exceptions for `.github/`, `.husky/` and `.nojekyll`; keep these
-  exceptions if changing the ignore rules.
+- The `.*` rule is followed by exceptions for `.github/`, `.husky/`, `.nojekyll` and
+  `docs/.vitepress/`; keep these exceptions if changing the ignore rules.
 - `dist/` is ignored everywhere, so build output cannot be committed without `git add -f`.
 - Prefer deploying from CI artifacts rather than committing build output.
 

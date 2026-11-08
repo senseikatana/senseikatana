@@ -1,5 +1,6 @@
 ---
 import { getLocale, useTranslations } from '../../../i18n';
+import { contentSlug } from '../../../lib/content';
 import type { Project } from '../queries';
 
 interface Props {
@@ -16,9 +17,11 @@ const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
       <p class="label">{project.data.sector ?? tr('works.project')}</p>
       <h3
         class="mt-2 text-[20px] font-bold tracking-[-0.03em]"
-        transition:name={`project-title-${project.id}`}
+        transition:name={`project-title-${contentSlug(project.id)}`}
       >
-        <a href={`/projects/${project.id}`} class="hover:text-link">{project.data.title}</a>
+        <a href={`/projects/${contentSlug(project.id)}`} class="hover:text-link"
+          >{project.data.title}</a
+        >
       </h3>
     </div>
     {

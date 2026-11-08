@@ -5,12 +5,19 @@
 export const site = {
   name: 'Sergio Jurado',
   legalName: 'Sergio Jurado Casado',
-  role: 'Software para operaciones',
-  description:
-    'Desarrollo software a medida para almacén, logística, retail y back-office: aplicaciones web, paneles internos e integraciones. Cambrils, Tarragona.',
+  role: {
+    en: 'Software for operations',
+    es: 'Software para operaciones',
+    ca: 'Programari per a operacions',
+  },
+  description: {
+    en: 'Custom software for warehouse, logistics, retail and back office: web applications, internal dashboards and integrations. Cambrils, Tarragona.',
+    es: 'Desarrollo software a medida para almacén, logística, retail y back-office: aplicaciones web, paneles internos e integraciones. Cambrils, Tarragona.',
+    ca: 'Desenvolupament de programari a mida per a magatzem, logística, retail i back-office: aplicacions web, panells interns i integracions. Cambrils, Tarragona.',
+  },
   url: 'https://senseikatana.com',
-  locale: 'es_ES',
-  lang: 'es',
+  locale: 'en_US',
+  lang: 'en',
   location: 'Cambrils · Tarragona',
   cv: '/cv/sergio-jurado.pdf',
   contact: {

@@ -4,23 +4,32 @@ import Base from '../../layouts/Base.astro';
 import BackLink from '../../components/BackLink.astro';
 import Section from '../../components/Section.astro';
 import Cover from '../../components/Cover.astro';
-import { formatDate, getPosts, getRelated, readingTime } from '../../features/blog/queries';
+import {
+  formatDate,
+  getPost,
+  getPostSlugs,
+  getRelated,
+  readingTime,
+} from '../../features/blog/queries';
 import { dateLocales, getLocale, useTranslations } from '../../i18n';
+import { contentSlug } from '../../lib/content';
 import { articleJsonLd, absoluteUrl } from '../../lib/seo';
 
 const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
 const tr = useTranslations(locale);
 
 export async function getStaticPaths() {
-  const posts = await getPosts();
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const slugs = await getPostSlugs();
+  return slugs.map((slug) => ({ params: { slug } }));
 }
 
-const { post } = Astro.props;
+const slug = Astro.params.slug ?? '';
+const post = await getPost(locale, slug);
+if (!post) throw new Error(`Unknown post: ${slug}`);
 const { Content, headings } = await render(post);
 const toc = headings.filter((heading) => heading.depth === 2);
-const related = await getRelated(post.id);
-const url = absoluteUrl(`/posts/${post.id}`);
+const related = await getRelated(locale, slug);
+const url = absoluteUrl(`/posts/${slug}`);
 const minutes = readingTime(post.body ?? '');
 const jsonLd = articleJsonLd({
   title: post.data.title,
@@ -53,7 +62,7 @@ const jsonLd = articleJsonLd({
     </p>
     <h1
       class="mt-6 text-[clamp(32px,4.6vw,56px)] leading-[1.04] font-bold tracking-[-0.045em] max-w-[22ch]"
-      transition:name={`post-title-${post.id}`}
+      transition:name={`post-title-${slug}`}
     >
       {post.data.title}
     </h1>
@@ -129,7 +138,7 @@ const jsonLd = articleJsonLd({
         <ul class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-6">
           {related.map((item) => (
             <li>
-              <a href={`/posts/${item.id}`} class="block group">
+              <a href={`/posts/${contentSlug(item.id)}`} class="block group">
                 <span class="text-[12px] text-smoke">
                   {formatDate(item.data.date, dateLocales[locale])}
                 </span>

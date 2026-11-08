@@ -9,7 +9,9 @@ Feature-Based Architecture, scoped to domain slices only.
 - There is no `features/shared/`. Shared code belongs in `src/components/` or `src/lib/`.
 - `src/pages/` is a thin route layer. It composes features and never queries collections directly.
 
-Content is Markdown under `src/content/`, validated by `src/content.config.ts`.
+Content is Markdown under `src/content/<collection>/<locale>/`, validated by
+`src/content.config.ts`. English is the default locale; queries fall back to it when a
+translation is missing (`src/lib/content.ts`).
 
 ## Development
 

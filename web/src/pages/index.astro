@@ -12,10 +12,11 @@ import { getPosts } from '../features/blog/queries';
 import { site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 
-const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
-const services = await getServices();
-const projects = (await getFeaturedProjects()).slice(0, 3);
-const posts = (await getPosts()).slice(0, 3);
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
+const services = await getServices(locale);
+const projects = (await getFeaturedProjects(locale)).slice(0, 3);
+const posts = (await getPosts(locale)).slice(0, 3);
 ---
 
 <Base>

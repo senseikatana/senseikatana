@@ -4,17 +4,20 @@ import Base from '../../layouts/Base.astro';
 import BackLink from '../../components/BackLink.astro';
 import Section from '../../components/Section.astro';
 import CtaSection from '../../components/CtaSection.astro';
-import { getExperience } from '../../features/experience/queries';
+import { getExperienceEntry, getExperienceSlugs } from '../../features/experience/queries';
 import { getLocale, useTranslations } from '../../i18n';
 
-const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
 
 export async function getStaticPaths() {
-  const experience = await getExperience();
-  return experience.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  const slugs = await getExperienceSlugs();
+  return slugs.map((slug) => ({ params: { slug } }));
 }
 
-const { entry } = Astro.props;
+const slug = Astro.params.slug ?? '';
+const entry = await getExperienceEntry(locale, slug);
+if (!entry) throw new Error(`Unknown experience entry: ${slug}`);
 const { Content } = await render(entry);
 const { role, org, year, location, summary, tasks, skills } = entry.data;
 ---
@@ -30,7 +33,7 @@ const { role, org, year, location, summary, tasks, skills } = entry.data;
     <p class="label mt-6">{year}{location && ` · ${location}`}</p>
     <h1
       class="mt-3 text-[clamp(32px,4.6vw,56px)] leading-[1.04] font-bold tracking-[-0.045em] max-w-[20ch]"
-      transition:name={`experience-title-${entry.id}`}
+      transition:name={`experience-title-${slug}`}
     >
       {role}
     </h1>

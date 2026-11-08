@@ -17,22 +17,23 @@ interface Props {
   type?: 'website' | 'article';
 }
 
+const pathname = Astro.url.pathname;
+const locale = getLocale(pathname, Astro.currentLocale);
+
 const {
   title,
-  description = site.description,
+  description = site.description[locale],
   image = '/og.png',
   footer = true,
   header = true,
   type = 'website',
 } = Astro.props;
 
-const pathname = Astro.url.pathname;
-const locale = getLocale(pathname, Astro.currentLocale);
 const tr = useTranslations(locale);
-const barePath = pathname.replace(/^\/(ca|en)(?=\/|$)/, '') || '/';
+const barePath = pathname.replace(/^\/(es|ca)(?=\/|$)/, '') || '/';
 const baseUrl = Astro.site ?? site.url;
 const ogLocale = { es: 'es_ES', ca: 'ca_ES', en: 'en_US' } as const;
-const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.role}`;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.role[locale]}`;
 const localizedPath =
   locale === defaultLocale ? barePath : `/${locale}${barePath === '/' ? '' : barePath}`;
 const canonical = new URL(localizedPath, baseUrl).href;

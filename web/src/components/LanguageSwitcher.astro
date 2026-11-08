@@ -10,7 +10,7 @@ const current: Locale = isLocale(Astro.currentLocale ?? '')
     ? segment
     : defaultLocale;
 const tr = useTranslations(current);
-const bare = pathname.replace(/^\/(ca|en)(?=\/|$)/, '') || '/';
+const bare = pathname.replace(/^\/(es|ca)(?=\/|$)/, '') || '/';
 const hrefFor = (locale: Locale) =>
   locale === defaultLocale ? bare : `/${locale}${bare === '/' ? '' : bare}`;
 const options = locales.map((locale) => ({

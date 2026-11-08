@@ -1,5 +1,27 @@
-# Legacy URLs (Nuxt era and the first Astro routes). Cloudflare Pages applies
-# this file before serving; keep it in sync with src/middleware.ts.
+# Legacy URLs (Nuxt era, the first Astro routes and the ES-default era).
+# Cloudflare Pages applies this file before serving. Order matters: specific
+# rules first, prefix rules after. Keep it in sync with src/middleware.ts.
+
+# Spanish slugs from the ES-default era -> their /es/ translation
+/blog/bienvenido-a-mi-blog               /es/posts/welcome-to-my-blog                  301
+/blog/arquitectura-hexagonal-con-nuxt-4  /es/posts/hexagonal-architecture-with-nuxt-4  301
+/blog/deployment-de-nuxt-4-en-produccion /es/posts/deploying-nuxt-4-to-production      301
+/blog/testing-con-vitest-en-nuxt-4       /es/posts/testing-with-vitest-in-nuxt-4       301
+/services/web-y-ecommerce                /es/services/web-and-ecommerce                301
+/services/herramientas-internas          /es/services/internal-tools                   301
+/services/integraciones-y-automatizacion /es/services/integrations-and-automation      301
+/services/rendimiento-y-seo              /es/services/performance-and-seo              301
+
+/ca/blog/bienvenido-a-mi-blog               /ca/posts/welcome-to-my-blog                  301
+/ca/blog/arquitectura-hexagonal-con-nuxt-4  /ca/posts/hexagonal-architecture-with-nuxt-4  301
+/ca/blog/deployment-de-nuxt-4-en-produccion /ca/posts/deploying-nuxt-4-to-production      301
+/ca/blog/testing-con-vitest-en-nuxt-4       /ca/posts/testing-with-vitest-in-nuxt-4       301
+/ca/services/web-y-ecommerce                /ca/services/web-and-ecommerce                301
+/ca/services/herramientas-internas          /ca/services/internal-tools                   301
+/ca/services/integraciones-y-automatizacion /ca/services/integrations-and-automation      301
+/ca/services/rendimiento-y-seo              /ca/services/performance-and-seo              301
+
+# Old section prefixes
 /blog/*            /posts/:splat              301
 /blog              /posts                     301
 /works/*           /projects/:splat           301
@@ -8,20 +30,30 @@
 /curriculum        /about                     301
 /proyectos         /projects                  301
 /servicios         /services                  301
-/docs/*            /en/docs/:splat            301
-/docs              /en/docs/                  301
-/getting-started   /en/docs/start/getting-started  301
-
-/ca/blog/*         /ca/posts/:splat           301
-/ca/blog           /ca/posts                  301
 /ca/works/*        /ca/projects/:splat        301
 /ca/works          /ca/projects               301
 /ca/proyectos      /ca/projects               301
 /ca/servicios      /ca/services               301
 
-/en/blog/*         /en/posts/:splat           301
-/en/blog           /en/posts                  301
-/en/works/*        /en/projects/:splat        301
-/en/works          /en/projects               301
-/en/proyectos      /en/projects               301
-/en/servicios      /en/services               301
+# Docs and the docs entry point (served by the docs deployment)
+/docs/*            /en/docs/:splat            301
+/docs              /en/docs/                  301
+/getting-started   /en/docs/start/getting-started  301
+
+# English used to be a prefix; it is the default locale now
+/en/blog/*         /posts/:splat              301
+/en/blog           /posts                     301
+/en/posts/*        /posts/:splat              301
+/en/posts          /posts                     301
+/en/works/*        /projects/:splat           301
+/en/works          /projects                  301
+/en/projects/*     /projects/:splat           301
+/en/projects       /projects                  301
+/en/services/*     /services/:splat           301
+/en/services       /services                  301
+/en/proyectos      /projects                  301
+/en/servicios      /services                  301
+/en/resume         /about                     301
+/en/curriculum     /about                     301
+/en/about          /about                     301
+/en/contact        /contact                   301

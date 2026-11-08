@@ -4,17 +4,21 @@ import Base from '../../layouts/Base.astro';
 import BackLink from '../../components/BackLink.astro';
 import Section from '../../components/Section.astro';
 import CtaSection from '../../components/CtaSection.astro';
-import { getServices } from '../../features/services/queries';
+import { getService, getServiceSlugs } from '../../features/services/queries';
 import { getLocale, useTranslations } from '../../i18n';
+import { contentSlug } from '../../lib/content';
 
-const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
 
 export async function getStaticPaths() {
-  const services = await getServices();
-  return services.map((service) => ({ params: { slug: service.id }, props: { service } }));
+  const slugs = await getServiceSlugs();
+  return slugs.map((slug) => ({ params: { slug } }));
 }
 
-const { service } = Astro.props;
+const slug = Astro.params.slug ?? '';
+const service = await getService(locale, slug);
+if (!service) throw new Error(`Unknown service: ${slug}`);
 const { Content } = await render(service);
 ---
 
@@ -28,7 +32,7 @@ const { Content } = await render(service);
     </p>
     <h1
       class="mt-6 text-[clamp(32px,4.6vw,56px)] leading-[1.04] font-bold tracking-[-0.045em] max-w-[20ch]"
-      transition:name={`service-title-${service.id}`}
+      transition:name={`service-title-${contentSlug(service.id)}`}
     >
       {service.data.title}
     </h1>

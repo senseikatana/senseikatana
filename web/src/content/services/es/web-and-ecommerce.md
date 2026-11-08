@@ -37,7 +37,7 @@ Empresa Plana necesitaba publicar en castellano y catalán y, a la vez, que su e
 - **Qué resuelve**: el equipo publica desde el panel; la web lee y sirve HTML estático, sin recompilar a mano.
 - **Base técnica**: rutas con prefijo de idioma, `hreflang` consistente, canonical, sitemap y datos estructurados.
 
-[Ver el caso completo ->](/works/empresaplana)
+[Ver el caso completo ->](/projects/empresaplana)
 
 ### Ejemplo de tienda: catálogo acotado con checkout validado en el servidor
 

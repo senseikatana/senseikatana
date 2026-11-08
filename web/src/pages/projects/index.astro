@@ -7,8 +7,9 @@ import CtaSection from '../../components/CtaSection.astro';
 import { getProjects } from '../../features/projects/queries';
 import { getLocale, useTranslations } from '../../i18n';
 
-const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
-const projects = await getProjects();
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
+const projects = await getProjects(locale);
 ---
 
 <Base title={tr('works.title')} description={tr('works.subtitle')}>

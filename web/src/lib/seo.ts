@@ -12,7 +12,7 @@ export function personJsonLd() {
     '@type': 'Person',
     name: site.legalName,
     url: site.url,
-    jobTitle: site.role,
+    jobTitle: site.role.en,
     address: { '@type': 'PostalAddress', addressLocality: 'Cambrils', addressRegion: 'Tarragona' },
     sameAs: [site.social.github, site.social.linkedin],
   };

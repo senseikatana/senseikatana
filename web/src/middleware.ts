@@ -2,8 +2,8 @@ import { defineMiddleware } from 'astro:middleware';
 
 /**
  * Legacy path redirects. The static Cloudflare Pages deploy reads
- * `public/_redirects`; this map keeps `astro dev` and any future on-demand
- * worker consistent with it.
+ * `public/_redirects` (specific slugs, then prefixes); this map keeps
+ * `astro dev` consistent for the most common paths.
  */
 const redirects: Record<string, string> = {
   '/hola': '/contact',
@@ -19,10 +19,15 @@ const redirects: Record<string, string> = {
   '/ca/proyectos': '/ca/projects',
   '/ca/works': '/ca/projects',
   '/ca/blog': '/ca/posts',
-  '/en/servicios': '/en/services',
-  '/en/proyectos': '/en/projects',
-  '/en/works': '/en/projects',
-  '/en/blog': '/en/posts',
+  '/en/servicios': '/services',
+  '/en/proyectos': '/projects',
+  '/en/works': '/projects',
+  '/en/blog': '/posts',
+  '/en/posts': '/posts',
+  '/en/projects': '/projects',
+  '/en/services': '/services',
+  '/en/about': '/about',
+  '/en/contact': '/contact',
 };
 
 export const onRequest = defineMiddleware(({ url, redirect }, next) => {

@@ -6,10 +6,11 @@ import CtaSection from '../components/CtaSection.astro';
 import { site } from '../config/site';
 import { getExperience } from '../features/experience/queries';
 import { getLocale, useList, useTranslations } from '../i18n';
+import { contentSlug } from '../lib/content';
 
 const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
 const tr = useTranslations(locale);
-const experience = await getExperience();
+const experience = await getExperience(locale);
 const principles = useList<{ title: string; body: string }>(locale, 'about.principles');
 
 const languages =
@@ -136,9 +137,9 @@ const openSource = [
             <span class="label pt-1 tabular-nums">{item.data.year}</span>
             <div>
               <a
-                href={`/about/${item.id}`}
+                href={`/about/${contentSlug(item.id)}`}
                 class="text-[16px] font-bold text-ink group-hover:text-link"
-                transition:name={`experience-title-${item.id}`}
+                transition:name={`experience-title-${contentSlug(item.id)}`}
               >
                 {item.data.role}
               </a>
@@ -146,7 +147,7 @@ const openSource = [
               <p class="mt-2 max-w-[62ch] text-[14px] leading-[1.6] text-steel">
                 {item.data.summary}
               </p>
-              <a href={`/about/${item.id}`} class="link mt-3 inline-block text-[13px]">
+              <a href={`/about/${contentSlug(item.id)}`} class="link mt-3 inline-block text-[13px]">
                 {tr('about.viewRole')} -&gt;
               </a>
             </div>
