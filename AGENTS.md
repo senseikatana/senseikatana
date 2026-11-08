@@ -66,6 +66,22 @@ bun run docs:clean    # remove VitePress caches and build output
 checkout exists (generates `docs/api/`, `docs/changelog.md`, the Tailwind catalogue); without
 it they skip the sync and build from the committed content.
 
+## Editing content (Obsidian)
+
+The repo doubles as an Obsidian vault: open the repository root as the vault and edit the
+Markdown in place. `.obsidian/` is local — the `.*` gitignore rule keeps it out of git — so
+each machine keeps its own settings. Recommended vault settings: _Files & Links → disable "Use
+[[Wikilinks]]"_ and exclude `node_modules/`, `web/dist/`, `web/.astro/` and `docs/.vitepress/`
+from search and graph.
+
+- Content: `web/src/content/<collection>/<locale>/<slug>.md`. Frontmatter keys must match the
+  Zod schemas in `web/src/content.config.ts`; quote dates (`date: '2025-01-08'`).
+- Docs: `docs/**/*.md` (VitePress).
+- Links: plain Markdown with real web paths (`/posts/<slug>`, `/projects/<slug>`). Never
+  `[[wikilinks]]` — Astro and VitePress do not resolve them.
+- Run `bun run check` after editing and before committing; the schemas catch broken
+  frontmatter at build time.
+
 There is no test suite yet. `bun run check` is the gate that must pass before committing.
 
 ## Deploy
