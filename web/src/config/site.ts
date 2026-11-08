@@ -35,18 +35,56 @@ export const site = {
   secondary: { label: 'Ver proyectos', href: '/projects' },
   nav: [
     { label: 'Servicios', href: '/services' },
-    { label: 'Proyectos', href: '/projects' },
+    {
+      label: 'Proyectos',
+      href: '/projects',
+      children: [
+        { label: 'Empresa Plana', href: '/projects/empresaplana' },
+        { label: 'ERP-Lite', href: '/projects/erp-lite' },
+        { label: 'POS System', href: '/projects/pos-system' },
+        { labelKey: 'home.worksAll', href: '/projects' },
+      ],
+    },
     { label: 'Sobre mí', href: '/about' },
     { label: 'Blog', href: '/posts' },
-    { label: 'Documentación', href: '/en/docs/' },
+    {
+      label: 'Documentación',
+      href: '/en/docs/',
+      children: [
+        { label: 'Getting started', href: '/en/docs/start/getting-started' },
+        { label: 'Guides', href: '/en/docs/guides/' },
+        { label: 'UI Kit', href: '/en/docs/ui-kit/' },
+        { label: 'API reference', href: '/en/docs/api/' },
+        { label: 'Changelog', href: '/en/docs/changelog' },
+      ],
+    },
   ],
   menu: [
     { label: 'Inicio', href: '/' },
     { label: 'Servicios', href: '/services' },
-    { label: 'Proyectos', href: '/projects' },
+    {
+      label: 'Proyectos',
+      href: '/projects',
+      children: [
+        { label: 'Empresa Plana', href: '/projects/empresaplana' },
+        { label: 'ERP-Lite', href: '/projects/erp-lite' },
+        { label: 'POS System', href: '/projects/pos-system' },
+        { labelKey: 'home.worksAll', href: '/projects' },
+      ],
+    },
     { label: 'Sobre mí', href: '/about' },
     { label: 'Blog', href: '/posts' },
-    { label: 'Documentación', href: '/en/docs/' },
+    {
+      label: 'Documentación',
+      href: '/en/docs/',
+      children: [
+        { label: 'Getting started', href: '/en/docs/start/getting-started' },
+        { label: 'Guides', href: '/en/docs/guides/' },
+        { label: 'UI Kit', href: '/en/docs/ui-kit/' },
+        { label: 'API reference', href: '/en/docs/api/' },
+        { label: 'Changelog', href: '/en/docs/changelog' },
+      ],
+    },
     { label: 'Contacto', href: '/contact' },
   ],
   footer: [

@@ -32,15 +32,43 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
       {
         site.nav.map((link) => (
           <li>
-            <a
-              href={link.href}
-              class:list={[
-                'hover:text-ink',
-                path.startsWith(link.href) ? 'text-ink' : 'text-steel',
-              ]}
-            >
-              {labelFor(link.href)}
-            </a>
+            {'children' in link && link.children ? (
+              <details class="relative" data-nav-dropdown>
+                <summary
+                  class:list={[
+                    'flex cursor-pointer list-none items-center gap-1 hover:text-ink [&::-webkit-details-marker]:hidden',
+                    path.startsWith(link.href) ? 'text-ink' : 'text-steel',
+                  ]}
+                >
+                  {labelFor(link.href)}
+                  <span class="text-stone" aria-hidden="true">
+                    ▾
+                  </span>
+                </summary>
+                <ul class="absolute left-0 top-[calc(100%+16px)] z-[60] min-w-[232px] border border-ink bg-canvas p-1">
+                  {link.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class="block px-3 py-2 text-[13px] text-steel hover:bg-tint hover:text-ink"
+                      >
+                        {'labelKey' in child ? tr(child.labelKey) : child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a
+                href={link.href}
+                class:list={[
+                  'hover:text-ink',
+                  path.startsWith(link.href) ? 'text-ink' : 'text-steel',
+                ]}
+              >
+                {labelFor(link.href)}
+              </a>
+            )}
           </li>
         ))
       }
@@ -85,6 +113,23 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
                 -&gt;
               </span>
             </a>
+            {'children' in link && link.children && (
+              <ul class="pb-2">
+                {link.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class="flex items-center gap-3 py-2.5 pl-8 border-b border-rule text-[15px] text-steel"
+                    >
+                      <span class="text-stone" aria-hidden="true">
+                        -&gt;
+                      </span>
+                      {'labelKey' in child ? tr(child.labelKey) : child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
@@ -130,4 +175,29 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
   document.querySelector('[data-menu-open]')?.addEventListener('click', () => menu.showModal());
   document.querySelector('[data-menu-close]')?.addEventListener('click', () => menu.close());
   menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
+
+  const navDropdowns = document.querySelectorAll<HTMLDetailsElement>('[data-nav-dropdown]');
+  for (const element of navDropdowns) {
+    element.addEventListener('toggle', () => {
+      if (!element.open) return;
+      for (const other of navDropdowns) if (other !== element) other.open = false;
+    });
+    element.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        element.open = false;
+      });
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    for (const element of navDropdowns) {
+      if (element.open && !element.contains(target)) element.open = false;
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    for (const element of navDropdowns) element.open = false;
+  });
 </script>
