@@ -6,7 +6,7 @@
   "type": "module",
   "packageManager": "bun@1.4.4",
   "workspaces": [
-    "web"
+    "webastro"
   ],
   "trustedDependencies": [
     "better-sqlite3",
@@ -22,8 +22,8 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy": "bun run build && bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch main",
-    "deploy:preview": "bun run build && bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch dev",
+    "deploy": "bun run build && bunx wrangler@4.145.0 pages deploy webastro/dist --project-name senseikatana-web --branch main",
+    "deploy:preview": "bun run build && bunx wrangler@4.145.0 pages deploy webastro/dist --project-name senseikatana-web --branch dev",
     "tunnel": "cloudflared tunnel --url http://localhost:4321 --no-autoupdate"
   },
   "author": "Sergio Jurado",
