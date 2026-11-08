@@ -67,8 +67,15 @@ jobs:
           echo "== Zone lookup =="
           zones=$(curl -sS -o /tmp/zones -w '%{http_code}' "${auth[@]}" "${cf}/zones?name=${host}")
           echo "  HTTP ${zones}"
-          head -c 300 /tmp/zones; echo
+          jq -c '.result[]? | {id, name, status, account: .account.id}' /tmp/zones 2>/dev/null || head -c 300 /tmp/zones
+          echo "  configured account: ${account}"
           zone=$(jq -r '.result[0].id // empty' /tmp/zones 2>/dev/null || true)
+          zone_account=$(jq -r '.result[0].account.id // empty' /tmp/zones 2>/dev/null || true)
+          if [ -n "${zone_account}" ] && [ "${zone_account}" = "${account}" ]; then
+            echo "  MATCH: the zone belongs to the configured account"
+          else
+            echo "  MISMATCH: the zone belongs to account ${zone_account:-unknown}, not ${account}"
+          fi
 
           if [ -n "${zone}" ]; then
             echo "== Apex DNS records =="
@@ -110,7 +117,7 @@ jobs:
 
       - name: Verify the apex
         run: |
-          sleep 60
+          sleep 5
           for path in / /posts /about /es/posts/ /en/docs/start/getting-started; do
             echo "${path} -> $(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
           done
