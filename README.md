@@ -5,7 +5,7 @@
 **Full-Stack Developer — Barcelona, Spain**
 
 [![GitHub](https://img.shields.io/badge/GitHub-senseikatana-181717?style=flat&logo=github&logoColor=white)](https://github.com/senseikatana)
-[![Docs](https://img.shields.io/badge/Docs-docs.senseikatana.com-000000?style=flat&logo=readthedocs&logoColor=white)](https://docs.senseikatana.com)
+[![Docs](https://img.shields.io/badge/Docs-KatanaKit-000000?style=flat&logo=readthedocs&logoColor=white)](https://senseikatana.com/en/docs/)
 [![Email](https://img.shields.io/badge/Email-github--senseikatana%40protonmail.com-6D4AFF?style=flat&logo=protonmail&logoColor=white)](mailto:github-senseikatana@protonmail.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
@@ -74,7 +74,7 @@
 
 **KatanaKit — open source**
 
-- **[katanakit-js](https://github.com/senseikatana/katanakit-js)** — Framework-agnostic TypeScript service toolkit built on hexagonal architecture. [Docs](https://docs.senseikatana.com)
+- **[katanakit-js](https://github.com/senseikatana/katanakit-js)** — Framework-agnostic TypeScript service toolkit built on hexagonal architecture. [Docs](https://senseikatana.com/en/docs/)
 - **[katanakit-css](https://github.com/senseikatana/katanakit-css)** — Modular SCSS framework: design tokens, utility classes and an `@apply`-style system.
 - **[katanakit-sysli](https://github.com/senseikatana/katanakit-sysli)** — `ksys`, a TUI for units, timers, journal, boot, network and sessions.
 - **[katanakit-wp](https://github.com/senseikatana/katanakit-wp)** — Code-first WordPress configuration. Bun scripts wrapping PHP in Docker.
@@ -107,7 +107,42 @@
 ### Let's Connect
 
 - **GitHub** — [senseikatana](https://github.com/senseikatana)
-- **Docs** — [docs.senseikatana.com](https://docs.senseikatana.com)
+- **Docs** — [senseikatana.com/en/docs](https://senseikatana.com/en/docs/)
 - **Email** — [github-senseikatana@protonmail.com](mailto:github-senseikatana@protonmail.com)
+
+---
+
+### 🌐 Site map
+
+Native URLs on **senseikatana.com**. English is the default locale; every site page is also served under `/es` and `/ca`.
+
+**Site**
+
+- **Home** — [`/`](https://senseikatana.com/)
+- **About** — [`/about`](https://senseikatana.com/about) · roles: [`/about/fundacio-onada`](https://senseikatana.com/about/fundacio-onada), [`/about/esinsa-gaskets`](https://senseikatana.com/about/esinsa-gaskets), [`/about/ajuntament-salou`](https://senseikatana.com/about/ajuntament-salou), [`/about/bar-las-cadenas`](https://senseikatana.com/about/bar-las-cadenas), [`/about/passos-de-cuinar`](https://senseikatana.com/about/passos-de-cuinar), [`/about/glovo`](https://senseikatana.com/about/glovo), [`/about/centro-municipal-deportivo`](https://senseikatana.com/about/centro-municipal-deportivo)
+- **Blog** — [`/posts`](https://senseikatana.com/posts) · [`/posts/welcome-to-my-blog`](https://senseikatana.com/posts/welcome-to-my-blog) · [`/posts/hexagonal-architecture-with-nuxt-4`](https://senseikatana.com/posts/hexagonal-architecture-with-nuxt-4) · [`/posts/testing-with-vitest-in-nuxt-4`](https://senseikatana.com/posts/testing-with-vitest-in-nuxt-4) · [`/posts/deploying-nuxt-4-to-production`](https://senseikatana.com/posts/deploying-nuxt-4-to-production)
+- **Projects** — [`/projects`](https://senseikatana.com/projects) · [`/projects/empresaplana`](https://senseikatana.com/projects/empresaplana) · [`/projects/erp-lite`](https://senseikatana.com/projects/erp-lite) · [`/projects/pos-system`](https://senseikatana.com/projects/pos-system)
+- **Services** — [`/services`](https://senseikatana.com/services) · [`/services/web-and-ecommerce`](https://senseikatana.com/services/web-and-ecommerce) · [`/services/internal-tools`](https://senseikatana.com/services/internal-tools) · [`/services/integrations-and-automation`](https://senseikatana.com/services/integrations-and-automation) · [`/services/performance-and-seo`](https://senseikatana.com/services/performance-and-seo)
+- **Contact** — [`/contact`](https://senseikatana.com/contact)
+- **Feeds** — [`/rss.xml`](https://senseikatana.com/rss.xml) · [`/sitemap-index.xml`](https://senseikatana.com/sitemap-index.xml) · [`/llms.txt`](https://senseikatana.com/llms.txt)
+
+**Documentation — KatanaKit**
+
+- [`/en/docs/`](https://senseikatana.com/en/docs/) — docs home
+- [`/en/docs/start/getting-started`](https://senseikatana.com/en/docs/start/getting-started) · [`/en/docs/tutorials/first-api-client`](https://senseikatana.com/en/docs/tutorials/first-api-client)
+- [`/en/docs/guides/`](https://senseikatana.com/en/docs/guides/) · [`/en/docs/explanation/`](https://senseikatana.com/en/docs/explanation/) · [`/en/docs/ui-kit/`](https://senseikatana.com/en/docs/ui-kit/) · [`/en/docs/api/`](https://senseikatana.com/en/docs/api/)
+- [`/en/docs/changelog`](https://senseikatana.com/en/docs/changelog)
+
+**Localized**
+
+- [`/es`](https://senseikatana.com/es/) and [`/ca`](https://senseikatana.com/ca/) mirror every site page.
+
+**Legacy redirects (301)**
+
+- `/blog/*` → `/posts/*` · `/works/*` → `/projects/*`
+- `/resume` and `/curriculum` → `/about`
+- `/proyectos` → `/projects` · `/servicios` → `/services`
+- `/en/*` → same path without the prefix
+- `/docs/*` → `/en/docs/*` · `/getting-started` → `/en/docs/start/getting-started`
 
 Released under the [MIT License](LICENSE) © 2026 Sergio Jurado.
