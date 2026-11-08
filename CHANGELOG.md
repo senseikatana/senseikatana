@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.5] - 2026-11-08
+
+Highlights: feat(web): add dropdown navigation for projects and documentation and fix(docs): mount the build under /en/docs before deploying, plus 11 more changes.
+
+- 📝 docs(theme): update v7 · 20 releases section `6e0672d`
+  - `docs/.vitepress/theme/signals.json`
+  - `docs/changelog.md`
+- 🐛 fix(docs): mount the build under /en/docs before deploying `2efefa3`
+  - `.github/workflows/docs.yml`
+  - `scripts/docs.mjs`
+- 🐛 fix(docs): vendor the UI kit JavaScript too `321c545`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/vendor/kit-styles.css`
+  - `docs/.vitepress/vendor/kit-ui/components/alert.js`
+  - `docs/.vitepress/vendor/kit-ui/components/badge.js`
+  - `docs/.vitepress/vendor/kit-ui/components/banner.js`
+  - `docs/.vitepress/vendor/kit-ui/components/button.js`
+  - `docs/.vitepress/vendor/kit-ui/components/card.js`
+  - `docs/.vitepress/vendor/kit-ui/components/input.js`
+  - `docs/.vitepress/vendor/kit-ui/components/modal.js`
+  - `docs/.vitepress/vendor/kit-ui/components/select.js`
+  - `docs/.vitepress/vendor/kit-ui/components/tabs.js`
+  - `docs/.vitepress/vendor/kit-ui/components/toast.js`
+  - `docs/.vitepress/vendor/kit-ui/index.js`
+  - `docs/.vitepress/vendor/kit-ui/styles.css`
+  - `scripts/docs.mjs`
+- 🐛 fix(docs): vendor the UI kit stylesheet so CI can build `24deb9b`
+  - `docs/.vitepress/config.ts`
+  - `docs/.vitepress/vendor/kit-styles.css`
+  - `scripts/docs.mjs`
+- 🤖 ci(docs): publish the documentation on every docs change `ac6bdb5`
+  - `.github/workflows/docs.yml`
+  - `README.md`
+- 🐛 fix(infra): restore the apex CNAME after freeing it from the Worker `9b85aaf`
+  - `.github/workflows/infra-domain.yml`
+- 🐛 fix(infra): free the apex from the docs proxy worker domain `ec19977`
+  - `.github/workflows/infra-domain.yml`
+- 🐛 fix(infra): replace the apex placeholder with the Pages CNAME `05f54e6`
+  - `.github/workflows/infra-domain.yml`
+- 🧹 chore(infra): print the custom domain object and production deployments `c3f1589`
+  - `.github/workflows/infra-domain.yml`
+- 🐛 fix(infra): verify the zone account matches the configured token `8d4e355`
+  - `.github/workflows/infra-domain.yml`
+- 🐛 fix(infra): refresh the pending custom domain and probe worker access `c38eb1e`
+  - `.github/workflows/infra-domain.yml`
+- 🐛 fix(infra): point the apex at the site and report missing permissions `83cc413`
+  - `.github/workflows/infra-domain.yml`
+  - `web/src/pages/posts/index.astro`
+- 🚀 feat(web): add dropdown navigation for projects and documentation `64e755a`
+  - `web/src/components/Header.astro`
+  - `web/src/config/site.ts`
+
 ## [3.1.3] - 2026-11-08
 
 Highlights: feat(infra): move the apex to the site and free the root from the docs proxy and fix(infra): drop the unsupported Pages API pagination query, plus 11 more changes.
