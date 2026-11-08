@@ -1,11 +1,41 @@
 {
-	"version": "7.3.0",
+	"version": "7.4.0",
 	"stars": 1,
 	"newPages": [],
 	"changelog": {
-		"version": "7.3.1",
-		"date": "2026-11-01",
+		"version": "7.4.0",
+		"date": "2026-11-08",
 		"releases": [
+			{
+				"version": "7.4.0",
+				"date": "2026-11-08",
+				"items": [
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(services): add deploy and docs to package.json <code>e2be25f</code></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(styles): add sets <code>ac9f42a</code></strong>"
+					},
+					{
+						"emoji": "🐛",
+						"html": "<strong>🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports <code>17aac2c</code></strong>"
+					},
+					{
+						"emoji": "⬆️",
+						"html": "<strong>🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an <code>118405f</code></strong>"
+					},
+					{
+						"emoji": "✨",
+						"html": "<strong>🚀 feat: updates documentation, tests, and tooling across 23 files <code>0542810</code></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(scripts): add candidate, countThrees and isForbiddenVersion <code>d78bbd9</code></strong>"
+					}
+				]
+			},
 			{
 				"version": "7.3.1",
 				"date": "2026-11-01",
@@ -135,46 +165,21 @@
 						"html": "<strong>🧹 chore(scripts): drop the demo api server and add a real preview command <code>9545c95</code></strong>"
 					}
 				]
-			},
-			{
-				"version": "7.2.1",
-				"date": "2026-10-31",
-				"items": [
-					{
-						"emoji": "📚",
-						"html": "<strong>🚀 feat(docs): rebuild the changelog page as one collapsible card per release <code>82fa443</code></strong>"
-					},
-					{
-						"emoji": "🗑️",
-						"html": "<strong>⏪ revert(docs): drop the hero typewriter and restore the original heading size <code>07a34bf</code></strong>"
-					},
-					{
-						"emoji": "🗑️",
-						"html": "<strong>🚀 feat(docs): type the hero heading in and drop the duplicated brand name <code>73e44bd</code></strong>"
-					},
-					{
-						"emoji": "🎉",
-						"html": "<strong>🧹 chore(release): v7.1.9 <code>1951246</code></strong>"
-					},
-					{
-						"emoji": "🗑️",
-						"html": "<strong>🧹 chore(scripts): drop the demo api server and add a real preview command <code>9545c95</code></strong>"
-					},
-					{
-						"emoji": "✨",
-						"html": "<strong>📦 build(package.json): update 1 file (+1/-1) <code>2204562</code></strong>"
-					}
-				]
 			}
 		]
 	},
 	"versions": {
 		"latest": {
-			"version": "7.3.1",
-			"date": "2026-11-01",
-			"anchor": "#_7-3-1-2026-11-01"
+			"version": "7.4.0",
+			"date": "2026-11-08",
+			"anchor": "#_7-4-0-2026-11-08"
 		},
 		"recent": [
+			{
+				"version": "7.4.0",
+				"date": "2026-11-08",
+				"anchor": "#_7-4-0-2026-11-08"
+			},
 			{
 				"version": "7.3.1",
 				"date": "2026-11-01",
@@ -194,11 +199,6 @@
 				"version": "7.2.3",
 				"date": "2026-10-31",
 				"anchor": "#_7-2-3-2026-10-31"
-			},
-			{
-				"version": "7.2.2",
-				"date": "2026-10-31",
-				"anchor": "#_7-2-2-2026-10-31"
 			}
 		],
 		"previous": [
