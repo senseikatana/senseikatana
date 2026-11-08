@@ -1,0 +1,133 @@
+---
+import { site } from '../config/site';
+import { getLocale, useTranslations } from '../i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import Logo from './Logo.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
+
+const path = Astro.url.pathname;
+const tr = useTranslations(getLocale(path, Astro.currentLocale));
+
+const navKeys: Record<string, string> = {
+  '/': 'home',
+  '/services': 'services',
+  '/projects': 'works',
+  '/about': 'about',
+  '/posts': 'blog',
+  '/en/docs/': 'docs',
+  '/contact': 'contact',
+};
+
+const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
+---
+
+<!-- Fixed header: sticky once the announcement bar scrolls away; data-scrolled toggles the blurred state -->
+<header class="site-header sticky top-0 z-50 border-b border-rule bg-canvas">
+  <nav
+    class="frame flex items-center gap-8 h-16 px-6 max-md:h-14 max-md:px-5"
+    aria-label={tr('a11y.mainNav')}
+  >
+    <Logo />
+    <ul class="hidden md:flex gap-5 text-[14px] lg:gap-7">
+      {
+        site.nav.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'hover:text-ink',
+                path.startsWith(link.href) ? 'text-ink' : 'text-steel',
+              ]}
+            >
+              {labelFor(link.href)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="ml-auto flex items-center gap-3 lg:gap-5">
+      <div class="hidden md:block"><ThemeSwitcher /></div>
+      <LanguageSwitcher />
+      <a href={site.cta.href} class="btn btn-primary btn-s hidden md:inline-flex">{tr('nav.cta')}</a
+      >
+      <button
+        type="button"
+        class="md:hidden text-[13px] text-ink"
+        data-menu-open
+        aria-haspopup="dialog">{tr('a11y.menu')}</button
+      >
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile menu: full-screen dialog, 100dvh, Esc closes, body scroll locked -->
+<dialog
+  class="mobile-menu m-0 h-dvh max-h-none w-screen max-w-none bg-canvas text-steel p-0"
+  aria-label={tr('a11y.menuLabel')}
+>
+  <div class="flex flex-col h-full">
+    <div class="flex items-center h-14 px-5 border-b border-rule">
+      <Logo />
+      <button type="button" class="ml-auto text-[13px] text-ink" data-menu-close
+        >{tr('a11y.close')}</button
+      >
+    </div>
+    <ul class="px-5 pt-3">
+      {
+        site.menu.map((link, index) => (
+          <li>
+            <a href={link.href} class="flex items-center gap-3.5 py-4 border-b border-rule">
+              <span class="text-[12px] text-smoke">{String(index + 1).padStart(2, '0')}</span>
+              <span class="text-[28px] font-bold tracking-[-0.03em] text-ink">
+                {labelFor(link.href)}
+              </span>
+              <span class="ml-auto text-stone" aria-hidden="true">
+                -&gt;
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mt-auto px-5 pt-5 pb-7 border-t border-rule flex flex-col gap-4">
+      <div class="flex items-center">
+        <span class="label">{tr('theme.title')}</span><span class="ml-auto"><ThemeSwitcher /></span>
+      </div>
+      <a href={site.cta.href} class="btn btn-primary w-full">{tr('nav.cta')} -&gt;</a>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .site-header {
+    transition:
+      background-color 150ms ease-out,
+      border-color 150ms ease-out;
+  }
+  .site-header[data-scrolled] {
+    background: color-mix(in srgb, var(--canvas) 82%, transparent);
+    backdrop-filter: blur(16px);
+    border-bottom-color: var(--ink);
+  }
+  .site-header[data-scrolled] nav {
+    height: 56px;
+  }
+  :global(html:has(dialog.mobile-menu[open])) {
+    overflow: hidden;
+  }
+  .mobile-menu::backdrop {
+    background: transparent;
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header')!;
+  const onScroll = () => header.toggleAttribute('data-scrolled', window.scrollY > 48);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const menu = document.querySelector<HTMLDialogElement>('dialog.mobile-menu')!;
+  document.querySelector('[data-menu-open]')?.addEventListener('click', () => menu.showModal());
+  document.querySelector('[data-menu-close]')?.addEventListener('click', () => menu.close());
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
+</script>

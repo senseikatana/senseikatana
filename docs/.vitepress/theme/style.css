@@ -1,0 +1,1557 @@
+/* Demo helpers for the Katana UI component pages. */
+
+.demo-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spacing-3);
+	margin: var(--spacing-4) 0;
+}
+
+.demo-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--spacing-4);
+	margin: var(--spacing-4) 0;
+}
+
+.demo-stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-3);
+	max-width: 420px;
+	margin: var(--spacing-4) 0;
+}
+
+/* ── Navbar: releases flyout (next to the title) + GitHub stars (right) ── */
+
+/* The title slot renders inside the title link; `VersionFlyout` re-parents
+   itself beside that link on mount, so the wrapper lays both out in a row. */
+.VPNavBarTitle {
+	display: flex;
+	align-items: center;
+}
+
+.VPNavBarTitle > .title {
+	width: auto;
+}
+
+.version-flyout {
+	position: relative;
+	margin-left: 10px;
+}
+
+.version-flyout__trigger {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 5px 10px;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--vp-c-text-1);
+	cursor: pointer;
+	font-family: var(--vp-font-family-mono);
+	font-size: 12.5px;
+	font-weight: 600;
+	line-height: 1.4;
+	transition:
+		border-color 0.25s,
+		background-color 0.25s,
+		color 0.25s;
+}
+
+.version-flyout__trigger:hover,
+.version-flyout__trigger[aria-expanded="true"] {
+	border-color: var(--vp-c-divider);
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-brand-1);
+}
+
+.version-flyout__caret {
+	font-size: 10px;
+	line-height: 1;
+	transition: transform 0.25s;
+}
+
+.version-flyout__caret.is-open {
+	transform: rotate(180deg);
+}
+
+.version-flyout__panel {
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	z-index: 70;
+	min-width: 200px;
+	padding: 8px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 12px;
+	background: var(--vp-c-bg-elv);
+	box-shadow: var(--vp-shadow-3);
+}
+
+.version-flyout__group {
+	padding: 6px 10px 4px;
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.version-flyout__group--sep {
+	margin-top: 6px;
+	border-top: 1px solid var(--vp-c-divider);
+	padding-top: 10px;
+}
+
+.version-flyout__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 5px 10px;
+	border-radius: 7px;
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.6;
+	text-decoration: none;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+
+.version-flyout__item:hover {
+	background: var(--vp-c-default-soft);
+	color: var(--vp-c-text-1);
+}
+
+.version-flyout__item.is-current {
+	color: var(--vp-c-brand-1);
+	font-weight: 600;
+}
+
+.version-flyout__item.is-current svg {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2.2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.version-flyout__hint {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-mono);
+	font-size: 11px;
+	font-weight: 400;
+}
+
+.version-flyout__item--all {
+	margin-top: 6px;
+	border-top: 1px solid var(--vp-c-divider);
+	border-radius: 0 0 7px 7px;
+	padding-top: 9px;
+	color: var(--vp-c-text-1);
+}
+
+.gh-stars {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	margin-left: 10px;
+	padding: 5px 10px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	color: var(--vp-c-text-1);
+	font-size: 12.5px;
+	line-height: 1;
+	text-decoration: none;
+	transition:
+		border-color 0.25s,
+		color 0.25s;
+}
+
+.gh-stars:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.gh-stars b {
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+@media (max-width: 767px) {
+	.version-flyout {
+		display: none;
+	}
+}
+
+/* ── Sidebar "new" pill (daisyUI changelog style) ── */
+
+.vp-new-badge {
+	align-self: center;
+	margin-left: auto;
+	padding: 1px 7px;
+	/* Inline use (page headings) drops the sidebar-only auto margin. */
+	vertical-align: middle;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-brand-1);
+	font-size: 10.5px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	line-height: 1.6;
+	text-transform: lowercase;
+	white-space: nowrap;
+}
+
+/* ── What's new: bottom-right changelog panel ── */
+
+.whats-new {
+	position: fixed;
+	right: 16px;
+	bottom: 16px;
+	z-index: 60;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 10px;
+}
+
+.whats-new__launcher {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 7px 13px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg-elv);
+	box-shadow: var(--vp-shadow-2);
+	color: var(--vp-c-text-1);
+	cursor: pointer;
+	font-family: var(--vp-font-family-mono);
+	font-size: 12.5px;
+	font-weight: 600;
+	line-height: 1;
+	transition:
+		border-color 0.25s,
+		color 0.25s;
+}
+
+.whats-new__launcher:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.whats-new__label {
+	color: var(--vp-c-text-2);
+	font-family: var(--vp-font-family-base);
+	font-weight: 500;
+}
+
+.whats-new__dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--vp-c-brand-1);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--vp-c-brand-1) 22%, transparent);
+}
+
+.whats-new__panel {
+	width: 372px;
+	max-width: calc(100vw - 32px);
+	overflow: hidden;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 14px;
+	background: var(--vp-c-bg-elv);
+	box-shadow: var(--vp-shadow-3);
+	animation: whats-new-in 0.18s ease-out;
+}
+
+@keyframes whats-new-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+.whats-new__header {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 16px 46px 14px 20px;
+	border-bottom: 2px solid var(--vp-c-brand-1);
+}
+
+.whats-new__header h2 {
+	margin: 0;
+	color: var(--vp-c-text-1);
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.35;
+}
+
+.whats-new__close {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	display: grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-2);
+	cursor: pointer;
+	font-size: 13px;
+	line-height: 1;
+	transition:
+		color 0.2s,
+		border-color 0.2s;
+}
+
+.whats-new__close:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.whats-new__body {
+	max-height: min(46vh, 330px);
+	overflow-y: auto;
+	padding: 14px 20px 4px;
+}
+
+.whats-new__body ul {
+	margin: 0 0 10px;
+	padding-left: 18px;
+}
+
+.whats-new__body li {
+	color: var(--vp-c-text-1);
+	font-size: 13.5px;
+	line-height: 1.55;
+}
+
+.whats-new__body li + li {
+	margin-top: 7px;
+}
+
+.whats-new__body code {
+	padding: 1px 5px;
+	border-radius: 5px;
+	background: var(--vp-c-default-soft);
+	font-family: var(--vp-font-family-mono);
+	font-size: 12.5px;
+}
+
+.whats-new__body a {
+	color: var(--vp-c-brand-1);
+	font-weight: 500;
+	text-decoration: none;
+}
+
+.whats-new__body a:hover {
+	text-decoration: underline;
+}
+
+.whats-new__footer {
+	display: flex;
+	justify-content: flex-end;
+	padding: 12px 16px 16px;
+}
+
+.whats-new__cta {
+	padding: 7px 14px;
+	border-radius: 9px;
+	background: var(--vp-c-brand-1);
+	color: var(--vp-c-white, #fff);
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: filter 0.2s;
+}
+
+.whats-new__cta:hover {
+	filter: brightness(1.08);
+	text-decoration: none;
+}
+
+/* ── What's new: per-release summary blocks ── */
+
+.whats-new__release + .whats-new__release {
+	margin-top: 10px;
+	padding-top: 10px;
+	border-top: 1px dashed var(--vp-c-divider);
+}
+
+.whats-new__release h3 {
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	margin: 0 0 6px;
+	color: var(--vp-c-brand-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+}
+
+.whats-new__release h3 span {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-base);
+	font-size: 11.5px;
+	font-weight: 500;
+}
+
+.whats-new__body ul {
+	margin-bottom: 0;
+}
+
+.whats-new__emoji {
+	margin-right: 6px;
+}
+
+.whats-new__more {
+	color: var(--vp-c-text-2);
+	font-style: italic;
+}
+
+/* ── Changelog page: one collapsible card per release ── */
+
+.changelog-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0 0 34px;
+}
+
+.changelog-stats span {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 6px;
+	padding: 4px 11px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-2);
+	font-size: 12.5px;
+	line-height: 1.5;
+}
+
+.changelog-stats strong {
+	color: var(--vp-c-text-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 12px;
+}
+
+.changelog-release {
+	margin: 10px 0;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 12px;
+	background: var(--vp-c-bg);
+	scroll-margin-top: calc(var(--vp-nav-height) + 16px);
+	transition:
+		border-color 0.25s,
+		box-shadow 0.25s;
+}
+
+.changelog-release:hover {
+	border-color: var(--vp-c-brand-1);
+}
+
+.changelog-release[open] {
+	border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+	box-shadow: var(--vp-shadow-1);
+}
+
+/* The collapsed row: version pill · badge · date · changes · chevron. */
+.changelog-release summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 11px 15px;
+	border-radius: 11px;
+	cursor: pointer;
+	list-style: none;
+	user-select: none;
+}
+
+.changelog-release summary:hover {
+	background: var(--vp-c-bg-soft);
+}
+
+.changelog-release summary:focus-visible {
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: -2px;
+}
+
+.changelog-release summary::-webkit-details-marker {
+	display: none;
+}
+
+.changelog-release summary::after {
+	width: 7px;
+	height: 7px;
+	margin: 0 2px 0 auto;
+	border-right: 2px solid var(--vp-c-text-3, var(--vp-c-text-2));
+	border-bottom: 2px solid var(--vp-c-text-3, var(--vp-c-text-2));
+	transform: rotate(-45deg);
+	transition: transform 0.2s;
+	content: "";
+}
+
+.changelog-release[open] summary::after {
+	transform: rotate(45deg);
+}
+
+.changelog-release__version {
+	padding: 2px 9px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 7px;
+	background: var(--vp-c-bg-alt);
+	color: var(--vp-c-text-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	transition:
+		border-color 0.25s,
+		background-color 0.25s,
+		color 0.25s;
+}
+
+.changelog-release[open] .changelog-release__version {
+	border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+	background: color-mix(in srgb, var(--vp-c-brand-1) 12%, transparent);
+	color: var(--vp-c-brand-1);
+}
+
+.changelog-release__badge {
+	padding: 2px 9px;
+	border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
+	border-radius: 999px;
+	color: var(--vp-c-brand-1);
+	font-size: 10.5px;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+}
+
+.changelog-release__date,
+.changelog-release__count {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 12.5px;
+}
+
+.changelog-release__body {
+	padding: 2px 15px 14px;
+	border-top: 1px solid var(--vp-c-divider);
+	font-size: 14px;
+	animation: changelog-card-in 0.18s ease-out;
+}
+
+@keyframes changelog-card-in {
+	from {
+		opacity: 0;
+		transform: translateY(-3px);
+	}
+}
+
+.changelog-release__body > :first-child {
+	margin-top: 12px;
+}
+
+.changelog-release__body p {
+	line-height: 1.7;
+}
+
+.changelog-release__body ul {
+	margin: 8px 0 0;
+}
+
+.changelog-release__body ul ul {
+	margin: 2px 0 6px;
+}
+
+.changelog-release__body ul ul li {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 12.5px;
+	line-height: 1.65;
+}
+
+.changelog-release__body h4 {
+	margin: 18px 0 6px;
+	color: var(--vp-c-text-2);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+	.changelog-release__count {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.changelog-release__body {
+		animation: none;
+	}
+
+	.changelog-release summary::after {
+		transition: none;
+	}
+}
+
+/* ── HyperUI showcase (iframe preview + copy bar) ── */
+
+.hyperui-demo {
+	margin: 22px 0;
+	overflow: hidden;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 14px;
+	background: var(--vp-c-bg-soft);
+}
+
+.hyperui-demo__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--vp-c-divider);
+	font-size: 13px;
+}
+
+.hyperui-demo__title strong {
+	color: var(--vp-c-text-1);
+	font-weight: 600;
+}
+
+.hyperui-demo__title em {
+	margin-left: 8px;
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-mono);
+	font-size: 11.5px;
+	font-style: normal;
+}
+
+.hyperui-demo__actions {
+	display: flex;
+	gap: 8px;
+}
+
+.hyperui-demo__actions button,
+.hyperui-demo__actions a {
+	padding: 4px 10px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background: var(--vp-c-bg);
+	color: var(--vp-c-text-2);
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 1.6;
+	text-decoration: none;
+	transition:
+		border-color 0.2s,
+		color 0.2s;
+}
+
+.hyperui-demo__actions button:hover,
+.hyperui-demo__actions a:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.hyperui-demo__actions button:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.hyperui-demo__frame {
+	display: block;
+	width: 100%;
+	border: 0;
+}
+
+.hyperui-demo__error {
+	margin: 0;
+	padding: 16px;
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+}
+
+/* ── Tailwind component snippets ── */
+
+.snippet-demo {
+	margin: 22px 0;
+	overflow: hidden;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 14px;
+	background: var(--vp-c-bg-soft);
+}
+
+.snippet-demo__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--vp-c-divider);
+	font-size: 13px;
+}
+
+.snippet-demo__title strong {
+	color: var(--vp-c-text-1);
+	font-weight: 600;
+}
+
+.snippet-demo__title em {
+	margin-left: 8px;
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-mono);
+	font-size: 11.5px;
+	font-style: normal;
+}
+
+.snippet-demo__actions {
+	display: flex;
+	gap: 8px;
+}
+
+.snippet-demo__actions button,
+.snippet-demo__actions a {
+	padding: 4px 10px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background: var(--vp-c-bg);
+	color: var(--vp-c-text-2);
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 1.6;
+	text-decoration: none;
+	transition:
+		border-color 0.2s,
+		color 0.2s;
+}
+
+.snippet-demo__actions button:hover,
+.snippet-demo__actions a:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.snippet-demo__actions button:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.snippet-demo__frame {
+	display: block;
+	width: 100%;
+	border: 0;
+	background: #fff;
+}
+
+.snippet-demo__error {
+	margin: 0;
+	padding: 16px;
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+}
+
+/* ── Navbar: section tabs (Rocket/Mintlify-style pills) ── */
+
+/* The icon + label layout lives on this wrapper, not on the link: VitePress
+   renders `item.text` through `v-html` inside a single `<span>`, so styling
+   the link's children would only ever see that one span. */
+.vp-section-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.vp-section-tab svg {
+	flex: none;
+	display: block;
+}
+
+/* VitePress' own nav links carry no visible focus ring; the pills need one
+   because they are the site's primary navigation. */
+.VPNavBarMenu .VPNavBarMenuLink:focus-visible,
+.VPNavScreen .VPNavScreenMenu .VPNavScreenMenuLink:focus-visible {
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: 2px;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink {
+	height: 34px;
+	margin: 0 2px;
+	padding: 0 13px;
+	border-radius: 999px;
+	font-size: 13.5px;
+	line-height: 34px;
+	color: var(--vp-c-text-2);
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink:hover {
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-1);
+}
+
+.VPNavBarMenu .VPNavBarMenuLink.active {
+	background: var(--vp-c-brand-soft, rgba(88, 101, 242, 0.12));
+	color: var(--vp-c-brand-1);
+	font-weight: 600;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink svg {
+	flex-shrink: 0;
+	opacity: 0.75;
+}
+
+.VPNavBarMenu .VPNavBarMenuLink.active svg {
+	opacity: 1;
+}
+
+/* Mobile screen menu: same pills, left-aligned. */
+/* Specificity above VitePress' scoped `.VPNavScreenMenuLink[data-v-*]`
+   (0,2,0), so the pill look never depends on bundle order. */
+.VPNavScreen .VPNavScreenMenu .VPNavScreenMenuLink {
+	border-bottom: none;
+	border-radius: 999px;
+	margin: 2px 0;
+	padding: 8px 14px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.VPNavScreen .VPNavScreenMenu .VPNavScreenMenuLink:hover {
+	background: var(--vp-c-bg-soft);
+}
+
+/* ── Swagger viewers (OpenAPI reference per external API) ── */
+
+.swagger-viewer {
+	margin: 22px 0;
+	overflow: hidden;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 14px;
+	background: var(--vp-c-bg-soft);
+}
+
+.swagger-viewer__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 10px 14px;
+	border-bottom: 1px solid var(--vp-c-divider);
+	font-size: 13px;
+}
+
+.swagger-viewer__title strong {
+	color: var(--vp-c-text-1);
+	font-weight: 600;
+}
+
+.swagger-viewer__title em {
+	margin-left: 8px;
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-family: var(--vp-font-family-mono);
+	font-size: 11.5px;
+	font-style: normal;
+}
+
+.swagger-viewer__actions {
+	display: flex;
+	gap: 8px;
+	flex-shrink: 0;
+}
+
+.swagger-viewer__actions a {
+	padding: 4px 10px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background: var(--vp-c-bg);
+	color: var(--vp-c-text-2);
+	font-size: 12px;
+	line-height: 1.6;
+	text-decoration: none;
+	transition:
+		border-color 0.2s,
+		color 0.2s;
+}
+
+.swagger-viewer__actions a:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-brand-1);
+}
+
+.swagger-viewer__frame {
+	display: block;
+	width: 100%;
+	border: 0;
+	background: #fff;
+}
+
+/* ── Home: hero (Bootstrap-inspired, centered) ── */
+
+.VPHome {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: linear-gradient(
+		120deg,
+		var(--vp-c-brand-1) 10%,
+		var(--vp-c-brand-2) 90%
+	);
+}
+
+.VPHome .VPHero {
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid var(--vp-c-divider);
+	background:
+		radial-gradient(
+			70% 120% at 85% 0%,
+			color-mix(in srgb, var(--vp-c-brand-1) 16%, transparent),
+			transparent 60%
+		),
+		radial-gradient(
+			50% 80% at 8% 100%,
+			color-mix(in srgb, var(--vp-c-brand-3) 14%, transparent),
+			transparent 65%
+		),
+		linear-gradient(180deg, var(--vp-c-bg-alt) 0%, var(--vp-c-bg) 100%);
+}
+
+.dark .VPHome .VPHero {
+	background:
+		radial-gradient(
+			70% 120% at 85% 0%,
+			color-mix(in srgb, var(--vp-c-brand-1) 26%, transparent),
+			transparent 60%
+		),
+		radial-gradient(
+			55% 90% at 5% 100%,
+			color-mix(in srgb, var(--vp-c-brand-3) 20%, transparent),
+			transparent 65%
+		),
+		linear-gradient(180deg, #0d0d16 0%, #08080d 100%);
+}
+
+.VPHome .VPHero:not(.has-image) .container {
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.VPHome .VPHero:not(.has-image) .main {
+	width: 100%;
+	max-width: 860px;
+}
+
+.VPHome .VPHero:not(.has-image) .heading {
+	align-items: center;
+}
+
+.VPHome .VPHero:not(.has-image) .name,
+.VPHome .VPHero:not(.has-image) .text {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 100%;
+}
+
+.VPHome .VPHero .heading .name,
+.VPHome .VPHero .heading .text {
+	font-size: clamp(2.25rem, 6vw, 4.25rem);
+	line-height: 1.06;
+	letter-spacing: -0.03em;
+}
+
+/* With `name` gone the heading is the only title, so it keeps the hero's
+   display size and gains a breath of space before the tagline (VitePress only
+   sets `padding-top` on the tagline itself). */
+.VPHome .VPHero .heading {
+	margin-bottom: 14px;
+}
+
+.VPHome .VPHero:not(.has-image) .tagline {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 660px;
+}
+
+.VPHome .VPHero:not(.has-image) .actions {
+	justify-content: center;
+}
+
+/* Release announcement pill */
+
+.home-announcement {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0 auto 20px;
+	padding: 6px 14px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg-elv);
+	box-shadow: var(--vp-shadow-1);
+	color: var(--vp-c-text-2);
+	font-size: 13.5px;
+	line-height: 1.4;
+	text-decoration: none;
+	transition:
+		border-color 0.25s,
+		color 0.25s;
+}
+
+.home-announcement:hover {
+	border-color: var(--vp-c-brand-1);
+	color: var(--vp-c-text-1);
+}
+
+.home-announcement b {
+	color: var(--vp-c-text-1);
+	font-weight: 600;
+}
+
+.home-announcement__dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--vp-c-brand-1);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--vp-c-brand-1) 22%, transparent);
+}
+
+.home-announcement__arrow {
+	color: var(--vp-c-brand-1);
+	transition: transform 0.25s;
+}
+
+.home-announcement:hover .home-announcement__arrow {
+	transform: translateX(3px);
+}
+
+/* Install command + meta line */
+
+.home-install {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding-top: 28px;
+}
+
+.home-install__command {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 10px 9px 18px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 12px;
+	background: var(--vp-c-bg-elv);
+	box-shadow: var(--vp-shadow-1);
+	color: var(--vp-c-text-1);
+	font-family: var(--vp-font-family-mono);
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.home-install__prompt {
+	color: var(--vp-c-text-3);
+	user-select: none;
+}
+
+.home-install__copy {
+	display: grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--vp-c-text-2);
+	cursor: pointer;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+
+.home-install__copy:hover {
+	background: var(--vp-c-default-soft);
+	color: var(--vp-c-text-1);
+}
+
+.home-install__copy.is-copied {
+	color: var(--vp-c-brand-1);
+}
+
+.home-install__copy svg {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.home-install__meta {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 13px;
+}
+
+.home-install__meta b {
+	color: var(--vp-c-text-2);
+	font-weight: 600;
+}
+
+.home-install__meta a {
+	color: var(--vp-c-text-2);
+	text-decoration: none;
+}
+
+.home-install__meta a:hover {
+	color: var(--vp-c-brand-1);
+}
+
+/* Features heading */
+
+/* Air below the "Sharp tools, zero surprises" text, before the feature cards.
+   `.VPHomeFeatures` itself has no vertical padding in VitePress (only the
+   lateral 24/48/64px), so this block owns the whole gap. */
+.home-features-heading {
+	max-width: 1152px;
+	margin: 0 auto;
+	padding: 64px 24px 40px;
+	text-align: center;
+}
+
+.home-features-heading__eyebrow {
+	color: var(--vp-c-brand-1);
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.home-features-heading__title {
+	margin-top: 12px;
+	color: var(--vp-c-text-1);
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+}
+
+/* Explore-by-domain card grid */
+
+.home-sections {
+	border-top: 1px solid var(--vp-c-divider);
+	border-bottom: 1px solid var(--vp-c-divider);
+	background: var(--vp-c-bg-alt);
+}
+
+.home-sections__container {
+	max-width: 1152px;
+	margin: 0 auto;
+	padding: 64px 24px 72px;
+}
+
+.home-sections__eyebrow {
+	color: var(--vp-c-brand-1);
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.home-sections__title {
+	margin-top: 6px;
+	color: var(--vp-c-text-1);
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	text-align: center;
+}
+
+.home-sections__lead {
+	max-width: 620px;
+	margin: 10px auto 0;
+	color: var(--vp-c-text-2);
+	font-size: 15px;
+	line-height: 1.6;
+	text-align: center;
+}
+
+.home-sections__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 16px;
+	margin-top: 40px;
+}
+
+.home-card {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 16px;
+	background: var(--vp-c-bg-elv);
+	text-decoration: none;
+	transition:
+		border-color 0.25s,
+		box-shadow 0.25s,
+		transform 0.25s;
+}
+
+.home-card:hover {
+	border-color: var(--vp-c-brand-1);
+	box-shadow: var(--vp-shadow-2);
+	text-decoration: none;
+	transform: translateY(-3px);
+}
+
+.home-card__icon {
+	display: grid;
+	place-items: center;
+	width: 38px;
+	height: 38px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 10px;
+	background: var(--vp-c-brand-soft);
+	color: var(--vp-c-brand-1);
+}
+
+.home-card__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.home-card__title {
+	color: var(--vp-c-text-1);
+	font-size: 15.5px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+.home-card__arrow {
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	transition:
+		color 0.25s,
+		transform 0.25s;
+}
+
+.home-card:hover .home-card__arrow {
+	color: var(--vp-c-brand-1);
+	transform: translateX(3px);
+}
+
+.home-card__desc {
+	color: var(--vp-c-text-2);
+	font-size: 13.5px;
+	line-height: 1.6;
+}
+
+.home-card__chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-top: auto;
+	padding-top: 6px;
+}
+
+.home-card__chip {
+	padding: 2px 8px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 999px;
+	background: var(--vp-c-bg-soft);
+	color: var(--vp-c-text-3, var(--vp-c-text-2));
+	font-size: 11.5px;
+	line-height: 1.7;
+}
+
+/* Homepage closing call to action and navigation footer */
+
+.home-cta {
+	border-top: 1px solid var(--vp-c-divider);
+	border-bottom: 1px solid var(--vp-c-divider);
+	background: var(--vp-c-brand-soft);
+}
+
+.home-cta__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 48px;
+	max-width: 1152px;
+	margin: 0 auto;
+	padding: 48px 24px;
+}
+
+.home-cta__copy {
+	max-width: 620px;
+}
+
+.home-cta__copy h2 {
+	color: var(--vp-c-text-1);
+	font-size: clamp(1.5rem, 3vw, 2rem);
+	font-weight: 700;
+	letter-spacing: -0.025em;
+	line-height: 1.2;
+}
+
+.home-cta__copy p {
+	margin-top: 12px;
+	color: var(--vp-c-text-2);
+	font-size: 15px;
+	line-height: 1.65;
+}
+
+.home-cta__actions {
+	display: flex;
+	flex: 0 0 auto;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 14px;
+}
+
+.home-cta__button {
+	display: inline-flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 18px;
+	border: 1px solid var(--vp-c-text-1);
+	border-radius: 8px;
+	background: var(--vp-c-text-1);
+	color: var(--vp-c-bg);
+	font-size: 14px;
+	font-weight: 650;
+	text-decoration: none;
+	transition:
+		border-color 0.2s,
+		background-color 0.2s;
+}
+
+.home-cta__button:hover {
+	border-color: var(--vp-c-brand-1);
+	background: var(--vp-c-brand-1);
+	color: var(--vp-c-bg);
+	text-decoration: none;
+}
+
+.home-cta__button:focus-visible,
+.home-cta__text-link:focus-visible,
+.home-footer a:focus-visible {
+	border-radius: 3px;
+	outline: 2px solid var(--vp-c-brand-1);
+	outline-offset: 4px;
+}
+
+.home-cta__text-link {
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+	text-underline-offset: 3px;
+}
+
+.home-cta__text-link:hover {
+	color: var(--vp-c-brand-1);
+}
+
+.home-footer {
+	background: var(--vp-c-bg-alt);
+}
+
+.home-footer__inner,
+.home-footer__bottom {
+	max-width: 1152px;
+	margin: 0 auto;
+	padding-right: 24px;
+	padding-left: 24px;
+}
+
+.home-footer__inner {
+	display: grid;
+	grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(125px, 1fr));
+	gap: 40px;
+	padding-top: 52px;
+	padding-bottom: 48px;
+}
+
+.home-footer__brand {
+	max-width: 260px;
+}
+
+.home-footer__wordmark {
+	color: var(--vp-c-text-1);
+	font-size: 20px;
+	font-weight: 750;
+	letter-spacing: -0.035em;
+	text-decoration: none;
+}
+
+.home-footer__brand p {
+	margin-top: 12px;
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+	line-height: 1.7;
+}
+
+.home-footer__group h2 {
+	margin-bottom: 16px;
+	color: var(--vp-c-text-1);
+	font-size: 13px;
+	font-weight: 650;
+}
+
+.home-footer__group ul {
+	display: grid;
+	gap: 11px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.home-footer__group a,
+.home-footer__bottom a {
+	color: var(--vp-c-text-2);
+	font-size: 13px;
+	text-decoration: none;
+	text-underline-offset: 3px;
+}
+
+.home-footer__group a:hover,
+.home-footer__bottom a:hover {
+	color: var(--vp-c-brand-1);
+	text-decoration: underline;
+}
+
+.home-footer__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	padding-top: 18px;
+	padding-bottom: 20px;
+	border-top: 1px solid var(--vp-c-divider);
+}
+
+.home-footer__bottom p {
+	color: var(--vp-c-text-2);
+	font-size: 12px;
+}
+
+body:has(.home-footer) .VPFooter {
+	display: none;
+}
+
+@media (max-width: 640px) {
+	.home-install__command {
+		font-size: 13px;
+	}
+
+	.home-features-heading {
+		padding-top: 48px;
+	}
+
+	.home-sections__container {
+		padding: 48px 20px 56px;
+	}
+
+	.home-cta__inner {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 24px;
+		padding: 40px 20px;
+	}
+
+	.home-footer__inner,
+	.home-footer__bottom {
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+
+	.home-footer__inner {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 32px 24px;
+		padding-top: 40px;
+		padding-bottom: 36px;
+	}
+
+	.home-footer__brand {
+		grid-column: 1 / -1;
+		max-width: 360px;
+	}
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * Navigation state: sections, current page and reading position.
+ *
+ * The sidebar is a segmented menu (every top-level entry is a collapsed
+ * group), so the three states below must be unmistakable: the section that
+ * holds the page you are on, the link you are on, and the outline entry of
+ * the heading you are reading.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* Section separation: a top-level entry reads as a block, not a loose link. */
+.VPSidebarItem.level-0 {
+	padding-bottom: 16px;
+}
+
+.VPSidebarItem.level-0 > .item > .text {
+	font-weight: 700;
+	color: var(--vp-c-text-1);
+}
+
+.VPSidebarItem.level-0.has-active > .item > .text,
+.VPSidebarItem.level-0.has-current-page > .item > .text {
+	color: var(--vp-c-brand-1);
+}
+
+/* The section containing the current page reads as active even before you
+   click one of its links (router-driven, see theme/active-nav.ts). */
+.VPSidebarItem.level-1.has-current-page > .item > .text {
+	color: var(--vp-c-text-1);
+}
+
+/* Current page: brand text plus the left indicator bar. VitePress renders
+   `.indicator` as a sibling *before* the link inside `.item`, so the bar has
+   to be selected from the item, not from the link. */
+.VPSidebar a.link.is-current-page,
+.VPSidebarItem.is-active > .item > .link {
+	font-weight: 600;
+	color: var(--vp-c-brand-1);
+}
+
+.VPSidebarItem:has(> .item > .link.is-current-page) > .item > .indicator,
+.VPSidebarItem.is-link.is-active > .item > .indicator {
+	background-color: var(--vp-c-brand-1);
+}
+
+/* Outline (right rail): the entry of the section you are reading. */
+.VPDocAsideOutline .outline-link.is-current-heading {
+	color: var(--vp-c-brand-1);
+	font-weight: 600;
+}

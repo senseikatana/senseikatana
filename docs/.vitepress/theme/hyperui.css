@@ -1,0 +1,8 @@
+/* Tailwind only for the vendored HyperUI examples — injected into an iframe so
+ * neither these utilities nor the preflight reset touch the VitePress theme. */
+@import "tailwindcss";
+
+/* HyperUI marks dark variants on `<html class="dark">`. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source "../../public/hyperui/**/*.html";

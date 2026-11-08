@@ -1,0 +1,56 @@
+---
+import { getLocale, useTranslations } from '../../../i18n';
+import type { Project } from '../queries';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+---
+
+<article class="flex flex-col border border-rule bg-canvas">
+  <div class="flex items-start justify-between gap-4 p-5 border-b border-rule">
+    <div>
+      <p class="label">{project.data.sector ?? tr('works.project')}</p>
+      <h3
+        class="mt-2 text-[20px] font-bold tracking-[-0.03em]"
+        transition:name={`project-title-${project.id}`}
+      >
+        <a href={`/projects/${project.id}`} class="hover:text-link">{project.data.title}</a>
+      </h3>
+    </div>
+    {
+      project.data.year && (
+        <span class="text-[12px] text-smoke tabular-nums">{project.data.year}</span>
+      )
+    }
+  </div>
+  <p class="p-5 text-[14px] leading-[1.55] text-steel flex-1">{project.data.description}</p>
+  {
+    project.data.stack.length > 0 && (
+      <ul class="flex flex-wrap gap-1.5 px-5 pb-5">
+        {project.data.stack.slice(0, 4).map((tech) => (
+          <li class="border border-rule px-2 py-1 text-[11px] text-smoke">{tech}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    (project.data.repoUrl || project.data.liveUrl) && (
+      <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-rule px-5 py-3.5 text-[12px]">
+        {project.data.repoUrl && (
+          <a href={project.data.repoUrl} class="link" rel="noopener">
+            GitHub -&gt;
+          </a>
+        )}
+        {project.data.liveUrl && (
+          <a href={project.data.liveUrl} class="link" rel="noopener">
+            {tr('works.demo')} -&gt;
+          </a>
+        )}
+      </div>
+    )
+  }
+</article>

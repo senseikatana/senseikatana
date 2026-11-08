@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>API reference</title>
+		<!-- Pinned to the 5.x major: Swagger UI's layout and CSS class names are
+		     stable inside a major, and the asset is CDN-cached. -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" />
+		<style>
+			:root {
+				color-scheme: light dark;
+			}
+			body {
+				margin: 0;
+				background: #fff;
+			}
+			.dark body {
+				background: #1b1b1f;
+			}
+			/* Swagger UI ships its own topbar with a logo and URL box; the page
+			   is already embedded under a titled figure, so it adds no value. */
+			.swagger-ui .topbar {
+				display: none;
+			}
+			.swagger-ui,
+			.swagger-ui .info .title,
+			.swagger-ui .opblock-tag,
+			.swagger-ui table thead tr td,
+			.swagger-ui table thead tr th {
+				font-family: inherit;
+			}
+			/* Dark mode: Swagger UI has no dark theme, so invert its palette
+			   through the variables it already uses. */
+			.dark .swagger-ui {
+				filter: invert(88%) hue-rotate(180deg);
+			}
+			.dark .swagger-ui .highlight-code,
+			.dark .swagger-ui .microlight {
+				filter: invert(100%) hue-rotate(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="swagger"></div>
+		<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+		<script>
+			const params = new URLSearchParams(location.search);
+			const spec = params.get("spec");
+			const dark = params.get("theme") === "dark";
+			if (dark) document.documentElement.classList.add("dark");
+
+			SwaggerUIBundle({
+				url: spec,
+				dom_id: "#swagger",
+				layout: "BaseLayout",
+				deepLinking: false,
+				docExpansion: "list",
+				defaultModelsExpandDepth: -1,
+				tryItOutEnabled: true,
+				requestSnippetsEnabled: false,
+				displayRequestDuration: true,
+			});
+		</script>
+	</body>
+</html>

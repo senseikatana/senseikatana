@@ -24,7 +24,12 @@
     "lint:fix": "eslint . --fix",
     "deploy": "bun run build && bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch main",
     "deploy:preview": "bun run build && bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch dev",
-    "tunnel": "cloudflared tunnel --url http://localhost:4321 --no-autoupdate"
+    "tunnel": "cloudflared tunnel --url http://localhost:4321 --no-autoupdate",
+    "docs:dev": "node scripts/docs.mjs dev",
+    "docs:build": "node scripts/docs.mjs build",
+    "docs:preview": "node scripts/docs.mjs preview",
+    "docs:deploy": "node scripts/docs.mjs deploy",
+    "docs:clean": "node scripts/docs.mjs clean"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
@@ -45,15 +50,15 @@
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.71.0"
+    "typescript-eslint": "^8.71.0",
+    "typedoc": "^0.28.20",
+    "typedoc-plugin-markdown": "^4.13.1",
+    "typedoc-vitepress-theme": "^1.1.4",
+    "vitepress": "^1.6.4",
+    "vitest": "5.0.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/typography": "^0.5.20",
+    "tailwindcss": "^4.3.3"
   },
-  "overrides": {
-    "shiki": "4.4.3",
-    "@shikijs/core": "4.4.3",
-    "@shikijs/engine-javascript": "4.4.3",
-    "@shikijs/engine-oniguruma": "4.4.3",
-    "@shikijs/langs": "4.4.3",
-    "@shikijs/themes": "4.4.3",
-    "@shikijs/types": "4.4.3"
-  }
+  "overrides": {}
 }

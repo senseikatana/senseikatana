@@ -1,0 +1,3312 @@
+[
+  {
+    "text": "Classes",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "AccessService",
+        "link": "/api/classes/AccessService.md"
+      },
+      {
+        "text": "AgentConfigService",
+        "link": "/api/classes/AgentConfigService.md"
+      },
+      {
+        "text": "AgentService",
+        "link": "/api/classes/AgentService.md"
+      },
+      {
+        "text": "ArrayService",
+        "link": "/api/classes/ArrayService.md"
+      },
+      {
+        "text": "AssistantService",
+        "link": "/api/classes/AssistantService.md"
+      },
+      {
+        "text": "AuthService",
+        "link": "/api/classes/AuthService.md"
+      },
+      {
+        "text": "CurrencyConverterService",
+        "link": "/api/classes/CurrencyConverterService.md"
+      },
+      {
+        "text": "DatesService",
+        "link": "/api/classes/DatesService.md"
+      },
+      {
+        "text": "DirectoryService",
+        "link": "/api/classes/DirectoryService.md"
+      },
+      {
+        "text": "ErrorService",
+        "link": "/api/classes/ErrorService.md"
+      },
+      {
+        "text": "FakerService",
+        "link": "/api/classes/FakerService.md"
+      },
+      {
+        "text": "FetchApiManager",
+        "link": "/api/classes/FetchApiManager.md"
+      },
+      {
+        "text": "FlatAccessStrategy",
+        "link": "/api/classes/FlatAccessStrategy.md"
+      },
+      {
+        "text": "FormatterService",
+        "link": "/api/classes/FormatterService.md"
+      },
+      {
+        "text": "FrankfurterCurrencyProvider",
+        "link": "/api/classes/FrankfurterCurrencyProvider.md"
+      },
+      {
+        "text": "GeneratorService",
+        "link": "/api/classes/GeneratorService.md"
+      },
+      {
+        "text": "GeometryAreaService",
+        "link": "/api/classes/GeometryAreaService.md"
+      },
+      {
+        "text": "GeometryPerimeterService",
+        "link": "/api/classes/GeometryPerimeterService.md"
+      },
+      {
+        "text": "GeometryVolumeService",
+        "link": "/api/classes/GeometryVolumeService.md"
+      },
+      {
+        "text": "HierarchicalAccessStrategy",
+        "link": "/api/classes/HierarchicalAccessStrategy.md"
+      },
+      {
+        "text": "KeyVaultService",
+        "link": "/api/classes/KeyVaultService.md"
+      },
+      {
+        "text": "LoggerService",
+        "link": "/api/classes/LoggerService.md"
+      },
+      {
+        "text": "McpService",
+        "link": "/api/classes/McpService.md"
+      },
+      {
+        "text": "MediaService",
+        "link": "/api/classes/MediaService.md"
+      },
+      {
+        "text": "OpenAiCompatibleStrategy",
+        "link": "/api/classes/OpenAiCompatibleStrategy.md"
+      },
+      {
+        "text": "QueryClientFactory",
+        "link": "/api/classes/QueryClientFactory.md"
+      },
+      {
+        "text": "QueryService",
+        "link": "/api/classes/QueryService.md"
+      },
+      {
+        "text": "ReactiveService",
+        "link": "/api/classes/ReactiveService.md"
+      },
+      {
+        "text": "ResultService",
+        "link": "/api/classes/ResultService.md"
+      },
+      {
+        "text": "TimingService",
+        "link": "/api/classes/TimingService.md"
+      },
+      {
+        "text": "UnitConverterService",
+        "link": "/api/classes/UnitConverterService.md"
+      },
+      {
+        "text": "UtilsService",
+        "link": "/api/classes/UtilsService.md"
+      },
+      {
+        "text": "ValidationService",
+        "link": "/api/classes/ValidationService.md"
+      },
+      {
+        "text": "VaultStore",
+        "link": "/api/classes/VaultStore.md"
+      },
+      {
+        "text": "YoutubeService",
+        "link": "/api/classes/YoutubeService.md"
+      }
+    ]
+  },
+  {
+    "text": "Interfaces",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "AgentConfigFile",
+        "link": "/api/interfaces/AgentConfigFile.md"
+      },
+      {
+        "text": "AgentConfigInput",
+        "link": "/api/interfaces/AgentConfigInput.md"
+      },
+      {
+        "text": "AgentConfigManualEntry",
+        "link": "/api/interfaces/AgentConfigManualEntry.md"
+      },
+      {
+        "text": "AgentConfigOutput",
+        "link": "/api/interfaces/AgentConfigOutput.md"
+      },
+      {
+        "text": "AgentDefinition",
+        "link": "/api/interfaces/AgentDefinition.md"
+      },
+      {
+        "text": "AgentRunOptions",
+        "link": "/api/interfaces/AgentRunOptions.md"
+      },
+      {
+        "text": "AiChatOptions",
+        "link": "/api/interfaces/AiChatOptions.md"
+      },
+      {
+        "text": "AiTool",
+        "link": "/api/interfaces/AiTool.md"
+      },
+      {
+        "text": "ApiEntry",
+        "link": "/api/interfaces/ApiEntry.md"
+      },
+      {
+        "text": "AssistantInitConfig",
+        "link": "/api/interfaces/AssistantInitConfig.md"
+      },
+      {
+        "text": "AssistantReplyOptions",
+        "link": "/api/interfaces/AssistantReplyOptions.md"
+      },
+      {
+        "text": "AstroPath",
+        "link": "/api/interfaces/AstroPath.md"
+      },
+      {
+        "text": "AuthError",
+        "link": "/api/interfaces/AuthError.md"
+      },
+      {
+        "text": "BatteryManager",
+        "link": "/api/interfaces/BatteryManager.md"
+      },
+      {
+        "text": "CacheDecoratorOptions",
+        "link": "/api/interfaces/CacheDecoratorOptions.md"
+      },
+      {
+        "text": "CollectionEntryLike",
+        "link": "/api/interfaces/CollectionEntryLike.md"
+      },
+      {
+        "text": "ConversationStore",
+        "link": "/api/interfaces/ConversationStore.md"
+      },
+      {
+        "text": "CurrencyConverterServiceOptions",
+        "link": "/api/interfaces/CurrencyConverterServiceOptions.md"
+      },
+      {
+        "text": "CurrencyRateEvents",
+        "link": "/api/interfaces/CurrencyRateEvents.md"
+      },
+      {
+        "text": "DatesServiceTypes",
+        "link": "/api/interfaces/DatesServiceTypes.md"
+      },
+      {
+        "text": "DirectoryActor",
+        "link": "/api/interfaces/DirectoryActor.md"
+      },
+      {
+        "text": "DirectoryError",
+        "link": "/api/interfaces/DirectoryError.md"
+      },
+      {
+        "text": "DirectoryRepository",
+        "link": "/api/interfaces/DirectoryRepository.md"
+      },
+      {
+        "text": "DirectoryServiceOptions",
+        "link": "/api/interfaces/DirectoryServiceOptions.md"
+      },
+      {
+        "text": "FetchOptions",
+        "link": "/api/interfaces/FetchOptions.md"
+      },
+      {
+        "text": "FetchRequest",
+        "link": "/api/interfaces/FetchRequest.md"
+      },
+      {
+        "text": "FrankfurterCurrencyProviderOptions",
+        "link": "/api/interfaces/FrankfurterCurrencyProviderOptions.md"
+      },
+      {
+        "text": "GrantAwareOptions",
+        "link": "/api/interfaces/GrantAwareOptions.md"
+      },
+      {
+        "text": "IAccessService",
+        "link": "/api/interfaces/IAccessService.md"
+      },
+      {
+        "text": "IAccessStrategy",
+        "link": "/api/interfaces/IAccessStrategy.md"
+      },
+      {
+        "text": "IAiProviderStrategy",
+        "link": "/api/interfaces/IAiProviderStrategy.md"
+      },
+      {
+        "text": "IAiService",
+        "link": "/api/interfaces/IAiService.md"
+      },
+      {
+        "text": "IAppUtils",
+        "link": "/api/interfaces/IAppUtils.md"
+      },
+      {
+        "text": "IAssistantService",
+        "link": "/api/interfaces/IAssistantService.md"
+      },
+      {
+        "text": "IAstroService",
+        "link": "/api/interfaces/IAstroService.md"
+      },
+      {
+        "text": "IAuthProvider",
+        "link": "/api/interfaces/IAuthProvider.md"
+      },
+      {
+        "text": "IConverterService",
+        "link": "/api/interfaces/IConverterService.md"
+      },
+      {
+        "text": "ICryptoStrategy",
+        "link": "/api/interfaces/ICryptoStrategy.md"
+      },
+      {
+        "text": "ICurrencyConverterService",
+        "link": "/api/interfaces/ICurrencyConverterService.md"
+      },
+      {
+        "text": "ICurrencyRateProvider",
+        "link": "/api/interfaces/ICurrencyRateProvider.md"
+      },
+      {
+        "text": "IDataUtils",
+        "link": "/api/interfaces/IDataUtils.md"
+      },
+      {
+        "text": "IDomService",
+        "link": "/api/interfaces/IDomService.md"
+      },
+      {
+        "text": "IFetchApiManager",
+        "link": "/api/interfaces/IFetchApiManager.md"
+      },
+      {
+        "text": "IFormatterService",
+        "link": "/api/interfaces/IFormatterService.md"
+      },
+      {
+        "text": "INotionService",
+        "link": "/api/interfaces/INotionService.md"
+      },
+      {
+        "text": "IntervalControl",
+        "link": "/api/interfaces/IntervalControl.md"
+      },
+      {
+        "text": "IReactiveService",
+        "link": "/api/interfaces/IReactiveService.md"
+      },
+      {
+        "text": "IRssService",
+        "link": "/api/interfaces/IRssService.md"
+      },
+      {
+        "text": "ISystemUtils",
+        "link": "/api/interfaces/ISystemUtils.md"
+      },
+      {
+        "text": "IThemeService",
+        "link": "/api/interfaces/IThemeService.md"
+      },
+      {
+        "text": "IUuidStrategy",
+        "link": "/api/interfaces/IUuidStrategy.md"
+      },
+      {
+        "text": "IWordPressService",
+        "link": "/api/interfaces/IWordPressService.md"
+      },
+      {
+        "text": "KeyRecordInput",
+        "link": "/api/interfaces/KeyRecordInput.md"
+      },
+      {
+        "text": "NotionFilter",
+        "link": "/api/interfaces/NotionFilter.md"
+      },
+      {
+        "text": "ObserverConfig",
+        "link": "/api/interfaces/ObserverConfig.md"
+      },
+      {
+        "text": "ObserverEntry",
+        "link": "/api/interfaces/ObserverEntry.md"
+      },
+      {
+        "text": "OpenCodeMcpServer",
+        "link": "/api/interfaces/OpenCodeMcpServer.md"
+      },
+      {
+        "text": "PaginationProps",
+        "link": "/api/interfaces/PaginationProps.md"
+      },
+      {
+        "text": "PathsOptions",
+        "link": "/api/interfaces/PathsOptions.md"
+      },
+      {
+        "text": "ResourceAccessDecision",
+        "link": "/api/interfaces/ResourceAccessDecision.md"
+      },
+      {
+        "text": "SalePrice",
+        "link": "/api/interfaces/SalePrice.md"
+      },
+      {
+        "text": "ScrollOptions",
+        "link": "/api/interfaces/ScrollOptions.md"
+      },
+      {
+        "text": "SeoMetaArticle",
+        "link": "/api/interfaces/SeoMetaArticle.md"
+      },
+      {
+        "text": "SeoMetaFlat",
+        "link": "/api/interfaces/SeoMetaFlat.md"
+      },
+      {
+        "text": "SeoOgImageObject",
+        "link": "/api/interfaces/SeoOgImageObject.md"
+      },
+      {
+        "text": "SeoRobotsObject",
+        "link": "/api/interfaces/SeoRobotsObject.md"
+      },
+      {
+        "text": "SeoTagNode",
+        "link": "/api/interfaces/SeoTagNode.md"
+      },
+      {
+        "text": "SignalGetter",
+        "link": "/api/interfaces/SignalGetter.md"
+      },
+      {
+        "text": "SiteConfig",
+        "link": "/api/interfaces/SiteConfig.md"
+      },
+      {
+        "text": "StorageStrategy",
+        "link": "/api/interfaces/StorageStrategy.md"
+      },
+      {
+        "text": "Subscribable",
+        "link": "/api/interfaces/Subscribable.md"
+      },
+      {
+        "text": "ThemeOptions",
+        "link": "/api/interfaces/ThemeOptions.md"
+      },
+      {
+        "text": "TimeoutControl",
+        "link": "/api/interfaces/TimeoutControl.md"
+      },
+      {
+        "text": "ToggleSignalSetter",
+        "link": "/api/interfaces/ToggleSignalSetter.md"
+      },
+      {
+        "text": "UrlOptions",
+        "link": "/api/interfaces/UrlOptions.md"
+      },
+      {
+        "text": "ValidationSchema",
+        "link": "/api/interfaces/ValidationSchema.md"
+      },
+      {
+        "text": "WorkerPoolEntry",
+        "link": "/api/interfaces/WorkerPoolEntry.md"
+      }
+    ]
+  },
+  {
+    "text": "Type Aliases",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "AccessCapability",
+        "link": "/api/type-aliases/AccessCapability.md"
+      },
+      {
+        "text": "AccessResource",
+        "link": "/api/type-aliases/AccessResource.md"
+      },
+      {
+        "text": "AccessRole",
+        "link": "/api/type-aliases/AccessRole.md"
+      },
+      {
+        "text": "AccessRoleDefinition",
+        "link": "/api/type-aliases/AccessRoleDefinition.md"
+      },
+      {
+        "text": "AccessSource",
+        "link": "/api/type-aliases/AccessSource.md"
+      },
+      {
+        "text": "AccessSubject",
+        "link": "/api/type-aliases/AccessSubject.md"
+      },
+      {
+        "text": "AgentData",
+        "link": "/api/type-aliases/AgentData.md"
+      },
+      {
+        "text": "AgentResult",
+        "link": "/api/type-aliases/AgentResult.md"
+      },
+      {
+        "text": "AgentStep",
+        "link": "/api/type-aliases/AgentStep.md"
+      },
+      {
+        "text": "AiError",
+        "link": "/api/type-aliases/AiError.md"
+      },
+      {
+        "text": "AiFunctionCall",
+        "link": "/api/type-aliases/AiFunctionCall.md"
+      },
+      {
+        "text": "AiMessage",
+        "link": "/api/type-aliases/AiMessage.md"
+      },
+      {
+        "text": "AiProviderConfig",
+        "link": "/api/type-aliases/AiProviderConfig.md"
+      },
+      {
+        "text": "AiResult",
+        "link": "/api/type-aliases/AiResult.md"
+      },
+      {
+        "text": "AiRole",
+        "link": "/api/type-aliases/AiRole.md"
+      },
+      {
+        "text": "AiToolCall",
+        "link": "/api/type-aliases/AiToolCall.md"
+      },
+      {
+        "text": "ApiConfigValue",
+        "link": "/api/type-aliases/ApiConfigValue.md"
+      },
+      {
+        "text": "ApiError",
+        "link": "/api/type-aliases/ApiError.md"
+      },
+      {
+        "text": "ApisConfig",
+        "link": "/api/type-aliases/ApisConfig.md"
+      },
+      {
+        "text": "AppDateFormatOptions",
+        "link": "/api/type-aliases/AppDateFormatOptions.md"
+      },
+      {
+        "text": "AssistantReply",
+        "link": "/api/type-aliases/AssistantReply.md"
+      },
+      {
+        "text": "AssistantResult",
+        "link": "/api/type-aliases/AssistantResult.md"
+      },
+      {
+        "text": "AstroServiceError",
+        "link": "/api/type-aliases/AstroServiceError.md"
+      },
+      {
+        "text": "AstroServiceResult",
+        "link": "/api/type-aliases/AstroServiceResult.md"
+      },
+      {
+        "text": "AuthRequestLike",
+        "link": "/api/type-aliases/AuthRequestLike.md"
+      },
+      {
+        "text": "AuthResult",
+        "link": "/api/type-aliases/AuthResult.md"
+      },
+      {
+        "text": "BuiltInCapability",
+        "link": "/api/type-aliases/BuiltInCapability.md"
+      },
+      {
+        "text": "BuiltInRole",
+        "link": "/api/type-aliases/BuiltInRole.md"
+      },
+      {
+        "text": "ConfigData",
+        "link": "/api/type-aliases/ConfigData.md"
+      },
+      {
+        "text": "ConfigFacade",
+        "link": "/api/type-aliases/ConfigFacade.md"
+      },
+      {
+        "text": "ConfigMethod",
+        "link": "/api/type-aliases/ConfigMethod.md"
+      },
+      {
+        "text": "ConfigMethodEntries",
+        "link": "/api/type-aliases/ConfigMethodEntries.md"
+      },
+      {
+        "text": "ConfigMethodKeys",
+        "link": "/api/type-aliases/ConfigMethodKeys.md"
+      },
+      {
+        "text": "ConfigValues",
+        "link": "/api/type-aliases/ConfigValues.md"
+      },
+      {
+        "text": "Currency",
+        "link": "/api/type-aliases/Currency.md"
+      },
+      {
+        "text": "CurrencyConversion",
+        "link": "/api/type-aliases/CurrencyConversion.md"
+      },
+      {
+        "text": "CurrencyConvertOptions",
+        "link": "/api/type-aliases/CurrencyConvertOptions.md"
+      },
+      {
+        "text": "CurrencyFormatOptions",
+        "link": "/api/type-aliases/CurrencyFormatOptions.md"
+      },
+      {
+        "text": "CurrencyRateSnapshot",
+        "link": "/api/type-aliases/CurrencyRateSnapshot.md"
+      },
+      {
+        "text": "DateFormatOptions",
+        "link": "/api/type-aliases/DateFormatOptions.md"
+      },
+      {
+        "text": "DateOrder",
+        "link": "/api/type-aliases/DateOrder.md"
+      },
+      {
+        "text": "DateUnit",
+        "link": "/api/type-aliases/DateUnit.md"
+      },
+      {
+        "text": "DirectoryErrorCode",
+        "link": "/api/type-aliases/DirectoryErrorCode.md"
+      },
+      {
+        "text": "DirectoryPage",
+        "link": "/api/type-aliases/DirectoryPage.md"
+      },
+      {
+        "text": "DirectoryPageResult",
+        "link": "/api/type-aliases/DirectoryPageResult.md"
+      },
+      {
+        "text": "DirectoryQuery",
+        "link": "/api/type-aliases/DirectoryQuery.md"
+      },
+      {
+        "text": "DirectoryResult",
+        "link": "/api/type-aliases/DirectoryResult.md"
+      },
+      {
+        "text": "DirectoryUser",
+        "link": "/api/type-aliases/DirectoryUser.md"
+      },
+      {
+        "text": "EncryptedVault",
+        "link": "/api/type-aliases/EncryptedVault.md"
+      },
+      {
+        "text": "FakeVehicle",
+        "link": "/api/type-aliases/FakeVehicle.md"
+      },
+      {
+        "text": "FetchResult",
+        "link": "/api/type-aliases/FetchResult.md"
+      },
+      {
+        "text": "FieldErrors",
+        "link": "/api/type-aliases/FieldErrors.md"
+      },
+      {
+        "text": "FileEncoding",
+        "link": "/api/type-aliases/FileEncoding.md"
+      },
+      {
+        "text": "FileHashAlgorithm",
+        "link": "/api/type-aliases/FileHashAlgorithm.md"
+      },
+      {
+        "text": "FileStats",
+        "link": "/api/type-aliases/FileStats.md"
+      },
+      {
+        "text": "FilesystemError",
+        "link": "/api/type-aliases/FilesystemError.md"
+      },
+      {
+        "text": "FilesystemResult",
+        "link": "/api/type-aliases/FilesystemResult.md"
+      },
+      {
+        "text": "FormDataValues",
+        "link": "/api/type-aliases/FormDataValues.md"
+      },
+      {
+        "text": "FormSubmitHandler",
+        "link": "/api/type-aliases/FormSubmitHandler.md"
+      },
+      {
+        "text": "FormValidation",
+        "link": "/api/type-aliases/FormValidation.md"
+      },
+      {
+        "text": "GeometryFormatOptions",
+        "link": "/api/type-aliases/GeometryFormatOptions.md"
+      },
+      {
+        "text": "GeoPosition",
+        "link": "/api/type-aliases/GeoPosition.md"
+      },
+      {
+        "text": "Grant",
+        "link": "/api/type-aliases/Grant.md"
+      },
+      {
+        "text": "GrantResolver",
+        "link": "/api/type-aliases/GrantResolver.md"
+      },
+      {
+        "text": "HttpMethod",
+        "link": "/api/type-aliases/HttpMethod.md"
+      },
+      {
+        "text": "Identity",
+        "link": "/api/type-aliases/Identity.md"
+      },
+      {
+        "text": "IdentityStatus",
+        "link": "/api/type-aliases/IdentityStatus.md"
+      },
+      {
+        "text": "IfConfig",
+        "link": "/api/type-aliases/IfConfig.md"
+      },
+      {
+        "text": "IfInsertRows",
+        "link": "/api/type-aliases/IfInsertRows.md"
+      },
+      {
+        "text": "IfInvokeOptions",
+        "link": "/api/type-aliases/IfInvokeOptions.md"
+      },
+      {
+        "text": "IfListOptions",
+        "link": "/api/type-aliases/IfListOptions.md"
+      },
+      {
+        "text": "IfOrder",
+        "link": "/api/type-aliases/IfOrder.md"
+      },
+      {
+        "text": "IfRpcCall",
+        "link": "/api/type-aliases/IfRpcCall.md"
+      },
+      {
+        "text": "IfStorageRef",
+        "link": "/api/type-aliases/IfStorageRef.md"
+      },
+      {
+        "text": "IfTableQuery",
+        "link": "/api/type-aliases/IfTableQuery.md"
+      },
+      {
+        "text": "IfUpdatePatch",
+        "link": "/api/type-aliases/IfUpdatePatch.md"
+      },
+      {
+        "text": "IfWriteQuery",
+        "link": "/api/type-aliases/IfWriteQuery.md"
+      },
+      {
+        "text": "ISerializedError",
+        "link": "/api/type-aliases/ISerializedError.md"
+      },
+      {
+        "text": "KeyRecord",
+        "link": "/api/type-aliases/KeyRecord.md"
+      },
+      {
+        "text": "KeyStatus",
+        "link": "/api/type-aliases/KeyStatus.md"
+      },
+      {
+        "text": "LazyLoaderEntry",
+        "link": "/api/type-aliases/LazyLoaderEntry.md"
+      },
+      {
+        "text": "Locale",
+        "link": "/api/type-aliases/Locale.md"
+      },
+      {
+        "text": "LogLevel",
+        "link": "/api/type-aliases/LogLevel.md"
+      },
+      {
+        "text": "McpServerEntry",
+        "link": "/api/type-aliases/McpServerEntry.md"
+      },
+      {
+        "text": "McpServerInput",
+        "link": "/api/type-aliases/McpServerInput.md"
+      },
+      {
+        "text": "MediaProvider",
+        "link": "/api/type-aliases/MediaProvider.md"
+      },
+      {
+        "text": "MediaSource",
+        "link": "/api/type-aliases/MediaSource.md"
+      },
+      {
+        "text": "NotionBlock",
+        "link": "/api/type-aliases/NotionBlock.md"
+      },
+      {
+        "text": "NotionBlockList",
+        "link": "/api/type-aliases/NotionBlockList.md"
+      },
+      {
+        "text": "NotionConfig",
+        "link": "/api/type-aliases/NotionConfig.md"
+      },
+      {
+        "text": "NotionCover",
+        "link": "/api/type-aliases/NotionCover.md"
+      },
+      {
+        "text": "NotionDatabase",
+        "link": "/api/type-aliases/NotionDatabase.md"
+      },
+      {
+        "text": "NotionDatabaseQuery",
+        "link": "/api/type-aliases/NotionDatabaseQuery.md"
+      },
+      {
+        "text": "NotionIcon",
+        "link": "/api/type-aliases/NotionIcon.md"
+      },
+      {
+        "text": "NotionPage",
+        "link": "/api/type-aliases/NotionPage.md"
+      },
+      {
+        "text": "NotionPageList",
+        "link": "/api/type-aliases/NotionPageList.md"
+      },
+      {
+        "text": "NotionParent",
+        "link": "/api/type-aliases/NotionParent.md"
+      },
+      {
+        "text": "NotionProperty",
+        "link": "/api/type-aliases/NotionProperty.md"
+      },
+      {
+        "text": "NotionPropertySchema",
+        "link": "/api/type-aliases/NotionPropertySchema.md"
+      },
+      {
+        "text": "NotionRichText",
+        "link": "/api/type-aliases/NotionRichText.md"
+      },
+      {
+        "text": "NotionSearchQuery",
+        "link": "/api/type-aliases/NotionSearchQuery.md"
+      },
+      {
+        "text": "NotionSearchResult",
+        "link": "/api/type-aliases/NotionSearchResult.md"
+      },
+      {
+        "text": "NotionSort",
+        "link": "/api/type-aliases/NotionSort.md"
+      },
+      {
+        "text": "NotionUser",
+        "link": "/api/type-aliases/NotionUser.md"
+      },
+      {
+        "text": "NotionUserList",
+        "link": "/api/type-aliases/NotionUserList.md"
+      },
+      {
+        "text": "NumberFormatOptions",
+        "link": "/api/type-aliases/NumberFormatOptions.md"
+      },
+      {
+        "text": "ObserverCallback",
+        "link": "/api/type-aliases/ObserverCallback.md"
+      },
+      {
+        "text": "ObserverTarget",
+        "link": "/api/type-aliases/ObserverTarget.md"
+      },
+      {
+        "text": "PathParams",
+        "link": "/api/type-aliases/PathParams.md"
+      },
+      {
+        "text": "Principal",
+        "link": "/api/type-aliases/Principal.md"
+      },
+      {
+        "text": "ProductType",
+        "link": "/api/type-aliases/ProductType.md"
+      },
+      {
+        "text": "QueryParams",
+        "link": "/api/type-aliases/QueryParams.md"
+      },
+      {
+        "text": "ReadDirEntry",
+        "link": "/api/type-aliases/ReadDirEntry.md"
+      },
+      {
+        "text": "ReadDirOptions",
+        "link": "/api/type-aliases/ReadDirOptions.md"
+      },
+      {
+        "text": "RequestInterceptor",
+        "link": "/api/type-aliases/RequestInterceptor.md"
+      },
+      {
+        "text": "RssConfig",
+        "link": "/api/type-aliases/RssConfig.md"
+      },
+      {
+        "text": "RssItem",
+        "link": "/api/type-aliases/RssItem.md"
+      },
+      {
+        "text": "RssResult",
+        "link": "/api/type-aliases/RssResult.md"
+      },
+      {
+        "text": "SafeResult",
+        "link": "/api/type-aliases/SafeResult.md"
+      },
+      {
+        "text": "SalePriceOptions",
+        "link": "/api/type-aliases/SalePriceOptions.md"
+      },
+      {
+        "text": "ScrollPosition",
+        "link": "/api/type-aliases/ScrollPosition.md"
+      },
+      {
+        "text": "SeoArrayable",
+        "link": "/api/type-aliases/SeoArrayable.md"
+      },
+      {
+        "text": "SeoBooleanable",
+        "link": "/api/type-aliases/SeoBooleanable.md"
+      },
+      {
+        "text": "SeoMetaInput",
+        "link": "/api/type-aliases/SeoMetaInput.md"
+      },
+      {
+        "text": "SeoTagResult",
+        "link": "/api/type-aliases/SeoTagResult.md"
+      },
+      {
+        "text": "SignalListener",
+        "link": "/api/type-aliases/SignalListener.md"
+      },
+      {
+        "text": "SignalSetter",
+        "link": "/api/type-aliases/SignalSetter.md"
+      },
+      {
+        "text": "SmartVideoOptions",
+        "link": "/api/type-aliases/SmartVideoOptions.md"
+      },
+      {
+        "text": "StorageTarget",
+        "link": "/api/type-aliases/StorageTarget.md"
+      },
+      {
+        "text": "TemporalInput",
+        "link": "/api/type-aliases/TemporalInput.md"
+      },
+      {
+        "text": "ThemeMode",
+        "link": "/api/type-aliases/ThemeMode.md"
+      },
+      {
+        "text": "UseSeoMetaBase",
+        "link": "/api/type-aliases/UseSeoMetaBase.md"
+      },
+      {
+        "text": "UseSeoMetaOptions",
+        "link": "/api/type-aliases/UseSeoMetaOptions.md"
+      },
+      {
+        "text": "ValidationIssue",
+        "link": "/api/type-aliases/ValidationIssue.md"
+      },
+      {
+        "text": "ValidationParseResult",
+        "link": "/api/type-aliases/ValidationParseResult.md"
+      },
+      {
+        "text": "VaultData",
+        "link": "/api/type-aliases/VaultData.md"
+      },
+      {
+        "text": "ViewportSize",
+        "link": "/api/type-aliases/ViewportSize.md"
+      },
+      {
+        "text": "WatchCallback",
+        "link": "/api/type-aliases/WatchCallback.md"
+      },
+      {
+        "text": "WatchOptions",
+        "link": "/api/type-aliases/WatchOptions.md"
+      },
+      {
+        "text": "WatchSource",
+        "link": "/api/type-aliases/WatchSource.md"
+      },
+      {
+        "text": "WatchStopHandle",
+        "link": "/api/type-aliases/WatchStopHandle.md"
+      },
+      {
+        "text": "WordPressAuth",
+        "link": "/api/type-aliases/WordPressAuth.md"
+      },
+      {
+        "text": "WordPressConfig",
+        "link": "/api/type-aliases/WordPressConfig.md"
+      },
+      {
+        "text": "WorkerFunc",
+        "link": "/api/type-aliases/WorkerFunc.md"
+      },
+      {
+        "text": "WpAcfFields",
+        "link": "/api/type-aliases/WpAcfFields.md"
+      },
+      {
+        "text": "WpBaseEntity",
+        "link": "/api/type-aliases/WpBaseEntity.md"
+      },
+      {
+        "text": "WpBatchOperation",
+        "link": "/api/type-aliases/WpBatchOperation.md"
+      },
+      {
+        "text": "WpBatchResult",
+        "link": "/api/type-aliases/WpBatchResult.md"
+      },
+      {
+        "text": "WpCapability",
+        "link": "/api/type-aliases/WpCapability.md"
+      },
+      {
+        "text": "WpCapabilityMap",
+        "link": "/api/type-aliases/WpCapabilityMap.md"
+      },
+      {
+        "text": "WpCategory",
+        "link": "/api/type-aliases/WpCategory.md"
+      },
+      {
+        "text": "WpCategoryCreate",
+        "link": "/api/type-aliases/WpCategoryCreate.md"
+      },
+      {
+        "text": "WpCategoryUpdate",
+        "link": "/api/type-aliases/WpCategoryUpdate.md"
+      },
+      {
+        "text": "WpComment",
+        "link": "/api/type-aliases/WpComment.md"
+      },
+      {
+        "text": "WpCommentCreate",
+        "link": "/api/type-aliases/WpCommentCreate.md"
+      },
+      {
+        "text": "WpCommentUpdate",
+        "link": "/api/type-aliases/WpCommentUpdate.md"
+      },
+      {
+        "text": "WpEmbedded",
+        "link": "/api/type-aliases/WpEmbedded.md"
+      },
+      {
+        "text": "WpMedia",
+        "link": "/api/type-aliases/WpMedia.md"
+      },
+      {
+        "text": "WpMediaMeta",
+        "link": "/api/type-aliases/WpMediaMeta.md"
+      },
+      {
+        "text": "WpMediaUpdate",
+        "link": "/api/type-aliases/WpMediaUpdate.md"
+      },
+      {
+        "text": "WpPage",
+        "link": "/api/type-aliases/WpPage.md"
+      },
+      {
+        "text": "WpPageCreate",
+        "link": "/api/type-aliases/WpPageCreate.md"
+      },
+      {
+        "text": "WpPageUpdate",
+        "link": "/api/type-aliases/WpPageUpdate.md"
+      },
+      {
+        "text": "WpPost",
+        "link": "/api/type-aliases/WpPost.md"
+      },
+      {
+        "text": "WpPostCreate",
+        "link": "/api/type-aliases/WpPostCreate.md"
+      },
+      {
+        "text": "WpPostUpdate",
+        "link": "/api/type-aliases/WpPostUpdate.md"
+      },
+      {
+        "text": "WpQueryParams",
+        "link": "/api/type-aliases/WpQueryParams.md"
+      },
+      {
+        "text": "WpRoleAudit",
+        "link": "/api/type-aliases/WpRoleAudit.md"
+      },
+      {
+        "text": "WpRoleAuditStatus",
+        "link": "/api/type-aliases/WpRoleAuditStatus.md"
+      },
+      {
+        "text": "WpRoleDefinition",
+        "link": "/api/type-aliases/WpRoleDefinition.md"
+      },
+      {
+        "text": "WpRoleRegistry",
+        "link": "/api/type-aliases/WpRoleRegistry.md"
+      },
+      {
+        "text": "WpTag",
+        "link": "/api/type-aliases/WpTag.md"
+      },
+      {
+        "text": "WpTagCreate",
+        "link": "/api/type-aliases/WpTagCreate.md"
+      },
+      {
+        "text": "WpTagUpdate",
+        "link": "/api/type-aliases/WpTagUpdate.md"
+      },
+      {
+        "text": "WpUser",
+        "link": "/api/type-aliases/WpUser.md"
+      },
+      {
+        "text": "WpUserCreate",
+        "link": "/api/type-aliases/WpUserCreate.md"
+      },
+      {
+        "text": "WpUserUpdate",
+        "link": "/api/type-aliases/WpUserUpdate.md"
+      },
+      {
+        "text": "WriteFileOptions",
+        "link": "/api/type-aliases/WriteFileOptions.md"
+      },
+      {
+        "text": "YoutubeApiConfig",
+        "link": "/api/type-aliases/YoutubeApiConfig.md"
+      },
+      {
+        "text": "YoutubeChannelsResponse",
+        "link": "/api/type-aliases/YoutubeChannelsResponse.md"
+      },
+      {
+        "text": "YoutubeEmbedOptions",
+        "link": "/api/type-aliases/YoutubeEmbedOptions.md"
+      },
+      {
+        "text": "YoutubeListParams",
+        "link": "/api/type-aliases/YoutubeListParams.md"
+      },
+      {
+        "text": "YoutubePlaylistItemsResponse",
+        "link": "/api/type-aliases/YoutubePlaylistItemsResponse.md"
+      },
+      {
+        "text": "YoutubeThumbnailQuality",
+        "link": "/api/type-aliases/YoutubeThumbnailQuality.md"
+      },
+      {
+        "text": "YoutubeVideoNormalized",
+        "link": "/api/type-aliases/YoutubeVideoNormalized.md"
+      },
+      {
+        "text": "YoutubeVideoPage",
+        "link": "/api/type-aliases/YoutubeVideoPage.md"
+      },
+      {
+        "text": "YoutubeVideosResponse",
+        "link": "/api/type-aliases/YoutubeVideosResponse.md"
+      },
+      {
+        "text": "YoutubeVideoThumbnails",
+        "link": "/api/type-aliases/YoutubeVideoThumbnails.md"
+      }
+    ]
+  },
+  {
+    "text": "Variables",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "AccessCapabilitySchema",
+        "link": "/api/variables/AccessCapabilitySchema.md"
+      },
+      {
+        "text": "AccessResourceSchema",
+        "link": "/api/variables/AccessResourceSchema.md"
+      },
+      {
+        "text": "AccessRoleDefinitionSchema",
+        "link": "/api/variables/AccessRoleDefinitionSchema.md"
+      },
+      {
+        "text": "AccessRoleSchema",
+        "link": "/api/variables/AccessRoleSchema.md"
+      },
+      {
+        "text": "AccessSubjectSchema",
+        "link": "/api/variables/AccessSubjectSchema.md"
+      },
+      {
+        "text": "AGENT_DEFINITIONS",
+        "link": "/api/variables/AGENT_DEFINITIONS.md"
+      },
+      {
+        "text": "AgentDataSchema",
+        "link": "/api/variables/AgentDataSchema.md"
+      },
+      {
+        "text": "AgentStepSchema",
+        "link": "/api/variables/AgentStepSchema.md"
+      },
+      {
+        "text": "AiErrorSchema",
+        "link": "/api/variables/AiErrorSchema.md"
+      },
+      {
+        "text": "AiFunctionCallSchema",
+        "link": "/api/variables/AiFunctionCallSchema.md"
+      },
+      {
+        "text": "AiMessageSchema",
+        "link": "/api/variables/AiMessageSchema.md"
+      },
+      {
+        "text": "AiProviderConfigSchema",
+        "link": "/api/variables/AiProviderConfigSchema.md"
+      },
+      {
+        "text": "AiRoleSchema",
+        "link": "/api/variables/AiRoleSchema.md"
+      },
+      {
+        "text": "AiToolCallSchema",
+        "link": "/api/variables/AiToolCallSchema.md"
+      },
+      {
+        "text": "ApiErrorSchema",
+        "link": "/api/variables/ApiErrorSchema.md"
+      },
+      {
+        "text": "AppDateFormatOptionsSchema",
+        "link": "/api/variables/AppDateFormatOptionsSchema.md"
+      },
+      {
+        "text": "assistant",
+        "link": "/api/variables/assistant.md"
+      },
+      {
+        "text": "AssistantReplySchema",
+        "link": "/api/variables/AssistantReplySchema.md"
+      },
+      {
+        "text": "AstroServiceErrorSchema",
+        "link": "/api/variables/AstroServiceErrorSchema.md"
+      },
+      {
+        "text": "BUILT_IN_CAPABILITIES",
+        "link": "/api/variables/BUILT_IN_CAPABILITIES.md"
+      },
+      {
+        "text": "BUILT_IN_ROLE_SLUGS",
+        "link": "/api/variables/BUILT_IN_ROLE_SLUGS.md"
+      },
+      {
+        "text": "CurrencyConversionSchema",
+        "link": "/api/variables/CurrencyConversionSchema.md"
+      },
+      {
+        "text": "CurrencyConvertOptionsSchema",
+        "link": "/api/variables/CurrencyConvertOptionsSchema.md"
+      },
+      {
+        "text": "CurrencyFormatOptionsSchema",
+        "link": "/api/variables/CurrencyFormatOptionsSchema.md"
+      },
+      {
+        "text": "CurrencyRateSnapshotSchema",
+        "link": "/api/variables/CurrencyRateSnapshotSchema.md"
+      },
+      {
+        "text": "CurrencySchema",
+        "link": "/api/variables/CurrencySchema.md"
+      },
+      {
+        "text": "DateOrderSchema",
+        "link": "/api/variables/DateOrderSchema.md"
+      },
+      {
+        "text": "DateUnitSchema",
+        "link": "/api/variables/DateUnitSchema.md"
+      },
+      {
+        "text": "DirectoryErrorCodeSchema",
+        "link": "/api/variables/DirectoryErrorCodeSchema.md"
+      },
+      {
+        "text": "DirectoryPageSchema",
+        "link": "/api/variables/DirectoryPageSchema.md"
+      },
+      {
+        "text": "DirectoryQuerySchema",
+        "link": "/api/variables/DirectoryQuerySchema.md"
+      },
+      {
+        "text": "DirectoryUserSchema",
+        "link": "/api/variables/DirectoryUserSchema.md"
+      },
+      {
+        "text": "EncryptedVaultSchema",
+        "link": "/api/variables/EncryptedVaultSchema.md"
+      },
+      {
+        "text": "FakeVehicleSchema",
+        "link": "/api/variables/FakeVehicleSchema.md"
+      },
+      {
+        "text": "FieldErrorsSchema",
+        "link": "/api/variables/FieldErrorsSchema.md"
+      },
+      {
+        "text": "FileEncodingSchema",
+        "link": "/api/variables/FileEncodingSchema.md"
+      },
+      {
+        "text": "FileHashAlgorithmSchema",
+        "link": "/api/variables/FileHashAlgorithmSchema.md"
+      },
+      {
+        "text": "FileStatsSchema",
+        "link": "/api/variables/FileStatsSchema.md"
+      },
+      {
+        "text": "FilesystemErrorSchema",
+        "link": "/api/variables/FilesystemErrorSchema.md"
+      },
+      {
+        "text": "GeometryFormatOptionsSchema",
+        "link": "/api/variables/GeometryFormatOptionsSchema.md"
+      },
+      {
+        "text": "GeometryUtils",
+        "link": "/api/variables/GeometryUtils.md"
+      },
+      {
+        "text": "GeoPositionSchema",
+        "link": "/api/variables/GeoPositionSchema.md"
+      },
+      {
+        "text": "GrantSchema",
+        "link": "/api/variables/GrantSchema.md"
+      },
+      {
+        "text": "HttpMethodSchema",
+        "link": "/api/variables/HttpMethodSchema.md"
+      },
+      {
+        "text": "IdentitySchema",
+        "link": "/api/variables/IdentitySchema.md"
+      },
+      {
+        "text": "IdentityStatusSchema",
+        "link": "/api/variables/IdentityStatusSchema.md"
+      },
+      {
+        "text": "IfBucketSchema",
+        "link": "/api/variables/IfBucketSchema.md"
+      },
+      {
+        "text": "IfConfigSchema",
+        "link": "/api/variables/IfConfigSchema.md"
+      },
+      {
+        "text": "IfInsertRowsSchema",
+        "link": "/api/variables/IfInsertRowsSchema.md"
+      },
+      {
+        "text": "IfInvokeOptionsSchema",
+        "link": "/api/variables/IfInvokeOptionsSchema.md"
+      },
+      {
+        "text": "IfListOptionsSchema",
+        "link": "/api/variables/IfListOptionsSchema.md"
+      },
+      {
+        "text": "IfOrderSchema",
+        "link": "/api/variables/IfOrderSchema.md"
+      },
+      {
+        "text": "IfRpcCallSchema",
+        "link": "/api/variables/IfRpcCallSchema.md"
+      },
+      {
+        "text": "IfStorageRefSchema",
+        "link": "/api/variables/IfStorageRefSchema.md"
+      },
+      {
+        "text": "IfTableNameSchema",
+        "link": "/api/variables/IfTableNameSchema.md"
+      },
+      {
+        "text": "IfTableQuerySchema",
+        "link": "/api/variables/IfTableQuerySchema.md"
+      },
+      {
+        "text": "IfUpdatePatchSchema",
+        "link": "/api/variables/IfUpdatePatchSchema.md"
+      },
+      {
+        "text": "IfWriteQuerySchema",
+        "link": "/api/variables/IfWriteQuerySchema.md"
+      },
+      {
+        "text": "KEY_STATUSES",
+        "link": "/api/variables/KEY_STATUSES.md"
+      },
+      {
+        "text": "KeyProviderSchema",
+        "link": "/api/variables/KeyProviderSchema.md"
+      },
+      {
+        "text": "KeyRecordSchema",
+        "link": "/api/variables/KeyRecordSchema.md"
+      },
+      {
+        "text": "KeyStatusSchema",
+        "link": "/api/variables/KeyStatusSchema.md"
+      },
+      {
+        "text": "KITT_BASE_URL",
+        "link": "/api/variables/KITT_BASE_URL.md"
+      },
+      {
+        "text": "KITT_DEFAULT_MODEL",
+        "link": "/api/variables/KITT_DEFAULT_MODEL.md"
+      },
+      {
+        "text": "KITT_SYSTEM_PROMPT",
+        "link": "/api/variables/KITT_SYSTEM_PROMPT.md"
+      },
+      {
+        "text": "kittPreset",
+        "link": "/api/variables/kittPreset.md"
+      },
+      {
+        "text": "LazyLoaderEntrySchema",
+        "link": "/api/variables/LazyLoaderEntrySchema.md"
+      },
+      {
+        "text": "LazyNodeCryptoStrategy",
+        "link": "/api/variables/LazyNodeCryptoStrategy.md"
+      },
+      {
+        "text": "LocaleSchema",
+        "link": "/api/variables/LocaleSchema.md"
+      },
+      {
+        "text": "LogLevelSchema",
+        "link": "/api/variables/LogLevelSchema.md"
+      },
+      {
+        "text": "McpServerNameSchema",
+        "link": "/api/variables/McpServerNameSchema.md"
+      },
+      {
+        "text": "McpServerSchema",
+        "link": "/api/variables/McpServerSchema.md"
+      },
+      {
+        "text": "MediaProviderSchema",
+        "link": "/api/variables/MediaProviderSchema.md"
+      },
+      {
+        "text": "MediaSourceSchema",
+        "link": "/api/variables/MediaSourceSchema.md"
+      },
+      {
+        "text": "NativeUuidStrategy",
+        "link": "/api/variables/NativeUuidStrategy.md"
+      },
+      {
+        "text": "NotionBlockListSchema",
+        "link": "/api/variables/NotionBlockListSchema.md"
+      },
+      {
+        "text": "NotionBlockResponseSchema",
+        "link": "/api/variables/NotionBlockResponseSchema.md"
+      },
+      {
+        "text": "NotionBlockSchema",
+        "link": "/api/variables/NotionBlockSchema.md"
+      },
+      {
+        "text": "NotionConfigSchema",
+        "link": "/api/variables/NotionConfigSchema.md"
+      },
+      {
+        "text": "NotionCoverSchema",
+        "link": "/api/variables/NotionCoverSchema.md"
+      },
+      {
+        "text": "NotionDatabaseQuerySchema",
+        "link": "/api/variables/NotionDatabaseQuerySchema.md"
+      },
+      {
+        "text": "NotionDatabaseResponseSchema",
+        "link": "/api/variables/NotionDatabaseResponseSchema.md"
+      },
+      {
+        "text": "NotionDatabaseSchema",
+        "link": "/api/variables/NotionDatabaseSchema.md"
+      },
+      {
+        "text": "NotionFilterSchema",
+        "link": "/api/variables/NotionFilterSchema.md"
+      },
+      {
+        "text": "NotionIconSchema",
+        "link": "/api/variables/NotionIconSchema.md"
+      },
+      {
+        "text": "NotionPageListSchema",
+        "link": "/api/variables/NotionPageListSchema.md"
+      },
+      {
+        "text": "NotionPageResponseSchema",
+        "link": "/api/variables/NotionPageResponseSchema.md"
+      },
+      {
+        "text": "NotionPageSchema",
+        "link": "/api/variables/NotionPageSchema.md"
+      },
+      {
+        "text": "NotionParentSchema",
+        "link": "/api/variables/NotionParentSchema.md"
+      },
+      {
+        "text": "NotionPropertySchemaSchema",
+        "link": "/api/variables/NotionPropertySchemaSchema.md"
+      },
+      {
+        "text": "NotionPropertyValueSchema",
+        "link": "/api/variables/NotionPropertyValueSchema.md"
+      },
+      {
+        "text": "NotionRichTextSchema",
+        "link": "/api/variables/NotionRichTextSchema.md"
+      },
+      {
+        "text": "NotionSearchQuerySchema",
+        "link": "/api/variables/NotionSearchQuerySchema.md"
+      },
+      {
+        "text": "NotionSearchResultSchema",
+        "link": "/api/variables/NotionSearchResultSchema.md"
+      },
+      {
+        "text": "NotionSortSchema",
+        "link": "/api/variables/NotionSortSchema.md"
+      },
+      {
+        "text": "NotionUserListSchema",
+        "link": "/api/variables/NotionUserListSchema.md"
+      },
+      {
+        "text": "NotionUserResponseSchema",
+        "link": "/api/variables/NotionUserResponseSchema.md"
+      },
+      {
+        "text": "NotionUserSchema",
+        "link": "/api/variables/NotionUserSchema.md"
+      },
+      {
+        "text": "NumberFormatOptionsSchema",
+        "link": "/api/variables/NumberFormatOptionsSchema.md"
+      },
+      {
+        "text": "PrincipalSchema",
+        "link": "/api/variables/PrincipalSchema.md"
+      },
+      {
+        "text": "ProductTypeSchema",
+        "link": "/api/variables/ProductTypeSchema.md"
+      },
+      {
+        "text": "PROVIDER_ENV_NAMES",
+        "link": "/api/variables/PROVIDER_ENV_NAMES.md"
+      },
+      {
+        "text": "ReadDirEntrySchema",
+        "link": "/api/variables/ReadDirEntrySchema.md"
+      },
+      {
+        "text": "ReadDirOptionsSchema",
+        "link": "/api/variables/ReadDirOptionsSchema.md"
+      },
+      {
+        "text": "RssConfigSchema",
+        "link": "/api/variables/RssConfigSchema.md"
+      },
+      {
+        "text": "RssItemSchema",
+        "link": "/api/variables/RssItemSchema.md"
+      },
+      {
+        "text": "SalePriceOptionsSchema",
+        "link": "/api/variables/SalePriceOptionsSchema.md"
+      },
+      {
+        "text": "ScrollPositionSchema",
+        "link": "/api/variables/ScrollPositionSchema.md"
+      },
+      {
+        "text": "SerializedErrorSchema",
+        "link": "/api/variables/SerializedErrorSchema.md"
+      },
+      {
+        "text": "siteConfig",
+        "link": "/api/variables/siteConfig.md"
+      },
+      {
+        "text": "SmartVideoOptionsSchema",
+        "link": "/api/variables/SmartVideoOptionsSchema.md"
+      },
+      {
+        "text": "StorageTargetSchema",
+        "link": "/api/variables/StorageTargetSchema.md"
+      },
+      {
+        "text": "ThemeModeSchema",
+        "link": "/api/variables/ThemeModeSchema.md"
+      },
+      {
+        "text": "useQuerySelector",
+        "link": "/api/variables/useQuerySelector.md"
+      },
+      {
+        "text": "useQuerySelectorAll",
+        "link": "/api/variables/useQuerySelectorAll.md"
+      },
+      {
+        "text": "ValidationIssueSchema",
+        "link": "/api/variables/ValidationIssueSchema.md"
+      },
+      {
+        "text": "VaultCipherSchema",
+        "link": "/api/variables/VaultCipherSchema.md"
+      },
+      {
+        "text": "VaultDataSchema",
+        "link": "/api/variables/VaultDataSchema.md"
+      },
+      {
+        "text": "VaultKdfSchema",
+        "link": "/api/variables/VaultKdfSchema.md"
+      },
+      {
+        "text": "ViewportSizeSchema",
+        "link": "/api/variables/ViewportSizeSchema.md"
+      },
+      {
+        "text": "WordPressAuthSchema",
+        "link": "/api/variables/WordPressAuthSchema.md"
+      },
+      {
+        "text": "WordPressConfigSchema",
+        "link": "/api/variables/WordPressConfigSchema.md"
+      },
+      {
+        "text": "WpAcfFieldsSchema",
+        "link": "/api/variables/WpAcfFieldsSchema.md"
+      },
+      {
+        "text": "WpBaseEntitySchema",
+        "link": "/api/variables/WpBaseEntitySchema.md"
+      },
+      {
+        "text": "WpBatchOperationSchema",
+        "link": "/api/variables/WpBatchOperationSchema.md"
+      },
+      {
+        "text": "WpBatchResultSchema",
+        "link": "/api/variables/WpBatchResultSchema.md"
+      },
+      {
+        "text": "WpCapabilityMapSchema",
+        "link": "/api/variables/WpCapabilityMapSchema.md"
+      },
+      {
+        "text": "WpCapabilitySchema",
+        "link": "/api/variables/WpCapabilitySchema.md"
+      },
+      {
+        "text": "WpCategoryCreateSchema",
+        "link": "/api/variables/WpCategoryCreateSchema.md"
+      },
+      {
+        "text": "WpCategoryListSchema",
+        "link": "/api/variables/WpCategoryListSchema.md"
+      },
+      {
+        "text": "WpCategoryResponseSchema",
+        "link": "/api/variables/WpCategoryResponseSchema.md"
+      },
+      {
+        "text": "WpCategorySchema",
+        "link": "/api/variables/WpCategorySchema.md"
+      },
+      {
+        "text": "WpCategoryUpdateSchema",
+        "link": "/api/variables/WpCategoryUpdateSchema.md"
+      },
+      {
+        "text": "WpCommentCreateSchema",
+        "link": "/api/variables/WpCommentCreateSchema.md"
+      },
+      {
+        "text": "WpCommentListSchema",
+        "link": "/api/variables/WpCommentListSchema.md"
+      },
+      {
+        "text": "WpCommentResponseSchema",
+        "link": "/api/variables/WpCommentResponseSchema.md"
+      },
+      {
+        "text": "WpCommentSchema",
+        "link": "/api/variables/WpCommentSchema.md"
+      },
+      {
+        "text": "WpCommentUpdateSchema",
+        "link": "/api/variables/WpCommentUpdateSchema.md"
+      },
+      {
+        "text": "WpEmbeddedSchema",
+        "link": "/api/variables/WpEmbeddedSchema.md"
+      },
+      {
+        "text": "WpErrorSchema",
+        "link": "/api/variables/WpErrorSchema.md"
+      },
+      {
+        "text": "WpMediaListSchema",
+        "link": "/api/variables/WpMediaListSchema.md"
+      },
+      {
+        "text": "WpMediaMetaSchema",
+        "link": "/api/variables/WpMediaMetaSchema.md"
+      },
+      {
+        "text": "WpMediaResponseSchema",
+        "link": "/api/variables/WpMediaResponseSchema.md"
+      },
+      {
+        "text": "WpMediaSchema",
+        "link": "/api/variables/WpMediaSchema.md"
+      },
+      {
+        "text": "WpMediaUpdateSchema",
+        "link": "/api/variables/WpMediaUpdateSchema.md"
+      },
+      {
+        "text": "WpMenuItemSchema",
+        "link": "/api/variables/WpMenuItemSchema.md"
+      },
+      {
+        "text": "WpMenuLocationSchema",
+        "link": "/api/variables/WpMenuLocationSchema.md"
+      },
+      {
+        "text": "WpMenuSchema",
+        "link": "/api/variables/WpMenuSchema.md"
+      },
+      {
+        "text": "WpPageCreateSchema",
+        "link": "/api/variables/WpPageCreateSchema.md"
+      },
+      {
+        "text": "WpPageListSchema",
+        "link": "/api/variables/WpPageListSchema.md"
+      },
+      {
+        "text": "WpPageResponseSchema",
+        "link": "/api/variables/WpPageResponseSchema.md"
+      },
+      {
+        "text": "WpPageSchema",
+        "link": "/api/variables/WpPageSchema.md"
+      },
+      {
+        "text": "WpPageUpdateSchema",
+        "link": "/api/variables/WpPageUpdateSchema.md"
+      },
+      {
+        "text": "WpPostCreateSchema",
+        "link": "/api/variables/WpPostCreateSchema.md"
+      },
+      {
+        "text": "WpPostListSchema",
+        "link": "/api/variables/WpPostListSchema.md"
+      },
+      {
+        "text": "WpPostResponseSchema",
+        "link": "/api/variables/WpPostResponseSchema.md"
+      },
+      {
+        "text": "WpPostSchema",
+        "link": "/api/variables/WpPostSchema.md"
+      },
+      {
+        "text": "WpPostUpdateSchema",
+        "link": "/api/variables/WpPostUpdateSchema.md"
+      },
+      {
+        "text": "WpQueryParamsSchema",
+        "link": "/api/variables/WpQueryParamsSchema.md"
+      },
+      {
+        "text": "WpRoleAuditSchema",
+        "link": "/api/variables/WpRoleAuditSchema.md"
+      },
+      {
+        "text": "WpRoleAuditStatusSchema",
+        "link": "/api/variables/WpRoleAuditStatusSchema.md"
+      },
+      {
+        "text": "WpRoleDefinitionSchema",
+        "link": "/api/variables/WpRoleDefinitionSchema.md"
+      },
+      {
+        "text": "WpRoleRegistrySchema",
+        "link": "/api/variables/WpRoleRegistrySchema.md"
+      },
+      {
+        "text": "WpSearchListSchema",
+        "link": "/api/variables/WpSearchListSchema.md"
+      },
+      {
+        "text": "WpSearchResultSchema",
+        "link": "/api/variables/WpSearchResultSchema.md"
+      },
+      {
+        "text": "WpSettingsSchema",
+        "link": "/api/variables/WpSettingsSchema.md"
+      },
+      {
+        "text": "WpTagCreateSchema",
+        "link": "/api/variables/WpTagCreateSchema.md"
+      },
+      {
+        "text": "WpTagListSchema",
+        "link": "/api/variables/WpTagListSchema.md"
+      },
+      {
+        "text": "WpTagResponseSchema",
+        "link": "/api/variables/WpTagResponseSchema.md"
+      },
+      {
+        "text": "WpTagSchema",
+        "link": "/api/variables/WpTagSchema.md"
+      },
+      {
+        "text": "WpTagUpdateSchema",
+        "link": "/api/variables/WpTagUpdateSchema.md"
+      },
+      {
+        "text": "WpUserCreateSchema",
+        "link": "/api/variables/WpUserCreateSchema.md"
+      },
+      {
+        "text": "WpUserListSchema",
+        "link": "/api/variables/WpUserListSchema.md"
+      },
+      {
+        "text": "WpUserResponseSchema",
+        "link": "/api/variables/WpUserResponseSchema.md"
+      },
+      {
+        "text": "WpUserSchema",
+        "link": "/api/variables/WpUserSchema.md"
+      },
+      {
+        "text": "WpUserUpdateSchema",
+        "link": "/api/variables/WpUserUpdateSchema.md"
+      },
+      {
+        "text": "WriteFileOptionsSchema",
+        "link": "/api/variables/WriteFileOptionsSchema.md"
+      },
+      {
+        "text": "YoutubeApiConfigSchema",
+        "link": "/api/variables/YoutubeApiConfigSchema.md"
+      },
+      {
+        "text": "YoutubeChannelsResponseSchema",
+        "link": "/api/variables/YoutubeChannelsResponseSchema.md"
+      },
+      {
+        "text": "YoutubeEmbedOptionsSchema",
+        "link": "/api/variables/YoutubeEmbedOptionsSchema.md"
+      },
+      {
+        "text": "YoutubeListParamsSchema",
+        "link": "/api/variables/YoutubeListParamsSchema.md"
+      },
+      {
+        "text": "YoutubePlaylistItemsResponseSchema",
+        "link": "/api/variables/YoutubePlaylistItemsResponseSchema.md"
+      },
+      {
+        "text": "YoutubeThumbnailQualitySchema",
+        "link": "/api/variables/YoutubeThumbnailQualitySchema.md"
+      },
+      {
+        "text": "YoutubeVideoNormalizedSchema",
+        "link": "/api/variables/YoutubeVideoNormalizedSchema.md"
+      },
+      {
+        "text": "YoutubeVideoPageSchema",
+        "link": "/api/variables/YoutubeVideoPageSchema.md"
+      },
+      {
+        "text": "YoutubeVideosResponseSchema",
+        "link": "/api/variables/YoutubeVideosResponseSchema.md"
+      },
+      {
+        "text": "YoutubeVideoThumbnailsSchema",
+        "link": "/api/variables/YoutubeVideoThumbnailsSchema.md"
+      }
+    ]
+  },
+  {
+    "text": "Functions",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "CacheDecorator",
+        "link": "/api/functions/CacheDecorator.md"
+      },
+      {
+        "text": "createMemoryStorage",
+        "link": "/api/functions/createMemoryStorage.md"
+      },
+      {
+        "text": "defineApiConfig",
+        "link": "/api/functions/defineApiConfig.md"
+      },
+      {
+        "text": "defineSeoMetaConfig",
+        "link": "/api/functions/defineSeoMetaConfig.md"
+      },
+      {
+        "text": "LocalStorageStrategy",
+        "link": "/api/functions/LocalStorageStrategy.md"
+      },
+      {
+        "text": "LoggerDecorator",
+        "link": "/api/functions/LoggerDecorator.md"
+      },
+      {
+        "text": "MemoryStorageStrategy",
+        "link": "/api/functions/MemoryStorageStrategy.md"
+      },
+      {
+        "text": "RetryDecorator",
+        "link": "/api/functions/RetryDecorator.md"
+      },
+      {
+        "text": "SessionStorageStrategy",
+        "link": "/api/functions/SessionStorageStrategy.md"
+      },
+      {
+        "text": "useAddClass",
+        "link": "/api/functions/useAddClass.md"
+      },
+      {
+        "text": "useAddDays",
+        "link": "/api/functions/useAddDays.md"
+      },
+      {
+        "text": "useAddKey",
+        "link": "/api/functions/useAddKey.md"
+      },
+      {
+        "text": "useAddMcpServer",
+        "link": "/api/functions/useAddMcpServer.md"
+      },
+      {
+        "text": "useAddRequestInterceptor",
+        "link": "/api/functions/useAddRequestInterceptor.md"
+      },
+      {
+        "text": "useAgentDefinitions",
+        "link": "/api/functions/useAgentDefinitions.md"
+      },
+      {
+        "text": "useAppend",
+        "link": "/api/functions/useAppend.md"
+      },
+      {
+        "text": "useAppendFile",
+        "link": "/api/functions/useAppendFile.md"
+      },
+      {
+        "text": "useApplySeoTag",
+        "link": "/api/functions/useApplySeoTag.md"
+      },
+      {
+        "text": "useAttempt",
+        "link": "/api/functions/useAttempt.md"
+      },
+      {
+        "text": "useAverage",
+        "link": "/api/functions/useAverage.md"
+      },
+      {
+        "text": "useBearerToken",
+        "link": "/api/functions/useBearerToken.md"
+      },
+      {
+        "text": "useBlurActiveElement",
+        "link": "/api/functions/useBlurActiveElement.md"
+      },
+      {
+        "text": "useBuildUrl",
+        "link": "/api/functions/useBuildUrl.md"
+      },
+      {
+        "text": "useBuildVideoEmbed",
+        "link": "/api/functions/useBuildVideoEmbed.md"
+      },
+      {
+        "text": "useBuildVimeoEmbedUrl",
+        "link": "/api/functions/useBuildVimeoEmbedUrl.md"
+      },
+      {
+        "text": "useBuildYoutubeEmbedUrl",
+        "link": "/api/functions/useBuildYoutubeEmbedUrl.md"
+      },
+      {
+        "text": "useBuildYoutubeRssUrl",
+        "link": "/api/functions/useBuildYoutubeRssUrl.md"
+      },
+      {
+        "text": "useBuildYoutubeThumbnail",
+        "link": "/api/functions/useBuildYoutubeThumbnail.md"
+      },
+      {
+        "text": "useCan",
+        "link": "/api/functions/useCan.md"
+      },
+      {
+        "text": "useCapabilitiesFor",
+        "link": "/api/functions/useCapabilitiesFor.md"
+      },
+      {
+        "text": "useCapitalize",
+        "link": "/api/functions/useCapitalize.md"
+      },
+      {
+        "text": "useChat",
+        "link": "/api/functions/useChat.md"
+      },
+      {
+        "text": "useChunk",
+        "link": "/api/functions/useChunk.md"
+      },
+      {
+        "text": "useClearStorage",
+        "link": "/api/functions/useClearStorage.md"
+      },
+      {
+        "text": "useConvertCurrency",
+        "link": "/api/functions/useConvertCurrency.md"
+      },
+      {
+        "text": "useCopyFile",
+        "link": "/api/functions/useCopyFile.md"
+      },
+      {
+        "text": "useCopyToClipboard",
+        "link": "/api/functions/useCopyToClipboard.md"
+      },
+      {
+        "text": "useCreateBatch",
+        "link": "/api/functions/useCreateBatch.md"
+      },
+      {
+        "text": "useCreateDebouncedSignal",
+        "link": "/api/functions/useCreateDebouncedSignal.md"
+      },
+      {
+        "text": "useCreateEffect",
+        "link": "/api/functions/useCreateEffect.md"
+      },
+      {
+        "text": "useCreateElement",
+        "link": "/api/functions/useCreateElement.md"
+      },
+      {
+        "text": "useCreateKeyRecord",
+        "link": "/api/functions/useCreateKeyRecord.md"
+      },
+      {
+        "text": "useCreateMcpServer",
+        "link": "/api/functions/useCreateMcpServer.md"
+      },
+      {
+        "text": "useCreateMemo",
+        "link": "/api/functions/useCreateMemo.md"
+      },
+      {
+        "text": "useCreateMemoryStore",
+        "link": "/api/functions/useCreateMemoryStore.md"
+      },
+      {
+        "text": "useCreatePool",
+        "link": "/api/functions/useCreatePool.md"
+      },
+      {
+        "text": "useCreateQueryClient",
+        "link": "/api/functions/useCreateQueryClient.md"
+      },
+      {
+        "text": "useCreateSession",
+        "link": "/api/functions/useCreateSession.md"
+      },
+      {
+        "text": "useCreateSignal",
+        "link": "/api/functions/useCreateSignal.md"
+      },
+      {
+        "text": "useCreateStorageSignal",
+        "link": "/api/functions/useCreateStorageSignal.md"
+      },
+      {
+        "text": "useCreateToggle",
+        "link": "/api/functions/useCreateToggle.md"
+      },
+      {
+        "text": "useCurrencyConverter",
+        "link": "/api/functions/useCurrencyConverter.md"
+      },
+      {
+        "text": "useDateAdd",
+        "link": "/api/functions/useDateAdd.md"
+      },
+      {
+        "text": "useDateBetween",
+        "link": "/api/functions/useDateBetween.md"
+      },
+      {
+        "text": "useDateOrder",
+        "link": "/api/functions/useDateOrder.md"
+      },
+      {
+        "text": "useDateSubtract",
+        "link": "/api/functions/useDateSubtract.md"
+      },
+      {
+        "text": "useDebounce",
+        "link": "/api/functions/useDebounce.md"
+      },
+      {
+        "text": "useDebounceImmediate",
+        "link": "/api/functions/useDebounceImmediate.md"
+      },
+      {
+        "text": "useDecryptVault",
+        "link": "/api/functions/useDecryptVault.md"
+      },
+      {
+        "text": "useDeepClone",
+        "link": "/api/functions/useDeepClone.md"
+      },
+      {
+        "text": "useDeepMerge",
+        "link": "/api/functions/useDeepMerge.md"
+      },
+      {
+        "text": "useDelete",
+        "link": "/api/functions/useDelete.md"
+      },
+      {
+        "text": "useDestroyTheme",
+        "link": "/api/functions/useDestroyTheme.md"
+      },
+      {
+        "text": "useDurationBetween",
+        "link": "/api/functions/useDurationBetween.md"
+      },
+      {
+        "text": "useEmitAgentConfig",
+        "link": "/api/functions/useEmitAgentConfig.md"
+      },
+      {
+        "text": "useEmitOpenCodeServers",
+        "link": "/api/functions/useEmitOpenCodeServers.md"
+      },
+      {
+        "text": "useEmptyVault",
+        "link": "/api/functions/useEmptyVault.md"
+      },
+      {
+        "text": "useEncryptVault",
+        "link": "/api/functions/useEncryptVault.md"
+      },
+      {
+        "text": "useEnhanceVideoFacades",
+        "link": "/api/functions/useEnhanceVideoFacades.md"
+      },
+      {
+        "text": "useEnsureDir",
+        "link": "/api/functions/useEnsureDir.md"
+      },
+      {
+        "text": "useErrorCustom",
+        "link": "/api/functions/useErrorCustom.md"
+      },
+      {
+        "text": "useErrorNormalize",
+        "link": "/api/functions/useErrorNormalize.md"
+      },
+      {
+        "text": "useErrorSerialize",
+        "link": "/api/functions/useErrorSerialize.md"
+      },
+      {
+        "text": "useEvery",
+        "link": "/api/functions/useEvery.md"
+      },
+      {
+        "text": "useEveryAsync",
+        "link": "/api/functions/useEveryAsync.md"
+      },
+      {
+        "text": "useExitFullscreen",
+        "link": "/api/functions/useExitFullscreen.md"
+      },
+      {
+        "text": "useFakeBoolean",
+        "link": "/api/functions/useFakeBoolean.md"
+      },
+      {
+        "text": "useFakeCompanyName",
+        "link": "/api/functions/useFakeCompanyName.md"
+      },
+      {
+        "text": "useFakeDate",
+        "link": "/api/functions/useFakeDate.md"
+      },
+      {
+        "text": "useFakeEmail",
+        "link": "/api/functions/useFakeEmail.md"
+      },
+      {
+        "text": "useFakeFirstName",
+        "link": "/api/functions/useFakeFirstName.md"
+      },
+      {
+        "text": "useFakeFullName",
+        "link": "/api/functions/useFakeFullName.md"
+      },
+      {
+        "text": "useFakeLastName",
+        "link": "/api/functions/useFakeLastName.md"
+      },
+      {
+        "text": "useFakeList",
+        "link": "/api/functions/useFakeList.md"
+      },
+      {
+        "text": "useFakeNumber",
+        "link": "/api/functions/useFakeNumber.md"
+      },
+      {
+        "text": "useFakePhone",
+        "link": "/api/functions/useFakePhone.md"
+      },
+      {
+        "text": "useFakeSeed",
+        "link": "/api/functions/useFakeSeed.md"
+      },
+      {
+        "text": "useFakeSetDefaultRefDate",
+        "link": "/api/functions/useFakeSetDefaultRefDate.md"
+      },
+      {
+        "text": "useFakeText",
+        "link": "/api/functions/useFakeText.md"
+      },
+      {
+        "text": "useFakeUrl",
+        "link": "/api/functions/useFakeUrl.md"
+      },
+      {
+        "text": "useFakeUuid",
+        "link": "/api/functions/useFakeUuid.md"
+      },
+      {
+        "text": "useFakeVehicle",
+        "link": "/api/functions/useFakeVehicle.md"
+      },
+      {
+        "text": "useFetch",
+        "link": "/api/functions/useFetch.md"
+      },
+      {
+        "text": "useFetchApi",
+        "link": "/api/functions/useFetchApi.md"
+      },
+      {
+        "text": "useFileExists",
+        "link": "/api/functions/useFileExists.md"
+      },
+      {
+        "text": "useFilter",
+        "link": "/api/functions/useFilter.md"
+      },
+      {
+        "text": "useFilterAsync",
+        "link": "/api/functions/useFilterAsync.md"
+      },
+      {
+        "text": "useFind",
+        "link": "/api/functions/useFind.md"
+      },
+      {
+        "text": "useFindAgent",
+        "link": "/api/functions/useFindAgent.md"
+      },
+      {
+        "text": "useFindAsync",
+        "link": "/api/functions/useFindAsync.md"
+      },
+      {
+        "text": "useFindIndex",
+        "link": "/api/functions/useFindIndex.md"
+      },
+      {
+        "text": "useFindKey",
+        "link": "/api/functions/useFindKey.md"
+      },
+      {
+        "text": "useFindLast",
+        "link": "/api/functions/useFindLast.md"
+      },
+      {
+        "text": "useFindMcpServer",
+        "link": "/api/functions/useFindMcpServer.md"
+      },
+      {
+        "text": "useFirstDayOfMonth",
+        "link": "/api/functions/useFirstDayOfMonth.md"
+      },
+      {
+        "text": "useFlatMap",
+        "link": "/api/functions/useFlatMap.md"
+      },
+      {
+        "text": "useFocusElement",
+        "link": "/api/functions/useFocusElement.md"
+      },
+      {
+        "text": "useFormat",
+        "link": "/api/functions/useFormat.md"
+      },
+      {
+        "text": "useFormatCurrency",
+        "link": "/api/functions/useFormatCurrency.md"
+      },
+      {
+        "text": "useFormatNumber",
+        "link": "/api/functions/useFormatNumber.md"
+      },
+      {
+        "text": "useFromEntries",
+        "link": "/api/functions/useFromEntries.md"
+      },
+      {
+        "text": "useGenerateMetaTags",
+        "link": "/api/functions/useGenerateMetaTags.md"
+      },
+      {
+        "text": "useGet",
+        "link": "/api/functions/useGet.md"
+      },
+      {
+        "text": "useGetActiveElement",
+        "link": "/api/functions/useGetActiveElement.md"
+      },
+      {
+        "text": "useGetApi",
+        "link": "/api/functions/useGetApi.md"
+      },
+      {
+        "text": "useGetApis",
+        "link": "/api/functions/useGetApis.md"
+      },
+      {
+        "text": "useGetApisConfig",
+        "link": "/api/functions/useGetApisConfig.md"
+      },
+      {
+        "text": "useGetAttribute",
+        "link": "/api/functions/useGetAttribute.md"
+      },
+      {
+        "text": "useGetBackCamera",
+        "link": "/api/functions/useGetBackCamera.md"
+      },
+      {
+        "text": "useGetBasename",
+        "link": "/api/functions/useGetBasename.md"
+      },
+      {
+        "text": "useGetBattery",
+        "link": "/api/functions/useGetBattery.md"
+      },
+      {
+        "text": "useGetBody",
+        "link": "/api/functions/useGetBody.md"
+      },
+      {
+        "text": "useGetChannelVideos",
+        "link": "/api/functions/useGetChannelVideos.md"
+      },
+      {
+        "text": "useGetChannelVideosRss",
+        "link": "/api/functions/useGetChannelVideosRss.md"
+      },
+      {
+        "text": "useGetCwd",
+        "link": "/api/functions/useGetCwd.md"
+      },
+      {
+        "text": "useGetDataAttribute",
+        "link": "/api/functions/useGetDataAttribute.md"
+      },
+      {
+        "text": "useGetDirname",
+        "link": "/api/functions/useGetDirname.md"
+      },
+      {
+        "text": "useGetElementByClass",
+        "link": "/api/functions/useGetElementByClass.md"
+      },
+      {
+        "text": "useGetElementById",
+        "link": "/api/functions/useGetElementById.md"
+      },
+      {
+        "text": "useGetExchangeRate",
+        "link": "/api/functions/useGetExchangeRate.md"
+      },
+      {
+        "text": "useGetFileExtension",
+        "link": "/api/functions/useGetFileExtension.md"
+      },
+      {
+        "text": "useGetFileStats",
+        "link": "/api/functions/useGetFileStats.md"
+      },
+      {
+        "text": "useGetFrontCamera",
+        "link": "/api/functions/useGetFrontCamera.md"
+      },
+      {
+        "text": "useGetGeolocation",
+        "link": "/api/functions/useGetGeolocation.md"
+      },
+      {
+        "text": "useGetHistory",
+        "link": "/api/functions/useGetHistory.md"
+      },
+      {
+        "text": "useGetMediaStream",
+        "link": "/api/functions/useGetMediaStream.md"
+      },
+      {
+        "text": "useGetRelativePath",
+        "link": "/api/functions/useGetRelativePath.md"
+      },
+      {
+        "text": "useGetResolved",
+        "link": "/api/functions/useGetResolved.md"
+      },
+      {
+        "text": "useGetRoot",
+        "link": "/api/functions/useGetRoot.md"
+      },
+      {
+        "text": "useGetScrollPosition",
+        "link": "/api/functions/useGetScrollPosition.md"
+      },
+      {
+        "text": "useGetScrollProgress",
+        "link": "/api/functions/useGetScrollProgress.md"
+      },
+      {
+        "text": "useGetScrollX",
+        "link": "/api/functions/useGetScrollX.md"
+      },
+      {
+        "text": "useGetScrollY",
+        "link": "/api/functions/useGetScrollY.md"
+      },
+      {
+        "text": "useGetStorage",
+        "link": "/api/functions/useGetStorage.md"
+      },
+      {
+        "text": "useGetThemeMode",
+        "link": "/api/functions/useGetThemeMode.md"
+      },
+      {
+        "text": "useGetTitle",
+        "link": "/api/functions/useGetTitle.md"
+      },
+      {
+        "text": "useGetUploadsPlaylistId",
+        "link": "/api/functions/useGetUploadsPlaylistId.md"
+      },
+      {
+        "text": "useGetUrlParams",
+        "link": "/api/functions/useGetUrlParams.md"
+      },
+      {
+        "text": "useGetVideoDetails",
+        "link": "/api/functions/useGetVideoDetails.md"
+      },
+      {
+        "text": "useGetViewportSize",
+        "link": "/api/functions/useGetViewportSize.md"
+      },
+      {
+        "text": "useGetVimeoVideoId",
+        "link": "/api/functions/useGetVimeoVideoId.md"
+      },
+      {
+        "text": "useGetYoutubeConfig",
+        "link": "/api/functions/useGetYoutubeConfig.md"
+      },
+      {
+        "text": "useGetYoutubeVideoId",
+        "link": "/api/functions/useGetYoutubeVideoId.md"
+      },
+      {
+        "text": "useGrantAwareCan",
+        "link": "/api/functions/useGrantAwareCan.md"
+      },
+      {
+        "text": "useGroupBy",
+        "link": "/api/functions/useGroupBy.md"
+      },
+      {
+        "text": "useHasClass",
+        "link": "/api/functions/useHasClass.md"
+      },
+      {
+        "text": "useHash",
+        "link": "/api/functions/useHash.md"
+      },
+      {
+        "text": "useHashFile",
+        "link": "/api/functions/useHashFile.md"
+      },
+      {
+        "text": "useHasRole",
+        "link": "/api/functions/useHasRole.md"
+      },
+      {
+        "text": "useHasWorker",
+        "link": "/api/functions/useHasWorker.md"
+      },
+      {
+        "text": "useHeadTags",
+        "link": "/api/functions/useHeadTags.md"
+      },
+      {
+        "text": "useInitAgent",
+        "link": "/api/functions/useInitAgent.md"
+      },
+      {
+        "text": "useInitAssistant",
+        "link": "/api/functions/useInitAssistant.md"
+      },
+      {
+        "text": "useInitQueryClient",
+        "link": "/api/functions/useInitQueryClient.md"
+      },
+      {
+        "text": "useInitTheme",
+        "link": "/api/functions/useInitTheme.md"
+      },
+      {
+        "text": "useInitYoutube",
+        "link": "/api/functions/useInitYoutube.md"
+      },
+      {
+        "text": "useInterval",
+        "link": "/api/functions/useInterval.md"
+      },
+      {
+        "text": "useIsAfter",
+        "link": "/api/functions/useIsAfter.md"
+      },
+      {
+        "text": "useIsAtBottom",
+        "link": "/api/functions/useIsAtBottom.md"
+      },
+      {
+        "text": "useIsAtTop",
+        "link": "/api/functions/useIsAtTop.md"
+      },
+      {
+        "text": "useIsBefore",
+        "link": "/api/functions/useIsBefore.md"
+      },
+      {
+        "text": "useIsBrowser",
+        "link": "/api/functions/useIsBrowser.md"
+      },
+      {
+        "text": "useIsDocumentVisible",
+        "link": "/api/functions/useIsDocumentVisible.md"
+      },
+      {
+        "text": "useIsEqual",
+        "link": "/api/functions/useIsEqual.md"
+      },
+      {
+        "text": "useIsFullscreen",
+        "link": "/api/functions/useIsFullscreen.md"
+      },
+      {
+        "text": "useIsNode",
+        "link": "/api/functions/useIsNode.md"
+      },
+      {
+        "text": "useIsObject",
+        "link": "/api/functions/useIsObject.md"
+      },
+      {
+        "text": "useIsSupported",
+        "link": "/api/functions/useIsSupported.md"
+      },
+      {
+        "text": "useJoinPath",
+        "link": "/api/functions/useJoinPath.md"
+      },
+      {
+        "text": "useJsonParse",
+        "link": "/api/functions/useJsonParse.md"
+      },
+      {
+        "text": "useJsonStringify",
+        "link": "/api/functions/useJsonStringify.md"
+      },
+      {
+        "text": "useKeys",
+        "link": "/api/functions/useKeys.md"
+      },
+      {
+        "text": "useLastDayOfMonth",
+        "link": "/api/functions/useLastDayOfMonth.md"
+      },
+      {
+        "text": "useLazyLoaderHas",
+        "link": "/api/functions/useLazyLoaderHas.md"
+      },
+      {
+        "text": "useLazyLoaderInit",
+        "link": "/api/functions/useLazyLoaderInit.md"
+      },
+      {
+        "text": "useLazyLoaderStop",
+        "link": "/api/functions/useLazyLoaderStop.md"
+      },
+      {
+        "text": "useLazyLoaderStopAll",
+        "link": "/api/functions/useLazyLoaderStopAll.md"
+      },
+      {
+        "text": "useListKeys",
+        "link": "/api/functions/useListKeys.md"
+      },
+      {
+        "text": "useListMcpServers",
+        "link": "/api/functions/useListMcpServers.md"
+      },
+      {
+        "text": "useLoadVaultFile",
+        "link": "/api/functions/useLoadVaultFile.md"
+      },
+      {
+        "text": "useLogger",
+        "link": "/api/functions/useLogger.md"
+      },
+      {
+        "text": "useLoggerClear",
+        "link": "/api/functions/useLoggerClear.md"
+      },
+      {
+        "text": "useLoggerError",
+        "link": "/api/functions/useLoggerError.md"
+      },
+      {
+        "text": "useLoggerTable",
+        "link": "/api/functions/useLoggerTable.md"
+      },
+      {
+        "text": "useLoggerWarn",
+        "link": "/api/functions/useLoggerWarn.md"
+      },
+      {
+        "text": "useLowerCase",
+        "link": "/api/functions/useLowerCase.md"
+      },
+      {
+        "text": "useMap",
+        "link": "/api/functions/useMap.md"
+      },
+      {
+        "text": "useMapAsync",
+        "link": "/api/functions/useMapAsync.md"
+      },
+      {
+        "text": "useMaskSecret",
+        "link": "/api/functions/useMaskSecret.md"
+      },
+      {
+        "text": "useMatchesMedia",
+        "link": "/api/functions/useMatchesMedia.md"
+      },
+      {
+        "text": "useModalClose",
+        "link": "/api/functions/useModalClose.md"
+      },
+      {
+        "text": "useMoveFile",
+        "link": "/api/functions/useMoveFile.md"
+      },
+      {
+        "text": "useNow",
+        "link": "/api/functions/useNow.md"
+      },
+      {
+        "text": "useNowDateTime",
+        "link": "/api/functions/useNowDateTime.md"
+      },
+      {
+        "text": "useNumericId",
+        "link": "/api/functions/useNumericId.md"
+      },
+      {
+        "text": "useObserverCreate",
+        "link": "/api/functions/useObserverCreate.md"
+      },
+      {
+        "text": "useObserverDisconnect",
+        "link": "/api/functions/useObserverDisconnect.md"
+      },
+      {
+        "text": "useObserverDisconnectAll",
+        "link": "/api/functions/useObserverDisconnectAll.md"
+      },
+      {
+        "text": "useObserverHas",
+        "link": "/api/functions/useObserverHas.md"
+      },
+      {
+        "text": "useObserverKeys",
+        "link": "/api/functions/useObserverKeys.md"
+      },
+      {
+        "text": "useObserverObserve",
+        "link": "/api/functions/useObserverObserve.md"
+      },
+      {
+        "text": "useObserverObserveAll",
+        "link": "/api/functions/useObserverObserveAll.md"
+      },
+      {
+        "text": "useObserverUnobserve",
+        "link": "/api/functions/useObserverUnobserve.md"
+      },
+      {
+        "text": "useOmit",
+        "link": "/api/functions/useOmit.md"
+      },
+      {
+        "text": "useOn",
+        "link": "/api/functions/useOn.md"
+      },
+      {
+        "text": "useOnDeviceMotion",
+        "link": "/api/functions/useOnDeviceMotion.md"
+      },
+      {
+        "text": "useOnDeviceOrientation",
+        "link": "/api/functions/useOnDeviceOrientation.md"
+      },
+      {
+        "text": "useOnVisibilityChange",
+        "link": "/api/functions/useOnVisibilityChange.md"
+      },
+      {
+        "text": "useOpenCodeServersObject",
+        "link": "/api/functions/useOpenCodeServersObject.md"
+      },
+      {
+        "text": "useParseIso8601Duration",
+        "link": "/api/functions/useParseIso8601Duration.md"
+      },
+      {
+        "text": "useParseMediaSource",
+        "link": "/api/functions/useParseMediaSource.md"
+      },
+      {
+        "text": "useParseSmartVideoOptions",
+        "link": "/api/functions/useParseSmartVideoOptions.md"
+      },
+      {
+        "text": "useParseYoutubeRss",
+        "link": "/api/functions/useParseYoutubeRss.md"
+      },
+      {
+        "text": "usePartition",
+        "link": "/api/functions/usePartition.md"
+      },
+      {
+        "text": "usePatch",
+        "link": "/api/functions/usePatch.md"
+      },
+      {
+        "text": "usePbkdf2Hash",
+        "link": "/api/functions/usePbkdf2Hash.md"
+      },
+      {
+        "text": "usePick",
+        "link": "/api/functions/usePick.md"
+      },
+      {
+        "text": "usePost",
+        "link": "/api/functions/usePost.md"
+      },
+      {
+        "text": "usePrefersColorScheme",
+        "link": "/api/functions/usePrefersColorScheme.md"
+      },
+      {
+        "text": "usePrefersDarkMode",
+        "link": "/api/functions/usePrefersDarkMode.md"
+      },
+      {
+        "text": "usePrefersReducedMotion",
+        "link": "/api/functions/usePrefersReducedMotion.md"
+      },
+      {
+        "text": "usePrintPage",
+        "link": "/api/functions/usePrintPage.md"
+      },
+      {
+        "text": "useProviderEnvName",
+        "link": "/api/functions/useProviderEnvName.md"
+      },
+      {
+        "text": "usePut",
+        "link": "/api/functions/usePut.md"
+      },
+      {
+        "text": "useQueryClient",
+        "link": "/api/functions/useQueryClient.md"
+      },
+      {
+        "text": "useRace",
+        "link": "/api/functions/useRace.md"
+      },
+      {
+        "text": "useReadDir",
+        "link": "/api/functions/useReadDir.md"
+      },
+      {
+        "text": "useReadFile",
+        "link": "/api/functions/useReadFile.md"
+      },
+      {
+        "text": "useReadFileBuffer",
+        "link": "/api/functions/useReadFileBuffer.md"
+      },
+      {
+        "text": "useReadJsonFile",
+        "link": "/api/functions/useReadJsonFile.md"
+      },
+      {
+        "text": "useReadModuleFile",
+        "link": "/api/functions/useReadModuleFile.md"
+      },
+      {
+        "text": "useReadModuleJson",
+        "link": "/api/functions/useReadModuleJson.md"
+      },
+      {
+        "text": "useReduce",
+        "link": "/api/functions/useReduce.md"
+      },
+      {
+        "text": "useReduceAsync",
+        "link": "/api/functions/useReduceAsync.md"
+      },
+      {
+        "text": "useRefreshExchangeRates",
+        "link": "/api/functions/useRefreshExchangeRates.md"
+      },
+      {
+        "text": "useRegisterRole",
+        "link": "/api/functions/useRegisterRole.md"
+      },
+      {
+        "text": "useRemove",
+        "link": "/api/functions/useRemove.md"
+      },
+      {
+        "text": "useRemoveAttribute",
+        "link": "/api/functions/useRemoveAttribute.md"
+      },
+      {
+        "text": "useRemoveClass",
+        "link": "/api/functions/useRemoveClass.md"
+      },
+      {
+        "text": "useRemoveDir",
+        "link": "/api/functions/useRemoveDir.md"
+      },
+      {
+        "text": "useRemoveFile",
+        "link": "/api/functions/useRemoveFile.md"
+      },
+      {
+        "text": "useRemoveMcpServer",
+        "link": "/api/functions/useRemoveMcpServer.md"
+      },
+      {
+        "text": "useRemoveStorage",
+        "link": "/api/functions/useRemoveStorage.md"
+      },
+      {
+        "text": "useRepeat",
+        "link": "/api/functions/useRepeat.md"
+      },
+      {
+        "text": "useReplaceKey",
+        "link": "/api/functions/useReplaceKey.md"
+      },
+      {
+        "text": "useReply",
+        "link": "/api/functions/useReply.md"
+      },
+      {
+        "text": "useRequestFullscreen",
+        "link": "/api/functions/useRequestFullscreen.md"
+      },
+      {
+        "text": "useRequestMotionPermission",
+        "link": "/api/functions/useRequestMotionPermission.md"
+      },
+      {
+        "text": "useResetRoles",
+        "link": "/api/functions/useResetRoles.md"
+      },
+      {
+        "text": "useResetSeoMetaConfig",
+        "link": "/api/functions/useResetSeoMetaConfig.md"
+      },
+      {
+        "text": "useResetSession",
+        "link": "/api/functions/useResetSession.md"
+      },
+      {
+        "text": "useResetTheme",
+        "link": "/api/functions/useResetTheme.md"
+      },
+      {
+        "text": "useResolvePath",
+        "link": "/api/functions/useResolvePath.md"
+      },
+      {
+        "text": "useResolveSubject",
+        "link": "/api/functions/useResolveSubject.md"
+      },
+      {
+        "text": "useRetry",
+        "link": "/api/functions/useRetry.md"
+      },
+      {
+        "text": "useReverse",
+        "link": "/api/functions/useReverse.md"
+      },
+      {
+        "text": "useRevokeKey",
+        "link": "/api/functions/useRevokeKey.md"
+      },
+      {
+        "text": "useRoles",
+        "link": "/api/functions/useRoles.md"
+      },
+      {
+        "text": "useRotateKeySecret",
+        "link": "/api/functions/useRotateKeySecret.md"
+      },
+      {
+        "text": "useRound",
+        "link": "/api/functions/useRound.md"
+      },
+      {
+        "text": "useRssHeadLink",
+        "link": "/api/functions/useRssHeadLink.md"
+      },
+      {
+        "text": "useRun",
+        "link": "/api/functions/useRun.md"
+      },
+      {
+        "text": "useRunAgent",
+        "link": "/api/functions/useRunAgent.md"
+      },
+      {
+        "text": "useRunPool",
+        "link": "/api/functions/useRunPool.md"
+      },
+      {
+        "text": "useRunStorageScope",
+        "link": "/api/functions/useRunStorageScope.md"
+      },
+      {
+        "text": "useSafeQueryFn",
+        "link": "/api/functions/useSafeQueryFn.md"
+      },
+      {
+        "text": "useSalePrice",
+        "link": "/api/functions/useSalePrice.md"
+      },
+      {
+        "text": "useSaveVaultFile",
+        "link": "/api/functions/useSaveVaultFile.md"
+      },
+      {
+        "text": "useScrollTo",
+        "link": "/api/functions/useScrollTo.md"
+      },
+      {
+        "text": "useScrollToBottom",
+        "link": "/api/functions/useScrollToBottom.md"
+      },
+      {
+        "text": "useScrollToElement",
+        "link": "/api/functions/useScrollToElement.md"
+      },
+      {
+        "text": "useScrollToTop",
+        "link": "/api/functions/useScrollToTop.md"
+      },
+      {
+        "text": "useSeoMeta",
+        "link": "/api/functions/useSeoMeta.md"
+      },
+      {
+        "text": "useSeoMetaConfig",
+        "link": "/api/functions/useSeoMetaConfig.md"
+      },
+      {
+        "text": "useSessionExists",
+        "link": "/api/functions/useSessionExists.md"
+      },
+      {
+        "text": "useSetAttribute",
+        "link": "/api/functions/useSetAttribute.md"
+      },
+      {
+        "text": "useSetDataAttribute",
+        "link": "/api/functions/useSetDataAttribute.md"
+      },
+      {
+        "text": "useSetHtml",
+        "link": "/api/functions/useSetHtml.md"
+      },
+      {
+        "text": "useSetStorage",
+        "link": "/api/functions/useSetStorage.md"
+      },
+      {
+        "text": "useSetTempTitle",
+        "link": "/api/functions/useSetTempTitle.md"
+      },
+      {
+        "text": "useSetText",
+        "link": "/api/functions/useSetText.md"
+      },
+      {
+        "text": "useSetThemeMode",
+        "link": "/api/functions/useSetThemeMode.md"
+      },
+      {
+        "text": "useSetTimeout",
+        "link": "/api/functions/useSetTimeout.md"
+      },
+      {
+        "text": "useSetTitle",
+        "link": "/api/functions/useSetTitle.md"
+      },
+      {
+        "text": "useSleep",
+        "link": "/api/functions/useSleep.md"
+      },
+      {
+        "text": "useSlugify",
+        "link": "/api/functions/useSlugify.md"
+      },
+      {
+        "text": "useSome",
+        "link": "/api/functions/useSome.md"
+      },
+      {
+        "text": "useSomeAsync",
+        "link": "/api/functions/useSomeAsync.md"
+      },
+      {
+        "text": "useSortBy",
+        "link": "/api/functions/useSortBy.md"
+      },
+      {
+        "text": "useSplitConfig",
+        "link": "/api/functions/useSplitConfig.md"
+      },
+      {
+        "text": "useStopMediaStream",
+        "link": "/api/functions/useStopMediaStream.md"
+      },
+      {
+        "text": "useStopVibration",
+        "link": "/api/functions/useStopVibration.md"
+      },
+      {
+        "text": "useSubscribeRates",
+        "link": "/api/functions/useSubscribeRates.md"
+      },
+      {
+        "text": "useSubtractDays",
+        "link": "/api/functions/useSubtractDays.md"
+      },
+      {
+        "text": "useTerminate",
+        "link": "/api/functions/useTerminate.md"
+      },
+      {
+        "text": "useTerminateAll",
+        "link": "/api/functions/useTerminateAll.md"
+      },
+      {
+        "text": "useThrottle",
+        "link": "/api/functions/useThrottle.md"
+      },
+      {
+        "text": "useThrottleTrailing",
+        "link": "/api/functions/useThrottleTrailing.md"
+      },
+      {
+        "text": "useTitle",
+        "link": "/api/functions/useTitle.md"
+      },
+      {
+        "text": "useToCelsius",
+        "link": "/api/functions/useToCelsius.md"
+      },
+      {
+        "text": "useToCm",
+        "link": "/api/functions/useToCm.md"
+      },
+      {
+        "text": "useToFahrenheit",
+        "link": "/api/functions/useToFahrenheit.md"
+      },
+      {
+        "text": "useToggleClass",
+        "link": "/api/functions/useToggleClass.md"
+      },
+      {
+        "text": "useToggleTheme",
+        "link": "/api/functions/useToggleTheme.md"
+      },
+      {
+        "text": "useToInches",
+        "link": "/api/functions/useToInches.md"
+      },
+      {
+        "text": "useToken",
+        "link": "/api/functions/useToken.md"
+      },
+      {
+        "text": "useToKilometers",
+        "link": "/api/functions/useToKilometers.md"
+      },
+      {
+        "text": "useToKilos",
+        "link": "/api/functions/useToKilos.md"
+      },
+      {
+        "text": "useToMiles",
+        "link": "/api/functions/useToMiles.md"
+      },
+      {
+        "text": "useToPounds",
+        "link": "/api/functions/useToPounds.md"
+      },
+      {
+        "text": "useTryJsonParse",
+        "link": "/api/functions/useTryJsonParse.md"
+      },
+      {
+        "text": "useUnique",
+        "link": "/api/functions/useUnique.md"
+      },
+      {
+        "text": "useUpperCase",
+        "link": "/api/functions/useUpperCase.md"
+      },
+      {
+        "text": "useUuid",
+        "link": "/api/functions/useUuid.md"
+      },
+      {
+        "text": "useValidate",
+        "link": "/api/functions/useValidate.md"
+      },
+      {
+        "text": "useValues",
+        "link": "/api/functions/useValues.md"
+      },
+      {
+        "text": "useVaultPath",
+        "link": "/api/functions/useVaultPath.md"
+      },
+      {
+        "text": "useVerifyFileHash",
+        "link": "/api/functions/useVerifyFileHash.md"
+      },
+      {
+        "text": "useVibrate",
+        "link": "/api/functions/useVibrate.md"
+      },
+      {
+        "text": "useWatchGeolocation",
+        "link": "/api/functions/useWatchGeolocation.md"
+      },
+      {
+        "text": "useWorkerKeys",
+        "link": "/api/functions/useWorkerKeys.md"
+      },
+      {
+        "text": "useWriteFile",
+        "link": "/api/functions/useWriteFile.md"
+      },
+      {
+        "text": "useWriteJsonFile",
+        "link": "/api/functions/useWriteJsonFile.md"
+      }
+    ]
+  }
+]

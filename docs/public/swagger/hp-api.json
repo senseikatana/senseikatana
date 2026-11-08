@@ -1,0 +1,191 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "HP API (Harry Potter)",
+		"version": "1.0.0",
+		"description": "Public Harry Potter dataset used as a live example in the KatanaKit docs: 437 characters, 77 spells, house and staff listings. No authentication required.\n\nUpstream project: https://github.com/KostaSav/hp-api — this spec is maintained by KatanaKit and mirrors the live endpoints.",
+		"license": { "name": "MIT" }
+	},
+	"servers": [{ "url": "https://hp-api.onrender.com", "description": "Production (Render free tier — the first request after idle can take a few seconds)" }],
+	"tags": [
+		{ "name": "characters", "description": "People: students, staff and everyone else" },
+		{ "name": "spells", "description": "Spell names and descriptions" }
+	],
+	"paths": {
+		"/api/characters": {
+			"get": {
+				"tags": ["characters"],
+				"operationId": "getCharacters",
+				"summary": "List every character",
+				"description": "Returns all 437 characters in one payload.",
+				"responses": {
+					"200": {
+						"description": "Every character",
+						"content": {
+							"application/json": {
+								"schema": { "type": "array", "items": { "$ref": "#/components/schemas/Character" } }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/characters/students": {
+			"get": {
+				"tags": ["characters"],
+				"operationId": "getStudents",
+				"summary": "List Hogwarts students",
+				"responses": {
+					"200": {
+						"description": "Characters with `hogwartsStudent: true`",
+						"content": {
+							"application/json": {
+								"schema": { "type": "array", "items": { "$ref": "#/components/schemas/Character" } }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/characters/staff": {
+			"get": {
+				"tags": ["characters"],
+				"operationId": "getStaff",
+				"summary": "List Hogwarts staff",
+				"responses": {
+					"200": {
+						"description": "Characters with `hogwartsStaff: true`",
+						"content": {
+							"application/json": {
+								"schema": { "type": "array", "items": { "$ref": "#/components/schemas/Character" } }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/characters/house/{house}": {
+			"get": {
+				"tags": ["characters"],
+				"operationId": "getHouseCharacters",
+				"summary": "List characters by house",
+				"parameters": [
+					{
+						"name": "house",
+						"in": "path",
+						"required": true,
+						"description": "House slug, lowercase",
+						"schema": {
+							"type": "string",
+							"enum": ["gryffindor", "slytherin", "hufflepuff", "ravenclaw"]
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Characters of that house",
+						"content": {
+							"application/json": {
+								"schema": { "type": "array", "items": { "$ref": "#/components/schemas/Character" } }
+							}
+						}
+					},
+					"404": { "description": "Unknown house slug" }
+				}
+			}
+		},
+		"/api/characters/{id}": {
+			"get": {
+				"tags": ["characters"],
+				"operationId": "getCharacterById",
+				"summary": "Get one character by id",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "Character UUID (see a character's `id` field)",
+						"schema": { "type": "string", "format": "uuid" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The character",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Character" }
+							}
+						}
+					},
+					"404": { "description": "No character with that id" }
+				}
+			}
+		},
+		"/api/spells": {
+			"get": {
+				"tags": ["spells"],
+				"operationId": "getSpells",
+				"summary": "List every spell",
+				"description": "All 77 spells with their incantation name and effect.",
+				"responses": {
+					"200": {
+						"description": "Every spell",
+						"content": {
+							"application/json": {
+								"schema": { "type": "array", "items": { "$ref": "#/components/schemas/Spell" } }
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Wand": {
+				"type": "object",
+				"properties": {
+					"wood": { "type": "string", "example": "holly" },
+					"core": { "type": "string", "example": "phoenix tail feather" },
+					"length": { "type": "number", "nullable": true, "example": 11 }
+				}
+			},
+			"Character": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"name": { "type": "string", "example": "Harry Potter" },
+					"alternate_names": { "type": "array", "items": { "type": "string" } },
+					"species": { "type": "string", "example": "human" },
+					"gender": { "type": "string", "enum": ["male", "female"] },
+					"house": {
+						"type": "string",
+						"enum": ["Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw", ""]
+					},
+					"dateOfBirth": { "type": "string", "nullable": true, "example": "31-07-1980" },
+					"yearOfBirth": { "type": "integer", "nullable": true, "example": 1980 },
+					"wizard": { "type": "boolean" },
+					"ancestry": { "type": "string", "nullable": true, "example": "half-blood" },
+					"eyeColour": { "type": "string", "example": "green" },
+					"hairColour": { "type": "string", "example": "black" },
+					"wand": { "$ref": "#/components/schemas/Wand" },
+					"patronus": { "type": "string", "example": "stag" },
+					"hogwartsStudent": { "type": "boolean" },
+					"hogwartsStaff": { "type": "boolean" },
+					"actor": { "type": "string", "example": "Daniel Radcliffe" },
+					"alternate_actors": { "type": "array", "items": { "type": "string" } },
+					"alive": { "type": "boolean" },
+					"image": { "type": "string", "format": "uri", "description": "Empty string when no portrait exists" }
+				}
+			},
+			"Spell": {
+				"type": "object",
+				"properties": {
+					"id": { "type": "string", "format": "uuid" },
+					"name": { "type": "string", "example": "Aberto" },
+					"description": { "type": "string", "example": "Opens locked doors" }
+				}
+			}
+		}
+	}
+}

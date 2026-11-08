@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import { getLocale, useTranslations } from '../i18n';
+
+const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
+---
+
+<Base title={tr('notFound.title')} description={tr('notFound.description')}>
+  <Section top={false} inner="px-6 py-32 max-md:px-5 text-center">
+    <p class="label"><b>[404]</b> {tr('notFound.label')}</p>
+    <h1 class="mt-5 text-[clamp(40px,6vw,72px)] leading-none font-bold tracking-[-0.05em]">
+      {tr('notFound.headline')}
+    </h1>
+    <p class="mt-5 text-[15px] text-steel">
+      {tr('notFound.body')}
+    </p>
+    <div class="mt-9 flex flex-wrap justify-center gap-x-7 gap-y-4">
+      <a href="/" class="btn btn-primary">{tr('notFound.home')} -&gt;</a>
+      <a href="/posts" class="link text-[15px]">{tr('notFound.blog')} -&gt;</a>
+    </div>
+  </Section>
+</Base>

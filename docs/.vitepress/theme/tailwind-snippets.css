@@ -1,0 +1,20 @@
+/* Tailwind only for the vendored component snippets — injected into an iframe so
+ * neither these utilities nor the preflight reset touch the VitePress theme. */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Snippets are written against Tailwind 4, but several rely on the v3 default
+ * border color that v4 changed to `currentColor`. The upstream upgrade tool
+ * adds this same compatibility layer; without it every bare `border` would
+ * inherit the text color. */
+@layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: var(--color-gray-200, currentcolor);
+	}
+}
+
+@source "../../../packages/ui/tailwind/html/**/*.html";

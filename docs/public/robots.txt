@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://senseikatana.com/en/docs/sitemap.xml

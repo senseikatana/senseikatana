@@ -1,0 +1,27 @@
+# Legacy URLs (Nuxt era and the first Astro routes). Cloudflare Pages applies
+# this file before serving; keep it in sync with src/middleware.ts.
+/blog/*            /posts/:splat              301
+/blog              /posts                     301
+/works/*           /projects/:splat           301
+/works             /projects                  301
+/resume            /about                     301
+/curriculum        /about                     301
+/proyectos         /projects                  301
+/servicios         /services                  301
+/docs/*            /en/docs/:splat            301
+/docs              /en/docs/                  301
+/getting-started   /en/docs/start/getting-started  301
+
+/ca/blog/*         /ca/posts/:splat           301
+/ca/blog           /ca/posts                  301
+/ca/works/*        /ca/projects/:splat        301
+/ca/works          /ca/projects               301
+/ca/proyectos      /ca/projects               301
+/ca/servicios      /ca/services               301
+
+/en/blog/*         /en/posts/:splat           301
+/en/blog           /en/posts                  301
+/en/works/*        /en/projects/:splat        301
+/en/works          /en/projects               301
+/en/proyectos      /en/projects               301
+/en/servicios      /en/services               301
