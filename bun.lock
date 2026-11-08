@@ -16,7 +16,7 @@
         "typescript-eslint": "^8.71.0",
       },
     },
-    "web": {
+    "webastro": {
       "name": "@senseikatana/web",
       "version": "0.1.0",
       "dependencies": {
@@ -305,7 +305,7 @@
 
     "@rolldown/pluginutils": ["@rolldown/pluginutils@1.0.1", "", {}, "sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw=="],
 
-    "@senseikatana/web": ["@senseikatana/web@workspace:web"],
+    "@senseikatana/web": ["@senseikatana/web@workspace:webastro"],
 
     "@shikijs/core": ["@shikijs/core@4.4.3", "", { "dependencies": { "@shikijs/primitive": "4.4.3", "@shikijs/types": "4.4.3", "@shikijs/vscode-textmate": "^10.0.2", "@types/hast": "^3.0.5", "hast-util-to-html": "^9.0.5" } }, "sha512-QCR4q2ZO/ILJEuwiBMel4wdcTDb1JGwfjKTxPDF6x8ixOaluPrVqIn06C99AcRPhmYlBR56d/Fb+GN58GzExpg=="],
 

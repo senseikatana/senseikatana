@@ -11,9 +11,9 @@ Check `gh issue list --state open` before changing anything here.
 1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
 2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
 
-The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
-Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
-queries, and `web/src/content/` holds the Markdown collections.
+The only workspace is `webastro/` (`@senseikatana/web`), an Astro site built with Feature-Based
+Architecture: `webastro/src/pages/` is a thin route layer, `webastro/src/features/` owns components
+and queries, and `webastro/src/content/` holds the Markdown collections.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
@@ -44,9 +44,9 @@ with `gh run list --workflow sync-main.yml`.
 Run everything with Bun from the repository root:
 
 ```bash
-bun install        # single lockfile at the root; never commit web/bun.lock
-bun run dev        # astro dev for web/
-bun run build      # static build into web/dist/
+bun install        # single lockfile at the root; never commit webastro/bun.lock
+bun run dev        # astro dev for webastro/
+bun run build      # static build into webastro/dist/
 bun run check      # prettier --check, eslint, astro check
 bun run format     # prettier --write
 ```
@@ -57,7 +57,7 @@ There is no test suite yet. `bun run check` is the gate that must pass before co
 
 Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
 
-- Pages project: `senseikatana-web`. Build: `bun run build`. Output: `web/dist`.
+- Pages project: `senseikatana-web`. Build: `bun run build`. Output: `webastro/dist`.
 - CI: `.github/workflows/deploy.yml` runs after a successful `Sync main` run, or manually with
   `workflow_dispatch`. It requires the `CLOUDFLARE_API_TOKEN` (Pages: Edit) and
   `CLOUDFLARE_ACCOUNT_ID` repository secrets.
@@ -74,7 +74,7 @@ docs disappear from the apex. `/docs/` does not exist today.
 - The pre-commit hook runs `bunx lint-staged`. Never use `npx` here: it resolves binaries
   outside the Bun workspace and fails with `ENOENT`.
 - All tooling (Prettier, ESLint, lint-staged, Husky) lives at the root. There is exactly one
-  `.husky/` in the repo; do not add one inside `web/`.
+  `.husky/` in the repo; do not add one inside `webastro/`.
 - lint-staged formats Markdown, JSON, YAML, CSS, HTML and Astro files with `prettier --write`,
   and runs `eslint --fix` on JS/TS.
 
