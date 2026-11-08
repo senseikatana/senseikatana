@@ -259,9 +259,7 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 		resolve: {
 			alias: {
-				"@katanakit/ui/styles.css": fileURLToPath(
-					new URL("../../packages/ui/dist/styles.css", import.meta.url),
-				),
+				"@katanakit/ui/styles.css": fileURLToPath(new URL("./vendor/kit-styles.css", import.meta.url)),
 				"@katanakit/ui": fileURLToPath(new URL("../../packages/ui/dist/index.js", import.meta.url)),
 			},
 		},

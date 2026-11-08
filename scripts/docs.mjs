@@ -79,7 +79,17 @@ function syncFromKit() {
     console.log('docs: copied signals.json');
   }
 
-  // 3. Copy sync-tailwind-components output if needed
+  // 3. Vendor the UI kit stylesheet the docs theme imports, so the build does
+  // not depend on a local packages/ui/dist checkout.
+  const srcStyles = join(KATANAKIT_ROOT, 'packages', 'ui', 'dist', 'styles.css');
+  const dstStyles = join(ROOT, 'docs', '.vitepress', 'vendor', 'kit-styles.css');
+  if (existsSync(srcStyles)) {
+    mkdirSync(dirname(dstStyles), { recursive: true });
+    copyFileSync(srcStyles, dstStyles);
+    console.log('docs: copied packages/ui/dist/styles.css');
+  }
+
+  // 4. Copy sync-tailwind-components output if needed
   const kitTailwindHtml = join(KATANAKIT_ROOT, 'packages', 'ui', 'tailwind', 'html');
   const dstTailwindHtml = join(ROOT, 'docs', 'ui-kit', 'reference');
   if (existsSync(kitTailwindHtml)) {
