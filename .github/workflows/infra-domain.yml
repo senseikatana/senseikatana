@@ -38,9 +38,9 @@ jobs:
           host="senseikatana.com"
           site="senseikatana-web"
 
-          projects=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects?page=1&per_page=50")
+          projects=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects")
           for name in $(echo "${projects}" | jq -r '.result[].name'); do
-            domains=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${name}/domains?page=1&per_page=50" || echo '{"result":[]}')
+            domains=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${name}/domains" || echo '{"result":[]}')
             echo "project ${name}: $(echo "${domains}" | jq -r '[.result[]?.name] | join(", ")')"
             if echo "${domains}" | jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
               if [ "${name}" != "${site}" ]; then
@@ -50,7 +50,7 @@ jobs:
             fi
           done
 
-          if curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${site}/domains?page=1&per_page=50" |
+          if curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${site}/domains" |
             jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
             echo "${host} already attached to ${site}"
           else
