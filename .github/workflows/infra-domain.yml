@@ -36,24 +36,24 @@ jobs:
           host="senseikatana.com"
           site="senseikatana-web"
 
-          projects=$(curl -fsS --fail-with-body "${auth[@]}" "${api}/pages/projects?page=1&per_page=50")
+          projects=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects?page=1&per_page=50")
           for name in $(echo "${projects}" | jq -r '.result[].name'); do
-            domains=$(curl -fsS --fail-with-body "${auth[@]}" "${api}/pages/projects/${name}/domains?page=1&per_page=50" || echo '{"result":[]}')
+            domains=$(curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${name}/domains?page=1&per_page=50" || echo '{"result":[]}')
             echo "project ${name}: $(echo "${domains}" | jq -r '[.result[]?.name] | join(", ")')"
             if echo "${domains}" | jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
               if [ "${name}" != "${site}" ]; then
                 echo "Detaching ${host} from ${name}"
-                curl -fsS --fail-with-body -X DELETE "${auth[@]}" "${api}/pages/projects/${name}/domains/${host}" >/dev/null
+                curl -sS --fail-with-body -X DELETE "${auth[@]}" "${api}/pages/projects/${name}/domains/${host}" >/dev/null
               fi
             fi
           done
 
-          if curl -fsS --fail-with-body "${auth[@]}" "${api}/pages/projects/${site}/domains?page=1&per_page=50" |
+          if curl -sS --fail-with-body "${auth[@]}" "${api}/pages/projects/${site}/domains?page=1&per_page=50" |
             jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
             echo "${host} already attached to ${site}"
           else
             echo "Attaching ${host} to ${site}"
-            curl -fsS --fail-with-body -X POST "${auth[@]}" "${api}/pages/projects/${site}/domains" \
+            curl -sS --fail-with-body -X POST "${auth[@]}" "${api}/pages/projects/${site}/domains" \
               --data "{\"name\":\"${host}\"}" | jq -c '.result'
           fi
 
@@ -65,11 +65,11 @@ jobs:
           set -euo pipefail
           api="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
           auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}")
-          routes=$(curl -fsS --fail-with-body "${auth[@]}" "${api}/workers/routes")
+          routes=$(curl -sS --fail-with-body "${auth[@]}" "${api}/workers/routes")
           for id in $(echo "${routes}" | jq -r '.result[] | select(.pattern == "senseikatana.com/" or .pattern == "senseikatana.com/en" or .pattern == "senseikatana.com/en/") | .id'); do
             pattern=$(echo "${routes}" | jq -r --arg id "${id}" '.result[] | select(.id == $id) | .pattern')
-            curl -fsS --fail-with-body -X DELETE "${auth[@]}" "${api}/workers/routes/${id}" >/dev/null
+            curl -sS --fail-with-body -X DELETE "${auth[@]}" "${api}/workers/routes/${id}" >/dev/null
             echo "Deleted route ${pattern}"
           done
           echo "Remaining routes:"
-          curl -fsS --fail-with-body "${auth[@]}" "${api}/workers/routes" | jq -r '.result[] | .pattern'
+          curl -sS --fail-with-body "${auth[@]}" "${api}/workers/routes" | jq -r '.result[] | .pattern'
