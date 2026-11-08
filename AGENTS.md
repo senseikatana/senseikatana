@@ -11,7 +11,7 @@ Check `gh issue list --state open` before changing anything here.
 1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
 2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
 3. The **KatanaKit documentation source** (`docs/`), a VitePress site deployed to the
-   `senseikatana-docs` Pages project and proxied under `/en/docs/` by the docs-proxy Worker
+   `katanakit-docs` Pages project and proxied under `/en/docs/` by the docs-proxy Worker
    (lives in `katanakit-js/workers/docs-proxy`).
 
 The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
@@ -96,9 +96,9 @@ Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
 - Remote preview of the dev server: `bun run tunnel` (cloudflared quick tunnel to port 4321).
 
 Docs deploy separately: `bun run docs:deploy` publishes `docs/.vitepress/dist` to the
-`senseikatana-docs` Pages project (branch `main`). The `katanakit-docs-proxy` Worker in
-`katanakit-js/workers/docs-proxy` mounts that project under `senseikatana.com/en/docs/` and
-serves `/` and `/en/` from the docs landing page.
+`katanakit-docs` Pages project (branch `main`). The `katanakit-docs-proxy` Worker in
+`katanakit-js/workers/docs-proxy` mounts that project under `senseikatana.com/en/docs/`; the
+site project serves the apex and every other site route.
 
 ## Committing
 

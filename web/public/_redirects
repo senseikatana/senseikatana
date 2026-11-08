@@ -41,6 +41,8 @@
 /getting-started   /en/docs/start/getting-started  301
 
 # English used to be a prefix; it is the default locale now
+/en                /                          301
+/en/               /                          301
 /en/blog/*         /posts/:splat              301
 /en/blog           /posts                     301
 /en/posts/*        /posts/:splat              301

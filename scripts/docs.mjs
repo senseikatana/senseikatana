@@ -16,7 +16,7 @@ const TEMP_DIR = join(VITEPRESS_DIR, '.temp');
 const CACHE_DIR = join(VITEPRESS_DIR, 'cache');
 const ROOT_VITEPRESS_DIR = join(ROOT, '.vitepress');
 
-const CLOUDFLARE_PROJECT = 'senseikatana-docs';
+const CLOUDFLARE_PROJECT = 'katanakit-docs';
 const CLOUDFLARE_BRANCH = 'main';
 const DOCS_BASE = 'docs';
 

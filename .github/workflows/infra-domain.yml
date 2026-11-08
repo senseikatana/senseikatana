@@ -1,0 +1,75 @@
+name: Infra · apex domain
+
+# Idempotent maintenance for the apex: moves senseikatana.com to the site Pages
+# project and frees the site root from the docs proxy Worker. The docs keep
+# working under /en/docs — the Worker fetches them from their Pages deployment.
+#
+# Run manually from the Actions tab after the site project exists.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cloudflare credentials
+        run: |
+          if [ -z "${CLOUDFLARE_API_TOKEN}" ] || [ -z "${CLOUDFLARE_ACCOUNT_ID}" ]; then
+            echo "::error::Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID repository secret."
+            exit 1
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Move the apex to senseikatana-web
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" -H "Content-Type: application/json")
+          host="senseikatana.com"
+          site="senseikatana-web"
+
+          projects=$(curl -fsS "${auth[@]}" "${api}/pages/projects?per_page=100")
+          for name in $(echo "${projects}" | jq -r '.result[].name'); do
+            domains=$(curl -fsS "${auth[@]}" "${api}/pages/projects/${name}/domains?per_page=100" || echo '{"result":[]}')
+            echo "project ${name}: $(echo "${domains}" | jq -r '[.result[]?.name] | join(", ")')"
+            if echo "${domains}" | jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
+              if [ "${name}" != "${site}" ]; then
+                echo "Detaching ${host} from ${name}"
+                curl -fsS -X DELETE "${auth[@]}" "${api}/pages/projects/${name}/domains/${host}" >/dev/null
+              fi
+            fi
+          done
+
+          if curl -fsS "${auth[@]}" "${api}/pages/projects/${site}/domains?per_page=100" |
+            jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
+            echo "${host} already attached to ${site}"
+          else
+            echo "Attaching ${host} to ${site}"
+            curl -fsS -X POST "${auth[@]}" "${api}/pages/projects/${site}/domains" \
+              --data "{\"name\":\"${host}\"}" | jq -c '.result'
+          fi
+
+      - name: Free the site root from the docs proxy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"
+          auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}")
+          routes=$(curl -fsS "${auth[@]}" "${api}/workers/routes")
+          for id in $(echo "${routes}" | jq -r '.result[] | select(.pattern == "senseikatana.com/" or .pattern == "senseikatana.com/en" or .pattern == "senseikatana.com/en/") | .id'); do
+            pattern=$(echo "${routes}" | jq -r --arg id "${id}" '.result[] | select(.id == $id) | .pattern')
+            curl -fsS -X DELETE "${auth[@]}" "${api}/workers/routes/${id}" >/dev/null
+            echo "Deleted route ${pattern}"
+          done
+          echo "Remaining routes:"
+          curl -fsS "${auth[@]}" "${api}/workers/routes" | jq -r '.result[] | .pattern'
