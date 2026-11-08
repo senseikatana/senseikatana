@@ -46,7 +46,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build
-        run: bunx vitepress build docs
+        run: node scripts/docs.mjs build
 
       - name: Deploy to Cloudflare Pages
         run: bunx wrangler@4.145.0 pages deploy docs/.vitepress/dist --project-name katanakit-docs --branch main

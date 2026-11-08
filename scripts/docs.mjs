@@ -4,7 +4,7 @@
  * Wraps katanakit-js docs preparation and runs VitePress.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, rmSync, copyFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, renameSync, rmSync, copyFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -18,7 +18,7 @@ const ROOT_VITEPRESS_DIR = join(ROOT, '.vitepress');
 
 const CLOUDFLARE_PROJECT = 'katanakit-docs';
 const CLOUDFLARE_BRANCH = 'main';
-const DOCS_BASE = 'docs';
+const DOCS_BASE = 'en/docs';
 
 const MODES = new Set(['dev', 'build', 'preview', 'deploy', 'gh', 'clean']);
 const mode = (process.argv[2] ?? '').toLowerCase();
@@ -105,6 +105,27 @@ function syncFromKit() {
   }
 }
 
+/**
+ * Moves the built site under `dist/en/docs/` so a root-served Pages deployment
+ * answers on `/en/docs/...` (the Worker proxy and the canonical URLs expect it).
+ * `_redirects` and `_headers` stay at the deployment root.
+ */
+function mountUnderBase() {
+  const mount = join(DIST_DIR, DOCS_BASE);
+  const topSegment = DOCS_BASE.split('/')[0];
+  remove(join(DIST_DIR, topSegment));
+  mkdirSync(mount, { recursive: true });
+
+  for (const entry of readdirSync(DIST_DIR)) {
+    if (entry === topSegment || entry === '_redirects' || entry === '_headers') continue;
+    renameSync(join(DIST_DIR, entry), join(mount, entry));
+  }
+
+  const notFound = join(mount, '404.html');
+  if (existsSync(notFound)) copyFileSync(notFound, join(DIST_DIR, '404.html'));
+  console.log(`docs: mounted the build at /${DOCS_BASE}/`);
+}
+
 function acquire() {
   mkdirSync(join(ROOT, '.cache'), { recursive: true });
   // Lock logic here if needed (similar to original)
@@ -137,27 +158,32 @@ async function main() {
     }
     case 'build': {
       clean();
-      syncFromKit();
       run('bunx', ['vitepress', 'build', 'docs']);
+      mountUnderBase();
       break;
     }
     case 'preview': {
       clean();
-      syncFromKit();
       run('bunx', ['vitepress', 'build', 'docs']);
+      mountUnderBase();
       run('bunx', ['vitepress', 'preview', 'docs']);
       break;
     }
     case 'deploy':
     case 'gh': {
       clean();
-      syncFromKit();
       run('bunx', ['vitepress', 'build', 'docs']);
-      // Deploy to Cloudflare Pages
-      const distPath = join(VITEPRESS_DIR, 'dist');
+      mountUnderBase();
+
+      if (!existsSync(join(DIST_DIR, DOCS_BASE, 'index.html'))) {
+        console.error(`docs: no build to deploy — expected ${DOCS_BASE}/index.html`);
+        process.exit(1);
+      }
+
       const branch = mode === 'gh' ? 'gh-pages' : CLOUDFLARE_BRANCH;
-      const project = mode === 'gh' ? '' : `--project-name ${CLOUDFLARE_PROJECT}`;
-      run('bunx', ['wrangler@4.145.0', 'pages', 'deploy', distPath, project, '--branch', branch]);
+      const args = ['wrangler@4.145.0', 'pages', 'deploy', DIST_DIR, '--branch', branch];
+      if (mode !== 'gh') args.push('--project-name', CLOUDFLARE_PROJECT);
+      run('bunx', args);
       break;
     }
   }
