@@ -6,9 +6,9 @@ import { defineConfig, type HeadConfig } from "vitepress";
 import { defineSeoMetaConfig, useSeoMeta } from "./lib/seo.service.js";
 import type { SiteConfig } from "./lib/site.config.js";
 
-const SITE_ORIGIN = "https://senseikatana.com";
-/** Every docs route lives under the language + section prefix. */
-const DOCS_BASE = "/en/docs";
+const SITE_ORIGIN = "https://docs.senseikatana.com";
+/** Docs are served at the root of their own subdomain. */
+const DOCS_BASE = "";
 const DOCS_ORIGIN = `${SITE_ORIGIN}${DOCS_BASE}`;
 const DOCS_OG_IMAGE = `${DOCS_ORIGIN}/images/social-card.jpg`;
 const DOCS_KEYWORDS =

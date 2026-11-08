@@ -1,26 +1,9 @@
-# docs.senseikatana.com is retired: every legacy URL 301s to the canonical
-# host. Absolute destinations, because the same deployment also serves the
-# apexes through the docs proxy Worker — a relative redirect would keep users
-# on the old host, and a `/*` catch-all would loop with /en/docs/* (the
-# destination paths are deliberately not listed as sources).
-/                https://senseikatana.com/en/docs/                     301
-/docs/*          https://senseikatana.com/en/docs/:splat              301
-/docs            https://senseikatana.com/en/docs/                     301
-/tutorials/*     https://senseikatana.com/en/docs/tutorials/:splat     301
-/guides/*        https://senseikatana.com/en/docs/guides/:splat        301
-/ui-kit/*        https://senseikatana.com/en/docs/ui-kit/:splat        301
-/api/*           https://senseikatana.com/en/docs/api/:splat           301
-/explanation/*   https://senseikatana.com/en/docs/explanation/:splat   301
-/changelog       https://senseikatana.com/en/docs/changelog            301
-/hyperui/*       https://senseikatana.com/en/docs/hyperui/:splat       301
-/images/*        https://senseikatana.com/en/docs/images/:splat        301
-/component.css   https://senseikatana.com/en/docs/component.css        301
-/component.js    https://senseikatana.com/en/docs/component.js         301
-/robots.txt      https://senseikatana.com/en/docs/robots.txt           301
-/sitemap.xml     https://senseikatana.com/en/docs/sitemap.xml          301
+# docs.senseikatana.com is the canonical docs host (served at the root).
+# These redirects only fix legacy paths of the old VitePress structure.
+# The apex URLs (`/en/docs/*`) redirect here from the main site, not from this file.
 
-# The narrative pages moved from /guides/ to /start/ (Docs section).
-/en/docs/guides/getting-started    /en/docs/start/getting-started    301
-/en/docs/guides/errors             /en/docs/start/errors             301
-/en/docs/guides/roadmap            /en/docs/start/roadmap            301
-/en/docs/guides/architecture       /en/docs/start/architecture       301
+# Narrative pages moved from /guides/ to /start/ (Docs section).
+/guides/getting-started    /start/getting-started    301
+/guides/errors             /start/errors             301
+/guides/roadmap            /start/roadmap            301
+/guides/architecture       /start/architecture       301

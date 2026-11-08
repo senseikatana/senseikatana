@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/jetbrains-mono';
+/* Self-hosted brand fonts. Without these the @theme families below fall back to
+   the system UI font, which is why headings rendered wrong. @fontsource ships
+   `font-display: swap` by default. */
+@import '@fontsource/archivo/400.css';
+@import '@fontsource/archivo/500.css';
+@import '@fontsource/archivo/700.css';
+@import '@fontsource/bebas-neue/400.css';
+@import '@fontsource/oswald/400.css';
 
 /*
   Senseikatana design tokens. Rebrand here, nowhere else.

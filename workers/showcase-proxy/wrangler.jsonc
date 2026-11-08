@@ -1,0 +1,21 @@
+// Subdomain Worker: serves the /projects section of the Astro site at the
+// root of showcase.senseikatana.com.
+//
+// The projects section lives inside the main Astro build (`web/`), so this
+// Worker rewrites `showcase.senseikatana.com/<path>` to
+// `senseikatana.com/projects/<path>` and proxies the response. No separate
+// build, no duplicated content — showcase is just a window into /projects.
+//
+// Deploy: `bunx wrangler deploy -c workers/showcase-proxy/wrangler.jsonc`
+//
+// The route is per-zone. The zone must exist in the same Cloudflare account.
+{
+  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "name": "showcase-proxy",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-01",
+
+  // Only the showcase subdomain hits this Worker; the apex and every other
+  // route stay with the site Pages project.
+  "routes": [{ "pattern": "showcase.senseikatana.com/*", "zone_name": "senseikatana.com" }],
+}

@@ -18,7 +18,7 @@ const ROOT_VITEPRESS_DIR = join(ROOT, '.vitepress');
 
 const CLOUDFLARE_PROJECT = 'katanakit-docs';
 const CLOUDFLARE_BRANCH = 'main';
-const DOCS_BASE = 'en/docs';
+const DOCS_BASE = '';
 
 const MODES = new Set(['dev', 'build', 'preview', 'deploy', 'gh', 'clean']);
 const mode = (process.argv[2] ?? '').toLowerCase();
@@ -111,6 +111,12 @@ function syncFromKit() {
  * `_redirects` and `_headers` stay at the deployment root.
  */
 function mountUnderBase() {
+  // A root-served deployment (docs subdomain) needs no nesting: VitePress
+  // already writes the build at the deployment root.
+  if (!DOCS_BASE) {
+    console.log('docs: build served at the deployment root');
+    return;
+  }
   const mount = join(DIST_DIR, DOCS_BASE);
   const topSegment = DOCS_BASE.split('/')[0];
   remove(join(DIST_DIR, topSegment));
