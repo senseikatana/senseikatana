@@ -50,9 +50,16 @@ jobs:
 
           echo "== Attach the apex to ${site} if missing =="
           mine=$(curl -sS "${auth[@]}" "${api}/pages/projects/${site}/domains")
-          if echo "${mine}" | jq -e --arg host "${host}" '.result[]? | select(.name == $host)' >/dev/null; then
-            echo "  already attached: $(echo "${mine}" | jq -r --arg host "${host}" '.result[] | select(.name == $host) | .status')"
-          else
+          current_status=$(echo "${mine}" | jq -r --arg host "${host}" '.result[]? | select(.name == $host) | .status' || true)
+          echo "  status: ${current_status:-missing}"
+
+          if [ "${current_status}" = "pending" ]; then
+            echo "  re-attaching to refresh validation"
+            curl -sS "${auth[@]}" -X DELETE "${api}/pages/projects/${site}/domains/${host}" >/dev/null || true
+            sleep 3
+            current_status=""
+          fi
+          if [ -z "${current_status}" ]; then
             curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${site}/domains" \
               --data "{\"name\":\"${host}\"}" | jq -c '.result // .errors'
           fi
@@ -86,10 +93,11 @@ jobs:
             echo "  ::warning::zone not accessible with this token (needs DNS:Edit to change it)"
           fi
 
-          echo "== Worker routes =="
+          echo "== Worker access =="
           code=$(curl -sS -o /tmp/routes -w '%{http_code}' "${auth[@]}" "${api}/workers/routes")
-          echo "  HTTP ${code}"
-          head -c 400 /tmp/routes; echo
+          echo "  routes HTTP ${code}"; head -c 200 /tmp/routes; echo
+          code2=$(curl -sS -o /tmp/scripts -w '%{http_code}' "${auth[@]}" "${api}/workers/scripts")
+          echo "  scripts HTTP ${code2}"; head -c 200 /tmp/scripts; echo
           if [ "${code}" = "200" ]; then
             for id in $(jq -r '.result[] | select(.pattern == "senseikatana.com/" or .pattern == "senseikatana.com/en" or .pattern == "senseikatana.com/en/") | .id' /tmp/routes); do
               pattern=$(jq -r --arg id "${id}" '.result[] | select(.id == $id) | .pattern' /tmp/routes)
@@ -102,7 +110,7 @@ jobs:
 
       - name: Verify the apex
         run: |
-          sleep 20
+          sleep 60
           for path in / /posts /about /es/posts/ /en/docs/start/getting-started; do
             echo "${path} -> $(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
           done
