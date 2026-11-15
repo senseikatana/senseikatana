@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════════
    KatanaKit Docs — design system
-   Direction: Nuxt-style layout and typography, Dahl-bold display accents.
+   Direction: sharp editorial chrome — hairline borders, crimson-rose accent,
+   display type with tight tracking, accent-tinted interaction states.
    Loaded after the kit-ui vendor CSS and style.css so it owns the cascade.
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -30,10 +31,89 @@ html {
 	max-width: 100%;
 }
 
+/* ── 1b. Base behaviour ───────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
+
+:focus-visible {
+	outline: 2px solid var(--kat-accent);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
 /* ── 2. Design tokens ─────────────────────────────────────────────── */
 
+/*
+ * One complete palette per theme. The `--vp-*` mapping is declared on
+ * `:root, html.dark` so it out-specifies VitePress' own `.dark` block and the
+ * whole surface flips together with the toggle — no default value can leak
+ * through in either mode.
+ */
 :root {
-	/* Katana palette: near-black surfaces, crimson-rose accent. */
+	/* Katana palette (light): paper surfaces, crimson-rose accent. */
+	--kat-bg: #f8f8fa;
+	--kat-bg-alt: #f1f1f4;
+	--kat-surface: #ffffff;
+	--kat-surface-2: #f3f3f7;
+	--kat-border: #e2e2e9;
+	--kat-border-soft: #eaeaf0;
+	--kat-text-1: #16161b;
+	--kat-text-2: #4e4e5a;
+	--kat-text-3: #82828d;
+	--kat-accent: #e11d48;
+	--kat-accent-hover: #c31640;
+	--kat-accent-press: #a2102f;
+	--kat-accent-soft: rgba(225, 29, 72, 0.075);
+	--kat-accent-line: rgba(225, 29, 72, 0.32);
+	--kat-accent-glow: #f43f5e;
+
+	/* Semantic states */
+	--kat-warn: #b7791f;
+	--kat-warn-title: #8a5a00;
+	--kat-warn-bg: rgba(183, 121, 31, 0.09);
+	--kat-stripe: rgba(22, 22, 27, 0.024);
+	--kat-code-block: #f5f5f8;
+	--kat-code-flash: rgba(225, 29, 72, 0.07);
+
+	/* Chrome */
+	--kat-nav-bg: rgba(248, 248, 250, 0.82);
+	--kat-backdrop: rgba(18, 18, 26, 0.42);
+	--kat-hero-top: var(--kat-bg-alt);
+	--kat-glow-a: 16%;
+	--kat-glow-b: 14%;
+	--kat-shadow-1: 0 1px 2px rgba(16, 16, 26, 0.06);
+	--kat-shadow-2: 0 3px 12px rgba(16, 16, 26, 0.08);
+	--kat-shadow-3: 0 12px 32px rgba(16, 16, 26, 0.11);
+
+	color-scheme: light;
+
+	/* Type */
+	--kat-font-display: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
+	--vp-font-family-base: "Inter Tight", "Inter", system-ui, -apple-system,
+		"Segoe UI", Roboto, sans-serif;
+	--vp-font-family-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
+		Consolas, monospace;
+}
+
+html.dark {
+	/* Katana palette (dark): near-black surfaces, crimson-rose accent. */
 	--kat-bg: #0a0a0c;
 	--kat-bg-alt: #0e0e12;
 	--kat-surface: #121218;
@@ -48,15 +128,32 @@ html {
 	--kat-accent-press: #e02448;
 	--kat-accent-soft: rgba(255, 45, 85, 0.12);
 	--kat-accent-line: rgba(255, 45, 85, 0.32);
+	--kat-accent-glow: #ffa3b4;
 
-	/* Type */
-	--kat-font-display: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
-	--vp-font-family-base: "Inter Tight", "Inter", system-ui, -apple-system,
-		"Segoe UI", Roboto, sans-serif;
-	--vp-font-family-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
-		Consolas, monospace;
+	/* Semantic states */
+	--kat-warn: #d9a115;
+	--kat-warn-title: #f0c04a;
+	--kat-warn-bg: rgba(217, 161, 21, 0.09);
+	--kat-stripe: rgba(255, 255, 255, 0.014);
+	--kat-code-block: #101016;
+	--kat-code-flash: rgba(255, 45, 85, 0.08);
 
-	/* VitePress surfaces follow the palette. */
+	/* Chrome */
+	--kat-nav-bg: rgba(10, 10, 12, 0.82);
+	--kat-backdrop: rgba(10, 10, 12, 0.7);
+	--kat-hero-top: #0d0d16;
+	--kat-glow-a: 26%;
+	--kat-glow-b: 20%;
+	--kat-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.36);
+	--kat-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.4);
+	--kat-shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+	color-scheme: dark;
+}
+
+/* VitePress surfaces follow the palette in BOTH modes. */
+:root,
+html.dark {
 	--vp-c-bg: var(--kat-bg);
 	--vp-c-bg-alt: var(--kat-bg-alt);
 	--vp-c-bg-elv: var(--kat-surface);
@@ -68,6 +165,7 @@ html {
 	--vp-c-text-1: var(--kat-text-1);
 	--vp-c-text-2: var(--kat-text-2);
 	--vp-c-text-3: var(--kat-text-3);
+	--vp-c-text-code: var(--kat-text-1);
 
 	/* Brand */
 	--vp-c-brand-1: var(--kat-accent);
@@ -75,29 +173,43 @@ html {
 	--vp-c-brand-3: var(--kat-accent-press);
 	--vp-c-brand-soft: var(--kat-accent-soft);
 
+	/* Custom containers */
+	--vp-c-tip-1: var(--kat-accent);
+	--vp-c-tip-2: var(--kat-accent-hover);
+	--vp-c-tip-3: var(--kat-accent-press);
+	--vp-c-tip-soft: var(--kat-accent-soft);
+	--vp-c-warning-1: var(--kat-warn);
+	--vp-c-warning-2: var(--kat-warn-title);
+	--vp-c-warning-3: var(--kat-warn);
+	--vp-c-warning-soft: var(--kat-warn-bg);
+	--vp-c-danger-1: var(--kat-accent);
+	--vp-c-danger-2: var(--kat-accent-hover);
+	--vp-c-danger-3: var(--kat-accent-press);
+	--vp-c-danger-soft: var(--kat-accent-soft);
+	--vp-c-default-1: var(--kat-text-1);
+	--vp-c-default-2: var(--kat-text-2);
+	--vp-c-default-3: var(--kat-text-3);
+
 	/* Code */
 	--vp-code-bg: var(--kat-surface);
-	--vp-code-block-bg: #101016;
+	--vp-code-block-bg: var(--kat-code-block);
 	--vp-code-block-divider: var(--kat-border);
-	--vp-code-line-highlight-color: rgba(255, 45, 85, 0.08);
+	--vp-code-line-highlight-color: var(--kat-code-flash);
 	--vp-code-line-numbers: var(--kat-text-3);
 	--vp-code-copy-code-bg: var(--kat-surface-2);
 	--vp-code-copy-code-hover-bg: var(--kat-surface-2);
 
 	/* Chrome */
-	--vp-nav-bg-color: rgba(10, 10, 12, 0.82);
+	--vp-nav-bg-color: var(--kat-nav-bg);
 	--vp-sidebar-bg-color: var(--kat-bg-alt);
-	--vp-c-bg-elv-backdrop: rgba(10, 10, 12, 0.7);
-	--vp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.36);
-	--vp-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.4);
-	--vp-shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+	--vp-c-bg-elv-backdrop: var(--kat-backdrop);
+	--vp-shadow-1: var(--kat-shadow-1);
+	--vp-shadow-2: var(--kat-shadow-2);
+	--vp-shadow-3: var(--kat-shadow-3);
+	--vp-vl-bg: var(--kat-surface);
 	--vp-border-radius: 10px;
 	--vp-sidebar-width: 272px;
 	--vp-layout-max-width: 1440px;
-}
-
-html.dark {
-	--kat-bg: #0a0a0c;
 }
 
 /* ── 3. Typography ────────────────────────────────────────────────── */
@@ -235,6 +347,10 @@ body {
 
 .vp-section-tab__icon {
 	display: inline-flex;
+	opacity: 0.7;
+	transition:
+		opacity 0.18s ease,
+		color 0.18s ease;
 }
 
 .vp-section-tab__icon svg {
@@ -242,13 +358,39 @@ body {
 	height: 13px;
 }
 
-/* The active pill is state-marked by the nav via .active/.activeMatch
-   containers; hover always responds. */
+/* Hover: an accent tint — never a flat grey pill — and the icon lights up. */
 a:hover .vp-section-tab,
-button:hover .vp-section-tab {
-	color: var(--kat-text-1);
-	border-color: var(--kat-border);
-	background: var(--kat-surface);
+button:hover .vp-section-tab,
+.VPNavBarMenuLink:hover .vp-section-tab,
+.VPNavBarMenuGroup .option:hover .vp-section-tab {
+	color: var(--kat-accent-hover);
+	background: var(--kat-accent-soft);
+}
+
+a:hover .vp-section-tab__icon,
+button:hover .vp-section-tab__icon,
+.VPNavBarMenuLink:hover .vp-section-tab__icon {
+	opacity: 1;
+	color: var(--kat-accent);
+}
+
+/* Active: the same tint plus a hairline ring, so position reads at a glance. */
+.VPNavBarMenuLink.active .vp-section-tab,
+.VPNavBarMenuGroup.active .vp-section-tab {
+	color: var(--kat-accent-hover);
+	background: var(--kat-accent-soft);
+	border-color: var(--kat-accent-line);
+}
+
+.VPNavBarMenuLink.active .vp-section-tab__icon {
+	opacity: 1;
+	color: var(--kat-accent);
+}
+
+.VPNavBarMenuLink:focus-visible .vp-section-tab,
+a:focus-visible .vp-section-tab {
+	outline: 2px solid var(--kat-accent);
+	outline-offset: 2px;
 }
 
 /* ── 5. Sidebar ───────────────────────────────────────────────────── */
@@ -419,12 +561,12 @@ div[class*="language-"] .vp-code span {
 }
 
 .custom-block.warning {
-	border-left-color: #d9a115;
-	background: rgba(217, 161, 21, 0.09);
+	border-left-color: var(--kat-warn);
+	background: var(--kat-warn-bg);
 }
 
 .custom-block.warning .custom-block-title {
-	color: #f0c04a;
+	color: var(--kat-warn-title);
 }
 
 .custom-block.danger {
@@ -509,7 +651,7 @@ div[class*="language-"] .vp-code span {
 	line-height: 1.02;
 	letter-spacing: -0.038em;
 	max-width: 17ch;
-	background: linear-gradient(102deg, var(--kat-accent) 8%, var(--kat-accent-hover) 52%, #ffa3b4 96%);
+	background: linear-gradient(102deg, var(--kat-accent) 8%, var(--kat-accent-hover) 52%, var(--kat-accent-glow) 96%);
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent !important;
@@ -611,7 +753,7 @@ div[class*="language-"] .vp-code span {
 }
 
 .vp-doc tr:nth-child(2n) {
-	background: rgba(255, 255, 255, 0.012);
+	background: var(--kat-stripe);
 }
 
 .vp-doc td,
