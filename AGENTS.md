@@ -57,12 +57,13 @@ bun run format     # prettier --write
 
 bun run docs:dev      # vitepress dev for docs/
 bun run docs:build    # sync generated content from ../katanakit-js, then build
-bun run docs:preview  # build and preview locally
+bun run docs:preview  # build, then serve the Pages shape locally
 bun run docs:deploy   # build and deploy to the senseikatana-docs Pages project
+bun run docs:gh       # build and publish a `gh-pages` branch deployment
 bun run docs:clean    # remove VitePress caches and build output
 ```
 
-`docs:build` and `docs:deploy` call `../katanakit-js/scripts/docs-prepare.mjs` when that
+Every `docs:*` mode except `docs:clean` calls `../katanakit-js/scripts/docs-prepare.mjs` when that
 checkout exists (generates `docs/api/`, `docs/changelog.md`, the Tailwind catalogue); without
 it they skip the sync and build from the committed content.
 

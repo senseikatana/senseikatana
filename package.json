@@ -30,6 +30,7 @@
     "docs:build": "node scripts/docs.mjs build",
     "docs:preview": "node scripts/docs.mjs preview",
     "docs:deploy": "node scripts/docs.mjs deploy",
+    "docs:gh": "node scripts/docs.mjs gh",
     "docs:clean": "node scripts/docs.mjs clean",
     "deploy:proxy": "bunx wrangler@4.162.0 deploy -c workers/docs-proxy/wrangler.jsonc"
   },
