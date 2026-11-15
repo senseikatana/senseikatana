@@ -2,7 +2,7 @@
 
 # Interface: ConversationStore
 
-Defined in: [types/core/ai.ts:89](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L89)
+Defined in: [types/core/ai.ts:89](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L89)
 
 Persistence contract for assistant conversations.
 
@@ -14,7 +14,7 @@ Persistence contract for assistant conversations.
 useAppend(sessionId, message): Promise<void>;
 ```
 
-Defined in: [types/core/ai.ts:92](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L92)
+Defined in: [types/core/ai.ts:92](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L92)
 
 #### Parameters
 
@@ -40,7 +40,7 @@ Defined in: [types/core/ai.ts:92](https://github.com/senseikatana/katanakit-js/b
 useCreate(channel?): Promise<string>;
 ```
 
-Defined in: [types/core/ai.ts:90](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L90)
+Defined in: [types/core/ai.ts:90](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L90)
 
 #### Parameters
 
@@ -60,7 +60,7 @@ Defined in: [types/core/ai.ts:90](https://github.com/senseikatana/katanakit-js/b
 useExists(sessionId): Promise<boolean>;
 ```
 
-Defined in: [types/core/ai.ts:91](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L91)
+Defined in: [types/core/ai.ts:91](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L91)
 
 #### Parameters
 
@@ -93,7 +93,7 @@ useGetHistory(sessionId): Promise<{
 }[]>;
 ```
 
-Defined in: [types/core/ai.ts:93](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L93)
+Defined in: [types/core/ai.ts:93](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L93)
 
 #### Parameters
 
@@ -126,7 +126,7 @@ Defined in: [types/core/ai.ts:93](https://github.com/senseikatana/katanakit-js/b
 useReset(sessionId): Promise<void>;
 ```
 
-Defined in: [types/core/ai.ts:94](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L94)
+Defined in: [types/core/ai.ts:94](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L94)
 
 #### Parameters
 

@@ -6,7 +6,7 @@
 function useGetStorage<T>(key, target?): T | null;
 ```
 
-Defined in: [infrastructure/storage/storage.service.ts:351](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage.service.ts#L351)
+Defined in: [infrastructure/storage/storage.service.ts:351](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/storage/storage.service.ts#L351)
 
 Retrieves a value from storage by key.
 

@@ -2,7 +2,7 @@
 
 # Class: DirectoryService
 
-Defined in: [core/services/directory.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L211)
+Defined in: [core/services/directory.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L211)
 
 User management over any storage, with the lockout guards built in.
 
@@ -35,7 +35,7 @@ if (!suspended.ok && suspended.error.code === "last_owner") {
 new DirectoryService(__namedParameters): DirectoryService;
 ```
 
-Defined in: [core/services/directory.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L214)
+Defined in: [core/services/directory.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L214)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ useAddRole(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L282)
+Defined in: [core/services/directory.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L282)
 
 Grants a role. Refuses when the actor does not already hold it.
 
@@ -110,7 +110,7 @@ useCreate(actor, user): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L239)
+Defined in: [core/services/directory.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L239)
 
 Registers a person.
 
@@ -146,7 +146,7 @@ without changing this signature.
 useDelete(actor, id): Promise<DirectoryResult<true>>;
 ```
 
-Defined in: [core/services/directory.service.ts:397](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L397)
+Defined in: [core/services/directory.service.ts:397](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L397)
 
 Removes the record permanently.
 
@@ -181,7 +181,7 @@ useGet(id): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:228](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L228)
+Defined in: [core/services/directory.service.ts:228](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L228)
 
 Fetches one user.
 
@@ -212,7 +212,7 @@ Fetches one user.
 useList(query?): Promise<DirectoryPageResult>;
 ```
 
-Defined in: [core/services/directory.service.ts:219](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L219)
+Defined in: [core/services/directory.service.ts:219](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L219)
 
 Lists users, filtered and paginated by the repository.
 
@@ -243,7 +243,7 @@ useReactivate(actor, id): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:372](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L372)
+Defined in: [core/services/directory.service.ts:372](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L372)
 
 Returns a suspended account to service.
 
@@ -288,7 +288,7 @@ useRemoveRole(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:312](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L312)
+Defined in: [core/services/directory.service.ts:312](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L312)
 
 Revokes a role, keeping the person active.
 
@@ -334,7 +334,7 @@ useSuspend(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:340](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L340)
+Defined in: [core/services/directory.service.ts:340](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L340)
 
 Suspends access while keeping the record and its audit trail.
 
@@ -386,7 +386,7 @@ useUpdate(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/directory.service.ts#L258)
+Defined in: [core/services/directory.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L258)
 
 Patches a user's fields.
 

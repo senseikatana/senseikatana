@@ -6,7 +6,7 @@
 function useFindIndex<T>(array, predicate): number;
 ```
 
-Defined in: [core/services/array.service.ts:469](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L469)
+Defined in: [core/services/array.service.ts:469](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/array.service.ts#L469)
 
 Returns the index of the first match, or `-1`. See [ArrayService.useFindIndex](../classes/ArrayService.md#usefindindex).
 

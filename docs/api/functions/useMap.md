@@ -6,7 +6,7 @@
 function useMap<T, U>(array, transform): U[];
 ```
 
-Defined in: [core/services/array.service.ts:489](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L489)
+Defined in: [core/services/array.service.ts:489](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/array.service.ts#L489)
 
 Projects every item. See [ArrayService.useMap](../classes/ArrayService.md#usemap).
 

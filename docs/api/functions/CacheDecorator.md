@@ -9,7 +9,7 @@ function CacheDecorator<T>(fn, options?): T & {
 };
 ```
 
-Defined in: [infrastructure/decorators/cache.decorator.ts:70](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/cache.decorator.ts#L70)
+Defined in: [infrastructure/decorators/cache.decorator.ts:70](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/decorators/cache.decorator.ts#L70)
 
 Decorates an async function with memoized results (Decorator Pattern).
 

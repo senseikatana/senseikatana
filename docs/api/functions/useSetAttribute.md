@@ -10,7 +10,7 @@ function useSetAttribute(
 ): void;
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:250](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L250)
+Defined in: [infrastructure/dom/dom.service.ts:250](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/dom/dom.service.ts#L250)
 
 Sets an attribute on the target element with XSS protection.
 Blocks event-handler attributes (`on*`) and `javascript:` URLs.

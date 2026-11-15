@@ -2,7 +2,7 @@
 
 # Class: LoggerService
 
-Defined in: [core/services/logger.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L7)
+Defined in: [core/services/logger.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L7)
 
 LoggerService - Singleton para logging
 Aplica el patrón Singleton para garantizar una única instancia de logger.
@@ -15,7 +15,7 @@ Aplica el patrón Singleton para garantizar una única instancia de logger.
 useClear(): void;
 ```
 
-Defined in: [core/services/logger.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L104)
+Defined in: [core/services/logger.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L104)
 
 Clears the console.
 
@@ -41,7 +41,7 @@ useLog(
 ): void;
 ```
 
-Defined in: [core/services/logger.service.ts:58](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L58)
+Defined in: [core/services/logger.service.ts:58](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L58)
 
 Logs a message with optional data and level.
 Maps directly onto the native `console` methods (`log`, `warn`, `error`).
@@ -76,7 +76,7 @@ useLogger("Database timeout", { query: "SELECT 1" }, "error");
 useLogError(message, data?): void;
 ```
 
-Defined in: [core/services/logger.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L92)
+Defined in: [core/services/logger.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L92)
 
 Logs a message at the "error" level.
 
@@ -105,7 +105,7 @@ useLogError("Database timeout", { query: "SELECT 1", duration: 5000 });
 useLogWarn(message, data?): void;
 ```
 
-Defined in: [core/services/logger.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L77)
+Defined in: [core/services/logger.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L77)
 
 Logs a message at the "warn" level.
 
@@ -134,7 +134,7 @@ useLogWarn("Cache miss", { key: "user:123" });
 useSetContext(context): void;
 ```
 
-Defined in: [core/services/logger.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L32)
+Defined in: [core/services/logger.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L32)
 
 Configura el prefijo de contexto. Vacío ("") lo elimina.
 
@@ -156,7 +156,7 @@ Configura el prefijo de contexto. Vacío ("") lo elimina.
 useTable(data): void;
 ```
 
-Defined in: [core/services/logger.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L118)
+Defined in: [core/services/logger.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L118)
 
 Displays tabular data in the console.
 
@@ -184,7 +184,7 @@ useLoggerTable([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]);
 static getInstance(): LoggerService;
 ```
 
-Defined in: [core/services/logger.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L22)
+Defined in: [core/services/logger.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L22)
 
 Obtiene la instancia única del LoggerService (Singleton)
 

@@ -10,7 +10,7 @@ function useToggleClass(
 ): boolean | undefined;
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:193](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L193)
+Defined in: [infrastructure/dom/dom.service.ts:193](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/dom/dom.service.ts#L193)
 
 Toggles a CSS class on the target element.
 

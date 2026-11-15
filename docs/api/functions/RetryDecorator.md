@@ -10,7 +10,7 @@ function RetryDecorator<T>(
 ): T;
 ```
 
-Defined in: [infrastructure/decorators/retry.decorator.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/retry.decorator.ts#L36)
+Defined in: [infrastructure/decorators/retry.decorator.ts:36](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/decorators/retry.decorator.ts#L36)
 
 RetryDecorator - Decorator Pattern para reintentos.
 

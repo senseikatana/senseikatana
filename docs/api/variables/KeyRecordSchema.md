@@ -18,7 +18,7 @@ const KeyRecordSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/keyvault.schema.ts:38](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/keyvault.schema.ts#L38)
+Defined in: [schemas/keyvault.schema.ts:38](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/keyvault.schema.ts#L38)
 
 One API key as stored in the vault. `secret` only ever lives inside the
 encrypted payload — presentation layers receive it masked unless the caller

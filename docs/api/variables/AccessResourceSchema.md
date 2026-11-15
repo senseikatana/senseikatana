@@ -9,7 +9,7 @@ const AccessResourceSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/grant.schema.ts:13](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/grant.schema.ts#L13)
+Defined in: [schemas/grant.schema.ts:13](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/grant.schema.ts#L13)
 
 The thing being acted on — enough for the authorization layer to route a
 check to the right table, and nothing more.

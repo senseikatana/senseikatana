@@ -2,7 +2,7 @@
 
 # Interface: ObserverEntry
 
-Defined in: [types/core/dom.ts:19](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dom.ts#L19)
+Defined in: [types/core/dom.ts:19](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/dom.ts#L19)
 
 Internal registry entry storing an observer instance and its tracked targets.
 
@@ -10,6 +10,6 @@ Internal registry entry storing an observer instance and its tracked targets.
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="config"></a> `config` | [`ObserverConfig`](ObserverConfig.md) | [types/core/dom.ts:20](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dom.ts#L20) |
-| <a id="observer"></a> `observer` | `IntersectionObserver` \| `null` | [types/core/dom.ts:21](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dom.ts#L21) |
-| <a id="targets"></a> `targets` | `Set`\<`HTMLElement`\> | [types/core/dom.ts:22](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dom.ts#L22) |
+| <a id="config"></a> `config` | [`ObserverConfig`](ObserverConfig.md) | [types/core/dom.ts:20](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/dom.ts#L20) |
+| <a id="observer"></a> `observer` | `IntersectionObserver` \| `null` | [types/core/dom.ts:21](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/dom.ts#L21) |
+| <a id="targets"></a> `targets` | `Set`\<`HTMLElement`\> | [types/core/dom.ts:22](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/dom.ts#L22) |

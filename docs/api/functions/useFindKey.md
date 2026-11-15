@@ -17,7 +17,7 @@ function useFindKey(data, id):
   | undefined;
 ```
 
-Defined in: [core/services/keyvault.service.ts:272](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/keyvault.service.ts#L272)
+Defined in: [core/services/keyvault.service.ts:272](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/keyvault.service.ts#L272)
 
 Finds a key record by id. See [KeyVaultService.useFindKey](../classes/KeyVaultService.md#usefindkey).
 

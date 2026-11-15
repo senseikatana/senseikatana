@@ -14,7 +14,7 @@ function useGetFileStats(path): Promise<FilesystemResult<{
 }>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:403](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/filesystem.service.ts#L403)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:403](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/filesystem/filesystem.service.ts#L403)
 
 Returns a portable stats subset for a file or directory.
 

@@ -11,7 +11,7 @@ const IdentityStatusSchema: ZodEnum<{
 }>;
 ```
 
-Defined in: [schemas/identity.schema.ts:48](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/identity.schema.ts#L48)
+Defined in: [schemas/identity.schema.ts:48](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/identity.schema.ts#L48)
 
 Lifecycle of an account you own.
 

@@ -6,7 +6,7 @@
 type RequestInterceptor = (request) => void | Promise<void>;
 ```
 
-Defined in: [types/core/http.ts:90](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L90)
+Defined in: [types/core/http.ts:90](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L90)
 
 Inspects or modifies a request before fetch; interceptors run in registration order.
 

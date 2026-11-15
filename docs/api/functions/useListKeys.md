@@ -15,7 +15,7 @@ function useListKeys(data, options?): {
 }[];
 ```
 
-Defined in: [core/services/keyvault.service.ts:277](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/keyvault.service.ts#L277)
+Defined in: [core/services/keyvault.service.ts:277](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/keyvault.service.ts#L277)
 
 Lists key records, newest first. See [KeyVaultService.useListKeys](../classes/KeyVaultService.md#uselistkeys).
 

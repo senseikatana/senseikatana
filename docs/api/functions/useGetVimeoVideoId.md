@@ -6,7 +6,7 @@
 function useGetVimeoVideoId(input): string | null;
 ```
 
-Defined in: [core/services/media.service.ts:313](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/media.service.ts#L313)
+Defined in: [core/services/media.service.ts:313](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/media.service.ts#L313)
 
 Extracts a Vimeo video id from a URL or bare id.
 

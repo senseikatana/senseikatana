@@ -2,7 +2,7 @@
 
 # Class: GeometryAreaService
 
-Defined in: [core/services/geometry.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L33)
+Defined in: [core/services/geometry.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L33)
 
 GeometryAreaService — pure area calculations for geometric shapes.
 All methods are stateless — input → formatted string only.
@@ -20,7 +20,7 @@ per `CONTRIBUTING.md`.
 useCircle(radius, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L118)
+Defined in: [core/services/geometry.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L118)
 
 Calculates the area of a circle.
 
@@ -60,7 +60,7 @@ useEllipse(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:180](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L180)
+Defined in: [core/services/geometry.service.ts:180](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L180)
 
 Calculates the area of an ellipse.
 
@@ -97,7 +97,7 @@ GeometryUtils.area.useEllipse(5, 3); // "47.12"
 useHexagon(side, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:161](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L161)
+Defined in: [core/services/geometry.service.ts:161](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L161)
 
 Calculates the area of a regular hexagon.
 
@@ -137,7 +137,7 @@ useParallelogram(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:199](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L199)
+Defined in: [core/services/geometry.service.ts:199](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L199)
 
 Calculates the area of a parallelogram.
 
@@ -178,7 +178,7 @@ useRectangle(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L63)
+Defined in: [core/services/geometry.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L63)
 
 Calculates the area of a rectangle.
 
@@ -216,7 +216,7 @@ GeometryUtils.area.useRectangle(5, 10, { unit: "m²" }); // "50.00 m²"
 useSquare(side, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:81](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L81)
+Defined in: [core/services/geometry.service.ts:81](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L81)
 
 Calculates the area of a square.
 
@@ -257,7 +257,7 @@ useTrapezoid(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L138)
+Defined in: [core/services/geometry.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L138)
 
 Calculates the area of a trapezoid.
 
@@ -299,7 +299,7 @@ useTriangle(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:100](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L100)
+Defined in: [core/services/geometry.service.ts:100](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L100)
 
 Calculates the area of a triangle.
 
@@ -336,7 +336,7 @@ GeometryUtils.area.useTriangle(6, 4); // "12.00"
 static getInstance(): GeometryAreaService;
 ```
 
-Defined in: [core/services/geometry.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/geometry.service.ts#L40)
+Defined in: [core/services/geometry.service.ts:40](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L40)
 
 Returns the shared instance (Singleton).
 

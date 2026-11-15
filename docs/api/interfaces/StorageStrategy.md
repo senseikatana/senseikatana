@@ -2,7 +2,7 @@
 
 # Interface: StorageStrategy
 
-Defined in: [types/core/storage.ts:8](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/storage.ts#L8)
+Defined in: [types/core/storage.ts:8](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/storage.ts#L8)
 
 Strategy contract: homogeneous storage without `any`.
 
@@ -14,7 +14,7 @@ Strategy contract: homogeneous storage without `any`.
 useClear(): void;
 ```
 
-Defined in: [types/core/storage.ts:12](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/storage.ts#L12)
+Defined in: [types/core/storage.ts:12](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/storage.ts#L12)
 
 #### Returns
 
@@ -28,7 +28,7 @@ Defined in: [types/core/storage.ts:12](https://github.com/senseikatana/katanakit
 useGetItem<T>(key): T | null;
 ```
 
-Defined in: [types/core/storage.ts:9](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/storage.ts#L9)
+Defined in: [types/core/storage.ts:9](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/storage.ts#L9)
 
 #### Type Parameters
 
@@ -54,7 +54,7 @@ Defined in: [types/core/storage.ts:9](https://github.com/senseikatana/katanakit-
 useRemoveItem(key): void;
 ```
 
-Defined in: [types/core/storage.ts:11](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/storage.ts#L11)
+Defined in: [types/core/storage.ts:11](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/storage.ts#L11)
 
 #### Parameters
 
@@ -74,7 +74,7 @@ Defined in: [types/core/storage.ts:11](https://github.com/senseikatana/katanakit
 useSetItem(key, value): void;
 ```
 
-Defined in: [types/core/storage.ts:10](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/storage.ts#L10)
+Defined in: [types/core/storage.ts:10](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/storage.ts#L10)
 
 #### Parameters
 

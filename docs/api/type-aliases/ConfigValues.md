@@ -6,7 +6,7 @@
 type ConfigValues<T, V> = { [K in keyof T]: K extends ConfigMethodKeys<T> ? T[K] : V };
 ```
 
-Defined in: [types/core/config-facade.ts:57](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/config-facade.ts#L57)
+Defined in: [types/core/config-facade.ts:57](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/config-facade.ts#L57)
 
 Constrains every non-method entry of a `define*Config` literal to `V`, while
 leaving method entries untouched. Pair with `NoInfer<T>` in the signature so

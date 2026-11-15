@@ -10,7 +10,7 @@ function useErrorNormalize(error, fallbackStatus?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:148](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L148)
+Defined in: [core/services/error.service.ts:148](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L148)
 
 Normalizes any thrown value into an [ApiError](../type-aliases/ApiError.md). See [ErrorService.useErrorNormalize](../classes/ErrorService.md#useerrornormalize).
 

@@ -29,7 +29,7 @@ type UseSeoMetaBase = SeoMetaInput & {
 };
 ```
 
-Defined in: [config/seo-meta.types.ts:127](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo-meta.types.ts#L127)
+Defined in: [config/seo-meta.types.ts:127](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/config/seo-meta.types.ts#L127)
 
 Site + HTML + OG fields in one object (before Omit).
 

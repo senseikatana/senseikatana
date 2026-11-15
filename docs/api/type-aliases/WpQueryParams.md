@@ -6,7 +6,7 @@
 type WpQueryParams = z.infer<typeof WpQueryParamsSchema>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:146](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L146)
+Defined in: [types/adapters/wordpress.ts:146](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L146)
 
 Common query parameters for WordPress REST API list endpoints.
 

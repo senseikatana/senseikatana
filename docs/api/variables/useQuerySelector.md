@@ -9,7 +9,7 @@ const useQuerySelector: {
 };
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L112)
+Defined in: [infrastructure/dom/dom.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/dom/dom.service.ts#L112)
 
 Returns the first element matching a CSS selector.
 

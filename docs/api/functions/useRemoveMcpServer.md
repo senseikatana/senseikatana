@@ -29,7 +29,7 @@ function useRemoveMcpServer(data, name): {
 };
 ```
 
-Defined in: [core/services/mcp.service.ts:203](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L203)
+Defined in: [core/services/mcp.service.ts:203](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L203)
 
 Removes a server from the registry. See [McpService.useRemoveMcpServer](../classes/McpService.md#useremovemcpserver).
 

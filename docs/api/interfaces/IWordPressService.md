@@ -2,7 +2,7 @@
 
 # Interface: IWordPressService
 
-Defined in: [types/adapters/wordpress.ts:192](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L192)
+Defined in: [types/adapters/wordpress.ts:192](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L192)
 
 Contract of the WordPress adapter facade.
 
@@ -35,7 +35,7 @@ useWpAssignRole(userId, role): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:236](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L236)
+Defined in: [types/adapters/wordpress.ts:236](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L236)
 
 #### Parameters
 
@@ -81,7 +81,7 @@ useWpAsSubject(user): {
 };
 ```
 
-Defined in: [types/adapters/wordpress.ts:235](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L235)
+Defined in: [types/adapters/wordpress.ts:235](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L235)
 
 #### Parameters
 
@@ -146,7 +146,7 @@ useWpAuditRole(slug, maxHolders?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:239](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L239)
+Defined in: [types/adapters/wordpress.ts:239](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L239)
 
 #### Parameters
 
@@ -183,7 +183,7 @@ useWpBatch(operations): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:260](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L260)
+Defined in: [types/adapters/wordpress.ts:260](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L260)
 
 #### Parameters
 
@@ -223,7 +223,7 @@ useWpCreateCategory(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:210](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L210)
+Defined in: [types/adapters/wordpress.ts:210](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L210)
 
 #### Parameters
 
@@ -281,7 +281,7 @@ useWpCreateComment(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:220](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L220)
+Defined in: [types/adapters/wordpress.ts:220](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L220)
 
 #### Parameters
 
@@ -329,7 +329,7 @@ Defined in: [types/adapters/wordpress.ts:220](https://github.com/senseikatana/ka
 useWpCreateCustomPost(postType, data): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:246](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L246)
+Defined in: [types/adapters/wordpress.ts:246](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L246)
 
 #### Parameters
 
@@ -444,7 +444,7 @@ useWpCreatePage(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L200)
+Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L200)
 
 #### Parameters
 
@@ -676,7 +676,7 @@ useWpCreatePost(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L195)
+Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L195)
 
 #### Parameters
 
@@ -827,7 +827,7 @@ useWpCreateTag(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:215](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L215)
+Defined in: [types/adapters/wordpress.ts:215](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L215)
 
 #### Parameters
 
@@ -884,7 +884,7 @@ useWpCreateUser(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L226)
+Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L226)
 
 #### Parameters
 
@@ -937,7 +937,7 @@ Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/ka
 useWpDefineRoles(definitions): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:229](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L229)
+Defined in: [types/adapters/wordpress.ts:229](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L229)
 
 #### Parameters
 
@@ -969,7 +969,7 @@ useWpDeleteCategory(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:212](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L212)
+Defined in: [types/adapters/wordpress.ts:212](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L212)
 
 #### Parameters
 
@@ -1022,7 +1022,7 @@ useWpDeleteComment(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:222](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L222)
+Defined in: [types/adapters/wordpress.ts:222](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L222)
 
 #### Parameters
 
@@ -1067,7 +1067,7 @@ useWpDeleteCustomPost(
 ): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:255](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L255)
+Defined in: [types/adapters/wordpress.ts:255](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L255)
 
 #### Parameters
 
@@ -1210,7 +1210,7 @@ useWpDeleteMedia(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L207)
+Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L207)
 
 #### Parameters
 
@@ -1446,7 +1446,7 @@ useWpDeletePage(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L202)
+Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L202)
 
 #### Parameters
 
@@ -1657,7 +1657,7 @@ useWpDeletePost(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L197)
+Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L197)
 
 #### Parameters
 
@@ -1785,7 +1785,7 @@ useWpDeleteTag(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:217](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L217)
+Defined in: [types/adapters/wordpress.ts:217](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L217)
 
 #### Parameters
 
@@ -1838,7 +1838,7 @@ useWpDeleteUser(id, reassign?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:228](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L228)
+Defined in: [types/adapters/wordpress.ts:228](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L228)
 
 #### Parameters
 
@@ -1978,7 +1978,7 @@ useWpFindPostBySlug(slug): Promise<FetchResult<
 | null>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L263)
+Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L263)
 
 #### Parameters
 
@@ -2108,7 +2108,7 @@ useWpGetCategories(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:208](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L208)
+Defined in: [types/adapters/wordpress.ts:208](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L208)
 
 #### Parameters
 
@@ -2167,7 +2167,7 @@ useWpGetCategory(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:209](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L209)
+Defined in: [types/adapters/wordpress.ts:209](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L209)
 
 #### Parameters
 
@@ -2219,7 +2219,7 @@ useWpGetComment(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:219](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L219)
+Defined in: [types/adapters/wordpress.ts:219](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L219)
 
 #### Parameters
 
@@ -2279,7 +2279,7 @@ useWpGetComments(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:218](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L218)
+Defined in: [types/adapters/wordpress.ts:218](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L218)
 
 #### Parameters
 
@@ -2355,7 +2355,7 @@ useWpGetCurrentUser(): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:225](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L225)
+Defined in: [types/adapters/wordpress.ts:225](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L225)
 
 #### Returns
 
@@ -2394,7 +2394,7 @@ useWpGetCustomPost(
 ): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:241](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L241)
+Defined in: [types/adapters/wordpress.ts:241](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L241)
 
 #### Parameters
 
@@ -2431,7 +2431,7 @@ Defined in: [types/adapters/wordpress.ts:241](https://github.com/senseikatana/ka
 useWpGetCustomPosts(postType, options?): Promise<FetchResult<unknown[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:240](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L240)
+Defined in: [types/adapters/wordpress.ts:240](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L240)
 
 #### Parameters
 
@@ -2588,7 +2588,7 @@ useWpGetMedia(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L203)
+Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L203)
 
 #### Parameters
 
@@ -2865,7 +2865,7 @@ useWpGetMediaItem(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L204)
+Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L204)
 
 #### Parameters
 
@@ -3100,7 +3100,7 @@ useWpGetPage(id, options?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L199)
+Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L199)
 
 #### Parameters
 
@@ -3324,7 +3324,7 @@ useWpGetPages(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L198)
+Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L198)
 
 #### Parameters
 
@@ -3549,7 +3549,7 @@ useWpGetPost(id, options?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L194)
+Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L194)
 
 #### Parameters
 
@@ -3777,7 +3777,7 @@ useWpGetPosts(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L193)
+Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L193)
 
 #### Parameters
 
@@ -3916,7 +3916,7 @@ useWpGetRole(slug):
   | undefined;
 ```
 
-Defined in: [types/adapters/wordpress.ts:232](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L232)
+Defined in: [types/adapters/wordpress.ts:232](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L232)
 
 #### Parameters
 
@@ -3954,7 +3954,7 @@ useWpGetTag(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:214](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L214)
+Defined in: [types/adapters/wordpress.ts:214](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L214)
 
 #### Parameters
 
@@ -3996,7 +3996,7 @@ useWpGetTags(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:213](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L213)
+Defined in: [types/adapters/wordpress.ts:213](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L213)
 
 #### Parameters
 
@@ -4063,7 +4063,7 @@ useWpGetUser(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:224](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L224)
+Defined in: [types/adapters/wordpress.ts:224](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L224)
 
 #### Parameters
 
@@ -4125,7 +4125,7 @@ useWpGetUsers(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:223](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L223)
+Defined in: [types/adapters/wordpress.ts:223](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L223)
 
 #### Parameters
 
@@ -4202,7 +4202,7 @@ useWpGetUsersByRole(role, options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:238](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L238)
+Defined in: [types/adapters/wordpress.ts:238](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L238)
 
 #### Parameters
 
@@ -4355,7 +4355,7 @@ useWpListAllPosts(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L261)
+Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L261)
 
 #### Parameters
 
@@ -4486,7 +4486,7 @@ Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/ka
 useWpRegisterRole(definition): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:230](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L230)
+Defined in: [types/adapters/wordpress.ts:230](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L230)
 
 #### Parameters
 
@@ -4511,7 +4511,7 @@ Defined in: [types/adapters/wordpress.ts:230](https://github.com/senseikatana/ka
 useWpResetRoles(): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:233](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L233)
+Defined in: [types/adapters/wordpress.ts:233](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L233)
 
 #### Returns
 
@@ -4531,7 +4531,7 @@ useWpRoles(): {
 }[];
 ```
 
-Defined in: [types/adapters/wordpress.ts:231](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L231)
+Defined in: [types/adapters/wordpress.ts:231](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L231)
 
 #### Returns
 
@@ -4647,7 +4647,7 @@ useWpSearchAllPosts(query, options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L262)
+Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L262)
 
 #### Parameters
 
@@ -4779,7 +4779,7 @@ Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/ka
 useWpSyncRoles(): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:234](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L234)
+Defined in: [types/adapters/wordpress.ts:234](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L234)
 
 #### Returns
 
@@ -4814,7 +4814,7 @@ useWpUnassignRole(userId, role): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:237](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L237)
+Defined in: [types/adapters/wordpress.ts:237](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L237)
 
 #### Parameters
 
@@ -4868,7 +4868,7 @@ useWpUpdateCategory(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:211](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L211)
+Defined in: [types/adapters/wordpress.ts:211](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L211)
 
 #### Parameters
 
@@ -4927,7 +4927,7 @@ useWpUpdateComment(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:221](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L221)
+Defined in: [types/adapters/wordpress.ts:221](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L221)
 
 #### Parameters
 
@@ -4980,7 +4980,7 @@ useWpUpdateCustomPost(
 ): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:250](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L250)
+Defined in: [types/adapters/wordpress.ts:250](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L250)
 
 #### Parameters
 
@@ -5123,7 +5123,7 @@ useWpUpdateMedia(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L206)
+Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L206)
 
 #### Parameters
 
@@ -5366,7 +5366,7 @@ useWpUpdatePage(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L201)
+Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L201)
 
 #### Parameters
 
@@ -5599,7 +5599,7 @@ useWpUpdatePost(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L196)
+Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L196)
 
 #### Parameters
 
@@ -5751,7 +5751,7 @@ useWpUpdateTag(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:216](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L216)
+Defined in: [types/adapters/wordpress.ts:216](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L216)
 
 #### Parameters
 
@@ -5809,7 +5809,7 @@ useWpUpdateUser(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:227](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L227)
+Defined in: [types/adapters/wordpress.ts:227](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L227)
 
 #### Parameters
 
@@ -5985,7 +5985,7 @@ useWpUploadMedia(file, meta?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L205)
+Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/wordpress.ts#L205)
 
 #### Parameters
 

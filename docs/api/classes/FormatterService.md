@@ -2,7 +2,7 @@
 
 # Class: FormatterService
 
-Defined in: [core/services/formatter.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L29)
+Defined in: [core/services/formatter.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L29)
 
 FormatterService — Singleton facade over `Intl.NumberFormat`, locale-aware
 casing and `JSON`.
@@ -36,7 +36,7 @@ useFormatNumber(1234.5, "en", 2); // "1,234.50"
 useCapitalize(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:132](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L132)
+Defined in: [core/services/formatter.service.ts:132](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L132)
 
 Pure: capitalizes the first character; leaves the rest unchanged.
 
@@ -73,7 +73,7 @@ useCapitalize("hello world"); // "Hello world"
 useFormatCurrency(options): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:164](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L164)
+Defined in: [core/services/formatter.service.ts:164](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L164)
 
 Pure: formats an amount as currency.
 
@@ -131,7 +131,7 @@ useFormatNumber(
 ): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:74](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L74)
+Defined in: [core/services/formatter.service.ts:74](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L74)
 
 Pure number formatter over `Intl.NumberFormat`.
 
@@ -170,7 +170,7 @@ useFormatNumber(1234.5, "de", 2); // "1.234,50"
 useJsonParse<T>(json): T;
 ```
 
-Defined in: [core/services/formatter.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L246)
+Defined in: [core/services/formatter.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L246)
 
 Pure: parse JSON (throws on invalid input — same as `JSON.parse`).
 
@@ -213,7 +213,7 @@ const obj = useJsonParse<{ a: number }>('{"a":1}');
 useJsonStringify(data): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L227)
+Defined in: [core/services/formatter.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L227)
 
 Pure: pretty-print JSON (3-space indent).
 
@@ -250,7 +250,7 @@ useJsonStringify({ a: 1 });
 useLowerCase(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:114](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L114)
+Defined in: [core/services/formatter.service.ts:114](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L114)
 
 Pure: locale-aware lower case (trims whitespace).
 
@@ -287,7 +287,7 @@ useLowerCase("HELLO"); // "hello"
 useSalePrice(options): SalePrice;
 ```
 
-Defined in: [core/services/formatter.service.ts:203](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L203)
+Defined in: [core/services/formatter.service.ts:203](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L203)
 
 Pure: applies a discount to a price and reports what was taken off.
 
@@ -337,7 +337,7 @@ useFormatCurrency({ amount: sale.salePrice, currency: "EUR", locale: "es" }); //
 useUpperCase(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L96)
+Defined in: [core/services/formatter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L96)
 
 Pure: locale-aware upper case (trims whitespace).
 
@@ -375,7 +375,7 @@ useUpperCase("straße", "de"); // "STRASSE"
 static getInstance(): FormatterService;
 ```
 
-Defined in: [core/services/formatter.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L36)
+Defined in: [core/services/formatter.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L36)
 
 Returns the shared instance (Singleton).
 

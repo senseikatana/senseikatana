@@ -10,7 +10,7 @@ function useLazyLoaderInit(
 ): void;
 ```
 
-Defined in: [infrastructure/observer/observer.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/observer/observer.service.ts#L227)
+Defined in: [infrastructure/observer/observer.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/observer/observer.service.ts#L227)
 
 Initializes lazy loading for images using IntersectionObserver.
 Elements matching the selector must have a `data-src` attribute with the real image URL.

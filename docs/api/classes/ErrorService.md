@@ -2,7 +2,7 @@
 
 # Class: ErrorService
 
-Defined in: [core/services/error.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L32)
+Defined in: [core/services/error.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L32)
 
 ErrorService — Singleton facade over error creation and normalization.
 
@@ -35,7 +35,7 @@ useErrorCustom(msg, code): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L86)
+Defined in: [core/services/error.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L86)
 
 Create a custom error object. Use with `useLogger` for consistent error logging.
 
@@ -91,7 +91,7 @@ useErrorNormalize(error, fallbackStatus?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L109)
+Defined in: [core/services/error.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L109)
 
 Normalizes any thrown value into the shared [ApiError](../type-aliases/ApiError.md) shape.
 
@@ -156,7 +156,7 @@ useErrorSerialize(message?, code?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L63)
+Defined in: [core/services/error.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L63)
 
 Serialize an error into a plain object.
 Uses sensible defaults based on the status code when message is omitted.
@@ -209,7 +209,7 @@ const err2 = useErrorSerialize("", 500);
 static getInstance(): ErrorService;
 ```
 
-Defined in: [core/services/error.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L39)
+Defined in: [core/services/error.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L39)
 
 Returns the shared instance (Singleton).
 

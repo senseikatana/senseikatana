@@ -6,7 +6,7 @@
 function defineApiConfig<T>(input): ConfigFacade<T>;
 ```
 
-Defined in: [core/services/http.service.ts:543](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L543)
+Defined in: [core/services/http.service.ts:543](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/http.service.ts#L543)
 
 Declares the API registry in a single call - the config-file entry point.
 

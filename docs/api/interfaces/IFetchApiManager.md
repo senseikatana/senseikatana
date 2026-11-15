@@ -2,7 +2,7 @@
 
 # Interface: IFetchApiManager
 
-Defined in: [types/core/http.ts:93](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L93)
+Defined in: [types/core/http.ts:93](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L93)
 
 Contract of the fetch facade.
 
@@ -14,7 +14,7 @@ Contract of the fetch facade.
 useAddRequestInterceptor(interceptor): () => void;
 ```
 
-Defined in: [types/core/http.ts:97](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L97)
+Defined in: [types/core/http.ts:97](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L97)
 
 #### Parameters
 
@@ -38,7 +38,7 @@ useBuildUrl(
 ): string;
 ```
 
-Defined in: [types/core/http.ts:96](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L96)
+Defined in: [types/core/http.ts:96](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L96)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ useDelete<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:136](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L136)
+Defined in: [types/core/http.ts:136](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L136)
 
 #### Type Parameters
 
@@ -96,7 +96,7 @@ useFetch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:98](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L98)
+Defined in: [types/core/http.ts:98](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L98)
 
 #### Type Parameters
 
@@ -128,7 +128,7 @@ useFetchApi<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:103](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L103)
+Defined in: [types/core/http.ts:103](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L103)
 
 #### Type Parameters
 
@@ -160,7 +160,7 @@ useGet<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:108](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L108)
+Defined in: [types/core/http.ts:108](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L108)
 
 #### Type Parameters
 
@@ -192,7 +192,7 @@ useGetApi<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:113](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L113)
+Defined in: [types/core/http.ts:113](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L113)
 
 #### Type Parameters
 
@@ -220,7 +220,7 @@ Defined in: [types/core/http.ts:113](https://github.com/senseikatana/katanakit-j
 useGetApis(): ApisConfig;
 ```
 
-Defined in: [types/core/http.ts:94](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L94)
+Defined in: [types/core/http.ts:94](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L94)
 
 #### Returns
 
@@ -234,7 +234,7 @@ Defined in: [types/core/http.ts:94](https://github.com/senseikatana/katanakit-js
 useGetApisConfig(): ApisConfig;
 ```
 
-Defined in: [types/core/http.ts:95](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L95)
+Defined in: [types/core/http.ts:95](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L95)
 
 #### Returns
 
@@ -253,7 +253,7 @@ usePatch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:130](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L130)
+Defined in: [types/core/http.ts:130](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L130)
 
 #### Type Parameters
 
@@ -287,7 +287,7 @@ usePost<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:118](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L118)
+Defined in: [types/core/http.ts:118](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L118)
 
 #### Type Parameters
 
@@ -321,7 +321,7 @@ usePut<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:124](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/http.ts#L124)
+Defined in: [types/core/http.ts:124](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L124)
 
 #### Type Parameters
 

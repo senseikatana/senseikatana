@@ -15,7 +15,7 @@ const GrantSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/grant.schema.ts:30](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/grant.schema.ts#L30)
+Defined in: [schemas/grant.schema.ts:30](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/grant.schema.ts#L30)
 
 A role held over one specific resource — the "share with restricted access"
 that a content-management role ladder cannot express.

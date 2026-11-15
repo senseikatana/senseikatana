@@ -28,6 +28,6 @@ const NotionUserListSchema: ZodObject<{
 }, $loose>;
 ```
 
-Defined in: [schemas/notion.schema.ts:227](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/notion.schema.ts#L227)
+Defined in: [schemas/notion.schema.ts:227](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/notion.schema.ts#L227)
 
 Paginated list of Notion users.

@@ -2,7 +2,7 @@
 
 # Interface: IAuthProvider
 
-Defined in: [core/services/auth.service.ts:65](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L65)
+Defined in: [core/services/auth.service.ts:65](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L65)
 
 An identity provider the kit can ask *"who is this?"*.
 
@@ -43,8 +43,8 @@ const nationalId: IAuthProvider = {
 
 | Property | Modifier | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="methods"></a> `methods?` | `readonly` | readonly `string`[] | Methods this deployment enabled — `"password"`, `"oauth:google"`, `"otp"`, `"passkey"`. Informational: it describes the deployment's configuration, and never feeds into authorization. | [core/services/auth.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L73) |
-| <a id="provider"></a> `provider` | `readonly` | `string` | Stable id used to select this provider, e.g. `"better-auth"`. | [core/services/auth.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L67) |
+| <a id="methods"></a> `methods?` | `readonly` | readonly `string`[] | Methods this deployment enabled — `"password"`, `"oauth:google"`, `"otp"`, `"passkey"`. Informational: it describes the deployment's configuration, and never feeds into authorization. | [core/services/auth.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L73) |
+| <a id="provider"></a> `provider` | `readonly` | `string` | Stable id used to select this provider, e.g. `"better-auth"`. | [core/services/auth.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L67) |
 
 ## Methods
 
@@ -63,7 +63,7 @@ useResolve(input): Promise<AuthResult<
 | null>>;
 ```
 
-Defined in: [core/services/auth.service.ts:75](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L75)
+Defined in: [core/services/auth.service.ts:75](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L75)
 
 Resolves the caller. Returns `null` data for an anonymous request.
 

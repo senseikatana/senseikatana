@@ -29,7 +29,7 @@ function useDecryptVault(payload, passphrase): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:317](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L317)
+Defined in: [infrastructure/vault/vault.store.ts:317](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/vault/vault.store.ts#L317)
 
 Opens an encrypted envelope. See [VaultStore.useDecryptVault](../classes/VaultStore.md#usedecryptvault).
 

@@ -10,7 +10,7 @@ function useCreateStorageSignal<T>(
 ): [SignalGetter<T>, SignalSetter<T>];
 ```
 
-Defined in: [infrastructure/storage/storage-signal.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage-signal.service.ts#L32)
+Defined in: [infrastructure/storage/storage-signal.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/storage/storage-signal.service.ts#L32)
 
 Creates a signal that persists its value to a storage backend
 (localStorage, sessionStorage, etc.). Reads the initial value from

@@ -11,6 +11,6 @@ const AiRoleSchema: ZodEnum<{
 }>;
 ```
 
-Defined in: [schemas/ai.schema.ts:4](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/ai.schema.ts#L4)
+Defined in: [schemas/ai.schema.ts:4](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/ai.schema.ts#L4)
 
 Role of a chat message in the OpenAI-compatible protocol.

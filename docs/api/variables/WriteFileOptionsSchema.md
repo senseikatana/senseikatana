@@ -23,6 +23,6 @@ const WriteFileOptionsSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/filesystem.schema.ts:58](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/filesystem.schema.ts#L58)
+Defined in: [schemas/filesystem.schema.ts:58](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/filesystem.schema.ts#L58)
 
 Options for writing or appending files.

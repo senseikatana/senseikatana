@@ -25,6 +25,6 @@ const WordPressConfigSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:29](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L29)
+Defined in: [schemas/wordpress.schema.ts:29](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/wordpress.schema.ts#L29)
 
 Configuration for the WordPress REST API integration.

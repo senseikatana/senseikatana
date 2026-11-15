@@ -2,7 +2,7 @@
 
 # Interface: AssistantInitConfig
 
-Defined in: [types/core/ai.ts:98](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L98)
+Defined in: [types/core/ai.ts:98](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L98)
 
 Configuration for the assistant facade.
 
@@ -14,10 +14,10 @@ Configuration for the assistant facade.
 
 | Property | Type | Description | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="apikey"></a> `apiKey?` | `string` | - | `Partial.apiKey` | [schemas/ai.schema.ts:33](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/ai.schema.ts#L33) |
-| <a id="baseurl"></a> `baseUrl?` | `string` | - | `Partial.baseUrl` | [schemas/ai.schema.ts:34](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/ai.schema.ts#L34) |
-| <a id="maxsteps"></a> `maxSteps?` | `number` | - | - | [types/core/ai.ts:101](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L101) |
-| <a id="model"></a> `model?` | `string` | - | `Partial.model` | [schemas/ai.schema.ts:35](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/ai.schema.ts#L35) |
-| <a id="store"></a> `store?` | [`ConversationStore`](ConversationStore.md) | - | - | [types/core/ai.ts:99](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L99) |
-| <a id="systemprompt"></a> `systemPrompt?` | `string` | Default system prompt. | `Partial.systemPrompt` | [schemas/ai.schema.ts:37](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/ai.schema.ts#L37) |
-| <a id="tools"></a> `tools?` | [`AiTool`](AiTool.md)[] | - | - | [types/core/ai.ts:100](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L100) |
+| <a id="apikey"></a> `apiKey?` | `string` | - | `Partial.apiKey` | [schemas/ai.schema.ts:33](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/ai.schema.ts#L33) |
+| <a id="baseurl"></a> `baseUrl?` | `string` | - | `Partial.baseUrl` | [schemas/ai.schema.ts:34](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/ai.schema.ts#L34) |
+| <a id="maxsteps"></a> `maxSteps?` | `number` | - | - | [types/core/ai.ts:101](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L101) |
+| <a id="model"></a> `model?` | `string` | - | `Partial.model` | [schemas/ai.schema.ts:35](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/ai.schema.ts#L35) |
+| <a id="store"></a> `store?` | [`ConversationStore`](ConversationStore.md) | - | - | [types/core/ai.ts:99](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L99) |
+| <a id="systemprompt"></a> `systemPrompt?` | `string` | Default system prompt. | `Partial.systemPrompt` | [schemas/ai.schema.ts:37](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/ai.schema.ts#L37) |
+| <a id="tools"></a> `tools?` | [`AiTool`](AiTool.md)[] | - | - | [types/core/ai.ts:100](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/ai.ts#L100) |

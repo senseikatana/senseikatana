@@ -6,7 +6,7 @@
 function useValues<T>(object): T[keyof T][];
 ```
 
-Defined in: [core/services/array.service.ts:533](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L533)
+Defined in: [core/services/array.service.ts:533](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/array.service.ts#L533)
 
 Typed `Object.values`. See [ArrayService.useValues](../classes/ArrayService.md#usevalues).
 

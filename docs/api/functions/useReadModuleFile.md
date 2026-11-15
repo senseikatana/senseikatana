@@ -10,7 +10,7 @@ function useReadModuleFile(
 ): Promise<FilesystemResult<string>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:530](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/filesystem.service.ts#L530)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:530](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/filesystem/filesystem.service.ts#L530)
 
 Reads a file resolved from the caller's module directory — the
 `__dirname` + relative path pattern, without `__dirname`.

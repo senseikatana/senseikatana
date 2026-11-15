@@ -2,7 +2,7 @@
 
 # Interface: IAiProviderStrategy
 
-Defined in: [core/services/agent.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L136)
+Defined in: [core/services/agent.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L136)
 
 Estrategia de proveedor AI - Strategy Pattern.
 
@@ -23,7 +23,7 @@ requestCompletion(
 ): Promise<ChatCompletionResponse>;
 ```
 
-Defined in: [core/services/agent.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L146)
+Defined in: [core/services/agent.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L146)
 
 Performs a single `chat/completions` request against the provider.
 

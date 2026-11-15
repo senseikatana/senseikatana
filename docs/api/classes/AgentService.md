@@ -2,7 +2,7 @@
 
 # Class: AgentService
 
-Defined in: [core/services/agent.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L258)
+Defined in: [core/services/agent.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L258)
 
 AgentService - Singleton facade con Strategy Pattern.
 
@@ -28,7 +28,7 @@ AgentService.getInstance().useSetStrategy(new OpenAiCompatibleStrategy());
 useChat(messages, options?): Promise<AiResult<string>>;
 ```
 
-Defined in: [core/services/agent.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L373)
+Defined in: [core/services/agent.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L373)
 
 Sends a single chat completion and returns the assistant text as a Safe Result.
 
@@ -67,7 +67,7 @@ if (result.ok) console.log(result.data);
 useGetStrategy(): IAiProviderStrategy;
 ```
 
-Defined in: [core/services/agent.service.ts:304](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L304)
+Defined in: [core/services/agent.service.ts:304](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L304)
 
 Returns the currently active provider strategy.
 
@@ -83,7 +83,7 @@ Returns the currently active provider strategy.
 useInitAgent(config?): void;
 ```
 
-Defined in: [core/services/agent.service.ts:334](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L334)
+Defined in: [core/services/agent.service.ts:334](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L334)
 
 Registers the AI provider for the Kitt assistant.
 
@@ -119,7 +119,7 @@ useInitAgent({
 useRunAgent(goal, options?): Promise<AgentResult>;
 ```
 
-Defined in: [core/services/agent.service.ts:423](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L423)
+Defined in: [core/services/agent.service.ts:423](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L423)
 
 Runs the tool-calling agent loop against a goal until it emits a final
 answer or exhausts `maxSteps`.
@@ -163,7 +163,7 @@ const result = await useRunAgent("Fix the type errors reported by tsc", {
 useSetStrategy(strategy): void;
 ```
 
-Defined in: [core/services/agent.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L299)
+Defined in: [core/services/agent.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L299)
 
 Intercambia la estrategia de proveedor en runtime (Strategy Pattern).
 
@@ -185,7 +185,7 @@ Intercambia la estrategia de proveedor en runtime (Strategy Pattern).
 static create(strategy?): AgentService;
 ```
 
-Defined in: [core/services/agent.service.ts:290](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L290)
+Defined in: [core/services/agent.service.ts:290](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L290)
 
 Crea una instancia NO-singleton con una estrategia específica.
 Útil para tests o para aislar varios proveedores.
@@ -210,7 +210,7 @@ Una nueva instancia de AgentService.
 static getInstance(): AgentService;
 ```
 
-Defined in: [core/services/agent.service.ts:276](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L276)
+Defined in: [core/services/agent.service.ts:276](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L276)
 
 Obtiene la instancia única del AgentService (Singleton).
 

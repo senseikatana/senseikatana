@@ -6,7 +6,7 @@
 function useTryJsonParse<T>(text): SafeResult<T>;
 ```
 
-Defined in: [core/services/result.service.ts:113](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/result.service.ts#L113)
+Defined in: [core/services/result.service.ts:113](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/result.service.ts#L113)
 
 Parses JSON without throwing. See [ResultService.useTryJsonParse](../classes/ResultService.md#usetryjsonparse).
 

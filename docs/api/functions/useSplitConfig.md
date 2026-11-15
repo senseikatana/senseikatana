@@ -9,7 +9,7 @@ function useSplitConfig<T>(input): {
 };
 ```
 
-Defined in: [core/services/utils.service.ts:596](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/utils.service.ts#L596)
+Defined in: [core/services/utils.service.ts:596](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/utils.service.ts#L596)
 
 Splits a `define*Config` literal into its config half and its method half.
 

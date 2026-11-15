@@ -6,7 +6,7 @@
 function useRunStorageScope<T>(fn): Promise<T>;
 ```
 
-Defined in: [infrastructure/storage/storage.service.ts:327](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage.service.ts#L327)
+Defined in: [infrastructure/storage/storage.service.ts:327](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/storage/storage.service.ts#L327)
 
 Runs `fn` with request-isolated in-memory storage (SSR).
 Use this around a request handler so `useSetStorage` / `useGetStorage`

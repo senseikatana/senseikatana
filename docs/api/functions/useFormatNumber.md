@@ -10,7 +10,7 @@ function useFormatNumber(
 ): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:252](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L252)
+Defined in: [core/services/formatter.service.ts:252](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L252)
 
 Formats a number. See [FormatterService.useFormatNumber](../classes/FormatterService.md#useformatnumber).
 

@@ -6,7 +6,7 @@
 function useHasRole(subject, role): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:399](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L399)
+Defined in: [core/services/access.service.ts:399](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L399)
 
 Exact role membership - no hierarchy involved.
 

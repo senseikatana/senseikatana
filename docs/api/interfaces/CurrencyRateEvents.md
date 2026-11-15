@@ -2,7 +2,7 @@
 
 # Interface: CurrencyRateEvents
 
-Defined in: [types/core/currency-conversion.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/currency-conversion.ts#L36)
+Defined in: [types/core/currency-conversion.ts:36](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L36)
 
 Observer callbacks fired by [ICurrencyConverterService](ICurrencyConverterService.md).
 
@@ -18,7 +18,7 @@ imperatively. Every handler is optional.
 onRatesError?(error): void;
 ```
 
-Defined in: [types/core/currency-conversion.ts:40](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/currency-conversion.ts#L40)
+Defined in: [types/core/currency-conversion.ts:40](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L40)
 
 Fired when a rate fetch fails.
 
@@ -43,7 +43,7 @@ Fired when a rate fetch fails.
 onRatesUpdate?(snapshot): void;
 ```
 
-Defined in: [types/core/currency-conversion.ts:38](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/currency-conversion.ts#L38)
+Defined in: [types/core/currency-conversion.ts:38](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L38)
 
 Fired after a rate snapshot has been stored in cache.
 

@@ -2,7 +2,7 @@
 
 # Class: AssistantService
 
-Defined in: [core/services/assistant.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L104)
+Defined in: [core/services/assistant.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L104)
 
 AssistantService - Singleton para el asistente conversacional.
 
@@ -32,7 +32,7 @@ const result = await assistant.useReply(undefined, "Hello!");
 useCreateSession(channel?): Promise<string>;
 ```
 
-Defined in: [core/services/assistant.service.ts:165](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L165)
+Defined in: [core/services/assistant.service.ts:165](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L165)
 
 Creates a new conversation session.
 
@@ -73,7 +73,7 @@ useGetHistory(sessionId): Promise<{
 }[]>;
 ```
 
-Defined in: [core/services/assistant.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L185)
+Defined in: [core/services/assistant.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L185)
 
 Returns the full message history of a session, oldest first.
 
@@ -114,7 +114,7 @@ The accumulated messages.
 useInitAssistant(config?): void;
 ```
 
-Defined in: [core/services/assistant.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L146)
+Defined in: [core/services/assistant.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L146)
 
 Configures the assistant: provider (Kitt) plus an optional conversation store.
 
@@ -155,7 +155,7 @@ useReply(
 ): Promise<AssistantResult>;
 ```
 
-Defined in: [core/services/assistant.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L214)
+Defined in: [core/services/assistant.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L214)
 
 Sends a user message within a conversation and returns the assistant reply.
 If no `sessionId` is provided, a new session is created. The user message and
@@ -194,7 +194,7 @@ if (result.ok) console.log(result.data.reply);
 useResetSession(sessionId): Promise<void>;
 ```
 
-Defined in: [core/services/assistant.service.ts:194](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L194)
+Defined in: [core/services/assistant.service.ts:194](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L194)
 
 Deletes a conversation session and its messages.
 
@@ -220,7 +220,7 @@ Deletes a conversation session and its messages.
 useSessionExists(sessionId): Promise<boolean>;
 ```
 
-Defined in: [core/services/assistant.service.ts:175](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L175)
+Defined in: [core/services/assistant.service.ts:175](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L175)
 
 Checks whether a conversation session exists.
 
@@ -248,7 +248,7 @@ Checks whether a conversation session exists.
 static getInstance(): AssistantService;
 ```
 
-Defined in: [core/services/assistant.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L124)
+Defined in: [core/services/assistant.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L124)
 
 Obtiene la instancia única del AssistantService (Singleton).
 

@@ -6,6 +6,6 @@
 type NotionSearchQuery = z.infer<typeof NotionSearchQuerySchema>;
 ```
 
-Defined in: [types/adapters/notion.ts:83](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/notion.ts#L83)
+Defined in: [types/adapters/notion.ts:83](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/notion.ts#L83)
 
 Search query options for the Notion API.

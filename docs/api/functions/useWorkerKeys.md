@@ -6,7 +6,7 @@
 function useWorkerKeys(): string[];
 ```
 
-Defined in: [infrastructure/worker/worker.service.ts:289](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/worker/worker.service.ts#L289)
+Defined in: [infrastructure/worker/worker.service.ts:289](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/worker/worker.service.ts#L289)
 
 Returns a list of all active Worker pool keys.
 

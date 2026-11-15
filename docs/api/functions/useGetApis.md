@@ -6,7 +6,7 @@
 function useGetApis(): ApisConfig;
 ```
 
-Defined in: [core/services/http.service.ts:593](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L593)
+Defined in: [core/services/http.service.ts:593](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/http.service.ts#L593)
 
 Returns a shallow copy of the registered APIs (safe to mutate locally).
 

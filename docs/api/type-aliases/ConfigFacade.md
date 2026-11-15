@@ -8,7 +8,7 @@ type ConfigFacade<T> = {
 } & ConfigMethodEntries<T>;
 ```
 
-Defined in: [types/core/config-facade.ts:44](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/config-facade.ts#L44)
+Defined in: [types/core/config-facade.ts:44](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/config-facade.ts#L44)
 
 What every `define*Config` returns: the registered config under `config`,
 plus the methods declared alongside it so `this.config` resolves inside them.

@@ -6,7 +6,7 @@
 function useCreateQueryClient(config?): QueryClient;
 ```
 
-Defined in: [core/services/query.service.ts:172](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/query.service.ts#L172)
+Defined in: [core/services/query.service.ts:172](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/query.service.ts#L172)
 
 Creates a **new** QueryClient. Use this on the server (SSR) to get one
 client per request and avoid sharing a process-global cache across users.

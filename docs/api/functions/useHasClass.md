@@ -6,7 +6,7 @@
 function useHasClass(target, className): boolean;
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:215](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L215)
+Defined in: [infrastructure/dom/dom.service.ts:215](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/dom/dom.service.ts#L215)
 
 Checks whether the target element has a given CSS class.
 

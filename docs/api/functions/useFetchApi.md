@@ -10,7 +10,7 @@ function useFetchApi<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:664](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L664)
+Defined in: [core/services/http.service.ts:664](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/http.service.ts#L664)
 
 Fetches a registered endpoint and returns a Safe Result.
 Alias for [useFetch](useFetch.md).

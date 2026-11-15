@@ -14,7 +14,7 @@ function useFakeVehicle(): Promise<{
 }>;
 ```
 
-Defined in: [core/services/faker.service.ts:382](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/faker.service.ts#L382)
+Defined in: [core/services/faker.service.ts:382](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/faker.service.ts#L382)
 
 Generates a generic fake vehicle. See [FakerService.useFakeVehicle](../classes/FakerService.md#usefakevehicle).
 

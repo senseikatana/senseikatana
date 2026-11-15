@@ -6,7 +6,7 @@
 function useDateOrder(date1, date2): "before" | "after" | "same";
 ```
 
-Defined in: [core/services/dates.service.ts:573](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/dates.service.ts#L573)
+Defined in: [core/services/dates.service.ts:573](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/dates.service.ts#L573)
 
 Returns whether the first date comes before, after, or at the same time as
 the second.

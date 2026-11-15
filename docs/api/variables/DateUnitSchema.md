@@ -14,7 +14,7 @@ const DateUnitSchema: ZodEnum<{
 }>;
 ```
 
-Defined in: [schemas/core.schema.ts:147](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/core.schema.ts#L147)
+Defined in: [schemas/core.schema.ts:147](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/core.schema.ts#L147)
 
 Granularity of a date calculation, matching Notion's formula vocabulary.
 

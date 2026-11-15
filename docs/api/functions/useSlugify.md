@@ -6,7 +6,7 @@
 function useSlugify(text): string;
 ```
 
-Defined in: [core/services/generator.service.ts:261](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/generator.service.ts#L261)
+Defined in: [core/services/generator.service.ts:261](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/generator.service.ts#L261)
 
 Converts a text string into a URL-friendly slug. See [GeneratorService.useSlugify](../classes/GeneratorService.md#useslugify).
 

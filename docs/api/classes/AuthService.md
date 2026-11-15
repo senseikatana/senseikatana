@@ -2,7 +2,7 @@
 
 # Class: AuthService
 
-Defined in: [core/services/auth.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L91)
+Defined in: [core/services/auth.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L91)
 
 Holds the providers a deployment has configured and routes a request to one.
 
@@ -20,7 +20,7 @@ and testable with a stub.
 useHas(provider): boolean;
 ```
 
-Defined in: [core/services/auth.service.ts:117](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L117)
+Defined in: [core/services/auth.service.ts:117](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L117)
 
 Whether a provider id is registered.
 
@@ -42,7 +42,7 @@ Whether a provider id is registered.
 useProviders(): string[];
 ```
 
-Defined in: [core/services/auth.service.ts:122](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L122)
+Defined in: [core/services/auth.service.ts:122](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L122)
 
 Registered provider ids, in registration order.
 
@@ -58,7 +58,7 @@ Registered provider ids, in registration order.
 useRegister(provider): void;
 ```
 
-Defined in: [core/services/auth.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L112)
+Defined in: [core/services/auth.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L112)
 
 Registers a provider, replacing any previous one with the same id.
 
@@ -89,7 +89,7 @@ useResolve(provider, input): Promise<AuthResult<
 | null>>;
 ```
 
-Defined in: [core/services/auth.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L138)
+Defined in: [core/services/auth.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L138)
 
 Resolves the caller through the named provider.
 
@@ -125,7 +125,7 @@ route into a public one.
 useUnregister(provider): boolean;
 ```
 
-Defined in: [core/services/auth.service.ts:127](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L127)
+Defined in: [core/services/auth.service.ts:127](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L127)
 
 Removes a provider. Returns whether it was there.
 
@@ -147,7 +147,7 @@ Removes a provider. Returns whether it was there.
 static create(): AuthService;
 ```
 
-Defined in: [core/services/auth.service.ts:107](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L107)
+Defined in: [core/services/auth.service.ts:107](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L107)
 
 A non-singleton instance, for tests or for isolating two deployments.
 
@@ -163,7 +163,7 @@ A non-singleton instance, for tests or for isolating two deployments.
 static getInstance(): AuthService;
 ```
 
-Defined in: [core/services/auth.service.ts:101](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/auth.service.ts#L101)
+Defined in: [core/services/auth.service.ts:101](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/auth.service.ts#L101)
 
 The shared instance.
 

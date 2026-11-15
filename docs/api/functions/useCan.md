@@ -6,7 +6,7 @@
 function useCan(subject, capability): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:415](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L415)
+Defined in: [core/services/access.service.ts:415](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L415)
 
 Whether the subject may perform a capability. Any of the subject's roles
 granting the capability (directly or by inheritance) is enough.

@@ -6,7 +6,7 @@
 function useUpperCase(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:257](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/formatter.service.ts#L257)
+Defined in: [core/services/formatter.service.ts:257](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L257)
 
 Locale-aware upper case. See [FormatterService.useUpperCase](../classes/FormatterService.md#useuppercase).
 

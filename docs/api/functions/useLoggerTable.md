@@ -6,7 +6,7 @@
 function useLoggerTable(data): void;
 ```
 
-Defined in: [core/services/logger.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/logger.service.ts#L154)
+Defined in: [core/services/logger.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/logger.service.ts#L154)
 
 Wrapper para LoggerService - mantiene backward compatibility
 

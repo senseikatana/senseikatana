@@ -6,7 +6,7 @@
 function useIsAfter(date1, date2): boolean;
 ```
 
-Defined in: [core/services/dates.service.ts:708](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/dates.service.ts#L708)
+Defined in: [core/services/dates.service.ts:708](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/dates.service.ts#L708)
 
 Checks whether `date1` is after `date2`.
 

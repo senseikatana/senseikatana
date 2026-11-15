@@ -10,7 +10,7 @@ function useVerifyFileHash(
 ): Promise<FilesystemResult<boolean>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:204](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/filesystem.service.ts#L204)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:204](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/filesystem/filesystem.service.ts#L204)
 
 Verifies a file checksum against an expected value (case-insensitive).
 

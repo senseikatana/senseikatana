@@ -6,7 +6,7 @@
 function useAverage(numbers): number;
 ```
 
-Defined in: [core/services/utils.service.ts:584](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/utils.service.ts#L584)
+Defined in: [core/services/utils.service.ts:584](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/utils.service.ts#L584)
 
 Computes the arithmetic mean of an array of numbers.
 

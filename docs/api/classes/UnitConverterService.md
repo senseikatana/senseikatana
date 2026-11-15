@@ -2,7 +2,7 @@
 
 # Class: UnitConverterService
 
-Defined in: [core/services/converter.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L24)
+Defined in: [core/services/converter.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L24)
 
 UnitConverterService — Singleton facade for physical unit conversions.
 
@@ -35,7 +35,7 @@ useToKilometers(1); // "1.61"
 useSetFormatter(formatter): void;
 ```
 
-Defined in: [core/services/converter.service.ts:71](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L71)
+Defined in: [core/services/converter.service.ts:71](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L71)
 
 Swaps the number formatter dependency at runtime (DI).
 
@@ -61,7 +61,7 @@ useToCelsius(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L96)
+Defined in: [core/services/converter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L96)
 
 Pure: °F → °C (formatted).
 
@@ -104,7 +104,7 @@ useToCm(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:192](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L192)
+Defined in: [core/services/converter.service.ts:192](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L192)
 
 Pure: inches → centimeters (formatted).
 
@@ -146,7 +146,7 @@ useToFahrenheit(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L116)
+Defined in: [core/services/converter.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L116)
 
 Pure: °C → °F (formatted).
 
@@ -189,7 +189,7 @@ useToInches(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L173)
+Defined in: [core/services/converter.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L173)
 
 Pure: centimeters → inches (formatted).
 
@@ -231,7 +231,7 @@ useToKilometers(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:135](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L135)
+Defined in: [core/services/converter.service.ts:135](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L135)
 
 Pure: miles → kilometers (formatted). Round-trips with [UnitConverterService.useToMiles](#usetomiles).
 
@@ -273,7 +273,7 @@ useToKilos(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L211)
+Defined in: [core/services/converter.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L211)
 
 Pure: pounds → kilograms (formatted).
 
@@ -315,7 +315,7 @@ useToMiles(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L154)
+Defined in: [core/services/converter.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L154)
 
 Pure: kilometers → miles (formatted). Round-trips with [UnitConverterService.useToKilometers](#usetokilometers).
 
@@ -357,7 +357,7 @@ useToPounds(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:230](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L230)
+Defined in: [core/services/converter.service.ts:230](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L230)
 
 Pure: kilograms → pounds (formatted).
 
@@ -395,7 +395,7 @@ useToPounds(1); // "2.20"
 static create(formatter?): UnitConverterService;
 ```
 
-Defined in: [core/services/converter.service.ts:62](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L62)
+Defined in: [core/services/converter.service.ts:62](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L62)
 
 Creates a NO-singleton instance with an injected formatter (DI).
 Useful for tests or for custom number formatting.
@@ -426,7 +426,7 @@ const converter = UnitConverterService.create(myFormatter);
 static getInstance(): UnitConverterService;
 ```
 
-Defined in: [core/services/converter.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L43)
+Defined in: [core/services/converter.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/converter.service.ts#L43)
 
 Returns the shared instance (Singleton).
 

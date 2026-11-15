@@ -6,7 +6,7 @@
 function useAttempt<T>(operation, mapError?): Promise<SafeResult<T>>;
 ```
 
-Defined in: [core/services/result.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/result.service.ts#L105)
+Defined in: [core/services/result.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/result.service.ts#L105)
 
 Runs an operation and captures any throw as a Safe Result. See [ResultService.useAttempt](../classes/ResultService.md#useattempt).
 

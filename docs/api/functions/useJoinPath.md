@@ -6,7 +6,7 @@
 function useJoinPath(...segments): Promise<string>;
 ```
 
-Defined in: [infrastructure/filesystem/path.service.ts:98](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/path.service.ts#L98)
+Defined in: [infrastructure/filesystem/path.service.ts:98](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/filesystem/path.service.ts#L98)
 
 Joins path segments without resolving against `process.cwd()`.
 

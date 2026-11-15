@@ -10,6 +10,6 @@ const IfRpcCallSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/insforge.schema.ts:69](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/insforge.schema.ts#L69)
+Defined in: [schemas/insforge.schema.ts:69](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/insforge.schema.ts#L69)
 
 Postgres function (RPC) call.

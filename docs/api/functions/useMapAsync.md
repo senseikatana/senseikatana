@@ -6,7 +6,7 @@
 function useMapAsync<T, U>(array, transform): Promise<U[]>;
 ```
 
-Defined in: [core/services/array.service.ts:553](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L553)
+Defined in: [core/services/array.service.ts:553](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/array.service.ts#L553)
 
 Async map, in parallel. See [ArrayService.useMapAsync](../classes/ArrayService.md#usemapasync).
 

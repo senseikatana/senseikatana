@@ -6,7 +6,7 @@
 function useSafeQueryFn<T>(fn): (context) => Promise<T>;
 ```
 
-Defined in: [core/services/query.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/query.service.ts#L246)
+Defined in: [core/services/query.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/query.service.ts#L246)
 
 Bridges a KatanaKit Safe Result fetcher into a TanStack `queryFn`.
 

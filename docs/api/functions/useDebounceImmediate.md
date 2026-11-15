@@ -6,7 +6,7 @@
 function useDebounceImmediate<T>(func, delayMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:474](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L474)
+Defined in: [core/services/timing.service.ts:474](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/timing.service.ts#L474)
 
 Leading-edge debounce. See [TimingService.useDebounceImmediate](../classes/TimingService.md#usedebounceimmediate).
 

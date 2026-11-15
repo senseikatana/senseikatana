@@ -2,7 +2,7 @@
 
 # Class: AgentConfigService
 
-Defined in: [core/services/agentconfig.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agentconfig.service.ts#L77)
+Defined in: [core/services/agentconfig.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agentconfig.service.ts#L77)
 
 AgentConfigService — Singleton facade for per-agent configuration emission.
 
@@ -38,7 +38,7 @@ if (result.ok) console.log(result.data.files[0].content);
 useAgentDefinitions(): AgentDefinition[];
 ```
 
-Defined in: [core/services/agentconfig.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agentconfig.service.ts#L96)
+Defined in: [core/services/agentconfig.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agentconfig.service.ts#L96)
 
 Lists the supported agents.
 
@@ -56,7 +56,7 @@ The agent registry.
 useEmitAgentConfig(agentId, input): SafeResult<AgentConfigOutput>;
 ```
 
-Defined in: [core/services/agentconfig.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agentconfig.service.ts#L118)
+Defined in: [core/services/agentconfig.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agentconfig.service.ts#L118)
 
 Emits the auto-configuration file and the manual connection entries for
 one agent.
@@ -82,7 +82,7 @@ one agent.
 useFindAgent(agentId): AgentDefinition | undefined;
 ```
 
-Defined in: [core/services/agentconfig.service.ts:106](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agentconfig.service.ts#L106)
+Defined in: [core/services/agentconfig.service.ts:106](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agentconfig.service.ts#L106)
 
 Finds an agent definition by id.
 
@@ -106,7 +106,7 @@ The definition, or `undefined`.
 static getInstance(): AgentConfigService;
 ```
 
-Defined in: [core/services/agentconfig.service.ts:84](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agentconfig.service.ts#L84)
+Defined in: [core/services/agentconfig.service.ts:84](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agentconfig.service.ts#L84)
 
 Returns the shared instance (Singleton).
 

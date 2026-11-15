@@ -935,7 +935,6 @@ Highlights: fix(schemas): migrate wordpress schema to zod v4 and restore missing
   - `package.json`
   - `scripts/docs.mjs`
   - `scripts/sync-tailwind-components.mjs`
-  - `docs/public/tailwind-html/`
 - 📝 docs(styles): add sets `ac9f42a`
   - `docs/guides/filesystem.md`
   - `packages/ui/package.json`
@@ -1964,7 +1963,6 @@ Highlights: feat(docs): split the Docs section into /start and fix the tab layou
   - `docs/ui-kit/tailwind-components/features.md`
   - `docs/ui-kit/tailwind-components/index.md`
   - `docs/ui-kit/tailwind-components/shared.md`
-  - `docs/public/tailwind-html/`
   - `eslint.config.mjs`
   - `examples/dashboard/README.md`
   - `package.json`

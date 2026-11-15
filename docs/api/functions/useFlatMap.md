@@ -6,7 +6,7 @@
 function useFlatMap<T, U>(array, transform): U[];
 ```
 
-Defined in: [core/services/array.service.ts:497](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L497)
+Defined in: [core/services/array.service.ts:497](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/array.service.ts#L497)
 
 Maps to collections and flattens one level. See [ArrayService.useFlatMap](../classes/ArrayService.md#useflatmap).
 
