@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [3.1.8] - 2026-11-15
+
+Maintenance release with 1 change.
+
+- 📝 docs(README.md): update 🚀 Deploying with Surge and astro.config.mjs — static output (default), no adapter: nothing to configure sections `ef82a19`
+  - `README.md`
+  - `docs/CNAME`
+- 🧹 chore(docs): sync the generated content from katanakit-js `d67d860`
+- 🚀 feat(docs): sharp editorial chrome design direction `d16f257`
+- 🚀 feat(web): integrate the Lumen UI theme system `2e137a1`
+- 🧹 chore(repo): ignore the VitePress dev cache in git and ESLint `662b6a0`
+- 📝 docs(scripts): add applyRedirect, candidates and file `bb89ff5`
+
 ## [3.1.7] - 2026-11-15
 
 Highlights: feat(docs): sharp editorial chrome design direction, plus 10 more changes.
