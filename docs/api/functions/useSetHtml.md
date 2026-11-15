@@ -6,7 +6,7 @@
 function useSetHtml(target, html): void;
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:421](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/dom/dom.service.ts#L421)
+Defined in: [infrastructure/dom/dom.service.ts:421](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L421)
 
 Sets `innerHTML` on the target element.
 

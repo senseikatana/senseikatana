@@ -2,7 +2,7 @@
 
 # Class: FetchApiManager
 
-Defined in: [core/services/http.service.ts:111](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L111)
+Defined in: [core/services/http.service.ts:111](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L111)
 
 FetchApiManager - Singleton para el registro de APIs y peticiones HTTP.
 
@@ -26,7 +26,7 @@ const result = await fetchApi.useFetch("pokeapi", "byId", { params: { id: 25 } }
 useAddRequestInterceptor(interceptor): () => void;
 ```
 
-Defined in: [core/services/http.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L185)
+Defined in: [core/services/http.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L185)
 
 Registers a request interceptor, which runs before `fetch` on every request.
 Interceptors run sequentially in registration order and can mutate `url` or
@@ -56,7 +56,7 @@ useBuildUrl(
 ): string;
 ```
 
-Defined in: [core/services/http.service.ts:217](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L217)
+Defined in: [core/services/http.service.ts:217](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L217)
 
 Returns the URL of a registered endpoint **without calling `fetch`**.
 
@@ -70,7 +70,7 @@ same http(s) guard - then stops and hands you the string.
 | ------ | ------ | ------ |
 | `apiName` | `string` | Registered API key (from `defineApiConfig`). |
 | `endpointName` | `string` | Endpoint key inside that API. |
-| `options` | [`UrlOptions`](../interfaces/UrlOptions.md) | `params` fills `:placeholders`, `query` becomes the search string. |
+| `options?` | [`UrlOptions`](../interfaces/UrlOptions.md) | `params` fills `:placeholders`, `query` becomes the search string. |
 
 #### Returns
 
@@ -106,7 +106,7 @@ useDelete<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:496](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L496)
+Defined in: [core/services/http.service.ts:496](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L496)
 
 DELETE helper over a registered API endpoint.
 
@@ -114,7 +114,7 @@ DELETE helper over a registered API endpoint.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -142,7 +142,7 @@ useFetch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:280](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L280)
+Defined in: [core/services/http.service.ts:280](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L280)
 
 Fetches a registered endpoint and returns a Safe Result.
 
@@ -153,7 +153,7 @@ nesting, same shape as `useGet` and Nuxt's `useFetch`.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t-1"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -161,7 +161,7 @@ nesting, same shape as `useGet` and Nuxt's `useFetch`.
 | ------ | ------ | ------ |
 | `apiName` | `string` | The registered API key. |
 | `endpointName` | `string` | The endpoint key within the API. |
-| `options` | [`FetchOptions`](../interfaces/FetchOptions.md)\<`T`\> | Fetch options: `params`, `query`, `transform` and any `RequestInit` field. |
+| `options?` | [`FetchOptions`](../interfaces/FetchOptions.md)\<`T`\> | Fetch options: `params`, `query`, `transform` and any `RequestInit` field. |
 
 #### Returns
 
@@ -193,7 +193,7 @@ useGet<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:411](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L411)
+Defined in: [core/services/http.service.ts:411](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L411)
 
 GET helper over a registered API endpoint.
 
@@ -201,7 +201,7 @@ GET helper over a registered API endpoint.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t-2"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -225,7 +225,7 @@ A `FetchResult` with data or error.
 useGetApis(): ApisConfig;
 ```
 
-Defined in: [core/services/http.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L173)
+Defined in: [core/services/http.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L173)
 
 Returns a shallow copy of the registered APIs (safe to mutate locally).
 
@@ -243,7 +243,7 @@ A shallow copy of the current API registry.
 useInit(apisConfig): void;
 ```
 
-Defined in: [core/services/http.service.ts:164](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L164)
+Defined in: [core/services/http.service.ts:164](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L164)
 
 Registers (merges) API definitions into the client registry.
 
@@ -278,7 +278,7 @@ usePatch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:475](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L475)
+Defined in: [core/services/http.service.ts:475](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L475)
 
 PATCH helper over a registered API endpoint.
 
@@ -286,7 +286,7 @@ PATCH helper over a registered API endpoint.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t-3"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -316,7 +316,7 @@ usePost<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:431](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L431)
+Defined in: [core/services/http.service.ts:431](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L431)
 
 POST helper over a registered API endpoint.
 
@@ -324,7 +324,7 @@ POST helper over a registered API endpoint.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t-4"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -354,7 +354,7 @@ usePut<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:453](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L453)
+Defined in: [core/services/http.service.ts:453](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L453)
 
 PUT helper over a registered API endpoint.
 
@@ -362,7 +362,7 @@ PUT helper over a registered API endpoint.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t-5"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -387,7 +387,7 @@ A `FetchResult` with data or error.
 static getInstance(): FetchApiManager;
 ```
 
-Defined in: [core/services/http.service.ts:130](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L130)
+Defined in: [core/services/http.service.ts:130](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L130)
 
 Obtiene la instancia única del FetchApiManager (Singleton).
 

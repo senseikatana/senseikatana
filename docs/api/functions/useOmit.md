@@ -6,7 +6,7 @@
 function useOmit<T, K>(obj, keys): Omit<T, K>;
 ```
 
-Defined in: [core/services/utils.service.ts:512](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/utils.service.ts#L512)
+Defined in: [core/services/utils.service.ts:512](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/utils.service.ts#L512)
 
 Omits the listed keys from an object, returning a shallow copy without them.
 
@@ -14,8 +14,8 @@ Omits the listed keys from an object, returning a shallow copy without them.
 
 | Type Parameter |
 | ------ |
-| `T` *extends* `object` |
-| `K` *extends* `string` \| `number` \| `symbol` |
+| <a id="type-parameter-t"></a> `T` *extends* `object` |
+| <a id="type-parameter-k"></a> `K` *extends* `string` \| `number` \| `symbol` |
 
 ## Parameters
 

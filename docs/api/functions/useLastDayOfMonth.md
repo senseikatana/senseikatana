@@ -6,7 +6,7 @@
 function useLastDayOfMonth(date?): string;
 ```
 
-Defined in: [core/services/dates.service.ts:743](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/dates.service.ts#L743)
+Defined in: [core/services/dates.service.ts:743](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/dates.service.ts#L743)
 
 Returns the last day of the month for a given date.
 
@@ -14,7 +14,7 @@ Returns the last day of the month for a given date.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `date` | `string` \| `PlainDate` | Base date (defaults to today). |
+| `date?` | `string` \| `PlainDate` | Base date (defaults to today). |
 
 ## Returns
 

@@ -2,7 +2,7 @@
 
 # Interface: IAiService
 
-Defined in: [types/core/ai.ts:82](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/ai.ts#L82)
+Defined in: [types/core/ai.ts:82](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L82)
 
 Contract of the AI/agent facade.
 
@@ -14,7 +14,7 @@ Contract of the AI/agent facade.
 useChat(messages, options?): Promise<AiResult<string>>;
 ```
 
-Defined in: [types/core/ai.ts:84](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/ai.ts#L84)
+Defined in: [types/core/ai.ts:84](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L84)
 
 #### Parameters
 
@@ -35,7 +35,7 @@ Defined in: [types/core/ai.ts:84](https://github.com/senseikatana/katanakit-js/b
 useInitAgent(config): void;
 ```
 
-Defined in: [types/core/ai.ts:83](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/ai.ts#L83)
+Defined in: [types/core/ai.ts:83](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L83)
 
 #### Parameters
 
@@ -55,7 +55,7 @@ Defined in: [types/core/ai.ts:83](https://github.com/senseikatana/katanakit-js/b
 useRunAgent(goal, options?): Promise<AgentResult>;
 ```
 
-Defined in: [types/core/ai.ts:85](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/ai.ts#L85)
+Defined in: [types/core/ai.ts:85](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L85)
 
 #### Parameters
 

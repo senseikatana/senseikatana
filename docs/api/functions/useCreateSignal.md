@@ -6,7 +6,7 @@
 function useCreateSignal<T>(initialValue): [SignalGetter<T>, SignalSetter<T>];
 ```
 
-Defined in: [core/services/reactive.service.ts:387](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L387)
+Defined in: [core/services/reactive.service.ts:387](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L387)
 
 Creates a reactive signal. See [ReactiveService.useCreateSignal](../classes/ReactiveService.md#usecreatesignal).
 
@@ -14,7 +14,7 @@ Creates a reactive signal. See [ReactiveService.useCreateSignal](../classes/Reac
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 

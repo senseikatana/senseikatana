@@ -6,7 +6,7 @@
 function useSeoMeta<OmitKeys>(opts, defaults?): SeoTagResult;
 ```
 
-Defined in: [config/seo.service.ts:55](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/config/seo.service.ts#L55)
+Defined in: [config/seo.service.ts:55](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo.service.ts#L55)
 
 SEO helper: one flat object in → one flat object out (+ html/tags).
 
@@ -14,14 +14,14 @@ SEO helper: one flat object in → one flat object out (+ html/tags).
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `OmitKeys` *extends* keyof SeoMetaFlat \| `"site"` \| `"siteTitle"` \| `"lang"` \| `"rss"` \| `"seo"` \| `"nav"` | `never` |
+| <a id="type-parameter-omitkeys"></a> `OmitKeys` *extends* keyof SeoMetaFlat \| `"site"` \| `"siteTitle"` \| `"lang"` \| `"rss"` \| `"seo"` \| `"nav"` | `never` |
 
 ## Parameters
 
 | Parameter | Type |
 | ------ | ------ |
 | `opts` | [`UseSeoMetaOptions`](../type-aliases/UseSeoMetaOptions.md)\<`OmitKeys`\> |
-| `defaults` | [`SiteConfig`](../interfaces/SiteConfig.md) |
+| `defaults?` | [`SiteConfig`](../interfaces/SiteConfig.md) |
 
 ## Returns
 

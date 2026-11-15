@@ -6,7 +6,7 @@
 function useModalClose(modalSelector, useRemoveDOM?): void;
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:490](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/dom/dom.service.ts#L490)
+Defined in: [infrastructure/dom/dom.service.ts:490](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L490)
 
 Closes a modal by adding the "hidden" class or removing it from the DOM.
 Clicking outside the modal or calling this function will hide it.
@@ -16,7 +16,7 @@ Clicking outside the modal or calling this function will hide it.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `modalSelector` | `string` | `undefined` | A CSS selector string for the modal element. |
-| `useRemoveDOM` | `boolean` | `false` | If `true`, removes the modal from the DOM entirely. If `false`, only adds the "hidden" class (CSS `display: none`). |
+| `useRemoveDOM?` | `boolean` | `false` | If `true`, removes the modal from the DOM entirely. If `false`, only adds the "hidden" class (CSS `display: none`). |
 
 ## Returns
 

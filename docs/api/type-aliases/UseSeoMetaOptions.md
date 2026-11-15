@@ -6,7 +6,7 @@
 type UseSeoMetaOptions<OmitKeys> = Omit<UseSeoMetaBase, OmitKeys>;
 ```
 
-Defined in: [config/seo-meta.types.ts:177](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/config/seo-meta.types.ts#L177)
+Defined in: [config/seo-meta.types.ts:177](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo-meta.types.ts#L177)
 
 Public options for [useSeoMeta](../functions/useSeoMeta.md).
 HTML, Open Graph, Twitter/X card and site fields in one object.
@@ -16,7 +16,7 @@ Omit keys you do not want in the type.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `OmitKeys` *extends* keyof [`UseSeoMetaBase`](UseSeoMetaBase.md) | `never` |
+| <a id="type-parameter-omitkeys"></a> `OmitKeys` *extends* keyof [`UseSeoMetaBase`](UseSeoMetaBase.md) | `never` |
 
 ## Example
 

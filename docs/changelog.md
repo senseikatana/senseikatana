@@ -25,12 +25,95 @@ watch(() => route.hash, openFromHash);
 
 Every release KatanaKit JS has shipped, newest first — open a card to see the changes behind it. The newest one is already open, and the raw file lives in [`CHANGELOG.md`](https://github.com/senseikatana/katanakit-js/blob/main/CHANGELOG.md). Upgrading across majors? Start at the [upgrade guides](/guides/upgrade-to/).
 
-<p class="changelog-stats"><span><strong>137</strong> releases</span><span><strong>677</strong> changes logged</span><span>newest <strong>v7.4.0</strong> · Nov 8, 2026</span><span>since <strong>Sep 3, 2026</strong></span></p>
+<p class="changelog-stats"><span><strong>140</strong> releases</span><span><strong>695</strong> changes logged</span><span>newest <strong>v7.5.2</strong> · Nov 15, 2026</span><span>since <strong>Sep 3, 2026</strong></span></p>
 
-## v7 · 20 releases {#v7}
+## v7 · 23 releases {#v7}
 
-<details class="changelog-release changelog-release--latest" id="v7-4-0" open>
-<summary><span class="changelog-release__version">v7.4.0</span><span class="changelog-release__badge">Latest</span><span class="changelog-release__date">Nov 8, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+<details class="changelog-release changelog-release--latest" id="v7-5-2" open>
+<summary><span class="changelog-release__version">v7.5.2</span><span class="changelog-release__badge">Latest</span><span class="changelog-release__date">Nov 15, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+
+<div class="changelog-release__body">
+
+Highlights: feat(scripts): add contract, DOCS_BASE and redesign all sites.
+
+- 🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites `7a463bb`
+  - `CONTRIBUTING.md`
+  - `bun.lock`
+  - `package.json`
+  - `pnpm-lock.yaml`
+  - `scripts/docs-site.json`
+  - `scripts/setup-cloudflare.mjs`
+  - `scripts/sync-hyperui.mjs`
+  - `scripts/sync-wiki.mjs`
+  - `src/prisma/use-prisma.ts`
+  - `tests/docs-site.test.ts`
+  - `typedoc.json`
+  - `workers/docs-proxy/README.md`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest `c606335`
+- 📝 docs(plans): update 1 file (+0/-131) `8a852a5`
+- 📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections `5c8e24b`
+- 📝 docs(services): add deploy and docs to package.json `e2be25f`
+- 📝 docs(styles): add sets `ac9f42a`
+
+</div>
+
+</details>
+
+<details class="changelog-release" id="v7-5-1">
+<summary><span class="changelog-release__version">v7.5.1</span><span class="changelog-release__date">Nov 15, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+
+<div class="changelog-release__body">
+
+Maintenance release with 1 change.
+
+- 📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest `c606335`
+  - `CONTRIBUTING.md`
+  - `README.md`
+  - `bun.lock`
+  - `examples/dashboard/README.md`
+  - `package.json`
+  - `scripts/serve-docs.mjs`
+  - `scripts/setup-cloudflare.mjs`
+  - `scripts/sync-hyperui.mjs`
+  - `scripts/sync-wiki.mjs`
+  - `tests/sync-wiki.test.ts`
+  - `workers/docs-proxy/README.md`
+  - `workers/docs-proxy/src/index.ts`
+  - `workers/docs-proxy/wrangler.jsonc`
+- 📝 docs(plans): update 1 file (+0/-131) `8a852a5`
+- 📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections `5c8e24b`
+- 📝 docs(services): add deploy and docs to package.json `e2be25f`
+- 📝 docs(styles): add sets `ac9f42a`
+- 🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports `17aac2c`
+
+</div>
+
+</details>
+
+<details class="changelog-release" id="v7-5-0">
+<summary><span class="changelog-release__version">v7.5.0</span><span class="changelog-release__date">Nov 15, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+
+<div class="changelog-release__body">
+
+Maintenance release with 2 changes.
+
+- 📝 docs(plans): update 1 file (+0/-131) `8a852a5`
+  - `.kilo/plans/1794130218644-docs-migration-plan.md`
+- 📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections `5c8e24b`
+  - `.kilo/plans/1794130218644-docs-migration-plan.md`
+- 📝 docs(services): add deploy and docs to package.json `e2be25f`
+- 📝 docs(styles): add sets `ac9f42a`
+- 🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports `17aac2c`
+- 🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an `118405f`
+
+</div>
+
+</details>
+
+<details class="changelog-release" id="v7-4-0">
+<summary><span class="changelog-release__version">v7.4.0</span><span class="changelog-release__date">Nov 8, 2026</span><span class="changelog-release__count">6 changes</span></summary>
 
 <div class="changelog-release__body">
 
@@ -852,6 +935,7 @@ Highlights: fix(schemas): migrate wordpress schema to zod v4 and restore missing
   - `package.json`
   - `scripts/docs.mjs`
   - `scripts/sync-tailwind-components.mjs`
+  - `docs/public/tailwind-html/`
 - 📝 docs(styles): add sets `ac9f42a`
   - `docs/guides/filesystem.md`
   - `packages/ui/package.json`
@@ -1880,6 +1964,7 @@ Highlights: feat(docs): split the Docs section into /start and fix the tab layou
   - `docs/ui-kit/tailwind-components/features.md`
   - `docs/ui-kit/tailwind-components/index.md`
   - `docs/ui-kit/tailwind-components/shared.md`
+  - `docs/public/tailwind-html/`
   - `eslint.config.mjs`
   - `examples/dashboard/README.md`
   - `package.json`

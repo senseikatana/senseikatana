@@ -3,10 +3,10 @@
 # Function: useKeys()
 
 ```ts
-function useKeys<T>(object): keyof T[];
+function useKeys<T>(object): (keyof T)[];
 ```
 
-Defined in: [core/services/array.service.ts:528](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L528)
+Defined in: [core/services/array.service.ts:528](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L528)
 
 Typed `Object.keys`. See [ArrayService.useKeys](../classes/ArrayService.md#usekeys).
 
@@ -14,7 +14,7 @@ Typed `Object.keys`. See [ArrayService.useKeys](../classes/ArrayService.md#useke
 
 | Type Parameter |
 | ------ |
-| `T` *extends* `object` |
+| <a id="type-parameter-t"></a> `T` *extends* `object` |
 
 ## Parameters
 
@@ -24,4 +24,4 @@ Typed `Object.keys`. See [ArrayService.useKeys](../classes/ArrayService.md#useke
 
 ## Returns
 
-keyof `T`[]
+(keyof `T`)[]

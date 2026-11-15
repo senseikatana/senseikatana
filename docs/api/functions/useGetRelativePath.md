@@ -6,7 +6,7 @@
 function useGetRelativePath(from, to): Promise<string>;
 ```
 
-Defined in: [infrastructure/filesystem/path.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/filesystem/path.service.ts#L115)
+Defined in: [infrastructure/filesystem/path.service.ts:115](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/path.service.ts#L115)
 
 Computes the relative path from `from` to `to`.
 

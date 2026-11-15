@@ -2,7 +2,7 @@
 
 # Interface: IWordPressService
 
-Defined in: [types/adapters/wordpress.ts:192](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L192)
+Defined in: [types/adapters/wordpress.ts:192](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L192)
 
 Contract of the WordPress adapter facade.
 
@@ -35,7 +35,7 @@ useWpAssignRole(userId, role): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:236](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L236)
+Defined in: [types/adapters/wordpress.ts:236](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L236)
 
 #### Parameters
 
@@ -81,7 +81,7 @@ useWpAsSubject(user): {
 };
 ```
 
-Defined in: [types/adapters/wordpress.ts:235](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L235)
+Defined in: [types/adapters/wordpress.ts:235](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L235)
 
 #### Parameters
 
@@ -89,24 +89,24 @@ Defined in: [types/adapters/wordpress.ts:235](https://github.com/senseikatana/ka
 | ------ | ------ |
 | `user` | \{ \[`key`: `string`\]: `unknown`; `acf?`: `Record`\<`string`, `unknown`\>; `avatar_urls`: `Record`\<`string`, `string`\>; `capabilities`: `Record`\<`string`, `boolean`\>; `description`: `string`; `email`: `string`; `extra_capabilities`: `Record`\<`string`, `boolean`\>; `first_name`: `string`; `id`: `number`; `last_name`: `string`; `link`: `string`; `locale`: `string`; `meta`: `Record`\<`string`, `unknown`\>; `name`: `string`; `nickname`: `string`; `registered_date`: `string`; `roles`: `string`[]; `slug`: `string`; `url`: `string`; `username`: `string`; \} |
 | `user.acf?` | `Record`\<`string`, `unknown`\> |
-| `user.avatar_urls` | `Record`\<`string`, `string`\> |
-| `user.capabilities` | `Record`\<`string`, `boolean`\> |
-| `user.description` | `string` |
-| `user.email` | `string` |
-| `user.extra_capabilities` | `Record`\<`string`, `boolean`\> |
-| `user.first_name` | `string` |
-| `user.id` | `number` |
-| `user.last_name` | `string` |
-| `user.link` | `string` |
-| `user.locale` | `string` |
-| `user.meta` | `Record`\<`string`, `unknown`\> |
-| `user.name` | `string` |
-| `user.nickname` | `string` |
-| `user.registered_date` | `string` |
-| `user.roles` | `string`[] |
-| `user.slug` | `string` |
-| `user.url` | `string` |
-| `user.username` | `string` |
+| `user.avatar_urls?` | `Record`\<`string`, `string`\> |
+| `user.capabilities?` | `Record`\<`string`, `boolean`\> |
+| `user.description?` | `string` |
+| `user.email?` | `string` |
+| `user.extra_capabilities?` | `Record`\<`string`, `boolean`\> |
+| `user.first_name?` | `string` |
+| `user.id?` | `number` |
+| `user.last_name?` | `string` |
+| `user.link?` | `string` |
+| `user.locale?` | `string` |
+| `user.meta?` | `Record`\<`string`, `unknown`\> |
+| `user.name?` | `string` |
+| `user.nickname?` | `string` |
+| `user.registered_date?` | `string` |
+| `user.roles?` | `string`[] |
+| `user.slug?` | `string` |
+| `user.url?` | `string` |
+| `user.username?` | `string` |
 
 #### Returns
 
@@ -146,7 +146,7 @@ useWpAuditRole(slug, maxHolders?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:239](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L239)
+Defined in: [types/adapters/wordpress.ts:239](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L239)
 
 #### Parameters
 
@@ -183,7 +183,7 @@ useWpBatch(operations): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:260](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L260)
+Defined in: [types/adapters/wordpress.ts:260](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L260)
 
 #### Parameters
 
@@ -223,7 +223,7 @@ useWpCreateCategory(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:210](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L210)
+Defined in: [types/adapters/wordpress.ts:210](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L210)
 
 #### Parameters
 
@@ -232,10 +232,10 @@ Defined in: [types/adapters/wordpress.ts:210](https://github.com/senseikatana/ka
 | `data` | \{ \[`key`: `string`\]: `unknown`; `acf?`: `Record`\<`string`, `unknown`\>; `description?`: `string`; `name`: `string`; `parent?`: `number`; `slug`: `string`; `taxonomy`: `string`; \} |
 | `data.acf?` | `Record`\<`string`, `unknown`\> |
 | `data.description?` | `string` |
-| `data.name` | `string` |
+| `data.name?` | `string` |
 | `data.parent?` | `number` |
-| `data.slug` | `string` |
-| `data.taxonomy` | `string` |
+| `data.slug?` | `string` |
+| `data.taxonomy?` | `string` |
 
 #### Returns
 
@@ -281,21 +281,21 @@ useWpCreateComment(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:220](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L220)
+Defined in: [types/adapters/wordpress.ts:220](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L220)
 
 #### Parameters
 
 | Parameter | Type |
 | ------ | ------ |
 | `data` | \{ \[`key`: `string`\]: `unknown`; `author`: `number`; `author_email?`: `string`; `author_name?`: `string`; `author_url?`: `string`; `content`: \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \}; `parent?`: `number`; `post`: `number`; \} |
-| `data.author` | `number` |
+| `data.author?` | `number` |
 | `data.author_email?` | `string` |
 | `data.author_name?` | `string` |
 | `data.author_url?` | `string` |
-| `data.content` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.content.rendered` | `string` |
+| `data.content?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
+| `data.content.rendered?` | `string` |
 | `data.parent?` | `number` |
-| `data.post` | `number` |
+| `data.post?` | `number` |
 
 #### Returns
 
@@ -329,7 +329,7 @@ Defined in: [types/adapters/wordpress.ts:220](https://github.com/senseikatana/ka
 useWpCreateCustomPost(postType, data): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:246](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L246)
+Defined in: [types/adapters/wordpress.ts:246](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L246)
 
 #### Parameters
 
@@ -362,7 +362,7 @@ useWpCreatePage(data): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -374,7 +374,7 @@ useWpCreatePage(data): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -396,7 +396,7 @@ useWpCreatePage(data): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -444,7 +444,7 @@ useWpCreatePage(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L200)
+Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L200)
 
 #### Parameters
 
@@ -452,26 +452,26 @@ Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/ka
 | ------ | ------ |
 | `data` | \{ \[`key`: `string`\]: `unknown`; `acf?`: `Record`\<`string`, `unknown`\>; `author`: `number`; `comment_status`: `string`; `content`: \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \}; `excerpt`: \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \}; `featured_media`: `number`; `guid?`: \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \}; `menu_order?`: `number`; `meta?`: `Record`\<`string`, `unknown`\>; `parent?`: `number`; `ping_status`: `string`; `slug?`: `string`; `status?`: `string`; `template?`: `string`; `title`: \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \}; `type?`: `string`; \} |
 | `data.acf?` | `Record`\<`string`, `unknown`\> |
-| `data.author` | `number` |
-| `data.comment_status` | `string` |
-| `data.content` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.content.protected` | `boolean` |
-| `data.content.rendered` | `string` |
-| `data.excerpt` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.excerpt.protected` | `boolean` |
-| `data.excerpt.rendered` | `string` |
-| `data.featured_media` | `number` |
+| `data.author?` | `number` |
+| `data.comment_status?` | `string` |
+| `data.content?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
+| `data.content.protected?` | `boolean` |
+| `data.content.rendered?` | `string` |
+| `data.excerpt?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
+| `data.excerpt.protected?` | `boolean` |
+| `data.excerpt.rendered?` | `string` |
+| `data.featured_media?` | `number` |
 | `data.guid?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.guid.rendered` | `string` |
+| `data.guid.rendered?` | `string` |
 | `data.menu_order?` | `number` |
 | `data.meta?` | `Record`\<`string`, `unknown`\> |
 | `data.parent?` | `number` |
-| `data.ping_status` | `string` |
+| `data.ping_status?` | `string` |
 | `data.slug?` | `string` |
 | `data.status?` | `string` |
 | `data.template?` | `string` |
-| `data.title` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.title.rendered` | `string` |
+| `data.title?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
+| `data.title.rendered?` | `string` |
 | `data.type?` | `string` |
 
 #### Returns
@@ -491,7 +491,7 @@ Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -503,7 +503,7 @@ Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -525,7 +525,7 @@ Defined in: [types/adapters/wordpress.ts:200](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -592,7 +592,7 @@ useWpCreatePost(data): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -604,7 +604,7 @@ useWpCreatePost(data): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -626,7 +626,7 @@ useWpCreatePost(data): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -676,7 +676,7 @@ useWpCreatePost(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L195)
+Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L195)
 
 #### Parameters
 
@@ -684,28 +684,28 @@ Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/ka
 | ------ | ------ |
 | `data` | \{ \[`key`: `string`\]: `unknown`; `acf?`: `Record`\<`string`, `unknown`\>; `author`: `number`; `categories?`: `number`[]; `comment_status`: `string`; `content`: \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \}; `excerpt`: \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \}; `featured_media`: `number`; `format?`: `string`; `guid?`: \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \}; `meta?`: `Record`\<`string`, `unknown`\>; `ping_status`: `string`; `slug?`: `string`; `status?`: `string`; `sticky`: `boolean`; `tags?`: `number`[]; `template?`: `string`; `title`: \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \}; `type?`: `string`; \} |
 | `data.acf?` | `Record`\<`string`, `unknown`\> |
-| `data.author` | `number` |
+| `data.author?` | `number` |
 | `data.categories?` | `number`[] |
-| `data.comment_status` | `string` |
-| `data.content` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.content.protected` | `boolean` |
-| `data.content.rendered` | `string` |
-| `data.excerpt` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.excerpt.protected` | `boolean` |
-| `data.excerpt.rendered` | `string` |
-| `data.featured_media` | `number` |
+| `data.comment_status?` | `string` |
+| `data.content?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
+| `data.content.protected?` | `boolean` |
+| `data.content.rendered?` | `string` |
+| `data.excerpt?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
+| `data.excerpt.protected?` | `boolean` |
+| `data.excerpt.rendered?` | `string` |
+| `data.featured_media?` | `number` |
 | `data.format?` | `string` |
 | `data.guid?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.guid.rendered` | `string` |
+| `data.guid.rendered?` | `string` |
 | `data.meta?` | `Record`\<`string`, `unknown`\> |
-| `data.ping_status` | `string` |
+| `data.ping_status?` | `string` |
 | `data.slug?` | `string` |
 | `data.status?` | `string` |
-| `data.sticky` | `boolean` |
+| `data.sticky?` | `boolean` |
 | `data.tags?` | `number`[] |
 | `data.template?` | `string` |
-| `data.title` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.title.rendered` | `string` |
+| `data.title?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
+| `data.title.rendered?` | `string` |
 | `data.type?` | `string` |
 
 #### Returns
@@ -725,7 +725,7 @@ Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -737,7 +737,7 @@ Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -759,7 +759,7 @@ Defined in: [types/adapters/wordpress.ts:195](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -827,7 +827,7 @@ useWpCreateTag(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:215](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L215)
+Defined in: [types/adapters/wordpress.ts:215](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L215)
 
 #### Parameters
 
@@ -836,9 +836,9 @@ Defined in: [types/adapters/wordpress.ts:215](https://github.com/senseikatana/ka
 | `data` | \{ \[`key`: `string`\]: `unknown`; `acf?`: `Record`\<`string`, `unknown`\>; `description?`: `string`; `name`: `string`; `slug`: `string`; `taxonomy`: `string`; \} |
 | `data.acf?` | `Record`\<`string`, `unknown`\> |
 | `data.description?` | `string` |
-| `data.name` | `string` |
-| `data.slug` | `string` |
-| `data.taxonomy` | `string` |
+| `data.name?` | `string` |
+| `data.slug?` | `string` |
+| `data.taxonomy?` | `string` |
 
 #### Returns
 
@@ -884,7 +884,7 @@ useWpCreateUser(data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L226)
+Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L226)
 
 #### Parameters
 
@@ -893,16 +893,16 @@ Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/ka
 | `data` | \{ \[`key`: `string`\]: `unknown`; `acf?`: `Record`\<`string`, `unknown`\>; `description?`: `string`; `email`: `string`; `first_name?`: `string`; `last_name?`: `string`; `locale?`: `string`; `name`: `string`; `nickname?`: `string`; `roles?`: `string`[]; `slug`: `string`; `url`: `string`; `username`: `string`; \} |
 | `data.acf?` | `Record`\<`string`, `unknown`\> |
 | `data.description?` | `string` |
-| `data.email` | `string` |
+| `data.email?` | `string` |
 | `data.first_name?` | `string` |
 | `data.last_name?` | `string` |
 | `data.locale?` | `string` |
-| `data.name` | `string` |
+| `data.name?` | `string` |
 | `data.nickname?` | `string` |
 | `data.roles?` | `string`[] |
-| `data.slug` | `string` |
-| `data.url` | `string` |
-| `data.username` | `string` |
+| `data.slug?` | `string` |
+| `data.url?` | `string` |
+| `data.username?` | `string` |
 
 #### Returns
 
@@ -937,7 +937,7 @@ Defined in: [types/adapters/wordpress.ts:226](https://github.com/senseikatana/ka
 useWpDefineRoles(definitions): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:229](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L229)
+Defined in: [types/adapters/wordpress.ts:229](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L229)
 
 #### Parameters
 
@@ -969,7 +969,7 @@ useWpDeleteCategory(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:212](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L212)
+Defined in: [types/adapters/wordpress.ts:212](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L212)
 
 #### Parameters
 
@@ -1022,7 +1022,7 @@ useWpDeleteComment(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:222](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L222)
+Defined in: [types/adapters/wordpress.ts:222](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L222)
 
 #### Parameters
 
@@ -1067,7 +1067,7 @@ useWpDeleteCustomPost(
 ): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:255](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L255)
+Defined in: [types/adapters/wordpress.ts:255](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L255)
 
 #### Parameters
 
@@ -1101,7 +1101,7 @@ useWpDeleteMedia(id, force?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -1113,7 +1113,7 @@ useWpDeleteMedia(id, force?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -1135,7 +1135,7 @@ useWpDeleteMedia(id, force?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -1210,7 +1210,7 @@ useWpDeleteMedia(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L207)
+Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L207)
 
 #### Parameters
 
@@ -1236,7 +1236,7 @@ Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -1248,7 +1248,7 @@ Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -1270,7 +1270,7 @@ Defined in: [types/adapters/wordpress.ts:207](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -1364,7 +1364,7 @@ useWpDeletePage(id, force?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -1376,7 +1376,7 @@ useWpDeletePage(id, force?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -1398,7 +1398,7 @@ useWpDeletePage(id, force?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -1446,7 +1446,7 @@ useWpDeletePage(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L202)
+Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L202)
 
 #### Parameters
 
@@ -1472,7 +1472,7 @@ Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -1484,7 +1484,7 @@ Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -1506,7 +1506,7 @@ Defined in: [types/adapters/wordpress.ts:202](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -1573,7 +1573,7 @@ useWpDeletePost(id, force?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -1585,7 +1585,7 @@ useWpDeletePost(id, force?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -1607,7 +1607,7 @@ useWpDeletePost(id, force?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -1657,7 +1657,7 @@ useWpDeletePost(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L197)
+Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L197)
 
 #### Parameters
 
@@ -1683,7 +1683,7 @@ Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -1695,7 +1695,7 @@ Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -1717,7 +1717,7 @@ Defined in: [types/adapters/wordpress.ts:197](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -1785,7 +1785,7 @@ useWpDeleteTag(id, force?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:217](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L217)
+Defined in: [types/adapters/wordpress.ts:217](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L217)
 
 #### Parameters
 
@@ -1838,7 +1838,7 @@ useWpDeleteUser(id, reassign?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:228](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L228)
+Defined in: [types/adapters/wordpress.ts:228](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L228)
 
 #### Parameters
 
@@ -1893,7 +1893,7 @@ useWpFindPostBySlug(slug): Promise<FetchResult<
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -1905,7 +1905,7 @@ useWpFindPostBySlug(slug): Promise<FetchResult<
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -1927,7 +1927,7 @@ useWpFindPostBySlug(slug): Promise<FetchResult<
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: ... | ...;
         id: number;
@@ -1978,7 +1978,7 @@ useWpFindPostBySlug(slug): Promise<FetchResult<
 | null>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L263)
+Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L263)
 
 #### Parameters
 
@@ -2004,7 +2004,7 @@ Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -2016,7 +2016,7 @@ Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -2038,7 +2038,7 @@ Defined in: [types/adapters/wordpress.ts:263](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: ... \| ...;
         `id`: `number`;
@@ -2108,7 +2108,7 @@ useWpGetCategories(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:208](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L208)
+Defined in: [types/adapters/wordpress.ts:208](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L208)
 
 #### Parameters
 
@@ -2167,7 +2167,7 @@ useWpGetCategory(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:209](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L209)
+Defined in: [types/adapters/wordpress.ts:209](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L209)
 
 #### Parameters
 
@@ -2219,7 +2219,7 @@ useWpGetComment(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:219](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L219)
+Defined in: [types/adapters/wordpress.ts:219](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L219)
 
 #### Parameters
 
@@ -2279,7 +2279,7 @@ useWpGetComments(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:218](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L218)
+Defined in: [types/adapters/wordpress.ts:218](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L218)
 
 #### Parameters
 
@@ -2355,7 +2355,7 @@ useWpGetCurrentUser(): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:225](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L225)
+Defined in: [types/adapters/wordpress.ts:225](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L225)
 
 #### Returns
 
@@ -2394,7 +2394,7 @@ useWpGetCustomPost(
 ): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:241](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L241)
+Defined in: [types/adapters/wordpress.ts:241](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L241)
 
 #### Parameters
 
@@ -2431,7 +2431,7 @@ Defined in: [types/adapters/wordpress.ts:241](https://github.com/senseikatana/ka
 useWpGetCustomPosts(postType, options?): Promise<FetchResult<unknown[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:240](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L240)
+Defined in: [types/adapters/wordpress.ts:240](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L240)
 
 #### Parameters
 
@@ -2479,7 +2479,7 @@ useWpGetMedia(options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -2491,7 +2491,7 @@ useWpGetMedia(options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -2513,7 +2513,7 @@ useWpGetMedia(options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: ... | ...;
         id: number;
@@ -2588,7 +2588,7 @@ useWpGetMedia(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L203)
+Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L203)
 
 #### Parameters
 
@@ -2628,7 +2628,7 @@ Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -2640,7 +2640,7 @@ Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -2662,7 +2662,7 @@ Defined in: [types/adapters/wordpress.ts:203](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: ... \| ...;
         `id`: `number`;
@@ -2756,7 +2756,7 @@ useWpGetMediaItem(id): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -2768,7 +2768,7 @@ useWpGetMediaItem(id): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -2790,7 +2790,7 @@ useWpGetMediaItem(id): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -2865,7 +2865,7 @@ useWpGetMediaItem(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L204)
+Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L204)
 
 #### Parameters
 
@@ -2890,7 +2890,7 @@ Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -2902,7 +2902,7 @@ Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -2924,7 +2924,7 @@ Defined in: [types/adapters/wordpress.ts:204](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -3018,7 +3018,7 @@ useWpGetPage(id, options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -3030,7 +3030,7 @@ useWpGetPage(id, options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -3052,7 +3052,7 @@ useWpGetPage(id, options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -3100,7 +3100,7 @@ useWpGetPage(id, options?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L199)
+Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L199)
 
 #### Parameters
 
@@ -3141,7 +3141,7 @@ Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -3153,7 +3153,7 @@ Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -3175,7 +3175,7 @@ Defined in: [types/adapters/wordpress.ts:199](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -3242,7 +3242,7 @@ useWpGetPages(options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -3254,7 +3254,7 @@ useWpGetPages(options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -3276,7 +3276,7 @@ useWpGetPages(options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: ... | ...;
         id: number;
@@ -3324,7 +3324,7 @@ useWpGetPages(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L198)
+Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L198)
 
 #### Parameters
 
@@ -3364,7 +3364,7 @@ Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -3376,7 +3376,7 @@ Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -3398,7 +3398,7 @@ Defined in: [types/adapters/wordpress.ts:198](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: ... \| ...;
         `id`: `number`;
@@ -3465,7 +3465,7 @@ useWpGetPost(id, options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -3477,7 +3477,7 @@ useWpGetPost(id, options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -3499,7 +3499,7 @@ useWpGetPost(id, options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -3549,7 +3549,7 @@ useWpGetPost(id, options?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L194)
+Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L194)
 
 #### Parameters
 
@@ -3590,7 +3590,7 @@ Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -3602,7 +3602,7 @@ Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -3624,7 +3624,7 @@ Defined in: [types/adapters/wordpress.ts:194](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -3693,7 +3693,7 @@ useWpGetPosts(options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -3705,7 +3705,7 @@ useWpGetPosts(options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -3727,7 +3727,7 @@ useWpGetPosts(options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: ... | ...;
         id: number;
@@ -3777,7 +3777,7 @@ useWpGetPosts(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L193)
+Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L193)
 
 #### Parameters
 
@@ -3817,7 +3817,7 @@ Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -3829,7 +3829,7 @@ Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -3851,7 +3851,7 @@ Defined in: [types/adapters/wordpress.ts:193](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: ... \| ...;
         `id`: `number`;
@@ -3916,7 +3916,7 @@ useWpGetRole(slug):
   | undefined;
 ```
 
-Defined in: [types/adapters/wordpress.ts:232](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L232)
+Defined in: [types/adapters/wordpress.ts:232](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L232)
 
 #### Parameters
 
@@ -3954,7 +3954,7 @@ useWpGetTag(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:214](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L214)
+Defined in: [types/adapters/wordpress.ts:214](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L214)
 
 #### Parameters
 
@@ -3996,7 +3996,7 @@ useWpGetTags(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:213](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L213)
+Defined in: [types/adapters/wordpress.ts:213](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L213)
 
 #### Parameters
 
@@ -4063,7 +4063,7 @@ useWpGetUser(id): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:224](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L224)
+Defined in: [types/adapters/wordpress.ts:224](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L224)
 
 #### Parameters
 
@@ -4125,7 +4125,7 @@ useWpGetUsers(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:223](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L223)
+Defined in: [types/adapters/wordpress.ts:223](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L223)
 
 #### Parameters
 
@@ -4202,7 +4202,7 @@ useWpGetUsersByRole(role, options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:238](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L238)
+Defined in: [types/adapters/wordpress.ts:238](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L238)
 
 #### Parameters
 
@@ -4271,7 +4271,7 @@ useWpListAllPosts(options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -4283,7 +4283,7 @@ useWpListAllPosts(options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -4305,7 +4305,7 @@ useWpListAllPosts(options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: ... | ...;
         id: number;
@@ -4355,7 +4355,7 @@ useWpListAllPosts(options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L261)
+Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L261)
 
 #### Parameters
 
@@ -4395,7 +4395,7 @@ Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -4407,7 +4407,7 @@ Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -4429,7 +4429,7 @@ Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: ... \| ...;
         `id`: `number`;
@@ -4486,18 +4486,18 @@ Defined in: [types/adapters/wordpress.ts:261](https://github.com/senseikatana/ka
 useWpRegisterRole(definition): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:230](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L230)
+Defined in: [types/adapters/wordpress.ts:230](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L230)
 
 #### Parameters
 
 | Parameter | Type |
 | ------ | ------ |
 | `definition` | \{ `capabilities`: `string`[]; `label`: `string`; `rank`: `number`; `slug`: `string`; `wpCapabilities`: `string`[]; \} |
-| `definition.capabilities` | `string`[] |
-| `definition.label` | `string` |
-| `definition.rank` | `number` |
-| `definition.slug` | `string` |
-| `definition.wpCapabilities` | `string`[] |
+| `definition.capabilities?` | `string`[] |
+| `definition.label?` | `string` |
+| `definition.rank?` | `number` |
+| `definition.slug?` | `string` |
+| `definition.wpCapabilities?` | `string`[] |
 
 #### Returns
 
@@ -4511,7 +4511,7 @@ Defined in: [types/adapters/wordpress.ts:230](https://github.com/senseikatana/ka
 useWpResetRoles(): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:233](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L233)
+Defined in: [types/adapters/wordpress.ts:233](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L233)
 
 #### Returns
 
@@ -4531,7 +4531,7 @@ useWpRoles(): {
 }[];
 ```
 
-Defined in: [types/adapters/wordpress.ts:231](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L231)
+Defined in: [types/adapters/wordpress.ts:231](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L231)
 
 #### Returns
 
@@ -4563,7 +4563,7 @@ useWpSearchAllPosts(query, options?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -4575,7 +4575,7 @@ useWpSearchAllPosts(query, options?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -4597,7 +4597,7 @@ useWpSearchAllPosts(query, options?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: ... | ...;
         id: number;
@@ -4647,7 +4647,7 @@ useWpSearchAllPosts(query, options?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L262)
+Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L262)
 
 #### Parameters
 
@@ -4688,7 +4688,7 @@ Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -4700,7 +4700,7 @@ Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -4722,7 +4722,7 @@ Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: ... \| ...;
         `id`: `number`;
@@ -4779,7 +4779,7 @@ Defined in: [types/adapters/wordpress.ts:262](https://github.com/senseikatana/ka
 useWpSyncRoles(): void;
 ```
 
-Defined in: [types/adapters/wordpress.ts:234](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L234)
+Defined in: [types/adapters/wordpress.ts:234](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L234)
 
 #### Returns
 
@@ -4814,7 +4814,7 @@ useWpUnassignRole(userId, role): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:237](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L237)
+Defined in: [types/adapters/wordpress.ts:237](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L237)
 
 #### Parameters
 
@@ -4868,7 +4868,7 @@ useWpUpdateCategory(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:211](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L211)
+Defined in: [types/adapters/wordpress.ts:211](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L211)
 
 #### Parameters
 
@@ -4927,7 +4927,7 @@ useWpUpdateComment(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:221](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L221)
+Defined in: [types/adapters/wordpress.ts:221](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L221)
 
 #### Parameters
 
@@ -4940,7 +4940,7 @@ Defined in: [types/adapters/wordpress.ts:221](https://github.com/senseikatana/ka
 | `data.author_name?` | `string` |
 | `data.author_url?` | `string` |
 | `data.content?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.content.rendered` | `string` |
+| `data.content.rendered?` | `string` |
 | `data.parent?` | `number` |
 | `data.status?` | `string` |
 
@@ -4980,7 +4980,7 @@ useWpUpdateCustomPost(
 ): Promise<FetchResult<unknown>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:250](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L250)
+Defined in: [types/adapters/wordpress.ts:250](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L250)
 
 #### Parameters
 
@@ -5014,7 +5014,7 @@ useWpUpdateMedia(id, data): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -5026,7 +5026,7 @@ useWpUpdateMedia(id, data): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -5048,7 +5048,7 @@ useWpUpdateMedia(id, data): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -5123,7 +5123,7 @@ useWpUpdateMedia(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L206)
+Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L206)
 
 #### Parameters
 
@@ -5156,7 +5156,7 @@ Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -5168,7 +5168,7 @@ Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -5190,7 +5190,7 @@ Defined in: [types/adapters/wordpress.ts:206](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -5284,7 +5284,7 @@ useWpUpdatePage(id, data): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -5296,7 +5296,7 @@ useWpUpdatePage(id, data): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -5318,7 +5318,7 @@ useWpUpdatePage(id, data): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -5366,7 +5366,7 @@ useWpUpdatePage(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L201)
+Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L201)
 
 #### Parameters
 
@@ -5378,14 +5378,14 @@ Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/ka
 | `data.author?` | `number` |
 | `data.comment_status?` | `string` |
 | `data.content?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.content.protected` | `boolean` |
-| `data.content.rendered` | `string` |
+| `data.content.protected?` | `boolean` |
+| `data.content.rendered?` | `string` |
 | `data.excerpt?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.excerpt.protected` | `boolean` |
-| `data.excerpt.rendered` | `string` |
+| `data.excerpt.protected?` | `boolean` |
+| `data.excerpt.rendered?` | `string` |
 | `data.featured_media?` | `number` |
 | `data.guid?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.guid.rendered` | `string` |
+| `data.guid.rendered?` | `string` |
 | `data.menu_order?` | `number` |
 | `data.meta?` | `Record`\<`string`, `unknown`\> |
 | `data.parent?` | `number` |
@@ -5394,7 +5394,7 @@ Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/ka
 | `data.status?` | `string` |
 | `data.template?` | `string` |
 | `data.title?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.title.rendered` | `string` |
+| `data.title.rendered?` | `string` |
 | `data.type?` | `string` |
 
 #### Returns
@@ -5414,7 +5414,7 @@ Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -5426,7 +5426,7 @@ Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -5448,7 +5448,7 @@ Defined in: [types/adapters/wordpress.ts:201](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -5515,7 +5515,7 @@ useWpUpdatePost(id, data): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -5527,7 +5527,7 @@ useWpUpdatePost(id, data): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -5549,7 +5549,7 @@ useWpUpdatePost(id, data): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -5599,7 +5599,7 @@ useWpUpdatePost(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L196)
+Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L196)
 
 #### Parameters
 
@@ -5612,15 +5612,15 @@ Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/ka
 | `data.categories?` | `number`[] |
 | `data.comment_status?` | `string` |
 | `data.content?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.content.protected` | `boolean` |
-| `data.content.rendered` | `string` |
+| `data.content.protected?` | `boolean` |
+| `data.content.rendered?` | `string` |
 | `data.excerpt?` | \{ \[`key`: `string`\]: `unknown`; `protected`: `boolean`; `rendered`: `string`; \} |
-| `data.excerpt.protected` | `boolean` |
-| `data.excerpt.rendered` | `string` |
+| `data.excerpt.protected?` | `boolean` |
+| `data.excerpt.rendered?` | `string` |
 | `data.featured_media?` | `number` |
 | `data.format?` | `string` |
 | `data.guid?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.guid.rendered` | `string` |
+| `data.guid.rendered?` | `string` |
 | `data.meta?` | `Record`\<`string`, `unknown`\> |
 | `data.ping_status?` | `string` |
 | `data.slug?` | `string` |
@@ -5629,7 +5629,7 @@ Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/ka
 | `data.tags?` | `number`[] |
 | `data.template?` | `string` |
 | `data.title?` | \{ \[`key`: `string`\]: `unknown`; `rendered`: `string`; \} |
-| `data.title.rendered` | `string` |
+| `data.title.rendered?` | `string` |
 | `data.type?` | `string` |
 
 #### Returns
@@ -5649,7 +5649,7 @@ Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -5661,7 +5661,7 @@ Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -5683,7 +5683,7 @@ Defined in: [types/adapters/wordpress.ts:196](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;
@@ -5751,7 +5751,7 @@ useWpUpdateTag(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:216](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L216)
+Defined in: [types/adapters/wordpress.ts:216](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L216)
 
 #### Parameters
 
@@ -5809,7 +5809,7 @@ useWpUpdateUser(id, data): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:227](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L227)
+Defined in: [types/adapters/wordpress.ts:227](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L227)
 
 #### Parameters
 
@@ -5876,7 +5876,7 @@ useWpUploadMedia(file, meta?): Promise<FetchResult<{
         slug: string;
         url: string;
      }[];
-     wp:comment?: {
+     "wp:comment"?: {
       [key: string]: unknown;
         author: number;
         author_name: string;
@@ -5888,7 +5888,7 @@ useWpUploadMedia(file, meta?): Promise<FetchResult<{
         id: number;
         parent: number;
      }[][];
-     wp:featuredmedia?: {
+     "wp:featuredmedia"?: {
       [key: string]: unknown;
         alt_text: string;
         date: string;
@@ -5910,7 +5910,7 @@ useWpUploadMedia(file, meta?): Promise<FetchResult<{
         };
         type?: string;
      }[];
-     wp:term?: {
+     "wp:term"?: {
       [key: string]: unknown;
         acf?: Record<..., ...>;
         id: number;
@@ -5985,7 +5985,7 @@ useWpUploadMedia(file, meta?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/wordpress.ts#L205)
+Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/wordpress.ts#L205)
 
 #### Parameters
 
@@ -6017,7 +6017,7 @@ Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/ka
         `slug`: `string`;
         `url`: `string`;
      \}[];
-     `wp:comment?`: \{
+     `"wp:comment"?`: \{
       \[`key`: `string`\]: `unknown`;
         `author`: `number`;
         `author_name`: `string`;
@@ -6029,7 +6029,7 @@ Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/ka
         `id`: `number`;
         `parent`: `number`;
      \}[][];
-     `wp:featuredmedia?`: \{
+     `"wp:featuredmedia"?`: \{
       \[`key`: `string`\]: `unknown`;
         `alt_text`: `string`;
         `date`: `string`;
@@ -6051,7 +6051,7 @@ Defined in: [types/adapters/wordpress.ts:205](https://github.com/senseikatana/ka
         \};
         `type?`: `string`;
      \}[];
-     `wp:term?`: \{
+     `"wp:term"?`: \{
       \[`key`: `string`\]: `unknown`;
         `acf?`: `Record`\<..., ...\>;
         `id`: `number`;

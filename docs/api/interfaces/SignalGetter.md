@@ -2,7 +2,7 @@
 
 # Interface: SignalGetter()\<T\>
 
-Defined in: [types/core/reactive.ts:7](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L7)
+Defined in: [types/core/reactive.ts:7](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L7)
 
 ## Extends
 
@@ -12,13 +12,13 @@ Defined in: [types/core/reactive.ts:7](https://github.com/senseikatana/katanakit
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ```ts
 SignalGetter(): T;
 ```
 
-Defined in: [types/core/reactive.ts:8](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L8)
+Defined in: [types/core/reactive.ts:8](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L8)
 
 ## Returns
 
@@ -28,4 +28,4 @@ Defined in: [types/core/reactive.ts:8](https://github.com/senseikatana/katanakit
 
 | Property | Type | Inherited from | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="usesubscribe"></a> `useSubscribe` | (`listener`) => () => `void` | [`Subscribable`](Subscribable.md).[`useSubscribe`](Subscribable.md#usesubscribe) | [types/core/reactive.ts:4](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L4) |
+| <a id="usesubscribe"></a> `useSubscribe` | (`listener`) => () => `void` | [`Subscribable`](Subscribable.md).[`useSubscribe`](Subscribable.md#usesubscribe) | [types/core/reactive.ts:4](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L4) |

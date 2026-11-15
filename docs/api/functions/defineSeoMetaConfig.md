@@ -6,7 +6,7 @@
 function defineSeoMetaConfig(config): SiteConfig;
 ```
 
-Defined in: [config/seo.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/config/seo.service.ts#L146)
+Defined in: [config/seo.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo.service.ts#L146)
 
 Registers the site-wide SEO config once — the same `define*Config` pattern
 used by the HTTP client and the other services.

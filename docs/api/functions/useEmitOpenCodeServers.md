@@ -6,7 +6,7 @@
 function useEmitOpenCodeServers(servers): SafeResult<string>;
 ```
 
-Defined in: [core/services/mcp.service.ts:225](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L225)
+Defined in: [core/services/mcp.service.ts:225](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L225)
 
 Renders entries as a `mcp.servers` JSON fragment. See [McpService.useEmitOpenCodeServers](../classes/McpService.md#useemitopencodeservers).
 

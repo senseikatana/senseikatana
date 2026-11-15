@@ -6,7 +6,7 @@
 function useReadJsonFile<T>(path, schema?): Promise<FilesystemResult<T>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/filesystem/filesystem.service.ts#L282)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/filesystem.service.ts#L282)
 
 Reads and parses a JSON file, optionally validating it with a Zod schema.
 
@@ -14,7 +14,7 @@ Reads and parses a JSON file, optionally validating it with a Zod schema.
 
 | Type Parameter | Default type | Description |
 | ------ | ------ | ------ |
-| `T` | `unknown` | Expected parsed (and validated) shape. |
+| <a id="type-parameter-t"></a> `T` | `unknown` | Expected parsed (and validated) shape. |
 
 ## Parameters
 

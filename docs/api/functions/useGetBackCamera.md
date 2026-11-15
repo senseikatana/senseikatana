@@ -6,7 +6,7 @@
 function useGetBackCamera(): Promise<MediaStream | null>;
 ```
 
-Defined in: [infrastructure/sensors/sensors.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/sensors/sensors.service.ts#L95)
+Defined in: [infrastructure/sensors/sensors.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/sensors/sensors.service.ts#L95)
 
 Opens the back-facing (environment) camera.
 

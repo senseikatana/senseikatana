@@ -2,7 +2,7 @@
 
 # Class: ReactiveService
 
-Defined in: [core/services/reactive.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L45)
+Defined in: [core/services/reactive.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L45)
 
 ReactiveService — Singleton facade over fine-grained reactivity: signals,
 effects, memos and batching.
@@ -41,7 +41,7 @@ count(); // 1
 useCreateBatch(): (callback) => void;
 ```
 
-Defined in: [core/services/reactive.service.ts:364](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L364)
+Defined in: [core/services/reactive.service.ts:364](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L364)
 
 Returns a batch function that defers signal notifications until the
 callback completes. Nested calls are supported -- only the outermost
@@ -81,7 +81,7 @@ useCreateDebouncedSignal<T>(initialValue, delayMs?): [SignalGetter<T>, SignalSet
 }];
 ```
 
-Defined in: [core/services/reactive.service.ts:316](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L316)
+Defined in: [core/services/reactive.service.ts:316](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L316)
 
 Creates a signal whose setter debounces writes by `delayMs` milliseconds.
 Useful for search inputs or any value that triggers expensive work.
@@ -90,14 +90,14 @@ Useful for search inputs or any value that triggers expensive work.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The signal value type. |
+| <a id="type-parameter-t"></a> `T` | The signal value type. |
 
 #### Parameters
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `initialValue` | `T` | `undefined` | The initial value. |
-| `delayMs` | `number` | `300` | Debounce delay in milliseconds (defaults to `300`). |
+| `delayMs?` | `number` | `300` | Debounce delay in milliseconds (defaults to `300`). |
 
 #### Returns
 
@@ -128,7 +128,7 @@ setQuery.useCancel(); // abort pending write
 useCreateEffect(callback, signals?): () => void;
 ```
 
-Defined in: [core/services/reactive.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L214)
+Defined in: [core/services/reactive.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L214)
 
 Creates a side effect that re-runs whenever a signal read by the callback
 changes. Explicit dependencies can also be provided for compatibility.
@@ -140,7 +140,7 @@ each re-run and on disposal.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `callback` | () => `void` \| (() => `void`) | `undefined` | Effect body. May return a cleanup function. |
-| `signals` | [`Subscribable`](../interfaces/Subscribable.md)\<`unknown`\>[] | `[]` | Optional explicit dependencies, in addition to tracked reads. |
+| `signals?` | [`Subscribable`](../interfaces/Subscribable.md)\<`unknown`\>[] | `[]` | Optional explicit dependencies, in addition to tracked reads. |
 
 #### Returns
 
@@ -174,7 +174,7 @@ dispose();         // logs "cleaning up"
 useCreateMemo<T>(computation, signals?): SignalGetter<T>;
 ```
 
-Defined in: [core/services/reactive.service.ts:266](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L266)
+Defined in: [core/services/reactive.service.ts:266](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L266)
 
 Creates a memoised signal whose value is derived from a computation.
 The computation re-runs whenever a signal it reads changes. Explicit
@@ -184,14 +184,14 @@ dependencies can also be provided for compatibility.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The computed value type. |
+| <a id="type-parameter-t-1"></a> `T` | The computed value type. |
 
 #### Parameters
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `computation` | () => `T` | `undefined` | Pure function that derives the value. |
-| `signals` | [`Subscribable`](../interfaces/Subscribable.md)\<`unknown`\>[] | `[]` | Optional explicit dependencies, in addition to tracked reads. |
+| `signals?` | [`Subscribable`](../interfaces/Subscribable.md)\<`unknown`\>[] | `[]` | Optional explicit dependencies, in addition to tracked reads. |
 
 #### Returns
 
@@ -222,7 +222,7 @@ sum(); // 13
 useCreateSignal<T>(initialValue): [SignalGetter<T>, SignalSetter<T>];
 ```
 
-Defined in: [core/services/reactive.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L105)
+Defined in: [core/services/reactive.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L105)
 
 Creates a reactive signal with a getter and setter.
 
@@ -234,7 +234,7 @@ an updater function.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The signal value type. |
+| <a id="type-parameter-t-2"></a> `T` | The signal value type. |
 
 #### Parameters
 
@@ -275,7 +275,7 @@ const unsub = count.useSubscribe((newVal, oldVal) => {
 useCreateToggle(initialValue?): [SignalGetter<boolean>, ToggleSignalSetter];
 ```
 
-Defined in: [core/services/reactive.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L292)
+Defined in: [core/services/reactive.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L292)
 
 Creates a boolean toggle signal.
 
@@ -283,7 +283,7 @@ Creates a boolean toggle signal.
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `initialValue` | `boolean` | `false` | Starting value (defaults to `false`). |
+| `initialValue?` | `boolean` | `false` | Starting value (defaults to `false`). |
 
 #### Returns
 
@@ -314,7 +314,7 @@ isOpen();    // false
 static getInstance(): ReactiveService;
 ```
 
-Defined in: [core/services/reactive.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L59)
+Defined in: [core/services/reactive.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L59)
 
 Returns the shared instance (Singleton).
 

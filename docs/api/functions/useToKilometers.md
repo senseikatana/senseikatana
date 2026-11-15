@@ -10,7 +10,7 @@ function useToKilometers(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/converter.service.ts#L246)
+Defined in: [core/services/converter.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L246)
 
 Miles → kilometers. See [UnitConverterService.useToKilometers](../classes/UnitConverterService.md#usetokilometers).
 
@@ -19,8 +19,8 @@ Miles → kilometers. See [UnitConverterService.useToKilometers](../classes/Unit
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
 | `miles` | `number` | `undefined` |
-| `locale` | `"en"` \| `"es"` \| `"fr"` \| `"de"` \| `"it"` \| `"pt"` \| `"ja"` \| `"zh"` | `"en"` |
-| `digits` | `number` | `2` |
+| `locale?` | `"en"` \| `"es"` \| `"fr"` \| `"de"` \| `"it"` \| `"pt"` \| `"ja"` \| `"zh"` | `"en"` |
+| `digits?` | `number` | `2` |
 
 ## Returns
 

@@ -9,6 +9,6 @@ const ValidationIssueSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/core.schema.ts:214](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/core.schema.ts#L214)
+Defined in: [schemas/core.schema.ts:214](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/core.schema.ts#L214)
 
 Minimal issue shape (`error.issues` entries).

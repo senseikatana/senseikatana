@@ -2,7 +2,7 @@
 
 # Interface: IAiProviderStrategy
 
-Defined in: [core/services/agent.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L136)
+Defined in: [core/services/agent.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L136)
 
 Estrategia de proveedor AI - Strategy Pattern.
 
@@ -23,7 +23,7 @@ requestCompletion(
 ): Promise<ChatCompletionResponse>;
 ```
 
-Defined in: [core/services/agent.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L146)
+Defined in: [core/services/agent.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L146)
 
 Performs a single `chat/completions` request against the provider.
 
@@ -32,9 +32,9 @@ Performs a single `chat/completions` request against the provider.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `config` | \{ `apiKey`: `string`; `baseUrl`: `string`; `model`: `string`; `systemPrompt?`: `string`; \} | Provider configuration (baseUrl, model, apiKey). |
-| `config.apiKey` | `string` | - |
-| `config.baseUrl` | `string` | - |
-| `config.model` | `string` | - |
+| `config.apiKey?` | `string` | - |
+| `config.baseUrl?` | `string` | - |
+| `config.model?` | `string` | - |
 | `config.systemPrompt?` | `string` | Default system prompt. |
 | `messages` | \{ `content`: `string` \| `null`; `name?`: `string`; `role`: `"system"` \| `"user"` \| `"assistant"` \| `"tool"`; `tool_call_id?`: `string`; `tool_calls?`: \{ `function`: \{ `arguments`: `string`; `name`: `string`; \}; `id`: `string`; `type`: `"function"`; \}[]; \}[] | Conversation messages. |
 | `options` | `RequestOptions` | Sampling options, tools and abort signal. |

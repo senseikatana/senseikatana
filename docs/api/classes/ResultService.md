@@ -2,7 +2,7 @@
 
 # Class: ResultService
 
-Defined in: [core/services/result.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/result.service.ts#L28)
+Defined in: [core/services/result.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/result.service.ts#L28)
 
 ResultService — Singleton facade for Safe Result creation at service
 boundaries.
@@ -35,7 +35,7 @@ else console.error(result.error.message);
 useAttempt<T>(operation, mapError?): Promise<SafeResult<T>>;
 ```
 
-Defined in: [core/services/result.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/result.service.ts#L63)
+Defined in: [core/services/result.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/result.service.ts#L63)
 
 Runs an operation (sync or async) and captures any throw as a Safe Result.
 
@@ -47,14 +47,14 @@ instances and plain strings all come back normalized.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Success value type. |
+| <a id="type-parameter-t"></a> `T` | Success value type. |
 
 #### Parameters
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `operation` | () => `T` \| `Promise`\<`T`\> | `undefined` | The operation to run. |
-| `mapError` | (`error`) => \{ `details?`: `unknown`; `message`: `string`; `status`: `number`; \} | `useErrorNormalize` | Optional error mapper (default: `useErrorNormalize`). |
+| `mapError?` | (`error`) => \{ `details?`: `unknown`; `message`: `string`; `status`: `number`; \} | `useErrorNormalize` | Optional error mapper (default: `useErrorNormalize`). |
 
 #### Returns
 
@@ -80,7 +80,7 @@ else console.error(result.error.message);
 useTryJsonParse<T>(text): SafeResult<T>;
 ```
 
-Defined in: [core/services/result.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/result.service.ts#L90)
+Defined in: [core/services/result.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/result.service.ts#L90)
 
 Parses JSON without throwing; failures come back as a Safe Result.
 
@@ -91,7 +91,7 @@ checking `ok` instead of nesting `try/catch`.
 
 | Type Parameter | Default type | Description |
 | ------ | ------ | ------ |
-| `T` | `unknown` | Expected parsed shape. |
+| <a id="type-parameter-t-1"></a> `T` | `unknown` | Expected parsed shape. |
 
 #### Parameters
 
@@ -120,7 +120,7 @@ return parsed.ok ? parsed.data : raw;
 static getInstance(): ResultService;
 ```
 
-Defined in: [core/services/result.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/result.service.ts#L35)
+Defined in: [core/services/result.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/result.service.ts#L35)
 
 Returns the shared instance (Singleton).
 

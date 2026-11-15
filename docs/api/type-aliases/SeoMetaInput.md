@@ -6,6 +6,6 @@
 type SeoMetaInput = { [K in keyof SeoMetaFlat]?: SeoMetaFlat[K] | null };
 ```
 
-Defined in: [config/seo-meta.types.ts:122](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/config/seo-meta.types.ts#L122)
+Defined in: [config/seo-meta.types.ts:122](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo-meta.types.ts#L122)
 
 Flat meta input (all keys optional / nullable).

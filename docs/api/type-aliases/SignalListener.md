@@ -6,13 +6,13 @@
 type SignalListener<T> = (newValue, oldValue) => void;
 ```
 
-Defined in: [types/core/reactive.ts:1](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L1)
+Defined in: [types/core/reactive.ts:1](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L1)
 
 ## Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 

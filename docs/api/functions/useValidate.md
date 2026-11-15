@@ -6,7 +6,7 @@
 function useValidate<T>(schema, data): FetchResult<T>;
 ```
 
-Defined in: [core/services/validation.service.ts:98](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/validation.service.ts#L98)
+Defined in: [core/services/validation.service.ts:98](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/validation.service.ts#L98)
 
 Validates unknown data against a Zod schema and returns a Safe Result.
 Wrapper sobre [ValidationService](../classes/ValidationService.md) (backward compatibility).
@@ -15,7 +15,7 @@ Wrapper sobre [ValidationService](../classes/ValidationService.md) (backward com
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The validated output type (`z.infer` of the schema). |
+| <a id="type-parameter-t"></a> `T` | The validated output type (`z.infer` of the schema). |
 
 ## Parameters
 

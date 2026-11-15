@@ -6,7 +6,7 @@
 function useReadFile(path, encoding?): Promise<FilesystemResult<string>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:137](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/filesystem/filesystem.service.ts#L137)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:137](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/filesystem.service.ts#L137)
 
 Reads a text file.
 
@@ -15,7 +15,7 @@ Reads a text file.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `path` | `string` | `undefined` | File path (relative paths resolve against `process.cwd()`). |
-| `encoding` | \| `"utf-8"` \| `"utf8"` \| `"ascii"` \| `"base64"` \| `"base64url"` \| `"hex"` \| `"latin1"` \| `"binary"` \| `"ucs2"` \| `"ucs-2"` \| `"utf16le"` \| `"utf-16le"` | `"utf8"` | Text encoding (default: `"utf8"`). |
+| `encoding?` | \| `"utf-8"` \| `"utf8"` \| `"ascii"` \| `"base64"` \| `"base64url"` \| `"hex"` \| `"latin1"` \| `"binary"` \| `"ucs2"` \| `"ucs-2"` \| `"utf16le"` \| `"utf-16le"` | `"utf8"` | Text encoding (default: `"utf8"`). |
 
 ## Returns
 

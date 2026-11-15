@@ -6,7 +6,7 @@
 function createMemoryStorage(): Storage;
 ```
 
-Defined in: [infrastructure/storage/storage.service.ts:75](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/storage/storage.service.ts#L75)
+Defined in: [infrastructure/storage/storage.service.ts:75](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage.service.ts#L75)
 
 Creates a new in-memory `Storage` instance used as an SSR / private-mode
 fallback. Each call owns its own Map — never share one across requests.

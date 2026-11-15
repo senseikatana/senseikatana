@@ -10,7 +10,7 @@ function useSetStorage(
 ): void;
 ```
 
-Defined in: [infrastructure/storage/storage.service.ts:369](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/storage/storage.service.ts#L369)
+Defined in: [infrastructure/storage/storage.service.ts:369](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage.service.ts#L369)
 
 Stores a value under the given key (serialized as JSON).
 
@@ -20,7 +20,7 @@ Stores a value under the given key (serialized as JSON).
 | ------ | ------ | ------ | ------ |
 | `key` | `string` | `undefined` | The storage key. |
 | `value` | `unknown` | `undefined` | The value to store. |
-| `target` | `"localStorage"` \| `"sessionStorage"` | `"localStorage"` | Which storage backend to use (default: `"localStorage"`). |
+| `target?` | `"localStorage"` \| `"sessionStorage"` | `"localStorage"` | Which storage backend to use (default: `"localStorage"`). |
 
 ## Returns
 

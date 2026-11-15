@@ -6,7 +6,7 @@
 function useSessionExists(sessionId): Promise<boolean>;
 ```
 
-Defined in: [core/services/assistant.service.ts:298](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/assistant.service.ts#L298)
+Defined in: [core/services/assistant.service.ts:298](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L298)
 
 Checks whether a conversation session exists.
 

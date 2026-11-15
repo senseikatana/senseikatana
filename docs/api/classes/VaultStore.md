@@ -2,7 +2,7 @@
 
 # Class: VaultStore
 
-Defined in: [infrastructure/vault/vault.store.ts:40](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L40)
+Defined in: [infrastructure/vault/vault.store.ts:40](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L40)
 
 Encrypted vault persistence: scrypt key derivation + AES-256-GCM, versioned
 envelope, atomic writes.
@@ -56,7 +56,7 @@ useDecryptVault(payload, passphrase): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:147](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L147)
+Defined in: [infrastructure/vault/vault.store.ts:147](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L147)
 
 Opens an envelope with a passphrase. A wrong passphrase and a tampered
 file both fail GCM authentication and are reported the same way — never
@@ -106,7 +106,7 @@ say which one it was.
 useEncryptVault(data, passphrase): Promise<SafeResult<string>>;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:77](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L77)
+Defined in: [infrastructure/vault/vault.store.ts:77](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L77)
 
 Encrypts a vault payload into the on-disk envelope format.
 
@@ -115,11 +115,11 @@ Encrypts a vault payload into the on-disk envelope format.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | \{ `createdAt`: `string`; `keys`: \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[]; `mcpServers`: \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[]; `updatedAt`: `string`; `version`: `1`; \} | The decrypted payload (validated before sealing). |
-| `data.createdAt` | `string` | - |
-| `data.keys` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
-| `data.mcpServers` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
-| `data.updatedAt` | `string` | - |
-| `data.version` | `1` | - |
+| `data.createdAt?` | `string` | - |
+| `data.keys?` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
+| `data.mcpServers?` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
+| `data.updatedAt?` | `string` | - |
+| `data.version?` | `1` | - |
 | `passphrase` | `string` | The passphrase the vault is sealed with. |
 
 #### Returns
@@ -159,7 +159,7 @@ useLoadVaultFile(path, passphrase): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:265](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L265)
+Defined in: [infrastructure/vault/vault.store.ts:265](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L265)
 
 Reads and opens a vault file. A missing file resolves with
 `error.status = 404` so callers can decide between "start fresh" and
@@ -213,7 +213,7 @@ useSaveVaultFile(
 ): Promise<SafeResult<string>>;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:227](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L227)
+Defined in: [infrastructure/vault/vault.store.ts:227](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L227)
 
 Encrypts and writes the vault atomically (temp file + rename) with
 owner-only permissions, creating the parent directory when needed.
@@ -224,11 +224,11 @@ owner-only permissions, creating the parent directory when needed.
 | ------ | ------ | ------ |
 | `path` | `string` | Target file path. |
 | `data` | \{ `createdAt`: `string`; `keys`: \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[]; `mcpServers`: \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[]; `updatedAt`: `string`; `version`: `1`; \} | The payload to persist. |
-| `data.createdAt` | `string` | - |
-| `data.keys` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
-| `data.mcpServers` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
-| `data.updatedAt` | `string` | - |
-| `data.version` | `1` | - |
+| `data.createdAt?` | `string` | - |
+| `data.keys?` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
+| `data.mcpServers?` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
+| `data.updatedAt?` | `string` | - |
+| `data.version?` | `1` | - |
 | `passphrase` | `string` | The passphrase to seal it with. |
 
 #### Returns
@@ -245,7 +245,7 @@ owner-only permissions, creating the parent directory when needed.
 useVaultPath(): Promise<string>;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:61](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L61)
+Defined in: [infrastructure/vault/vault.store.ts:61](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L61)
 
 Resolves the vault file location: `KATANAKITAI_VAULT` when set,
 otherwise `$XDG_CONFIG_HOME/katanakitai/vault.enc.json` (defaulting to
@@ -265,7 +265,7 @@ The absolute vault file path.
 static getInstance(): VaultStore;
 ```
 
-Defined in: [infrastructure/vault/vault.store.ts:47](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/vault/vault.store.ts#L47)
+Defined in: [infrastructure/vault/vault.store.ts:47](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/vault/vault.store.ts#L47)
 
 Returns the shared instance (Singleton).
 

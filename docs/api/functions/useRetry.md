@@ -10,7 +10,7 @@ function useRetry<T>(
 ): Promise<T>;
 ```
 
-Defined in: [core/services/utils.service.ts:536](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/utils.service.ts#L536)
+Defined in: [core/services/utils.service.ts:536](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/utils.service.ts#L536)
 
 Retries an async function with a fixed delay between attempts.
 
@@ -18,15 +18,15 @@ Retries an async function with a fixed delay between attempts.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
 | `fn` | () => `Promise`\<`T`\> | `undefined` |
-| `retries` | `number` | `3` |
-| `delayMs` | `number` | `1000` |
+| `retries?` | `number` | `3` |
+| `delayMs?` | `number` | `1000` |
 
 ## Returns
 

@@ -2,7 +2,7 @@
 
 # Class: McpService
 
-Defined in: [core/services/mcp.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L41)
+Defined in: [core/services/mcp.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L41)
 
 McpService — Singleton facade for MCP server registry management and
 host-config emission.
@@ -58,7 +58,7 @@ useAddMcpServer(data, entry): {
 };
 ```
 
-Defined in: [core/services/mcp.service.ts:88](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L88)
+Defined in: [core/services/mcp.service.ts:88](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L88)
 
 Adds a server to the registry, replacing any entry with the same name —
 the same "same name wins wholesale" semantic OpenCode applies to config
@@ -69,18 +69,18 @@ overrides, so a re-add is an intentional full replacement.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | \{ `createdAt`: `string`; `keys`: \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[]; `mcpServers`: \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[]; `updatedAt`: `string`; `version`: `1`; \} | The current vault payload. |
-| `data.createdAt` | `string` | - |
-| `data.keys` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
-| `data.mcpServers` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
-| `data.updatedAt` | `string` | - |
-| `data.version` | `1` | - |
+| `data.createdAt?` | `string` | - |
+| `data.keys?` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
+| `data.mcpServers?` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
+| `data.updatedAt?` | `string` | - |
+| `data.version?` | `1` | - |
 | `entry` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \} | The server entry to store. |
 | `entry.command?` | `string`[] | - |
 | `entry.disabled?` | `boolean` | - |
 | `entry.environment?` | `Record`\<`string`, `string`\> | - |
 | `entry.headers?` | `Record`\<`string`, `string`\> | - |
-| `entry.name` | `string` | - |
-| `entry.type` | `"local"` \| `"remote"` | - |
+| `entry.name?` | `string` | - |
+| `entry.type?` | `"local"` \| `"remote"` | - |
 | `entry.url?` | `string` | - |
 
 #### Returns
@@ -181,7 +181,7 @@ useCreateMcpServer(input): SafeResult<{
 }>;
 ```
 
-Defined in: [core/services/mcp.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L61)
+Defined in: [core/services/mcp.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L61)
 
 Creates a validated MCP server entry.
 
@@ -194,8 +194,8 @@ Creates a validated MCP server entry.
 | `input.disabled?` | `boolean` | - |
 | `input.environment?` | `Record`\<`string`, `string`\> | - |
 | `input.headers?` | `Record`\<`string`, `string`\> | - |
-| `input.name` | `string` | - |
-| `input.type` | `"local"` \| `"remote"` | - |
+| `input.name?` | `string` | - |
+| `input.type?` | `"local"` \| `"remote"` | - |
 | `input.url?` | `string` | - |
 
 #### Returns
@@ -220,7 +220,7 @@ Creates a validated MCP server entry.
 useEmitOpenCodeServers(servers): SafeResult<string>;
 ```
 
-Defined in: [core/services/mcp.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L185)
+Defined in: [core/services/mcp.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L185)
 
 Renders registry entries as a pretty-printed `mcp.servers` JSON fragment,
 ready to paste into `opencode.json(c)`.
@@ -255,7 +255,7 @@ useFindMcpServer(data, name):
   | undefined;
 ```
 
-Defined in: [core/services/mcp.service.ts:127](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L127)
+Defined in: [core/services/mcp.service.ts:127](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L127)
 
 Finds a server by name.
 
@@ -264,11 +264,11 @@ Finds a server by name.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | \{ `createdAt`: `string`; `keys`: \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[]; `mcpServers`: \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[]; `updatedAt`: `string`; `version`: `1`; \} | The vault payload. |
-| `data.createdAt` | `string` | - |
-| `data.keys` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
-| `data.mcpServers` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
-| `data.updatedAt` | `string` | - |
-| `data.version` | `1` | - |
+| `data.createdAt?` | `string` | - |
+| `data.keys?` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
+| `data.mcpServers?` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
+| `data.updatedAt?` | `string` | - |
+| `data.version?` | `1` | - |
 | `name` | `string` | The server name. |
 
 #### Returns
@@ -302,7 +302,7 @@ useListMcpServers(data): {
 }[];
 ```
 
-Defined in: [core/services/mcp.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L116)
+Defined in: [core/services/mcp.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L116)
 
 Lists registered servers in registration order.
 
@@ -311,11 +311,11 @@ Lists registered servers in registration order.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | \{ `createdAt`: `string`; `keys`: \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[]; `mcpServers`: \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[]; `updatedAt`: `string`; `version`: `1`; \} | The vault payload. |
-| `data.createdAt` | `string` | - |
-| `data.keys` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
-| `data.mcpServers` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
-| `data.updatedAt` | `string` | - |
-| `data.version` | `1` | - |
+| `data.createdAt?` | `string` | - |
+| `data.keys?` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
+| `data.mcpServers?` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
+| `data.updatedAt?` | `string` | - |
+| `data.version?` | `1` | - |
 
 #### Returns
 
@@ -339,7 +339,7 @@ The server entries.
 useOpenCodeServersObject(servers): SafeResult<Record<string, OpenCodeMcpServer>>;
 ```
 
-Defined in: [core/services/mcp.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L142)
+Defined in: [core/services/mcp.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L142)
 
 Projects registry entries into an OpenCode `mcp.servers` object.
 
@@ -391,7 +391,7 @@ useRemoveMcpServer(data, name): {
 };
 ```
 
-Defined in: [core/services/mcp.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L102)
+Defined in: [core/services/mcp.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L102)
 
 Removes a server from the registry. Removing an absent name is a no-op.
 
@@ -400,11 +400,11 @@ Removes a server from the registry. Removing an absent name is a no-op.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `data` | \{ `createdAt`: `string`; `keys`: \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[]; `mcpServers`: \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[]; `updatedAt`: `string`; `version`: `1`; \} | The current vault payload. |
-| `data.createdAt` | `string` | - |
-| `data.keys` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
-| `data.mcpServers` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
-| `data.updatedAt` | `string` | - |
-| `data.version` | `1` | - |
+| `data.createdAt?` | `string` | - |
+| `data.keys?` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \}[] | - |
+| `data.mcpServers?` | \{ `command?`: `string`[]; `disabled?`: `boolean`; `environment?`: `Record`\<`string`, `string`\>; `headers?`: `Record`\<`string`, `string`\>; `name`: `string`; `type`: `"local"` \| `"remote"`; `url?`: `string`; \}[] | - |
+| `data.updatedAt?` | `string` | - |
+| `data.version?` | `1` | - |
 | `name` | `string` | The server name. |
 
 #### Returns
@@ -497,7 +497,7 @@ version: 1;
 static getInstance(): McpService;
 ```
 
-Defined in: [core/services/mcp.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L48)
+Defined in: [core/services/mcp.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L48)
 
 Returns the shared instance (Singleton).
 

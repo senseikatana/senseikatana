@@ -2,7 +2,7 @@
 
 # Interface: CurrencyRateEvents
 
-Defined in: [types/core/currency-conversion.ts:36](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/currency-conversion.ts#L36)
+Defined in: [types/core/currency-conversion.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/currency-conversion.ts#L36)
 
 Observer callbacks fired by [ICurrencyConverterService](ICurrencyConverterService.md).
 
@@ -15,10 +15,10 @@ imperatively. Every handler is optional.
 ### onRatesError()?
 
 ```ts
-optional onRatesError(error): void;
+onRatesError?(error): void;
 ```
 
-Defined in: [types/core/currency-conversion.ts:40](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/currency-conversion.ts#L40)
+Defined in: [types/core/currency-conversion.ts:40](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/currency-conversion.ts#L40)
 
 Fired when a rate fetch fails.
 
@@ -28,8 +28,8 @@ Fired when a rate fetch fails.
 | ------ | ------ |
 | `error` | \{ `details?`: `unknown`; `message`: `string`; `status`: `number`; \} |
 | `error.details?` | `unknown` |
-| `error.message` | `string` |
-| `error.status` | `number` |
+| `error.message?` | `string` |
+| `error.status?` | `number` |
 
 #### Returns
 
@@ -40,10 +40,10 @@ Fired when a rate fetch fails.
 ### onRatesUpdate()?
 
 ```ts
-optional onRatesUpdate(snapshot): void;
+onRatesUpdate?(snapshot): void;
 ```
 
-Defined in: [types/core/currency-conversion.ts:38](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/currency-conversion.ts#L38)
+Defined in: [types/core/currency-conversion.ts:38](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/currency-conversion.ts#L38)
 
 Fired after a rate snapshot has been stored in cache.
 
@@ -52,9 +52,9 @@ Fired after a rate snapshot has been stored in cache.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `snapshot` | \{ `base`: \| `"USD"` \| `"EUR"` \| `"GBP"` \| `"JPY"` \| `"CHF"` \| `"CAD"` \| `"AUD"` \| `"NZD"` \| `"MXN"` \| `"BRL"` \| `"ARS"` \| `"COP"` \| `"CLP"` \| `"SEK"` \| `"NOK"` \| `"DKK"` \| `"PLN"` \| `"CZK"` \| `"HUF"` \| `"RON"` \| `"TRY"` \| `"ISK"` \| `"CNY"` \| `"HKD"` \| `"SGD"` \| `"INR"` \| `"KRW"` \| `"THB"` \| `"IDR"` \| `"MYR"` \| `"PHP"` \| `"ILS"` \| `"ZAR"`; `date`: `string`; `rates`: `Record`\<`string`, `number`\>; \} | - |
-| `snapshot.base` | \| `"USD"` \| `"EUR"` \| `"GBP"` \| `"JPY"` \| `"CHF"` \| `"CAD"` \| `"AUD"` \| `"NZD"` \| `"MXN"` \| `"BRL"` \| `"ARS"` \| `"COP"` \| `"CLP"` \| `"SEK"` \| `"NOK"` \| `"DKK"` \| `"PLN"` \| `"CZK"` \| `"HUF"` \| `"RON"` \| `"TRY"` \| `"ISK"` \| `"CNY"` \| `"HKD"` \| `"SGD"` \| `"INR"` \| `"KRW"` \| `"THB"` \| `"IDR"` \| `"MYR"` \| `"PHP"` \| `"ILS"` \| `"ZAR"` | Base currency the rates are quoted against. |
-| `snapshot.date` | `string` | ISO date (`YYYY-MM-DD`) the rates belong to. |
-| `snapshot.rates` | `Record`\<`string`, `number`\> | Quote currency → units of quote per 1 unit of `base`. Keys are the source's own vocabulary (loose on purpose: providers know currencies this kit does not, and an unknown key must not invalidate the snapshot). |
+| `snapshot.base?` | \| `"USD"` \| `"EUR"` \| `"GBP"` \| `"JPY"` \| `"CHF"` \| `"CAD"` \| `"AUD"` \| `"NZD"` \| `"MXN"` \| `"BRL"` \| `"ARS"` \| `"COP"` \| `"CLP"` \| `"SEK"` \| `"NOK"` \| `"DKK"` \| `"PLN"` \| `"CZK"` \| `"HUF"` \| `"RON"` \| `"TRY"` \| `"ISK"` \| `"CNY"` \| `"HKD"` \| `"SGD"` \| `"INR"` \| `"KRW"` \| `"THB"` \| `"IDR"` \| `"MYR"` \| `"PHP"` \| `"ILS"` \| `"ZAR"` | Base currency the rates are quoted against. |
+| `snapshot.date?` | `string` | ISO date (`YYYY-MM-DD`) the rates belong to. |
+| `snapshot.rates?` | `Record`\<`string`, `number`\> | Quote currency → units of quote per 1 unit of `base`. Keys are the source's own vocabulary (loose on purpose: providers know currencies this kit does not, and an unknown key must not invalidate the snapshot). |
 
 #### Returns
 

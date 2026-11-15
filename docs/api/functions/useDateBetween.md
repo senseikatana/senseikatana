@@ -10,7 +10,7 @@ function useDateBetween(
 ): number;
 ```
 
-Defined in: [core/services/dates.service.ts:517](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/dates.service.ts#L517)
+Defined in: [core/services/dates.service.ts:517](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/dates.service.ts#L517)
 
 Returns the whole number of `unit`s between two dates. Signed, never
 fractional, and defaulting to `days`.
@@ -21,7 +21,7 @@ fractional, and defaulting to `days`.
 | ------ | ------ | ------ |
 | `start` | [`TemporalInput`](../type-aliases/TemporalInput.md) | `undefined` |
 | `end` | [`TemporalInput`](../type-aliases/TemporalInput.md) | `undefined` |
-| `unit` | `"years"` \| `"quarters"` \| `"months"` \| `"weeks"` \| `"days"` \| `"hours"` \| `"minutes"` | `"days"` |
+| `unit?` | `"years"` \| `"quarters"` \| `"months"` \| `"weeks"` \| `"days"` \| `"hours"` \| `"minutes"` | `"days"` |
 
 ## Returns
 

@@ -6,7 +6,7 @@
 function useRunAgent(goal, options?): Promise<AgentResult>;
 ```
 
-Defined in: [core/services/agent.service.ts:559](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L559)
+Defined in: [core/services/agent.service.ts:559](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L559)
 
 Runs the tool-calling agent loop against a goal until it emits a final
 answer or exhausts `maxSteps`.
@@ -16,7 +16,7 @@ answer or exhausts `maxSteps`.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `goal` | `string` | The natural-language objective. |
-| `options` | [`AgentRunOptions`](../interfaces/AgentRunOptions.md) | Tools, step budget and completion options. |
+| `options?` | [`AgentRunOptions`](../interfaces/AgentRunOptions.md) | Tools, step budget and completion options. |
 
 ## Returns
 

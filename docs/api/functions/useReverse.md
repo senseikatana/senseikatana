@@ -6,7 +6,7 @@
 function useReverse<T>(array): T[];
 ```
 
-Defined in: [core/services/array.service.ts:523](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L523)
+Defined in: [core/services/array.service.ts:523](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L523)
 
 Returns a reversed copy. See [ArrayService.useReverse](../classes/ArrayService.md#usereverse).
 
@@ -14,7 +14,7 @@ Returns a reversed copy. See [ArrayService.useReverse](../classes/ArrayService.m
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 

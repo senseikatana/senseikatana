@@ -6,7 +6,7 @@
 function useIsAtTop(threshold?): boolean;
 ```
 
-Defined in: [infrastructure/viewport/viewport.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/viewport/viewport.service.ts#L134)
+Defined in: [infrastructure/viewport/viewport.service.ts:134](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/viewport/viewport.service.ts#L134)
 
 Checks whether the page is scrolled to (or near) the top.
 
@@ -14,7 +14,7 @@ Checks whether the page is scrolled to (or near) the top.
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `threshold` | `number` | `0` | Pixel tolerance (default: `0`). |
+| `threshold?` | `number` | `0` | Pixel tolerance (default: `0`). |
 
 ## Returns
 

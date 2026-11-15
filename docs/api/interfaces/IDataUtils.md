@@ -2,7 +2,7 @@
 
 # Interface: IDataUtils
 
-Defined in: [types/core/utils.ts:2](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L2)
+Defined in: [types/core/utils.ts:2](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L2)
 
 Contract of the data utilities.
 
@@ -14,13 +14,13 @@ Contract of the data utilities.
 useChunk<T>(array, size): T[][];
 ```
 
-Defined in: [types/core/utils.ts:4](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L4)
+Defined in: [types/core/utils.ts:4](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L4)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 #### Parameters
 
@@ -41,13 +41,13 @@ Defined in: [types/core/utils.ts:4](https://github.com/senseikatana/katanakit-js
 useDeepClone<T>(value): T;
 ```
 
-Defined in: [types/core/utils.ts:7](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L7)
+Defined in: [types/core/utils.ts:7](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L7)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-1"></a> `T` |
 
 #### Parameters
 
@@ -67,13 +67,13 @@ Defined in: [types/core/utils.ts:7](https://github.com/senseikatana/katanakit-js
 useDeepMerge<T>(target, source): T;
 ```
 
-Defined in: [types/core/utils.ts:8](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L8)
+Defined in: [types/core/utils.ts:8](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L8)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` *extends* `Record`\<`string`, `unknown`\> |
+| <a id="type-parameter-t-2"></a> `T` *extends* `Record`\<`string`, `unknown`\> |
 
 #### Parameters
 
@@ -94,13 +94,13 @@ Defined in: [types/core/utils.ts:8](https://github.com/senseikatana/katanakit-js
 useGroupBy<T>(array, key): Record<string, T[]>;
 ```
 
-Defined in: [types/core/utils.ts:5](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L5)
+Defined in: [types/core/utils.ts:5](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L5)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-3"></a> `T` |
 
 #### Parameters
 
@@ -121,7 +121,7 @@ Defined in: [types/core/utils.ts:5](https://github.com/senseikatana/katanakit-js
 useIsObject(item): item is Record<string, unknown>;
 ```
 
-Defined in: [types/core/utils.ts:6](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L6)
+Defined in: [types/core/utils.ts:6](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L6)
 
 #### Parameters
 
@@ -141,14 +141,14 @@ Defined in: [types/core/utils.ts:6](https://github.com/senseikatana/katanakit-js
 useOmit<T, K>(obj, keys): Omit<T, K>;
 ```
 
-Defined in: [types/core/utils.ts:10](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L10)
+Defined in: [types/core/utils.ts:10](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L10)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` *extends* `object` |
-| `K` *extends* `string` \| `number` \| `symbol` |
+| <a id="type-parameter-t-4"></a> `T` *extends* `object` |
+| <a id="type-parameter-k"></a> `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
@@ -169,14 +169,14 @@ Defined in: [types/core/utils.ts:10](https://github.com/senseikatana/katanakit-j
 usePick<T, K>(obj, keys): Pick<T, K>;
 ```
 
-Defined in: [types/core/utils.ts:9](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L9)
+Defined in: [types/core/utils.ts:9](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L9)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` *extends* `object` |
-| `K` *extends* `string` \| `number` \| `symbol` |
+| <a id="type-parameter-t-5"></a> `T` *extends* `object` |
+| <a id="type-parameter-k-1"></a> `K` *extends* `string` \| `number` \| `symbol` |
 
 #### Parameters
 
@@ -197,13 +197,13 @@ Defined in: [types/core/utils.ts:9](https://github.com/senseikatana/katanakit-js
 useUnique<T>(array): T[];
 ```
 
-Defined in: [types/core/utils.ts:3](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L3)
+Defined in: [types/core/utils.ts:3](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L3)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-6"></a> `T` |
 
 #### Parameters
 

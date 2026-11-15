@@ -2,7 +2,7 @@
 
 # Interface: IAccessStrategy
 
-Defined in: [core/services/access.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L20)
+Defined in: [core/services/access.service.ts:20](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L20)
 
 Estrategia de verificación de acceso - Strategy Pattern.
 
@@ -18,7 +18,7 @@ permitiendo intercambiar el algoritmo de autorización sin tocar al cliente.
 useCan(subject, capability): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L32)
+Defined in: [core/services/access.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L32)
 
 Whether the subject may perform a capability.
 
@@ -27,8 +27,8 @@ Whether the subject may perform a capability.
 | Parameter | Type |
 | ------ | ------ |
 | `subject` | \{ \[`key`: `string`\]: `unknown`; `id`: `string` \| `number`; `roles`: `string`[]; \} |
-| `subject.id` | `string` \| `number` |
-| `subject.roles` | `string`[] |
+| `subject.id?` | `string` \| `number` |
+| `subject.roles?` | `string`[] |
 | `capability` | `string` |
 
 #### Returns
@@ -43,7 +43,7 @@ Whether the subject may perform a capability.
 useCapabilitiesFor(role): string[];
 ```
 
-Defined in: [core/services/access.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L22)
+Defined in: [core/services/access.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L22)
 
 Effective capabilities of a role (own plus inherited).
 
@@ -65,7 +65,7 @@ Effective capabilities of a role (own plus inherited).
 useHasRole(subject, role): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L30)
+Defined in: [core/services/access.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L30)
 
 Exact role membership - no hierarchy involved.
 
@@ -74,8 +74,8 @@ Exact role membership - no hierarchy involved.
 | Parameter | Type |
 | ------ | ------ |
 | `subject` | \{ \[`key`: `string`\]: `unknown`; `id`: `string` \| `number`; `roles`: `string`[]; \} |
-| `subject.id` | `string` \| `number` |
-| `subject.roles` | `string`[] |
+| `subject.id?` | `string` \| `number` |
+| `subject.roles?` | `string`[] |
 | `role` | `string` |
 
 #### Returns
@@ -90,7 +90,7 @@ Exact role membership - no hierarchy involved.
 useRegisterRole(definition): void;
 ```
 
-Defined in: [core/services/access.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L24)
+Defined in: [core/services/access.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L24)
 
 Registers (or replaces) a role definition.
 
@@ -99,10 +99,10 @@ Registers (or replaces) a role definition.
 | Parameter | Type |
 | ------ | ------ |
 | `definition` | \{ `capabilities`: `string`[]; `label`: `string`; `rank`: `number`; `slug`: `string`; \} |
-| `definition.capabilities` | `string`[] |
-| `definition.label` | `string` |
-| `definition.rank` | `number` |
-| `definition.slug` | `string` |
+| `definition.capabilities?` | `string`[] |
+| `definition.label?` | `string` |
+| `definition.rank?` | `number` |
+| `definition.slug?` | `string` |
 
 #### Returns
 
@@ -116,7 +116,7 @@ Registers (or replaces) a role definition.
 useResetRoles(): void;
 ```
 
-Defined in: [core/services/access.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L26)
+Defined in: [core/services/access.service.ts:26](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L26)
 
 Restores the built-in role registry.
 
@@ -137,7 +137,7 @@ useRoles(): {
 }[];
 ```
 
-Defined in: [core/services/access.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L28)
+Defined in: [core/services/access.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L28)
 
 Lists every registered role definition.
 

@@ -6,7 +6,7 @@
 const AccessCapabilitySchema: ZodString;
 ```
 
-Defined in: [schemas/access.schema.ts:70](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/access.schema.ts#L70)
+Defined in: [schemas/access.schema.ts:70](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/access.schema.ts#L70)
 
 A capability: at least `<domain>:<action>`, optionally `:action:<scope>`.
 Rejecting a bare word matters — an unscoped `delete` is exactly the

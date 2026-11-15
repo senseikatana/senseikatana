@@ -6,6 +6,6 @@
 type MediaProvider = z.infer<typeof MediaProviderSchema>;
 ```
 
-Defined in: [types/core/media.ts:12](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/media.ts#L12)
+Defined in: [types/core/media.ts:12](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/media.ts#L12)
 
 Where a media source comes from. `file` = direct mp4/webm (native `<video>`).

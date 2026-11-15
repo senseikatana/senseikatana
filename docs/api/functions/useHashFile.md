@@ -6,7 +6,7 @@
 function useHashFile(path, algorithm?): Promise<FilesystemResult<string>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/filesystem/filesystem.service.ts#L173)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/filesystem/filesystem.service.ts#L173)
 
 Streams a file and returns its checksum as a lowercase hex digest.
 
@@ -15,7 +15,7 @@ Streams a file and returns its checksum as a lowercase hex digest.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `path` | `string` | `undefined` | File path. |
-| `algorithm` | `"md5"` \| `"sha1"` \| `"sha256"` \| `"sha512"` | `"sha256"` | `"md5" | "sha1" | "sha256" | "sha512"` (default: `"sha256"`). |
+| `algorithm?` | `"md5"` \| `"sha1"` \| `"sha256"` \| `"sha512"` | `"sha256"` | `"md5" \| "sha1" \| "sha256" \| "sha512"` (default: `"sha256"`). |
 
 ## Returns
 

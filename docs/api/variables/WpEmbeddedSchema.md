@@ -14,7 +14,7 @@ const WpEmbeddedSchema: ZodObject<{
      slug: ZodString;
      url: ZodString;
   }, $catchall<ZodUnknown>>>>;
-  wp:comment: ZodOptional<ZodArray<ZodArray<ZodObject<{
+  "wp:comment": ZodOptional<ZodArray<ZodArray<ZodObject<{
      author: ZodNumber;
      author_name: ZodString;
      content: ZodObject<{
@@ -24,7 +24,7 @@ const WpEmbeddedSchema: ZodObject<{
      id: ZodNumber;
      parent: ZodNumber;
   }, $catchall<ZodUnknown>>>>>;
-  wp:featuredmedia: ZodOptional<ZodArray<ZodObject<{
+  "wp:featuredmedia": ZodOptional<ZodArray<ZodObject<{
      alt_text: ZodString;
      date: ZodString;
      date_gmt: ZodString;
@@ -43,7 +43,7 @@ const WpEmbeddedSchema: ZodObject<{
      }, $catchall<ZodUnknown>>;
      type: ZodOptional<ZodString>;
   }, $catchall<ZodUnknown>>>>;
-  wp:term: ZodOptional<ZodArray<ZodArray<ZodObject<{
+  "wp:term": ZodOptional<ZodArray<ZodArray<ZodObject<{
      acf: ZodOptional<ZodRecord<ZodString, ZodUnknown>>;
      id: ZodNumber;
      name: ZodString;
@@ -53,6 +53,6 @@ const WpEmbeddedSchema: ZodObject<{
 }, $catchall<ZodUnknown>>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:139](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/wordpress.schema.ts#L139)
+Defined in: [schemas/wordpress.schema.ts:139](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L139)
 
 Embedded resources returned when `_embed` is used.

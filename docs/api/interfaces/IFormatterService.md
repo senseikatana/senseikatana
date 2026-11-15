@@ -2,7 +2,7 @@
 
 # Interface: IFormatterService
 
-Defined in: [types/core/formatter.ts:4](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L4)
+Defined in: [types/core/formatter.ts:4](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L4)
 
 Contract of the formatter facade.
 
@@ -14,7 +14,7 @@ Contract of the formatter facade.
 useCapitalize(text, locale?): string;
 ```
 
-Defined in: [types/core/formatter.ts:5](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L5)
+Defined in: [types/core/formatter.ts:5](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L5)
 
 #### Parameters
 
@@ -35,14 +35,14 @@ Defined in: [types/core/formatter.ts:5](https://github.com/senseikatana/katanaki
 useFormatCurrency(options): string;
 ```
 
-Defined in: [types/core/formatter.ts:6](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L6)
+Defined in: [types/core/formatter.ts:6](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L6)
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `options` | \{ `amount`: `number`; `currency?`: \| `"USD"` \| `"EUR"` \| `"GBP"` \| `"JPY"` \| `"CHF"` \| `"CAD"` \| `"AUD"` \| `"NZD"` \| `"MXN"` \| `"BRL"` \| `"ARS"` \| `"COP"` \| `"CLP"` \| `"SEK"` \| `"NOK"` \| `"DKK"` \| `"PLN"` \| `"CZK"` \| `"HUF"` \| `"RON"` \| `"TRY"` \| `"ISK"` \| `"CNY"` \| `"HKD"` \| `"SGD"` \| `"INR"` \| `"KRW"` \| `"THB"` \| `"IDR"` \| `"MYR"` \| `"PHP"` \| `"ILS"` \| `"ZAR"`; `digits?`: `number`; `locale?`: `"en"` \| `"es"` \| `"fr"` \| `"de"` \| `"it"` \| `"pt"` \| `"ja"` \| `"zh"`; `taxes?`: `number`; \} | - |
-| `options.amount` | `number` | - |
+| `options.amount?` | `number` | - |
 | `options.currency?` | \| `"USD"` \| `"EUR"` \| `"GBP"` \| `"JPY"` \| `"CHF"` \| `"CAD"` \| `"AUD"` \| `"NZD"` \| `"MXN"` \| `"BRL"` \| `"ARS"` \| `"COP"` \| `"CLP"` \| `"SEK"` \| `"NOK"` \| `"DKK"` \| `"PLN"` \| `"CZK"` \| `"HUF"` \| `"RON"` \| `"TRY"` \| `"ISK"` \| `"CNY"` \| `"HKD"` \| `"SGD"` \| `"INR"` \| `"KRW"` \| `"THB"` \| `"IDR"` \| `"MYR"` \| `"PHP"` \| `"ILS"` \| `"ZAR"` | - |
 | `options.digits?` | `number` | Exact number of fraction digits in the output. Omit it to keep each currency's own digits as `Intl` defines them (`"¥100"`, `"$1.00"`); pass `2` to pin exactly two decimals (`"¥100.00"`). |
 | `options.locale?` | `"en"` \| `"es"` \| `"fr"` \| `"de"` \| `"it"` \| `"pt"` \| `"ja"` \| `"zh"` | - |
@@ -64,7 +64,7 @@ useFormatNumber(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:7](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L7)
+Defined in: [types/core/formatter.ts:7](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L7)
 
 #### Parameters
 
@@ -86,13 +86,13 @@ Defined in: [types/core/formatter.ts:7](https://github.com/senseikatana/katanaki
 useJsonParse<T>(json): T;
 ```
 
-Defined in: [types/core/formatter.ts:9](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L9)
+Defined in: [types/core/formatter.ts:9](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L9)
 
 #### Type Parameters
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t"></a> `T` | `unknown` |
 
 #### Parameters
 
@@ -112,7 +112,7 @@ Defined in: [types/core/formatter.ts:9](https://github.com/senseikatana/katanaki
 useJsonStringify(data): string;
 ```
 
-Defined in: [types/core/formatter.ts:10](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L10)
+Defined in: [types/core/formatter.ts:10](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L10)
 
 #### Parameters
 
@@ -132,7 +132,7 @@ Defined in: [types/core/formatter.ts:10](https://github.com/senseikatana/katanak
 useLowerCase(text, locale?): string;
 ```
 
-Defined in: [types/core/formatter.ts:11](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L11)
+Defined in: [types/core/formatter.ts:11](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L11)
 
 #### Parameters
 
@@ -153,15 +153,15 @@ Defined in: [types/core/formatter.ts:11](https://github.com/senseikatana/katanak
 useSalePrice(options): SalePrice;
 ```
 
-Defined in: [types/core/formatter.ts:8](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L8)
+Defined in: [types/core/formatter.ts:8](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L8)
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `options` | \{ `discount`: `number`; `price`: `number`; \} | - |
-| `options.discount` | `number` | Discount rate: percentage when `> 1` (e.g. `40` → 40%), or decimal fraction when in `(0, 1]` (e.g. `0.4` → 40%). Same convention as `taxes`. |
-| `options.price` | `number` | Regular price, before the discount. |
+| `options.discount?` | `number` | Discount rate: percentage when `> 1` (e.g. `40` → 40%), or decimal fraction when in `(0, 1]` (e.g. `0.4` → 40%). Same convention as `taxes`. |
+| `options.price?` | `number` | Regular price, before the discount. |
 
 #### Returns
 
@@ -175,7 +175,7 @@ Defined in: [types/core/formatter.ts:8](https://github.com/senseikatana/katanaki
 useUpperCase(text, locale?): string;
 ```
 
-Defined in: [types/core/formatter.ts:12](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/formatter.ts#L12)
+Defined in: [types/core/formatter.ts:12](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/formatter.ts#L12)
 
 #### Parameters
 

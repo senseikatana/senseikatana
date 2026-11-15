@@ -6,7 +6,7 @@
 function useThrottle<T>(func, limitMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:482](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L482)
+Defined in: [core/services/timing.service.ts:482](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L482)
 
 Leading-edge throttle. See [TimingService.useThrottle](../classes/TimingService.md#usethrottle).
 
@@ -14,7 +14,7 @@ Leading-edge throttle. See [TimingService.useThrottle](../classes/TimingService.
 
 | Type Parameter |
 | ------ |
-| `T` *extends* (...`args`) => `unknown` |
+| <a id="type-parameter-t"></a> `T` *extends* (...`args`) => `unknown` |
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 function useDebounceImmediate<T>(func, delayMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:474](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L474)
+Defined in: [core/services/timing.service.ts:474](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L474)
 
 Leading-edge debounce. See [TimingService.useDebounceImmediate](../classes/TimingService.md#usedebounceimmediate).
 
@@ -14,7 +14,7 @@ Leading-edge debounce. See [TimingService.useDebounceImmediate](../classes/Timin
 
 | Type Parameter |
 | ------ |
-| `T` *extends* (...`args`) => `unknown` |
+| <a id="type-parameter-t"></a> `T` *extends* (...`args`) => `unknown` |
 
 ## Parameters
 

@@ -22,7 +22,7 @@ function useParseYoutubeRss(xml): {
 }[];
 ```
 
-Defined in: [core/services/youtube.service.ts:534](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/youtube.service.ts#L534)
+Defined in: [core/services/youtube.service.ts:534](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/youtube.service.ts#L534)
 
 Parses a YouTube channel RSS feed into normalized videos.
 
@@ -33,6 +33,24 @@ Parses a YouTube channel RSS feed into normalized videos.
 | `xml` | `string` |
 
 ## Returns
+
+\{
+  `channelTitle?`: `string`;
+  `description`: `string`;
+  `durationSeconds?`: `number`;
+  `embedUrl`: `string`;
+  `id`: `string`;
+  `publishedAt`: `string`;
+  `thumbnail`: `string`;
+  `thumbnails`: \{
+     `default`: `string`;
+     `high`: `string`;
+     `medium`: `string`;
+  \};
+  `title`: `string`;
+  `url`: `string`;
+  `viewCount?`: `number`;
+\}[]
 
 ## See
 

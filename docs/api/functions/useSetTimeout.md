@@ -6,7 +6,7 @@
 function useSetTimeout<T>(callback, ms): TimeoutControl<T>;
 ```
 
-Defined in: [core/services/timing.service.ts:452](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L452)
+Defined in: [core/services/timing.service.ts:452](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L452)
 
 Cancellable delayed execution. See [TimingService.useSetTimeout](../classes/TimingService.md#usesettimeout).
 
@@ -14,7 +14,7 @@ Cancellable delayed execution. See [TimingService.useSetTimeout](../classes/Timi
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 

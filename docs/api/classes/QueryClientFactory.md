@@ -2,7 +2,7 @@
 
 # Class: QueryClientFactory
 
-Defined in: [core/services/query.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/query.service.ts#L36)
+Defined in: [core/services/query.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/query.service.ts#L36)
 
 QueryClientFactory - Factory Pattern para crear instancias de QueryClient.
 
@@ -41,7 +41,7 @@ new QueryClientFactory(): QueryClientFactory;
 static create(config?): QueryClient;
 ```
 
-Defined in: [core/services/query.service.ts:50](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/query.service.ts#L50)
+Defined in: [core/services/query.service.ts:50](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/query.service.ts#L50)
 
 Fabrica un **nuevo** QueryClient. Úsalo en el servidor (SSR) para
 obtener un cliente por petición y evitar compartir la caché global.
@@ -50,7 +50,7 @@ obtener un cliente por petición y evitar compartir la caché global.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `config` | `QueryClientConfig` | TanStack QueryClientConfig (caches, default options). |
+| `config?` | `QueryClientConfig` | TanStack QueryClientConfig (caches, default options). |
 
 #### Returns
 
@@ -73,7 +73,7 @@ await client.prefetchQuery({ queryKey, queryFn });
 static createShared(config?): QueryClient;
 ```
 
-Defined in: [core/services/query.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/query.service.ts#L61)
+Defined in: [core/services/query.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/query.service.ts#L61)
 
 Reemplaza el singleton compartido con un cliente configurado.
 Limpia la caché del cliente anterior antes de intercambiarlo.
@@ -82,7 +82,7 @@ Limpia la caché del cliente anterior antes de intercambiarlo.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `config` | `QueryClientConfig` | TanStack QueryClientConfig. |
+| `config?` | `QueryClientConfig` | TanStack QueryClientConfig. |
 
 #### Returns
 

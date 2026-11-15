@@ -10,7 +10,7 @@ function useErrorNormalize(error, fallbackStatus?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:148](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/error.service.ts#L148)
+Defined in: [core/services/error.service.ts:148](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L148)
 
 Normalizes any thrown value into an [ApiError](../type-aliases/ApiError.md). See [ErrorService.useErrorNormalize](../classes/ErrorService.md#useerrornormalize).
 
@@ -19,7 +19,7 @@ Normalizes any thrown value into an [ApiError](../type-aliases/ApiError.md). See
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
 | `error` | `unknown` | `undefined` |
-| `fallbackStatus` | `number` | `0` |
+| `fallbackStatus?` | `number` | `0` |
 
 ## Returns
 
@@ -34,7 +34,7 @@ Normalizes any thrown value into an [ApiError](../type-aliases/ApiError.md). See
 ### details?
 
 ```ts
-optional details?: unknown;
+details?: unknown;
 ```
 
 ### message

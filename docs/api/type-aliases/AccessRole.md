@@ -6,7 +6,7 @@
 type AccessRole = z.infer<typeof AccessRoleSchema>;
 ```
 
-Defined in: [types/core/access.ts:37](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/access.ts#L37)
+Defined in: [types/core/access.ts:37](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/access.ts#L37)
 
 A role slug. Closed vocabulary by convention (`BuiltInRole`), open by
 schema: `useRegisterRole` takes any slug matching the pattern.

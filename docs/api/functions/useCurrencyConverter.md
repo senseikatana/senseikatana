@@ -6,7 +6,7 @@
 function useCurrencyConverter(options?): CurrencyConverterService;
 ```
 
-Defined in: [infrastructure/currency/currency.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/currency/currency.service.ts#L36)
+Defined in: [infrastructure/currency/currency.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/currency/currency.service.ts#L36)
 
 Wires the shared [CurrencyConverterService](../classes/CurrencyConverterService.md) with the default rate
 source (Frankfurter) and returns it.
@@ -21,7 +21,7 @@ on every use is fine and a provider you injected yourself is never replaced.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `options` | [`CurrencyConverterServiceOptions`](../interfaces/CurrencyConverterServiceOptions.md) | Provider and cache TTL. `ttlMs` is applied through `useSetTtlMs`, so it also works on the shared instance. |
+| `options?` | [`CurrencyConverterServiceOptions`](../interfaces/CurrencyConverterServiceOptions.md) | Provider and cache TTL. `ttlMs` is applied through `useSetTtlMs`, so it also works on the shared instance. |
 
 ## Returns
 

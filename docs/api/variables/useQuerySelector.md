@@ -4,12 +4,12 @@
 
 ```ts
 const useQuerySelector: {
-<K>  (selector): HTMLElementTagNameMap[K] | null;
-<E>  (selector): E | null;
+  <K>(selector): HTMLElementTagNameMap[K] | null;
+  <E>(selector): E | null;
 };
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/dom/dom.service.ts#L112)
+Defined in: [infrastructure/dom/dom.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L112)
 
 Returns the first element matching a CSS selector.
 
@@ -23,7 +23,7 @@ Returns the first element matching a CSS selector.
 
 | Type Parameter |
 | ------ |
-| `K` *extends* keyof `HTMLElementTagNameMap` |
+| <a id="type-parameter-__typek"></a> `K` *extends* keyof `HTMLElementTagNameMap` |
 
 ### Parameters
 
@@ -45,7 +45,7 @@ Returns the first element matching a CSS selector.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `E` *extends* `Element` | `HTMLElement` |
+| <a id="type-parameter-__typee"></a> `E` *extends* `Element` | `HTMLElement` |
 
 ### Parameters
 

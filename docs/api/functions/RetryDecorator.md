@@ -10,7 +10,7 @@ function RetryDecorator<T>(
 ): T;
 ```
 
-Defined in: [infrastructure/decorators/retry.decorator.ts:36](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/decorators/retry.decorator.ts#L36)
+Defined in: [infrastructure/decorators/retry.decorator.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/retry.decorator.ts#L36)
 
 RetryDecorator - Decorator Pattern para reintentos.
 
@@ -25,15 +25,15 @@ no una función utilitaria (`use*`) del API pública.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* (...`args`) => `Promise`\<`unknown`\> | Tipo de la función envuelta. |
+| <a id="type-parameter-t"></a> `T` *extends* (...`args`) => `Promise`\<`unknown`\> | Tipo de la función envuelta. |
 
 ## Parameters
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `fn` | `T` | `undefined` | La función asíncrona a decorar. |
-| `retries` | `number` | `3` | Número máximo de reintentos adicionales (default `3`). |
-| `delayMs` | `number` | `1000` | Intervalo entre intentos en ms (default `1000`). |
+| `retries?` | `number` | `3` | Número máximo de reintentos adicionales (default `3`). |
+| `delayMs?` | `number` | `1000` | Intervalo entre intentos en ms (default `1000`). |
 
 ## Returns
 

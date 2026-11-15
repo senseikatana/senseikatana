@@ -6,7 +6,7 @@
 function useScrollToElement(target, options?): boolean;
 ```
 
-Defined in: [infrastructure/viewport/viewport.service.ts:201](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/viewport/viewport.service.ts#L201)
+Defined in: [infrastructure/viewport/viewport.service.ts:201](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/viewport/viewport.service.ts#L201)
 
 Scrolls an element into view.
 
@@ -15,7 +15,7 @@ Scrolls an element into view.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `target` | `string` \| `HTMLElement` | An HTMLElement or a CSS selector string. |
-| `options` | [`ScrollOptions`](../interfaces/ScrollOptions.md) | Scroll options (`behavior`, `block`, `inline`). |
+| `options?` | [`ScrollOptions`](../interfaces/ScrollOptions.md) | Scroll options (`behavior`, `block`, `inline`). |
 
 ## Returns
 

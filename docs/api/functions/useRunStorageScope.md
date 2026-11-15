@@ -6,7 +6,7 @@
 function useRunStorageScope<T>(fn): Promise<T>;
 ```
 
-Defined in: [infrastructure/storage/storage.service.ts:327](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/storage/storage.service.ts#L327)
+Defined in: [infrastructure/storage/storage.service.ts:327](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage.service.ts#L327)
 
 Runs `fn` with request-isolated in-memory storage (SSR).
 Use this around a request handler so `useSetStorage` / `useGetStorage`
@@ -18,7 +18,7 @@ In browser environments, this simply calls `fn()` directly (no ALS needed).
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Return type of `fn`. |
+| <a id="type-parameter-t"></a> `T` | Return type of `fn`. |
 
 ## Parameters
 

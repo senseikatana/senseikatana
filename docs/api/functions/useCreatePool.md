@@ -6,7 +6,7 @@
 function useCreatePool<TInput, TOutput>(key, workerFunc): void;
 ```
 
-Defined in: [infrastructure/worker/worker.service.ts:123](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/worker/worker.service.ts#L123)
+Defined in: [infrastructure/worker/worker.service.ts:123](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/worker/worker.service.ts#L123)
 
 Creates a reusable Worker pool under a unique key. If a pool with the same
 key already exists, it is terminated first.
@@ -15,8 +15,8 @@ key already exists, it is terminated first.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `TInput` | Input data type. |
-| `TOutput` | Output data type. |
+| <a id="type-parameter-tinput"></a> `TInput` | Input data type. |
+| <a id="type-parameter-toutput"></a> `TOutput` | Output data type. |
 
 ## Parameters
 

@@ -4,12 +4,12 @@
 
 ```ts
 const useQuerySelectorAll: {
-<K>  (selector): HTMLElementTagNameMap[K][];
-<E>  (selector): E[];
+  <K>(selector): HTMLElementTagNameMap[K][];
+  <E>(selector): E[];
 };
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:133](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/dom/dom.service.ts#L133)
+Defined in: [infrastructure/dom/dom.service.ts:133](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L133)
 
 Returns all elements matching a CSS selector.
 
@@ -23,7 +23,7 @@ Returns all elements matching a CSS selector.
 
 | Type Parameter |
 | ------ |
-| `K` *extends* keyof `HTMLElementTagNameMap` |
+| <a id="type-parameter-__typek"></a> `K` *extends* keyof `HTMLElementTagNameMap` |
 
 ### Parameters
 
@@ -45,7 +45,7 @@ Returns all elements matching a CSS selector.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `E` *extends* `Element` | `HTMLElement` |
+| <a id="type-parameter-__typee"></a> `E` *extends* `Element` | `HTMLElement` |
 
 ### Parameters
 

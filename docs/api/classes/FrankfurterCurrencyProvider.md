@@ -2,7 +2,7 @@
 
 # Class: FrankfurterCurrencyProvider
 
-Defined in: [infrastructure/currency/frankfurter.service.ts:69](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/currency/frankfurter.service.ts#L69)
+Defined in: [infrastructure/currency/frankfurter.service.ts:69](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/currency/frankfurter.service.ts#L69)
 
 FrankfurterCurrencyProvider — rate source over **Frankfurter**, the open
 source (MIT) API for European Central Bank reference rates. No API key, no
@@ -85,7 +85,7 @@ useFetchRates(base, quotes?): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [infrastructure/currency/frankfurter.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/currency/frankfurter.service.ts#L116)
+Defined in: [infrastructure/currency/frankfurter.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/currency/frankfurter.service.ts#L116)
 
 Fetches ECB reference rates quoted against `base`.
 
@@ -151,7 +151,7 @@ failure. Never throws.
 static create(options?): FrankfurterCurrencyProvider;
 ```
 
-Defined in: [infrastructure/currency/frankfurter.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/currency/frankfurter.service.ts#L104)
+Defined in: [infrastructure/currency/frankfurter.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/currency/frankfurter.service.ts#L104)
 
 Creates a NO-singleton instance with a custom base URI (DI).
 
@@ -159,7 +159,7 @@ Creates a NO-singleton instance with a custom base URI (DI).
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `options` | [`FrankfurterCurrencyProviderOptions`](../interfaces/FrankfurterCurrencyProviderOptions.md) | Wiring options. |
+| `options?` | [`FrankfurterCurrencyProviderOptions`](../interfaces/FrankfurterCurrencyProviderOptions.md) | Wiring options. |
 
 #### Returns
 
@@ -175,7 +175,7 @@ A new FrankfurterCurrencyProvider.
 static getInstance(): FrankfurterCurrencyProvider;
 ```
 
-Defined in: [infrastructure/currency/frankfurter.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/currency/frankfurter.service.ts#L91)
+Defined in: [infrastructure/currency/frankfurter.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/currency/frankfurter.service.ts#L91)
 
 Returns the shared instance (Singleton).
 

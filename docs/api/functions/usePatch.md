@@ -11,7 +11,7 @@ function usePatch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:763](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L763)
+Defined in: [core/services/http.service.ts:763](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L763)
 
 PATCH helper over a registered API endpoint.
 
@@ -19,7 +19,7 @@ PATCH helper over a registered API endpoint.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t"></a> `T` | `unknown` |
 
 ## Parameters
 

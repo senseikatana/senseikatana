@@ -6,9 +6,9 @@
 const WpPostListSchema: ZodArray<ZodObject<{
   _embedded: ZodOptional<ZodOptional<ZodLazy<ZodObject<{
      author: ZodOptional<ZodArray<ZodObject<..., ...>>>;
-     wp:comment: ZodOptional<ZodArray<ZodArray<...>>>;
-     wp:featuredmedia: ZodOptional<ZodArray<ZodObject<..., ...>>>;
-     wp:term: ZodOptional<ZodArray<ZodArray<...>>>;
+     "wp:comment": ZodOptional<ZodArray<ZodArray<...>>>;
+     "wp:featuredmedia": ZodOptional<ZodArray<ZodObject<..., ...>>>;
+     "wp:term": ZodOptional<ZodArray<ZodArray<...>>>;
   }, $catchall<ZodUnknown>>>>>;
   acf: ZodOptional<ZodOptional<ZodRecord<ZodString, ZodUnknown>>>;
   author: ZodOptional<ZodNumber>;
@@ -47,6 +47,6 @@ const WpPostListSchema: ZodArray<ZodObject<{
 }, $catchall<ZodUnknown>>>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:254](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/wordpress.schema.ts#L254)
+Defined in: [schemas/wordpress.schema.ts:254](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L254)
 
 List of posts.

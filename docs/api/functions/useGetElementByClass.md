@@ -6,7 +6,7 @@
 function useGetElementByClass<T>(className): T | null;
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/dom/dom.service.ts#L92)
+Defined in: [infrastructure/dom/dom.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L92)
 
 Finds the first element matching a class name.
 
@@ -14,7 +14,7 @@ Finds the first element matching a class name.
 
 | Type Parameter | Default type | Description |
 | ------ | ------ | ------ |
-| `T` *extends* `HTMLElement` | `HTMLElement` | The expected HTMLElement subtype. |
+| <a id="type-parameter-t"></a> `T` *extends* `HTMLElement` | `HTMLElement` | The expected HTMLElement subtype. |
 
 ## Parameters
 

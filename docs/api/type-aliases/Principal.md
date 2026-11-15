@@ -6,6 +6,6 @@
 type Principal = z.infer<typeof PrincipalSchema>;
 ```
 
-Defined in: [schemas/identity.schema.ts:81](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/identity.schema.ts#L81)
+Defined in: [schemas/identity.schema.ts:81](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/identity.schema.ts#L81)
 
 The authenticated subject, as reported by an identity provider.

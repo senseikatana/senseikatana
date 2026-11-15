@@ -12,7 +12,7 @@ function useBuildVideoEmbed(options): {
 };
 ```
 
-Defined in: [core/services/media.service.ts:349](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/media.service.ts#L349)
+Defined in: [core/services/media.service.ts:349](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/media.service.ts#L349)
 
 Builds the embed HTML for any supported source.
 
@@ -26,8 +26,8 @@ Builds the embed HTML for any supported source.
 | `options.className?` | `string` | Extra CSS class on the `<figure>` wrapper. |
 | `options.facade?` | `boolean` | Render the click-to-play facade for embeds (no heavy iframe on load). |
 | `options.poster?` | `string` | Poster for native `<video>` or facade thumbnail override. |
-| `options.src` | `string` | YouTube URL/id, Vimeo URL/id, or direct `.mp4`/`.webm` URL. |
-| `options.title` | `string` | Accessible title. Used as `<iframe title>` / `<video aria-label>`. |
+| `options.src?` | `string` | YouTube URL/id, Vimeo URL/id, or direct `.mp4`/`.webm` URL. |
+| `options.title?` | `string` | Accessible title. Used as `<iframe title>` / `<video aria-label>`. |
 | `options.youtube?` | \{ `autoplay?`: `boolean`; `end?`: `number`; `params?`: `Record`\<`string`, `string` \| `number` \| `boolean`\>; `start?`: `number`; \} | YouTube player options (only for `youtube` provider). |
 | `options.youtube.autoplay?` | `boolean` | Autoplay on iframe creation (facade clicks pass `1`). |
 | `options.youtube.end?` | `number` | End time in seconds. |
@@ -35,6 +35,14 @@ Builds the embed HTML for any supported source.
 | `options.youtube.start?` | `number` | Start time in seconds. |
 
 ## Returns
+
+\{
+  `id`: `string`;
+  `provider`: `"unknown"` \| `"file"` \| `"youtube"` \| `"vimeo"`;
+  `raw`: `string`;
+\} & \{
+  `html`: `string`;
+\}
 
 ## See
 

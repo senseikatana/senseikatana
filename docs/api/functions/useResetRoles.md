@@ -6,7 +6,7 @@
 function useResetRoles(): void;
 ```
 
-Defined in: [core/services/access.service.ts:389](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/access.service.ts#L389)
+Defined in: [core/services/access.service.ts:389](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/access.service.ts#L389)
 
 Restores the built-in role registry (mainly for tests).
 

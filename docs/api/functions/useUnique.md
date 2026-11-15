@@ -6,7 +6,7 @@
 function useUnique<T>(array): T[];
 ```
 
-Defined in: [core/services/utils.service.ts:422](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/utils.service.ts#L422)
+Defined in: [core/services/utils.service.ts:422](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/utils.service.ts#L422)
 
 Returns a new array with duplicate values removed, preserving first-seen order.
 
@@ -14,7 +14,7 @@ Returns a new array with duplicate values removed, preserving first-seen order.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 

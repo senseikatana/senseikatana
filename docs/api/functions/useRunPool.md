@@ -6,7 +6,7 @@
 function useRunPool<TInput, TOutput>(key, data): Promise<TOutput>;
 ```
 
-Defined in: [infrastructure/worker/worker.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/worker/worker.service.ts#L185)
+Defined in: [infrastructure/worker/worker.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/worker/worker.service.ts#L185)
 
 Runs a task on an existing Worker pool. Tasks are correlated by `__taskId`
 so concurrent tasks do not stomp each other's handlers.
@@ -15,8 +15,8 @@ so concurrent tasks do not stomp each other's handlers.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `TInput` | Input data type. |
-| `TOutput` | Output data type. |
+| <a id="type-parameter-tinput"></a> `TInput` | Input data type. |
+| <a id="type-parameter-toutput"></a> `TOutput` | Output data type. |
 
 ## Parameters
 

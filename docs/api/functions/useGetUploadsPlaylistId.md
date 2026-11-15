@@ -6,7 +6,7 @@
 function useGetUploadsPlaylistId(channelId?): Promise<FetchResult<string>>;
 ```
 
-Defined in: [core/services/youtube.service.ts:513](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/youtube.service.ts#L513)
+Defined in: [core/services/youtube.service.ts:513](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/youtube.service.ts#L513)
 
 Resolves a channel id to its uploads playlist id.
 
@@ -14,7 +14,7 @@ Resolves a channel id to its uploads playlist id.
 
 | Parameter | Type |
 | ------ | ------ |
-| `channelId` | `string` |
+| `channelId?` | `string` |
 
 ## Returns
 

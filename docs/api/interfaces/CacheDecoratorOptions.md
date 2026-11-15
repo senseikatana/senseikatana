@@ -2,7 +2,7 @@
 
 # Interface: CacheDecoratorOptions
 
-Defined in: [infrastructure/decorators/cache.decorator.ts:30](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/decorators/cache.decorator.ts#L30)
+Defined in: [infrastructure/decorators/cache.decorator.ts:30](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/cache.decorator.ts#L30)
 
 CacheDecorator - Decorator Pattern para caché de resultados.
 
@@ -52,5 +52,5 @@ input space) call `useClearCache()` periodically or set a `ttlMs`.
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="keyfn"></a> `keyFn?` | (...`args`) => `string` | Genera la clave de caché a partir de los argumentos. | [infrastructure/decorators/cache.decorator.ts:34](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/decorators/cache.decorator.ts#L34) |
-| <a id="ttlms"></a> `ttlMs?` | `number` | Time-to-live de cada entrada en milisegundos. `0` = sin expiración. | [infrastructure/decorators/cache.decorator.ts:32](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/decorators/cache.decorator.ts#L32) |
+| <a id="keyfn"></a> `keyFn?` | (...`args`) => `string` | Genera la clave de caché a partir de los argumentos. | [infrastructure/decorators/cache.decorator.ts:34](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/cache.decorator.ts#L34) |
+| <a id="ttlms"></a> `ttlMs?` | `number` | Time-to-live de cada entrada en milisegundos. `0` = sin expiración. | [infrastructure/decorators/cache.decorator.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/cache.decorator.ts#L32) |

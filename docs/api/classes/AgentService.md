@@ -2,7 +2,7 @@
 
 # Class: AgentService
 
-Defined in: [core/services/agent.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L258)
+Defined in: [core/services/agent.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L258)
 
 AgentService - Singleton facade con Strategy Pattern.
 
@@ -28,7 +28,7 @@ AgentService.getInstance().useSetStrategy(new OpenAiCompatibleStrategy());
 useChat(messages, options?): Promise<AiResult<string>>;
 ```
 
-Defined in: [core/services/agent.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L373)
+Defined in: [core/services/agent.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L373)
 
 Sends a single chat completion and returns the assistant text as a Safe Result.
 
@@ -40,7 +40,7 @@ work with tools, use [useRunAgent](../functions/useRunAgent.md).
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `messages` | \{ `content`: `string` \| `null`; `name?`: `string`; `role`: `"system"` \| `"user"` \| `"assistant"` \| `"tool"`; `tool_call_id?`: `string`; `tool_calls?`: \{ `function`: \{ `arguments`: `string`; `name`: `string`; \}; `id`: `string`; `type`: `"function"`; \}[]; \}[] | Conversation messages (a system prompt is prepended if absent). |
-| `options` | [`AiChatOptions`](../interfaces/AiChatOptions.md) | Optional completion options. |
+| `options?` | [`AiChatOptions`](../interfaces/AiChatOptions.md) | Optional completion options. |
 
 #### Returns
 
@@ -67,7 +67,7 @@ if (result.ok) console.log(result.data);
 useGetStrategy(): IAiProviderStrategy;
 ```
 
-Defined in: [core/services/agent.service.ts:304](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L304)
+Defined in: [core/services/agent.service.ts:304](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L304)
 
 Returns the currently active provider strategy.
 
@@ -83,7 +83,7 @@ Returns the currently active provider strategy.
 useInitAgent(config?): void;
 ```
 
-Defined in: [core/services/agent.service.ts:334](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L334)
+Defined in: [core/services/agent.service.ts:334](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L334)
 
 Registers the AI provider for the Kitt assistant.
 
@@ -94,7 +94,7 @@ and `systemPrompt` fall back to the [kittPreset](../variables/kittPreset.md) def
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `config` | `Partial`\<[`AiProviderConfig`](../type-aliases/AiProviderConfig.md)\> | Partial provider configuration. |
+| `config?` | `Partial`\<[`AiProviderConfig`](../type-aliases/AiProviderConfig.md)\> | Partial provider configuration. |
 
 #### Returns
 
@@ -119,7 +119,7 @@ useInitAgent({
 useRunAgent(goal, options?): Promise<AgentResult>;
 ```
 
-Defined in: [core/services/agent.service.ts:423](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L423)
+Defined in: [core/services/agent.service.ts:423](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L423)
 
 Runs the tool-calling agent loop against a goal until it emits a final
 answer or exhausts `maxSteps`.
@@ -129,7 +129,7 @@ answer or exhausts `maxSteps`.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `goal` | `string` | The natural-language objective. |
-| `options` | [`AgentRunOptions`](../interfaces/AgentRunOptions.md) | Tools, step budget and completion options. |
+| `options?` | [`AgentRunOptions`](../interfaces/AgentRunOptions.md) | Tools, step budget and completion options. |
 
 #### Returns
 
@@ -163,7 +163,7 @@ const result = await useRunAgent("Fix the type errors reported by tsc", {
 useSetStrategy(strategy): void;
 ```
 
-Defined in: [core/services/agent.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L299)
+Defined in: [core/services/agent.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L299)
 
 Intercambia la estrategia de proveedor en runtime (Strategy Pattern).
 
@@ -185,7 +185,7 @@ Intercambia la estrategia de proveedor en runtime (Strategy Pattern).
 static create(strategy?): AgentService;
 ```
 
-Defined in: [core/services/agent.service.ts:290](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L290)
+Defined in: [core/services/agent.service.ts:290](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L290)
 
 Crea una instancia NO-singleton con una estrategia específica.
 Útil para tests o para aislar varios proveedores.
@@ -210,7 +210,7 @@ Una nueva instancia de AgentService.
 static getInstance(): AgentService;
 ```
 
-Defined in: [core/services/agent.service.ts:276](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L276)
+Defined in: [core/services/agent.service.ts:276](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L276)
 
 Obtiene la instancia única del AgentService (Singleton).
 

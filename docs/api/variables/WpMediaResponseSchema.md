@@ -15,8 +15,8 @@ const WpMediaResponseSchema: ZodObject<{
         slug: ...;
         url: ...;
      }, $catchall<...>>>>;
-     wp:comment: ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
-     wp:featuredmedia: ZodOptional<ZodArray<ZodObject<{
+     "wp:comment": ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
+     "wp:featuredmedia": ZodOptional<ZodArray<ZodObject<{
         alt_text: ...;
         date: ...;
         date_gmt: ...;
@@ -31,7 +31,7 @@ const WpMediaResponseSchema: ZodObject<{
         title: ...;
         type: ...;
      }, $catchall<...>>>>;
-     wp:term: ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
+     "wp:term": ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
   }, $catchall<ZodUnknown>>>>>;
   acf: ZodOptional<ZodOptional<ZodRecord<ZodString, ZodUnknown>>>;
   alt_text: ZodOptional<ZodString>;
@@ -92,6 +92,6 @@ const WpMediaResponseSchema: ZodObject<{
 }, $catchall<ZodUnknown>>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:133](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/wordpress.schema.ts#L133)
+Defined in: [schemas/wordpress.schema.ts:133](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L133)
 
 Media response variant (partials via `_fields` stay well-typed).

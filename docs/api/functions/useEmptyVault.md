@@ -29,7 +29,7 @@ function useEmptyVault(): {
 };
 ```
 
-Defined in: [core/services/keyvault.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/keyvault.service.ts#L292)
+Defined in: [core/services/keyvault.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/keyvault.service.ts#L292)
 
 Returns an empty vault payload. See [KeyVaultService.useEmptyVault](../classes/KeyVaultService.md#useemptyvault).
 

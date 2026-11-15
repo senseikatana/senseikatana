@@ -6,7 +6,7 @@
 function useGetTitle(): string;
 ```
 
-Defined in: [infrastructure/viewport/viewport.service.ts:347](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/viewport/viewport.service.ts#L347)
+Defined in: [infrastructure/viewport/viewport.service.ts:347](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/viewport/viewport.service.ts#L347)
 
 Returns the current document title.
 

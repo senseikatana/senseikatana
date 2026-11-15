@@ -2,7 +2,7 @@
 
 # Interface: ISystemUtils
 
-Defined in: [types/core/utils.ts:14](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L14)
+Defined in: [types/core/utils.ts:14](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L14)
 
 Contract of the system utilities.
 
@@ -14,7 +14,7 @@ Contract of the system utilities.
 useAverage(numbers): number;
 ```
 
-Defined in: [types/core/utils.ts:20](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L20)
+Defined in: [types/core/utils.ts:20](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L20)
 
 #### Parameters
 
@@ -34,7 +34,7 @@ Defined in: [types/core/utils.ts:20](https://github.com/senseikatana/katanakit-j
 useCopyToClipboard(text): Promise<boolean>;
 ```
 
-Defined in: [types/core/utils.ts:17](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L17)
+Defined in: [types/core/utils.ts:17](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L17)
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [types/core/utils.ts:17](https://github.com/senseikatana/katanakit-j
 useGetUrlParams(urlString): Record<string, string>;
 ```
 
-Defined in: [types/core/utils.ts:18](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L18)
+Defined in: [types/core/utils.ts:18](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L18)
 
 #### Parameters
 
@@ -78,13 +78,13 @@ useRetry<T>(
 ): Promise<T>;
 ```
 
-Defined in: [types/core/utils.ts:16](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L16)
+Defined in: [types/core/utils.ts:16](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L16)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 #### Parameters
 
@@ -106,7 +106,7 @@ Defined in: [types/core/utils.ts:16](https://github.com/senseikatana/katanakit-j
 useRound(value, decimals?): number;
 ```
 
-Defined in: [types/core/utils.ts:19](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L19)
+Defined in: [types/core/utils.ts:19](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L19)
 
 #### Parameters
 
@@ -127,7 +127,7 @@ Defined in: [types/core/utils.ts:19](https://github.com/senseikatana/katanakit-j
 useSleep(ms): Promise<void>;
 ```
 
-Defined in: [types/core/utils.ts:15](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/utils.ts#L15)
+Defined in: [types/core/utils.ts:15](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/utils.ts#L15)
 
 #### Parameters
 

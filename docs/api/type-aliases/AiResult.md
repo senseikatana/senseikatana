@@ -6,7 +6,7 @@
 type AiResult<T> = SafeResult<T, AiError>;
 ```
 
-Defined in: [types/core/ai.ts:51](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/ai.ts#L51)
+Defined in: [types/core/ai.ts:51](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/ai.ts#L51)
 
 Safe result (discriminated union) without throwing.
 
@@ -14,4 +14,4 @@ Safe result (discriminated union) without throwing.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `string` |
+| <a id="type-parameter-t"></a> `T` | `string` |

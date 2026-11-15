@@ -20,7 +20,7 @@ const IdentitySchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/identity.schema.ts:63](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/identity.schema.ts#L63)
+Defined in: [schemas/identity.schema.ts:63](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/identity.schema.ts#L63)
 
 A person **in your system**, as opposed to the principal they log in with.
 

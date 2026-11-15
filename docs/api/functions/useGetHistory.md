@@ -19,7 +19,7 @@ function useGetHistory(sessionId): Promise<{
 }[]>;
 ```
 
-Defined in: [core/services/assistant.service.ts:313](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/assistant.service.ts#L313)
+Defined in: [core/services/assistant.service.ts:313](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L313)
 
 Returns the full message history of a session, oldest first.
 

@@ -6,7 +6,7 @@
 function useCreateElement<T>(tagName, options?): HTMLElementTagNameMap[T];
 ```
 
-Defined in: [infrastructure/dom/dom.service.ts:392](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/dom/dom.service.ts#L392)
+Defined in: [infrastructure/dom/dom.service.ts:392](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/dom/dom.service.ts#L392)
 
 Creates a new HTML element.
 
@@ -14,7 +14,7 @@ Creates a new HTML element.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* keyof `HTMLElementTagNameMap` | The tag name from `HTMLElementTagNameMap`. |
+| <a id="type-parameter-t"></a> `T` *extends* keyof `HTMLElementTagNameMap` | The tag name from `HTMLElementTagNameMap`. |
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 type WatchOptions = VueWatchOptions;
 ```
 
-Defined in: [types/adapters/vue.ts:25](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/vue.ts#L25)
+Defined in: [types/adapters/vue.ts:25](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/vue.ts#L25)
 
 Watch options taken from the native Vue `watch`. `deep` defaults to
 `true` in `useKatanaWatch`.

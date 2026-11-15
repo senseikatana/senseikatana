@@ -10,7 +10,7 @@ function useToCelsius(
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:236](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/converter.service.ts#L236)
+Defined in: [core/services/converter.service.ts:236](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/converter.service.ts#L236)
 
 °F → °C. See [UnitConverterService.useToCelsius](../classes/UnitConverterService.md#usetocelsius).
 
@@ -19,8 +19,8 @@ Defined in: [core/services/converter.service.ts:236](https://github.com/senseika
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
 | `fahrenheit` | `number` | `undefined` |
-| `locale` | `"en"` \| `"es"` \| `"fr"` \| `"de"` \| `"it"` \| `"pt"` \| `"ja"` \| `"zh"` | `"en"` |
-| `digits` | `number` | `2` |
+| `locale?` | `"en"` \| `"es"` \| `"fr"` \| `"de"` \| `"it"` \| `"pt"` \| `"ja"` \| `"zh"` | `"en"` |
+| `digits?` | `number` | `2` |
 
 ## Returns
 

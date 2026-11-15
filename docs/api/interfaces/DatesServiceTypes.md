@@ -2,7 +2,7 @@
 
 # Interface: DatesServiceTypes
 
-Defined in: [types/core/dates.ts:38](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L38)
+Defined in: [types/core/dates.ts:38](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L38)
 
 Contract of the dates facade.
 
@@ -17,7 +17,7 @@ arithmetic primitives; `useDurationBetween` is the structured breakdown.
 useAddDays(date, days): string;
 ```
 
-Defined in: [types/core/dates.ts:47](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L47)
+Defined in: [types/core/dates.ts:47](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L47)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ useDateAdd(
 ): string;
 ```
 
-Defined in: [types/core/dates.ts:41](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L41)
+Defined in: [types/core/dates.ts:41](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L41)
 
 #### Parameters
 
@@ -68,7 +68,7 @@ useDateBetween(
 ): number;
 ```
 
-Defined in: [types/core/dates.ts:39](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L39)
+Defined in: [types/core/dates.ts:39](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L39)
 
 #### Parameters
 
@@ -90,7 +90,7 @@ Defined in: [types/core/dates.ts:39](https://github.com/senseikatana/katanakit-j
 useDateOrder(date1, date2): "before" | "after" | "same";
 ```
 
-Defined in: [types/core/dates.ts:43](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L43)
+Defined in: [types/core/dates.ts:43](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L43)
 
 #### Parameters
 
@@ -115,7 +115,7 @@ useDateSubtract(
 ): string;
 ```
 
-Defined in: [types/core/dates.ts:42](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L42)
+Defined in: [types/core/dates.ts:42](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L42)
 
 #### Parameters
 
@@ -137,7 +137,7 @@ Defined in: [types/core/dates.ts:42](https://github.com/senseikatana/katanakit-j
 useDurationBetween(start, end): Duration;
 ```
 
-Defined in: [types/core/dates.ts:40](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L40)
+Defined in: [types/core/dates.ts:40](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L40)
 
 #### Parameters
 
@@ -158,7 +158,7 @@ Defined in: [types/core/dates.ts:40](https://github.com/senseikatana/katanakit-j
 useFirstDayOfMonth(date?): string;
 ```
 
-Defined in: [types/core/dates.ts:52](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L52)
+Defined in: [types/core/dates.ts:52](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L52)
 
 #### Parameters
 
@@ -182,7 +182,7 @@ useFormat(
 ): string;
 ```
 
-Defined in: [types/core/dates.ts:44](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L44)
+Defined in: [types/core/dates.ts:44](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L44)
 
 #### Parameters
 
@@ -204,7 +204,7 @@ Defined in: [types/core/dates.ts:44](https://github.com/senseikatana/katanakit-j
 useIsAfter(date1, date2): boolean;
 ```
 
-Defined in: [types/core/dates.ts:51](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L51)
+Defined in: [types/core/dates.ts:51](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L51)
 
 #### Parameters
 
@@ -225,7 +225,7 @@ Defined in: [types/core/dates.ts:51](https://github.com/senseikatana/katanakit-j
 useIsBefore(date1, date2): boolean;
 ```
 
-Defined in: [types/core/dates.ts:50](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L50)
+Defined in: [types/core/dates.ts:50](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L50)
 
 #### Parameters
 
@@ -246,7 +246,7 @@ Defined in: [types/core/dates.ts:50](https://github.com/senseikatana/katanakit-j
 useIsEqual(date1, date2): boolean;
 ```
 
-Defined in: [types/core/dates.ts:49](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L49)
+Defined in: [types/core/dates.ts:49](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L49)
 
 #### Parameters
 
@@ -267,7 +267,7 @@ Defined in: [types/core/dates.ts:49](https://github.com/senseikatana/katanakit-j
 useLastDayOfMonth(date?): string;
 ```
 
-Defined in: [types/core/dates.ts:53](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L53)
+Defined in: [types/core/dates.ts:53](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L53)
 
 #### Parameters
 
@@ -287,7 +287,7 @@ Defined in: [types/core/dates.ts:53](https://github.com/senseikatana/katanakit-j
 useNow(): string;
 ```
 
-Defined in: [types/core/dates.ts:45](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L45)
+Defined in: [types/core/dates.ts:45](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L45)
 
 #### Returns
 
@@ -301,7 +301,7 @@ Defined in: [types/core/dates.ts:45](https://github.com/senseikatana/katanakit-j
 useNowDateTime(): string;
 ```
 
-Defined in: [types/core/dates.ts:46](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L46)
+Defined in: [types/core/dates.ts:46](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L46)
 
 #### Returns
 
@@ -315,7 +315,7 @@ Defined in: [types/core/dates.ts:46](https://github.com/senseikatana/katanakit-j
 useSubtractDays(date, days): string;
 ```
 
-Defined in: [types/core/dates.ts:48](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/dates.ts#L48)
+Defined in: [types/core/dates.ts:48](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/dates.ts#L48)
 
 #### Parameters
 

@@ -13,6 +13,6 @@ const AiToolCallSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/ai.schema.ts:13](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/ai.schema.ts#L13)
+Defined in: [schemas/ai.schema.ts:13](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/ai.schema.ts#L13)
 
 A single tool call emitted by the model (OpenAI-compatible wire shape).

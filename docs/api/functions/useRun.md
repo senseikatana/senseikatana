@@ -6,7 +6,7 @@
 function useRun<TInput, TOutput>(workerFunc, data): Promise<TOutput>;
 ```
 
-Defined in: [infrastructure/worker/worker.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/worker/worker.service.ts#L44)
+Defined in: [infrastructure/worker/worker.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/worker/worker.service.ts#L44)
 
 Runs a pure function in a one-shot Worker and destroys it afterwards.
 Falls back to running on the main thread when Workers are unavailable (SSR).
@@ -16,8 +16,8 @@ Async worker functions are awaited (Promise resolved before postMessage).
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `TInput` | Input data type. |
-| `TOutput` | Output data type. |
+| <a id="type-parameter-tinput"></a> `TInput` | Input data type. |
+| <a id="type-parameter-toutput"></a> `TOutput` | Output data type. |
 
 ## Parameters
 

@@ -6,7 +6,7 @@
 const BUILT_IN_ROLE_SLUGS: readonly ["owner", "admin", "editor", "author", "contributor", "member", "guest"];
 ```
 
-Defined in: [schemas/access.schema.ts:19](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/access.schema.ts#L19)
+Defined in: [schemas/access.schema.ts:19](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/access.schema.ts#L19)
 
 Role slugs that ship with the kit, ordered from most to least privileged.
 

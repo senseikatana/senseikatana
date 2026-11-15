@@ -15,7 +15,7 @@ const WpPageSchema: ZodObject<{
         slug: ZodString;
         url: ZodString;
      }, $catchall<ZodUnknown>>>>;
-     wp:comment: ZodOptional<ZodArray<ZodArray<ZodObject<{
+     "wp:comment": ZodOptional<ZodArray<ZodArray<ZodObject<{
         author: ...;
         author_name: ...;
         content: ...;
@@ -23,7 +23,7 @@ const WpPageSchema: ZodObject<{
         id: ...;
         parent: ...;
      }, $catchall<...>>>>>;
-     wp:featuredmedia: ZodOptional<ZodArray<ZodObject<{
+     "wp:featuredmedia": ZodOptional<ZodArray<ZodObject<{
         alt_text: ZodString;
         date: ZodString;
         date_gmt: ZodString;
@@ -38,7 +38,7 @@ const WpPageSchema: ZodObject<{
         title: ZodObject<..., ...>;
         type: ZodOptional<...>;
      }, $catchall<ZodUnknown>>>>;
-     wp:term: ZodOptional<ZodArray<ZodArray<ZodObject<{
+     "wp:term": ZodOptional<ZodArray<ZodArray<ZodObject<{
         acf: ...;
         id: ...;
         name: ...;
@@ -81,6 +81,6 @@ const WpPageSchema: ZodObject<{
 }, $catchall<ZodUnknown>>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:257](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/wordpress.schema.ts#L257)
+Defined in: [schemas/wordpress.schema.ts:257](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L257)
 
 A WordPress page.

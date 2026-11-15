@@ -29,7 +29,7 @@ type UseSeoMetaBase = SeoMetaInput & {
 };
 ```
 
-Defined in: [config/seo-meta.types.ts:127](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/config/seo-meta.types.ts#L127)
+Defined in: [config/seo-meta.types.ts:127](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo-meta.types.ts#L127)
 
 Site + HTML + OG fields in one object (before Omit).
 
@@ -38,7 +38,7 @@ Site + HTML + OG fields in one object (before Omit).
 ### lang?
 
 ```ts
-optional lang?: string;
+lang?: string;
 ```
 
 Language code (e.g. `"en"`, `"es-ES"`).
@@ -46,7 +46,7 @@ Language code (e.g. `"en"`, `"es-ES"`).
 ### nav?
 
 ```ts
-optional nav?: {
+nav?: {
   external?: boolean;
   href: string;
   label: string;
@@ -58,7 +58,7 @@ optional nav?: {
 ### rss?
 
 ```ts
-optional rss?: Partial<{
+rss?: Partial<{
   description?: string;
   enabled: boolean;
   limit: number;
@@ -70,7 +70,7 @@ optional rss?: Partial<{
 ### seo?
 
 ```ts
-optional seo?: Partial<{
+seo?: Partial<{
   canonical: boolean;
   jsonLd: boolean;
   noindex: boolean;
@@ -82,7 +82,7 @@ optional seo?: Partial<{
 ### site?
 
 ```ts
-optional site?: string;
+site?: string;
 ```
 
 Site origin / base URL (no trailing slash), e.g. `"https://example.com"`.
@@ -91,7 +91,7 @@ Not a title — used for canonical, OG, RSS, and JSON-LD defaults.
 ### siteTitle?
 
 ```ts
-optional siteTitle?: string;
+siteTitle?: string;
 ```
 
 Site brand / product name (e.g. `"KatanaKit"`).

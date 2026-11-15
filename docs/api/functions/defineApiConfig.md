@@ -6,7 +6,7 @@
 function defineApiConfig<T>(input): ConfigFacade<T>;
 ```
 
-Defined in: [core/services/http.service.ts:543](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L543)
+Defined in: [core/services/http.service.ts:543](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L543)
 
 Declares the API registry in a single call - the config-file entry point.
 
@@ -21,7 +21,7 @@ boolean flags are kept on `config` for your own methods to read.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* `object` | The literal passed in. |
+| <a id="type-parameter-t"></a> `T` *extends* `object` | The literal passed in. |
 
 ## Parameters
 

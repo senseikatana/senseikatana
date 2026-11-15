@@ -6,7 +6,7 @@
 function useOpenCodeServersObject(servers): SafeResult<Record<string, OpenCodeMcpServer>>;
 ```
 
-Defined in: [core/services/mcp.service.ts:218](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L218)
+Defined in: [core/services/mcp.service.ts:218](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L218)
 
 Projects entries into an OpenCode `mcp.servers` object. See [McpService.useOpenCodeServersObject](../classes/McpService.md#useopencodeserversobject).
 

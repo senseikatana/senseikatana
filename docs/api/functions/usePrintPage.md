@@ -6,7 +6,7 @@
 function usePrintPage(): void;
 ```
 
-Defined in: [infrastructure/viewport/viewport.service.ts:232](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/viewport/viewport.service.ts#L232)
+Defined in: [infrastructure/viewport/viewport.service.ts:232](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/viewport/viewport.service.ts#L232)
 
 Triggers the browser print dialog.
 

@@ -10,7 +10,7 @@ function useDateSubtract(
 ): string;
 ```
 
-Defined in: [core/services/dates.service.ts:560](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/dates.service.ts#L560)
+Defined in: [core/services/dates.service.ts:560](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/dates.service.ts#L560)
 
 Subtracts units from a date, with calendar semantics.
 

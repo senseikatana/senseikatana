@@ -6,7 +6,7 @@
 function useCreateToggle(initialValue?): [SignalGetter<boolean>, ToggleSignalSetter];
 ```
 
-Defined in: [core/services/reactive.service.ts:408](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L408)
+Defined in: [core/services/reactive.service.ts:408](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L408)
 
 Creates a boolean toggle signal. See [ReactiveService.useCreateToggle](../classes/ReactiveService.md#usecreatetoggle).
 
@@ -14,7 +14,7 @@ Creates a boolean toggle signal. See [ReactiveService.useCreateToggle](../classe
 
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
-| `initialValue` | `boolean` | `false` |
+| `initialValue?` | `boolean` | `false` |
 
 ## Returns
 

@@ -6,7 +6,7 @@
 function useCreateEffect(callback, signals?): () => void;
 ```
 
-Defined in: [core/services/reactive.service.ts:392](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/reactive.service.ts#L392)
+Defined in: [core/services/reactive.service.ts:392](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/reactive.service.ts#L392)
 
 Creates a tracked side effect. See [ReactiveService.useCreateEffect](../classes/ReactiveService.md#usecreateeffect).
 
@@ -15,7 +15,7 @@ Creates a tracked side effect. See [ReactiveService.useCreateEffect](../classes/
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
 | `callback` | () => `void` \| (() => `void`) | `undefined` |
-| `signals` | [`Subscribable`](../interfaces/Subscribable.md)\<`unknown`\>[] | `[]` |
+| `signals?` | [`Subscribable`](../interfaces/Subscribable.md)\<`unknown`\>[] | `[]` |
 
 ## Returns
 

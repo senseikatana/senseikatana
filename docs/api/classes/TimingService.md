@@ -2,7 +2,7 @@
 
 # Class: TimingService
 
-Defined in: [core/services/timing.service.ts:37](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L37)
+Defined in: [core/services/timing.service.ts:37](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L37)
 
 TimingService — Singleton facade for timers, intervals, debounce/throttle
 and promise races.
@@ -34,7 +34,7 @@ cancel(); // rejects the promise with "Timeout cancelled"
 useDebounce<T>(func, delayMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:204](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L204)
+Defined in: [core/services/timing.service.ts:204](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L204)
 
 Returns a debounced version of `func` that delays invocation until
 `delayMs` milliseconds of quiet.
@@ -43,7 +43,7 @@ Returns a debounced version of `func` that delays invocation until
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
+| <a id="type-parameter-t"></a> `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
 
 #### Parameters
 
@@ -73,7 +73,7 @@ input.addEventListener("input", () => debouncedSearch(input.value));
 useDebounceImmediate<T>(func, delayMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:245](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L245)
+Defined in: [core/services/timing.service.ts:245](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L245)
 
 Leading-edge debounce: fires immediately on the first call, then ignores
 calls until `delayMs` of quiet. Additional calls during the wait window
@@ -83,7 +83,7 @@ schedule a single trailing invocation with the latest arguments.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
+| <a id="type-parameter-t-1"></a> `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
 
 #### Parameters
 
@@ -120,7 +120,7 @@ useInterval(
 ): IntervalControl;
 ```
 
-Defined in: [core/services/timing.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L146)
+Defined in: [core/services/timing.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L146)
 
 Repeatedly executes a callback at `ms` intervals with pause/resume/stop
 controls. Uses recursive `setTimeout` internally to avoid overlap.
@@ -131,7 +131,7 @@ controls. Uses recursive `setTimeout` internally to avoid overlap.
 | ------ | ------ | ------ | ------ |
 | `callback` | () => `void` \| `Promise`\<`void`\> | `undefined` | Function executed on each tick. |
 | `ms` | `number` | `undefined` | Interval in milliseconds. |
-| `immediate` | `boolean` | `false` | If `true`, fires the callback immediately before the first interval (defaults to `false`). |
+| `immediate?` | `boolean` | `false` | If `true`, fires the callback immediately before the first interval (defaults to `false`). |
 
 #### Returns
 
@@ -161,7 +161,7 @@ useRace<T>(
 ): Promise<T>;
 ```
 
-Defined in: [core/services/timing.service.ts:424](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L424)
+Defined in: [core/services/timing.service.ts:424](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L424)
 
 Races a promise against a timeout. Clears the timer when the promise
 wins so the timeout rejection cannot become an unhandled rejection.
@@ -170,7 +170,7 @@ wins so the timeout rejection cannot become an unhandled rejection.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The promise's resolved type. |
+| <a id="type-parameter-t-2"></a> `T` | The promise's resolved type. |
 
 #### Parameters
 
@@ -178,7 +178,7 @@ wins so the timeout rejection cannot become an unhandled rejection.
 | ------ | ------ | ------ | ------ |
 | `promise` | `Promise`\<`T`\> | `undefined` | The promise to race. |
 | `timeoutMs` | `number` | `undefined` | Timeout in milliseconds. |
-| `errorMessage` | `string` | `"Operation timed out"` | Error message on timeout (defaults to `"Operation timed out"`). |
+| `errorMessage?` | `string` | `"Operation timed out"` | Error message on timeout (defaults to `"Operation timed out"`). |
 
 #### Returns
 
@@ -212,7 +212,7 @@ useRepeat(
 ): Promise<void>;
 ```
 
-Defined in: [core/services/timing.service.ts:385](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L385)
+Defined in: [core/services/timing.service.ts:385](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L385)
 
 Executes a callback `iterations` times with an optional delay between
 each iteration.
@@ -223,7 +223,7 @@ each iteration.
 | ------ | ------ | ------ | ------ |
 | `callback` | (`iteration`) => `void` \| `Promise`\<`void`\> | `undefined` | Function called on each iteration with the current index (0-based). |
 | `iterations` | `number` | `undefined` | Number of times to repeat. |
-| `delayMs` | `number` | `0` | Delay between iterations in milliseconds (defaults to `0`). |
+| `delayMs?` | `number` | `0` | Delay between iterations in milliseconds (defaults to `0`). |
 
 #### Returns
 
@@ -244,7 +244,7 @@ await useRepeat((i) => console.log(`Attempt ${i + 1}`), 3, 1000);
 useSetTimeout<T>(callback, ms): TimeoutControl<T>;
 ```
 
-Defined in: [core/services/timing.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L66)
+Defined in: [core/services/timing.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L66)
 
 Executes a callback after `ms` milliseconds, returning a cancellable
 promise that resolves with the callback's result.
@@ -253,7 +253,7 @@ promise that resolves with the callback's result.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The callback's return type. |
+| <a id="type-parameter-t-3"></a> `T` | The callback's return type. |
 
 #### Parameters
 
@@ -283,7 +283,7 @@ cancel(); // rejects the promise with "Timeout cancelled"
 useThrottle<T>(func, limitMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:300](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L300)
+Defined in: [core/services/timing.service.ts:300](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L300)
 
 Returns a throttled version of `func` that fires at most once per
 `limitMs` milliseconds (leading edge).
@@ -292,7 +292,7 @@ Returns a throttled version of `func` that fires at most once per
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
+| <a id="type-parameter-t-4"></a> `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
 
 #### Parameters
 
@@ -322,7 +322,7 @@ window.addEventListener("scroll", throttledScroll);
 useThrottleTrailing<T>(func, limitMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:336](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L336)
+Defined in: [core/services/timing.service.ts:336](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L336)
 
 Throttle with trailing invocation: fires on the leading edge and also
 fires once at the end of the throttle window with the latest arguments.
@@ -331,7 +331,7 @@ fires once at the end of the throttle window with the latest arguments.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
+| <a id="type-parameter-t-5"></a> `T` *extends* (...`args`) => `unknown` | The wrapped function type. |
 
 #### Parameters
 
@@ -361,7 +361,7 @@ window.addEventListener("resize", throttledResize);
 static getInstance(): TimingService;
 ```
 
-Defined in: [core/services/timing.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/timing.service.ts#L44)
+Defined in: [core/services/timing.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/timing.service.ts#L44)
 
 Returns the shared instance (Singleton).
 

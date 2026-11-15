@@ -2,7 +2,7 @@
 
 # Class: ValidationService
 
-Defined in: [core/services/validation.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/validation.service.ts#L13)
+Defined in: [core/services/validation.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/validation.service.ts#L13)
 
 ValidationService - Singleton para validaciones.
 
@@ -19,7 +19,7 @@ excepciones. Puro y sin I/O, seguro para SSR.
 useValidate<T>(schema, data): FetchResult<T>;
 ```
 
-Defined in: [core/services/validation.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/validation.service.ts#L57)
+Defined in: [core/services/validation.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/validation.service.ts#L57)
 
 Validates unknown data (API responses, configs, user input) against a
 Zod schema and returns a Safe Result instead of throwing.
@@ -29,7 +29,7 @@ Framework-agnostic and pure: no I/O, SSR-safe.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The validated output type (`z.infer` of the schema). |
+| <a id="type-parameter-t"></a> `T` | The validated output type (`z.infer` of the schema). |
 
 #### Parameters
 
@@ -61,7 +61,7 @@ if (result.ok) useBuildVideoEmbed(result.data);
 static getInstance(): ValidationService;
 ```
 
-Defined in: [core/services/validation.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/validation.service.ts#L32)
+Defined in: [core/services/validation.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/validation.service.ts#L32)
 
 Obtiene la instancia única del ValidationService (Singleton).
 

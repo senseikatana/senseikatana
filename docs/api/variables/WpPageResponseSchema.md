@@ -15,8 +15,8 @@ const WpPageResponseSchema: ZodObject<{
         slug: ...;
         url: ...;
      }, $catchall<...>>>>;
-     wp:comment: ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
-     wp:featuredmedia: ZodOptional<ZodArray<ZodObject<{
+     "wp:comment": ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
+     "wp:featuredmedia": ZodOptional<ZodArray<ZodObject<{
         alt_text: ...;
         date: ...;
         date_gmt: ...;
@@ -31,7 +31,7 @@ const WpPageResponseSchema: ZodObject<{
         title: ...;
         type: ...;
      }, $catchall<...>>>>;
-     wp:term: ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
+     "wp:term": ZodOptional<ZodArray<ZodArray<ZodObject<..., ...>>>>;
   }, $catchall<ZodUnknown>>>>>;
   acf: ZodOptional<ZodOptional<ZodRecord<ZodString, ZodUnknown>>>;
   author: ZodOptional<ZodNumber>;
@@ -68,6 +68,6 @@ const WpPageResponseSchema: ZodObject<{
 }, $catchall<ZodUnknown>>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:304](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/wordpress.schema.ts#L304)
+Defined in: [schemas/wordpress.schema.ts:304](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L304)
 
 Page response variant (partials via `_fields` stay well-typed).

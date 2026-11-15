@@ -2,7 +2,7 @@
 
 # Interface: TimeoutControl\<T\>
 
-Defined in: [types/core/timing.ts:2](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/timing.ts#L2)
+Defined in: [types/core/timing.ts:2](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/timing.ts#L2)
 
 Control object returned by timeout operations.
 
@@ -10,11 +10,11 @@ Control object returned by timeout operations.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="cancel"></a> `cancel` | () => `void` | [types/core/timing.ts:4](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/timing.ts#L4) |
-| <a id="promise"></a> `promise` | `Promise`\<`T`\> | [types/core/timing.ts:3](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/timing.ts#L3) |
+| <a id="cancel"></a> `cancel` | () => `void` | [types/core/timing.ts:4](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/timing.ts#L4) |
+| <a id="promise"></a> `promise` | `Promise`\<`T`\> | [types/core/timing.ts:3](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/timing.ts#L3) |

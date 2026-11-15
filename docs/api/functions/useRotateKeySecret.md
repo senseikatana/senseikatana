@@ -15,7 +15,7 @@ function useRotateKeySecret(record, secret): SafeResult<{
 }>;
 ```
 
-Defined in: [core/services/keyvault.service.ts:257](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/keyvault.service.ts#L257)
+Defined in: [core/services/keyvault.service.ts:257](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/keyvault.service.ts#L257)
 
 Rotates a key's secret. See [KeyVaultService.useRotateKeySecret](../classes/KeyVaultService.md#userotatekeysecret).
 
@@ -24,14 +24,14 @@ Rotates a key's secret. See [KeyVaultService.useRotateKeySecret](../classes/KeyV
 | Parameter | Type |
 | ------ | ------ |
 | `record` | \{ `createdAt`: `string`; `id`: `string`; `label`: `string`; `note?`: `string`; `provider`: `string`; `secret`: `string`; `status`: `"active"` \| `"revoked"`; `updatedAt`: `string`; \} |
-| `record.createdAt` | `string` |
-| `record.id` | `string` |
-| `record.label` | `string` |
+| `record.createdAt?` | `string` |
+| `record.id?` | `string` |
+| `record.label?` | `string` |
 | `record.note?` | `string` |
-| `record.provider` | `string` |
-| `record.secret` | `string` |
-| `record.status` | `"active"` \| `"revoked"` |
-| `record.updatedAt` | `string` |
+| `record.provider?` | `string` |
+| `record.secret?` | `string` |
+| `record.status?` | `"active"` \| `"revoked"` |
+| `record.updatedAt?` | `string` |
 | `secret` | `string` |
 
 ## Returns

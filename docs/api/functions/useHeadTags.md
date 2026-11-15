@@ -6,7 +6,7 @@
 function useHeadTags(config, meta): string;
 ```
 
-Defined in: [config/seo.service.ts:324](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/config/seo.service.ts#L324)
+Defined in: [config/seo.service.ts:324](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/config/seo.service.ts#L324)
 
 Full `<head>` HTML (meta + RSS) from a flat [SeoMetaInput](../type-aliases/SeoMetaInput.md).
 

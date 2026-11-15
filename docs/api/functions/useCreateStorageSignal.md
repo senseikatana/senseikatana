@@ -10,7 +10,7 @@ function useCreateStorageSignal<T>(
 ): [SignalGetter<T>, SignalSetter<T>];
 ```
 
-Defined in: [infrastructure/storage/storage-signal.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/storage/storage-signal.service.ts#L32)
+Defined in: [infrastructure/storage/storage-signal.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/storage/storage-signal.service.ts#L32)
 
 Creates a signal that persists its value to a storage backend
 (localStorage, sessionStorage, etc.). Reads the initial value from
@@ -25,7 +25,7 @@ pure signal primitives (`useCreateSignal`, `useCreateEffect`,
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | The signal value type. |
+| <a id="type-parameter-t"></a> `T` | The signal value type. |
 
 ## Parameters
 
@@ -33,7 +33,7 @@ pure signal primitives (`useCreateSignal`, `useCreateEffect`,
 | ------ | ------ | ------ | ------ |
 | `key` | `string` | `undefined` | Storage key. |
 | `fallbackValue` | `T` | `undefined` | Value used when the key is not in storage. |
-| `target` | `"localStorage"` \| `"sessionStorage"` | `"localStorage"` | Storage backend (defaults to `"localStorage"`). |
+| `target?` | `"localStorage"` \| `"sessionStorage"` | `"localStorage"` | Storage backend (defaults to `"localStorage"`). |
 
 ## Returns
 

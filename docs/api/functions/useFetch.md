@@ -10,7 +10,7 @@ function useFetch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [core/services/http.service.ts:647](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/http.service.ts#L647)
+Defined in: [core/services/http.service.ts:647](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/http.service.ts#L647)
 
 Fetches a registered endpoint and returns a Safe Result.
 
@@ -18,7 +18,7 @@ Fetches a registered endpoint and returns a Safe Result.
 
 | Type Parameter | Default type |
 | ------ | ------ |
-| `T` | `unknown` |
+| <a id="type-parameter-t"></a> `T` | `unknown` |
 
 ## Parameters
 
@@ -26,7 +26,7 @@ Fetches a registered endpoint and returns a Safe Result.
 | ------ | ------ | ------ |
 | `apiName` | `string` | The registered API key. |
 | `endpointName` | `string` | The endpoint key within the API. |
-| `options` | [`FetchOptions`](../interfaces/FetchOptions.md)\<`T`\> | Fetch options: `params`, `query`, `transform` and any `RequestInit` field. |
+| `options?` | [`FetchOptions`](../interfaces/FetchOptions.md)\<`T`\> | Fetch options: `params`, `query`, `transform` and any `RequestInit` field. |
 
 ## Returns
 

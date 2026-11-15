@@ -27,7 +27,7 @@ function useGetChannelVideos(params?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [core/services/youtube.service.ts:520](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/youtube.service.ts#L520)
+Defined in: [core/services/youtube.service.ts:520](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/youtube.service.ts#L520)
 
 Lists channel videos via the quota-cheap path.
 
@@ -35,7 +35,7 @@ Lists channel videos via the quota-cheap path.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `params` | \{ `channelId?`: `string`; `maxResults?`: `number`; `pageToken?`: `string`; `playlistId?`: `string`; \} | - |
+| `params?` | \{ `channelId?`: `string`; `maxResults?`: `number`; `pageToken?`: `string`; `playlistId?`: `string`; \} | - |
 | `params.channelId?` | `string` | Channel id (defaults to the one from `useInitYoutube`). |
 | `params.maxResults?` | `number` | Items per page (1–50, defaults to `12`). |
 | `params.pageToken?` | `string` | Opaque page token from a previous response. |

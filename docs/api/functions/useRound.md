@@ -6,7 +6,7 @@
 function useRound(value, decimals?): number;
 ```
 
-Defined in: [core/services/utils.service.ts:572](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/utils.service.ts#L572)
+Defined in: [core/services/utils.service.ts:572](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/utils.service.ts#L572)
 
 Rounds a number (or numeric string) to the specified number of decimal places.
 
@@ -15,7 +15,7 @@ Rounds a number (or numeric string) to the specified number of decimal places.
 | Parameter | Type | Default value |
 | ------ | ------ | ------ |
 | `value` | `string` \| `number` | `undefined` |
-| `decimals` | `number` | `2` |
+| `decimals?` | `number` | `2` |
 
 ## Returns
 

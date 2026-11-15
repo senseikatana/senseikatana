@@ -2,7 +2,7 @@
 
 # Class: OpenAiCompatibleStrategy
 
-Defined in: [core/services/agent.service.ts:174](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L174)
+Defined in: [core/services/agent.service.ts:174](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L174)
 
 Estrategia por defecto: proveedor compatible con OpenAI
 (`POST /chat/completions` con Bearer token). Cubre DashScope en modo
@@ -43,7 +43,7 @@ requestCompletion(
 ): Promise<ChatCompletionResponse>;
 ```
 
-Defined in: [core/services/agent.service.ts:179](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L179)
+Defined in: [core/services/agent.service.ts:179](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L179)
 
 Performs a raw `chat/completions` request against the provider.
 Throws AiHttpError on non-2xx responses.
@@ -53,9 +53,9 @@ Throws AiHttpError on non-2xx responses.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `config` | \{ `apiKey`: `string`; `baseUrl`: `string`; `model`: `string`; `systemPrompt?`: `string`; \} | - |
-| `config.apiKey` | `string` | - |
-| `config.baseUrl` | `string` | - |
-| `config.model` | `string` | - |
+| `config.apiKey?` | `string` | - |
+| `config.baseUrl?` | `string` | - |
+| `config.model?` | `string` | - |
 | `config.systemPrompt?` | `string` | Default system prompt. |
 | `messages` | \{ `content`: `string` \| `null`; `name?`: `string`; `role`: `"system"` \| `"user"` \| `"assistant"` \| `"tool"`; `tool_call_id?`: `string`; `tool_calls?`: \{ `function`: \{ `arguments`: `string`; `name`: `string`; \}; `id`: `string`; `type`: `"function"`; \}[]; \}[] | - |
 | `options` | `RequestOptions` | - |

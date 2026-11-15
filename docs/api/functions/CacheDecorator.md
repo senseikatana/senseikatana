@@ -9,7 +9,7 @@ function CacheDecorator<T>(fn, options?): T & {
 };
 ```
 
-Defined in: [infrastructure/decorators/cache.decorator.ts:70](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/decorators/cache.decorator.ts#L70)
+Defined in: [infrastructure/decorators/cache.decorator.ts:70](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/decorators/cache.decorator.ts#L70)
 
 Decorates an async function with memoized results (Decorator Pattern).
 
@@ -17,14 +17,14 @@ Decorates an async function with memoized results (Decorator Pattern).
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* (...`args`) => `Promise`\<`unknown`\> | The async function type. |
+| <a id="type-parameter-t"></a> `T` *extends* (...`args`) => `Promise`\<`unknown`\> | The async function type. |
 
 ## Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `fn` | `T` | The function to decorate. |
-| `options` | [`CacheDecoratorOptions`](../interfaces/CacheDecoratorOptions.md) | TTL and key strategy. |
+| `options?` | [`CacheDecoratorOptions`](../interfaces/CacheDecoratorOptions.md) | TTL and key strategy. |
 
 ## Returns
 

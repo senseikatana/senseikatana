@@ -14,7 +14,7 @@ function useCreateMcpServer(input): SafeResult<{
 }>;
 ```
 
-Defined in: [core/services/mcp.service.ts:193](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/mcp.service.ts#L193)
+Defined in: [core/services/mcp.service.ts:193](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/mcp.service.ts#L193)
 
 Creates a validated MCP server entry. See [McpService.useCreateMcpServer](../classes/McpService.md#usecreatemcpserver).
 
@@ -27,8 +27,8 @@ Creates a validated MCP server entry. See [McpService.useCreateMcpServer](../cla
 | `input.disabled?` | `boolean` |
 | `input.environment?` | `Record`\<`string`, `string`\> |
 | `input.headers?` | `Record`\<`string`, `string`\> |
-| `input.name` | `string` |
-| `input.type` | `"local"` \| `"remote"` |
+| `input.name?` | `string` |
+| `input.type?` | `"local"` \| `"remote"` |
 | `input.url?` | `string` |
 
 ## Returns

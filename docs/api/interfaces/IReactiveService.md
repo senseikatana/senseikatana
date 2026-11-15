@@ -2,7 +2,7 @@
 
 # Interface: IReactiveService
 
-Defined in: [types/core/reactive.ts:19](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L19)
+Defined in: [types/core/reactive.ts:19](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L19)
 
 Contract of the reactive facade.
 
@@ -14,7 +14,7 @@ Contract of the reactive facade.
 useCreateBatch(): (callback) => void;
 ```
 
-Defined in: [types/core/reactive.ts:31](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L31)
+Defined in: [types/core/reactive.ts:31](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L31)
 
 #### Returns
 
@@ -30,13 +30,13 @@ useCreateDebouncedSignal<T>(initialValue, delayMs?): [SignalGetter<T>, SignalSet
 }];
 ```
 
-Defined in: [types/core/reactive.ts:27](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L27)
+Defined in: [types/core/reactive.ts:27](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L27)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 #### Parameters
 
@@ -59,7 +59,7 @@ Defined in: [types/core/reactive.ts:27](https://github.com/senseikatana/katanaki
 useCreateEffect(callback, signals?): () => void;
 ```
 
-Defined in: [types/core/reactive.ts:21](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L21)
+Defined in: [types/core/reactive.ts:21](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L21)
 
 #### Parameters
 
@@ -80,13 +80,13 @@ Defined in: [types/core/reactive.ts:21](https://github.com/senseikatana/katanaki
 useCreateMemo<T>(computation, signals?): SignalGetter<T>;
 ```
 
-Defined in: [types/core/reactive.ts:25](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L25)
+Defined in: [types/core/reactive.ts:25](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L25)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-1"></a> `T` |
 
 #### Parameters
 
@@ -107,13 +107,13 @@ Defined in: [types/core/reactive.ts:25](https://github.com/senseikatana/katanaki
 useCreateSignal<T>(initialValue): [SignalGetter<T>, SignalSetter<T>];
 ```
 
-Defined in: [types/core/reactive.ts:20](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L20)
+Defined in: [types/core/reactive.ts:20](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L20)
 
 #### Type Parameters
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-2"></a> `T` |
 
 #### Parameters
 
@@ -133,7 +133,7 @@ Defined in: [types/core/reactive.ts:20](https://github.com/senseikatana/katanaki
 useCreateToggle(initialValue?): [SignalGetter<boolean>, ToggleSignalSetter];
 ```
 
-Defined in: [types/core/reactive.ts:26](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/reactive.ts#L26)
+Defined in: [types/core/reactive.ts:26](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/reactive.ts#L26)
 
 #### Parameters
 

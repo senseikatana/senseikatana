@@ -8,10 +8,16 @@ type ConfigFacade<T> = {
 } & ConfigMethodEntries<T>;
 ```
 
-Defined in: [types/core/config-facade.ts:44](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/core/config-facade.ts#L44)
+Defined in: [types/core/config-facade.ts:44](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/core/config-facade.ts#L44)
 
 What every `define*Config` returns: the registered config under `config`,
 plus the methods declared alongside it so `this.config` resolves inside them.
+
+## Type Parameters
+
+| Type Parameter | Description |
+| ------ | ------ |
+| <a id="type-parameter-t"></a> `T` | The literal passed to the `define*Config` call. |
 
 ## Type Declaration
 
@@ -22,12 +28,6 @@ config: ConfigData<T>;
 ```
 
 Props and booleans declared in the literal (methods stripped out).
-
-## Type Parameters
-
-| Type Parameter | Description |
-| ------ | ------ |
-| `T` | The literal passed to the `define*Config` call. |
 
 ## Example
 

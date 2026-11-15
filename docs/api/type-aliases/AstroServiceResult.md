@@ -6,7 +6,7 @@
 type AstroServiceResult<T> = SafeResult<T, AstroServiceError>;
 ```
 
-Defined in: [types/adapters/astro.ts:36](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/types/adapters/astro.ts#L36)
+Defined in: [types/adapters/astro.ts:36](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/types/adapters/astro.ts#L36)
 
 Safe Result (discriminated union without throwing).
 
@@ -14,4 +14,4 @@ Safe Result (discriminated union without throwing).
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |

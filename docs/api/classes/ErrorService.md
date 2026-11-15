@@ -2,7 +2,7 @@
 
 # Class: ErrorService
 
-Defined in: [core/services/error.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/error.service.ts#L32)
+Defined in: [core/services/error.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L32)
 
 ErrorService — Singleton facade over error creation and normalization.
 
@@ -35,7 +35,7 @@ useErrorCustom(msg, code): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/error.service.ts#L86)
+Defined in: [core/services/error.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L86)
 
 Create a custom error object. Use with `useLogger` for consistent error logging.
 
@@ -91,7 +91,7 @@ useErrorNormalize(error, fallbackStatus?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/error.service.ts#L109)
+Defined in: [core/services/error.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L109)
 
 Normalizes any thrown value into the shared [ApiError](../type-aliases/ApiError.md) shape.
 
@@ -104,7 +104,7 @@ the canonical mapper for `useAttempt()` at service boundaries.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `error` | `unknown` | `undefined` | The caught value (`Error`, SDK error object, string, …). |
-| `fallbackStatus` | `number` | `0` | Status used when the value has none (default: `0`). |
+| `fallbackStatus?` | `number` | `0` | Status used when the value has none (default: `0`). |
 
 #### Returns
 
@@ -121,7 +121,7 @@ A serializable `{ message, status, details? }` error.
 ##### details?
 
 ```ts
-optional details?: unknown;
+details?: unknown;
 ```
 
 ##### message
@@ -156,7 +156,7 @@ useErrorSerialize(message?, code?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/error.service.ts#L63)
+Defined in: [core/services/error.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L63)
 
 Serialize an error into a plain object.
 Uses sensible defaults based on the status code when message is omitted.
@@ -165,8 +165,8 @@ Uses sensible defaults based on the status code when message is omitted.
 
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
-| `message` | `string` | `""` | Error message (falls back to status code default) |
-| `code` | `number` | `400` | HTTP status code (default: 400) |
+| `message?` | `string` | `""` | Error message (falls back to status code default) |
+| `code?` | `number` | `400` | HTTP status code (default: 400) |
 
 #### Returns
 
@@ -209,7 +209,7 @@ const err2 = useErrorSerialize("", 500);
 static getInstance(): ErrorService;
 ```
 
-Defined in: [core/services/error.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/error.service.ts#L39)
+Defined in: [core/services/error.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/error.service.ts#L39)
 
 Returns the shared instance (Singleton).
 

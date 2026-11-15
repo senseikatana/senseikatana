@@ -6,7 +6,7 @@
 function useChat(messages, options?): Promise<AiResult<string>>;
 ```
 
-Defined in: [core/services/agent.service.ts:537](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/agent.service.ts#L537)
+Defined in: [core/services/agent.service.ts:537](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/agent.service.ts#L537)
 
 Sends a single chat completion and returns the assistant text as a Safe Result.
 
@@ -15,7 +15,7 @@ Sends a single chat completion and returns the assistant text as a Safe Result.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `messages` | \{ `content`: `string` \| `null`; `name?`: `string`; `role`: `"system"` \| `"user"` \| `"assistant"` \| `"tool"`; `tool_call_id?`: `string`; `tool_calls?`: \{ `function`: \{ `arguments`: `string`; `name`: `string`; \}; `id`: `string`; `type`: `"function"`; \}[]; \}[] | Conversation messages (a system prompt is prepended if absent). |
-| `options` | [`AiChatOptions`](../interfaces/AiChatOptions.md) | Optional completion options. |
+| `options?` | [`AiChatOptions`](../interfaces/AiChatOptions.md) | Optional completion options. |
 
 ## Returns
 

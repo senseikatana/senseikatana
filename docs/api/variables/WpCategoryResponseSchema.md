@@ -17,6 +17,6 @@ const WpCategoryResponseSchema: ZodObject<{
 }, $catchall<ZodUnknown>>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:346](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/schemas/wordpress.schema.ts#L346)
+Defined in: [schemas/wordpress.schema.ts:346](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/schemas/wordpress.schema.ts#L346)
 
 Category response variant (partials via `_fields` stay well-typed).

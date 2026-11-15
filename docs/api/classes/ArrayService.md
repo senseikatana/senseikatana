@@ -2,7 +2,7 @@
 
 # Class: ArrayService
 
-Defined in: [core/services/array.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L29)
+Defined in: [core/services/array.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L29)
 
 `ArrayService` — singleton facade for collection helpers.
 
@@ -21,7 +21,7 @@ arrays.useFilter(products, (product) => product.inStock);
 useEvery<T>(array, predicate): boolean;
 ```
 
-Defined in: [core/services/array.service.ts:139](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L139)
+Defined in: [core/services/array.service.ts:139](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L139)
 
 Returns `true` when every item satisfies `predicate`. Nullish input is
 `false`, because "every item passed" must not be vacuously true for a
@@ -31,7 +31,7 @@ collection that does not exist.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 #### Parameters
 
@@ -54,7 +54,7 @@ Whether all items match.
 useEveryAsync<T>(array, predicate): Promise<boolean>;
 ```
 
-Defined in: [core/services/array.service.ts:411](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L411)
+Defined in: [core/services/array.service.ts:411](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L411)
 
 Returns `true` when every async predicate resolves truthy. Short circuits
 on the first failure.
@@ -63,7 +63,7 @@ on the first failure.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-1"></a> `T` |
 
 #### Parameters
 
@@ -86,7 +86,7 @@ A promise of whether all items match.
 useFilter<T>(array, predicate): T[];
 ```
 
-Defined in: [core/services/array.service.ts:58](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L58)
+Defined in: [core/services/array.service.ts:58](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L58)
 
 Keeps the items that satisfy `predicate`. Returns `[]` for nullish input.
 
@@ -94,7 +94,7 @@ Keeps the items that satisfy `predicate`. Returns `[]` for nullish input.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-2"></a> `T` |
 
 #### Parameters
 
@@ -124,7 +124,7 @@ useFilter(undefined, () => true); // []
 useFilterAsync<T>(array, predicate): Promise<T[]>;
 ```
 
-Defined in: [core/services/array.service.ts:338](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L338)
+Defined in: [core/services/array.service.ts:338](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L338)
 
 Keeps the items whose async predicate resolves truthy. Every predicate runs
 in parallel and the input order is preserved.
@@ -133,7 +133,7 @@ in parallel and the input order is preserved.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-3"></a> `T` |
 
 #### Parameters
 
@@ -156,7 +156,7 @@ A promise of the matching items.
 useFind<T>(array, predicate): T | undefined;
 ```
 
-Defined in: [core/services/array.service.ts:72](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L72)
+Defined in: [core/services/array.service.ts:72](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L72)
 
 Returns the first item satisfying `predicate`, or `undefined`.
 
@@ -164,7 +164,7 @@ Returns the first item satisfying `predicate`, or `undefined`.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-4"></a> `T` |
 
 #### Parameters
 
@@ -187,7 +187,7 @@ The first match, or `undefined`.
 useFindAsync<T>(array, predicate): Promise<T | undefined>;
 ```
 
-Defined in: [core/services/array.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L373)
+Defined in: [core/services/array.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L373)
 
 Returns the first item whose async predicate resolves truthy. Short
 circuits: later predicates are never invoked.
@@ -196,7 +196,7 @@ circuits: later predicates are never invoked.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-5"></a> `T` |
 
 #### Parameters
 
@@ -219,7 +219,7 @@ A promise of the first match, or `undefined`.
 useFindIndex<T>(array, predicate): number;
 ```
 
-Defined in: [core/services/array.service.ts:108](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L108)
+Defined in: [core/services/array.service.ts:108](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L108)
 
 Returns the index of the first match, or `-1`.
 
@@ -227,7 +227,7 @@ Returns the index of the first match, or `-1`.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-6"></a> `T` |
 
 #### Parameters
 
@@ -250,7 +250,7 @@ The index of the first match, or `-1`.
 useFindLast<T>(array, predicate): T | undefined;
 ```
 
-Defined in: [core/services/array.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L90)
+Defined in: [core/services/array.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L90)
 
 Returns the last item satisfying `predicate`, or `undefined`.
 
@@ -262,7 +262,7 @@ Implemented with an explicit reverse scan rather than
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-7"></a> `T` |
 
 #### Parameters
 
@@ -285,7 +285,7 @@ The last match, or `undefined`.
 useFlatMap<T, U>(array, transform): U[];
 ```
 
-Defined in: [core/services/array.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L207)
+Defined in: [core/services/array.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L207)
 
 Maps each item to a collection and flattens one level. Returns `[]` for
 nullish input.
@@ -294,8 +294,8 @@ nullish input.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Source element type. |
-| `U` | Flattened element type. |
+| <a id="type-parameter-t-8"></a> `T` | Source element type. |
+| <a id="type-parameter-u"></a> `U` | Flattened element type. |
 
 #### Parameters
 
@@ -318,7 +318,7 @@ A new flattened array.
 useFromEntries<K, V>(entries): Record<K, V>;
 ```
 
-Defined in: [core/services/array.service.ts:320](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L320)
+Defined in: [core/services/array.service.ts:320](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L320)
 
 Typed `Object.fromEntries`. Returns `{}` for nullish input.
 
@@ -326,14 +326,14 @@ Typed `Object.fromEntries`. Returns `{}` for nullish input.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `K` *extends* `PropertyKey` | Key type. |
-| `V` | Value type. |
+| <a id="type-parameter-k"></a> `K` *extends* `PropertyKey` | Key type. |
+| <a id="type-parameter-v"></a> `V` | Value type. |
 
 #### Parameters
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `entries` | readonly readonly \[`K`, `V`\][] \| `null` \| `undefined` | Entry pairs, possibly nullish. |
+| `entries` | readonly (readonly \[`K`, `V`\])[] \| `null` \| `undefined` | Entry pairs, possibly nullish. |
 
 #### Returns
 
@@ -352,10 +352,10 @@ useFromEntries(products.map((p) => [p.id, p.name] as const));
 ### useKeys()
 
 ```ts
-useKeys<T>(object): keyof T[];
+useKeys<T>(object): (keyof T)[];
 ```
 
-Defined in: [core/services/array.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L292)
+Defined in: [core/services/array.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L292)
 
 Typed `Object.keys`. The native call returns `string[]`, losing the key
 union of the object it was given.
@@ -364,7 +364,7 @@ union of the object it was given.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* `object` | Object type. |
+| <a id="type-parameter-t-9"></a> `T` *extends* `object` | Object type. |
 
 #### Parameters
 
@@ -374,7 +374,7 @@ union of the object it was given.
 
 #### Returns
 
-keyof `T`[]
+(keyof `T`)[]
 
 The object keys as a `keyof` array.
 
@@ -392,7 +392,7 @@ useKeys(user); // ("id" | "name" | "email")[]
 useMap<T, U>(array, transform): U[];
 ```
 
-Defined in: [core/services/array.service.ts:190](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L190)
+Defined in: [core/services/array.service.ts:190](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L190)
 
 Projects every item through `transform`. Returns `[]` for nullish input.
 
@@ -400,8 +400,8 @@ Projects every item through `transform`. Returns `[]` for nullish input.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Source element type. |
-| `U` | Projected element type. |
+| <a id="type-parameter-t-10"></a> `T` | Source element type. |
+| <a id="type-parameter-u-1"></a> `U` | Projected element type. |
 
 #### Parameters
 
@@ -424,7 +424,7 @@ A new array of projected values.
 useMapAsync<T, U>(array, transform): Promise<U[]>;
 ```
 
-Defined in: [core/services/array.service.ts:357](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L357)
+Defined in: [core/services/array.service.ts:357](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L357)
 
 Projects every item through an async transform, in parallel, preserving
 input order.
@@ -433,8 +433,8 @@ input order.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Source element type. |
-| `U` | Projected element type. |
+| <a id="type-parameter-t-11"></a> `T` | Source element type. |
+| <a id="type-parameter-u-2"></a> `U` | Projected element type. |
 
 #### Parameters
 
@@ -457,7 +457,7 @@ A promise of the projected values.
 usePartition<T>(array, predicate): [T[], T[]];
 ```
 
-Defined in: [core/services/array.service.ts:159](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L159)
+Defined in: [core/services/array.service.ts:159](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L159)
 
 Splits the collection into `[matching, rest]`. Nullish input yields
 `[[], []]`.
@@ -466,7 +466,7 @@ Splits the collection into `[matching, rest]`. Nullish input yields
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-12"></a> `T` |
 
 #### Parameters
 
@@ -499,7 +499,7 @@ useReduce<T, U>(
 ): U;
 ```
 
-Defined in: [core/services/array.service.ts:225](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L225)
+Defined in: [core/services/array.service.ts:225](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L225)
 
 Folds the collection into a single value. `initial` is required, so the
 return type is unambiguous even for an empty or nullish collection.
@@ -508,8 +508,8 @@ return type is unambiguous even for an empty or nullish collection.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Source element type. |
-| `U` | Accumulator type. |
+| <a id="type-parameter-t-13"></a> `T` | Source element type. |
+| <a id="type-parameter-u-3"></a> `U` | Accumulator type. |
 
 #### Parameters
 
@@ -537,7 +537,7 @@ useReduceAsync<T, U>(
 ): Promise<U>;
 ```
 
-Defined in: [core/services/array.service.ts:433](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L433)
+Defined in: [core/services/array.service.ts:433](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L433)
 
 Folds the collection with an async reducer, sequentially — a reduce that
 ran in parallel could not be ordered.
@@ -546,8 +546,8 @@ ran in parallel could not be ordered.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Source element type. |
-| `U` | Accumulator type. |
+| <a id="type-parameter-t-14"></a> `T` | Source element type. |
+| <a id="type-parameter-u-4"></a> `U` | Accumulator type. |
 
 #### Parameters
 
@@ -571,7 +571,7 @@ A promise of the accumulated value.
 useReverse<T>(array): T[];
 ```
 
-Defined in: [core/services/array.service.ts:271](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L271)
+Defined in: [core/services/array.service.ts:271](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L271)
 
 Returns a reversed **copy**. The native `reverse` mutates in place.
 
@@ -579,7 +579,7 @@ Returns a reversed **copy**. The native `reverse` mutates in place.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-15"></a> `T` |
 
 #### Parameters
 
@@ -601,7 +601,7 @@ A new reversed array.
 useSome<T>(array, predicate): boolean;
 ```
 
-Defined in: [core/services/array.service.ts:123](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L123)
+Defined in: [core/services/array.service.ts:123](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L123)
 
 Returns `true` when at least one item satisfies `predicate`. Nullish input
 is `false`, never `true`.
@@ -610,7 +610,7 @@ is `false`, never `true`.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-16"></a> `T` |
 
 #### Parameters
 
@@ -633,7 +633,7 @@ Whether any item matches.
 useSomeAsync<T>(array, predicate): Promise<boolean>;
 ```
 
-Defined in: [core/services/array.service.ts:392](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L392)
+Defined in: [core/services/array.service.ts:392](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L392)
 
 Returns `true` when at least one async predicate resolves truthy. Short
 circuits on the first match.
@@ -642,7 +642,7 @@ circuits on the first match.
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t-17"></a> `T` |
 
 #### Parameters
 
@@ -669,7 +669,7 @@ useSortBy<T>(
 ): T[];
 ```
 
-Defined in: [core/services/array.service.ts:249](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L249)
+Defined in: [core/services/array.service.ts:249](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L249)
 
 Sorts a **copy** of the collection by a derived key. `Array.prototype.sort`
 mutates in place, which would corrupt a shared array coming from a store
@@ -679,7 +679,7 @@ or a cache; this never does.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` | Source element type. |
+| <a id="type-parameter-t-18"></a> `T` | Source element type. |
 
 #### Parameters
 
@@ -687,7 +687,7 @@ or a cache; this never does.
 | ------ | ------ | ------ | ------ |
 | `array` | `NullableArray`\<`T`\> | `undefined` | Source collection, possibly nullish. |
 | `selector` | (`item`) => `string` \| `number` \| `bigint` \| `boolean` \| `Date` | `undefined` | Derives the comparable value from an item. |
-| `direction` | `"desc"` \| `"asc"` | `"asc"` | `"asc"` (default) or `"desc"`. |
+| `direction?` | `"desc"` \| `"asc"` | `"asc"` | `"asc"` (default) or `"desc"`. |
 
 #### Returns
 
@@ -709,7 +709,7 @@ useSortBy(products, (product) => product.price, "desc");
 useValues<T>(object): T[keyof T][];
 ```
 
-Defined in: [core/services/array.service.ts:303](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L303)
+Defined in: [core/services/array.service.ts:303](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L303)
 
 Typed `Object.values`. The native call returns `unknown[]`.
 
@@ -717,7 +717,7 @@ Typed `Object.values`. The native call returns `unknown[]`.
 
 | Type Parameter | Description |
 | ------ | ------ |
-| `T` *extends* `object` | Object type. |
+| <a id="type-parameter-t-19"></a> `T` *extends* `object` | Object type. |
 
 #### Parameters
 
@@ -739,7 +739,7 @@ The object values.
 static getInstance(): ArrayService;
 ```
 
-Defined in: [core/services/array.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L34)
+Defined in: [core/services/array.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L34)
 
 #### Returns
 

@@ -6,7 +6,7 @@
 function usePartition<T>(array, predicate): [T[], T[]];
 ```
 
-Defined in: [core/services/array.service.ts:484](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/array.service.ts#L484)
+Defined in: [core/services/array.service.ts:484](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/array.service.ts#L484)
 
 Splits into `[matching, rest]`. See [ArrayService.usePartition](../classes/ArrayService.md#usepartition).
 
@@ -14,7 +14,7 @@ Splits into `[matching, rest]`. See [ArrayService.usePartition](../classes/Array
 
 | Type Parameter |
 | ------ |
-| `T` |
+| <a id="type-parameter-t"></a> `T` |
 
 ## Parameters
 

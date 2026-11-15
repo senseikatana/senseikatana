@@ -6,7 +6,7 @@
 function useInitTheme(options?): void;
 ```
 
-Defined in: [infrastructure/theme/theme.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/infrastructure/theme/theme.service.ts#L116)
+Defined in: [infrastructure/theme/theme.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/infrastructure/theme/theme.service.ts#L116)
 
 Initializes the theme system. Reads the stored preference (or falls back
 to `defaultMode`), applies the theme, and registers a system color-scheme
@@ -16,7 +16,7 @@ listener for `"system"` mode.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `options` | [`ThemeOptions`](../interfaces/ThemeOptions.md) | Configuration for the theme system. |
+| `options?` | [`ThemeOptions`](../interfaces/ThemeOptions.md) | Configuration for the theme system. |
 
 ## Returns
 

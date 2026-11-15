@@ -6,7 +6,7 @@
 function useInitQueryClient(config?): QueryClient;
 ```
 
-Defined in: [core/services/query.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/query.service.ts#L213)
+Defined in: [core/services/query.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/query.service.ts#L213)
 
 Replaces the shared QueryClient singleton with a configured instance.
 The previous client's caches are cleared before swapping.
@@ -15,7 +15,7 @@ The previous client's caches are cleared before swapping.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `config` | `QueryClientConfig` | TanStack QueryClientConfig (caches, default options). |
+| `config?` | `QueryClientConfig` | TanStack QueryClientConfig (caches, default options). |
 
 ## Returns
 

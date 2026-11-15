@@ -10,7 +10,7 @@ function useReply(
 ): Promise<AssistantResult>;
 ```
 
-Defined in: [core/services/assistant.service.ts:349](https://github.com/senseikatana/katanakit-js/blob/c3992e7d4fd571cfc879dcce07696cca9eb2bd14/src/core/services/assistant.service.ts#L349)
+Defined in: [core/services/assistant.service.ts:349](https://github.com/senseikatana/katanakit-js/blob/7e04a13a3a42c7c397fae8774d321995fcb3d5ef/src/core/services/assistant.service.ts#L349)
 
 Sends a user message within a conversation and returns the assistant reply.
 If no `sessionId` is provided, a new session is created. The user message and
@@ -22,7 +22,7 @@ the assistant reply are persisted only on success.
 | ------ | ------ | ------ |
 | `sessionId` | `string` \| `undefined` | Existing session id, or `undefined` to start a new one. |
 | `text` | `string` | The user's message. |
-| `options` | [`AssistantReplyOptions`](../interfaces/AssistantReplyOptions.md) | Optional completion options. |
+| `options?` | [`AssistantReplyOptions`](../interfaces/AssistantReplyOptions.md) | Optional completion options. |
 
 ## Returns
 
