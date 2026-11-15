@@ -16,24 +16,24 @@
  * served by the site Pages project.
  */
 
-const SITE_ORIGIN = "https://senseikatana.com";
-const PROJECTS_BASE = "/projects";
+const SITE_ORIGIN = 'https://senseikatana.com';
+const PROJECTS_BASE = '/projects';
 
 export default {
-	async fetch(request: Request): Promise<Response> {
-		const url = new URL(request.url);
-		const { pathname, search } = url;
+  async fetch(request: Request): Promise<Response> {
+    const url = new URL(request.url);
+    const { pathname, search } = url;
 
-		// Normalize: showcase root maps to the projects index. A trailing slash
-		// is preserved for the index only so relative asset URLs resolve.
-		const suffix = pathname === "/" ? "/" : pathname;
-		const target = new URL(`${PROJECTS_BASE}${suffix}${search}`, SITE_ORIGIN);
+    // Normalize: showcase root maps to the projects index. A trailing slash
+    // is preserved for the index only so relative asset URLs resolve.
+    const suffix = pathname === '/' ? '/' : pathname;
+    const target = new URL(`${PROJECTS_BASE}${suffix}${search}`, SITE_ORIGIN);
 
-		return fetch(target, {
-			method: request.method,
-			headers: request.headers,
-			body: request.body,
-			redirect: "follow",
-		});
-	},
+    return fetch(target, {
+      method: request.method,
+      headers: request.headers,
+      body: request.body,
+      redirect: 'follow',
+    });
+  },
 } satisfies ExportedHandler;
