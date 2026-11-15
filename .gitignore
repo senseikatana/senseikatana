@@ -33,6 +33,7 @@ bun-debug.log*
 # Cache
 .cache/
 .parcel-cache/
+docs/.vitepress/cache/
 .next/
 .nuxt/
 .astro/
