@@ -9,6 +9,7 @@ import SwaggerViewer from "./components/SwaggerViewer.vue";
 import Layout from "./Layout.vue";
 import TailwindShowcase from "./components/TailwindShowcase.vue";
 import "./style.css";
+import "./design.css";
 
 /**
  * Mirrors VitePress' dark mode into the `data-theme` contract that

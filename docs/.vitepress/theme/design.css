@@ -1,0 +1,625 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   KatanaKit Docs — design system
+   Direction: Nuxt-style layout and typography, Dahl-bold display accents.
+   Loaded after the kit-ui vendor CSS and style.css so it owns the cascade.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Vendor neutralization ─────────────────────────────────────────
+   The kit-ui bundle ships a page-level reset inside @layer katana-reset:
+   `html { font-size: 62.5% }` collapses VitePress' rem scale and `*`
+   margin/padding resets kill UA list indents. Layered rules lose against
+   these unlayered restores. */
+
+html {
+	font-size: 100%;
+}
+
+.vp-doc ul,
+.vp-doc ol {
+	list-style: revert;
+	padding-left: 1.6em;
+	margin: 16px 0;
+}
+
+.vp-doc li + li {
+	margin-top: 6px;
+}
+
+.vp-doc img {
+	display: inline-block;
+	max-width: 100%;
+}
+
+/* ── 2. Design tokens ─────────────────────────────────────────────── */
+
+:root {
+	/* Katana palette: near-black surfaces, crimson-rose accent. */
+	--kat-bg: #0a0a0c;
+	--kat-bg-alt: #0e0e12;
+	--kat-surface: #121218;
+	--kat-surface-2: #17171e;
+	--kat-border: #24242e;
+	--kat-border-soft: #1b1b23;
+	--kat-text-1: #f2f2f5;
+	--kat-text-2: #b6b6c2;
+	--kat-text-3: #7e7e8c;
+	--kat-accent: #ff2d55;
+	--kat-accent-hover: #ff5c7c;
+	--kat-accent-press: #e02448;
+	--kat-accent-soft: rgba(255, 45, 85, 0.12);
+	--kat-accent-line: rgba(255, 45, 85, 0.32);
+
+	/* Type */
+	--kat-font-display: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
+	--vp-font-family-base: "Inter Tight", "Inter", system-ui, -apple-system,
+		"Segoe UI", Roboto, sans-serif;
+	--vp-font-family-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
+		Consolas, monospace;
+
+	/* VitePress surfaces follow the palette. */
+	--vp-c-bg: var(--kat-bg);
+	--vp-c-bg-alt: var(--kat-bg-alt);
+	--vp-c-bg-elv: var(--kat-surface);
+	--vp-c-bg-soft: var(--kat-surface);
+	--vp-c-bg-mute: var(--kat-surface-2);
+	--vp-c-border: var(--kat-border);
+	--vp-c-divider: var(--kat-border-soft);
+	--vp-c-gutter: var(--kat-border-soft);
+	--vp-c-text-1: var(--kat-text-1);
+	--vp-c-text-2: var(--kat-text-2);
+	--vp-c-text-3: var(--kat-text-3);
+
+	/* Brand */
+	--vp-c-brand-1: var(--kat-accent);
+	--vp-c-brand-2: var(--kat-accent-hover);
+	--vp-c-brand-3: var(--kat-accent-press);
+	--vp-c-brand-soft: var(--kat-accent-soft);
+
+	/* Code */
+	--vp-code-bg: var(--kat-surface);
+	--vp-code-block-bg: #101016;
+	--vp-code-block-divider: var(--kat-border);
+	--vp-code-line-highlight-color: rgba(255, 45, 85, 0.08);
+	--vp-code-line-numbers: var(--kat-text-3);
+	--vp-code-copy-code-bg: var(--kat-surface-2);
+	--vp-code-copy-code-hover-bg: var(--kat-surface-2);
+
+	/* Chrome */
+	--vp-nav-bg-color: rgba(10, 10, 12, 0.82);
+	--vp-sidebar-bg-color: var(--kat-bg-alt);
+	--vp-c-bg-elv-backdrop: rgba(10, 10, 12, 0.7);
+	--vp-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.36);
+	--vp-shadow-2: 0 3px 12px rgba(0, 0, 0, 0.4);
+	--vp-shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+	--vp-border-radius: 10px;
+	--vp-sidebar-width: 272px;
+	--vp-layout-max-width: 1440px;
+}
+
+html.dark {
+	--kat-bg: #0a0a0c;
+}
+
+/* ── 3. Typography ────────────────────────────────────────────────── */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.VPNavBarTitle .title,
+.VPHomeHero .name,
+.VPHomeHero .text {
+	font-family: var(--kat-font-display);
+	letter-spacing: -0.018em;
+}
+
+body {
+	font-size: 16.5px;
+	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
+}
+
+.vp-doc h1 {
+	font-size: 2.55rem;
+	font-weight: 700;
+	line-height: 1.14;
+	letter-spacing: -0.028em;
+	margin: 8px 0 28px;
+}
+
+.vp-doc h2 {
+	font-size: 1.72rem;
+	font-weight: 700;
+	line-height: 1.22;
+	letter-spacing: -0.022em;
+	margin: 56px 0 20px;
+	padding-top: 26px;
+	border-top: 1px solid var(--kat-border-soft);
+}
+
+.vp-doc h3 {
+	font-size: 1.26rem;
+	font-weight: 600;
+	margin: 36px 0 14px;
+}
+
+.vp-doc h4 {
+	font-size: 1.06rem;
+	font-weight: 600;
+}
+
+.vp-doc p {
+	margin: 16px 0;
+}
+
+.vp-doc strong {
+	font-weight: 650;
+	color: var(--kat-text-1);
+}
+
+.vp-doc a {
+	font-weight: 500;
+}
+
+.vp-doc th {
+	font-family: var(--kat-font-display);
+	font-size: 0.82rem;
+	font-weight: 600;
+	letter-spacing: 0.055em;
+	text-transform: uppercase;
+	color: var(--kat-text-2);
+}
+
+.vp-doc blockquote {
+	border-left: 3px solid var(--kat-accent);
+	border-radius: 0;
+	background: transparent;
+	padding: 2px 0 2px 20px;
+	margin: 22px 0;
+}
+
+.vp-doc :not(pre) > code {
+	font-family: var(--kat-font-mono);
+	font-size: 0.82em;
+	font-weight: 550;
+	background: var(--kat-accent-soft);
+	color: var(--kat-accent-hover);
+	border: 1px solid var(--kat-accent-line);
+	border-radius: 7px;
+	padding: 0.16em 0.42em;
+	word-break: break-word;
+}
+
+/* ── 4. Top navigation ────────────────────────────────────────────── */
+
+.VPNavBar {
+	border-bottom: 1px solid var(--kat-border-soft);
+	backdrop-filter: saturate(140%) blur(14px);
+}
+
+.VPNavBarTitle .title {
+	font-family: var(--kat-font-display);
+	font-size: 1.16rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.VPNavBarMenuLink,
+.VPNavBarMenuGroup .text,
+.VPNavBarMenuGroup .option {
+	font-family: var(--kat-font-display);
+	font-size: 0.86rem;
+	font-weight: 550;
+	letter-spacing: 0.015em;
+}
+
+.vp-section-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 5px 12px;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	font-family: var(--kat-font-display);
+	font-size: 0.84rem;
+	font-weight: 600;
+	letter-spacing: 0.012em;
+	color: var(--kat-text-2);
+	transition:
+		color 0.18s ease,
+		background-color 0.18s ease,
+		border-color 0.18s ease;
+}
+
+.vp-section-tab__icon {
+	display: inline-flex;
+}
+
+.vp-section-tab__icon svg {
+	width: 13px;
+	height: 13px;
+}
+
+/* The active pill is state-marked by the nav via .active/.activeMatch
+   containers; hover always responds. */
+a:hover .vp-section-tab,
+button:hover .vp-section-tab {
+	color: var(--kat-text-1);
+	border-color: var(--kat-border);
+	background: var(--kat-surface);
+}
+
+/* ── 5. Sidebar ───────────────────────────────────────────────────── */
+
+.VPSidebar {
+	border-right: 1px solid var(--kat-border-soft);
+	padding-top: 12px;
+}
+
+.VPSidebar .VPSidebarItems {
+	padding: 12px 18px 0;
+}
+
+.VPSidebarItem .item .text {
+	padding: 4px 0;
+	overflow-wrap: break-word;
+}
+
+.VPSidebarItem.level-0 .text,
+.VPSidebarItem.level-0 > .item > .link .text,
+.VPSidebarItem.level-0 > .item > .text {
+	font-family: var(--kat-font-display);
+	font-size: 0.74rem;
+	font-weight: 700;
+	letter-spacing: 0.115em;
+	text-transform: uppercase;
+	color: var(--kat-text-3);
+}
+
+.VPSidebarItem.level-1 .text,
+.VPSidebarItem.level-2 .text,
+.VPSidebarItem.level-3 .text {
+	font-family: var(--kat-font-display);
+	font-size: 0.895rem;
+	font-weight: 500;
+	letter-spacing: -0.005em;
+	color: var(--kat-text-2);
+}
+
+.VPSidebarItem .item .link {
+	border-radius: 9px;
+}
+
+.VPSidebarItem .item .link:hover .text {
+	color: var(--kat-text-1);
+}
+
+.VPSidebarItem.is-active > .item > .link > .text {
+	font-weight: 600;
+	color: var(--kat-accent-hover);
+}
+
+.VPSidebarItem .items {
+	border-left: 1px solid var(--kat-border) !important;
+	padding-left: 14px !important;
+}
+
+.VPSidebarItem .caret-icon {
+	color: var(--kat-text-3);
+}
+
+/* ── 6. Outline ("On this page") ──────────────────────────────────── */
+
+.VPDocAsideOutline .content {
+	border-left: 1px solid var(--kat-border);
+	padding-left: 18px;
+}
+
+.VPDocAsideOutline .outline-marker {
+	width: 2px;
+	border-radius: 2px;
+	background: var(--kat-accent);
+}
+
+.outline-link {
+	font-family: var(--kat-font-display);
+	font-size: 0.82rem;
+	font-weight: 500;
+	letter-spacing: 0.004em;
+	line-height: 1.55;
+	color: var(--kat-text-3);
+	transition: color 0.18s ease;
+}
+
+.outline-link:hover,
+.outline-link.active {
+	color: var(--kat-accent-hover);
+}
+
+/* ── 7. Code blocks ───────────────────────────────────────────────── */
+
+div[class*="language-"] {
+	border: 1px solid var(--kat-border);
+	border-radius: 14px;
+	margin: 22px 0;
+}
+
+div[class*="language-"] .lang {
+	font-family: var(--kat-font-display);
+	font-size: 0.72rem;
+	font-weight: 650;
+	letter-spacing: 0.075em;
+	text-transform: uppercase;
+	color: var(--kat-text-3);
+}
+
+div[class*="language-"].line-numbers-mode .line-numbers-mode .line-numbers {
+	border-right: 1px solid var(--kat-border);
+}
+
+div[class*="language-"] pre,
+div[class*="language-"] code {
+	font-family: var(--kat-font-mono);
+	font-size: 0.845rem;
+	line-height: 1.75;
+}
+
+div[class*="language-"] .vp-code span {
+	font-family: var(--kat-font-mono);
+}
+
+.vp-code-group > div[class*="language-"] {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin-top: 0;
+}
+
+.vp-code-group .tabs {
+	border: 1px solid var(--kat-border);
+	border-bottom: none;
+	border-radius: 14px 14px 0 0;
+	background: var(--kat-surface);
+}
+
+.vp-code-group .tabs .tab {
+	font-family: var(--kat-font-display);
+	font-size: 0.82rem;
+	font-weight: 550;
+	letter-spacing: 0.025em;
+}
+
+/* ── 8. Custom containers ─────────────────────────────────────────── */
+
+.custom-block {
+	border-radius: 12px;
+	border: 1px solid var(--kat-border);
+	border-left: 3px solid var(--kat-text-3);
+	background: var(--kat-surface);
+	padding: 16px 20px;
+	margin: 22px 0;
+}
+
+.custom-block .custom-block-title {
+	font-family: var(--kat-font-display);
+	font-size: 0.86rem;
+	font-weight: 700;
+	letter-spacing: 0.065em;
+	text-transform: uppercase;
+}
+
+.custom-block.tip {
+	border-left-color: var(--kat-accent);
+	background: var(--kat-accent-soft);
+}
+
+.custom-block.tip .custom-block-title {
+	color: var(--kat-accent-hover);
+}
+
+.custom-block.warning {
+	border-left-color: #d9a115;
+	background: rgba(217, 161, 21, 0.09);
+}
+
+.custom-block.warning .custom-block-title {
+	color: #f0c04a;
+}
+
+.custom-block.danger {
+	border-left-color: var(--kat-accent);
+	background: rgba(255, 45, 85, 0.1);
+}
+
+.custom-block.danger .custom-block-title {
+	color: var(--kat-accent-hover);
+}
+
+.custom-block details {
+	background: transparent;
+	border: none;
+}
+
+/* ── 9. Buttons ───────────────────────────────────────────────────── */
+
+.vp-doc .VPButton,
+.VPHomeHero .VPButton,
+.VPHomeActions .VPButton {
+	font-family: var(--kat-font-display);
+	font-size: 0.94rem;
+	font-weight: 600;
+	letter-spacing: 0.008em;
+	border-radius: 11px;
+	padding: 11px 22px;
+	transition:
+		transform 0.16s ease,
+		background-color 0.16s ease,
+		border-color 0.16s ease;
+}
+
+.VPButton:hover {
+	transform: translateY(-1px);
+}
+
+/* ── 10. Home ─────────────────────────────────────────────────────── */
+
+.VPHomeHero {
+	padding: 72px 24px 24px;
+}
+
+.VPHomeHero .hero-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 7px 15px;
+	border: 1px solid var(--kat-accent-line);
+	border-radius: 999px;
+	background: var(--kat-accent-soft);
+	font-family: var(--kat-font-display);
+	font-size: 0.82rem;
+	font-weight: 600;
+	letter-spacing: 0.028em;
+	color: var(--kat-accent-hover);
+	margin-bottom: 26px;
+}
+
+.hero-badge__arrow {
+	transition: transform 0.16s ease;
+}
+
+.hero-badge:hover .hero-badge__arrow {
+	transform: translateX(3px);
+}
+
+.VPHomeHero .name {
+	font-family: var(--kat-font-display);
+	font-size: clamp(2.7rem, 5.2vw, 4.35rem);
+	font-weight: 700;
+	line-height: 1.02;
+	letter-spacing: -0.038em;
+	color: var(--kat-text-1) !important;
+	max-width: 15ch;
+}
+
+.VPHomeHero .text {
+	font-family: var(--kat-font-display);
+	font-size: clamp(2.7rem, 5.2vw, 4.35rem);
+	font-weight: 700;
+	line-height: 1.02;
+	letter-spacing: -0.038em;
+	max-width: 17ch;
+	background: linear-gradient(102deg, var(--kat-accent) 8%, var(--kat-accent-hover) 52%, #ffa3b4 96%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent !important;
+}
+
+.VPHomeHero .tagline {
+	max-width: 640px;
+	font-family: var(--kat-font-family-base);
+	font-size: 1.21rem;
+	line-height: 1.62;
+	letter-spacing: -0.002em;
+	color: var(--kat-text-2) !important;
+	margin-top: 26px;
+}
+
+.VPHomeHero .actions .action {
+	margin-top: 34px;
+}
+
+.VPImageGallery,
+.VPHomeFeatures {
+	padding: 24px 24px 8px;
+}
+
+.VPFeature {
+	border: 1px solid var(--kat-border) !important;
+	border-radius: 14px !important;
+	background: var(--kat-surface) !important;
+	transition:
+		border-color 0.18s ease,
+		transform 0.18s ease;
+}
+
+.VPFeature:hover {
+	border-color: var(--kat-accent-line) !important;
+	transform: translateY(-2px);
+}
+
+.VPFeature .title {
+	font-family: var(--kat-font-display);
+	font-size: 1.13rem;
+	font-weight: 650;
+	letter-spacing: -0.012em;
+	color: var(--kat-text-1) !important;
+}
+
+.VPFeature .details {
+	font-family: var(--kat-font-family-base);
+	font-size: 0.965rem;
+	line-height: 1.62;
+	color: var(--kat-text-2) !important;
+	margin-top: 10px;
+}
+
+.VPHomeHero .image-src,
+.VPHomeHero .image-bg {
+	max-width: 580px;
+}
+
+/* ── 11. Install / demo cards (custom home components) ────────────── */
+
+.install-card,
+.home-card {
+	border: 1px solid var(--kat-border);
+	border-radius: 14px;
+	background: var(--kat-surface);
+}
+
+.home-section-title {
+	font-family: var(--kat-font-display);
+	font-size: 1.55rem;
+	font-weight: 700;
+	letter-spacing: -0.022em;
+	color: var(--kat-text-1);
+}
+
+.home-endcap {
+	border-top: 1px solid var(--kat-border-soft);
+}
+
+/* ── 12. Footer & misc ────────────────────────────────────────────── */
+
+.VPFooter {
+	border-top: 1px solid var(--kat-border-soft);
+	background: var(--kat-bg-alt);
+}
+
+.vp-doc div[class*="language-"] + .language-id {
+	display: none;
+}
+
+/* Tables */
+.vp-doc table {
+	border: 1px solid var(--kat-border);
+	border-radius: 12px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+}
+
+.vp-doc tr:nth-child(2n) {
+	background: rgba(255, 255, 255, 0.012);
+}
+
+.vp-doc td,
+.vp-doc th {
+	border-color: var(--kat-border-soft);
+}
+
+/* Local search */
+.VPLocalSearchBox {
+	--vp-vl-bg: var(--kat-surface);
+}
