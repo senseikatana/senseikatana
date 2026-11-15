@@ -108,13 +108,10 @@ function syncFromKit() {
     console.log('docs: vendored packages/ui/dist (styles + js)');
   }
 
-  // 4. Copy sync-tailwind-components output if needed
-  const kitTailwindHtml = join(KATANAKIT_ROOT, 'packages', 'ui', 'tailwind', 'html');
-  const dstTailwindHtml = join(ROOT, 'docs', 'ui-kit', 'reference');
-  if (existsSync(kitTailwindHtml)) {
-    remove(dstTailwindHtml);
-    execFileSync('cp', ['-r', kitTailwindHtml, dstTailwindHtml], { stdio: 'inherit' });
-    console.log('docs: copied tailwind html components');
+  // 4. Publish the Tailwind snippets and regenerate the catalog
+  const kitTailwind = join(KATANAKIT_ROOT, 'packages', 'ui', 'tailwind');
+  if (existsSync(kitTailwind)) {
+    run('node', ['scripts/sync-tailwind-components.mjs']);
   }
 }
 

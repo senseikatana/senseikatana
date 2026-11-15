@@ -9,6 +9,5 @@ CHANGELOG.md
 docs/api
 docs/changelog.md
 docs/public
-docs/ui-kit/reference
 docs/.vitepress
 docs/**/*.md

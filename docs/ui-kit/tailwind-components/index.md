@@ -10,7 +10,7 @@ Every component exists twice, at the same relative path:
 
 | Tree | Path | Use with |
 | --- | --- | --- |
-| HTML | `packages/ui/tailwind/html/` | Vue, Astro, plain HTML and any templating language |
+| HTML | `packages/ui/tailwind/html/` | Vue, Astro, plain HTML and any templating language (vendored in `docs/public/tailwind-html/` for preview) |
 | React | `packages/ui/tailwind/react/` | React 18/19 + TypeScript (`.tsx`) |
 
 The HTML tree is the source of truth for structure and classes. The React tree is

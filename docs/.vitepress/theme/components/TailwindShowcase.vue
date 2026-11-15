@@ -19,7 +19,7 @@ const copied = ref(false);
 let copyTimer: ReturnType<typeof setTimeout> | undefined;
 
 const base = import.meta.env.BASE_URL;
-const file = `tailwind-components/${props.src}.html`;
+const file = `tailwind-html/${props.src}.html`;
 const github = `https://github.com/senseikatana/katanakit-js/blob/dev/packages/ui/tailwind/html/${props.src}.html`;
 const react = `https://github.com/senseikatana/katanakit-js/blob/dev/packages/ui/tailwind/react/${props.src}.tsx`;
 
