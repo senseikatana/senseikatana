@@ -23,9 +23,12 @@
   Section modes:
     .band-invert  black band on the light theme, light band on the dark theme
     .band-warm    warm accent band (same in both themes)
+
+  Theme system: responds to Lumen's data-lumen-scheme (light/dark) and
+  data-lumen-preset (studio, paper) attributes on <html>.
 */
 :root,
-.mode-light {
+[data-lumen-scheme='light'] {
   --canvas: #fafafa;
   --ink: #000000;
   --steel: #414141;
@@ -41,9 +44,8 @@
   color-scheme: light;
 }
 
-:root[data-theme='dark'],
-.mode-dark,
-:root:not([data-theme='dark']) .band-invert {
+[data-lumen-scheme='dark'],
+:root:not([data-lumen-scheme='dark']) .band-invert {
   --canvas: #0e0e0e;
   --ink: #fafafa;
   --steel: #c9c9c9;
@@ -56,8 +58,74 @@
   color-scheme: dark;
 }
 
+/* Studio preset: moody dark-first palette */
+[data-lumen-preset='studio'] {
+  --canvas: #111113;
+  --ink: #e8e8ea;
+  --steel: #a0a0a8;
+  --smoke: #6e6e78;
+  --stone: #3e3e46;
+  --rule: #2a2a30;
+  --tint: #1a1a1e;
+  --link: #7c8cf8;
+  --cta: #f59e0b;
+  --cta-ink: #000000;
+  --ok: #34d399;
+  --badge: #fbbf24;
+  color-scheme: dark;
+}
+
+[data-lumen-preset='studio'][data-lumen-scheme='light'] {
+  --canvas: #f5f5f6;
+  --ink: #111113;
+  --steel: #52525b;
+  --smoke: #71717a;
+  --stone: #a1a1aa;
+  --rule: #e4e4e7;
+  --tint: #ececee;
+  --link: #4f46e5;
+  --cta: #d97706;
+  --cta-ink: #ffffff;
+  --ok: #059669;
+  --badge: #ca8a04;
+  color-scheme: light;
+}
+
+/* Paper preset: warm, light, editorial */
+[data-lumen-preset='paper'] {
+  --canvas: #faf8f5;
+  --ink: #1c1917;
+  --steel: #57534e;
+  --smoke: #a8a29e;
+  --stone: #d6d3d1;
+  --rule: #e7e5e4;
+  --tint: #f5f5f4;
+  --link: #b45309;
+  --cta: #c2410c;
+  --cta-ink: #ffffff;
+  --ok: #15803d;
+  --badge: #d97706;
+  color-scheme: light;
+}
+
+[data-lumen-preset='paper'][data-lumen-scheme='dark'] {
+  --canvas: #1c1917;
+  --ink: #fafaf9;
+  --steel: #a8a29e;
+  --smoke: #78716c;
+  --stone: #57534e;
+  --rule: #292524;
+  --tint: #221f1d;
+  --link: #f59e0b;
+  --cta: #fb923c;
+  --cta-ink: #000000;
+  --ok: #4ade80;
+  --badge: #fbbf24;
+  color-scheme: dark;
+}
+
 /* on the dark theme the inverted bands flip back to light */
-:root[data-theme='dark'] .band-invert {
+:root[data-lumen-scheme='dark'] .band-invert {
   --canvas: #fafafa;
   --ink: #000000;
   --steel: #414141;

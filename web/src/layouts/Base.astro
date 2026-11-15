@@ -1,5 +1,8 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import '@santi020k/lumen-astro/styles/foundation.css';
+import '@santi020k/lumen-astro/styles/themes/studio.css';
+import '@santi020k/lumen-astro/styles/themes/paper.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -7,6 +10,7 @@ import { site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 import { defaultLocale, locales } from '../i18n/config';
 import { personJsonLd } from '../lib/seo';
+import UIPrimitives from '@santi020k/lumen-astro/runtime';
 
 interface Props {
   title?: string;
@@ -81,7 +85,7 @@ const pageAnimation = {
 ---
 
 <!doctype html>
-<html lang={locale} transition:animate="none">
+<html lang={locale} data-theme="lumen-light" data-lumen-scheme="light" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -117,11 +121,25 @@ const pageAnimation = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
-      try {
-        document.documentElement.dataset.theme = localStorage.getItem('theme') ?? 'light';
-      } catch {
-        /* storage may be blocked; fall back to the light theme */
-      }
+      (() => {
+        const root = document.documentElement;
+        let family = 'lumen';
+        let mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        try {
+          const savedFamily = localStorage.getItem('lumen-theme-family');
+          const savedMode = localStorage.getItem('lumen-theme-mode');
+          if (['lumen', 'studio', 'paper'].includes(savedFamily)) family = savedFamily;
+          if (savedMode === 'light' || savedMode === 'dark') mode = savedMode;
+        } catch {
+          /* storage may be blocked; keep the detected defaults */
+        }
+        root.dataset.lumenScheme = mode;
+        root.dataset.theme = `lumen-${mode}`;
+        if (family !== 'lumen') root.dataset.lumenPreset = family;
+        else delete root.dataset.lumenPreset;
+        root.dataset.lumenFamily = family;
+        root.classList.toggle('dark', mode === 'dark');
+      })();
     </script>
     <slot name="head" />
   </head>
@@ -136,6 +154,10 @@ const pageAnimation = {
       <slot />
     </main>
     {footer && <Footer />}
+    <UIPrimitives />
+    <script>
+      import '../scripts/theme';
+    </script>
   </body>
 </html>
 
