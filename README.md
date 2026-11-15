@@ -161,4 +161,74 @@ Native URLs on **senseikatana.com**. English is the default locale; every site p
 
 **katanakami.com** — reserved, no routes yet
 
+---
+
+### 🚀 Deploying with Surge
+
+One command publishes a directory of static files to the apex or any subdomain: `surge <build-dir> <host>`. No config file, no dashboard. Docs: [Custom Domains](https://surge.sh/docs/platform/custom-domains) · [Publishing](https://surge.sh/docs/cli/publishing) · [Surge for agents](https://surge.sh/docs/agents).
+
+**SSG only — SSR is not supported**
+
+Surge serves files and, [by design](https://surge.sh/tour), "does not run server code, serverless functions, databases or builds". A project fits only if its build writes a directory of static files.
+
+| Mode              | Astro                        | Nuxt                 | Next.js                          | Surge                |
+| ----------------- | ---------------------------- | -------------------- | -------------------------------- | -------------------- |
+| SSG / prerendered | `output: 'static'` (default) | `nuxt generate`      | `output: 'export'`               | ✅                   |
+| SSR / server      | `output: 'server'` + adapter | default `nuxt build` | SSR, ISR, API routes, middleware | ❌ no server runtime |
+
+For SSR workloads, keep them on a host with a server runtime (Cloudflare Workers/Pages, a VPS) — or prerender everything and publish the static output here.
+
+**Build → publish**
+
+| Project                      | Build              | Output            | Publish                         |
+| ---------------------------- | ------------------ | ----------------- | ------------------------------- |
+| Astro (static)               | `bun run build`    | `dist/`           | `surge ./dist <host>`           |
+| Nuxt (SSG)                   | `bun run generate` | `.output/public/` | `surge ./.output/public <host>` |
+| Next.js (`output: 'export'`) | `bun run build`    | `out/`            | `surge ./out <host>`            |
+
+**Astro, end to end**
+
+```sh
+# astro.config.mjs — static output (default), no adapter: nothing to configure
+bun run build
+surge ./dist senseikatana.com      # first publish writes dist/CNAME
+```
+
+Keep that file at `public/CNAME` so every `astro build` copies it into `dist/`, and republishes become `surge ./dist publish`. Add `--force https` once (or `surge <host> config --force https`) to redirect HTTP → HTTPS for good.
+
+**Subdomains — one project per hostname**
+
+Each subdomain is its own independent project — own revisions, own settings:
+
+```sh
+surge ./dist docs.senseikatana.com
+surge ./dist app.senseikatana.com
+```
+
+DNS stays at Cloudflare (records, not delegation): apex `A 138.197.235.123`, `www` `CNAME geo.surge.world`, and one `CNAME <sub> geo.surge.world` per subdomain — all **DNS only** (grey cloud), since the hostname must resolve only to Surge. A single wildcard makes every subdomain publishable without touching DNS again:
+
+| Name | Type  | Content           | Proxy status |
+| ---- | ----- | ----------------- | ------------ |
+| `*`  | CNAME | `geo.surge.world` | DNS only     |
+
+Once both `www` and the apex reach Surge, one redirects to the other automatically.
+
+**Notes that bite**
+
+- **Next.js** — `output: 'export'` needs `images: { unoptimized: true }`; no API routes, `getServerSideProps`, ISR or middleware. `getStaticProps` / `getStaticPaths` are fine.
+- **Nuxt** — `nuxt generate` only; dynamic routes must be prerendered (`nitro.prerender.routes`).
+- **Astro SSR** — `@astrojs/node` and friends need a server at request time; use static output for Surge.
+- **SPA fallback** — client-side routing needs `cp dist/index.html dist/200.html` after every build, or deep links 404.
+
+**Day to day**
+
+```sh
+surge ./dist publish        # republish, domain taken from CNAME
+surge <host> status         # waiting on dns → securing → live
+surge <host> revs           # revision log (surge publish -m "msg")
+surge <host> rollback       # back to the previous revision
+```
+
+Limits: 450 MB / 10,100 files per project; publishes are rate-limited (30/domain per 15 min) — plan CI cadence around the 24h window.
+
 Released under the [MIT License](LICENSE) © 2026 Sergio Jurado.
