@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://senseikatana.com/en/docs/sitemap.xml
+Sitemap: https://senseikatana.com/docs/sitemap.xml

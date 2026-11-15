@@ -1,5 +1,5 @@
 ---
-import { site } from '../config/site';
+import { docsLinks, site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import Logo from './Logo.astro';
@@ -14,7 +14,7 @@ const navKeys: Record<string, string> = {
   '/projects': 'works',
   '/about': 'about',
   '/posts': 'blog',
-  'https://docs.senseikatana.com/': 'docs',
+  [docsLinks.home]: 'docs',
   '/contact': 'contact',
 };
 

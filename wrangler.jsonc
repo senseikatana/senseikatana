@@ -1,5 +1,5 @@
 {
-  "$schema": "https://unpkg.com/wrangler@4.145.0/config-schema.json",
+  "$schema": "https://unpkg.com/wrangler@4.162.0/config-schema.json",
   "name": "senseikatana-web",
   "pages_build_output_dir": "./web/dist",
   "compatibility_date": "2026-11-01",

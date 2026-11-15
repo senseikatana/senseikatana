@@ -1,3 +1,19 @@
+import docsSite from '../../../config/docs-site.json';
+
+/**
+ * Docs URLs derived from the shared scheme (`config/docs-site.json`): the
+ * navigation and llms.txt build their docs links from here, so they can never
+ * point at a dead docs host again.
+ */
+export const docsLinks = {
+  home: `${docsSite.siteOrigin}${docsSite.docsHome}`,
+  gettingStarted: `${docsSite.siteOrigin}${docsSite.docsBase}/start/getting-started`,
+  guides: `${docsSite.siteOrigin}${docsSite.docsBase}/guides/`,
+  uiKit: `${docsSite.siteOrigin}${docsSite.docsBase}/ui-kit/`,
+  api: `${docsSite.siteOrigin}${docsSite.docsBase}/api/`,
+  changelog: `${docsSite.siteOrigin}${docsSite.docsBase}/changelog`,
+} as const;
+
 /**
  * Brand, navigation and contact data.
  * Single source of truth for anything that is not content.
@@ -49,13 +65,13 @@ export const site = {
     { label: 'Blog', href: '/posts' },
     {
       label: 'Documentación',
-      href: 'https://docs.senseikatana.com/',
+      href: docsLinks.home,
       children: [
-        { label: 'Getting started', href: 'https://docs.senseikatana.com/start/getting-started' },
-        { label: 'Guides', href: 'https://docs.senseikatana.com/guides/' },
-        { label: 'UI Kit', href: 'https://docs.senseikatana.com/ui-kit/' },
-        { label: 'API reference', href: 'https://docs.senseikatana.com/api/' },
-        { label: 'Changelog', href: 'https://docs.senseikatana.com/changelog' },
+        { label: 'Getting started', href: docsLinks.gettingStarted },
+        { label: 'Guides', href: docsLinks.guides },
+        { label: 'UI Kit', href: docsLinks.uiKit },
+        { label: 'API reference', href: docsLinks.api },
+        { label: 'Changelog', href: docsLinks.changelog },
       ],
     },
   ],
@@ -76,13 +92,13 @@ export const site = {
     { label: 'Blog', href: '/posts' },
     {
       label: 'Documentación',
-      href: 'https://docs.senseikatana.com/',
+      href: docsLinks.home,
       children: [
-        { label: 'Getting started', href: 'https://docs.senseikatana.com/start/getting-started' },
-        { label: 'Guides', href: 'https://docs.senseikatana.com/guides/' },
-        { label: 'UI Kit', href: 'https://docs.senseikatana.com/ui-kit/' },
-        { label: 'API reference', href: 'https://docs.senseikatana.com/api/' },
-        { label: 'Changelog', href: 'https://docs.senseikatana.com/changelog' },
+        { label: 'Getting started', href: docsLinks.gettingStarted },
+        { label: 'Guides', href: docsLinks.guides },
+        { label: 'UI Kit', href: docsLinks.uiKit },
+        { label: 'API reference', href: docsLinks.api },
+        { label: 'Changelog', href: docsLinks.changelog },
       ],
     },
     { label: 'Contacto', href: '/contact' },

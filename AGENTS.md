@@ -11,14 +11,14 @@ Check `gh issue list --state open` before changing anything here.
 1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
 2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
 3. The **KatanaKit documentation source** (`docs/`), a VitePress site deployed to the
-   `katanakit-docs` Pages project and proxied under `/en/docs/` by the docs-proxy Worker
-   (lives in `katanakit-js/workers/docs-proxy`).
+   `katanakit-docs` Pages project and proxied under `/docs/` by the docs-proxy Worker
+   (lives in `workers/docs-proxy`).
 
 The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
 queries, and `web/src/content/` holds the Markdown collections (`<collection>/<locale>/<slug>.md`).
 i18n: English is the default locale at the root; `es` and `ca` are prefixed. Site sections are
-`/posts`, `/projects`, `/services`, `/about`; docs live under `/en/docs/`.
+`/posts`, `/projects`, `/services`, `/about`; docs live under `/docs/`.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
@@ -97,7 +97,7 @@ Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
 
 Docs deploy separately: `bun run docs:deploy` publishes `docs/.vitepress/dist` to the
 `katanakit-docs` Pages project (branch `main`). The `katanakit-docs-proxy` Worker in
-`katanakit-js/workers/docs-proxy` mounts that project under `senseikatana.com/en/docs/`; the
+`workers/docs-proxy` mounts that project under `senseikatana.com/docs/`; the
 site project serves the apex and every other site route.
 
 ## Committing

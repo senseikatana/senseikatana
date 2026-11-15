@@ -3,13 +3,17 @@ import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, type HeadConfig } from "vitepress";
 
+import docsSite from "../../config/docs-site.json";
 import { defineSeoMetaConfig, useSeoMeta } from "./lib/seo.service.js";
 import type { SiteConfig } from "./lib/site.config.js";
 
-const SITE_ORIGIN = "https://docs.senseikatana.com";
-/** Docs are served at the root of their own subdomain. */
-const DOCS_BASE = "";
+/** Single source of truth for the docs URL scheme: `config/docs-site.json`. */
+const SITE_ORIGIN = docsSite.siteOrigin;
+/** Docs are mounted under the base path on the apex domain (see workers/docs-proxy). */
+const DOCS_BASE = docsSite.docsBase;
 const DOCS_ORIGIN = `${SITE_ORIGIN}${DOCS_BASE}`;
+/** The home page's public URL: the proxy Worker aliases it onto the section root. */
+const DOCS_HOME_URL = `${SITE_ORIGIN}${docsSite.docsHome}`;
 const DOCS_OG_IMAGE = `${DOCS_ORIGIN}/images/social-card.jpg`;
 const DOCS_KEYWORDS =
 	"katanakit, typescript, hexagonal architecture, api, rest, graphql, safe results, zod, query client";
@@ -33,7 +37,9 @@ function pageUrl(relativePath: string): string {
 		.replace(/(^|\/)index\.md$/, "$1")
 		.replace(/\.md$/, "")
 		.replace(/\/$/, "");
-	return clean ? `${DOCS_ORIGIN}/${clean}` : `${DOCS_ORIGIN}/`;
+	// The home page is published at its own public URL: the proxy Worker
+	// aliases it onto the build's section root.
+	return clean ? `${DOCS_ORIGIN}/${clean}` : DOCS_HOME_URL;
 }
 
 /**
@@ -182,8 +188,8 @@ const docsSidebar = [
  * Rewrites relative `href` targets to absolute, base-prefixed URLs.
  *
  * TypeDoc links between symbols as `./classes/X`. A relative href resolves
- * against the *served* URL, and `/en/docs/api` has no trailing slash, so the
- * browser would look one directory too high (`/en/docs/classes/X` → 404).
+ * against the *served* URL, and `/docs/api` has no trailing slash, so the
+ * browser would look one directory too high (`/docs/classes/X` → 404).
  * Resolving every relative href against the page's own directory removes the
  * whole class of bug — including for anyone opening a clean URL by hand.
  */
@@ -218,18 +224,36 @@ export default defineConfig({
 	metaChunk: true,
 	lastUpdated: true,
 	// VitePress writes page paths without `base`, so the prefix is applied here
-	// to every sitemap entry (`/` included).
+	// to every sitemap entry (`/` included). The home page is published at
+	// /docs/overview, so its entry is rewritten accordingly.
 	sitemap: {
 		hostname: SITE_ORIGIN,
 		transformItems: (items) =>
-			items.map((item) => ({
-				...item,
-				url: `${DOCS_BASE}/${item.url.replace(/^\/+/, "")}`,
-			})),
+			items.map((item) => {
+				// VitePress writes page paths without `base`; the home page's path
+				// is empty and it is published at its own public URL, so its entry
+				// is rewritten here.
+				const path = item.url.replace(/^\/+/, "");
+				return {
+					...item,
+					url: path === "" ? docsSite.docsHome : `${DOCS_BASE}/${path}`,
+				};
+			}),
 	},
 	// Only tags the SEO helper cannot generate live here; the rest is per-page
 	// (transformHead) and reordered to the top of <head> (transformHtml).
-	head: [["meta", { name: "theme-color", content: "#0a0a0a" }]],
+	head: [
+		["meta", { name: "theme-color", content: "#0a0a0c" }],
+		["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
+		["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
+		[
+			"link",
+			{
+				rel: "stylesheet",
+				href: "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap",
+			},
+		],
+	],
 	transformHead({ pageData, title }) {
 		const { tags } = useSeoMeta({
 			title,

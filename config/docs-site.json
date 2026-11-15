@@ -1,0 +1,8 @@
+{
+  "_comment": "Single source of truth for the KatanaKit docs URL scheme. Consumed by scripts/docs.mjs, docs/.vitepress/config.ts, workers/docs-proxy and web/. katanakit-js keeps a tested mirror at scripts/docs-site.json because its GitHub Actions cannot reach this repository.",
+  "siteOrigin": "https://senseikatana.com",
+  "docsBase": "/docs",
+  "docsHome": "/docs/overview",
+  "docsPublicUrl": "https://katanakit-docs.pages.dev",
+  "docsPagesProject": "katanakit-docs"
+}

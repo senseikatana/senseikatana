@@ -5,7 +5,7 @@
 **Full-Stack Developer — Barcelona, Spain**
 
 [![GitHub](https://img.shields.io/badge/GitHub-senseikatana-181717?style=flat&logo=github&logoColor=white)](https://github.com/senseikatana)
-[![Docs](https://img.shields.io/badge/Docs-KatanaKit-000000?style=flat&logo=readthedocs&logoColor=white)](https://senseikatana.com/en/docs/)
+[![Docs](https://img.shields.io/badge/Docs-KatanaKit-000000?style=flat&logo=readthedocs&logoColor=white)](https://senseikatana.com/docs/overview)
 [![Email](https://img.shields.io/badge/Email-github--senseikatana%40protonmail.com-6D4AFF?style=flat&logo=protonmail&logoColor=white)](mailto:github-senseikatana@protonmail.com)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat&logo=opensourceinitiative&logoColor=white)](LICENSE)
 
@@ -74,7 +74,7 @@
 
 **KatanaKit — open source**
 
-- **[katanakit-js](https://github.com/senseikatana/katanakit-js)** — Framework-agnostic TypeScript service toolkit built on hexagonal architecture. [Docs](https://senseikatana.com/en/docs/)
+- **[katanakit-js](https://github.com/senseikatana/katanakit-js)** — Framework-agnostic TypeScript service toolkit built on hexagonal architecture. [Docs](https://senseikatana.com/docs/overview)
 - **[katanakit-css](https://github.com/senseikatana/katanakit-css)** — Modular SCSS framework: design tokens, utility classes and an `@apply`-style system.
 - **[katanakit-sysli](https://github.com/senseikatana/katanakit-sysli)** — `ksys`, a TUI for units, timers, journal, boot, network and sessions.
 - **[katanakit-wp](https://github.com/senseikatana/katanakit-wp)** — Code-first WordPress configuration. Bun scripts wrapping PHP in Docker.
@@ -107,7 +107,7 @@
 ### Let's Connect
 
 - **GitHub** — [senseikatana](https://github.com/senseikatana)
-- **Docs** — [senseikatana.com/en/docs](https://senseikatana.com/en/docs/)
+- **Docs** — [senseikatana.com/docs/overview](https://senseikatana.com/docs/overview)
 - **Email** — [github-senseikatana@protonmail.com](mailto:github-senseikatana@protonmail.com)
 
 ---
@@ -128,10 +128,10 @@ Native URLs on **senseikatana.com**. English is the default locale; every site p
 
 **Documentation — KatanaKit**
 
-- [`/en/docs/`](https://senseikatana.com/en/docs/) — docs home
-- [`/en/docs/start/getting-started`](https://senseikatana.com/en/docs/start/getting-started) · [`/en/docs/tutorials/first-api-client`](https://senseikatana.com/en/docs/tutorials/first-api-client)
-- [`/en/docs/guides/`](https://senseikatana.com/en/docs/guides/) · [`/en/docs/explanation/`](https://senseikatana.com/en/docs/explanation/) · [`/en/docs/ui-kit/`](https://senseikatana.com/en/docs/ui-kit/) · [`/en/docs/api/`](https://senseikatana.com/en/docs/api/)
-- [`/en/docs/changelog`](https://senseikatana.com/en/docs/changelog)
+- [`/docs/overview`](https://senseikatana.com/docs/overview) — docs home
+- [`/docs/start/getting-started`](https://senseikatana.com/docs/start/getting-started) · [`/docs/tutorials/first-api-client`](https://senseikatana.com/docs/tutorials/first-api-client)
+- [`/docs/guides/`](https://senseikatana.com/docs/guides/) · [`/docs/explanation/`](https://senseikatana.com/docs/explanation/) · [`/docs/ui-kit/`](https://senseikatana.com/docs/ui-kit/) · [`/docs/api/`](https://senseikatana.com/docs/api/)
+- [`/docs/changelog`](https://senseikatana.com/docs/changelog)
 
 **Localized**
 
@@ -143,14 +143,14 @@ Native URLs on **senseikatana.com**. English is the default locale; every site p
 - `/resume` and `/curriculum` → `/about`
 - `/proyectos` → `/projects` · `/servicios` → `/services`
 - `/en/*` → same path without the prefix
-- `/docs/*` → `/en/docs/*` · `/getting-started` → `/en/docs/start/getting-started`
+- `/en/docs/*` → `/docs/*` · `/getting-started` → `/docs/start/getting-started`
 
 ### 🌍 Cloudflare domains
 
 **senseikatana.com** — site, blog and docs
 
 - [`/`](https://senseikatana.com/) · [`/posts`](https://senseikatana.com/posts) · [`/projects`](https://senseikatana.com/projects) · [`/services`](https://senseikatana.com/services) · [`/about`](https://senseikatana.com/about)
-- [`/en/docs/`](https://senseikatana.com/en/docs/) — KatanaKit documentation
+- [`/docs/overview`](https://senseikatana.com/docs/overview) — KatanaKit documentation
 - [`www.senseikatana.com`](https://www.senseikatana.com/) → apex (301)
 - Mirrors: [`/es`](https://senseikatana.com/es/) · [`/ca`](https://senseikatana.com/ca/)
 

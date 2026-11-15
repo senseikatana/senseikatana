@@ -22,14 +22,15 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "deploy": "bun run build && bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch main",
-    "deploy:preview": "bun run build && bunx wrangler@4.145.0 pages deploy web/dist --project-name senseikatana-web --branch dev",
+    "deploy": "bun run build && bunx wrangler@4.162.0 pages deploy web/dist --project-name senseikatana-web --branch main",
+    "deploy:preview": "bun run build && bunx wrangler@4.162.0 pages deploy web/dist --project-name senseikatana-web --branch dev",
     "tunnel": "cloudflared tunnel --url http://localhost:4321 --no-autoupdate",
     "docs:dev": "node scripts/docs.mjs dev",
     "docs:build": "node scripts/docs.mjs build",
     "docs:preview": "node scripts/docs.mjs preview",
     "docs:deploy": "node scripts/docs.mjs deploy",
-    "docs:clean": "node scripts/docs.mjs clean"
+    "docs:clean": "node scripts/docs.mjs clean",
+    "deploy:proxy": "bunx wrangler@4.162.0 deploy -c workers/docs-proxy/wrangler.jsonc"
   },
   "author": "Sergio Jurado",
   "license": "MIT",
@@ -43,6 +44,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
     "eslint": "^10.14.0",
     "eslint-plugin-astro": "^1.6.0",
     "globals": "^17.13.0",
@@ -50,15 +53,13 @@
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript-eslint": "^8.71.0",
+    "tailwindcss": "^4.3.3",
     "typedoc": "^0.28.20",
     "typedoc-plugin-markdown": "^4.13.1",
     "typedoc-vitepress-theme": "^1.1.4",
+    "typescript-eslint": "^8.71.0",
     "vitepress": "^1.6.4",
-    "vitest": "5.0.3",
-    "@tailwindcss/vite": "^4.3.3",
-    "@tailwindcss/typography": "^0.5.20",
-    "tailwindcss": "^4.3.3"
+    "vitest": "5.0.3"
   },
   "overrides": {}
 }

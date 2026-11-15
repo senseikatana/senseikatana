@@ -1,0 +1,35 @@
+// Reverse-proxy Worker: mounts the docs Pages project under the docs base
+// path on the apex domains that already serve other applications.
+//
+// Deploy: `bunx wrangler deploy -c workers/docs-proxy/wrangler.jsonc`
+// (or `bun run deploy:proxy` at the repo root; `scripts/docs.mjs deploy`
+// redeploys it automatically after every docs deploy).
+//
+// The URL scheme lives in `config/docs-site.json`. Route patterns cannot
+// import it, so keep them in sync with `docsBase` and the legacy prefix.
+//
+// Routes are per-zone. The zones must exist in the same Cloudflare account.
+// Add or remove domains here; the Worker code is domain-agnostic.
+{
+  "$schema": "https://unpkg.com/wrangler@4.162.0/config-schema.json",
+  "name": "katanakit-docs-proxy",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-01-01",
+
+  // The Worker only fires on these routes; everything else stays with
+  // whatever already serves the zone (the personal site, the extranet app,
+  // samurai site, etc.). Never claim the site root or bare locale paths:
+  // those belong to the zone's own apps.
+  "routes": [
+    // senseikatana.com — docs/library paths only.
+    { "pattern": "senseikatana.com/docs", "zone_name": "senseikatana.com" },
+    { "pattern": "senseikatana.com/docs/*", "zone_name": "senseikatana.com" },
+    // Legacy /en/docs* URLs redirect to the canonical /docs* ones.
+    { "pattern": "senseikatana.com/en/docs", "zone_name": "senseikatana.com" },
+    { "pattern": "senseikatana.com/en/docs/*", "zone_name": "senseikatana.com" },
+  ],
+
+  // No Service Binding: a Pages project is not a Workers service, so the
+  // proxy fetches the public Pages URL. Cloudflare still routes that fetch
+  // same-region, so the extra hop is a few milliseconds.
+}

@@ -4,7 +4,15 @@
  * Wraps katanakit-js docs preparation and runs VitePress.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readdirSync, renameSync, rmSync, copyFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  copyFileSync,
+} from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -16,9 +24,14 @@ const TEMP_DIR = join(VITEPRESS_DIR, '.temp');
 const CACHE_DIR = join(VITEPRESS_DIR, 'cache');
 const ROOT_VITEPRESS_DIR = join(ROOT, '.vitepress');
 
-const CLOUDFLARE_PROJECT = 'katanakit-docs';
+/** Single source of truth for the docs URL scheme (see config/docs-site.json). */
+const docsSite = JSON.parse(readFileSync(join(ROOT, 'config', 'docs-site.json'), 'utf8'));
+
+const CLOUDFLARE_PROJECT = docsSite.docsPagesProject;
 const CLOUDFLARE_BRANCH = 'main';
-const DOCS_BASE = '';
+// Build nesting mirrors the public base path without its leading slash.
+const DOCS_BASE = docsSite.docsBase.replace(/^\//, '');
+const WRANGLER = 'wrangler@4.162.0';
 
 const MODES = new Set(['dev', 'build', 'preview', 'deploy', 'gh', 'clean']);
 const mode = (process.argv[2] ?? '').toLowerCase();
@@ -106,13 +119,13 @@ function syncFromKit() {
 }
 
 /**
- * Moves the built site under `dist/en/docs/` so a root-served Pages deployment
- * answers on `/en/docs/...` (the Worker proxy and the canonical URLs expect it).
+ * Moves the built site under `dist/docs/` so a root-served Pages deployment
+ * answers on `/docs/...` (the Worker proxy and the canonical URLs expect it).
  * `_redirects` and `_headers` stay at the deployment root.
  */
 function mountUnderBase() {
-  // A root-served deployment (docs subdomain) needs no nesting: VitePress
-  // already writes the build at the deployment root.
+  // An empty DOCS_BASE means a root-served deployment (own subdomain):
+  // VitePress already writes the build at the deployment root.
   if (!DOCS_BASE) {
     console.log('docs: build served at the deployment root');
     return;
@@ -187,9 +200,21 @@ async function main() {
       }
 
       const branch = mode === 'gh' ? 'gh-pages' : CLOUDFLARE_BRANCH;
-      const args = ['wrangler@4.145.0', 'pages', 'deploy', DIST_DIR, '--branch', branch];
+      const args = [WRANGLER, 'pages', 'deploy', DIST_DIR, '--branch', branch];
       if (mode !== 'gh') args.push('--project-name', CLOUDFLARE_PROJECT);
       run('bunx', args);
+
+      // The proxy Worker owns the public docs URLs (base path, home alias and
+      // legacy redirects), so it ships with the docs: the URL contract is one
+      // unit and both deployments always land together.
+      if (mode === 'deploy') {
+        run('bunx', [
+          WRANGLER,
+          'deploy',
+          '-c',
+          join(ROOT, 'workers', 'docs-proxy', 'wrangler.jsonc'),
+        ]);
+      }
       break;
     }
   }

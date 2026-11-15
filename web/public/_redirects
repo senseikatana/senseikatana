@@ -35,10 +35,9 @@
 /ca/proyectos      /ca/projects               301
 /ca/servicios      /ca/services               301
 
-# Docs and the docs entry point (served by the docs deployment)
-/docs/*            /en/docs/:splat            301
-/docs              /en/docs/                  301
-/getting-started   /en/docs/start/getting-started  301
+# Docs entry point (the docs themselves are served under /docs/* by the docs
+# proxy Worker — see katanakit-js/workers/docs-proxy).
+/getting-started   /docs/start/getting-started 301
 
 # English used to be a prefix; it is the default locale now
 /en                /                          301
