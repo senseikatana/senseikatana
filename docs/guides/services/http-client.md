@@ -118,6 +118,9 @@ registered config under `config` plus every method written on the same literal.
 This is the config-file entry point — one `export default` is the entire setup,
 with no second registration step.
 
+The literal also accepts Options-API-style sections when you prefer one big
+object over a flat list. They are additive — flat entries keep working.
+
 ```ts
 import { defineApiConfig, useFetch } from "katanakit-js";
 
@@ -131,6 +134,39 @@ export default defineApiConfig({
 });
 ```
 
+Or with Options-style sections:
+
+```ts
+export default defineApiConfig({
+  apis: {
+    dummyjson: { baseUri: "https://dummyjson.com", endpoints: { products: "/products" } },
+  },
+  data: () => ({ calls: 0 }),
+  onInit() {
+    // Runs once, after registration. Synchronous on purpose.
+  },
+  methods: {
+    async listProducts() {
+      this.data.calls += 1;
+      return useFetch("dummyjson", "products");
+    },
+    callCount() {
+      return this.data.calls;
+    },
+  },
+});
+```
+
+| Section | Vue equivalent | Behavior |
+| --- | --- | --- |
+| `apis` | `components` | Registered exactly like flat entries. |
+| `data()` | `data()` | Returns the mutable facade state, exposed as `this.data`. Plain state — **not reactive**. |
+| `onInit()` | `mounted()` | Runs once, after registration, with the facade as `this`. Synchronous; async work belongs in a method. |
+| `methods` | `methods` | Merged flat onto the facade next to top-level methods; `this` is the facade. |
+
+`apis`, `data`, `onInit` and `methods` are reserved names: declare an API or
+method with one of those names inside `apis` / `methods` instead.
+
 Rules the function enforces:
 
 - Entries shaped like `{ baseUri, endpoints }` are registered as APIs;
@@ -138,11 +174,13 @@ Rules the function enforces:
 - Boolean flags are kept on `config` for your own methods to read — they are
   **never** registered as APIs.
 - Methods are split out of the config (via `useSplitConfig`) and returned on
-  the facade. Write them with `function`, **not** arrow functions: `this.config`
-  is undefined inside an arrow.
+  the facade. Write them as method shorthand or with `function`, **not** as
+  arrows: `this` is undefined inside an arrow.
 - Any other non-method object value throws
   `[FetchApiManager] defineApiConfig: "<name>" is not an API entry (expected an
   object with baseUri and endpoints).`
+- A section with the wrong shape throws, and so does a non-function entry
+  inside `methods`.
 
 TypeScript infers the registry keys from the literal, so `api.config.dummyjson`
 is typed as `ApiEntry` and `api.getProduct()` keeps its return type.
