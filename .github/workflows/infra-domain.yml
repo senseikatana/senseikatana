@@ -65,10 +65,10 @@ jobs:
           target="senseikatana-web.pages.dev"
           project="senseikatana-web"
 
-          # showcase used to be covered by the legacy `*` record that still
-          # points at Surge, so it served a *.surge.sh certificate — the browser
-          # warns. An explicit record gives it Cloudflare's certificate instead.
-          names="senseikatana.com www.senseikatana.com showcase.senseikatana.com"
+          # showcase is NOT a Pages custom domain: attaching it served a full
+          # duplicate of the site on the subdomain. It gets its own proxied
+          # record plus a redirect rule (see the step below).
+          names="senseikatana.com www.senseikatana.com"
 
           zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id // empty')
           if [ -z "${zone}" ]; then
@@ -151,6 +151,21 @@ jobs:
               | jq -c '{name: .result.name, status: .result.status, errors}'
           done
 
+          # showcase must NOT stay attached: an attached domain serves the whole
+          # site, which is how the apex leaked onto the subdomain. Detach it and
+          # let the redirect rule above own that hostname.
+          stale_showcase=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains" \
+            | jq -r '.result[]? | select(.name == "showcase.senseikatana.com") | .name')
+          if [ -n "${stale_showcase}" ]; then
+            if [ "${DRY_RUN:-false}" = "true" ]; then
+              echo "  showcase.senseikatana.com: would detach (it serves a duplicate of the site)"
+            else
+              echo "  showcase.senseikatana.com: detaching"
+              curl -sS "${auth[@]}" -X DELETE \
+                "${api}/pages/projects/${project}/domains/showcase.senseikatana.com" | jq -c '.errors'
+            fi
+          fi
+
           echo "== waiting for activation =="
           if [ "${DRY_RUN:-false}" != "true" ]; then
             for i in $(seq 1 12); do
@@ -166,6 +181,42 @@ jobs:
       # docs-proxy is now a redirector; if the deployed copy were still the old
       # reverse proxy it would answer /docs from a dead Pages project, so the
       # redirector ships with the cutover.
+      - name: Redirect showcase to the workspace
+        if: ${{ inputs.dry_run != true }}
+        # Without Workers Scripts permission this is the way to redirect a host:
+        # a Single Redirect at the edge. If the token lacks Zone Rulesets, this
+        # fails and the DNS record simply keeps pointing at Pages; nothing breaks.
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -uo pipefail
+          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
+          cf="https://api.cloudflare.com/client/v4"
+          zone=$(curl -sS -H "Authorization: Bearer ${token}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id // empty')
+          [ -z "${zone}" ] && { echo "::error::zone not found"; exit 1; }
+
+          body=$(jq -nc '{
+            rules: [{
+              action: "redirect",
+              description: "showcase -> workspace",
+              enabled: true,
+              expression: "(http.host eq \"showcase.senseikatana.com\")",
+              action_parameters: {
+                from_value: {
+                  status_code: 301,
+                  preserve_query_string: true,
+                  target_url: { value: "https://samuraicoder.dev/works" }
+                }
+              }
+            }]
+          }')
+          res=$(curl -sS -X PUT \
+            -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" \
+            "${cf}/zones/${zone}/rulesets/phases/http_request_dynamic_redirect/entrypoint" \
+            --data "${body}")
+          echo "${res}" | jq -c '{success, errors, rules: (.result.rules // [] | length)}'
+
       - name: Deploy the zone Workers
         if: ${{ inputs.dry_run != true }}
         # The current token has Pages + DNS but not "Workers Scripts: Edit", so
