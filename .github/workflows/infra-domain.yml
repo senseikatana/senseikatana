@@ -1,12 +1,30 @@
 name: Infra · apex DNS
 
-# Ensures the apex and www point at the site Pages project. The Worker custom
-# domains were removed and the docs proxy now only owns /en/docs*.
+# Points senseikatana.com and www at the site Pages project, and attaches both
+# as custom domains there.
+#
+# Why this exists: the apex and www were A/CNAME records to Surge, so every
+# Pages deployment succeeded into a project nobody visited — the domain kept
+# serving a stale build. This workflow is the cutover, and it is idempotent:
+# run it again and it only reports.
+#
+# It removes ANY A, AAAA or CNAME on the two names before creating the CNAME,
+# because an existing CNAME (www -> geo.surge.world) is not a conflict the API
+# resolves on its own — the POST fails while the old record still exists.
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Only report what would change (no writes)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
+
+concurrency:
+  group: infra-dns
+  cancel-in-progress: false
 
 jobs:
   dns:
@@ -22,10 +40,11 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Ensure apex CNAMEs and Pages domains
+      - name: Cut the apex and www over to Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
           token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
@@ -35,42 +54,85 @@ jobs:
           auth=(-H "Authorization: Bearer ${token}")
           json=(-H "Content-Type: application/json")
           target="senseikatana-web.pages.dev"
+          project="senseikatana-web"
 
-          zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id')
-          echo "zone: ${zone}"
+          zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id // empty')
+          if [ -z "${zone}" ]; then
+            echo "::error::Zone senseikatana.com not found with this token."
+            exit 1
+          fi
+          echo "zone: ${zone} | target: ${target} | dry_run: ${DRY_RUN:-false}"
 
           for name in senseikatana.com www.senseikatana.com; do
             echo "== ${name} =="
             records=$(curl -sS "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${name}")
-            if echo "${records}" | jq -e --arg target "${target}" '.result[]? | select(.type == "CNAME" and .content == $target)' >/dev/null; then
-              echo "  CNAME already points at ${target}"
-            else
-              for id in $(echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA") | .id'); do
-                echo "  removing stale $(echo "${records}" | jq -r --arg id "$id" '.result[] | select(.id == $id) | "\(.type) \(.content)"')"
-                curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" | jq -c '.success // .errors'
-              done
-              echo "  creating CNAME ${name} -> ${target}"
-              curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" \
-                --data "{\"type\":\"CNAME\",\"name\":\"${name}\",\"content\":\"${target}\",\"proxied\":true,\"ttl\":1}" |
-                jq -c '{success, errors, result: (.result | {type, name, content, proxied})}'
+
+            if echo "${records}" | jq -e --arg t "${target}" \
+              '.result[]? | select(.type == "CNAME" and .content == $t and .proxied == true)' >/dev/null; then
+              echo "  ok: already a proxied CNAME to ${target}"
+              continue
             fi
+
+            # Only A/AAAA/CNAME can occupy the name we need. MX, TXT and the rest
+            # belong to mail and verification and must survive.
+            echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA" or .type == "CNAME")
+              | "  stale: \(.type) \(.name) -> \(.content) (proxied=\(.proxied))"'
+
+            if [ "${DRY_RUN:-false}" = "true" ]; then
+              echo "  would delete the records above and create CNAME -> ${target}"
+              continue
+            fi
+
+            for id in $(echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA" or .type == "CNAME") | .id'); do
+              curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" \
+                | jq -c '{deleted: .result.id, ok: .success}'
+            done
+
+            body=$(jq -nc --arg n "${name}" --arg c "${target}" \
+              '{type:"CNAME", name:$n, content:$c, proxied:true, ttl:1}')
+            created=$(curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" --data "${body}")
+            echo "${created}" | jq -c '{success, errors, result: (.result | {type, name, content, proxied})}'
+            echo "${created}" | jq -e '.success' >/dev/null || {
+              echo "::error::Could not create the CNAME for ${name}"
+              exit 1
+            }
           done
 
-          echo "== Pages domains =="
-          domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/senseikatana-web/domains")
+          echo "== Pages custom domains =="
           for name in senseikatana.com www.senseikatana.com; do
-            if echo "${domains}" | jq -e --arg name "$name" '.result[]? | select(.name == $name)' >/dev/null; then
-              echo "  ${name}: attached ($(echo "${domains}" | jq -r --arg name "$name" '.result[] | select(.name == $name) | .status'))"
+            domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains")
+            status=$(echo "${domains}" | jq -r --arg n "$name" '.result[]? | select(.name == $n) | .status')
+            if [ -n "${status}" ]; then
+              echo "  ${name}: attached (${status})"
+            elif [ "${DRY_RUN:-false}" = "true" ]; then
+              echo "  ${name}: would attach"
             else
               echo "  ${name}: attaching"
-              curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/senseikatana-web/domains" \
-                --data "{\"name\":\"${name}\"}" | jq -c '.result // .errors'
+              curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${project}/domains" \
+                --data "$(jq -nc --arg n "${name}" '{name:$n}')" | jq -c '.result // .errors'
             fi
           done
 
-      - name: Verify
+      - name: Verify the new build is actually served
+        if: ${{ inputs.dry_run != true }}
         run: |
-          sleep 60
-          for path in / /posts /about /es/posts/ /en/docs/ /en/docs/start/getting-started; do
-            echo "${path} -> $(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
+          # Deployment is instant but DNS/propagation is not: poll instead of a
+          # fixed sleep, and assert a marker only the new build has.
+          for i in $(seq 1 24); do
+            html=$(curl -s --max-time 10 https://senseikatana.com/ || true)
+            if echo "${html}" | grep -q 'samuraicoder.dev/works/'; then
+              echo "new build detected after $((i*5))s"
+              break
+            fi
+            [ "$i" = "24" ] && { echo "::error::senseikatana.com still serves the old build"; exit 1; }
+            sleep 5
           done
+
+          echo "== routes =="
+          for path in / /posts /about /services /projects/empresaplana /works/empresaplana /docs/overview; do
+            printf '%-26s %s\n' "${path}" \
+              "$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
+          done
+
+          echo "== www =="
+          curl -s -o /dev/null -w 'www %{http_code} %{redirect_url}\n' --max-time 10 https://www.senseikatana.com/
