@@ -30,6 +30,15 @@ jobs:
   dns:
     runs-on: ubuntu-latest
     steps:
+      # Needed to deploy the zone Workers at the end of the cutover.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: 1.4.4
+
       - name: Check Cloudflare credentials
         run: |
           if [ -z "${CLOUDFLARE_API_TOKEN}" ] || [ -z "${CLOUDFLARE_ACCOUNT_ID}" ]; then
@@ -62,6 +71,15 @@ jobs:
             exit 1
           fi
           echo "zone: ${zone} | target: ${target} | dry_run: ${DRY_RUN:-false}"
+
+          # Recorded, not changed: Pages is an HTTPS origin, so a "flexible" zone
+          # would talk to it over HTTP and loop. A cutover is the right moment to
+          # notice that, not after the domain is dark.
+          ssl=$(curl -sS "${auth[@]}" "${cf}/zones/${zone}/settings/ssl" | jq -r '.result.value // "unknown"')
+          echo "ssl mode: ${ssl}"
+          if [ "${ssl}" = "off" ] || [ "${ssl}" = "flexible" ]; then
+            echo "::warning::Zone SSL mode is '${ssl}'. Pages expects Full or Full (strict); set it in the dashboard if the site loops after cutover."
+          fi
 
           for name in senseikatana.com www.senseikatana.com; do
             echo "== ${name} =="
@@ -111,6 +129,22 @@ jobs:
               curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${project}/domains" \
                 --data "$(jq -nc --arg n "${name}" '{name:$n}')" | jq -c '.result // .errors'
             fi
+          done
+
+      # Turning the proxy on activates every Worker route on the zone. The
+      # docs-proxy is now a redirector; if the deployed copy were still the old
+      # reverse proxy it would answer /docs from a dead Pages project, so the
+      # redirector ships with the cutover.
+      - name: Deploy the zone Workers
+        if: ${{ inputs.dry_run != true }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          for cfg in workers/docs-proxy/wrangler.jsonc workers/showcase-proxy/wrangler.jsonc; do
+            echo "== ${cfg} =="
+            bunx wrangler@4.162.0 deploy -c "${cfg}"
           done
 
       - name: Verify the new build is actually served
