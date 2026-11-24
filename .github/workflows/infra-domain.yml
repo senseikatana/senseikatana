@@ -65,6 +65,11 @@ jobs:
           target="senseikatana-web.pages.dev"
           project="senseikatana-web"
 
+          # showcase used to be covered by the legacy `*` record that still
+          # points at Surge, so it served a *.surge.sh certificate — the browser
+          # warns. An explicit record gives it Cloudflare's certificate instead.
+          names="senseikatana.com www.senseikatana.com showcase.senseikatana.com"
+
           zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id // empty')
           if [ -z "${zone}" ]; then
             echo "::error::Zone senseikatana.com not found with this token."
@@ -81,7 +86,7 @@ jobs:
             echo "::warning::Zone SSL mode is '${ssl}'. Pages expects Full or Full (strict); set it in the dashboard if the site loops after cutover."
           fi
 
-          for name in senseikatana.com www.senseikatana.com; do
+          for name in ${names}; do
             echo "== ${name} =="
             records=$(curl -sS "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${name}")
 
@@ -125,7 +130,7 @@ jobs:
           echo "  production_branch: $(echo "${project_info}" | jq -r '.result.production_branch // "?"')"
           echo "  latest deploy env: $(echo "${project_info}" | jq -r '.result.latest_deployment.environment // "?"') (branch $(echo "${project_info}" | jq -r '.result.latest_deployment.deployment_trigger.metadata.branch // "?"'))"
 
-          for name in senseikatana.com www.senseikatana.com; do
+          for name in ${names}; do
             domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains")
             status=$(echo "${domains}" | jq -r --arg n "$name" '.result[]? | select(.name == $n) | .status')
             if [ "${status}" = "active" ]; then
