@@ -187,10 +187,72 @@ jobs:
             done
           fi
 
-      # Turning the proxy on activates every Worker route on the zone. The
-      # docs-proxy is now a redirector; if the deployed copy were still the old
-      # reverse proxy it would answer /docs from a dead Pages project, so the
-      # redirector ships with the cutover.
+      - name: Cut samuraicoder.dev over to Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
+          account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
+          api="https://api.cloudflare.com/client/v4/accounts/${account}"
+          cf="https://api.cloudflare.com/client/v4"
+          auth=(-H "Authorization: Bearer ${token}")
+          json=(-H "Content-Type: application/json")
+          zone_name="samuraicoder.dev"
+          project="samuraicoder"
+          target="samuraicoder.pages.dev"
+          names="${zone_name} www.${zone_name}"
+
+          zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=${zone_name}" | jq -r '.result[0].id // empty')
+          if [ -z "${zone}" ]; then
+            echo "::error::Zone ${zone_name} not found with this token."
+            exit 1
+          fi
+          echo "zone: ${zone} (${zone_name}) | target: ${target}"
+
+          for name in ${names}; do
+            echo "== ${name} =="
+            records=$(curl -sS "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${name}")
+
+            if echo "${records}" | jq -e --arg t "${target}" \
+              '.result[]? | select(.type == "CNAME" and .content == $t and .proxied == true)' >/dev/null; then
+              echo "  ok: already a proxied CNAME to ${target}"
+              continue
+            fi
+
+            echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA" or .type == "CNAME")
+              | "  stale: \(.type) \(.name) -> \(.content)"'
+
+            if [ "${DRY_RUN:-false}" = "true" ]; then
+              echo "  would delete the records above and create CNAME -> ${target}"
+              continue
+            fi
+
+            for id in $(echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA" or .type == "CNAME") | .id'); do
+              curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" | jq -c '{deleted: .result.id}'
+            done
+
+            created=$(curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" \
+              --data "$(jq -nc --arg n "${name}" --arg c "${target}" '{type:"CNAME", name:$n, content:$c, proxied:true, ttl:1}')")
+            echo "${created}" | jq -c '{success, errors, result: (.result | {type, name, content, proxied})}'
+            echo "${created}" | jq -e '.success' >/dev/null || { echo "::error::CNAME failed for ${name}"; exit 1; }
+          done
+
+          echo "== Pages custom domains (${project}) =="
+          for name in ${names}; do
+            domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains")
+            status=$(echo "${domains}" | jq -r --arg n "$name" '.result[]? | select(.name == $n) | .status')
+            if [ "${status}" = "active" ]; then echo "  ${name}: active"; continue; fi
+            if [ "${DRY_RUN:-false}" = "true" ]; then echo "  ${name}: would (re)attach"; continue; fi
+            [ -n "${status}" ] && curl -sS "${auth[@]}" -X DELETE "${api}/pages/projects/${project}/domains/${name}" >/dev/null
+            echo "  ${name}: attaching"
+            curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${project}/domains" \
+              --data "$(jq -nc --arg n "${name}" '{name:$n}')" \
+              | jq -c '{name: .result.name, status: .result.status, errors}'
+          done
+
       - name: Redirect showcase to the workspace
         if: ${{ inputs.dry_run != true }}
         # Without Workers Scripts permission this is the way to redirect a host:
@@ -227,6 +289,8 @@ jobs:
             --data "${body}")
           echo "${res}" | jq -c '{success, errors, rules: (.result.rules // [] | length)}'
 
+      # Turning the proxy on activates every Worker route on the zone, so the
+      # Worker copy that is live the moment DNS moves is the one answering.
       - name: Deploy the zone Workers
         if: ${{ inputs.dry_run != true }}
         # The current token has Pages + DNS but not "Workers Scripts: Edit", so
