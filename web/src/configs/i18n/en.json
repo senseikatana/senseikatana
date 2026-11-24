@@ -87,7 +87,9 @@
     "ctaButton": "Let's talk"
   },
   "works": {
-    "headline": "Systems in use,\nnot mockups."
+    "headline": "Systems in use,\nnot mockups.",
+    "openSource": "Open source",
+    "clientWork": "Client work"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",

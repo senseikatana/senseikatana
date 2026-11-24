@@ -102,61 +102,83 @@ const posts = (await getPosts(locale)).slice(0, 3);
         {tr('home.worksAll')} ↗
       </a>
     </div>
-    <ul class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-rule">
+
+    <!-- Open source: published packages, each with its own page on the workspace. -->
+    <p class="label mt-12 mb-3 flex items-center gap-3">
+      <span>{tr('works.openSource')}</span>
+      <span class="h-px flex-1 bg-rule" aria-hidden="true"></span>
+      <span class="tabular-nums">{featuredWorks.length}</span>
+    </p>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-rule">
       {
         featuredWorks.map((work) => (
           <li>
             <a
               href={work.href}
               rel="noopener"
-              class="flex h-full flex-col border-r border-b border-rule p-5 hover:bg-tint"
+              class="group flex h-full flex-col border-r border-b border-rule p-5 transition-colors hover:bg-tint"
             >
-              <div class="flex items-start justify-between gap-4">
-                <div class="min-w-0">
-                  <p class="label">{work.sector}</p>
-                  <h3 class="mt-2 text-[20px] font-bold tracking-[-0.03em]">
-                    {work.title}
-                    <span class="text-smoke" aria-hidden="true">
-                      {' '}
-                      ↗
-                    </span>
-                  </h3>
-                </div>
+              <div class="flex items-start justify-between gap-3">
+                <p class="label min-w-0">{work.sector}</p>
+                <span
+                  class="shrink-0 text-[13px] text-smoke transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
+                  aria-hidden="true"
+                >
+                  ↗
+                </span>
+              </div>
+              <h3 class="mt-2.5 text-[18px] font-bold leading-[1.15] tracking-[-0.02em] underline-offset-4 group-hover:underline">
+                {work.title}
+              </h3>
+              <p class="mt-2.5 flex-1 text-[13.5px] leading-[1.55] text-steel">
+                {work.description}
+              </p>
+              <div class="mt-4 flex items-end justify-between gap-3">
+                <ul class="flex flex-wrap gap-1.5">
+                  {work.stack.slice(0, 3).map((tech) => (
+                    <li class="border border-rule px-2 py-1 text-[11px] text-smoke">{tech}</li>
+                  ))}
+                </ul>
                 {work.version && (
-                  <span class="text-[12px] text-smoke tabular-nums">{work.version}</span>
+                  <span class="shrink-0 text-[11px] text-smoke tabular-nums">{work.version}</span>
                 )}
               </div>
-              <p class="mt-3 text-[14px] leading-[1.55] text-steel flex-1">{work.description}</p>
-              <ul class="mt-4 flex flex-wrap gap-1.5">
-                {work.stack.slice(0, 4).map((tech) => (
-                  <li class="border border-rule px-2 py-1 text-[11px] text-smoke">{tech}</li>
-                ))}
-              </ul>
             </a>
           </li>
         ))
       }
     </ul>
 
-    <!-- Client work: repo or live site, since the workspace has no page per case. -->
-    <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-rule">
+    <!-- Client work: same card, so the two groups read as one section. -->
+    <p class="label mt-10 mb-3 flex items-center gap-3">
+      <span>{tr('works.clientWork')}</span>
+      <span class="h-px flex-1 bg-rule" aria-hidden="true"></span>
+      <span class="tabular-nums">{clientWorks.length}</span>
+    </p>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-rule">
       {
         clientWorks.map((work) => (
           <li>
             <a
               href={work.href}
               rel="noopener"
-              class="flex h-full flex-col border-r border-b border-rule p-5 hover:bg-tint"
+              class="group flex h-full flex-col border-r border-b border-rule p-5 transition-colors hover:bg-tint"
             >
-              <p class="label">{work.sector}</p>
-              <h3 class="mt-2 text-[16px] font-bold tracking-[-0.02em]">
-                {work.title}
-                <span class="text-smoke" aria-hidden="true">
-                  {' '}
+              <div class="flex items-start justify-between gap-3">
+                <p class="label min-w-0">{work.sector}</p>
+                <span
+                  class="shrink-0 text-[13px] text-smoke transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
+                  aria-hidden="true"
+                >
                   ↗
                 </span>
+              </div>
+              <h3 class="mt-2.5 text-[18px] font-bold leading-[1.15] tracking-[-0.02em] underline-offset-4 group-hover:underline">
+                {work.title}
               </h3>
-              <p class="mt-2 text-[13px] leading-[1.5] text-steel">{work.description}</p>
+              <p class="mt-2.5 flex-1 text-[13.5px] leading-[1.55] text-steel">
+                {work.description}
+              </p>
             </a>
           </li>
         ))

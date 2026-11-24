@@ -87,7 +87,9 @@
     "ctaButton": "Hablemos"
   },
   "works": {
-    "headline": "Sistemas en uso,\nno maquetas."
+    "headline": "Sistemas en uso,\nno maquetas.",
+    "openSource": "Open source",
+    "clientWork": "Trabajo de cliente"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",
