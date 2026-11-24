@@ -1,22 +1,20 @@
-/**
- * The KatanaKit documentation moved off this domain. It used to be VitePress
- * under `/docs/` here, proxied by a Worker; it is now Starlight at
- * `samuraicoder.dev/katanakit/`. `config/docs-site.json` still describes the
- * retired scheme, so the links below no longer derive from it — every path was
- * verified against the live site, because `/docs/*` on this domain returns 404.
- *
- * There is no `/katanakit/guides/` index on the live site, so `guides` points at
- * the first guide page in that section.
- */
-export const DOCS_URL = 'https://samuraicoder.dev/katanakit';
+import docsSite from '../../../config/docs-site.json';
 
+/**
+ * Docs URLs derived from the shared scheme (`config/docs-site.json`).
+ *
+ * The docs are VitePress, published to the `katanakit-docs` Pages project and
+ * mounted under `/docs/` by the docs-proxy Worker — that path is live and
+ * verified (200 on /docs/overview, /docs/api/, /docs/changelog). Deriving from
+ * the shared file keeps the nav and llms.txt from drifting into a dead host.
+ */
 export const docsLinks = {
-  home: `${DOCS_URL}/`,
-  gettingStarted: `${DOCS_URL}/start/getting-started/`,
-  guides: `${DOCS_URL}/guides/access-control/`,
-  uiKit: `${DOCS_URL}/ui-kit/`,
-  api: `${DOCS_URL}/api/`,
-  changelog: `${DOCS_URL}/changelog/`,
+  home: `${docsSite.siteOrigin}${docsSite.docsHome}`,
+  gettingStarted: `${docsSite.siteOrigin}${docsSite.docsBase}/start/getting-started`,
+  guides: `${docsSite.siteOrigin}${docsSite.docsBase}/guides/`,
+  uiKit: `${docsSite.siteOrigin}${docsSite.docsBase}/ui-kit/`,
+  api: `${docsSite.siteOrigin}${docsSite.docsBase}/api/`,
+  changelog: `${docsSite.siteOrigin}${docsSite.docsBase}/changelog`,
 } as const;
 
 /**

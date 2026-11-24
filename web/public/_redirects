@@ -41,12 +41,10 @@
 /servicios         /services                  301
 /ca/servicios      /ca/services               301
 
-# The KatanaKit docs moved to their own site (Starlight at
-# samuraicoder.dev/katanakit). /docs/* on this domain returns 404 now, so every
-# historical path forwards instead of dead-ending.
-/getting-started   https://samuraicoder.dev/katanakit/start/getting-started/ 301
-/docs/*            https://samuraicoder.dev/katanakit/:splat                301
-/docs              https://samuraicoder.dev/katanakit/                      301
+# Docs entry point. The docs themselves are served under /docs/* by the
+# docs-proxy Worker (see workers/docs-proxy), which proxies the katanakit-docs
+# Pages project.
+/getting-started   /docs/start/getting-started 301
 
 # English used to be a prefix; it is the default locale now
 /en                /                          301

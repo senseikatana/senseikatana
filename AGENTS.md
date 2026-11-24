@@ -10,9 +10,10 @@ Check `gh issue list --state open` before changing anything here.
 
 1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
 2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
-3. The **KatanaKit documentation source** (`docs/`), a VitePress site. **It no longer serves
-   `senseikatana.com/docs`** — that path 404s. The documentation now lives at
-   `samuraicoder.dev/katanakit/` (Starlight), and `/docs/*` here 301s there.
+3. The **KatanaKit documentation source** (`docs/`), a VitePress site published to the
+   `katanakit-docs` Pages project and mounted under `/docs/` by the docs-proxy Worker
+   (lives in `workers/docs-proxy`). `/docs/*` is live: it returns 200, and the Worker
+   reverse-proxies the Pages project, so it must not be turned into a redirect.
 
 The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
@@ -28,7 +29,13 @@ see `featuredWorks` and `clientWorks` in `web/src/config/site.ts`. Do not reintr
 collection here: the split is what lets both sites build and deploy independently.
 
 **Navigation is Works · Services · About · Contact**, centred in the navbar, with no
-Documentation entry. Docs are reachable from `llms.txt` and the old `/docs` redirects only.
+Documentation entry. The docs still exist at `/docs/` — the nav simply does not link them.
+
+**DNS is the thing to check before blaming a deploy.** Until 2026-11-24 the apex and `www` were
+CNAMEs to Surge (unproxied), so every Pages deployment succeeded into a project nobody visited
+and the Workers on the zone never fired. `.github/workflows/infra-domain.yml` is the cutover and
+is idempotent: run it and it reports. A deactivated Pages custom domain is what produces a 522 —
+re-adding the domain re-triggers validation.
 
 **Every outbound link must resolve.** Before adding one to `site.ts` or to content, request it:
 an `href` that 404s ships straight to production, and `experience`/`services` content is full of
@@ -101,7 +108,9 @@ There is no test suite yet. `bun run check` is the gate that must pass before co
 
 ## Deploy
 
-Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
+Production is `senseikatana.com`, served by Cloudflare Pages from `main`. Verify with
+`curl -sI https://senseikatana.com/` — it must answer `server: cloudflare` with a `cf-ray`;
+`server: Surge` means the domain drifted back off Pages.
 
 - Pages project: `senseikatana-web`. Build: `bun run build`. Output: `web/dist`.
 - CI: `.github/workflows/deploy.yml` runs after a successful `Sync main` run, or manually with

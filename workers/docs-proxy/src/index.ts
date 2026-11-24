@@ -1,57 +1,74 @@
 /**
- * Docs redirect Worker — sends the retired `/docs/*` paths on the apex domains
- * to the docs' current home.
+ * Docs proxy Worker — mounts the docs Pages project under the docs base path
+ * on apex domains that already serve other applications.
  *
- * The KatanaKit documentation used to be VitePress published to a `katanakit-docs`
- * Pages project and mounted under `/docs/` by this Worker. It is now a Starlight
- * site served at `samuraicoder.dev/katanakit/`, and `/docs/*` on the apex returns
- * 404 — the Pages project it proxied is gone (`katanakit-docs.pages.dev` is dead).
- *
- * So this Worker no longer proxies: it redirects. That keeps every published
- * link, npm README and indexed URL working, on every hostname in the route list,
- * without depending on a Pages project that no longer exists.
+ * The URL scheme (base path, home URL, public Pages URL) comes from
+ * `config/docs-site.json` — the single source of truth for the docs URLs.
+ * The Pages project nests its build at `dist<docsBase>/…` (see
+ * `scripts/docs.mjs → mountUnderBase`), so every content path is passed
+ * through as-is. The Worker exists only because the apex zone serves other
+ * apps and a Pages project cannot share a hostname with an unrelated origin.
  *
  * Routing contract (per zone):
- *   `/docs`                 → 301 to the docs home
- *   `/docs/overview`        → 301 to the docs home (the old landing page)
- *   `/docs/<path>`          → 301 to `<docsHome>/<path>` (trailing slash added)
- *   `/en/docs*`             → same rules (legacy links from published READMEs)
+ *   `<docsBase>`            → 301 to `<docsHome>` (the home page's public URL)
+ *   `<docsBase>/`           → 301 to `<docsHome>`
+ *   `<docsHome>*`           → the docs landing page (the build serves it as the
+ *                             section root `index.html`; this Worker owns the
+ *                             public URL)
+ *   `<docsBase>/*`          → proxied to Pages, path for path
+ *   `/en/docs*`             → 301 to the canonical docs URLs (legacy links from
+ *                             published npm READMEs)
  *
- * Everything else 404s; the route list in `wrangler.jsonc` only captures `/docs*`,
- * so the zone's other apps never reach this Worker.
+ * Everything else is a 404 from this Worker — but the route list in
+ * `wrangler.jsonc` only captures the paths above, so the zone's other apps
+ * never see this Worker.
  */
 import docsSite from '../../../config/docs-site.json';
 
-/** Where the docs live now. Verified: every path below resolves on this host. */
-const DOCS_TARGET = 'https://samuraicoder.dev/katanakit';
+const PUBLIC_URL = docsSite.docsPublicUrl;
 const DOCS_BASE = docsSite.docsBase;
-
-/** Paths that used to be the landing page and must not become sub-paths. */
-const HOME_ALIASES = new Set(['', '/', '/overview', '/overview/', '/index.html']);
-
-/** A path that names a file keeps its shape; a route gets a trailing slash (Starlight). */
-function toRoute(path: string): string {
-  if (/\.[a-z0-9]+$/i.test(path)) return path;
-  return path.endsWith('/') ? path : `${path}/`;
-}
-
-function targetFor(pathname: string, search: string): string | null {
-  // Legacy /en/docs* (old READMEs, shared links) behave like /docs*.
-  const path = pathname.startsWith('/en/docs') ? pathname.slice('/en'.length) : pathname;
-
-  if (path !== DOCS_BASE && !path.startsWith(`${DOCS_BASE}/`)) return null;
-
-  const rest = path.slice(DOCS_BASE.length);
-  if (HOME_ALIASES.has(rest)) return `${DOCS_TARGET}/${search}`;
-  return `${DOCS_TARGET}${toRoute(rest)}${search}`;
-}
+const DOCS_HOME = docsSite.docsHome;
 
 export default {
-  fetch(request: Request): Response {
+  async fetch(request: Request): Promise<Response> {
     const url = new URL(request.url);
-    const target = targetFor(url.pathname, url.search);
+    const { pathname, search } = url;
 
-    if (!target) return new Response('Not found', { status: 404 });
-    return Response.redirect(target, 301);
+    // Legacy /en/docs* URLs (old READMEs, shared links) → canonical docs URLs.
+    if (pathname === '/en/docs' || pathname.startsWith('/en/docs/')) {
+      const rest = pathname.slice('/en/docs'.length);
+      const target = rest === '' || rest === '/' ? DOCS_HOME : `${DOCS_BASE}${rest}`;
+      return Response.redirect(new URL(target + search, url).href, 301);
+    }
+
+    // Section root → the home page's public URL.
+    if (pathname === DOCS_BASE || pathname === `${DOCS_BASE}/`) {
+      return Response.redirect(new URL(DOCS_HOME, url).href, 301);
+    }
+
+    // The home page is published at <docsHome>; the build serves it as the
+    // section root, so alias the public URL onto it here.
+    if (
+      pathname === DOCS_HOME ||
+      pathname === `${DOCS_HOME}/` ||
+      pathname === `${DOCS_HOME}.html`
+    ) {
+      return fetch(`${PUBLIC_URL}${DOCS_BASE}/`, {
+        headers: request.headers,
+        redirect: 'follow',
+      });
+    }
+
+    // Docs content.
+    if (pathname.startsWith(`${DOCS_BASE}/`)) {
+      return fetch(`${PUBLIC_URL}${pathname}${search}`, {
+        method: request.method,
+        headers: request.headers,
+        body: request.body,
+        redirect: 'follow',
+      });
+    }
+
+    return new Response('Not found', { status: 404 });
   },
 } satisfies ExportedHandler;
