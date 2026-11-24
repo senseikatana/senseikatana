@@ -1,21 +1,26 @@
-// Subdomain Worker: serves the /projects section of the Astro site at the
-// root of showcase.senseikatana.com.
+// Subdomain Worker: forwards showcase.senseikatana.com to the workspace.
 //
-// The projects section lives inside the main Astro build (`web/`), so this
-// Worker rewrites `showcase.senseikatana.com/<path>` to
-// `senseikatana.com/projects/<path>` and proxies the response. No separate
-// build, no duplicated content — showcase is just a window into /projects.
+// What it used to do: proxy `showcase.senseikatana.com/<path>` to
+// `senseikatana.com/projects/<path>`. That path no longer exists — projects
+// moved to samuraicoder.dev and each one now lives at `/works/<slug>`, so the
+// proxy was returning 404 for every request.
+//
+// It is now a plain redirector: one hop to the page that actually serves the
+// content, and no dependency on this repo's build.
+//
+// Note: the subdomain's TLS certificate is currently invalid
+// (ERR_CERT_COMMON_NAME_INVALID), so it fails before reaching this Worker. The
+// Worker is correct for when that is fixed; if the subdomain is not wanted,
+// deleting this route and the DNS record is the cheaper fix.
 //
 // Deploy: `bunx wrangler deploy -c workers/showcase-proxy/wrangler.jsonc`
 //
 // The route is per-zone. The zone must exist in the same Cloudflare account.
 {
-  "$schema": "https://unpkg.com/wrangler/config-schema.json",
+  "$schema": "https://unpkg.com/wrangler@4.162.0/config-schema.json",
   "name": "showcase-proxy",
   "main": "src/index.ts",
   "compatibility_date": "2026-01-01",
 
-  // Only the showcase subdomain hits this Worker; the apex and every other
-  // route stay with the site Pages project.
   "routes": [{ "pattern": "showcase.senseikatana.com/*", "zone_name": "senseikatana.com" }],
 }
