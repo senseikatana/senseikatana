@@ -37,7 +37,7 @@ Empresa Plana necessitava publicar en castellà i català i, alhora, que el seu 
 - **Què resol**: l'equip publica des del panell; la web llegeix i serveix HTML estàtic, sense recompilar a mà.
 - **Base tècnica**: rutes amb prefix d'idioma, `hreflang` consistent, canonical, sitemap i dades estructurades.
 
-[Veure el cas complet ->](/projects/empresaplana)
+[Veure el cas complet ->](https://samuraicoder.dev/works/empresaplana)
 
 ### Exemple de botiga: catàleg limitat amb checkout validat al servidor
 
