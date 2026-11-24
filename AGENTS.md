@@ -13,7 +13,8 @@ Check `gh issue list --state open` before changing anything here.
 3. The **KatanaKit documentation source** (`docs/`), a VitePress site published to the
    `katanakit-docs` Pages project and mounted under `/docs/` by the docs-proxy Worker
    (lives in `workers/docs-proxy`). `/docs/*` is live: it returns 200, and the Worker
-   reverse-proxies the Pages project, so it must not be turned into a redirect.
+   reverse-proxies the Pages project, so it must not be turned into a redirect. It is the
+   only thing serving those paths — `senseikatana-web.pages.dev/docs/*` is a 404.
 
 The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and

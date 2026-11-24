@@ -178,7 +178,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -uo pipefail
-          for cfg in workers/docs-proxy/wrangler.jsonc workers/showcase-proxy/wrangler.jsonc; do
+          for cfg in workers/docs-proxy/wrangler.jsonc; do
             echo "== ${cfg} =="
             bunx wrangler@4.162.0 deploy -c "${cfg}" || echo "::warning::${cfg} not deployed (token lacks Workers Scripts: Edit?)"
           done
