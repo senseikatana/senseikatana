@@ -117,19 +117,45 @@ jobs:
           done
 
           echo "== Pages custom domains =="
+          # A domain that was attached while DNS still pointed elsewhere stays
+          # `deactivated`, and a deactivated domain makes Cloudflare resolve the
+          # CNAME externally instead of routing to Pages — the symptom is 522.
+          # Re-adding it is what re-triggers validation.
+          project_info=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}")
+          echo "  production_branch: $(echo "${project_info}" | jq -r '.result.production_branch // "?"')"
+          echo "  latest deploy env: $(echo "${project_info}" | jq -r '.result.latest_deployment.environment // "?"') (branch $(echo "${project_info}" | jq -r '.result.latest_deployment.deployment_trigger.metadata.branch // "?"'))"
+
           for name in senseikatana.com www.senseikatana.com; do
             domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains")
             status=$(echo "${domains}" | jq -r --arg n "$name" '.result[]? | select(.name == $n) | .status')
-            if [ -n "${status}" ]; then
-              echo "  ${name}: attached (${status})"
-            elif [ "${DRY_RUN:-false}" = "true" ]; then
-              echo "  ${name}: would attach"
-            else
-              echo "  ${name}: attaching"
-              curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${project}/domains" \
-                --data "$(jq -nc --arg n "${name}" '{name:$n}')" | jq -c '.result // .errors'
+            if [ "${status}" = "active" ]; then
+              echo "  ${name}: active"
+              continue
             fi
+            if [ "${DRY_RUN:-false}" = "true" ]; then
+              echo "  ${name}: status '${status:-absent}' -> would re-add"
+              continue
+            fi
+            if [ -n "${status}" ]; then
+              echo "  ${name}: status '${status}' -> removing to re-trigger validation"
+              curl -sS "${auth[@]}" -X DELETE "${api}/pages/projects/${project}/domains/${name}" | jq -c '.errors'
+            fi
+            echo "  ${name}: attaching"
+            curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${project}/domains" \
+              --data "$(jq -nc --arg n "${name}" '{name:$n}')" \
+              | jq -c '{name: .result.name, status: .result.status, errors}'
           done
+
+          echo "== waiting for activation =="
+          if [ "${DRY_RUN:-false}" != "true" ]; then
+            for i in $(seq 1 12); do
+              domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains")
+              s=$(echo "${domains}" | jq -r '[.result[]? | "\(.name)=\(.status)"] | join(" ")')
+              echo "  ${s}"
+              echo "${s}" | grep -q "deactivated\|pending" || break
+              sleep 10
+            done
+          fi
 
       # Turning the proxy on activates every Worker route on the zone. The
       # docs-proxy is now a redirector; if the deployed copy were still the old
@@ -137,14 +163,19 @@ jobs:
       # redirector ships with the cutover.
       - name: Deploy the zone Workers
         if: ${{ inputs.dry_run != true }}
+        # The current token has Pages + DNS but not "Workers Scripts: Edit", so
+        # this fails with a 403 on the service. It must not abort the cutover:
+        # /docs still works through the Pages `_redirects` when no Worker route
+        # is deployed. Grant the permission and re-run to ship the redirector.
+        continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          set -euo pipefail
+          set -uo pipefail
           for cfg in workers/docs-proxy/wrangler.jsonc workers/showcase-proxy/wrangler.jsonc; do
             echo "== ${cfg} =="
-            bunx wrangler@4.162.0 deploy -c "${cfg}"
+            bunx wrangler@4.162.0 deploy -c "${cfg}" || echo "::warning::${cfg} not deployed (token lacks Workers Scripts: Edit?)"
           done
 
       - name: Verify the new build is actually served
