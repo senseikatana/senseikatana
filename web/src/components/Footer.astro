@@ -8,7 +8,6 @@ const tr = useTranslations(getLocale(Astro.url.pathname, Astro.currentLocale));
 const navKeys: Record<string, string> = {
   '/': 'home',
   '/services': 'services',
-  '/projects': 'works',
   '/about': 'about',
   '/posts': 'blog',
   [docsLinks.home]: 'docs',
@@ -44,6 +43,7 @@ const labelFor = (href: string, fallback: string) => {
                     rel={href.startsWith('http') ? 'me noopener' : undefined}
                   >
                     {labelFor(href, label)}
+                    {href.startsWith('http') && <span aria-hidden="true"> ↗</span>}
                   </a>
                 </li>
               ))}

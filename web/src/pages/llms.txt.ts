@@ -1,8 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getPosts } from '../features/blog/queries';
 import { getServices } from '../features/services/queries';
-import { getProjects } from '../features/projects/queries';
-import { docsLinks, site } from '../config/site';
+import { docsLinks, site, WORKSPACE_URL } from '../config/site';
 import { defaultLocale } from '../i18n/config';
 import { contentSlug } from '../lib/content';
 
@@ -11,10 +10,9 @@ import { contentSlug } from '../lib/content';
  * @see https://llmstxt.org
  */
 export const GET: APIRoute = async () => {
-  const [posts, services, projects] = await Promise.all([
+  const [posts, services] = await Promise.all([
     getPosts(defaultLocale),
     getServices(defaultLocale),
-    getProjects(defaultLocale),
   ]);
 
   const lines = [
@@ -29,23 +27,16 @@ export const GET: APIRoute = async () => {
     '',
     `- [Home](${site.url}/): intro and services overview`,
     `- [Services](${site.url}/services): scope of each service`,
-    `- [Projects](${site.url}/projects): case studies`,
     `- [Blog](${site.url}/posts): technical articles`,
     `- [Documentation](${docsLinks.home}): KatanaKit documentation`,
     `- [Contact](${site.url}/contact)`,
+    `- [Case studies](${WORKSPACE_URL}/): projects and works, on a separate domain`,
     '',
     '## Services',
     '',
     ...services.map(
       (service) =>
         `- [${service.data.title}](${site.url}/services/${contentSlug(service.id)}): ${service.data.description}`,
-    ),
-    '',
-    '## Projects',
-    '',
-    ...projects.map(
-      (project) =>
-        `- [${project.data.title}](${site.url}/projects/${contentSlug(project.id)}): ${project.data.description}`,
     ),
     '',
     '## Blog',

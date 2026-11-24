@@ -18,7 +18,13 @@ The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Fea
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
 queries, and `web/src/content/` holds the Markdown collections (`<collection>/<locale>/<slug>.md`).
 i18n: English is the default locale at the root; `es` and `ca` are prefixed. Site sections are
-`/posts`, `/projects`, `/services`, `/about`; docs live under `/docs/`.
+`/posts`, `/services`, `/about`; docs live under `/docs/`.
+
+**Case studies are not in this repo.** They live on `samuraicoder.dev`, in a separate repository
+deployed to its own Cloudflare Pages project. `senseikatana.com/projects/*` and the older
+`/works/*` 301 there. The home page links out with an `↗` instead of rendering cards from a local
+collection — see `featuredWorks` in `web/src/config/site.ts`. Do not reintroduce a `projects`
+collection here: the split is what lets both sites build and deploy independently.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
@@ -78,7 +84,7 @@ from search and graph.
 - Content: `web/src/content/<collection>/<locale>/<slug>.md`. Frontmatter keys must match the
   Zod schemas in `web/src/content.config.ts`; quote dates (`date: '2025-01-08'`).
 - Docs: `docs/**/*.md` (VitePress).
-- Links: plain Markdown with real web paths (`/posts/<slug>`, `/projects/<slug>`). Never
+- Links: plain Markdown with real web paths (`/posts/<slug>`, `/services/<slug>`). Never
   `[[wikilinks]]` — Astro and VitePress do not resolve them.
 - Run `bun run check` after editing and before committing; the schemas catch broken
   frontmatter at build time.

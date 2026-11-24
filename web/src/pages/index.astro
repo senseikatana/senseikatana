@@ -4,18 +4,15 @@ import Section from '../components/Section.astro';
 import SectionHead from '../components/SectionHead.astro';
 import CtaSection from '../components/CtaSection.astro';
 import ServiceCard from '../features/services/components/ServiceCard.astro';
-import ProjectCard from '../features/projects/components/ProjectCard.astro';
 import PostCard from '../features/blog/components/PostCard.astro';
 import { getServices } from '../features/services/queries';
-import { getFeaturedProjects } from '../features/projects/queries';
 import { getPosts } from '../features/blog/queries';
-import { site } from '../config/site';
+import { featuredWorks, site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 
 const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
 const tr = useTranslations(locale);
 const services = await getServices(locale);
-const projects = (await getFeaturedProjects(locale)).slice(0, 3);
 const posts = (await getPosts(locale)).slice(0, 3);
 ---
 
@@ -40,7 +37,9 @@ const posts = (await getPosts(locale)).slice(0, 3);
         </p>
         <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a href={site.cta.href} class="btn btn-primary max-md:w-full">{tr('nav.cta')} -&gt;</a>
-          <a href={site.secondary.href} class="link text-[15px]">{tr('home.worksCta')} -&gt;</a>
+          <a href={site.secondary.href} class="link text-[15px]" rel="noopener"
+            >{tr('home.worksCta')} ↗</a
+          >
         </div>
       </div>
       <div class="border border-ink bg-canvas p-6">
@@ -86,7 +85,10 @@ const posts = (await getPosts(locale)).slice(0, 3);
     </ul>
   </Section>
 
-  <!-- [02] Proyectos -->
+  <!--
+    [02] Trabajos. The case studies live on samuraicoder.dev, so these are plain
+    outbound links: no collection, no card component, no duplicated content.
+  -->
   <Section label={tr('home.labels.works')}>
     <div class="flex flex-wrap items-end justify-between gap-6">
       <SectionHead
@@ -95,13 +97,39 @@ const posts = (await getPosts(locale)).slice(0, 3);
         title={tr('works.headline')}
         lede={tr('home.worksSubtitle')}
       />
-      <a href="/projects" class="link text-[14px]">{tr('home.worksAll')} -&gt;</a>
+      <a href={site.secondary.href} class="link text-[14px]" rel="noopener">
+        {tr('home.worksAll')} ↗
+      </a>
     </div>
-    <ul class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+    <ul class="mt-12 grid grid-cols-1 md:grid-cols-3 border-t border-l border-rule">
       {
-        projects.map((project) => (
-          <li class="contents">
-            <ProjectCard project={project} />
+        featuredWorks.map((work) => (
+          <li>
+            <a
+              href={work.href}
+              rel="noopener"
+              class="flex h-full flex-col border-r border-b border-rule p-5 hover:bg-tint"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="label">{work.sector}</p>
+                  <h3 class="mt-2 text-[20px] font-bold tracking-[-0.03em]">
+                    {work.title}
+                    <span class="text-smoke" aria-hidden="true">
+                      {' '}
+                      ↗
+                    </span>
+                  </h3>
+                </div>
+                <span class="text-[12px] text-smoke tabular-nums">{work.year}</span>
+              </div>
+              <p class="mt-3 text-[14px] leading-[1.55] text-steel flex-1">{work.description}</p>
+              <ul class="mt-4 flex flex-wrap gap-1.5">
+                {work.stack.slice(0, 4).map((tech) => (
+                  <li class="border border-rule px-2 py-1 text-[11px] text-smoke">{tech}</li>
+                ))}
+              </ul>
+            </a>
           </li>
         ))
       }

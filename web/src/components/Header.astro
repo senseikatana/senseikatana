@@ -11,14 +11,21 @@ const tr = useTranslations(getLocale(path, Astro.currentLocale));
 const navKeys: Record<string, string> = {
   '/': 'home',
   '/services': 'services',
-  '/projects': 'works',
   '/about': 'about',
   '/posts': 'blog',
   [docsLinks.home]: 'docs',
   '/contact': 'contact',
 };
 
-const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
+const labelFor = (href: string, fallback?: string) => {
+  const key = navKeys[href];
+  // External links and unknown paths keep their authored label; only known
+  // internal routes are translated from the dictionary.
+  return key ? tr(`nav.${key}`) : (fallback ?? tr('nav.home'));
+};
+
+/** Absolute URLs leave the site; they never get the active state. */
+const isExternal = (href: string) => href.startsWith('http');
 ---
 
 <!-- Fixed header: sticky once the announcement bar scrolls away; data-scrolled toggles the blurred state -->
@@ -40,7 +47,7 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
                     path.startsWith(link.href) ? 'text-ink' : 'text-steel',
                   ]}
                 >
-                  {labelFor(link.href)}
+                  {labelFor(link.href, link.label)}
                   <span class="text-stone" aria-hidden="true">
                     ▾
                   </span>
@@ -52,7 +59,7 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
                         href={child.href}
                         class="block px-3 py-2 text-[13px] text-steel hover:bg-tint hover:text-ink"
                       >
-                        {'labelKey' in child ? tr(child.labelKey) : child.label}
+                        {child.label}
                       </a>
                     </li>
                   ))}
@@ -61,12 +68,14 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
             ) : (
               <a
                 href={link.href}
+                rel={isExternal(link.href) ? 'noopener' : undefined}
                 class:list={[
                   'hover:text-ink',
-                  path.startsWith(link.href) ? 'text-ink' : 'text-steel',
+                  !isExternal(link.href) && path.startsWith(link.href) ? 'text-ink' : 'text-steel',
                 ]}
               >
-                {labelFor(link.href)}
+                {labelFor(link.href, link.label)}
+                {isExternal(link.href) && <span aria-hidden="true"> ↗</span>}
               </a>
             )}
           </li>
@@ -104,13 +113,17 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
       {
         site.menu.map((link, index) => (
           <li>
-            <a href={link.href} class="flex items-center gap-3.5 py-4 border-b border-rule">
+            <a
+              href={link.href}
+              rel={isExternal(link.href) ? 'noopener' : undefined}
+              class="flex items-center gap-3.5 py-4 border-b border-rule"
+            >
               <span class="text-[12px] text-smoke">{String(index + 1).padStart(2, '0')}</span>
               <span class="text-[28px] font-bold tracking-[-0.03em] text-ink">
-                {labelFor(link.href)}
+                {labelFor(link.href, link.label)}
               </span>
               <span class="ml-auto text-stone" aria-hidden="true">
-                -&gt;
+                {isExternal(link.href) ? '↗' : '->'}
               </span>
             </a>
             {'children' in link && link.children && (
@@ -124,7 +137,7 @@ const labelFor = (href: string) => tr(`nav.${navKeys[href] ?? 'home'}`);
                       <span class="text-stone" aria-hidden="true">
                         -&gt;
                       </span>
-                      {'labelKey' in child ? tr(child.labelKey) : child.label}
+                      {child.label}
                     </a>
                   </li>
                 ))}

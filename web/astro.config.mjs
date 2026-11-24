@@ -8,7 +8,8 @@ export default defineConfig({
   site: 'https://senseikatana.com',
   output: 'static',
   trailingSlash: 'ignore',
-  integrations: [mdx(), sitemap()],
+  // The 404 route is an error page, not content: keep it out of the sitemap.
+  integrations: [mdx(), sitemap({ filter: (page) => !/\/404\/?$/.test(page) })],
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es', 'ca'],
