@@ -24,7 +24,7 @@ const options = locales.map((locale) => ({
 <details class="lang-switch relative shrink-0" data-lang-switch>
   <summary
     class="flex items-center gap-1.5 border border-rule px-2.5 py-1.5 text-[12px] font-bold text-ink"
-    aria-label={tr('lang.title')}
+    aria-label={`${tr('lang.title')}: ${current.toUpperCase()}`}
   >
     {current.toUpperCase()}
     <span class="text-stone" aria-hidden="true">▾</span>

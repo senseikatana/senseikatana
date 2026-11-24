@@ -1,57 +1,93 @@
-import docsSite from '../../../config/docs-site.json';
-
 /**
- * Docs URLs derived from the shared scheme (`config/docs-site.json`): the
- * navigation and llms.txt build their docs links from here, so they can never
- * point at a dead docs host again.
+ * The KatanaKit documentation moved off this domain. It used to be VitePress
+ * under `/docs/` here, proxied by a Worker; it is now Starlight at
+ * `samuraicoder.dev/katanakit/`. `config/docs-site.json` still describes the
+ * retired scheme, so the links below no longer derive from it — every path was
+ * verified against the live site, because `/docs/*` on this domain returns 404.
+ *
+ * There is no `/katanakit/guides/` index on the live site, so `guides` points at
+ * the first guide page in that section.
  */
+export const DOCS_URL = 'https://samuraicoder.dev/katanakit';
+
 export const docsLinks = {
-  home: `${docsSite.siteOrigin}${docsSite.docsHome}`,
-  gettingStarted: `${docsSite.siteOrigin}${docsSite.docsBase}/start/getting-started`,
-  guides: `${docsSite.siteOrigin}${docsSite.docsBase}/guides/`,
-  uiKit: `${docsSite.siteOrigin}${docsSite.docsBase}/ui-kit/`,
-  api: `${docsSite.siteOrigin}${docsSite.docsBase}/api/`,
-  changelog: `${docsSite.siteOrigin}${docsSite.docsBase}/changelog`,
+  home: `${DOCS_URL}/`,
+  gettingStarted: `${DOCS_URL}/start/getting-started/`,
+  guides: `${DOCS_URL}/guides/access-control/`,
+  uiKit: `${DOCS_URL}/ui-kit/`,
+  api: `${DOCS_URL}/api/`,
+  changelog: `${DOCS_URL}/changelog/`,
 } as const;
 
 /**
- * The portfolio lives on its own domain. Case studies are not part of this
- * site's content collections, so the home page links out instead of rendering
- * them: the two sites stay deployable and severable independently.
+ * The portfolio lives on its own domain. `samuraicoder.dev/works/<slug>` is the
+ * canonical URL for every project, and these cards mirror what that site
+ * actually publishes — nothing here renders the content, this site only links
+ * out. Do not add an href that returns 404: check the target first.
  */
 export const WORKSPACE_URL = 'https://samuraicoder.dev';
 
-/**
- * Featured case studies, as links out to samuraicoder.dev. Kept here rather
- * than in a content collection because this site does not render them.
- */
+/** The workspace's page for one project. */
+export const workUrl = (slug: string) => `${WORKSPACE_URL}/works/${slug}`;
+
+/** Open-source family. Versions are the published npm ones where they exist. */
 export const featuredWorks = [
+  {
+    title: 'KatanaKit',
+    sector: 'TypeScript toolkit',
+    version: '7.2.0',
+    description:
+      'Framework-agnostic TypeScript service toolkit organized with hexagonal architecture.',
+    stack: ['TypeScript', 'Hexagonal', 'ESM'],
+    href: workUrl('katanakit-js'),
+  },
+  {
+    title: 'KatanaKit CSS',
+    sector: 'SCSS framework',
+    version: '0.12.5',
+    description: 'Lightweight, modular SCSS mini-framework with design tokens and utility classes.',
+    stack: ['SCSS', 'Design Tokens', 'Utilities'],
+    href: workUrl('katanakit-css'),
+  },
+  {
+    title: 'KatanaKit Sysli',
+    sector: 'Rust TUI',
+    version: '0.1.0',
+    description:
+      'ksys — lazygit for the whole systemd ecosystem: units, timers, journal, boot, network, sessions and devices in one TUI.',
+    stack: ['Rust', 'Systemd', 'TUI'],
+    href: workUrl('katanakit-sysli'),
+  },
+  {
+    title: 'HuePlay',
+    sector: 'Color tool',
+    version: '',
+    description:
+      'Interactive tool for understanding color spaces: HSL vs modern perceptually uniform OKLCH.',
+    stack: ['Colors', 'OKLCH', 'Interactive'],
+    href: workUrl('hueplay'),
+  },
+] as const;
+
+/** Client work, each with its own page on the workspace. */
+export const clientWorks = [
   {
     title: 'Empresa Plana',
     sector: 'Transport and logistics',
-    year: '2026',
-    description:
-      'Public site and internal panel over the same data model: the team publishes, the site serves static.',
-    stack: ['Astro', 'TypeScript', 'Prisma', 'InsForge'],
-    href: `${WORKSPACE_URL}/empresaplana`,
+    description: 'Public site and internal panel over the same data model.',
+    href: workUrl('empresaplana'),
   },
   {
     title: 'ERP-Lite',
     sector: 'ERP / operations',
-    year: '2026',
-    description:
-      'Multi-company ERP with a FastAPI backend and Nuxt front end: sales, purchasing, warehouse and transport in a single system.',
-    stack: ['FastAPI', 'Python', 'Nuxt', 'PostgreSQL'],
-    href: `${WORKSPACE_URL}/erp-lite`,
+    description: 'Multi-company ERP: sales, purchasing, warehouse and transport.',
+    href: workUrl('erp-lite'),
   },
   {
     title: 'POS System',
-    sector: 'Retail / point of sale',
-    year: '2026',
-    description:
-      'Point of sale configurable per business domain, with a hexagonal core and atomic transactions.',
-    stack: ['Nuxt', 'Vue', 'TypeScript', 'Prisma'],
-    href: `${WORKSPACE_URL}/pos-system`,
+    sector: 'Retail',
+    description: 'Point of sale configurable per business domain.',
+    href: workUrl('pos-system'),
   },
 ] as const;
 
@@ -90,41 +126,24 @@ export const site = {
   },
   cta: { label: 'Hablemos', href: '/contact' },
   secondary: { label: 'Ver proyectos', href: WORKSPACE_URL },
+  /**
+   * Primary navigation: Works · Services · About · Contact.
+   * `labelKey` resolves through the dictionaries, so each locale shows its own
+   * wording. The KatanaKit docs left this nav — they live on samuraicoder.dev.
+   */
   nav: [
-    { label: 'Servicios', href: '/services' },
-    { label: 'Proyectos', href: WORKSPACE_URL, external: true },
-    { label: 'Sobre mí', href: '/about' },
-    { label: 'Blog', href: '/posts' },
-    {
-      label: 'Documentación',
-      href: docsLinks.home,
-      children: [
-        { label: 'Getting started', href: docsLinks.gettingStarted },
-        { label: 'Guides', href: docsLinks.guides },
-        { label: 'UI Kit', href: docsLinks.uiKit },
-        { label: 'API reference', href: docsLinks.api },
-        { label: 'Changelog', href: docsLinks.changelog },
-      ],
-    },
+    { labelKey: 'nav.works', href: WORKSPACE_URL, external: true },
+    { labelKey: 'nav.services', href: '/services' },
+    { labelKey: 'nav.about', href: '/about' },
+    { labelKey: 'nav.contact', href: '/contact' },
   ],
   menu: [
-    { label: 'Inicio', href: '/' },
-    { label: 'Servicios', href: '/services' },
-    { label: 'Proyectos', href: WORKSPACE_URL, external: true },
-    { label: 'Sobre mí', href: '/about' },
-    { label: 'Blog', href: '/posts' },
-    {
-      label: 'Documentación',
-      href: docsLinks.home,
-      children: [
-        { label: 'Getting started', href: docsLinks.gettingStarted },
-        { label: 'Guides', href: docsLinks.guides },
-        { label: 'UI Kit', href: docsLinks.uiKit },
-        { label: 'API reference', href: docsLinks.api },
-        { label: 'Changelog', href: docsLinks.changelog },
-      ],
-    },
-    { label: 'Contacto', href: '/contact' },
+    { labelKey: 'nav.home', href: '/' },
+    { labelKey: 'nav.works', href: WORKSPACE_URL, external: true },
+    { labelKey: 'nav.services', href: '/services' },
+    { labelKey: 'nav.about', href: '/about' },
+    { labelKey: 'nav.blog', href: '/posts' },
+    { labelKey: 'nav.contact', href: '/contact' },
   ],
   footer: [
     {

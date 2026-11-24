@@ -1,5 +1,5 @@
 ---
-import { docsLinks, site } from '../config/site';
+import { site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import Logo from './Logo.astro';
@@ -8,20 +8,23 @@ import ThemeSwitcher from './ThemeSwitcher.astro';
 const path = Astro.url.pathname;
 const tr = useTranslations(getLocale(path, Astro.currentLocale));
 
+/**
+ * A nav item may carry an explicit `labelKey` (translated) or a literal
+ * `label`. Anything else falls back to the path map, so old entries keep
+ * working without a migration.
+ */
 const navKeys: Record<string, string> = {
   '/': 'home',
   '/services': 'services',
   '/about': 'about',
   '/posts': 'blog',
-  [docsLinks.home]: 'docs',
   '/contact': 'contact',
 };
 
-const labelFor = (href: string, fallback?: string) => {
-  const key = navKeys[href];
-  // External links and unknown paths keep their authored label; only known
-  // internal routes are translated from the dictionary.
-  return key ? tr(`nav.${key}`) : (fallback ?? tr('nav.home'));
+const labelFor = (link: { href: string; label?: string; labelKey?: string }) => {
+  if (link.labelKey) return tr(link.labelKey);
+  const key = navKeys[link.href];
+  return key ? tr(`nav.${key}`) : (link.label ?? tr('nav.home'));
 };
 
 /** Absolute URLs leave the site; they never get the active state. */
@@ -31,58 +34,35 @@ const isExternal = (href: string) => href.startsWith('http');
 <!-- Fixed header: sticky once the announcement bar scrolls away; data-scrolled toggles the blurred state -->
 <header class="site-header sticky top-0 z-50 border-b border-rule bg-canvas">
   <nav
-    class="frame flex items-center gap-8 h-16 px-6 max-md:h-14 max-md:px-5"
+    class="frame flex items-center h-16 px-6 max-md:gap-8 max-md:h-14 max-md:px-5 md:grid md:grid-cols-[1fr_auto_1fr]"
     aria-label={tr('a11y.mainNav')}
   >
-    <Logo />
-    <ul class="hidden md:flex gap-5 text-[14px] lg:gap-7">
+    <div class="md:justify-self-start"><Logo /></div>
+    <!--
+      Centred on the page, not on the space left over: a three-column grid with
+      equal side columns puts the nav in the true middle whatever the logo and
+      the action cluster weigh.
+    -->
+    <ul class="hidden md:flex justify-center gap-5 text-[14px] lg:gap-7">
       {
         site.nav.map((link) => (
           <li>
-            {'children' in link && link.children ? (
-              <details class="relative" data-nav-dropdown>
-                <summary
-                  class:list={[
-                    'flex cursor-pointer list-none items-center gap-1 hover:text-ink [&::-webkit-details-marker]:hidden',
-                    path.startsWith(link.href) ? 'text-ink' : 'text-steel',
-                  ]}
-                >
-                  {labelFor(link.href, link.label)}
-                  <span class="text-stone" aria-hidden="true">
-                    ▾
-                  </span>
-                </summary>
-                <ul class="absolute left-0 top-[calc(100%+16px)] z-[60] min-w-[232px] border border-ink bg-canvas p-1">
-                  {link.children.map((child) => (
-                    <li>
-                      <a
-                        href={child.href}
-                        class="block px-3 py-2 text-[13px] text-steel hover:bg-tint hover:text-ink"
-                      >
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            ) : (
-              <a
-                href={link.href}
-                rel={isExternal(link.href) ? 'noopener' : undefined}
-                class:list={[
-                  'hover:text-ink',
-                  !isExternal(link.href) && path.startsWith(link.href) ? 'text-ink' : 'text-steel',
-                ]}
-              >
-                {labelFor(link.href, link.label)}
-                {isExternal(link.href) && <span aria-hidden="true"> ↗</span>}
-              </a>
-            )}
+            <a
+              href={link.href}
+              rel={isExternal(link.href) ? 'noopener' : undefined}
+              class:list={[
+                'hover:text-ink',
+                !isExternal(link.href) && path.startsWith(link.href) ? 'text-ink' : 'text-steel',
+              ]}
+            >
+              {labelFor(link)}
+              {isExternal(link.href) && <span aria-hidden="true"> ↗</span>}
+            </a>
           </li>
         ))
       }
     </ul>
-    <div class="ml-auto flex items-center gap-3 lg:gap-5">
+    <div class="flex items-center gap-3 max-md:ml-auto lg:gap-5 md:justify-self-end">
       <div class="hidden md:block"><ThemeSwitcher /></div>
       <LanguageSwitcher />
       <a href={site.cta.href} class="btn btn-primary btn-s hidden md:inline-flex">{tr('nav.cta')}</a
@@ -120,29 +100,12 @@ const isExternal = (href: string) => href.startsWith('http');
             >
               <span class="text-[12px] text-smoke">{String(index + 1).padStart(2, '0')}</span>
               <span class="text-[28px] font-bold tracking-[-0.03em] text-ink">
-                {labelFor(link.href, link.label)}
+                {labelFor(link)}
               </span>
               <span class="ml-auto text-stone" aria-hidden="true">
                 {isExternal(link.href) ? '↗' : '->'}
               </span>
             </a>
-            {'children' in link && link.children && (
-              <ul class="pb-2">
-                {link.children.map((child) => (
-                  <li>
-                    <a
-                      href={child.href}
-                      class="flex items-center gap-3 py-2.5 pl-8 border-b border-rule text-[15px] text-steel"
-                    >
-                      <span class="text-stone" aria-hidden="true">
-                        -&gt;
-                      </span>
-                      {child.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
           </li>
         ))
       }
@@ -188,29 +151,4 @@ const isExternal = (href: string) => href.startsWith('http');
   document.querySelector('[data-menu-open]')?.addEventListener('click', () => menu.showModal());
   document.querySelector('[data-menu-close]')?.addEventListener('click', () => menu.close());
   menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
-
-  const navDropdowns = document.querySelectorAll<HTMLDetailsElement>('[data-nav-dropdown]');
-  for (const element of navDropdowns) {
-    element.addEventListener('toggle', () => {
-      if (!element.open) return;
-      for (const other of navDropdowns) if (other !== element) other.open = false;
-    });
-    element.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        element.open = false;
-      });
-    });
-  }
-
-  document.addEventListener('click', (event) => {
-    const target = event.target as Node;
-    for (const element of navDropdowns) {
-      if (element.open && !element.contains(target)) element.open = false;
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape') return;
-    for (const element of navDropdowns) element.open = false;
-  });
 </script>

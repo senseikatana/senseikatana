@@ -10,21 +10,29 @@ Check `gh issue list --state open` before changing anything here.
 
 1. The **GitHub profile README repo** — `README.md` renders at `github.com/senseikatana`.
 2. The **Bun workspace** for the personal site deployed at `senseikatana.com`.
-3. The **KatanaKit documentation source** (`docs/`), a VitePress site deployed to the
-   `katanakit-docs` Pages project and proxied under `/docs/` by the docs-proxy Worker
-   (lives in `workers/docs-proxy`).
+3. The **KatanaKit documentation source** (`docs/`), a VitePress site. **It no longer serves
+   `senseikatana.com/docs`** — that path 404s. The documentation now lives at
+   `samuraicoder.dev/katanakit/` (Starlight), and `/docs/*` here 301s there.
 
 The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Feature-Based
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
 queries, and `web/src/content/` holds the Markdown collections (`<collection>/<locale>/<slug>.md`).
 i18n: English is the default locale at the root; `es` and `ca` are prefixed. Site sections are
-`/posts`, `/services`, `/about`; docs live under `/docs/`.
+`/posts`, `/services`, `/about`, `/contact`.
 
-**Case studies are not in this repo.** They live on `samuraicoder.dev`, in a separate repository
-deployed to its own Cloudflare Pages project. `senseikatana.com/projects/*` and the older
-`/works/*` 301 there. The home page links out with an `↗` instead of rendering cards from a local
-collection — see `featuredWorks` in `web/src/config/site.ts`. Do not reintroduce a `projects`
+**Projects are not in this repo.** They live on `samuraicoder.dev`, in a separate repository
+deployed to its own Cloudflare Pages project, where each one has a page at
+`samuraicoder.dev/works/<slug>`. `senseikatana.com/projects/*` and the older `/works/*` 301 to
+those. The home page links out with an `↗` instead of rendering cards from a local collection —
+see `featuredWorks` and `clientWorks` in `web/src/config/site.ts`. Do not reintroduce a `projects`
 collection here: the split is what lets both sites build and deploy independently.
+
+**Navigation is Works · Services · About · Contact**, centred in the navbar, with no
+Documentation entry. Docs are reachable from `llms.txt` and the old `/docs` redirects only.
+
+**Every outbound link must resolve.** Before adding one to `site.ts` or to content, request it:
+an `href` that 404s ships straight to production, and `experience`/`services` content is full of
+external links.
 
 **The repo name must stay exactly `senseikatana`.** GitHub only renders a profile README
 when the repository name matches the username. Renaming this to `senseikatana.github.io`
@@ -102,10 +110,11 @@ Production is `senseikatana.com`, served by Cloudflare Pages from `main`.
 - Local: `bun run deploy` (production) and `bun run deploy:preview` (a `dev` preview alias).
 - Remote preview of the dev server: `bun run tunnel` (cloudflared quick tunnel to port 4321).
 
-Docs deploy separately: `bun run docs:deploy` publishes `docs/.vitepress/dist` to the
-`katanakit-docs` Pages project (branch `main`). The `katanakit-docs-proxy` Worker in
-`workers/docs-proxy` mounts that project under `senseikatana.com/docs/`; the
-site project serves the apex and every other site route.
+The docs pipeline is now legacy. `bun run docs:deploy` still builds `docs/` and pushes it to the
+`katanakit-docs` Pages project, but that project is unreachable (`katanakit-docs.pages.dev`
+returns 404) and the live documentation is Starlight at `samuraicoder.dev/katanakit/`. The
+`workers/docs-proxy` Worker no longer proxies: it 301s `/docs/*` (and the legacy `/en/docs*`) to
+that Starlight site, so this repo keeps the redirect without depending on the dead Pages project.
 
 ## Committing
 
