@@ -164,7 +164,9 @@ jobs:
           # let the redirect rule above own that hostname.
           stale_showcase=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains" \
             | jq -r '.result[]? | select(.name == "showcase.senseikatana.com") | .name')
-          if [ -n "${stale_showcase}" ]; then
+          if [ -n "${stale_showcase}" ] && [ "${ATTACH_SHOWCASE:-false}" = "true" ]; then
+            echo "  showcase.senseikatana.com: kept attached (attach_showcase=true)"
+          elif [ -n "${stale_showcase}" ]; then
             if [ "${DRY_RUN:-false}" = "true" ]; then
               echo "  showcase.senseikatana.com: would detach (it serves a duplicate of the site)"
             else
