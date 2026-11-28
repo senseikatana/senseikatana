@@ -42,7 +42,7 @@ function useRefreshExchangeRates(): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [infrastructure/currency/currency.service.ts:113](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/currency/currency.service.ts#L113)
+Defined in: [infrastructure/currency/currency.service.ts:113](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/currency/currency.service.ts#L113)
 
 Forces a rate refresh, bypassing the cache. Subscribers get `onRatesUpdate`.
 

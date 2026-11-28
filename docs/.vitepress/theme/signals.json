@@ -1,11 +1,71 @@
 {
-	"version": "7.5.2",
+	"version": "7.5.4",
 	"stars": 0,
 	"newPages": [],
 	"changelog": {
-		"version": "7.5.2",
-		"date": "2026-11-15",
+		"version": "7.5.4",
+		"date": "2026-11-18",
 		"releases": [
+			{
+				"version": "7.5.4",
+				"date": "2026-11-18",
+				"items": [
+					{
+						"emoji": "✨",
+						"html": "<strong>🚀 feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord <code>98593cc</code></strong>"
+					},
+					{
+						"emoji": "🤖",
+						"html": "<strong>🤖 ci: add release workflow and trim scripts to the essentials <code>2a42cc9</code></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(CONTRIBUTING.md): add out <code>233c95c</code></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>🚀 feat(scripts): unify the docs script surface and add audit:urls <code>4757447</code></strong>"
+					},
+					{
+						"emoji": "⬆️",
+						"html": "<strong>📦 build(bun.lock): add check and concurrently to package.json <code>7e04a13</code></strong>"
+					},
+					{
+						"emoji": "⬆️",
+						"html": "<strong>📦 build(bun.lock): add better-auth to package.json and update to latest versions <code>7bbd5a0</code></strong>"
+					}
+				]
+			},
+			{
+				"version": "7.5.3",
+				"date": "2026-11-15",
+				"items": [
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(CONTRIBUTING.md): add out <code>233c95c</code></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>🚀 feat(scripts): unify the docs script surface and add audit:urls <code>4757447</code></strong>"
+					},
+					{
+						"emoji": "⬆️",
+						"html": "<strong>📦 build(bun.lock): add check and concurrently to package.json <code>7e04a13</code></strong>"
+					},
+					{
+						"emoji": "⬆️",
+						"html": "<strong>📦 build(bun.lock): add better-auth to package.json and update to latest versions <code>7bbd5a0</code></strong>"
+					},
+					{
+						"emoji": "✨",
+						"html": "<strong>🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites <code>7a463bb</code></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <code>c606335</code></strong>"
+					}
+				]
+			},
 			{
 				"version": "7.5.2",
 				"date": "2026-11-15",
@@ -125,76 +185,26 @@
 						"html": "<strong>📝 docs(scripts): add candidate, countThrees and isForbiddenVersion <code>d78bbd9</code></strong>"
 					}
 				]
-			},
-			{
-				"version": "7.3.1",
-				"date": "2026-11-01",
-				"items": [
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(styles): add sets <code>ac9f42a</code></strong>"
-					},
-					{
-						"emoji": "🐛",
-						"html": "<strong>🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports <code>17aac2c</code></strong>"
-					},
-					{
-						"emoji": "⬆️",
-						"html": "<strong>🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an <code>118405f</code></strong>"
-					},
-					{
-						"emoji": "✨",
-						"html": "<strong>🚀 feat: updates documentation, tests, and tooling across 23 files <code>0542810</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(scripts): add candidate, countThrees and isForbiddenVersion <code>d78bbd9</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>🚀 feat(docs): rebuild the changelog page as one collapsible card per release <code>82fa443</code></strong>"
-					}
-				]
-			},
-			{
-				"version": "7.3.0",
-				"date": "2026-10-31",
-				"items": [
-					{
-						"emoji": "⬆️",
-						"html": "<strong>🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an <code>118405f</code></strong>"
-					},
-					{
-						"emoji": "✨",
-						"html": "<strong>🚀 feat: updates documentation, tests, and tooling across 23 files <code>0542810</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(scripts): add candidate, countThrees and isForbiddenVersion <code>d78bbd9</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>🚀 feat(docs): rebuild the changelog page as one collapsible card per release <code>82fa443</code></strong>"
-					},
-					{
-						"emoji": "🗑️",
-						"html": "<strong>⏪ revert(docs): drop the hero typewriter and restore the original heading size <code>07a34bf</code></strong>"
-					},
-					{
-						"emoji": "🗑️",
-						"html": "<strong>🚀 feat(docs): type the hero heading in and drop the duplicated brand name <code>73e44bd</code></strong>"
-					}
-				]
 			}
 		]
 	},
 	"versions": {
 		"latest": {
-			"version": "7.5.2",
-			"date": "2026-11-15",
-			"anchor": "#_7-5-2-2026-11-15"
+			"version": "7.5.4",
+			"date": "2026-11-18",
+			"anchor": "#_7-5-4-2026-11-18"
 		},
 		"recent": [
+			{
+				"version": "7.5.4",
+				"date": "2026-11-18",
+				"anchor": "#_7-5-4-2026-11-18"
+			},
+			{
+				"version": "7.5.3",
+				"date": "2026-11-15",
+				"anchor": "#_7-5-3-2026-11-15"
+			},
 			{
 				"version": "7.5.2",
 				"date": "2026-11-15",
@@ -209,16 +219,6 @@
 				"version": "7.5.0",
 				"date": "2026-11-15",
 				"anchor": "#_7-5-0-2026-11-15"
-			},
-			{
-				"version": "7.4.0",
-				"date": "2026-11-08",
-				"anchor": "#_7-4-0-2026-11-08"
-			},
-			{
-				"version": "7.3.1",
-				"date": "2026-11-01",
-				"anchor": "#_7-3-1-2026-11-01"
 			}
 		],
 		"previous": [

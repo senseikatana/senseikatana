@@ -6,7 +6,7 @@
 function useSome<T>(array, predicate): boolean;
 ```
 
-Defined in: [core/services/array.service.ts:474](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/array.service.ts#L474)
+Defined in: [core/services/array.service.ts:474](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/array.service.ts#L474)
 
 Whether any item matches. See [ArrayService.useSome](../classes/ArrayService.md#usesome).
 

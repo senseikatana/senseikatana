@@ -6,7 +6,7 @@
 type FormDataValues = Record<string, unknown>;
 ```
 
-Defined in: [types/core/forms.ts:22](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/forms.ts#L22)
+Defined in: [types/core/forms.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/forms.ts#L22)
 
 Flat `name` → value map read from a native `FormData`, with dotted names
 expanded into nested objects (`"address.city"` → `{ address: { city } }`)

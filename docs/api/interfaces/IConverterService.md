@@ -2,7 +2,7 @@
 
 # Interface: IConverterService
 
-Defined in: [types/core/formatter.ts:16](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L16)
+Defined in: [types/core/formatter.ts:16](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L16)
 
 Contract of the unit converter facade.
 
@@ -18,7 +18,7 @@ useToCelsius(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:17](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L17)
+Defined in: [types/core/formatter.ts:17](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L17)
 
 #### Parameters
 
@@ -44,7 +44,7 @@ useToCm(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:22](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L22)
+Defined in: [types/core/formatter.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L22)
 
 #### Parameters
 
@@ -70,7 +70,7 @@ useToFahrenheit(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:18](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L18)
+Defined in: [types/core/formatter.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L18)
 
 #### Parameters
 
@@ -96,7 +96,7 @@ useToInches(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:21](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L21)
+Defined in: [types/core/formatter.ts:21](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L21)
 
 #### Parameters
 
@@ -122,7 +122,7 @@ useToKilometers(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:19](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L19)
+Defined in: [types/core/formatter.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L19)
 
 #### Parameters
 
@@ -148,7 +148,7 @@ useToKilos(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:23](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L23)
+Defined in: [types/core/formatter.ts:23](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L23)
 
 #### Parameters
 
@@ -174,7 +174,7 @@ useToMiles(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:20](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L20)
+Defined in: [types/core/formatter.ts:20](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L20)
 
 #### Parameters
 
@@ -200,7 +200,7 @@ useToPounds(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:24](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L24)
+Defined in: [types/core/formatter.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L24)
 
 #### Parameters
 

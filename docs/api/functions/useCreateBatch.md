@@ -6,7 +6,7 @@
 function useCreateBatch(): (callback) => void;
 ```
 
-Defined in: [core/services/reactive.service.ts:421](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/reactive.service.ts#L421)
+Defined in: [core/services/reactive.service.ts:421](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L421)
 
 Creates a batch function. See [ReactiveService.useCreateBatch](../classes/ReactiveService.md#usecreatebatch).
 

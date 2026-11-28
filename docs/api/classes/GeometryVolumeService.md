@@ -2,7 +2,7 @@
 
 # Class: GeometryVolumeService
 
-Defined in: [core/services/geometry.service.ts:405](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L405)
+Defined in: [core/services/geometry.service.ts:405](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L405)
 
 GeometryVolumeService — pure volume calculations for 3D geometric shapes.
 All methods are stateless — input → formatted string only.
@@ -25,7 +25,7 @@ useBox(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:454](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L454)
+Defined in: [core/services/geometry.service.ts:454](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L454)
 
 Calculates the volume of a box (rectangular prism).
 
@@ -67,7 +67,7 @@ useCone(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:510](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L510)
+Defined in: [core/services/geometry.service.ts:510](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L510)
 
 Calculates the volume of a cone.
 
@@ -104,7 +104,7 @@ GeometryUtils.volume.useCone(3, 5); // "47.12"
 useCube(side, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:434](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L434)
+Defined in: [core/services/geometry.service.ts:434](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L434)
 
 Calculates the volume of a cube.
 
@@ -145,7 +145,7 @@ useCylinder(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:491](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L491)
+Defined in: [core/services/geometry.service.ts:491](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L491)
 
 Calculates the volume of a cylinder.
 
@@ -186,7 +186,7 @@ usePyramid(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:529](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L529)
+Defined in: [core/services/geometry.service.ts:529](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L529)
 
 Calculates the volume of a pyramid.
 
@@ -223,7 +223,7 @@ GeometryUtils.volume.usePyramid(12, 5); // "20.00"
 useSphere(radius, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:472](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L472)
+Defined in: [core/services/geometry.service.ts:472](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L472)
 
 Calculates the volume of a sphere.
 
@@ -259,7 +259,7 @@ GeometryUtils.volume.useSphere(3); // "113.10"
 static getInstance(): GeometryVolumeService;
 ```
 
-Defined in: [core/services/geometry.service.ts:412](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/geometry.service.ts#L412)
+Defined in: [core/services/geometry.service.ts:412](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L412)
 
 Returns the shared instance (Singleton).
 

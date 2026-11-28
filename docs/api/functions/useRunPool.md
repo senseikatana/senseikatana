@@ -6,7 +6,7 @@
 function useRunPool<TInput, TOutput>(key, data): Promise<TOutput>;
 ```
 
-Defined in: [infrastructure/worker/worker.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/worker/worker.service.ts#L185)
+Defined in: [infrastructure/worker/worker.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/worker/worker.service.ts#L185)
 
 Runs a task on an existing Worker pool. Tasks are correlated by `__taskId`
 so concurrent tasks do not stomp each other's handlers.

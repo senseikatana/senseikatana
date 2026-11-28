@@ -6,7 +6,7 @@
 type UseSeoMetaOptions<OmitKeys> = Omit<UseSeoMetaBase, OmitKeys>;
 ```
 
-Defined in: [config/seo-meta.types.ts:177](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/config/seo-meta.types.ts#L177)
+Defined in: [config/seo-meta.types.ts:177](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo-meta.types.ts#L177)
 
 Public options for [useSeoMeta](../functions/useSeoMeta.md).
 HTML, Open Graph, Twitter/X card and site fields in one object.

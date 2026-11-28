@@ -2,7 +2,7 @@
 
 # Class: ResultService
 
-Defined in: [core/services/result.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/result.service.ts#L28)
+Defined in: [core/services/result.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L28)
 
 ResultService — Singleton facade for Safe Result creation at service
 boundaries.
@@ -35,7 +35,7 @@ else console.error(result.error.message);
 useAttempt<T>(operation, mapError?): Promise<SafeResult<T>>;
 ```
 
-Defined in: [core/services/result.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/result.service.ts#L63)
+Defined in: [core/services/result.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L63)
 
 Runs an operation (sync or async) and captures any throw as a Safe Result.
 
@@ -80,7 +80,7 @@ else console.error(result.error.message);
 useTryJsonParse<T>(text): SafeResult<T>;
 ```
 
-Defined in: [core/services/result.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/result.service.ts#L90)
+Defined in: [core/services/result.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L90)
 
 Parses JSON without throwing; failures come back as a Safe Result.
 
@@ -120,7 +120,7 @@ return parsed.ok ? parsed.data : raw;
 static getInstance(): ResultService;
 ```
 
-Defined in: [core/services/result.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/result.service.ts#L35)
+Defined in: [core/services/result.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L35)
 
 Returns the shared instance (Singleton).
 

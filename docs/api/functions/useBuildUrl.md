@@ -10,7 +10,7 @@ function useBuildUrl(
 ): string;
 ```
 
-Defined in: [core/services/http.service.ts:623](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/http.service.ts#L623)
+Defined in: [core/services/http.service.ts:701](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/http.service.ts#L701)
 
 Returns the URL of a registered endpoint **without calling `fetch`**.
 

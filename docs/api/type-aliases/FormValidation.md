@@ -16,7 +16,7 @@ type FormValidation<T> =
 };
 ```
 
-Defined in: [types/core/forms.ts:8](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/forms.ts#L8)
+Defined in: [types/core/forms.ts:8](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/forms.ts#L8)
 
 Outcome of validating a native form: the parsed values, or the per-field
 messages that blocked them. Both shapes carry `errors` so the caller can

@@ -6,7 +6,7 @@
 function useGetDirname(importMetaUrl): Promise<string>;
 ```
 
-Defined in: [infrastructure/filesystem/path.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/filesystem/path.service.ts#L63)
+Defined in: [infrastructure/filesystem/path.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/filesystem/path.service.ts#L63)
 
 Resolves the directory of a module from its `import.meta.url`.
 

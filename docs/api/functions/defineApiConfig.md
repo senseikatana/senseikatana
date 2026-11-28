@@ -6,16 +6,20 @@
 function defineApiConfig<T>(input): ConfigFacade<T>;
 ```
 
-Defined in: [core/services/http.service.ts:543](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/http.service.ts#L543)
+Defined in: [core/services/http.service.ts:574](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/http.service.ts#L574)
 
 Declares the API registry in a single call - the config-file entry point.
 
-Registers every [ApiEntry](../interfaces/ApiEntry.md) you list and returns them alongside the
-props, flags and methods declared on the same literal, so one `export default`
-is the whole setup: no second registration step.
+Flat entries stay supported: every [ApiEntry](../interfaces/ApiEntry.md) you list is registered,
+boolean flags are kept on `config`, and methods are returned on the facade.
+On top of that it accepts the Options-API-style sections:
 
-Only object entries shaped like `{ baseUri, endpoints }` reach the registry;
-boolean flags are kept on `config` for your own methods to read.
+- `apis` - a registry group, registered exactly like flat entries.
+- `data()` - returns the mutable facade state, exposed as `this.data`.
+- `onInit()` - runs once, after registration, with the facade as `this`.
+- `methods` - callable methods, merged flat onto the facade.
+
+One `export default` is the whole setup: no second registration step.
 
 ## Type Parameters
 
@@ -27,7 +31,7 @@ boolean flags are kept on `config` for your own methods to read.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `input` | `T` & `ThisType`\<[`ConfigFacade`](../type-aliases/ConfigFacade.md)\<`T`\>\> & [`ConfigValues`](../type-aliases/ConfigValues.md)\<`NoInfer`\<`T`\>, [`ApiConfigValue`](../type-aliases/ApiConfigValue.md)\> | API entries, flags and methods in one object literal. |
+| `input` | `T` & `ThisType`\<[`ConfigFacade`](../type-aliases/ConfigFacade.md)\<`T`\>\> | API entries, flags, sections and methods in one object literal. |
 
 ## Returns
 
@@ -37,23 +41,39 @@ The registered config plus the declared methods (see `ConfigFacade`).
 
 ## Throws
 
-If a non-method value is an object that is not an API entry.
+If a non-method value is an object that is not an API entry,
+  if a section has the wrong shape, or if a `methods` entry is not a function.
 
 ## Example
 
 ```ts
-import { defineApiConfig } from "katanakit-js";
+import { defineApiConfig, useFetch } from "katanakit-js";
 
 export default defineApiConfig({
-  pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
-  debug: true,
-  getPokemon: async function () {
-    return useFetch("pokeapi", "byId", { params: { id: 25 } });
+  apis: {
+    pokeapi: { baseUri: "https://pokeapi.co/api/v2", endpoints: { byId: "/pokemon/:id/" } },
+  },
+  data: () => ({ calls: 0 }),
+  onInit() {
+    // Runs once, after registration. Synchronous on purpose.
+  },
+  methods: {
+    async getPokemon(id: number) {
+      this.data.calls += 1;
+      return useFetch("pokeapi", "byId", { params: { id } });
+    },
   },
 });
 ```
 
 ## Remarks
 
-Methods must be written with `function`, not as arrows - `this.config`
-is undefined inside an arrow function.
+Methods must be written as method shorthand or with `function`, not
+as arrows - `this` is undefined inside an arrow function.
+
+`data` is plain mutable state: it is not reactive and it is shared by every
+method of that facade. `onInit` is synchronous because it runs while the
+module is evaluated; do async work in a method.
+
+`apis`, `data`, `onInit` and `methods` are reserved: an API or method with
+one of those names must be declared under `apis` / `methods` instead.

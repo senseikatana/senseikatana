@@ -2,7 +2,7 @@
 
 # Interface: IFormatterService
 
-Defined in: [types/core/formatter.ts:4](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L4)
+Defined in: [types/core/formatter.ts:4](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L4)
 
 Contract of the formatter facade.
 
@@ -14,7 +14,7 @@ Contract of the formatter facade.
 useCapitalize(text, locale?): string;
 ```
 
-Defined in: [types/core/formatter.ts:5](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L5)
+Defined in: [types/core/formatter.ts:5](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L5)
 
 #### Parameters
 
@@ -35,7 +35,7 @@ Defined in: [types/core/formatter.ts:5](https://github.com/senseikatana/katanaki
 useFormatCurrency(options): string;
 ```
 
-Defined in: [types/core/formatter.ts:6](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L6)
+Defined in: [types/core/formatter.ts:6](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L6)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ useFormatNumber(
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:7](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L7)
+Defined in: [types/core/formatter.ts:7](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L7)
 
 #### Parameters
 
@@ -86,7 +86,7 @@ Defined in: [types/core/formatter.ts:7](https://github.com/senseikatana/katanaki
 useJsonParse<T>(json): T;
 ```
 
-Defined in: [types/core/formatter.ts:9](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L9)
+Defined in: [types/core/formatter.ts:9](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L9)
 
 #### Type Parameters
 
@@ -112,7 +112,7 @@ Defined in: [types/core/formatter.ts:9](https://github.com/senseikatana/katanaki
 useJsonStringify(data): string;
 ```
 
-Defined in: [types/core/formatter.ts:10](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L10)
+Defined in: [types/core/formatter.ts:10](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L10)
 
 #### Parameters
 
@@ -132,7 +132,7 @@ Defined in: [types/core/formatter.ts:10](https://github.com/senseikatana/katanak
 useLowerCase(text, locale?): string;
 ```
 
-Defined in: [types/core/formatter.ts:11](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L11)
+Defined in: [types/core/formatter.ts:11](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L11)
 
 #### Parameters
 
@@ -153,7 +153,7 @@ Defined in: [types/core/formatter.ts:11](https://github.com/senseikatana/katanak
 useSalePrice(options): SalePrice;
 ```
 
-Defined in: [types/core/formatter.ts:8](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L8)
+Defined in: [types/core/formatter.ts:8](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L8)
 
 #### Parameters
 
@@ -175,7 +175,7 @@ Defined in: [types/core/formatter.ts:8](https://github.com/senseikatana/katanaki
 useUpperCase(text, locale?): string;
 ```
 
-Defined in: [types/core/formatter.ts:12](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/formatter.ts#L12)
+Defined in: [types/core/formatter.ts:12](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L12)
 
 #### Parameters
 

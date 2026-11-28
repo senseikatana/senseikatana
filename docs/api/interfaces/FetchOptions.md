@@ -2,7 +2,7 @@
 
 # Interface: FetchOptions\<T\>
 
-Defined in: [types/core/http.ts:40](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L40)
+Defined in: [types/core/http.ts:40](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L40)
 
 Options passed when executing a fetch request.
 
@@ -27,7 +27,7 @@ useFetch("api", "byId", { method: "GET", params: { id: 25 }, query: { limit: 2 }
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="ignoredefaultquery"></a> `ignoreDefaultQuery?` | `boolean` | Skip the endpoint's `defaultQueryParams` instead of merging them. | [types/core/http.ts:46](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L46) |
-| <a id="params"></a> `params?` | [`PathParams`](../type-aliases/PathParams.md) | Path params substituted into `:name` placeholders of the endpoint. | [types/core/http.ts:42](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L42) |
-| <a id="query"></a> `query?` | [`QueryParams`](../type-aliases/QueryParams.md) | Query-string params appended to the URL. | [types/core/http.ts:44](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L44) |
-| <a id="transform"></a> `transform?` | (`input`) => `T` \| `Promise`\<`T`\> | Maps the parsed response body to `T` before it is returned. | [types/core/http.ts:48](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/http.ts#L48) |
+| <a id="ignoredefaultquery"></a> `ignoreDefaultQuery?` | `boolean` | Skip the endpoint's `defaultQueryParams` instead of merging them. | [types/core/http.ts:46](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L46) |
+| <a id="params"></a> `params?` | [`PathParams`](../type-aliases/PathParams.md) | Path params substituted into `:name` placeholders of the endpoint. | [types/core/http.ts:42](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L42) |
+| <a id="query"></a> `query?` | [`QueryParams`](../type-aliases/QueryParams.md) | Query-string params appended to the URL. | [types/core/http.ts:44](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L44) |
+| <a id="transform"></a> `transform?` | (`input`) => `T` \| `Promise`\<`T`\> | Maps the parsed response body to `T` before it is returned. | [types/core/http.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L48) |

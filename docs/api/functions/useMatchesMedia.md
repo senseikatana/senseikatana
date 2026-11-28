@@ -6,7 +6,7 @@
 function useMatchesMedia(query): boolean;
 ```
 
-Defined in: [infrastructure/viewport/viewport.service.ts:56](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/viewport/viewport.service.ts#L56)
+Defined in: [infrastructure/viewport/viewport.service.ts:56](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/viewport/viewport.service.ts#L56)
 
 Tests a CSS media query against the current viewport.
 

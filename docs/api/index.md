@@ -142,7 +142,10 @@
 | [AiResult](type-aliases/AiResult.md) | Safe result (discriminated union) without throwing. |
 | [AiRole](type-aliases/AiRole.md) | Role of a chat message in the OpenAI-compatible protocol. |
 | [AiToolCall](type-aliases/AiToolCall.md) | A single tool call emitted by the model (OpenAI-compatible wire shape). |
-| [ApiConfigValue](type-aliases/ApiConfigValue.md) | Values accepted by [defineApiConfig](functions/defineApiConfig.md): an [ApiEntry](interfaces/ApiEntry.md), a boolean flag (kept on `config` only — never registered as an API) or a method. |
+| [ApiConfigNestedMethods](type-aliases/ApiConfigNestedMethods.md) | Methods declared in the `methods: {}` section, merged flat onto the facade alongside any top-level methods. Absent when the literal declares none. |
+| [ApiConfigSectionKey](type-aliases/ApiConfigSectionKey.md) | Section keys `defineApiConfig` reads as Options-API-style groups instead of flat entries. They are never copied onto `config` and never registered as APIs. |
+| [ApiConfigStateEntry](type-aliases/ApiConfigStateEntry.md) | State declared by the `data()` section — the return type of that factory. Absent when the literal declares no `data`, matching the runtime facade. |
+| [ApiConfigValue](type-aliases/ApiConfigValue.md) | Values accepted by [defineApiConfig](functions/defineApiConfig.md) as a flat entry: an [ApiEntry](interfaces/ApiEntry.md), a boolean flag (kept on `config` only — never registered as an API) or a method. |
 | [ApiError](type-aliases/ApiError.md) | Structure of the safe error returned on non-2xx or network failures. |
 | [ApisConfig](type-aliases/ApisConfig.md) | - |
 | [AppDateFormatOptions](type-aliases/AppDateFormatOptions.md) | - |
@@ -157,7 +160,7 @@
 | [ConfigData](type-aliases/ConfigData.md) | The props/booleans half of a `define*Config` literal — the config data. |
 | [ConfigFacade](type-aliases/ConfigFacade.md) | What every `define*Config` returns: the registered config under `config`, plus the methods declared alongside it so `this.config` resolves inside them. |
 | [ConfigMethod](type-aliases/ConfigMethod.md) | Any method a consumer declares inline in a `define*Config` literal. Written with `function` (never an arrow) so `this` resolves to the facade. |
-| [ConfigMethodEntries](type-aliases/ConfigMethodEntries.md) | The methods half of a `define*Config` literal. |
+| [ConfigMethodEntries](type-aliases/ConfigMethodEntries.md) | The flat methods half of a `define*Config` literal. |
 | [ConfigMethodKeys](type-aliases/ConfigMethodKeys.md) | Keys of `T` whose value is a [ConfigMethod](type-aliases/ConfigMethod.md). Methods declared as optional are still detected (`NonNullable`), so they are split out of the config half rather than leaking into it. |
 | [ConfigValues](type-aliases/ConfigValues.md) | Constrains every non-method entry of a `define*Config` literal to `V`, while leaving method entries untouched. Pair with `NoInfer<T>` in the signature so it validates without stealing inference from the literal. |
 | [Currency](type-aliases/Currency.md) | - |

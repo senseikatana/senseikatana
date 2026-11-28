@@ -2,7 +2,7 @@
 
 # Interface: OpenCodeMcpServer
 
-Defined in: [core/services/mcp.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L9)
+Defined in: [core/services/mcp.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L9)
 
 The `mcp.servers` value shape OpenCode accepts for one server. Only the
 fields this kit stores are emitted; every field is optional except `type`
@@ -12,9 +12,9 @@ because local and remote servers use disjoint keys.
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="command"></a> `command?` | `string`[] | [core/services/mcp.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L11) |
-| <a id="disabled"></a> `disabled?` | `boolean` | [core/services/mcp.service.ts:15](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L15) |
-| <a id="environment"></a> `environment?` | `Record`\<`string`, `string`\> | [core/services/mcp.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L13) |
-| <a id="headers"></a> `headers?` | `Record`\<`string`, `string`\> | [core/services/mcp.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L14) |
-| <a id="type"></a> `type` | `"local"` \| `"remote"` | [core/services/mcp.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L10) |
-| <a id="url"></a> `url?` | `string` | [core/services/mcp.service.ts:12](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/mcp.service.ts#L12) |
+| <a id="command"></a> `command?` | `string`[] | [core/services/mcp.service.ts:11](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L11) |
+| <a id="disabled"></a> `disabled?` | `boolean` | [core/services/mcp.service.ts:15](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L15) |
+| <a id="environment"></a> `environment?` | `Record`\<`string`, `string`\> | [core/services/mcp.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L13) |
+| <a id="headers"></a> `headers?` | `Record`\<`string`, `string`\> | [core/services/mcp.service.ts:14](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L14) |
+| <a id="type"></a> `type` | `"local"` \| `"remote"` | [core/services/mcp.service.ts:10](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L10) |
+| <a id="url"></a> `url?` | `string` | [core/services/mcp.service.ts:12](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L12) |

@@ -17,7 +17,7 @@ const McpServerSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/keyvault.schema.ts:66](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/keyvault.schema.ts#L66)
+Defined in: [schemas/keyvault.schema.ts:66](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/keyvault.schema.ts#L66)
 
 One MCP server. Mirrors the OpenCode `mcp.servers` contract: a `local`
 server runs a command over stdio, a `remote` server is an absolute

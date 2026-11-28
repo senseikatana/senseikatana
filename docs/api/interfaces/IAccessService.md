@@ -2,7 +2,7 @@
 
 # Interface: IAccessService
 
-Defined in: [types/core/access.ts:59](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/access.ts#L59)
+Defined in: [types/core/access.ts:59](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L59)
 
 Contract of the access-control facade. Pure, no I/O.
 
@@ -14,7 +14,7 @@ Contract of the access-control facade. Pure, no I/O.
 useCan(subject, capability): boolean;
 ```
 
-Defined in: [types/core/access.ts:60](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/access.ts#L60)
+Defined in: [types/core/access.ts:60](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L60)
 
 #### Parameters
 
@@ -37,7 +37,7 @@ Defined in: [types/core/access.ts:60](https://github.com/senseikatana/katanakit-
 useCapabilitiesFor(role): string[];
 ```
 
-Defined in: [types/core/access.ts:62](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/access.ts#L62)
+Defined in: [types/core/access.ts:62](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L62)
 
 #### Parameters
 
@@ -57,7 +57,7 @@ Defined in: [types/core/access.ts:62](https://github.com/senseikatana/katanakit-
 useHasRole(subject, role): boolean;
 ```
 
-Defined in: [types/core/access.ts:61](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/access.ts#L61)
+Defined in: [types/core/access.ts:61](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L61)
 
 #### Parameters
 
@@ -80,7 +80,7 @@ Defined in: [types/core/access.ts:61](https://github.com/senseikatana/katanakit-
 useRegisterRole(definition): void;
 ```
 
-Defined in: [types/core/access.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/access.ts#L63)
+Defined in: [types/core/access.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L63)
 
 #### Parameters
 
@@ -109,7 +109,7 @@ useRoles(): {
 }[];
 ```
 
-Defined in: [types/core/access.ts:64](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/access.ts#L64)
+Defined in: [types/core/access.ts:64](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L64)
 
 #### Returns
 

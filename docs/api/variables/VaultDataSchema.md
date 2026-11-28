@@ -35,6 +35,6 @@ const VaultDataSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/keyvault.schema.ts:89](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/schemas/keyvault.schema.ts#L89)
+Defined in: [schemas/keyvault.schema.ts:89](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/keyvault.schema.ts#L89)
 
 Decrypted vault payload — the complete state of the key manager.

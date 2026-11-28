@@ -6,7 +6,7 @@
 const LazyNodeCryptoStrategy: ICryptoStrategy;
 ```
 
-Defined in: [core/services/generator.service.ts:230](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/generator.service.ts#L230)
+Defined in: [core/services/generator.service.ts:230](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L230)
 
 Lazy Node.js `crypto` strategy for PBKDF2 hashing — thin adapter over
 [GeneratorService.useHash](../classes/GeneratorService.md#usehash) satisfying [ICryptoStrategy](../interfaces/ICryptoStrategy.md).

@@ -6,7 +6,7 @@
 function useRun<TInput, TOutput>(workerFunc, data): Promise<TOutput>;
 ```
 
-Defined in: [infrastructure/worker/worker.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/worker/worker.service.ts#L44)
+Defined in: [infrastructure/worker/worker.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/worker/worker.service.ts#L44)
 
 Runs a pure function in a one-shot Worker and destroys it afterwards.
 Falls back to running on the main thread when Workers are unavailable (SSR).

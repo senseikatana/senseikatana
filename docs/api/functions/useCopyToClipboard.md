@@ -6,7 +6,7 @@
 function useCopyToClipboard(text): Promise<boolean>;
 ```
 
-Defined in: [core/services/utils.service.ts:548](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/utils.service.ts#L548)
+Defined in: [core/services/utils.service.ts:548](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L548)
 
 Copies text to the clipboard (browser only).
 

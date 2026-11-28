@@ -6,7 +6,7 @@
 function useValidate<T>(schema, data): FetchResult<T>;
 ```
 
-Defined in: [core/services/validation.service.ts:98](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/validation.service.ts#L98)
+Defined in: [core/services/validation.service.ts:98](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L98)
 
 Validates unknown data against a Zod schema and returns a Safe Result.
 Wrapper sobre [ValidationService](../classes/ValidationService.md) (backward compatibility).

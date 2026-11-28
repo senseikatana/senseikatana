@@ -6,6 +6,6 @@
 type IfWriteQuery = z.infer<typeof IfWriteQuerySchema>;
 ```
 
-Defined in: [types/adapters/insforge.ts:36](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/insforge.ts#L36)
+Defined in: [types/adapters/insforge.ts:36](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/insforge.ts#L36)
 
 Options for an update or delete. Filters are REQUIRED (no mass writes).

@@ -2,7 +2,7 @@
 
 # Interface: DirectoryRepository
 
-Defined in: [core/services/directory.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L29)
+Defined in: [core/services/directory.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L29)
 
 Where user records actually live.
 
@@ -23,7 +23,7 @@ tempted to write sync code that only works against the fake.
 useCountByRole(role): Promise<number>;
 ```
 
-Defined in: [core/services/directory.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L48)
+Defined in: [core/services/directory.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L48)
 
 How many active users hold each role.
 
@@ -59,7 +59,7 @@ useCreate(user): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L33)
+Defined in: [core/services/directory.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L33)
 
 Persists a new person. Fails with `already_active` on a duplicate.
 
@@ -90,7 +90,7 @@ Persists a new person. Fails with `already_active` on a duplicate.
 useDelete(id): Promise<DirectoryResult<true>>;
 ```
 
-Defined in: [core/services/directory.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L39)
+Defined in: [core/services/directory.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L39)
 
 Row removal. Soft-delete belongs in [useUpdate](#useupdate), not here.
 
@@ -121,7 +121,7 @@ useGet(id): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L31)
+Defined in: [core/services/directory.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L31)
 
 #### Parameters
 
@@ -150,7 +150,7 @@ Defined in: [core/services/directory.service.ts:31](https://github.com/senseikat
 useList(query): Promise<DirectoryPageResult>;
 ```
 
-Defined in: [core/services/directory.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L30)
+Defined in: [core/services/directory.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L30)
 
 #### Parameters
 
@@ -185,7 +185,7 @@ useUpdate(id, patch): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/directory.service.ts#L34)
+Defined in: [core/services/directory.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L34)
 
 #### Parameters
 

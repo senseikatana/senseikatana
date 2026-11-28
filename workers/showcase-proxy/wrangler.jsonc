@@ -1,25 +1,9 @@
-// Subdomain Worker: forwards showcase.senseikatana.com to the workspace.
-//
-// What it used to do: proxy `showcase.senseikatana.com/<path>` to
-// `senseikatana.com/projects/<path>`. That path no longer exists — projects
-// moved to samuraicoder.dev and each one now lives at `/works/<slug>`, so the
-// proxy was returning 404 for every request.
-//
-// It is now a plain redirector: one hop to the page that actually serves the
-// content, and no dependency on this repo's build.
-//
-// The hostname keeps a proxied record so Cloudflare terminates TLS; this Worker
-// answers before the origin is reached. Do NOT also attach the hostname as a
-// Pages custom domain: that serves a duplicate of the apex on the subdomain.
-//
+// Subdomain Worker: forwards showcase.samuraicoder.com to the workspace.
 // Deploy: `bunx wrangler deploy -c workers/showcase-proxy/wrangler.jsonc`
-//
-// The route is per-zone. The zone must exist in the same Cloudflare account.
 {
   "$schema": "https://unpkg.com/wrangler@4.162.0/config-schema.json",
   "name": "showcase-proxy",
   "main": "src/index.ts",
   "compatibility_date": "2026-01-01",
-
-  "routes": [{ "pattern": "showcase.senseikatana.com/*", "zone_name": "senseikatana.com" }],
+  "routes": [{ "pattern": "showcase.samuraicoder.dev/*", "zone_name": "samuraicoder.dev" }],
 }

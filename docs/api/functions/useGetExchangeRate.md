@@ -6,7 +6,7 @@
 function useGetExchangeRate(from, to): Promise<SafeResult<number>>;
 ```
 
-Defined in: [infrastructure/currency/currency.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/currency/currency.service.ts#L95)
+Defined in: [infrastructure/currency/currency.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/currency/currency.service.ts#L95)
 
 Returns the exchange rate between two currencies.
 

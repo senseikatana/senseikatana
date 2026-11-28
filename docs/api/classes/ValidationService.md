@@ -2,7 +2,7 @@
 
 # Class: ValidationService
 
-Defined in: [core/services/validation.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/validation.service.ts#L13)
+Defined in: [core/services/validation.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L13)
 
 ValidationService - Singleton para validaciones.
 
@@ -19,7 +19,7 @@ excepciones. Puro y sin I/O, seguro para SSR.
 useValidate<T>(schema, data): FetchResult<T>;
 ```
 
-Defined in: [core/services/validation.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/validation.service.ts#L57)
+Defined in: [core/services/validation.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L57)
 
 Validates unknown data (API responses, configs, user input) against a
 Zod schema and returns a Safe Result instead of throwing.
@@ -61,7 +61,7 @@ if (result.ok) useBuildVideoEmbed(result.data);
 static getInstance(): ValidationService;
 ```
 
-Defined in: [core/services/validation.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/validation.service.ts#L32)
+Defined in: [core/services/validation.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L32)
 
 Obtiene la instancia única del ValidationService (Singleton).
 

@@ -2,7 +2,7 @@
 
 # Interface: IThemeService
 
-Defined in: [types/core/theme.ts:16](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L16)
+Defined in: [types/core/theme.ts:16](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L16)
 
 Contract of the theme facade.
 
@@ -14,7 +14,7 @@ Contract of the theme facade.
 useDestroyTheme(): void;
 ```
 
-Defined in: [types/core/theme.ts:24](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L24)
+Defined in: [types/core/theme.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L24)
 
 #### Returns
 
@@ -28,7 +28,7 @@ Defined in: [types/core/theme.ts:24](https://github.com/senseikatana/katanakit-j
 useGetResolved(): "light" | "dark";
 ```
 
-Defined in: [types/core/theme.ts:20](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L20)
+Defined in: [types/core/theme.ts:20](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L20)
 
 #### Returns
 
@@ -42,7 +42,7 @@ Defined in: [types/core/theme.ts:20](https://github.com/senseikatana/katanakit-j
 useGetThemeMode(): "system" | "light" | "dark";
 ```
 
-Defined in: [types/core/theme.ts:19](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L19)
+Defined in: [types/core/theme.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L19)
 
 #### Returns
 
@@ -56,7 +56,7 @@ Defined in: [types/core/theme.ts:19](https://github.com/senseikatana/katanakit-j
 useInitTheme(options?): void;
 ```
 
-Defined in: [types/core/theme.ts:17](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L17)
+Defined in: [types/core/theme.ts:17](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L17)
 
 #### Parameters
 
@@ -76,7 +76,7 @@ Defined in: [types/core/theme.ts:17](https://github.com/senseikatana/katanakit-j
 usePrefersColorScheme(): boolean;
 ```
 
-Defined in: [types/core/theme.ts:21](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L21)
+Defined in: [types/core/theme.ts:21](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L21)
 
 #### Returns
 
@@ -90,7 +90,7 @@ Defined in: [types/core/theme.ts:21](https://github.com/senseikatana/katanakit-j
 useResetTheme(): void;
 ```
 
-Defined in: [types/core/theme.ts:23](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L23)
+Defined in: [types/core/theme.ts:23](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L23)
 
 #### Returns
 
@@ -104,7 +104,7 @@ Defined in: [types/core/theme.ts:23](https://github.com/senseikatana/katanakit-j
 useSetThemeMode(mode): void;
 ```
 
-Defined in: [types/core/theme.ts:18](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L18)
+Defined in: [types/core/theme.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L18)
 
 #### Parameters
 
@@ -124,7 +124,7 @@ Defined in: [types/core/theme.ts:18](https://github.com/senseikatana/katanakit-j
 useToggleTheme(): void;
 ```
 
-Defined in: [types/core/theme.ts:22](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/theme.ts#L22)
+Defined in: [types/core/theme.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/theme.ts#L22)
 
 #### Returns
 

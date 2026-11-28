@@ -6,7 +6,7 @@
 function useInitAssistant(config?): void;
 ```
 
-Defined in: [core/services/assistant.service.ts:268](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/assistant.service.ts#L268)
+Defined in: [core/services/assistant.service.ts:268](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L268)
 
 Configures the assistant: provider (Kitt) plus an optional conversation store.
 

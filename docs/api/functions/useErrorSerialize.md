@@ -9,7 +9,7 @@ function useErrorSerialize(message?, code?): {
 };
 ```
 
-Defined in: [core/services/error.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/error.service.ts#L138)
+Defined in: [core/services/error.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/error.service.ts#L138)
 
 Serializes an error into a plain object. See [ErrorService.useErrorSerialize](../classes/ErrorService.md#useerrorserialize).
 

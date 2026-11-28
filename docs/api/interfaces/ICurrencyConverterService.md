@@ -2,7 +2,7 @@
 
 # Interface: ICurrencyConverterService
 
-Defined in: [types/core/currency-conversion.ts:62](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L62)
+Defined in: [types/core/currency-conversion.ts:62](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L62)
 
 Contract of the currency conversion facade.
 
@@ -85,7 +85,7 @@ useConvert(options): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [types/core/currency-conversion.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L63)
+Defined in: [types/core/currency-conversion.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L63)
 
 #### Parameters
 
@@ -179,7 +179,7 @@ Defined in: [types/core/currency-conversion.ts:63](https://github.com/senseikata
 useGetRate(from, to): Promise<SafeResult<number>>;
 ```
 
-Defined in: [types/core/currency-conversion.ts:64](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L64)
+Defined in: [types/core/currency-conversion.ts:64](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L64)
 
 #### Parameters
 
@@ -238,7 +238,7 @@ useGetSnapshot():
   | null;
 ```
 
-Defined in: [types/core/currency-conversion.ts:66](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L66)
+Defined in: [types/core/currency-conversion.ts:66](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L66)
 
 #### Returns
 
@@ -391,7 +391,7 @@ useRefreshRates(): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [types/core/currency-conversion.ts:65](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L65)
+Defined in: [types/core/currency-conversion.ts:65](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L65)
 
 #### Returns
 
@@ -441,7 +441,7 @@ Defined in: [types/core/currency-conversion.ts:65](https://github.com/senseikata
 useSubscribe(events): () => void;
 ```
 
-Defined in: [types/core/currency-conversion.ts:67](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/core/currency-conversion.ts#L67)
+Defined in: [types/core/currency-conversion.ts:67](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L67)
 
 #### Parameters
 

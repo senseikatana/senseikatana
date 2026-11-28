@@ -528,6 +528,18 @@
         "link": "/api/type-aliases/AiToolCall.md"
       },
       {
+        "text": "ApiConfigNestedMethods",
+        "link": "/api/type-aliases/ApiConfigNestedMethods.md"
+      },
+      {
+        "text": "ApiConfigSectionKey",
+        "link": "/api/type-aliases/ApiConfigSectionKey.md"
+      },
+      {
+        "text": "ApiConfigStateEntry",
+        "link": "/api/type-aliases/ApiConfigStateEntry.md"
+      },
+      {
         "text": "ApiConfigValue",
         "link": "/api/type-aliases/ApiConfigValue.md"
       },

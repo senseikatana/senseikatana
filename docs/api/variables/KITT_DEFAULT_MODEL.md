@@ -6,6 +6,6 @@
 const KITT_DEFAULT_MODEL: "qwen3.8-max" = "qwen3.8-max";
 ```
 
-Defined in: [core/services/agent.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/agent.service.ts#L17)
+Defined in: [core/services/agent.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L17)
 
 Default model for the Kitt assistant preset.

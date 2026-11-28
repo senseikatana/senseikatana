@@ -11,7 +11,7 @@ function useObserverCreate(
 ): void;
 ```
 
-Defined in: [infrastructure/observer/observer.service.ts:70](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/observer/observer.service.ts#L70)
+Defined in: [infrastructure/observer/observer.service.ts:70](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/observer/observer.service.ts#L70)
 
 Creates an IntersectionObserver under the given key.
 If an observer with the same key already exists, it is disconnected first.

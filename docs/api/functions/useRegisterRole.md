@@ -6,7 +6,7 @@
 function useRegisterRole(definition): void;
 ```
 
-Defined in: [core/services/access.service.ts:384](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L384)
+Defined in: [core/services/access.service.ts:384](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L384)
 
 Registers (or replaces) a role definition. Use it to extend a built-in
 role's capabilities, e.g. grant `content:create` to `member`.

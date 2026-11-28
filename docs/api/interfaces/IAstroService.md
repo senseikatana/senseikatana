@@ -2,7 +2,7 @@
 
 # Interface: IAstroService
 
-Defined in: [types/adapters/astro.ts:39](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L39)
+Defined in: [types/adapters/astro.ts:39](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L39)
 
 Contract of the Astro facade.
 
@@ -14,7 +14,7 @@ Contract of the Astro facade.
 useExtractUniqueValues<T, V>(items, keyFrom): V[];
 ```
 
-Defined in: [types/adapters/astro.ts:63](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L63)
+Defined in: [types/adapters/astro.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L63)
 
 #### Type Parameters
 
@@ -46,7 +46,7 @@ useFindEntry<T>(
 ): T | null;
 ```
 
-Defined in: [types/adapters/astro.ts:53](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L53)
+Defined in: [types/adapters/astro.ts:53](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L53)
 
 #### Type Parameters
 
@@ -78,7 +78,7 @@ useGeneratePagination<T, TParam>(
 ): AstroPath<TParam, PaginationProps<T>>[];
 ```
 
-Defined in: [types/adapters/astro.ts:54](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L54)
+Defined in: [types/adapters/astro.ts:54](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L54)
 
 #### Type Parameters
 
@@ -111,7 +111,7 @@ useGetStaticPaths<TData, TParam, TProps>(
 ): Promise<AstroServiceResult<AstroPath<TParam, TProps>[]>>;
 ```
 
-Defined in: [types/adapters/astro.ts:44](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L44)
+Defined in: [types/adapters/astro.ts:44](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L44)
 
 #### Type Parameters
 
@@ -141,7 +141,7 @@ Defined in: [types/adapters/astro.ts:44](https://github.com/senseikatana/katanak
 usePathsFrom<T, TParam, TProps>(items, options?): AstroPath<TParam, TProps>[];
 ```
 
-Defined in: [types/adapters/astro.ts:40](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L40)
+Defined in: [types/adapters/astro.ts:40](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L40)
 
 #### Type Parameters
 
@@ -170,7 +170,7 @@ Defined in: [types/adapters/astro.ts:40](https://github.com/senseikatana/katanak
 usePathsFromValues<TParam>(values, param?): AstroPath<TParam, string | number>[];
 ```
 
-Defined in: [types/adapters/astro.ts:59](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/types/adapters/astro.ts#L59)
+Defined in: [types/adapters/astro.ts:59](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L59)
 
 #### Type Parameters
 

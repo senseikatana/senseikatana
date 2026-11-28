@@ -2,7 +2,7 @@
 
 # Class: FlatAccessStrategy
 
-Defined in: [core/services/access.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L213)
+Defined in: [core/services/access.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L213)
 
 Estrategia estricta: sólo verifica capacidades declaradas explícitamente
 en el rol del sujeto, sin her jerarquía. Útil cuando cada rol debe
@@ -28,7 +28,7 @@ access.useCan({ id: 1, roles: ["editor"] }, "content:create"); // false
 new FlatAccessStrategy(): FlatAccessStrategy;
 ```
 
-Defined in: [core/services/access.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L216)
+Defined in: [core/services/access.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L216)
 
 #### Returns
 
@@ -42,7 +42,7 @@ Defined in: [core/services/access.service.ts:216](https://github.com/senseikatan
 useCan(subject, capability): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:247](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L247)
+Defined in: [core/services/access.service.ts:247](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L247)
 
 Whether the subject may perform a capability.
 
@@ -71,7 +71,7 @@ Whether the subject may perform a capability.
 useCapabilitiesFor(role): string[];
 ```
 
-Defined in: [core/services/access.service.ts:222](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L222)
+Defined in: [core/services/access.service.ts:222](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L222)
 
 Effective capabilities of a role (own plus inherited).
 
@@ -97,7 +97,7 @@ Effective capabilities of a role (own plus inherited).
 useHasRole(subject, role): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:243](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L243)
+Defined in: [core/services/access.service.ts:243](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L243)
 
 Exact role membership - no hierarchy involved.
 
@@ -126,7 +126,7 @@ Exact role membership - no hierarchy involved.
 useRegisterRole(definition): void;
 ```
 
-Defined in: [core/services/access.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L227)
+Defined in: [core/services/access.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L227)
 
 Registers (or replaces) a role definition.
 
@@ -156,7 +156,7 @@ Registers (or replaces) a role definition.
 useResetRoles(): void;
 ```
 
-Defined in: [core/services/access.service.ts:232](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L232)
+Defined in: [core/services/access.service.ts:232](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L232)
 
 Restores the built-in role registry.
 
@@ -181,7 +181,7 @@ useRoles(): {
 }[];
 ```
 
-Defined in: [core/services/access.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/access.service.ts#L239)
+Defined in: [core/services/access.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L239)
 
 Lists every registered role definition.
 

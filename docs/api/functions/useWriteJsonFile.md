@@ -10,7 +10,7 @@ function useWriteJsonFile(
 ): Promise<FilesystemResult<string>>;
 ```
 
-Defined in: [infrastructure/filesystem/filesystem.service.ts:302](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/filesystem/filesystem.service.ts#L302)
+Defined in: [infrastructure/filesystem/filesystem.service.ts:302](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/filesystem/filesystem.service.ts#L302)
 
 Serializes data to JSON and writes it to a file (pretty-printed by default).
 

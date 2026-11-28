@@ -22,7 +22,7 @@ function useParseYoutubeRss(xml): {
 }[];
 ```
 
-Defined in: [core/services/youtube.service.ts:534](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/youtube.service.ts#L534)
+Defined in: [core/services/youtube.service.ts:534](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L534)
 
 Parses a YouTube channel RSS feed into normalized videos.
 

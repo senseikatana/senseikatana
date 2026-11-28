@@ -10,7 +10,7 @@ function useRace<T>(
 ): Promise<T>;
 ```
 
-Defined in: [core/services/timing.service.ts:507](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/timing.service.ts#L507)
+Defined in: [core/services/timing.service.ts:507](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L507)
 
 Races a promise against a timeout. See [TimingService.useRace](../classes/TimingService.md#userace).
 

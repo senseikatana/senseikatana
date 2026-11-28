@@ -25,12 +25,77 @@ watch(() => route.hash, openFromHash);
 
 Every release KatanaKit JS has shipped, newest first — open a card to see the changes behind it. The newest one is already open, and the raw file lives in [`CHANGELOG.md`](https://github.com/senseikatana/katanakit-js/blob/main/CHANGELOG.md). Upgrading across majors? Start at the [upgrade guides](/guides/upgrade-to/).
 
-<p class="changelog-stats"><span><strong>140</strong> releases</span><span><strong>695</strong> changes logged</span><span>newest <strong>v7.5.2</strong> · Nov 15, 2026</span><span>since <strong>Sep 3, 2026</strong></span></p>
+<p class="changelog-stats"><span><strong>142</strong> releases</span><span><strong>707</strong> changes logged</span><span>newest <strong>v7.5.4</strong> · Nov 18, 2026</span><span>since <strong>Sep 3, 2026</strong></span></p>
 
-## v7 · 23 releases {#v7}
+## v7 · 25 releases {#v7}
 
-<details class="changelog-release changelog-release--latest" id="v7-5-2" open>
-<summary><span class="changelog-release__version">v7.5.2</span><span class="changelog-release__badge">Latest</span><span class="changelog-release__date">Nov 15, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+<details class="changelog-release changelog-release--latest" id="v7-5-4" open>
+<summary><span class="changelog-release__version">v7.5.4</span><span class="changelog-release__badge">Latest</span><span class="changelog-release__date">Nov 18, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+
+<div class="changelog-release__body">
+
+Highlights: feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord, plus 1 more change.
+
+- 🚀 feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord `98593cc`
+  - `INPUT-SURFACE-INVENTORY.md`
+  - `README.md`
+  - `docs/CNAME`
+  - `examples/api-manager/demo.ts`
+  - `src/core/services/http.service.ts`
+  - `src/types/core/config-facade.ts`
+  - `tests/http.service.test.ts`
+  - `tsconfig.examples.json`
+  - `tsconfig.examples.solid.json`
+- 🤖 ci: add release workflow and trim scripts to the essentials `2a42cc9`
+  - `.github/workflows/release.yml`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+- 📝 docs(CONTRIBUTING.md): add out `233c95c`
+- 🚀 feat(scripts): unify the docs script surface and add audit:urls `4757447`
+- 📦 build(bun.lock): add check and concurrently to package.json `7e04a13`
+- 📦 build(bun.lock): add better-auth to package.json and update to latest versions `7bbd5a0`
+
+</div>
+
+</details>
+
+<details class="changelog-release" id="v7-5-3">
+<summary><span class="changelog-release__version">v7.5.3</span><span class="changelog-release__date">Nov 15, 2026</span><span class="changelog-release__count">6 changes</span></summary>
+
+<div class="changelog-release__body">
+
+Highlights: feat(scripts): unify the docs script surface and add audit:urls, plus 3 more changes.
+
+- 📝 docs(CONTRIBUTING.md): add out `233c95c`
+  - `CONTRIBUTING.md`
+  - `INPUT-SURFACE-INVENTORY.md`
+  - `packages/ui/package.json`
+  - `scripts/audit-urls.mjs`
+- 🚀 feat(scripts): unify the docs script surface and add audit:urls `4757447`
+  - `AGENTS.md`
+  - `CONTRIBUTING.md`
+  - `package.json`
+  - `scripts/audit-urls.mjs`
+  - `scripts/clean.mjs`
+  - `scripts/docs-publish.mjs`
+  - `scripts/serve-docs.mjs`
+- 📦 build(bun.lock): add check and concurrently to package.json `7e04a13`
+  - `bun.lock`
+  - `package.json`
+- 📦 build(bun.lock): add better-auth to package.json and update to latest versions `7bbd5a0`
+  - `bun.lock`
+  - `package.json`
+  - `pnpm-lock.yaml`
+- 🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites `7a463bb`
+- 📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest `c606335`
+
+</div>
+
+</details>
+
+<details class="changelog-release" id="v7-5-2">
+<summary><span class="changelog-release__version">v7.5.2</span><span class="changelog-release__date">Nov 15, 2026</span><span class="changelog-release__count">6 changes</span></summary>
 
 <div class="changelog-release__body">
 

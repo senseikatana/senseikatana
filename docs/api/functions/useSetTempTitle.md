@@ -6,7 +6,7 @@
 function useSetTempTitle(tempTitle, durationMs?): void;
 ```
 
-Defined in: [infrastructure/viewport/viewport.service.ts:375](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/viewport/viewport.service.ts#L375)
+Defined in: [infrastructure/viewport/viewport.service.ts:375](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/viewport/viewport.service.ts#L375)
 
 Temporarily changes the document title, restoring the original after `durationMs`.
 

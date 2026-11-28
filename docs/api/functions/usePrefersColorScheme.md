@@ -6,7 +6,7 @@
 function usePrefersColorScheme(): boolean;
 ```
 
-Defined in: [infrastructure/theme/theme.service.ts:190](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/infrastructure/theme/theme.service.ts#L190)
+Defined in: [infrastructure/theme/theme.service.ts:190](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/theme/theme.service.ts#L190)
 
 Checks whether the user's OS is set to prefer a dark color scheme.
 

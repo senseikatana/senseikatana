@@ -6,7 +6,7 @@
 function useSalePrice(options): SalePrice;
 ```
 
-Defined in: [core/services/formatter.service.ts:277](https://github.com/senseikatana/katanakit-js/blob/4757447f65524cf82c4895860832b7d5c4bd38db/src/core/services/formatter.service.ts#L277)
+Defined in: [core/services/formatter.service.ts:277](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L277)
 
 Applies a discount and reports it. See [FormatterService.useSalePrice](../classes/FormatterService.md#usesaleprice).
 
