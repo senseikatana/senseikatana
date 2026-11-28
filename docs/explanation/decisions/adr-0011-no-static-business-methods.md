@@ -25,11 +25,11 @@ fake rate provider in tests, and makes the state invisible in the signature.
 Business behaviour is defined on **instances**. Statics are limited to the two
 lifecycle methods: `getInstance()` (the Singleton accessor) and
 `create(options)` (the DI factory for non-singleton instances). Everything
-else — conversion, formatting, fetching, subscribing — is a `use*` method on
+else — conversion, formatting, fetching, subscribing — is a method on
 the instance.
 
 Dependencies arrive through `create(options)` at construction time or through
-`useSet*` at runtime (`useSetProvider`, `useSetFormatter`), never through
+`set*` methods at runtime (`setProvider`, `setFormatter`), never through
 static reach-ins.
 
 ## Consequences
@@ -37,8 +37,9 @@ static reach-ins.
 **Better.** Every service can be tested with injected fakes —
 `CurrencyConverterService.create({ provider: fakeRates })` exercises the whole
 conversion path without a network. State and dependencies are visible in the
-API: if a method needs something, the constructor or a `useSet*` says so. The
-flat `use*` wrappers keep the ergonomic call style for the 90% case, so nobody
+API: if a method needs something, the constructor or a `set*()` method says
+so. The flat `on*` wrappers keep the ergonomic call style for the 90% case,
+so nobody
 pays for the discipline at the call site.
 
 **Worse.** Two ways to call the same thing exist (wrapper function vs.

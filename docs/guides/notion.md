@@ -29,18 +29,18 @@ defineNotionConfig({ token: process.env.NOTION_TOKEN });
 
 ```ts
 import {
-	useNotionGetPage,
-	useNotionCreatePage,
-	useNotionUpdatePage,
-	useNotionArchivePage,
+	onNotionGetPage,
+	onNotionCreatePage,
+	onNotionUpdatePage,
+	onNotionArchivePage,
 } from "katanakit-js/adapters/notion";
 
 // Get a single page with all its properties
-const page = await useNotionGetPage("page-id");
+const page = await onNotionGetPage("page-id");
 if (page.ok) console.log(page.data.properties);
 
 // Create a page inside a database
-const created = await useNotionCreatePage(
+const created = await onNotionCreatePage(
 	{ type: "database_id", database_id: "db-id" },
 	{
 		Name: { title: [{ type: "text", text: { content: "My Task" } }] },
@@ -49,35 +49,35 @@ const created = await useNotionCreatePage(
 );
 
 // Create a child page with content blocks
-const child = await useNotionCreatePage(
+const child = await onNotionCreatePage(
 	{ type: "page_id", page_id: "parent-id" },
 	{ title: { title: [{ type: "text", text: { content: "Child Page" } }] } },
 	[{ type: "paragraph", paragraph: { rich_text: [{ type: "text", text: { content: "Hello!" } }] } }],
 );
 
 // Update only the changed properties
-await useNotionUpdatePage("page-id", {
+await onNotionUpdatePage("page-id", {
 	Status: { select: { name: "Done" } },
 	DueDate: { date: { start: "2025-12-31" } },
 });
 
 // Archive (soft-delete) a page
-await useNotionArchivePage("page-id");
+await onNotionArchivePage("page-id");
 ```
 
 ## 3. Query databases
 
 ```ts
 import {
-	useNotionGetDatabase,
-	useNotionQueryDatabase,
-	useNotionCreateDatabase,
-	useNotionUpdateDatabase,
-	useNotionListAllDatabasePages,
+	onNotionGetDatabase,
+	onNotionQueryDatabase,
+	onNotionCreateDatabase,
+	onNotionUpdateDatabase,
+	onNotionListAllDatabasePages,
 } from "katanakit-js/adapters/notion";
 
 // Inspect the schema (property names, types, options)
-const schema = await useNotionGetDatabase("db-id");
+const schema = await onNotionGetDatabase("db-id");
 if (schema.ok) {
 	Object.entries(schema.data.properties).forEach(([name, prop]) => {
 		console.log(`${name}: ${prop.type}`);
@@ -85,23 +85,23 @@ if (schema.ok) {
 }
 
 // One page of results, with filter + sort
-const page1 = await useNotionQueryDatabase("db-id", {
+const page1 = await onNotionQueryDatabase("db-id", {
 	filter: { property: "Status", select: { equals: "Published" } },
 	sorts: [{ property: "Date", direction: "descending" }],
 	page_size: 10,
 });
 
 // ALL results — cursor pagination handled internally
-const all = await useNotionListAllDatabasePages("db-id");
+const all = await onNotionListAllDatabasePages("db-id");
 
-const published = await useNotionListAllDatabasePages(
+const published = await onNotionListAllDatabasePages(
 	"db-id",
 	{ property: "Status", select: { equals: "Published" } },
 	[{ property: "Date", direction: "descending" }],
 );
 
 // Create and rename databases
-await useNotionCreateDatabase(
+await onNotionCreateDatabase(
 	{ type: "page_id", page_id: "parent-id" },
 	[{ type: "text", text: { content: "My Tasks" } }],
 	{
@@ -111,29 +111,29 @@ await useNotionCreateDatabase(
 	},
 );
 
-await useNotionUpdateDatabase("db-id", [{ type: "text", text: { content: "Renamed Database" } }]);
+await onNotionUpdateDatabase("db-id", [{ type: "text", text: { content: "Renamed Database" } }]);
 ```
 
 ## 4. Work with blocks
 
 ```ts
 import {
-	useNotionGetBlock,
-	useNotionGetBlockChildren,
-	useNotionListAllBlockChildren,
-	useNotionAppendBlocks,
-	useNotionUpdateBlock,
-	useNotionDeleteBlock,
+	onNotionGetBlock,
+	onNotionGetBlockChildren,
+	onNotionListAllBlockChildren,
+	onNotionAppendBlocks,
+	onNotionUpdateBlock,
+	onNotionDeleteBlock,
 } from "katanakit-js/adapters/notion";
 
 // ALL blocks of a page (auto-pagination)
-const blocks = await useNotionListAllBlockChildren("page-id");
+const blocks = await onNotionListAllBlockChildren("page-id");
 if (blocks.ok) {
 	blocks.data.forEach((b) => console.log(b.type)); // "paragraph", "heading_1", …
 }
 
 // Manual pagination when you need the raw cursor
-const page = await useNotionGetBlockChildren("page-id", { page_size: 50 });
+const page = await onNotionGetBlockChildren("page-id", { page_size: 50 });
 if (page.ok) {
 	console.log(page.data.results); // blocks
 	console.log(page.data.has_more); // true if more pages exist
@@ -141,7 +141,7 @@ if (page.ok) {
 }
 
 // Append content to a page
-await useNotionAppendBlocks("page-id", [
+await onNotionAppendBlocks("page-id", [
 	{
 		type: "heading_2",
 		heading_2: { rich_text: [{ type: "text", text: { content: "New Section" } }] },
@@ -160,37 +160,37 @@ await useNotionAppendBlocks("page-id", [
 ]);
 
 // Update and delete blocks
-await useNotionUpdateBlock("block-id", {
+await onNotionUpdateBlock("block-id", {
 	paragraph: { rich_text: [{ type: "text", text: { content: "Updated text" } }] },
 });
-await useNotionDeleteBlock("block-id");
+await onNotionDeleteBlock("block-id");
 ```
 
 ## 5. Search and users
 
 ```ts
-import { useNotionSearchContent, useNotionGetUser, useNotionListUsers } from "katanakit-js/adapters/notion";
+import { onNotionSearchContent, onNotionGetUser, onNotionListUsers } from "katanakit-js/adapters/notion";
 
 // Search everything
-const found = await useNotionSearchContent({ query: "meeting notes" });
+const found = await onNotionSearchContent({ query: "meeting notes" });
 
 // Search only databases
-const dbs = await useNotionSearchContent({
+const dbs = await onNotionSearchContent({
 	query: "tasks",
 	filter: { value: "database", property: "object" },
 });
 
 // Search only pages, most recently edited first
-const pages = await useNotionSearchContent({
+const pages = await onNotionSearchContent({
 	filter: { value: "page", property: "object" },
 	sort: { direction: "descending", timestamp: "last_edited_time" },
 });
 
 // Workspace members (page.created_by.id / page.last_edited_by.id)
-const user = await useNotionGetUser("user-id");
+const user = await onNotionGetUser("user-id");
 if (user.ok) console.log(user.data.name);
 
-const users = await useNotionListUsers();
+const users = await onNotionListUsers();
 if (users.ok) users.data.results.forEach((u) => console.log(u.name));
 ```
 
@@ -198,7 +198,7 @@ if (users.ok) users.data.results.forEach((u) => console.log(u.name));
 
 | Framework | Example | Description |
 | --- | --- | --- |
-| **Vue 3** | [`examples/notion/vue-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/vue-blog.vue) | Blog listing with the `useQuery` composable |
+| **Vue 3** | [`examples/notion/vue-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/vue-blog.vue) | Blog listing with the `onQuery` composable |
 | **Nuxt 3** | [`examples/notion/nuxt-blog.vue`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/nuxt-blog.vue) | SSR blog listing with `useAsyncData` |
 | **Astro** | [`examples/notion/astro-blog.astro`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/astro-blog.astro) | Static blog listing |
 | **Next.js** | [`examples/notion/next-blog.tsx`](https://github.com/senseikatana/katanakit-js/tree/main/examples/notion/next-blog.tsx) | Server component listing |

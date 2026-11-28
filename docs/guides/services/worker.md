@@ -13,11 +13,11 @@ defaults; every signature below is exact.
 
 The module offers two execution shapes:
 
-- **One-shot work** — [`useRun()`](#userunworkerfunc-data) spins up a dedicated
+- **One-shot work** — [`onRun()`](#onrunworkerfunc-data) spins up a dedicated
   Worker per call and destroys it the moment the task settles.
-- **Keyed pools** — [`useCreatePool()`](#usecreatepoolkey-workerfunc) keeps one
+- **Keyed pools** — [`onCreatePool()`](#oncreatepoolkey-workerfunc) keeps one
   Worker alive under a string key and
-  [`useRunPool()`](#userunpoolkey-data) reuses it across calls.
+  [`onRunPool()`](#onrunpoolkey-data) reuses it across calls.
 
 Two constraints shape every function on this page:
 
@@ -38,7 +38,7 @@ Two constraints shape every function on this page:
 **SSR behavior.** When `window` or `Worker` is unavailable, both runners execute
 `workerFunc` inline on the main thread and return a resolved promise. Your
 module stays importable from server components and pre-render passes — it just
-loses the off-thread benefit. `useCreatePool()` still registers the key, so the
+loses the off-thread benefit. `onCreatePool()` still registers the key, so the
 rest of the registry API behaves consistently.
 
 **Cleanup model.** One-shot workers always terminate themselves and revoke their
@@ -52,32 +52,32 @@ Original types and stack traces are not preserved.
 
 | Export | Signature | Returns |
 | --- | --- | --- |
-| `useRun` | `<TInput, TOutput>(workerFunc, data)` | `Promise<TOutput>` |
-| `useCreatePool` | `<TInput, TOutput>(key, workerFunc)` | `void` |
-| `useRunPool` | `<TInput, TOutput>(key, data)` | `Promise<TOutput>` |
-| `useTerminate` | `(key)` | `void` |
-| `useTerminateAll` | `()` | `void` |
-| `useHasWorker` | `(key)` | `boolean` |
-| `useWorkerKeys` | `()` | `string[]` |
+| `onRun` | `<TInput, TOutput>(workerFunc, data)` | `Promise<TOutput>` |
+| `onCreatePool` | `<TInput, TOutput>(key, workerFunc)` | `void` |
+| `onRunPool` | `<TInput, TOutput>(key, data)` | `Promise<TOutput>` |
+| `onTerminate` | `(key)` | `void` |
+| `onTerminateAll` | `()` | `void` |
+| `onHasWorker` | `(key)` | `boolean` |
+| `onWorkerKeys` | `()` | `string[]` |
 
 ## Quick example
 
 ```ts
 import {
-  useRun, useCreatePool, useRunPool, useTerminate,
+  onRun, onCreatePool, onRunPool, onTerminate,
 } from "katanakit-js";
 
 // One-shot: a fresh worker per call, destroyed as soon as it answers
-const doubled = await useRun((n: number) => n * 2, 21);
+const doubled = await onRun((n: number) => n * 2, 21);
 console.log(doubled); // 42
 
 // Keyed pool: one long-lived worker reused across calls
-useCreatePool<number, number>("math:square", (n) => n ** 2);
-const a = await useRunPool<number, number>("math:square", 9);  // 81
-const b = await useRunPool<number, number>("math:square", 12); // 144
+onCreatePool<number, number>("math:square", (n) => n ** 2);
+const a = await onRunPool<number, number>("math:square", 9);  // 81
+const b = await onRunPool<number, number>("math:square", 12); // 144
 
 // Tear the pool down when the feature unmounts
-useTerminate("math:square");
+onTerminate("math:square");
 ```
 
 ## Creating & running
@@ -85,7 +85,7 @@ useTerminate("math:square");
 One-shot execution is the simplest path: no registry entry, no bookkeeping, and
 the worker disappears the moment it replies.
 
-### useRun(workerFunc, data)
+### onRun(workerFunc, data)
 
 Runs `workerFunc` in a **dedicated, one-shot Worker** and returns its result. In
 the browser the sequence is: serialize the function, build a Blob and an object
@@ -94,7 +94,7 @@ reply. The worker is terminated and the object URL revoked as soon as the
 promise settles — success or failure.
 
 Use it for isolated jobs that will not repeat often enough to justify a pool.
-Every call pays the worker startup cost, so a loop of `useRun()` calls is a
+Every call pays the worker startup cost, so a loop of `onRun()` calls is a
 smell: register a pool instead.
 
 **Parameters**
@@ -112,9 +112,9 @@ Async functions are awaited inside the worker before the reply is posted.
 **Edge cases**
 
 - There is **no cancellation handle**: a one-shot worker cannot be aborted from
-  outside. Combine with `useRace()` from Timing when you need a deadline.
+  outside. Combine with `onRace()` from Timing when you need a deadline.
 - A synchronous throw in the SSR fallback still surfaces as a **rejected
-  promise**, because `useRun()` is `async`.
+  promise**, because `onRun()` is `async`.
 - The wire contract is `{ ok: true, payload }` or `{ ok: false, error }`. Error
   messages are flattened; type and stack are lost.
 - A non-cloneable return value is caught by the worker's own promise chain and
@@ -131,12 +131,12 @@ Async functions are awaited inside the worker before the reply is posted.
 | Blob or Worker construction fails | The original error from the `try` block |
 
 ```ts
-import { useRun } from "katanakit-js";
+import { onRun } from "katanakit-js";
 
-const doubled = await useRun((n: number) => n * 2, 21);
+const doubled = await onRun((n: number) => n * 2, 21);
 console.log(doubled); // 42
 
-const upper = await useRun(async (lines: string[]) => {
+const upper = await onRun(async (lines: string[]) => {
   await Promise.resolve(); // async work is awaited inside the worker
   return lines.map((line) => line.toUpperCase());
 }, ["a", "b"]);
@@ -149,11 +149,11 @@ The worker owns the whole transformation, and the UI thread only receives the
 finished rows:
 
 ```ts
-import { useRun } from "katanakit-js";
+import { onRun } from "katanakit-js";
 
 type CsvRow = Record<string, string>;
 
-const rows = await useRun((csv: string): CsvRow[] => {
+const rows = await onRun((csv: string): CsvRow[] => {
   const [headerLine, ...lines] = csv.trim().split("\n");
   const header = headerLine.split(",");
   return lines.map((line) => {
@@ -170,29 +170,29 @@ console.table(rows.slice(0, 3));
 ## Pools
 
 A pool is **one Worker plus a pending-task map**. Every
-[`useRunPool()`](#userunpoolkey-data) call gets a unique `__taskId`; the worker
+[`onRunPool()`](#onrunpoolkey-data) call gets a unique `__taskId`; the worker
 echoes it back, and the caller removes its own listeners before settling. That
 correlation is what makes concurrent calls safe: reply A can never resolve call
-B. Reusing the same worker avoids the startup cost that `useRun()` pays on every
+B. Reusing the same worker avoids the startup cost that `onRun()` pays on every
 call, which matters when the same transformation runs dozens of times.
 
 A pool holds exactly **one worker** — it is a reuse unit, not a thread pool of N
 workers, and it has no built-in concurrency limit. Dispatch as many tasks as you
 want; the worker's event loop orders them, and async functions may interleave.
 
-### useCreatePool(key, workerFunc)
+### onCreatePool(key, workerFunc)
 
 Registers a **reusable Worker** under a string key. In the browser the same
-serialization used by `useRun()` happens once; the worker then stays alive until
+serialization used by `onRun()` happens once; the worker then stays alive until
 you terminate it. In SSR it registers a placeholder entry with no worker, so
-`useHasWorker()`, `useWorkerKeys()` and `useRunPool()` keep working with inline
+`onHasWorker()`, `onWorkerKeys()` and `onRunPool()` keep working with inline
 execution.
 
 **Parameters**
 
 - `key` — unique string identifying the pool. Any string works, but namespace it
   (`"images:grayscale"`, `"crypto:sha256"`) to avoid collisions across features.
-- `workerFunc` — same contract and constraints as `useRun()`.
+- `workerFunc` — same contract and constraints as `onRun()`.
 
 **Returns** — `void`. The key is the handle; there is no pool object to keep.
 
@@ -202,24 +202,24 @@ execution.
   terminated first — its in-flight promises reject with
   `Worker pool "<key>" was terminated` — and a new worker replaces it.
 - The function is **fixed for the pool's lifetime**. To change behavior, call
-  `useCreatePool()` again with the same key (which tears the old worker down) or
+  `onCreatePool()` again with the same key (which tears the old worker down) or
   terminate first.
 - There is **no idle timeout**: an unused pool keeps its worker alive until
-  `useTerminate()` / `useTerminateAll()`. Register pools at the boundary of the
+  `onTerminate()` / `onTerminateAll()`. Register pools at the boundary of the
   feature that owns them so lifetime is obvious.
 - Creating a pool does not run anything; it only provisions the worker.
 
 ```ts
-import { useCreatePool, useRunPool } from "katanakit-js";
+import { onCreatePool, onRunPool } from "katanakit-js";
 
-useCreatePool<number, number>("math:square", (n) => n ** 2);
+onCreatePool<number, number>("math:square", (n) => n ** 2);
 
-const squared = await useRunPool<number, number>("math:square", 9);
+const squared = await onRunPool<number, number>("math:square", 9);
 console.log(squared); // 81
 
 // Re-registering swaps the function and the worker
-useCreatePool<number, number>("math:square", (n) => n ** 3);
-console.log(await useRunPool<number, number>("math:square", 3)); // 27
+onCreatePool<number, number>("math:square", (n) => n ** 3);
+console.log(await onRunPool<number, number>("math:square", 3)); // 27
 ```
 
 **Real use case** — image processing. Register the grayscale transform once at
@@ -227,11 +227,11 @@ the boundary of the editor feature; the pool survives route changes in an SPA,
 so the second photo never pays worker startup again:
 
 ```ts
-import { useCreatePool } from "katanakit-js";
+import { onCreatePool } from "katanakit-js";
 
 type Frame = { data: Uint8ClampedArray; width: number; height: number };
 
-useCreatePool<Frame, Frame>("images:grayscale", (frame) => {
+onCreatePool<Frame, Frame>("images:grayscale", (frame) => {
   const out = new Uint8ClampedArray(frame.data.length);
   for (let i = 0; i < frame.data.length; i += 4) {
     const gray =
@@ -243,7 +243,7 @@ useCreatePool<Frame, Frame>("images:grayscale", (frame) => {
 });
 ```
 
-### useRunPool(key, data)
+### onRunPool(key, data)
 
 Dispatches a task to the worker registered under `key` and resolves with its
 result. Internally: generate a task id, register per-task `message` and `error`
@@ -252,7 +252,7 @@ up every listener as soon as the matching reply arrives.
 
 **Parameters**
 
-- `key` — a key previously passed to `useCreatePool()`.
+- `key` — a key previously passed to `onCreatePool()`.
 - `data` — the task input, structured-cloneable.
 
 **Returns** — `Promise<TOutput>`.
@@ -263,26 +263,26 @@ up every listener as soon as the matching reply arrives.
   `Worker pool "<key>" not found`. Note the semantics: it is a *rejection*, not
   a synchronous throw, so a bare `try/catch` around the call will not see it —
   `await` it or attach `.catch()`.
-- **SSR fallback:** `entry.func(data)` runs inline. Because `useRunPool()` is
+- **SSR fallback:** `entry.func(data)` runs inline. Because `onRunPool()` is
   not `async`, a synchronous throw here propagates synchronously instead of
-  rejecting; guard with `useAttempt()` at application boundaries.
+  rejecting; guard with `onAttempt()` at application boundaries.
 - **Concurrency:** tasks are posted in call order and processed by the single
   worker's event loop; async results may interleave. Use several pool keys when
   you genuinely need parallel CPU lanes.
 - **Worker-level failures** (for example, a function source that fails to parse
   when the worker starts) fire an `error` event on the shared worker and reject
   **every in-flight task** of that pool, not just one.
-- Return values must survive structured cloning, exactly as with `useRun()`.
+- Return values must survive structured cloning, exactly as with `onRun()`.
 
 ```ts
-import { useCreatePool, useRunPool } from "katanakit-js";
+import { onCreatePool, onRunPool } from "katanakit-js";
 
-useCreatePool<string, number>("text:count", (text) => text.length);
+onCreatePool<string, number>("text:count", (text) => text.length);
 
 // Concurrent calls share the worker; __taskId keeps replies correlated
 const [title, body] = await Promise.all([
-  useRunPool<string, number>("text:count", "KatanaKit"),
-  useRunPool<string, number>("text:count", "Worker pool"),
+  onRunPool<string, number>("text:count", "KatanaKit"),
+  onRunPool<string, number>("text:count", "Worker pool"),
 ]);
 
 console.log(title, body); // 9 11
@@ -295,9 +295,9 @@ worker globals, so the same function runs in the browser worker and in the SSR
 fallback (Node 22 exposes the same globals):
 
 ```ts
-import { useCreatePool, useRunPool } from "katanakit-js";
+import { onCreatePool, onRunPool } from "katanakit-js";
 
-useCreatePool<string, string>("crypto:sha256", async (text) => {
+onCreatePool<string, string>("crypto:sha256", async (text) => {
   const bytes = new TextEncoder().encode(text);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   return Array.from(new Uint8Array(digest))
@@ -306,7 +306,7 @@ useCreatePool<string, string>("crypto:sha256", async (text) => {
 });
 
 const hashes = await Promise.all(
-  chunks.map((chunk) => useRunPool<string, string>("crypto:sha256", chunk)),
+  chunks.map((chunk) => onRunPool<string, string>("crypto:sha256", chunk)),
 );
 
 console.log(hashes.length);
@@ -318,7 +318,7 @@ The registry is observable and explicitly torn down. Nothing is garbage
 collected automatically: pools exist until terminated, so treat pool lifetime
 as owned by the feature that registered them.
 
-### useTerminate(key)
+### onTerminate(key)
 
 Terminates the pool registered under `key` and rejects every task still in
 flight. The sequence is: reject pending tasks with
@@ -334,24 +334,24 @@ microtask queue.
 **Edge cases**
 
 - In-flight callers receive a rejection — handle it (`await` inside `try/catch`,
-  or `useAttempt()`) or the console will report an unhandled rejection.
-- After termination, `useHasWorker(key)` is `false` and `useRunPool(key, …)`
+  or `onAttempt()`) or the console will report an unhandled rejection.
+- After termination, `onHasWorker(key)` is `false` and `onRunPool(key, …)`
   rejects with "not found" until the pool is registered again.
 - In SSR the worker placeholder is skipped, but pending bookkeeping and the
   registry entry are still cleaned up.
 
 ```ts
-import { useCreatePool, useHasWorker, useRunPool, useTerminate } from "katanakit-js";
+import { onCreatePool, onHasWorker, onRunPool, onTerminate } from "katanakit-js";
 
-useCreatePool<string, number>("text:length", (text) => text.length);
+onCreatePool<string, number>("text:length", (text) => text.length);
 
-const job = useRunPool<string, number>("text:length", "hello");
-useTerminate("text:length"); // rejects `job` immediately
+const job = onRunPool<string, number>("text:length", "hello");
+onTerminate("text:length"); // rejects `job` immediately
 
 await job.catch((error) => console.warn(error.message));
 // Worker pool "text:length" was terminated
 
-console.log(useHasWorker("text:length")); // false
+console.log(onHasWorker("text:length")); // false
 ```
 
 **Real use case** — leaving the image editor route. In-flight grayscale jobs
@@ -359,34 +359,34 @@ have no value once the view is gone; terminating the pool cancels them at once
 and frees the worker thread instead of letting stale frames complete:
 
 ```ts
-import { useTerminate } from "katanakit-js";
+import { onTerminate } from "katanakit-js";
 
 onRouteLeave(() => {
-  useTerminate("images:grayscale");
+  onTerminate("images:grayscale");
 });
 ```
 
-### useTerminateAll()
+### onTerminateAll()
 
-Iterates every key in the registry and calls `useTerminate()` on each, rejecting
+Iterates every key in the registry and calls `onTerminate()` on each, rejecting
 all in-flight tasks across all pools. Safe to call when no pools are registered.
 
 **Returns** — `void`.
 
 **Edge cases**
 
-- It delegates to `useTerminate()` per key, so every per-pool guarantee applies.
-- It does **not** track one-shot `useRun()` workers — those manage their own
+- It delegates to `onTerminate()` per key, so every per-pool guarantee applies.
+- It does **not** track one-shot `onRun()` workers — those manage their own
   lifecycle and are already gone by the time they settle.
 - Useful in hot-reload hooks and app-level unmount handlers; keep it out of
   render paths, since it kills work other components may still be awaiting.
 
 ```ts
-import { useTerminateAll, useWorkerKeys } from "katanakit-js";
+import { onTerminateAll, onWorkerKeys } from "katanakit-js";
 
-console.log(useWorkerKeys()); // ["math:square", "crypto:sha256"]
-useTerminateAll();
-console.log(useWorkerKeys()); // []
+console.log(onWorkerKeys()); // ["math:square", "crypto:sha256"]
+onTerminateAll();
+console.log(onWorkerKeys()); // []
 ```
 
 **Real use case** — session teardown. On logout, drop every background
@@ -394,15 +394,15 @@ computation before clearing user state, so no late worker reply repopulates a
 store that is being reset:
 
 ```ts
-import { useTerminateAll } from "katanakit-js";
+import { onTerminateAll } from "katanakit-js";
 
 export function onSessionEnd() {
-  useTerminateAll(); // reject and cancel all pooled work
+  onTerminateAll(); // reject and cancel all pooled work
   resetStores();
 }
 ```
 
-### useHasWorker(key)
+### onHasWorker(key)
 
 `true` when a pool is registered under `key`, whether it was created in the
 browser or via the SSR fallback. Pure registry lookup: no worker is touched and
@@ -418,19 +418,19 @@ it also lets a re-run effect avoid tearing down a pool that already exists (and
 with it, in-flight tasks).
 
 ```ts
-import { useCreatePool, useHasWorker } from "katanakit-js";
+import { onCreatePool, onHasWorker } from "katanakit-js";
 
-if (!useHasWorker("text:length")) {
-  useCreatePool<string, number>("text:length", (text) => text.length);
+if (!onHasWorker("text:length")) {
+  onCreatePool<string, number>("text:length", (text) => text.length);
 }
 ```
 
 **Real use case** — effect hardening. Frameworks that run effects twice in
 development (React StrictMode, for instance) can call the guard before
-`useCreatePool()`, so the second run does not terminate and rebuild the pool
+`onCreatePool()`, so the second run does not terminate and rebuild the pool
 while the first task is still in flight.
 
-### useWorkerKeys()
+### onWorkerKeys()
 
 Returns a snapshot array of every registered pool key, in insertion order.
 
@@ -441,32 +441,32 @@ mutating it does not affect the registry.
 time; keys created or terminated afterwards will not appear or disappear.
 
 ```ts
-import { useHasWorker, useWorkerKeys } from "katanakit-js";
+import { onHasWorker, onWorkerKeys } from "katanakit-js";
 
-const active = useWorkerKeys();
-console.table(active.map((key) => ({ key, alive: useHasWorker(key) })));
+const active = onWorkerKeys();
+console.table(active.map((key) => ({ key, alive: onHasWorker(key) })));
 ```
 
 **Real use case** — a diagnostics panel or a test assertion that no pool leaked.
-Because `useTerminateAll()` empties the registry, pairing the two is the
+Because `onTerminateAll()` empties the registry, pairing the two is the
 canonical teardown check:
 
 ```ts
 import { afterEach, expect } from "vitest";
-import { useTerminateAll, useWorkerKeys } from "katanakit-js";
+import { onTerminateAll, onWorkerKeys } from "katanakit-js";
 
 afterEach(() => {
-  useTerminateAll();
-  expect(useWorkerKeys()).toEqual([]);
+  onTerminateAll();
+  expect(onWorkerKeys()).toEqual([]);
 });
 ```
 
 ## Related
 
-- [Generator](/guides/services/generator) — `useHash()` and `usePbkdf2Hash()`
+- [Generator](/guides/services/generator) — `GeneratorService.getInstance().hash()` and `pbkdf2Hash()`
   for the hashing work you may want to move into a worker.
-- [Timing](/guides/services/timing) — `useRace()` and `useDebounce()` to bound
+- [Timing](/guides/services/timing) — `onRace()` and `onDebounce()` to bound
   how often pool tasks are dispatched.
 - [Filesystem](/guides/filesystem) — read the CSV files and binary assets that
-  `useRun()` processes.
+  `onRun()` processes.
 - [API Reference](/api/) — every export on this page, generated from source.

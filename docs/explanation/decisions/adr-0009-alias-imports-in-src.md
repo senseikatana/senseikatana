@@ -30,7 +30,7 @@ import.
 ## Decision
 
 Cross-folder imports in `src/` use the alias, keeping the `.js` extension:
-`import { useLogger } from "@/core/services/logger.service.js"`. Same-folder
+`import { onLogger } from "@/core/services/logger.service.js"`. Same-folder
 imports stay relative, where `./x.js` is already the shortest correct form.
 
 `tsc-alias` is a dev dependency and runs immediately after `tsc6` in

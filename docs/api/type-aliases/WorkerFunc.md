@@ -6,7 +6,7 @@
 type WorkerFunc<TInput, TOutput> = (data) => TOutput | Promise<TOutput>;
 ```
 
-Defined in: [types/core/workers.ts:1](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/workers.ts#L1)
+Defined in: [types/core/workers.ts:1](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/workers.ts#L1)
 
 ## Type Parameters
 

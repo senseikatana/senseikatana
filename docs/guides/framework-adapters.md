@@ -12,15 +12,15 @@ KatanaKit ships first-class adapters for the major front-end frameworks. They wr
 - **Vue** — composables with `ref`/`shallowRef` (`katanakit-js/adapters/vue`)
 - **Nuxt** — H3 server helpers (`katanakit-js/adapters/nuxt`)
 
-Every UI adapter exposes the same surface: `useQuery`, `useMutation`, `useRequest`, and `useWatch`. `useQuery`/`useMutation` wrap TanStack Query and return its native result object (`isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, …); `useRequest`/`useWatch` are KatanaKit's own primitives, each exposed with the framework's reactivity. Meta-frameworks such as Nuxt and Astro layer their own server helpers on top — see their pages for the exact surface.
+Every UI adapter exposes the same surface: `onQuery`, `onMutation`, `onRequest`, and `onWatch`. `onQuery`/`onMutation` wrap TanStack Query and return its native result object (`isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, …); `onRequest`/`onWatch` are KatanaKit's own primitives, each exposed with the framework's reactivity. Meta-frameworks such as Nuxt and Astro layer their own server helpers on top — see their pages for the exact surface.
 
-## useQuery
+## onQuery
 
 ::: code-group
 
 ```tsx [React]
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
-import { useGetApi, defineApiConfig } from "katanakit-js";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/react";
+import { onGet, defineApiConfig } from "katanakit-js";
 
 defineApiConfig({
   pokeapi: {
@@ -30,9 +30,9 @@ defineApiConfig({
 });
 
 function Pokemon({ id }: { id: number }) {
-  const { data, isPending, error } = useQuery({
+  const { data, isPending, error } = onQuery({
     queryKey: ["pokemon", id],
-    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
+    queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id } })),
   });
 
   if (isPending) return <div>Loading…</div>;
@@ -43,13 +43,13 @@ function Pokemon({ id }: { id: number }) {
 
 ```tsx [Solid]
 import { Show } from "solid-js";
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/solid";
-import { useGetApi } from "katanakit-js";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/solid";
+import { onGet } from "katanakit-js";
 
 function Pokemon() {
-  const query = useQuery(() => ({
+  const query = onQuery(() => ({
     queryKey: ["pokemon", 25],
-    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+    queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: 25 } })),
   }));
 
   return (
@@ -62,12 +62,12 @@ function Pokemon() {
 
 ```svelte [Svelte]
 <script lang="ts">
-  import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/svelte";
-  import { useGetApi } from "katanakit-js";
+  import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/svelte";
+  import { onGet } from "katanakit-js";
 
-  const query = useQuery({
+  const query = onQuery({
     queryKey: ["pokemon", 25],
-    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+    queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: 25 } })),
   });
 </script>
 
@@ -82,17 +82,17 @@ function Pokemon() {
 
 ```ts [Angular]
 import { Component } from "@angular/core";
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/angular";
-import { useGetApi } from "katanakit-js";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/angular";
+import { onGet } from "katanakit-js";
 
 @Component({
   selector: "app-pokemon",
   template: `@if (query.isPending()) { Loading… } @else { {{ query.data()?.name }} }`,
 })
 export class PokemonComponent {
-  readonly query = useQuery({
+  readonly query = onQuery({
     queryKey: ["pokemon", 25],
-    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+    queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: 25 } })),
   });
 }
 ```
@@ -101,20 +101,20 @@ export class PokemonComponent {
 
 The Angular adapter must be called inside an injection context (component field initializer, constructor, or service) so it can auto-cleanup via `DestroyRef`.
 
-## useMutation
+## onMutation
 
 Mutations are not cached — they execute and report their state. Call `mutate(variables)` and read the result:
 
 ::: code-group
 
 ```tsx [React]
-import { useMutation, useQueryClient } from "katanakit-js/adapters/react";
-import { usePost } from "katanakit-js";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/react";
+import { onPost } from "katanakit-js";
 
 function CreateUser() {
-  const qc = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  const qc = onQueryClient();
+  const { mutate, isPending } = onMutation({
+    mutationFn: (name: string) => onPost("api", "createUser", { name }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
   });
 
@@ -123,13 +123,13 @@ function CreateUser() {
 ```
 
 ```tsx [Solid]
-import { useMutation, useQueryClient } from "katanakit-js/adapters/solid";
-import { usePost } from "katanakit-js";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/solid";
+import { onPost } from "katanakit-js";
 
 function CreateUser() {
-  const qc = useQueryClient();
-  const mutation = useMutation(() => ({
-    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  const qc = onQueryClient();
+  const mutation = onMutation(() => ({
+    mutationFn: (name: string) => onPost("api", "createUser", { name }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
   }));
 
@@ -139,12 +139,12 @@ function CreateUser() {
 
 ```svelte [Svelte]
 <script lang="ts">
-  import { useMutation, useQueryClient } from "katanakit-js/adapters/svelte";
-  import { usePost } from "katanakit-js";
+  import { onMutation, onQueryClient } from "katanakit-js/adapters/svelte";
+  import { onPost } from "katanakit-js";
 
-  const qc = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  const qc = onQueryClient();
+  const mutation = onMutation({
+    mutationFn: (name: string) => onPost("api", "createUser", { name }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
   });
 </script>
@@ -154,14 +154,14 @@ function CreateUser() {
 
 ```ts [Angular]
 import { Component } from "@angular/core";
-import { useMutation, useQueryClient } from "katanakit-js/adapters/angular";
-import { usePost } from "katanakit-js";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/angular";
+import { onPost } from "katanakit-js";
 
 @Component({ selector: "app-create", template: `<button [disabled]="mutation.isPending()" (click)="mutation.mutate('Ada')">Create</button>` })
 export class CreateUserComponent {
-  private readonly qc = useQueryClient();
-  readonly mutation = useMutation({
-    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  private readonly qc = onQueryClient();
+  readonly mutation = onMutation({
+    mutationFn: (name: string) => onPost("api", "createUser", { name }),
     onSuccess: () => this.qc.invalidateQueries({ queryKey: ["users"] }),
   });
 }
@@ -169,15 +169,15 @@ export class CreateUserComponent {
 
 :::
 
-## useRequest
+## onRequest
 
-`useRequest` is a lighter, no-cache reactive GET over a registered API — ideal for one-off fetches that don't need the full query cache. It returns `{ data, error, loading, refetch }` and never throws on HTTP errors. (The Vue adapter previously exported this as `useKatanaFetch`, now aliased for backward compatibility.)
+`onRequest` is a lighter, no-cache reactive GET over a registered API — ideal for one-off fetches that don't need the full query cache. It returns `{ data, error, loading, refetch }` and never throws on HTTP errors. (Previously exported as `useKatanaFetch`; the old name was removed in v7.)
 
 ```tsx
-import { useRequest } from "katanakit-js/adapters/react"; // or /solid, /svelte, /angular, /vue
+import { onRequest } from "katanakit-js/adapters/react"; // or /solid, /svelte, /angular, /vue
 
 function Pokemon() {
-  const { data, error, loading } = useRequest<{ name: string }>(
+  const { data, error, loading } = onRequest<{ name: string }>(
     "pokeapi",
     "pokemonById",
     { params: { id: 25 } },
@@ -188,13 +188,13 @@ function Pokemon() {
 }
 ```
 
-## useWatch
+## onWatch
 
-`useWatch(source, callback)` invokes `callback(value, previous)` whenever the watched value changes. The `source` type is framework-idiomatic: a getter in React/Solid/Angular, a store in Svelte, and a ref/reactive/getter in Vue.
+`onWatch(source, callback)` invokes `callback(value, previous)` whenever the watched value changes. The `source` type is framework-idiomatic: a getter in React/Solid/Angular, a store in Svelte, and a ref/reactive/getter in Vue.
 
 ```tsx
 // React / Solid / Angular: a getter
-useWatch(() => product, (next, prev) => console.log(next, prev));
+onWatch(() => product, (next, prev) => console.log(next, prev));
 ```
 
 ```svelte
@@ -202,13 +202,13 @@ useWatch(() => product, (next, prev) => console.log(next, prev));
 <script>
   import { writable } from "svelte/store";
   const product = writable({ name: "", price: 0 });
-  useWatch(product, (next, prev) => console.log(next, prev));
+  onWatch(product, (next, prev) => console.log(next, prev));
 </script>
 ```
 
 ## Capability guards
 
-`useRequireCapability()` turns an access capability into whatever a framework
+`onRequireCapability()` turns an access capability into whatever a framework
 uses to gate a request. Every adapter answers the same two refusals the same
 way:
 
@@ -228,9 +228,9 @@ The subject is resolved by the caller, because the toolkit ships no auth
 provider. A WordPress backend resolves it from the user it just fetched:
 
 ```ts
-import { useWpAsSubject } from "katanakit-js/adapters/wordpress";
+import { onWpAsSubject } from "katanakit-js/adapters/wordpress";
 
-const subject = useWpAsSubject(wpUser); // { id, roles }
+const subject = onWpAsSubject(wpUser); // { id, roles }
 ```
 
 ::: code-group
@@ -238,9 +238,9 @@ const subject = useWpAsSubject(wpUser); // { id, roles }
 ```ts [Astro]
 // src/middleware.ts
 import { defineMiddleware } from "astro:middleware";
-import { useRequireCapability } from "katanakit-js/adapters/astro";
+import { onRequireCapability } from "katanakit-js/adapters/astro";
 
-const guard = useRequireCapability(
+const guard = onRequireCapability(
   "orders:read:any",
   (context) => resolveSubject(context.locals.user),
   { redirectTo: "/login", forbiddenTo: "/403" },
@@ -253,9 +253,9 @@ export const onRequest = defineMiddleware((context, next) =>
 
 ```ts [Next.js]
 // proxy.ts  (Next.js 16+; use middleware.ts on 15 and earlier)
-import { useRequireCapability } from "katanakit-js/adapters/next";
+import { onRequireCapability } from "katanakit-js/adapters/next";
 
-export const proxy = useRequireCapability(
+export const proxy = onRequireCapability(
   "orders:read:any",
   (request) => resolveSubject(readUserFromCookie(request.headers.get("cookie"))),
   { redirectTo: "/login", forbiddenTo: "/403" },
@@ -266,10 +266,10 @@ export const config = { matcher: ["/admin/:path*"] };
 
 ```ts [Nuxt]
 // middleware/admin.ts
-import { useRequireCapability } from "katanakit-js/adapters/nuxt";
+import { onRequireCapability } from "katanakit-js/adapters/nuxt";
 
 export default defineNuxtRouteMiddleware(
-  useRequireCapability(
+  onRequireCapability(
     "orders:read:any",
     (to) => resolveSubject(readUserFromCookie(to)),
     { redirectTo: "/login", forbiddenTo: "/403" },
@@ -278,9 +278,9 @@ export default defineNuxtRouteMiddleware(
 ```
 
 ```ts [Hono]
-import { useRequireCapability } from "katanakit-js/adapters/hono";
+import { onRequireCapability } from "katanakit-js/adapters/hono";
 
-app.post("/orders/:id/publish", useRequireCapability("orders:update:any", resolve), handler);
+app.post("/orders/:id/publish", onRequireCapability("orders:update:any", resolve), handler);
 ```
 
 :::
@@ -295,7 +295,7 @@ Two things are different per platform, and both are the platform's doing:
   navigates or aborts, so the refusals are destinations rather than codes.
   Omitting them aborts the navigation with no error page — give both.
 
-Server routes in Nuxt are a different path: `useUnwrap()` and `useSafeResponse()`
+Server routes in Nuxt are a different path: `onUnwrap()` and `onSafeResponse()`
 on an H3 event already carry the status code.
 
 ## Sharing state across frameworks

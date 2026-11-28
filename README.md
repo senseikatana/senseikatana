@@ -121,16 +121,23 @@ Native URLs on **senseikatana.com**. English is the default locale; every site p
 - **Home** — [`/`](https://senseikatana.com/)
 - **About** — [`/about`](https://senseikatana.com/about) · roles: [`/about/fundacio-onada`](https://senseikatana.com/about/fundacio-onada), [`/about/esinsa-gaskets`](https://senseikatana.com/about/esinsa-gaskets), [`/about/ajuntament-salou`](https://senseikatana.com/about/ajuntament-salou), [`/about/bar-las-cadenas`](https://senseikatana.com/about/bar-las-cadenas), [`/about/passos-de-cuinar`](https://senseikatana.com/about/passos-de-cuinar), [`/about/glovo`](https://senseikatana.com/about/glovo), [`/about/centro-municipal-deportivo`](https://senseikatana.com/about/centro-municipal-deportivo)
 - **Blog** — [`/posts`](https://senseikatana.com/posts) · [`/posts/welcome-to-my-blog`](https://senseikatana.com/posts/welcome-to-my-blog) · [`/posts/hexagonal-architecture-with-nuxt-4`](https://senseikatana.com/posts/hexagonal-architecture-with-nuxt-4) · [`/posts/testing-with-vitest-in-nuxt-4`](https://senseikatana.com/posts/testing-with-vitest-in-nuxt-4) · [`/posts/deploying-nuxt-4-to-production`](https://senseikatana.com/posts/deploying-nuxt-4-to-production)
-- **Projects** — [`/projects`](https://senseikatana.com/projects) · [`/projects/empresaplana`](https://senseikatana.com/projects/empresaplana) · [`/projects/erp-lite`](https://senseikatana.com/projects/erp-lite) · [`/projects/pos-system`](https://senseikatana.com/projects/pos-system)
 - **Services** — [`/services`](https://senseikatana.com/services) · [`/services/web-and-ecommerce`](https://senseikatana.com/services/web-and-ecommerce) · [`/services/internal-tools`](https://senseikatana.com/services/internal-tools) · [`/services/integrations-and-automation`](https://senseikatana.com/services/integrations-and-automation) · [`/services/performance-and-seo`](https://senseikatana.com/services/performance-and-seo)
 - **Contact** — [`/contact`](https://senseikatana.com/contact)
 - **Feeds** — [`/rss.xml`](https://senseikatana.com/rss.xml) · [`/sitemap-index.xml`](https://senseikatana.com/sitemap-index.xml) · [`/llms.txt`](https://senseikatana.com/llms.txt)
+
+**Works — projects**
+
+The case studies live in this repo (`web/src/content/works/<locale>/<slug>.md`) and are served at `/works/` and `/works/<slug>/`, with `/es/works/<slug>/` and `/ca/works/<slug>/` for the translations.
+
+- **Work grid** — [`/works`](https://senseikatana.com/works)
+- **Client work** — [`/works/empresaplana`](https://senseikatana.com/works/empresaplana) · [`/works/erp-lite`](https://senseikatana.com/works/erp-lite) · [`/works/pos-system`](https://senseikatana.com/works/pos-system)
+- **Open source** — [`/works/katanakit-js`](https://senseikatana.com/works/katanakit-js) · [`/works/katanakit-css`](https://senseikatana.com/works/katanakit-css) · [`/works/katanakit-sysli`](https://senseikatana.com/works/katanakit-sysli) · [`/works/hueplay`](https://senseikatana.com/works/hueplay) · [`/works/katanakit-wp`](https://senseikatana.com/works/katanakit-wp)
 
 **Documentation — KatanaKit**
 
 - [`/docs/overview`](https://senseikatana.com/docs/overview) — docs home
 - [`/docs/start/getting-started`](https://senseikatana.com/docs/start/getting-started) · [`/docs/tutorials/first-api-client`](https://senseikatana.com/docs/tutorials/first-api-client)
-- [`/docs/guides/`](https://senseikatana.com/docs/guides/) · [`/docs/explanation/`](https://senseikatana.com/docs/explanation/) · [`/docs/ui-kit/`](https://senseikatana.com/docs/ui-kit/) · [`/docs/api/`](https://senseikatana.com/docs/api/)
+- [`/docs/guides/services/`](https://senseikatana.com/docs/guides/services/) · [`/docs/explanation/`](https://senseikatana.com/docs/explanation/) · [`/docs/ui-kit/`](https://senseikatana.com/docs/ui-kit/) · [`/docs/api/`](https://senseikatana.com/docs/api/)
 - [`/docs/changelog`](https://senseikatana.com/docs/changelog)
 
 **Localized**
@@ -139,27 +146,27 @@ Native URLs on **senseikatana.com**. English is the default locale; every site p
 
 **Legacy redirects (301)**
 
-- `/blog/*` → `/posts/*` · `/works/*` → `/projects/*`
+- `/blog/*` → `/posts/*`
+- `/projects/*` → `/works/*` (with `/es`, `/ca` and `/en` variants)
+- `/proyectos` → `/works` · `/servicios` → `/services`
 - `/resume` and `/curriculum` → `/about`
-- `/proyectos` → `/projects` · `/servicios` → `/services`
-- `/en/*` → same path without the prefix
+- `/en/*` → same path without the prefix (works paths go to `/works`)
 - `/en/docs/*` → `/docs/*` · `/getting-started` → `/docs/start/getting-started`
 
 ### 🌍 Cloudflare domains
 
-**senseikatana.com** — site, blog and docs
+**senseikatana.com** — site, docs and works
 
-- [`/`](https://senseikatana.com/) · [`/posts`](https://senseikatana.com/posts) · [`/projects`](https://senseikatana.com/projects) · [`/services`](https://senseikatana.com/services) · [`/about`](https://senseikatana.com/about)
-- [`/docs/overview`](https://senseikatana.com/docs/overview) — KatanaKit documentation
-- [`www.senseikatana.com`](https://www.senseikatana.com/) → apex (301)
+- [`/`](https://senseikatana.com/) · [`/posts`](https://senseikatana.com/posts) · [`/services`](https://senseikatana.com/services) · [`/works`](https://senseikatana.com/works) · [`/about`](https://senseikatana.com/about)
+- [`/docs/overview`](https://senseikatana.com/docs/overview) — KatanaKit documentation, mounted by the **docs-proxy** Worker
+- [`/works/`](https://senseikatana.com/works/) — works grid and case studies served by the site build
+- [`www.senseikatana.com`](https://www.senseikatana.com/) — same Pages project (custom domain)
 - Mirrors: [`/es`](https://senseikatana.com/es/) · [`/ca`](https://senseikatana.com/ca/)
+- Pages: `senseikatana-web` (site) · `katanakit-docs` (docs)
 
-**samuraicoder.dev** — apps (auth-gated)
-
-- [`/apps/dock-dashboard/`](https://samuraicoder.dev/apps/dock-dashboard/) · [`/apps/panel-ola/`](https://samuraicoder.dev/apps/panel-ola/) · [`/numplate`](https://samuraicoder.dev/numplate)
-- Pages previews: `dock-dashboard-6wu.pages.dev` · `panel-ola.pages.dev` · `cymento-financeapp.pages.dev`
-
-**katanakami.com** — reserved, no routes yet
+> `samuraicoder.dev` and `katanakami.com` were deleted on 2026-11-28. Worker apps
+> that used those routes (`dock-dashboard`, `panel-ola`, `plate-numerology`, `hueplay`)
+> have no public host until they are re-routed under `senseikatana.com`.
 
 ---
 

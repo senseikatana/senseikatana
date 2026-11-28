@@ -2,7 +2,7 @@
 
 # Class: ReactiveService
 
-Defined in: [core/services/reactive.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L45)
+Defined in: [core/services/reactive.service.ts:45](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L45)
 
 ReactiveService — Singleton facade over fine-grained reactivity: signals,
 effects, memos and batching.
@@ -21,9 +21,9 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useCreateSignal } from "katanakit-js";
+import { createSignal } from "katanakit-js";
 
-const [count, setCount] = useCreateSignal(0);
+const [count, setCount] = createSignal(0);
 count(); // 0
 setCount(1);
 count(); // 1
@@ -35,13 +35,13 @@ count(); // 1
 
 ## Methods
 
-### useCreateBatch()
+### createBatch()
 
 ```ts
-useCreateBatch(): (callback) => void;
+createBatch(): (callback) => void;
 ```
 
-Defined in: [core/services/reactive.service.ts:364](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L364)
+Defined in: [core/services/reactive.service.ts:364](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L364)
 
 Returns a batch function that defers signal notifications until the
 callback completes. Nested calls are supported -- only the outermost
@@ -56,9 +56,9 @@ A `batch(callback)` function.
 #### Example
 
 ```ts
-const batch = useCreateBatch();
-const [a, setA] = useCreateSignal(0);
-const [b, setB] = useCreateSignal(0);
+const batch = createBatch();
+const [a, setA] = createSignal(0);
+const [b, setB] = createSignal(0);
 
 batch(() => {
   setA(1);
@@ -69,19 +69,19 @@ batch(() => {
 
 #### Implementation of
 
-[`IReactiveService`](../interfaces/IReactiveService.md).[`useCreateBatch`](../interfaces/IReactiveService.md#usecreatebatch)
+[`IReactiveService`](../interfaces/IReactiveService.md).[`createBatch`](../interfaces/IReactiveService.md#createbatch)
 
 ***
 
-### useCreateDebouncedSignal()
+### createDebouncedSignal()
 
 ```ts
-useCreateDebouncedSignal<T>(initialValue, delayMs?): [SignalGetter<T>, SignalSetter<T> & {
-  useCancel: () => void;
+createDebouncedSignal<T>(initialValue, delayMs?): [SignalGetter<T>, SignalSetter<T> & {
+  onCancel: () => void;
 }];
 ```
 
-Defined in: [core/services/reactive.service.ts:316](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L316)
+Defined in: [core/services/reactive.service.ts:316](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L316)
 
 Creates a signal whose setter debounces writes by `delayMs` milliseconds.
 Useful for search inputs or any value that triggers expensive work.
@@ -102,33 +102,33 @@ Useful for search inputs or any value that triggers expensive work.
 #### Returns
 
 \[[`SignalGetter`](../interfaces/SignalGetter.md)\<`T`\>, [`SignalSetter`](../type-aliases/SignalSetter.md)\<`T`\> & \{
-  `useCancel`: () => `void`;
+  `onCancel`: () => `void`;
 \}\]
 
 A tuple of `[getter, debouncedSetter]`. The setter exposes a
-  `useCancel()` method to abort a pending write.
+  `onCancel()` method to abort a pending write.
 
 #### Example
 
 ```ts
-const [query, setQuery] = useCreateDebouncedSignal("", 250);
+const [query, setQuery] = createDebouncedSignal("", 250);
 setQuery("hello"); // won't update until 250ms of quiet
-setQuery.useCancel(); // abort pending write
+setQuery.onCancel(); // abort pending write
 ```
 
 #### Implementation of
 
-[`IReactiveService`](../interfaces/IReactiveService.md).[`useCreateDebouncedSignal`](../interfaces/IReactiveService.md#usecreatedebouncedsignal)
+[`IReactiveService`](../interfaces/IReactiveService.md).[`createDebouncedSignal`](../interfaces/IReactiveService.md#createdebouncedsignal)
 
 ***
 
-### useCreateEffect()
+### createEffect()
 
 ```ts
-useCreateEffect(callback, signals?): () => void;
+createEffect(callback, signals?): () => void;
 ```
 
-Defined in: [core/services/reactive.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L214)
+Defined in: [core/services/reactive.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L214)
 
 Creates a side effect that re-runs whenever a signal read by the callback
 changes. Explicit dependencies can also be provided for compatibility.
@@ -152,8 +152,8 @@ A dispose function that tears down all subscriptions and runs
 #### Example
 
 ```ts
-const [name, setName] = useCreateSignal("world");
-const dispose = useCreateEffect(() => {
+const [name, setName] = createSignal("world");
+const dispose = createEffect(() => {
   console.log(`Hello, ${name()}!`);
   return () => console.log("cleaning up");
 });
@@ -164,17 +164,17 @@ dispose();         // logs "cleaning up"
 
 #### Implementation of
 
-[`IReactiveService`](../interfaces/IReactiveService.md).[`useCreateEffect`](../interfaces/IReactiveService.md#usecreateeffect)
+[`IReactiveService`](../interfaces/IReactiveService.md).[`createEffect`](../interfaces/IReactiveService.md#createeffect)
 
 ***
 
-### useCreateMemo()
+### createMemo()
 
 ```ts
-useCreateMemo<T>(computation, signals?): SignalGetter<T>;
+createMemo<T>(computation, signals?): SignalGetter<T>;
 ```
 
-Defined in: [core/services/reactive.service.ts:266](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L266)
+Defined in: [core/services/reactive.service.ts:266](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L266)
 
 Creates a memoised signal whose value is derived from a computation.
 The computation re-runs whenever a signal it reads changes. Explicit
@@ -202,9 +202,9 @@ A read-only getter for the memoised value.
 #### Example
 
 ```ts
-const [a, setA] = useCreateSignal(2);
-const [b, setB] = useCreateSignal(3);
-const sum = useCreateMemo(() => a() + b());
+const [a, setA] = createSignal(2);
+const [b, setB] = createSignal(3);
+const sum = createMemo(() => a() + b());
 sum(); // 5
 setA(10);
 sum(); // 13
@@ -212,21 +212,21 @@ sum(); // 13
 
 #### Implementation of
 
-[`IReactiveService`](../interfaces/IReactiveService.md).[`useCreateMemo`](../interfaces/IReactiveService.md#usecreatememo)
+[`IReactiveService`](../interfaces/IReactiveService.md).[`createMemo`](../interfaces/IReactiveService.md#creatememo)
 
 ***
 
-### useCreateSignal()
+### createSignal()
 
 ```ts
-useCreateSignal<T>(initialValue): [SignalGetter<T>, SignalSetter<T>];
+createSignal<T>(initialValue): [SignalGetter<T>, SignalSetter<T>];
 ```
 
-Defined in: [core/services/reactive.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L105)
+Defined in: [core/services/reactive.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L105)
 
 Creates a reactive signal with a getter and setter.
 
-The getter is callable and also exposes a `useSubscribe` method for
+The getter is callable and also exposes a `onSubscribe` method for
 listening to value changes. The setter accepts either a direct value or
 an updater function.
 
@@ -251,31 +251,31 @@ A tuple of `[getter, setter]`.
 #### Example
 
 ```ts
-const [count, setCount] = useCreateSignal(0);
+const [count, setCount] = createSignal(0);
 count(); // 0
 setCount(1);
 count(); // 1
 setCount(prev => prev + 1);
 count(); // 2
 
-const unsub = count.useSubscribe((newVal, oldVal) => {
+const unsub = count.onSubscribe((newVal, oldVal) => {
   console.log(`${oldVal} -> ${newVal}`);
 });
 ```
 
 #### Implementation of
 
-[`IReactiveService`](../interfaces/IReactiveService.md).[`useCreateSignal`](../interfaces/IReactiveService.md#usecreatesignal)
+[`IReactiveService`](../interfaces/IReactiveService.md).[`createSignal`](../interfaces/IReactiveService.md#createsignal)
 
 ***
 
-### useCreateToggle()
+### createToggle()
 
 ```ts
-useCreateToggle(initialValue?): [SignalGetter<boolean>, ToggleSignalSetter];
+createToggle(initialValue?): [SignalGetter<boolean>, ToggleSignalSetter];
 ```
 
-Defined in: [core/services/reactive.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L292)
+Defined in: [core/services/reactive.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L292)
 
 Creates a boolean toggle signal.
 
@@ -289,22 +289,22 @@ Creates a boolean toggle signal.
 
 \[[`SignalGetter`](../interfaces/SignalGetter.md)\<`boolean`\>, [`ToggleSignalSetter`](../interfaces/ToggleSignalSetter.md)\]
 
-A tuple of `[getter, { useSet, useToggle }]`.
+A tuple of `[getter, { onSet, onToggle }]`.
 
 #### Example
 
 ```ts
-const [isOpen, { useSet, useToggle }] = useCreateToggle();
+const [isOpen, { onSet, onToggle }] = createToggle();
 isOpen();    // false
-useToggle();
+onToggle();
 isOpen();    // true
-useSet(false);
+onSet(false);
 isOpen();    // false
 ```
 
 #### Implementation of
 
-[`IReactiveService`](../interfaces/IReactiveService.md).[`useCreateToggle`](../interfaces/IReactiveService.md#usecreatetoggle)
+[`IReactiveService`](../interfaces/IReactiveService.md).[`createToggle`](../interfaces/IReactiveService.md#createtoggle)
 
 ***
 
@@ -314,7 +314,7 @@ isOpen();    // false
 static getInstance(): ReactiveService;
 ```
 
-Defined in: [core/services/reactive.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/reactive.service.ts#L59)
+Defined in: [core/services/reactive.service.ts:59](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/reactive.service.ts#L59)
 
 Returns the shared instance (Singleton).
 

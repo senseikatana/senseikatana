@@ -3,16 +3,16 @@
 # Type Alias: SeoTagResult
 
 ```ts
-type SeoTagResult = UseSeoMetaOptions & {
+type SeoTagResult = SeoMetaOptions & {
   html: string;
   jsonLd?: Record<string, unknown>;
   tags: SeoTagNode[];
 };
 ```
 
-Defined in: [config/seo.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo.service.ts#L33)
+Defined in: [config/seo.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/config/seo.service.ts#L43)
 
-Result of [useSeoMeta](../functions/useSeoMeta.md): `html` / `tags` for the head, plus **one**
+Result of [onSeoMeta](../functions/onSeoMeta.md): `html` / `tags` for the head, plus **one**
 flat object of resolved fields (site + HTML + OG + Twitter). No duplicate
 `title` / `meta.title` / `config.title`.
 

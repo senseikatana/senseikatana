@@ -87,9 +87,32 @@
     "ctaButton": "Let's talk"
   },
   "works": {
+    "eyebrow": "senseikatana.com/works",
+    "label": "works",
+    "title": "Works",
     "headline": "Systems in use,\nnot mockups.",
+    "subtitle": "Real projects, my own and for clients. The challenge, the solution and the outcome, without invented metrics.",
     "openSource": "Open source",
-    "clientWork": "Client work"
+    "clientWork": "Client work",
+    "empty": "No case studies published yet.",
+    "back": "Back to works",
+    "view": "View case",
+    "challenge": "The challenge",
+    "solution": "The solution",
+    "outcome": "The outcome",
+    "stack": "Stack",
+    "metrics": "Metrics",
+    "role": "Role",
+    "year": "Year",
+    "sector": "Sector",
+    "client": "Client",
+    "visit": "View live",
+    "repo": "View code",
+    "demo": "Demo",
+    "project": "Project",
+    "ctaTitle": "Got a similar challenge?",
+    "ctaBody": "Every operation has its quirks. Tell me yours and we'll see what can be simplified.",
+    "ctaButton": "Let's talk"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",

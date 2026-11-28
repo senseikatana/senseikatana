@@ -6,6 +6,6 @@
 type YoutubeVideoPage = z.infer<typeof YoutubeVideoPageSchema>;
 ```
 
-Defined in: [types/core/youtube.ts:27](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/youtube.ts#L27)
+Defined in: [types/core/youtube.ts:27](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/youtube.ts#L27)
 
 Paginated channel listing result.

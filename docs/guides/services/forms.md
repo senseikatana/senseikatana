@@ -64,15 +64,15 @@ a React app, a vanilla page or an Astro island.
 
 | Helper | Input | Output |
 | --- | --- | --- |
-| `useParseForm(schema, data)` | `FormData` or plain object | `{ ok, values, errors }` |
-| `useFormData(formData)` | `FormData` | plain object (nested by dots) |
-| `useFieldErrors(error)` | anything with `issues` | `{ field: message }` |
-| `useFieldError(errors, name)` | error map + name | `string \| undefined` |
+| `onParseForm(schema, data)` | `FormData` or plain object | `{ ok, values, errors }` |
+| `onFormData(formData)` | `FormData` | plain object (nested by dots) |
+| `onFieldErrors(error)` | anything with `issues` | `{ field: message }` |
+| `onFieldError(errors, name)` | error map + name | `string \| undefined` |
 
 ```ts
-import { useParseForm } from "katanakit-js";
+import { onParseForm } from "katanakit-js";
 
-const result = useParseForm(SignUpSchema, new FormData(form));
+const result = onParseForm(SignUpSchema, new FormData(form));
 if (result.ok) await signUp(result.values);
 else showErrors(result.errors);
 ```
@@ -125,16 +125,16 @@ or nothing at all.
 
 ### Custom controls
 
-`useField()` returns the wiring for any element you want to render yourself:
+`onField()` returns the wiring for any element you want to render yourself:
 
 ```tsx
 function PriceInput() {
-	const field = useField();
+	const field = onField();
 	return <input {...field?.inputProps} className="my-input" />;
 }
 ```
 
-`useFormPending()` and `useFormErrors()` expose the form state for custom
+`onFormPending()` and `onFormErrors()` expose the form state for custom
 submits and summaries.
 
 ## Validation timing
@@ -155,12 +155,12 @@ The core does not need React: collect the form once and render messages where
 they belong.
 
 ```ts
-import { useParseForm } from "katanakit-js";
+import { onParseForm } from "katanakit-js";
 
 const form = document.querySelector("form");
 form.addEventListener("submit", async (event) => {
 	event.preventDefault();
-	const result = useParseForm(SignUpSchema, new FormData(form));
+	const result = onParseForm(SignUpSchema, new FormData(form));
 	for (const [name, message] of Object.entries(result.errors)) {
 		const slot = form.querySelector(`[data-error="${name}"]`);
 		if (slot) slot.textContent = message;

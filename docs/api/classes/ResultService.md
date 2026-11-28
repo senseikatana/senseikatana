@@ -2,7 +2,7 @@
 
 # Class: ResultService
 
-Defined in: [core/services/result.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L28)
+Defined in: [core/services/result.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/result.service.ts#L28)
 
 ResultService — Singleton facade for Safe Result creation at service
 boundaries.
@@ -20,27 +20,27 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useAttempt } from "katanakit-js";
+import { attempt } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.insert("posts", row));
+const result = await attempt(() => sdk.insert("posts", row));
 if (result.ok) console.log(result.data);
 else console.error(result.error.message);
 ```
 
 ## Methods
 
-### useAttempt()
+### attempt()
 
 ```ts
-useAttempt<T>(operation, mapError?): Promise<SafeResult<T>>;
+attempt<T>(operation, mapError?): Promise<SafeResult<T>>;
 ```
 
-Defined in: [core/services/result.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L63)
+Defined in: [core/services/result.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/result.service.ts#L63)
 
 Runs an operation (sync or async) and captures any throw as a Safe Result.
 
 The canonical replacement for ad-hoc `try/catch` at service boundaries: the
-mapper defaults to [useErrorNormalize](../functions/useErrorNormalize.md), so SDK errors, `Error`
+mapper defaults to [onErrorNormalize](../functions/onErrorNormalize.md), so SDK errors, `Error`
 instances and plain strings all come back normalized.
 
 #### Type Parameters
@@ -54,7 +54,7 @@ instances and plain strings all come back normalized.
 | Parameter | Type | Default value | Description |
 | ------ | ------ | ------ | ------ |
 | `operation` | () => `T` \| `Promise`\<`T`\> | `undefined` | The operation to run. |
-| `mapError?` | (`error`) => \{ `details?`: `unknown`; `message`: `string`; `status`: `number`; \} | `useErrorNormalize` | Optional error mapper (default: `useErrorNormalize`). |
+| `mapError?` | (`error`) => \{ `details?`: `unknown`; `message`: `string`; `status`: `number`; \} | `onErrorNormalize` | Optional error mapper (default: `onErrorNormalize`). |
 
 #### Returns
 
@@ -65,22 +65,22 @@ instances and plain strings all come back normalized.
 #### Example
 
 ```ts
-import { useAttempt } from "katanakit-js";
+import { attempt } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.insert("posts", row));
+const result = await attempt(() => sdk.insert("posts", row));
 if (result.ok) console.log(result.data);
 else console.error(result.error.message);
 ```
 
 ***
 
-### useTryJsonParse()
+### tryJsonParse()
 
 ```ts
-useTryJsonParse<T>(text): SafeResult<T>;
+tryJsonParse<T>(text): SafeResult<T>;
 ```
 
-Defined in: [core/services/result.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L90)
+Defined in: [core/services/result.service.ts:90](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/result.service.ts#L90)
 
 Parses JSON without throwing; failures come back as a Safe Result.
 
@@ -108,7 +108,7 @@ checking `ok` instead of nesting `try/catch`.
 #### Example
 
 ```ts
-const parsed = useTryJsonParse<{ id: number }>(raw);
+const parsed = tryJsonParse<{ id: number }>(raw);
 return parsed.ok ? parsed.data : raw;
 ```
 
@@ -120,7 +120,7 @@ return parsed.ok ? parsed.data : raw;
 static getInstance(): ResultService;
 ```
 
-Defined in: [core/services/result.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/result.service.ts#L35)
+Defined in: [core/services/result.service.ts:35](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/result.service.ts#L35)
 
 Returns the shared instance (Singleton).
 

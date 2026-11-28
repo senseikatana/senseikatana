@@ -2,7 +2,7 @@
 
 # Interface: BatteryManager
 
-Defined in: [types/core/sensors.ts:9](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/sensors.ts#L9)
+Defined in: [types/core/sensors.ts:9](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/sensors.ts#L9)
 
 Type for the experimental Battery API.
 
@@ -14,7 +14,7 @@ Type for the experimental Battery API.
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="charging"></a> `charging` | `boolean` | [types/core/sensors.ts:10](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/sensors.ts#L10) |
-| <a id="chargingtime"></a> `chargingTime` | `number` | [types/core/sensors.ts:11](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/sensors.ts#L11) |
-| <a id="dischargingtime"></a> `dischargingTime` | `number` | [types/core/sensors.ts:12](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/sensors.ts#L12) |
-| <a id="level"></a> `level` | `number` | [types/core/sensors.ts:13](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/sensors.ts#L13) |
+| <a id="charging"></a> `charging` | `boolean` | [types/core/sensors.ts:10](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/sensors.ts#L10) |
+| <a id="chargingtime"></a> `chargingTime` | `number` | [types/core/sensors.ts:11](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/sensors.ts#L11) |
+| <a id="dischargingtime"></a> `dischargingTime` | `number` | [types/core/sensors.ts:12](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/sensors.ts#L12) |
+| <a id="level"></a> `level` | `number` | [types/core/sensors.ts:13](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/sensors.ts#L13) |

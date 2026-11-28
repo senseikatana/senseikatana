@@ -10,7 +10,7 @@ const GeometryUtils: {
 };
 ```
 
-Defined in: [core/services/geometry.service.ts:551](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L551)
+Defined in: [core/services/geometry.service.ts:551](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L551)
 
 Consolidated pure geometry utilities namespace.
 Groups area, perimeter and volume calculations (no shared mutable state).
@@ -44,7 +44,7 @@ volume: GeometryVolumeService;
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.area.useCircle(5);       // "78.54"
-GeometryUtils.perimeter.useCircle(5);  // "31.42"
-GeometryUtils.volume.useSphere(3);     // "113.10"
+GeometryUtils.area.circle(5);       // "78.54"
+GeometryUtils.perimeter.circle(5);  // "31.42"
+GeometryUtils.volume.sphere(3);     // "113.10"
 ```

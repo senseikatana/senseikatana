@@ -6,9 +6,9 @@ description: A listbox combobox with aria-activedescendant, typeahead and option
 # Select <span class="vp-new-badge">new</span>
 
 ```ts
-import { useSelect } from "@katanakit/ui";
+import { onSelect } from "@katanakit/ui";
 
-const select = useSelect({
+const select = onSelect({
 	label: "Country",
 	name: "country",
 	options: [
@@ -105,7 +105,7 @@ caller owns the value.
 ## The returned elements
 
 ```ts
-const { root, button, list, options, input, getValue, setOpen } = useSelect({ label, options });
+const { root, button, list, options, input, getValue, setOpen } = onSelect({ label, options });
 
 document.body.append(root);
 getValue();   // "es" | undefined
@@ -114,13 +114,13 @@ setOpen(true);
 
 ## SSR
 
-`useSelect` needs a DOM. `selectClass()` is pure and safe on the server.
+`onSelect` needs a DOM. `selectClass()` is pure and safe on the server.
 
 <ComponentContract
 	name="Select"
 	root="select"
 	pure="selectClass"
-	factory="useSelect"
+	factory="onSelect"
 />
 
 <style scoped>
@@ -142,7 +142,7 @@ setOpen(true);
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useSelect } from "@katanakit/ui";
+import { onSelect } from "@katanakit/ui";
 
 const demo = ref<HTMLElement>();
 const demo2 = ref<HTMLElement>();
@@ -160,7 +160,7 @@ const mount = (target?: HTMLElement, withName = false) => {
 	if (!target) return;
 	target.replaceChildren();
 	target.append(
-		useSelect({
+		onSelect({
 			label: "Country",
 			name: withName ? "country" : undefined,
 			placeholder: "Pick one",

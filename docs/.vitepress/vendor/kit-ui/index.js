@@ -8,3 +8,4 @@ export * from "./components/modal.js";
 export * from "./components/select.js";
 export * from "./components/tabs.js";
 export * from "./components/toast.js";
+export * from "./utils/format.js";

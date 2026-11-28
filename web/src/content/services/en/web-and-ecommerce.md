@@ -37,7 +37,7 @@ Empresa Plana needed to publish in Spanish and Catalan and, at the same time, le
 - **What it solves**: the team publishes from the panel; the site reads and serves static HTML, with no manual rebuild.
 - **Technical base**: language-prefixed routes, consistent `hreflang`, canonical, sitemap and structured data.
 
-[See the full case ->](https://samuraicoder.dev/works/empresaplana)
+[See the full case ->](/works/empresaplana)
 
 ### Store example: a small catalogue with server-validated checkout
 

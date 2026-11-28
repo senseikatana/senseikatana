@@ -1,6 +1,6 @@
 ---
 title: Error Handling
-description: The Safe Result contract ({ data, error, ok }) and the useAttempt, useTryJsonParse and useErrorNormalize helpers.
+description: The Safe Result contract ({ data, error, ok }) and the onAttempt, onTryJsonParse and onErrorNormalize helpers.
 ---
 
 # Error Handling
@@ -37,39 +37,39 @@ try {
 The rationale for replacing that pattern — and the trade-offs accepted — is
 recorded in [ADR-0001: Safe Results instead of exceptions](/explanation/decisions/adr-0001-safe-results).
 
-## useAttempt()
+## onAttempt()
 
 Runs a sync or async operation and normalizes **any** throw into a Safe Result.
-The default mapper is `useErrorNormalize`, so SDK errors, `Error` instances and
+The default mapper is `onErrorNormalize`, so SDK errors, `Error` instances and
 plain strings all come back with the same shape.
 
 ```ts
-import { useAttempt } from "katanakit-js";
+import { onAttempt } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.insert("posts", row));
+const result = await onAttempt(() => sdk.insert("posts", row));
 if (!result.ok) console.error(result.error.status, result.error.message);
 ```
 
 Custom mappers keep domain-specific prefixes:
 
 ```ts
-const result = await useAttempt(operation, (error) => ({
+const result = await onAttempt(operation, (error) => ({
   message: `[Sdk] ${error instanceof Error ? error.message : String(error)}`,
   status: 0,
 }));
 ```
 
-## useTryJsonParse()
+## onTryJsonParse()
 
 Non-throwing `JSON.parse`; the fallback policy stays at the call site
 (`error.status` is always `0`).
 
 ```ts
-const parsed = useTryJsonParse<Book[]>(raw);
+const parsed = onTryJsonParse<Book[]>(raw);
 return parsed.ok ? parsed.data : raw;
 ```
 
-## useErrorNormalize()
+## onErrorNormalize()
 
 Coerces SDK errors, `Error` instances and strings into `ApiError`. Precedence:
 numeric `status` → `statusCode` → `fallbackStatus` (`0`); `message` defaults to
@@ -86,7 +86,7 @@ numeric `status` → `statusCode` → `fallbackStatus` (`0`); `message` defaults
 ## When not to use it
 
 - **TanStack Query** needs `queryFn` to throw: bridge Safe Results with
-  [`useSafeQueryFn`](/guides/query-client).
+  [`onSafeQueryFn`](/guides/query-client).
 - **Configuration errors** fail fast by design (SEO `SiteConfig`, init calls).
 - **Tests** where throwing is the behavior under test.
 

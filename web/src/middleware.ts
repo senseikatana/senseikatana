@@ -1,14 +1,11 @@
 import { defineMiddleware } from 'astro:middleware';
 
-/** Case studies moved to their own domain; `/works` was this site's old prefix. */
-const WORKSPACE = 'https://samuraicoder.dev';
-
 /**
  * Legacy path redirects. The static Cloudflare Pages deploy reads
  * `public/_redirects` (specific slugs, then prefixes); this map keeps
  * `astro dev` consistent for the most common paths.
  *
- * Case studies are absolute: they leave this site entirely.
+ * Works are local: `/projects` is the old prefix and `/works` is canonical.
  */
 const redirects: Record<string, string> = {
   '/hola': '/contact',
@@ -25,26 +22,25 @@ const redirects: Record<string, string> = {
   '/en/services': '/services',
   '/en/about': '/about',
   '/en/contact': '/contact',
-  // Case studies → samuraicoder.dev
-  '/projects': `${WORKSPACE}/works`,
-  '/proyectos': `${WORKSPACE}/works`,
-  '/works': `${WORKSPACE}/works`,
-  '/ca/projects': `${WORKSPACE}/ca/works`,
-  '/ca/proyectos': `${WORKSPACE}/ca/works`,
-  '/ca/works': `${WORKSPACE}/ca/works`,
-  '/en/projects': `${WORKSPACE}/works`,
-  '/en/proyectos': `${WORKSPACE}/works`,
-  '/en/works': `${WORKSPACE}/works`,
+  // Works → /works
+  '/projects': '/works',
+  '/proyectos': '/works',
+  '/ca/projects': '/ca/works',
+  '/ca/proyectos': '/ca/works',
+  '/es/projects': '/es/works',
+  '/es/proyectos': '/es/works',
+  '/en/projects': '/works',
+  '/en/proyectos': '/works',
+  '/en/works': '/works',
 };
 
 /** Prefix redirects, applied only when no exact rule matched. */
 const prefixRedirects: [string, string][] = [
-  ['/projects/', `${WORKSPACE}/works/`],
-  ['/works/', `${WORKSPACE}/works/`],
-  ['/ca/projects/', `${WORKSPACE}/ca/works/`],
-  ['/ca/works/', `${WORKSPACE}/ca/works/`],
-  ['/en/projects/', `${WORKSPACE}/works/`],
-  ['/en/works/', `${WORKSPACE}/works/`],
+  ['/projects/', '/works/'],
+  ['/ca/projects/', '/ca/works/'],
+  ['/es/projects/', '/es/works/'],
+  ['/en/projects/', '/works/'],
+  ['/en/works/', '/works/'],
 ];
 
 export const onRequest = defineMiddleware(({ url, redirect }, next) => {
@@ -55,7 +51,8 @@ export const onRequest = defineMiddleware(({ url, redirect }, next) => {
 
   for (const [prefix, destination] of prefixRedirects) {
     if (url.pathname.startsWith(prefix)) {
-      return redirect(`${destination}${url.pathname.slice(prefix.length)}`, 301);
+      const target = `${destination}${url.pathname.slice(prefix.length)}`;
+      return redirect(target, 301);
     }
   }
 

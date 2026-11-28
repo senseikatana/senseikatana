@@ -2,12 +2,14 @@
 
 # Interface: SeoTagNode
 
-Defined in: [config/seo-meta.types.ts:182](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo-meta.types.ts#L182)
+Defined in: [config/seo.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/config/seo.service.ts#L28)
+
+One head tag node.
 
 ## Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="attrs"></a> `attrs?` | `Record`\<`string`, `string`\> | [config/seo-meta.types.ts:184](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo-meta.types.ts#L184) |
-| <a id="tag"></a> `tag` | `"title"` \| `"meta"` \| `"link"` \| `"script"` | [config/seo-meta.types.ts:183](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo-meta.types.ts#L183) |
-| <a id="text"></a> `text?` | `string` | [config/seo-meta.types.ts:185](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo-meta.types.ts#L185) |
+| <a id="attrs"></a> `attrs?` | `Record`\<`string`, `string`\> | [config/seo.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/config/seo.service.ts#L30) |
+| <a id="tag"></a> `tag` | `"title"` \| `"meta"` \| `"link"` \| `"script"` | [config/seo.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/config/seo.service.ts#L29) |
+| <a id="text"></a> `text?` | `string` | [config/seo.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/config/seo.service.ts#L31) |

@@ -2,19 +2,19 @@
 
 # Interface: IFetchApiManager
 
-Defined in: [types/core/http.ts:93](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L93)
+Defined in: [types/core/http.ts:90](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L90)
 
 Contract of the fetch facade.
 
 ## Methods
 
-### useAddRequestInterceptor()
+### onAddRequestInterceptor()
 
 ```ts
-useAddRequestInterceptor(interceptor): () => void;
+onAddRequestInterceptor(interceptor): () => void;
 ```
 
-Defined in: [types/core/http.ts:97](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L97)
+Defined in: [types/core/http.ts:94](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L94)
 
 #### Parameters
 
@@ -28,17 +28,17 @@ Defined in: [types/core/http.ts:97](https://github.com/senseikatana/katanakit-js
 
 ***
 
-### useBuildUrl()
+### onBuildUrl()
 
 ```ts
-useBuildUrl(
+onBuildUrl(
    apiName, 
    endpointName, 
    options?
 ): string;
 ```
 
-Defined in: [types/core/http.ts:96](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L96)
+Defined in: [types/core/http.ts:93](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L93)
 
 #### Parameters
 
@@ -54,17 +54,17 @@ Defined in: [types/core/http.ts:96](https://github.com/senseikatana/katanakit-js
 
 ***
 
-### useDelete()
+### onDelete()
 
 ```ts
-useDelete<T>(
+onDelete<T>(
    apiName, 
    endpointName, 
    urlOptions?
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:136](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L136)
+Defined in: [types/core/http.ts:133](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L133)
 
 #### Type Parameters
 
@@ -86,17 +86,17 @@ Defined in: [types/core/http.ts:136](https://github.com/senseikatana/katanakit-j
 
 ***
 
-### useFetch()
+### onFetch()
 
 ```ts
-useFetch<T>(
+onFetch<T>(
    apiName, 
    endpointName, 
    options?
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:98](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L98)
+Defined in: [types/core/http.ts:95](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L95)
 
 #### Type Parameters
 
@@ -118,17 +118,17 @@ Defined in: [types/core/http.ts:98](https://github.com/senseikatana/katanakit-js
 
 ***
 
-### useFetchApi()
+### onFetchApi()
 
 ```ts
-useFetchApi<T>(
+onFetchApi<T>(
    apiName, 
    endpointName, 
    options?
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:103](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L103)
+Defined in: [types/core/http.ts:100](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L100)
 
 #### Type Parameters
 
@@ -150,17 +150,17 @@ Defined in: [types/core/http.ts:103](https://github.com/senseikatana/katanakit-j
 
 ***
 
-### useGet()
+### onGet()
 
 ```ts
-useGet<T>(
+onGet<T>(
    apiName, 
    endpointName, 
    urlOptions?
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:108](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L108)
+Defined in: [types/core/http.ts:105](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L105)
 
 #### Type Parameters
 
@@ -182,17 +182,17 @@ Defined in: [types/core/http.ts:108](https://github.com/senseikatana/katanakit-j
 
 ***
 
-### useGetApi()
+### onGetApi()
 
 ```ts
-useGetApi<T>(
+onGetApi<T>(
    apiName, 
    endpointName, 
    urlOptions?
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:113](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L113)
+Defined in: [types/core/http.ts:110](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L110)
 
 #### Type Parameters
 
@@ -214,13 +214,13 @@ Defined in: [types/core/http.ts:113](https://github.com/senseikatana/katanakit-j
 
 ***
 
-### useGetApis()
+### onGetApis()
 
 ```ts
-useGetApis(): ApisConfig;
+onGetApis(): ApisConfig;
 ```
 
-Defined in: [types/core/http.ts:94](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L94)
+Defined in: [types/core/http.ts:91](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L91)
 
 #### Returns
 
@@ -228,13 +228,13 @@ Defined in: [types/core/http.ts:94](https://github.com/senseikatana/katanakit-js
 
 ***
 
-### useGetApisConfig()
+### onGetApisConfig()
 
 ```ts
-useGetApisConfig(): ApisConfig;
+onGetApisConfig(): ApisConfig;
 ```
 
-Defined in: [types/core/http.ts:95](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L95)
+Defined in: [types/core/http.ts:92](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L92)
 
 #### Returns
 
@@ -242,10 +242,10 @@ Defined in: [types/core/http.ts:95](https://github.com/senseikatana/katanakit-js
 
 ***
 
-### usePatch()
+### onPatch()
 
 ```ts
-usePatch<T>(
+onPatch<T>(
    apiName, 
    endpointName, 
    body?, 
@@ -253,7 +253,7 @@ usePatch<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:130](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L130)
+Defined in: [types/core/http.ts:127](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L127)
 
 #### Type Parameters
 
@@ -276,10 +276,10 @@ Defined in: [types/core/http.ts:130](https://github.com/senseikatana/katanakit-j
 
 ***
 
-### usePost()
+### onPost()
 
 ```ts
-usePost<T>(
+onPost<T>(
    apiName, 
    endpointName, 
    body?, 
@@ -287,7 +287,7 @@ usePost<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:118](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L118)
+Defined in: [types/core/http.ts:115](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L115)
 
 #### Type Parameters
 
@@ -310,10 +310,10 @@ Defined in: [types/core/http.ts:118](https://github.com/senseikatana/katanakit-j
 
 ***
 
-### usePut()
+### onPut()
 
 ```ts
-usePut<T>(
+onPut<T>(
    apiName, 
    endpointName, 
    body?, 
@@ -321,7 +321,7 @@ usePut<T>(
 ): Promise<FetchResult<T>>;
 ```
 
-Defined in: [types/core/http.ts:124](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/http.ts#L124)
+Defined in: [types/core/http.ts:121](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/http.ts#L121)
 
 #### Type Parameters
 

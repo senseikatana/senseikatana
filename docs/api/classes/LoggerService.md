@@ -2,20 +2,19 @@
 
 # Class: LoggerService
 
-Defined in: [core/services/logger.service.ts:7](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L7)
+Defined in: [core/services/logger.service.ts:4](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L4)
 
-LoggerService - Singleton para logging
-Aplica el patrón Singleton para garantizar una única instancia de logger.
+LoggerService - Singleton para logging Aplica el patrón Singleton para garantizar una única instancia de logger.
 
 ## Methods
 
-### useClear()
+### clear()
 
 ```ts
-useClear(): void;
+clear(): void;
 ```
 
-Defined in: [core/services/logger.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L104)
+Defined in: [core/services/logger.service.ts:95](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L95)
 
 Clears the console.
 
@@ -26,22 +25,22 @@ Clears the console.
 #### Example
 
 ```ts
-useLoggerClear();
+loggerClear();
 ```
 
 ***
 
-### useLog()
+### log()
 
 ```ts
-useLog(
+log(
    message, 
    data?, 
    level?
 ): void;
 ```
 
-Defined in: [core/services/logger.service.ts:58](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L58)
+Defined in: [core/services/logger.service.ts:49](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L49)
 
 Logs a message with optional data and level.
 Maps directly onto the native `console` methods (`log`, `warn`, `error`).
@@ -61,22 +60,22 @@ Maps directly onto the native `console` methods (`log`, `warn`, `error`).
 #### Example
 
 ```ts
-import { useLogger } from "katanakit-js";
+import { logger } from "katanakit-js";
 
-useLogger("Application started");
-useLogger("Cache miss", undefined, "warn");
-useLogger("Database timeout", { query: "SELECT 1" }, "error");
+logger("Application started");
+logger("Cache miss", undefined, "warn");
+logger("Database timeout", { query: "SELECT 1" }, "error");
 ```
 
 ***
 
-### useLogError()
+### logError()
 
 ```ts
-useLogError(message, data?): void;
+logError(message, data?): void;
 ```
 
-Defined in: [core/services/logger.service.ts:92](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L92)
+Defined in: [core/services/logger.service.ts:83](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L83)
 
 Logs a message at the "error" level.
 
@@ -94,18 +93,18 @@ Logs a message at the "error" level.
 #### Example
 
 ```ts
-useLogError("Database timeout", { query: "SELECT 1", duration: 5000 });
+logError("Database timeout", { query: "SELECT 1", duration: 5000 });
 ```
 
 ***
 
-### useLogWarn()
+### logWarn()
 
 ```ts
-useLogWarn(message, data?): void;
+logWarn(message, data?): void;
 ```
 
-Defined in: [core/services/logger.service.ts:77](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L77)
+Defined in: [core/services/logger.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L68)
 
 Logs a message at the "warn" level.
 
@@ -123,18 +122,18 @@ Logs a message at the "warn" level.
 #### Example
 
 ```ts
-useLogWarn("Cache miss", { key: "user:123" });
+logWarn("Cache miss", { key: "user:123" });
 ```
 
 ***
 
-### useSetContext()
+### setContext()
 
 ```ts
-useSetContext(context): void;
+setContext(context): void;
 ```
 
-Defined in: [core/services/logger.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L32)
+Defined in: [core/services/logger.service.ts:23](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L23)
 
 Configura el prefijo de contexto. Vacío ("") lo elimina.
 
@@ -150,13 +149,13 @@ Configura el prefijo de contexto. Vacío ("") lo elimina.
 
 ***
 
-### useTable()
+### table()
 
 ```ts
-useTable(data): void;
+table(data): void;
 ```
 
-Defined in: [core/services/logger.service.ts:118](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L118)
+Defined in: [core/services/logger.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L109)
 
 Displays tabular data in the console.
 
@@ -173,7 +172,7 @@ Displays tabular data in the console.
 #### Example
 
 ```ts
-useLoggerTable([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]);
+loggerTable([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]);
 ```
 
 ***
@@ -184,7 +183,7 @@ useLoggerTable([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]);
 static getInstance(): LoggerService;
 ```
 
-Defined in: [core/services/logger.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/logger.service.ts#L22)
+Defined in: [core/services/logger.service.ts:15](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/logger.service.ts#L15)
 
 Obtiene la instancia única del LoggerService (Singleton)
 

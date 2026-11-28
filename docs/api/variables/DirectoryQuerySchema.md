@@ -18,7 +18,6 @@ const DirectoryQuerySchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/directory.schema.ts:54](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/directory.schema.ts#L54)
+Defined in: [schemas/directory.schema.ts:51](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/directory.schema.ts#L51)
 
-A page request. `cursor` is opaque and provider-defined — the kit neither
-issues nor interprets it.
+A page request. `cursor` is opaque and provider-defined — the kit neither issues nor interprets it.

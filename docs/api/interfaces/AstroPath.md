@@ -2,7 +2,9 @@
 
 # Interface: AstroPath\<TParam, TProps\>
 
-Defined in: [types/adapters/astro.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L22)
+Defined in: [types/astro/types.ts:24](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L24)
+
+One Astro static path.
 
 ## Type Parameters
 
@@ -15,5 +17,5 @@ Defined in: [types/adapters/astro.ts:22](https://github.com/senseikatana/katanak
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="params"></a> `params` | `Record`\<`TParam`, `string` \| `undefined`\> | [types/adapters/astro.ts:23](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L23) |
-| <a id="props"></a> `props` | `TProps` | [types/adapters/astro.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L24) |
+| <a id="params"></a> `params` | `Record`\<`TParam`, `string` \| `undefined`\> | [types/astro/types.ts:25](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L25) |
+| <a id="props"></a> `props` | `TProps` | [types/astro/types.ts:26](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L26) |

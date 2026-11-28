@@ -6,7 +6,7 @@
 type WatchCallback<V, OV> = VueWatchCallback<V, OV>;
 ```
 
-Defined in: [types/adapters/vue.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/vue.ts#L19)
+Defined in: [types/vue/types.ts:16](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/vue/types.ts#L16)
 
 Watch callback taken from the native Vue `watch`. Any internal function
 is accepted: sync or async, with `(newValue, oldValue)` args or with no

@@ -35,7 +35,7 @@ The order matters, and this is where hand-rolled guards usually go wrong:
 const subject = resolveSubject(request);
 
 if (!subject) return response.status(401).end();       // Authentication failed
-if (!useCan(subject, "content:publish")) {
+if (!onCan(subject, "content:publish")) {
   return response.status(403).end();                    // Authorization failed
 }
 ```
@@ -43,21 +43,21 @@ if (!useCan(subject, "content:publish")) {
 Returning `403` for an unknown subject is the classic error: it tells an
 anonymous attacker *that the route exists* and *that some account would be
 allowed*, which is reconnaissance for free. Returning `200` because the subject
-is unknown is worse. `useRequireCapability()` implements both steps in the
+is unknown is worse. `onRequireCapability()` implements both steps in the
 right order, and fails closed on a malformed subject.
 
 ### Where the boundary sits
 
 ```ts
-import { useRequireCapability } from "katanakit-js/adapters/express";
+import { onRequireCapability } from "katanakit-js/adapters/express";
 ```
 
 The guard never authenticates. You hand it a function that maps the request to
 a subject — a JWT payload, a session row, an API key lookup:
 
 ```ts
-useStartAssistant(3000, "localhost", "/assistant", {
-  guard: useRequireCapability("conversations:use", (request) => request.account ?? null),
+onStartAssistant(3000, "localhost", "/assistant", {
+  guard: onRequireCapability("conversations:use", (request) => request.account ?? null),
 });
 ```
 
@@ -83,10 +83,10 @@ The hierarchy is the point: an `editor` can publish because publishing is
 *above* them in the rank, not because it was listed for them.
 
 ```ts
-useCan({ id: 1, roles: ["editor"] }, "content:publish");     // true  (inherited + own)
-useCan({ id: 1, roles: ["editor"] }, "content:edit:any");    // true  (own)
-useCan({ id: 1, roles: ["editor"] }, "roles:assign");        // false (above)
-useCan({ id: 2, roles: ["author"] }, "content:edit:any");    // false (below)
+onCan({ id: 1, roles: ["editor"] }, "content:publish");     // true  (inherited + own)
+onCan({ id: 1, roles: ["editor"] }, "content:edit:any");    // true  (own)
+onCan({ id: 1, roles: ["editor"] }, "roles:assign");        // false (above)
+onCan({ id: 2, roles: ["author"] }, "content:edit:any");    // false (below)
 ```
 
 ## `owner` is the developer seat
@@ -133,7 +133,7 @@ That keeps the core free of any persistence concern — a Prisma `Account`, a JW
 payload and a test fixture all satisfy it.
 
 ```ts
-useCan({ id: user.id, roles: user.roles }, "content:publish");
+onCan({ id: user.id, roles: user.roles }, "content:publish");
 ```
 
 ## The two strategies
@@ -151,12 +151,12 @@ that `author` would otherwise pick up from `member`.
 ```ts
 import { AccessService, FlatAccessStrategy } from "katanakit-js";
 
-AccessService.getInstance().useSetStrategy(new FlatAccessStrategy());
+AccessService.getInstance().setStrategy(new FlatAccessStrategy());
 ```
 
 Under the flat strategy the built-in table must list each role's *complete*
 capability set, because nothing is inherited. Check
-[`useRoles()`](/api/) for the resolved registry before relying on it.
+[`onRoles()`](/api/) for the resolved registry before relying on it.
 
 ## Subjects can hold several roles
 
@@ -167,22 +167,22 @@ role.
 ```ts
 const subject = { id: 7, roles: ["member", "author"] };
 
-useCan(subject, "conversations:use");  // true  — from member
-useCan(subject, "content:create");     // true  — from author
-useCan(subject, "conversations:moderate"); // false
+onCan(subject, "conversations:use");  // true  — from member
+onCan(subject, "content:create");     // true  — from author
+onCan(subject, "conversations:moderate"); // false
 ```
 
 ## Extending the registry
 
-`useRegisterRole` adds or replaces a definition. Because capabilities are a Zod
+`onRegisterRole` adds or replaces a definition. Because capabilities are a Zod
 enum, a custom role must reuse existing capabilities — the registry is
 designed for a fixed vocabulary of permissions with a new grouping of them, not
 for inventing permissions per tenant.
 
 ```ts
-import { useRegisterRole } from "katanakit-js";
+import { onRegisterRole } from "katanakit-js";
 
-useRegisterRole({
+onRegisterRole({
   slug: "moderator",           // needs a custom AccessRole schema first
   label: "Moderator",
   capabilities: ["conversations:use", "conversations:moderate"],
@@ -202,9 +202,9 @@ on equal terms. A deployment that reports on fiscal quarters registers the unit
 it actually uses:
 
 ```ts
-import { useRegisterRole, useResetRoles } from "katanakit-js";
+import { onRegisterRole, onResetRoles } from "katanakit-js";
 
-useRegisterRole({
+onRegisterRole({
   slug: "rrhh",
   label: "RRHH",
   // Lower rank = more privileged. Anywhere from `member` (4) upward inherits
@@ -213,16 +213,16 @@ useRegisterRole({
   capabilities: ["nomina:aprobar", "expediente:firmar"],
 });
 
-useCan({ id: 1, roles: ["rrhh"] }, "nomina:aprobar");  // true
-useCan({ id: 1, roles: ["rrhh"] }, "content:create");   // inherited from author
-useCan({ id: 1, roles: ["rrhh"] }, "content:publish");  // false — below editor
+onCan({ id: 1, roles: ["rrhh"] }, "nomina:aprobar");  // true
+onCan({ id: 1, roles: ["rrhh"] }, "content:create");   // inherited from author
+onCan({ id: 1, roles: ["rrhh"] }, "content:publish");  // false — below editor
 ```
 
-`useRegisterRole()` **validates before storing** and throws with the offending
+`onRegisterRole()` **validates before storing** and throws with the offending
 field on a bad definition. A malformed role cannot silently poison the registry
 — the failure is loud and immediate.
 
-`useResetRoles()` restores the built-ins — useful between tests, since the
+`onResetRoles()` restores the built-ins — useful between tests, since the
 registry is process-global.
 
 ## Ownership is not a capability
@@ -235,7 +235,7 @@ instance*. `content:edit:own` says "edit your own content", and enforcing the
 router.put("/articles/:id", (req, res) => {
   const subject = resolveSubject(req);
   if (!subject) return res.status(401).end();
-  if (!useCan(subject, "content:edit:any")) {
+  if (!onCan(subject, "content:edit:any")) {
     const article = load(req.params.id);
     // The "own" half needs the resource, not the role.
     if (article.authorId !== subject.id) return res.status(403).end();
@@ -258,13 +258,13 @@ A `Grant` is a role scoped to a resource, using **the same registry** — so
 to mean. There is one vocabulary, not two.
 
 ```ts
-import { useGrantAwareCan } from "katanakit-js";
+import { onGrantAwareCan } from "katanakit-js";
 
-const decision = useGrantAwareCan({
-  subject,                                    // from useResolveSubject()
+const decision = onGrantAwareCan({
+  subject,                                    // from onResolveSubject()
   resource: { type: "expediente", id: 42 },
   capability: "expediente:read",
-  useGrants: ({ subject, resource }) => listShares(subject.id, resource),
+  onGrants: ({ subject, resource }) => listShares(subject.id, resource),
 });
 
 decision.allowed; // boolean
@@ -280,7 +280,7 @@ invariants worth knowing:
   the role. A `Grant` may carry `expiresAt`.
 - **An unreadable `expiresAt` counts as expired**, not as open. A share whose
   deadline cannot be parsed is a share nobody meant to leave running.
-- **A missing `useGrants` denies.** It does not skip the check — a typo in the
+- **A missing `onGrants` denies.** It does not skip the check — a typo in the
   resolver name must not open a route.
 
 ## The authentication seam
@@ -291,14 +291,14 @@ credential result into a single `Principal` so this page's logic never branches
 on it.
 
 ```ts
-import { AuthService, useResolveSubject } from "katanakit-js";
-import { useBetterAuthProvider } from "katanakit-js/adapters/better-auth";
+import { AuthService, onResolveSubject } from "katanakit-js";
+import { onBetterAuthProvider } from "katanakit-js/adapters/better-auth";
 
-AuthService.getInstance().useRegister(useBetterAuthProvider(auth));
+AuthService.getInstance().onRegister(onBetterAuthProvider(auth));
 
 // The seam between the two concepts. The role lookup is injected, so the core
 // stays free of I/O.
-const subject = await useResolveSubject("better-auth", request, (principal) =>
+const subject = await onResolveSubject("better-auth", request, (principal) =>
   directory.rolesFor(principal.subject),
 );
 ```
@@ -336,12 +336,12 @@ import { DirectoryService } from "katanakit-js";
 
 const directory = new DirectoryService({ repository });
 
-await directory.useList({ limit: 50, role: "admin" });
-await directory.useAddRole(actor, id, "editor");
-await directory.useRemoveRole(actor, id, "editor");
-await directory.useSuspend(actor, id, "contract ended");
-await directory.useReactivate(actor, id);
-await directory.useDelete(actor, id);
+await directory.list({ limit: 50, role: "admin" });
+await directory.addRole(actor, id, "editor");
+await directory.removeRole(actor, id, "editor");
+await directory.suspend(actor, id, "contract ended");
+await directory.reactivate(actor, id);
+await directory.delete(actor, id);
 ```
 
 The invariants:
@@ -355,9 +355,9 @@ The invariants:
   you could never grant is a role you may never revoke either — that is the
   direction privilege is lost, and the direction an attacker moves in.
 - **`owner` is never assigned through these paths.** Use a dedicated ownership
-  transfer; `useUpdate({ roles: ["owner"] })` is refused too, not just
-  `useAddRole`.
-- **`useSuspend` is soft offboarding**, and it is not `useDelete`. Removing the
+  transfer; `onUpdate({ roles: ["owner"] })` is refused too, not just
+  `addRole`.
+- **`suspend` is soft offboarding**, and it is not `delete`. Removing the
   row loses the evidence the account existed; leaving it "inactive" in a
   provider with no such state means the person can still sign in.
 
@@ -366,7 +366,7 @@ Every refusal carries a stable `code` — `last_owner`, `self_suspension`,
 can branch on it instead of matching message text:
 
 ```ts
-const result = await directory.useSuspend(actor, id);
+const result = await directory.suspend(actor, id);
 if (!result.ok && result.error.code === "last_owner") {
   showMessage("Promote another owner before suspending this account.");
 }

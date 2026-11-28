@@ -2,7 +2,7 @@
 
 # Class: FormatterService
 
-Defined in: [core/services/formatter.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L29)
+Defined in: [core/services/formatter.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L29)
 
 FormatterService — Singleton facade over `Intl.NumberFormat`, locale-aware
 casing and `JSON`.
@@ -19,9 +19,9 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useFormatNumber } from "katanakit-js";
+import { formatNumber } from "katanakit-js";
 
-useFormatNumber(1234.5, "en", 2); // "1,234.50"
+formatNumber(1234.5, "en", 2); // "1,234.50"
 ```
 
 ## Implements
@@ -30,13 +30,13 @@ useFormatNumber(1234.5, "en", 2); // "1,234.50"
 
 ## Methods
 
-### useCapitalize()
+### capitalize()
 
 ```ts
-useCapitalize(text, locale?): string;
+capitalize(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:132](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L132)
+Defined in: [core/services/formatter.service.ts:132](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L132)
 
 Pure: capitalizes the first character; leaves the rest unchanged.
 
@@ -56,24 +56,24 @@ The string with its first character upper-cased.
 #### Example
 
 ```ts
-import { useCapitalize } from "katanakit-js";
+import { capitalize } from "katanakit-js";
 
-useCapitalize("hello world"); // "Hello world"
+capitalize("hello world"); // "Hello world"
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useCapitalize`](../interfaces/IFormatterService.md#usecapitalize)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`capitalize`](../interfaces/IFormatterService.md#capitalize)
 
 ***
 
-### useFormatCurrency()
+### formatCurrency()
 
 ```ts
-useFormatCurrency(options): string;
+formatCurrency(options): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:164](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L164)
+Defined in: [core/services/formatter.service.ts:164](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L164)
 
 Pure: formats an amount as currency.
 
@@ -106,32 +106,32 @@ The formatted currency string.
 #### Example
 
 ```ts
-import { useFormatCurrency } from "katanakit-js";
+import { formatCurrency } from "katanakit-js";
 
-useFormatCurrency({ amount: 100, currency: "USD" }); // "$100.00"
-useFormatCurrency({ amount: 100, taxes: 21 }); // "$121.00"
-useFormatCurrency({ amount: 100, taxes: 0.21, locale: "es" }); // "121,00 €"
-useFormatCurrency({ amount: 100, currency: "JPY" }); // "¥100"
-useFormatCurrency({ amount: 100, currency: "JPY", digits: 2 }); // "¥100.00"
+formatCurrency({ amount: 100, currency: "USD" }); // "$100.00"
+formatCurrency({ amount: 100, taxes: 21 }); // "$121.00"
+formatCurrency({ amount: 100, taxes: 0.21, locale: "es" }); // "121,00 €"
+formatCurrency({ amount: 100, currency: "JPY" }); // "¥100"
+formatCurrency({ amount: 100, currency: "JPY", digits: 2 }); // "¥100.00"
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useFormatCurrency`](../interfaces/IFormatterService.md#useformatcurrency)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`formatCurrency`](../interfaces/IFormatterService.md#formatcurrency)
 
 ***
 
-### useFormatNumber()
+### formatNumber()
 
 ```ts
-useFormatNumber(
+formatNumber(
    value, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:74](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L74)
+Defined in: [core/services/formatter.service.ts:74](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L74)
 
 Pure number formatter over `Intl.NumberFormat`.
 
@@ -152,25 +152,25 @@ The formatted number string.
 #### Example
 
 ```ts
-import { useFormatNumber } from "katanakit-js";
+import { formatNumber } from "katanakit-js";
 
-useFormatNumber(1234.5, "en", 2); // "1,234.50"
-useFormatNumber(1234.5, "de", 2); // "1.234,50"
+formatNumber(1234.5, "en", 2); // "1,234.50"
+formatNumber(1234.5, "de", 2); // "1.234,50"
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useFormatNumber`](../interfaces/IFormatterService.md#useformatnumber)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`formatNumber`](../interfaces/IFormatterService.md#formatnumber)
 
 ***
 
-### useJsonParse()
+### jsonParse()
 
 ```ts
-useJsonParse<T>(json): T;
+jsonParse<T>(json): T;
 ```
 
-Defined in: [core/services/formatter.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L246)
+Defined in: [core/services/formatter.service.ts:246](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L246)
 
 Pure: parse JSON (throws on invalid input — same as `JSON.parse`).
 
@@ -195,25 +195,25 @@ The parsed value typed as `T`.
 #### Example
 
 ```ts
-import { useJsonParse } from "katanakit-js";
+import { jsonParse } from "katanakit-js";
 
-const obj = useJsonParse<{ a: number }>('{"a":1}');
+const obj = jsonParse<{ a: number }>('{"a":1}');
 // { a: 1 }
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useJsonParse`](../interfaces/IFormatterService.md#usejsonparse)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`jsonParse`](../interfaces/IFormatterService.md#jsonparse)
 
 ***
 
-### useJsonStringify()
+### jsonStringify()
 
 ```ts
-useJsonStringify(data): string;
+jsonStringify(data): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L227)
+Defined in: [core/services/formatter.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L227)
 
 Pure: pretty-print JSON (3-space indent).
 
@@ -232,25 +232,25 @@ The indented JSON string.
 #### Example
 
 ```ts
-import { useJsonStringify } from "katanakit-js";
+import { jsonStringify } from "katanakit-js";
 
-useJsonStringify({ a: 1 });
+jsonStringify({ a: 1 });
 // '{\n   "a": 1\n}'
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useJsonStringify`](../interfaces/IFormatterService.md#usejsonstringify)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`jsonStringify`](../interfaces/IFormatterService.md#jsonstringify)
 
 ***
 
-### useLowerCase()
+### lowerCase()
 
 ```ts
-useLowerCase(text, locale?): string;
+lowerCase(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:114](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L114)
+Defined in: [core/services/formatter.service.ts:114](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L114)
 
 Pure: locale-aware lower case (trims whitespace).
 
@@ -270,34 +270,34 @@ The lower-cased, trimmed string.
 #### Example
 
 ```ts
-import { useLowerCase } from "katanakit-js";
+import { lowerCase } from "katanakit-js";
 
-useLowerCase("HELLO"); // "hello"
+lowerCase("HELLO"); // "hello"
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useLowerCase`](../interfaces/IFormatterService.md#uselowercase)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`lowerCase`](../interfaces/IFormatterService.md#lowercase)
 
 ***
 
-### useSalePrice()
+### salePrice()
 
 ```ts
-useSalePrice(options): SalePrice;
+salePrice(options): SalePrice;
 ```
 
-Defined in: [core/services/formatter.service.ts:203](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L203)
+Defined in: [core/services/formatter.service.ts:203](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L203)
 
 Pure: applies a discount to a price and reports what was taken off.
 
 `discount` follows the same rate convention as `taxes` in
-[FormatterService.useFormatCurrency](#useformatcurrency): percentage (`40` → 40%) or
+[FormatterService.formatCurrency](#formatcurrency): percentage (`40` → 40%) or
 decimal fraction (`0.4` → 40%).
 
 The returned `salePrice` is unrounded, so it survives markup chains (10% +
 20% of the same base) without accumulating error; pass it straight to
-[FormatterService.useFormatCurrency](#useformatcurrency) to get the digits the currency
+[FormatterService.formatCurrency](#formatcurrency) to get the digits the currency
 demands. Only `percentOff` is rounded, because it exists to be displayed.
 
 #### Parameters
@@ -317,27 +317,27 @@ The regular price, the discounted price and the rounded percentage.
 #### Example
 
 ```ts
-import { useFormatCurrency, useSalePrice } from "katanakit-js";
+import { formatCurrency, salePrice } from "katanakit-js";
 
-const sale = useSalePrice({ price: 29.99, discount: 40 });
+const sale = salePrice({ price: 29.99, discount: 40 });
 // { price: 29.99, salePrice: 17.994, percentOff: 40 }
 
-useFormatCurrency({ amount: sale.salePrice, currency: "EUR", locale: "es" }); // "17,99 €"
+formatCurrency({ amount: sale.salePrice, currency: "EUR", locale: "es" }); // "17,99 €"
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useSalePrice`](../interfaces/IFormatterService.md#usesaleprice)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`salePrice`](../interfaces/IFormatterService.md#saleprice)
 
 ***
 
-### useUpperCase()
+### upperCase()
 
 ```ts
-useUpperCase(text, locale?): string;
+upperCase(text, locale?): string;
 ```
 
-Defined in: [core/services/formatter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L96)
+Defined in: [core/services/formatter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L96)
 
 Pure: locale-aware upper case (trims whitespace).
 
@@ -357,15 +357,15 @@ The upper-cased, trimmed string.
 #### Example
 
 ```ts
-import { useUpperCase } from "katanakit-js";
+import { upperCase } from "katanakit-js";
 
-useUpperCase("hello"); // "HELLO"
-useUpperCase("straße", "de"); // "STRASSE"
+upperCase("hello"); // "HELLO"
+upperCase("straße", "de"); // "STRASSE"
 ```
 
 #### Implementation of
 
-[`IFormatterService`](../interfaces/IFormatterService.md).[`useUpperCase`](../interfaces/IFormatterService.md#useuppercase)
+[`IFormatterService`](../interfaces/IFormatterService.md).[`upperCase`](../interfaces/IFormatterService.md#uppercase)
 
 ***
 
@@ -375,7 +375,7 @@ useUpperCase("straße", "de"); // "STRASSE"
 static getInstance(): FormatterService;
 ```
 
-Defined in: [core/services/formatter.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/formatter.service.ts#L36)
+Defined in: [core/services/formatter.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/formatter.service.ts#L36)
 
 Returns the shared instance (Singleton).
 

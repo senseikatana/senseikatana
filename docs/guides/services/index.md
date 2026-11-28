@@ -27,12 +27,12 @@ re-exported as `use*` helpers from the package root:
 import { FetchApiManager } from "katanakit-js";
 
 const api = FetchApiManager.getInstance();
-api.useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
+api.onGet("pokeapi", "pokemonById", { params: { id: 25 } });
 
 // Function module — same contract, no instance
-import { useGetApi } from "katanakit-js";
+import { onGet } from "katanakit-js";
 
-useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
+onGet("pokeapi", "pokemonById", { params: { id: 25 } });
 ```
 
 The [API Reference](/api/) is generated from the source; the pages below are

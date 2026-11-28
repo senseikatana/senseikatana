@@ -2,7 +2,7 @@
 
 # Interface: KeyRecordInput
 
-Defined in: [types/cli/keyvault.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/cli/keyvault.ts#L18)
+Defined in: [types/cli/keyvault.ts:18](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/cli/keyvault.ts#L18)
 
 Input accepted when creating a key record (id/status/timestamps are assigned).
 
@@ -10,7 +10,7 @@ Input accepted when creating a key record (id/status/timestamps are assigned).
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="label"></a> `label` | `string` | [types/cli/keyvault.ts:20](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/cli/keyvault.ts#L20) |
-| <a id="note"></a> `note?` | `string` | [types/cli/keyvault.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/cli/keyvault.ts#L22) |
-| <a id="provider"></a> `provider` | `string` | [types/cli/keyvault.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/cli/keyvault.ts#L19) |
-| <a id="secret"></a> `secret` | `string` | [types/cli/keyvault.ts:21](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/cli/keyvault.ts#L21) |
+| <a id="label"></a> `label` | `string` | [types/cli/keyvault.ts:20](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/cli/keyvault.ts#L20) |
+| <a id="note"></a> `note?` | `string` | [types/cli/keyvault.ts:22](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/cli/keyvault.ts#L22) |
+| <a id="provider"></a> `provider` | `string` | [types/cli/keyvault.ts:19](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/cli/keyvault.ts#L19) |
+| <a id="secret"></a> `secret` | `string` | [types/cli/keyvault.ts:21](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/cli/keyvault.ts#L21) |

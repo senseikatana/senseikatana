@@ -16,12 +16,12 @@ export function badgeClass(options = {}) {
  *
  * @example
  * ```ts
- * cell.append(useBadge({ label: "Paid", variant: "success" }));
+ * cell.append(onBadge({ label: "Paid", variant: "success" }));
  * ```
  */
-export function useBadge(options = {}) {
+export function onBadge(options = {}) {
     if (typeof document === "undefined") {
-        throw new Error("[KatanaUI] useBadge() needs a DOM; use badgeClass() for SSR markup.");
+        throw new Error("[KatanaUI] onBadge() needs a DOM; use badgeClass() for SSR markup.");
     }
     const badge = document.createElement("span");
     badge.className = badgeClass(options);

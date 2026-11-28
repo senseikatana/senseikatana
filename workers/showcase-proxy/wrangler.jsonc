@@ -1,9 +1,0 @@
-// Subdomain Worker: forwards showcase.samuraicoder.com to the workspace.
-// Deploy: `bunx wrangler deploy -c workers/showcase-proxy/wrangler.jsonc`
-{
-  "$schema": "https://unpkg.com/wrangler@4.162.0/config-schema.json",
-  "name": "showcase-proxy",
-  "main": "src/index.ts",
-  "compatibility_date": "2026-01-01",
-  "routes": [{ "pattern": "showcase.samuraicoder.dev/*", "zone_name": "samuraicoder.dev" }],
-}

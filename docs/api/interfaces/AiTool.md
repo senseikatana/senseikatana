@@ -2,18 +2,17 @@
 
 # Interface: AiTool
 
-Defined in: [types/core/ai.ts:57](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/ai.ts#L57)
+Defined in: [types/core/ai.ts:51](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/ai.ts#L51)
 
-A tool the agent can invoke. `parameters` is a JSON Schema object
-describing the expected input.
+A tool the agent can invoke. `parameters` is a JSON Schema object describing the expected input.
 
 ## Properties
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="description"></a> `description` | `string` | [types/core/ai.ts:59](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/ai.ts#L59) |
-| <a id="name"></a> `name` | `string` | [types/core/ai.ts:58](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/ai.ts#L58) |
-| <a id="parameters"></a> `parameters` | `Record`\<`string`, `unknown`\> | [types/core/ai.ts:60](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/ai.ts#L60) |
+| <a id="description"></a> `description` | `string` | [types/core/ai.ts:53](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/ai.ts#L53) |
+| <a id="name"></a> `name` | `string` | [types/core/ai.ts:52](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/ai.ts#L52) |
+| <a id="parameters"></a> `parameters` | `Record`\<`string`, `unknown`\> | [types/core/ai.ts:54](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/ai.ts#L54) |
 
 ## Methods
 
@@ -23,7 +22,7 @@ describing the expected input.
 execute(input): unknown;
 ```
 
-Defined in: [types/core/ai.ts:61](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/ai.ts#L61)
+Defined in: [types/core/ai.ts:55](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/ai.ts#L55)
 
 #### Parameters
 

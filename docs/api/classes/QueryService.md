@@ -2,7 +2,7 @@
 
 # Class: QueryService
 
-Defined in: [core/services/query.service.ts:80](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/query.service.ts#L80)
+Defined in: [core/services/query.service.ts:80](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/query.service.ts#L80)
 
 QueryService - Singleton para el QueryClient compartido.
 
@@ -14,19 +14,19 @@ un cliente por petición.
 ## Example
 
 ```ts
-const client = QueryService.getInstance().useGetClient();
+const client = QueryService.getInstance().onGetClient();
 await client.invalidateQueries({ queryKey: ["users"] });
 ```
 
 ## Methods
 
-### useGetClient()
+### onGetClient()
 
 ```ts
-useGetClient(): QueryClient;
+onGetClient(): QueryClient;
 ```
 
-Defined in: [core/services/query.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/query.service.ts#L112)
+Defined in: [core/services/query.service.ts:110](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/query.service.ts#L110)
 
 Returns the shared QueryClient, creating one on first call.
 
@@ -42,13 +42,13 @@ The shared QueryClient.
 
 ***
 
-### useInit()
+### onInit()
 
 ```ts
-useInit(config?): QueryClient;
+onInit(config?): QueryClient;
 ```
 
-Defined in: [core/services/query.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/query.service.ts#L124)
+Defined in: [core/services/query.service.ts:122](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/query.service.ts#L122)
 
 Replaces the shared QueryClient with a configured instance.
 The previous client's caches are cleared before swapping.
@@ -67,13 +67,13 @@ The newly created QueryClient.
 
 ***
 
-### useSafeQueryFn()
+### onSafeQueryFn()
 
 ```ts
-useSafeQueryFn<T>(fn): (context) => Promise<T>;
+onSafeQueryFn<T>(fn): (context) => Promise<T>;
 ```
 
-Defined in: [core/services/query.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/query.service.ts#L142)
+Defined in: [core/services/query.service.ts:140](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/query.service.ts#L140)
 
 Bridges a KatanaKit Safe Result fetcher into a TanStack `queryFn`.
 
@@ -92,7 +92,7 @@ checks and error boundaries work.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `fn` | (`context`) => `Promise`\<[`FetchResult`](../type-aliases/FetchResult.md)\<`T`\>\> | A function returning a Safe Result (e.g. `() => useGetApi(...)`). |
+| `fn` | (`context`) => `Promise`\<[`FetchResult`](../type-aliases/FetchResult.md)\<`T`\>\> | A function returning a Safe Result (e.g. `() => onGetApi(...)`). |
 
 #### Returns
 
@@ -108,7 +108,7 @@ A `queryFn` that throws on error.
 static getInstance(): QueryService;
 ```
 
-Defined in: [core/services/query.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/query.service.ts#L96)
+Defined in: [core/services/query.service.ts:94](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/query.service.ts#L94)
 
 Obtiene la instancia única del QueryService (Singleton).
 

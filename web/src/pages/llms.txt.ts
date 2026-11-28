@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getPosts } from '../features/blog/queries';
 import { getServices } from '../features/services/queries';
-import { docsLinks, site, WORKSPACE_URL } from '../config/site';
+import { docsLinks, site } from '../config/site';
 import { defaultLocale } from '../i18n/config';
 import { contentSlug } from '../lib/content';
 
@@ -30,7 +30,7 @@ export const GET: APIRoute = async () => {
     `- [Blog](${site.url}/posts): technical articles`,
     `- [Documentation](${docsLinks.home}): KatanaKit documentation`,
     `- [Contact](${site.url}/contact)`,
-    `- [Case studies](${WORKSPACE_URL}/): projects and works, on a separate domain`,
+    `- [Works](${site.url}/works): projects and case studies`,
     '',
     '## Services',
     '',

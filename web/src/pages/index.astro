@@ -37,9 +37,7 @@ const posts = (await getPosts(locale)).slice(0, 3);
         </p>
         <div class="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
           <a href={site.cta.href} class="btn btn-primary max-md:w-full">{tr('nav.cta')} -&gt;</a>
-          <a href={site.secondary.href} class="link text-[15px]" rel="noopener"
-            >{tr('home.worksCta')} ↗</a
-          >
+          <a href={site.secondary.href} class="link text-[15px]">{tr('home.worksCta')} -&gt;</a>
         </div>
       </div>
       <div class="border border-ink bg-canvas p-6">
@@ -86,9 +84,8 @@ const posts = (await getPosts(locale)).slice(0, 3);
   </Section>
 
   <!--
-    [02] Trabajos. Everything here is an outbound link: the workspace
-    (samuraicoder.dev) documents the open-source tools and hosts the client
-    work, so this site never duplicates that content.
+    [02] Trabajos. The case studies live in this site under /works/; the
+    open-source and client cards below link to their local pages.
   -->
   <Section label={tr('home.labels.works')}>
     <div class="flex flex-wrap items-end justify-between gap-6">
@@ -98,12 +95,12 @@ const posts = (await getPosts(locale)).slice(0, 3);
         title={tr('works.headline')}
         lede={tr('home.worksSubtitle')}
       />
-      <a href={site.secondary.href} class="link text-[14px]" rel="noopener">
-        {tr('home.worksAll')} ↗
+      <a href={site.secondary.href} class="link text-[14px]">
+        {tr('home.worksAll')} -&gt;
       </a>
     </div>
 
-    <!-- Open source: published packages, each with its own page on the workspace. -->
+    <!-- Open source: published packages, each with its own page on this site. -->
     <p class="label mt-12 mb-3 flex items-center gap-3">
       <span>{tr('works.openSource')}</span>
       <span class="h-px flex-1 bg-rule" aria-hidden="true"></span>
@@ -115,7 +112,6 @@ const posts = (await getPosts(locale)).slice(0, 3);
           <li>
             <a
               href={work.href}
-              rel="noopener"
               class="group flex h-full flex-col border-r border-b border-rule p-5 transition-colors hover:bg-tint"
             >
               <div class="flex items-start justify-between gap-3">
@@ -124,7 +120,7 @@ const posts = (await getPosts(locale)).slice(0, 3);
                   class="shrink-0 text-[13px] text-smoke transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
                   aria-hidden="true"
                 >
-                  ↗
+                  -&gt;
                 </span>
               </div>
               <h3 class="mt-2.5 text-[18px] font-bold leading-[1.15] tracking-[-0.02em] underline-offset-4 group-hover:underline">
@@ -161,7 +157,6 @@ const posts = (await getPosts(locale)).slice(0, 3);
           <li>
             <a
               href={work.href}
-              rel="noopener"
               class="group flex h-full flex-col border-r border-b border-rule p-5 transition-colors hover:bg-tint"
             >
               <div class="flex items-start justify-between gap-3">
@@ -170,7 +165,7 @@ const posts = (await getPosts(locale)).slice(0, 3);
                   class="shrink-0 text-[13px] text-smoke transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink"
                   aria-hidden="true"
                 >
-                  ↗
+                  -&gt;
                 </span>
               </div>
               <h3 class="mt-2.5 text-[18px] font-bold leading-[1.15] tracking-[-0.02em] underline-offset-4 group-hover:underline">

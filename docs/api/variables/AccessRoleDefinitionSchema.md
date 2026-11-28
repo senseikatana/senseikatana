@@ -11,7 +11,7 @@ const AccessRoleDefinitionSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/access.schema.ts:87](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/access.schema.ts#L87)
+Defined in: [schemas/access.schema.ts:87](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/access.schema.ts#L87)
 
 A role definition.
 

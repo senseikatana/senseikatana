@@ -10,11 +10,11 @@ module-level state, with no instance to create. Two design rules apply to every
 function on this page:
 
 1. **SSR-safe by default** — outside the browser (`typeof window === "undefined"`),
-   `useInitTheme()`, `useSetThemeMode()` and `useResetTheme()` are no-ops, the
+   `onInitTheme()`, `onSetThemeMode()` and `onResetTheme()` are no-ops, the
    getters return safe defaults (`"system"`, `"light"`, `false`) and
-   `useDestroyTheme()` only clears an existing listener, so it is safe anywhere.
+   `onDestroyTheme()` only clears an existing listener, so it is safe anywhere.
 2. **One mode, one target** — the module keeps a single active mode and a single
-   target element (the `<html>` root by default). `useInitTheme()` wires them
+   target element (the `<html>` root by default). `onInitTheme()` wires them
    together; every mutation then updates the target's `data-theme` attribute and
    toggles the `light` / `dark` classes.
 
@@ -28,23 +28,23 @@ bundle loads — see [Preventing a flash of the wrong theme](#preventing-a-flash
 
 ```ts
 import {
-  useInitTheme, useGetThemeMode, useGetResolved, useToggleTheme,
+  onInitTheme, onGetThemeMode, onGetResolved, onToggleTheme,
 } from "katanakit-js";
 
-useInitTheme({
+onInitTheme({
   defaultMode: "system",
   onChange: (mode, resolved) => console.log(mode, resolved),
 });
 
-console.log(useGetThemeMode()); // "system" | "light" | "dark"
-console.log(useGetResolved());  // "light" | "dark" — system preference applied
+console.log(onGetThemeMode()); // "system" | "light" | "dark"
+console.log(onGetResolved());  // "light" | "dark" — system preference applied
 
-document.querySelector("#theme-toggle")?.addEventListener("click", useToggleTheme);
+document.querySelector("#theme-toggle")?.addEventListener("click", onToggleTheme);
 ```
 
 ## Initialization
 
-### useInitTheme(options?)
+### onInitTheme(options?)
 
 Initializes the theme system and is the only function that reads persisted
 state. It resolves the starting mode with this precedence:
@@ -62,7 +62,7 @@ duplicate listeners.
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
 | `defaultMode` | `ThemeMode` | `"system"` | Mode used when nothing valid is stored. Invalid runtime values fall back to `"system"`. |
-| `storageKey` | `string` | `"theme"` | `localStorage` key read at init and written by `useSetThemeMode()`. |
+| `storageKey` | `string` | `"theme"` | `localStorage` key read at init and written by `onSetThemeMode()`. |
 | `attribute` | `string` | `"data-theme"` | Attribute set on the target with the resolved scheme. |
 | `target` | `HTMLElement` | `document.documentElement` | Element that receives the attribute and classes. |
 | `onChange` | `(mode, resolved) => void` | `undefined` | Called after every apply, including the initial one. |
@@ -72,9 +72,9 @@ can call it unconditionally. If `target` cannot be resolved, the mode and
 listener are still configured, but nothing is written to the DOM.
 
 ```ts
-import { useInitTheme } from "katanakit-js";
+import { onInitTheme } from "katanakit-js";
 
-useInitTheme({
+onInitTheme({
   defaultMode: "dark",
   storageKey: "app-theme",
   attribute: "data-theme",
@@ -91,11 +91,11 @@ external chrome (cookies, meta tags, analytics):
 
 ```ts
 // Vue
-onMounted(() => useInitTheme({ defaultMode: "system" }));
+onMounted(() => onInitTheme({ defaultMode: "system" }));
 
 // React
 useEffect(() => {
-  useInitTheme({ defaultMode: "system" });
+  onInitTheme({ defaultMode: "system" });
 }, []);
 ```
 
@@ -103,14 +103,14 @@ Because `target` is configurable, the same module can theme a scoped subtree —
 for example a live preview card — instead of the whole document:
 
 ```ts
-useInitTheme({
+onInitTheme({
   target: document.querySelector<HTMLElement>("#theme-preview")!,
 });
 ```
 
 ## Reading the current theme
 
-### useGetThemeMode()
+### onGetThemeMode()
 
 Returns the raw `ThemeMode` currently selected: `"light"`, `"dark"` or
 `"system"`. This is a pure module-state read — it never touches the DOM, never
@@ -119,9 +119,9 @@ are no-ops. Use it to distinguish the **user's choice** from the scheme that is
 actually rendered.
 
 ```ts
-import { useGetThemeMode } from "katanakit-js";
+import { onGetThemeMode } from "katanakit-js";
 
-const mode = useGetThemeMode(); // "light" | "dark" | "system"
+const mode = onGetThemeMode(); // "light" | "dark" | "system"
 const followsSystem = mode === "system";
 ```
 
@@ -130,22 +130,22 @@ the stored choice once, and the "Use system setting" row explains what happens
 when it is selected:
 
 ```ts
-if (useGetThemeMode() === "system") {
+if (onGetThemeMode() === "system") {
   showHint("Colors follow your operating system preference.");
 }
 ```
 
-### useGetResolved()
+### onGetResolved()
 
 Returns the concrete scheme that should be painted: `"light"` or `"dark"`. When
 the mode is explicit it returns it untouched; when the mode is `"system"` it
-queries the OS preference through `usePrefersColorScheme()`. On the server the
+queries the OS preference through `onPrefersColorScheme()`. On the server the
 fallback is `"light"`, since `matchMedia` does not exist.
 
 ```ts
-import { useGetResolved } from "katanakit-js";
+import { onGetResolved } from "katanakit-js";
 
-const scheme = useGetResolved(); // "light" | "dark"
+const scheme = onGetResolved(); // "light" | "dark"
 ```
 
 **Real use case** — keeping browser chrome in sync: the resolved value drives
@@ -153,27 +153,27 @@ the `theme-color` meta tag and any canvas or chart palette, while the raw mode
 stays `"system"` for the settings UI:
 
 ```ts
-import { useGetResolved, useSetAttribute } from "katanakit-js";
+import { onGetResolved, onSetAttribute } from "katanakit-js";
 
 function syncBrowserChrome() {
-  const scheme = useGetResolved();
+  const scheme = onGetResolved();
   const color = scheme === "dark" ? "#0a0a0a" : "#ffffff";
-  useSetAttribute('meta[name="theme-color"]', "content", color);
+  onSetAttribute('meta[name="theme-color"]', "content", color);
 }
 ```
 
-### usePrefersColorScheme()
+### onPrefersColorScheme()
 
 One-shot check of `window.matchMedia("(prefers-color-scheme: dark)").matches`.
 It returns `false` on the server or in browsers without `matchMedia`, and it is
 **not reactive** — it reports the preference at call time. Reactive consumers
-should rely on `useInitTheme()` plus its `onChange` callback instead of polling
+should rely on `onInitTheme()` plus its `onChange` callback instead of polling
 this function.
 
 ```ts
-import { usePrefersColorScheme } from "katanakit-js";
+import { onPrefersColorScheme } from "katanakit-js";
 
-const prefersDark = usePrefersColorScheme();
+const prefersDark = onPrefersColorScheme();
 ```
 
 **Real use case** — third-party widgets that have their own theme option (code
@@ -181,16 +181,16 @@ editors, chart libraries). Seed them from the OS preference when the app mode is
 `"system"`, and re-seed them from `onChange` whenever the user changes mode:
 
 ```ts
-const editorTheme = usePrefersColorScheme() ? "vs-dark" : "light";
+const editorTheme = onPrefersColorScheme() ? "vs-dark" : "light";
 monaco.editor.create(container, { theme: editorTheme });
 ```
 
-The viewport service exposes the same media query as `usePrefersDarkMode()`; use
+The viewport service exposes the same media query as `onPrefersDarkMode()`; use
 whichever module matches the rest of your imports.
 
 ## Changing the theme
 
-### useSetThemeMode(newMode)
+### onSetThemeMode(newMode)
 
 Sets `newMode`, persists it to `localStorage` under the active `storageKey` and
 applies it to the target. Values that fail the runtime `ThemeMode` check are
@@ -199,17 +199,17 @@ coerced to `"system"`, which makes the function safe for data coming from
 
 Returns `void` and is a no-op on the server. Two ordering caveats matter:
 
-- If you call it **before** `useInitTheme()`, the mode and storage entry are
+- If you call it **before** `onInitTheme()`, the mode and storage entry are
   updated, but `target` is still `null`, so the DOM is not touched until
   initialization runs.
-- A custom `storageKey` only applies after `useInitTheme({ storageKey })` has
+- A custom `storageKey` only applies after `onInitTheme({ storageKey })` has
   been called, because the module-level key is set there.
 
 ```ts
-import { useSetThemeMode, type ThemeMode } from "katanakit-js";
+import { onSetThemeMode, type ThemeMode } from "katanakit-js";
 
-useSetThemeMode("dark");
-useSetThemeMode("system"); // follow the OS again
+onSetThemeMode("dark");
+onSetThemeMode("system"); // follow the OS again
 ```
 
 **Real use case** — a segmented control rendered from a three-value list. The
@@ -219,37 +219,37 @@ inside the service covers any unexpected string:
 ```ts
 document.querySelectorAll<HTMLButtonElement>("[data-theme-option]").forEach((button) => {
   button.addEventListener("click", () => {
-    useSetThemeMode(button.dataset.themeOption as ThemeMode);
+    onSetThemeMode(button.dataset.themeOption as ThemeMode);
   });
 });
 ```
 
-### useToggleTheme()
+### onToggleTheme()
 
 Flips the **resolved** scheme and persists the result as an explicit mode. It
-first computes `useGetResolved()`, then calls `useSetThemeMode()` with the
+first computes `onGetResolved()`, then calls `onSetThemeMode()` with the
 opposite value, so `"light" → "dark"` and `"dark" → "light"`. Toggling from
 `"system"` intentionally leaves system mode behind: the user asked for one
 specific scheme.
 
 ```ts
-import { useToggleTheme } from "katanakit-js";
+import { onToggleTheme } from "katanakit-js";
 
-useToggleTheme(); // light -> dark, dark -> light
+onToggleTheme(); // light -> dark, dark -> light
 ```
 
 On the server the call is harmless: the resolved fallback is `"light"`, but
-`useSetThemeMode()` no-ops, so module state is not mutated.
+`onSetThemeMode()` no-ops, so module state is not mutated.
 
 **Real use case** — the classic single-button switch. Pair it with `onChange` to
 keep the accessible label and state in sync without duplicating logic:
 
 ```ts
-import { useInitTheme, useToggleTheme } from "katanakit-js";
+import { onInitTheme, onToggleTheme } from "katanakit-js";
 
 const button = document.querySelector<HTMLButtonElement>("#theme-toggle")!;
 
-useInitTheme({
+onInitTheme({
   onChange: (_mode, resolved) => {
     const dark = resolved === "dark";
     button.setAttribute("aria-pressed", String(dark));
@@ -257,10 +257,10 @@ useInitTheme({
   },
 });
 
-button.addEventListener("click", useToggleTheme);
+button.addEventListener("click", onToggleTheme);
 ```
 
-### useResetTheme()
+### onResetTheme()
 
 Removes the stored preference and returns the module to `"system"`, then
 re-applies the theme. Because the media listener registered at init is still
@@ -270,21 +270,21 @@ mode to `"system"`), but without a target nothing is painted. On the server it
 is a no-op.
 
 ```ts
-import { useResetTheme } from "katanakit-js";
+import { onResetTheme } from "katanakit-js";
 
-useResetTheme();
+onResetTheme();
 ```
 
 **Real use case** — a "Restore defaults" action in preferences. After the call,
-`useGetThemeMode()` reports `"system"`, which is the state the settings UI should
+`onGetThemeMode()` reports `"system"`, which is the state the settings UI should
 render:
 
 ```ts
-import { useGetThemeMode, useResetTheme } from "katanakit-js";
+import { onGetThemeMode, onResetTheme } from "katanakit-js";
 
 resetButton.addEventListener("click", () => {
-  useResetTheme();
-  console.log(useGetThemeMode()); // "system"
+  onResetTheme();
+  console.log(onGetThemeMode()); // "system"
 });
 ```
 
@@ -311,7 +311,7 @@ scheme — the raw mode is never written to the DOM:
 | Attribute values | `"light"`, `"dark"` — never `"system"` |
 | Classes | `light`, `dark` (fixed names) |
 | Default target | `document.documentElement` |
-| Storage backend | `localStorage` (via `useSetStorage`) |
+| Storage backend | `localStorage` (via `onSetStorage`) |
 
 The CSS side of the contract is documented in
 [Dark Mode](/ui-kit/css/core/dark-mode): the `theme("dark")` mixin emits
@@ -320,7 +320,7 @@ selector and the classes are a convenience.
 
 ## Teardown
 
-### useDestroyTheme()
+### onDestroyTheme()
 
 Unsubscribes the `prefers-color-scheme` media listener and clears its
 references. It has **no browser guard** because it only cleans up what exists,
@@ -329,17 +329,17 @@ replacement dispose hook.
 
 What it does **not** do: it does not reset the mode, remove the stored
 preference, clear `target`, `attribute`, `storageKey` or `onChange`. After
-destroying, `useSetThemeMode()`, `useToggleTheme()` and `useResetTheme()` keep
+destroying, `onSetThemeMode()`, `onToggleTheme()` and `onResetTheme()` keep
 working, but OS preference changes no longer trigger an automatic re-apply until
-`useInitTheme()` is called again.
+`onInitTheme()` is called again.
 
 ```ts
-import { useDestroyTheme, useInitTheme } from "katanakit-js";
+import { onDestroyTheme, onInitTheme } from "katanakit-js";
 
-useInitTheme({ defaultMode: "dark" });
+onInitTheme({ defaultMode: "dark" });
 
 // Later — during teardown
-useDestroyTheme();
+onDestroyTheme();
 ```
 
 **Real use case** — test isolation: each test initializes the theme, and
@@ -348,15 +348,15 @@ The same call fits HMR:
 
 ```ts
 // Vitest
-afterEach(() => useDestroyTheme());
+afterEach(() => onDestroyTheme());
 
 // Vite
-import.meta.hot?.dispose(() => useDestroyTheme());
+import.meta.hot?.dispose(() => onDestroyTheme());
 ```
 
 ## Preventing a flash of the wrong theme
 
-`useInitTheme()` runs when your bundle executes, which is after the first paint
+`onInitTheme()` runs when your bundle executes, which is after the first paint
 in a client-rendered app. To avoid a flash of the wrong scheme, inline a small
 blocking script in `<head>` that reads the same `storageKey` and mirrors the
 resolution logic. The storage service writes plain strings, so
@@ -390,16 +390,16 @@ hydration.
 
 ## Putting it together: a three-state switcher
 
-This select combines initialization, persistence and mutation. `useInitTheme()`
+This select combines initialization, persistence and mutation. `onInitTheme()`
 fires `onChange` immediately after reading storage, so the control always starts
 on the saved value without an extra getter call:
 
 ```ts
-import { useInitTheme, useSetThemeMode, type ThemeMode } from "katanakit-js";
+import { onInitTheme, onSetThemeMode, type ThemeMode } from "katanakit-js";
 
 const select = document.querySelector<HTMLSelectElement>("#theme-select")!;
 
-useInitTheme({
+onInitTheme({
   storageKey: "app-theme",
   onChange: (mode) => {
     select.value = mode;
@@ -407,7 +407,7 @@ useInitTheme({
 });
 
 select.addEventListener("change", () => {
-  useSetThemeMode(select.value as ThemeMode);
+  onSetThemeMode(select.value as ThemeMode);
 });
 ```
 
@@ -417,8 +417,8 @@ path for buttons, selects, cookies and third-party widgets.
 
 ## Related
 
-- [DOM](/guides/services/dom) — `useGetRoot()`, `useSetAttribute()` and the class helpers the theme module builds on.
+- [DOM](/guides/services/dom) — `onGetRoot()`, `onSetAttribute()` and the class helpers the theme module builds on.
 - [Storage](/guides/services/storage) — the localStorage persistence mechanics behind `storageKey`.
-- [Viewport](/guides/services/viewport) — one-shot media queries, including `usePrefersDarkMode()`.
+- [Viewport](/guides/services/viewport) — one-shot media queries, including `onPrefersDarkMode()`.
 - [Dark Mode (CSS)](/ui-kit/css/core/dark-mode) — the `theme("dark")` mixin that styles `[data-theme="dark"]`.
-- [API Reference](/api/functions/useInitTheme) — every export, generated from source.
+- [API Reference](/api/functions/onInitTheme) — every export, generated from source.

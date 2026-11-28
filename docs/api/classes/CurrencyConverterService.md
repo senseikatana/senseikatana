@@ -2,7 +2,7 @@
 
 # Class: CurrencyConverterService
 
-Defined in: [core/services/currency.service.ts:82](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L82)
+Defined in: [core/services/currency.service.ts:82](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L82)
 
 CurrencyConverterService — Singleton facade for currency conversion against
 **external exchange rates**.
@@ -17,9 +17,9 @@ Applies four patterns at once:
   kit: `on*` marks *a callback the service invokes*, never a method you call.
 - **Dependency Injection** — the rate source is an [ICurrencyRateProvider](../interfaces/ICurrencyRateProvider.md)
   port, injected through [CurrencyConverterService.create](#create) or
-  [CurrencyConverterService.useSetProvider](#usesetprovider). The default implementation
+  [CurrencyConverterService.setProvider](#setprovider). The default implementation
   lives in `src/infrastructure/` (runtime I/O stays out of the core), and the
-  `useCurrencyConverter()` helper wires it for you.
+  `onCurrencyConverter()` helper wires it for you.
 
 Every fallible call returns a [SafeResult](../type-aliases/SafeResult.md) — this service never throws.
 `converted` is money: rounded to exactly 2 decimals with `Intl`'s symmetric
@@ -28,20 +28,20 @@ chained arithmetic multiplies instead of re-fetching.
 
 This service **converts and never formats**. Presentation is a separate
 responsibility owned by [FormatterService](FormatterService.md); compose the two when you
-need a string (`useFormatCurrency({ amount: converted, currency: to })`).
+need a string (`onFormatCurrency({ amount: converted, currency: to })`).
 
 ## Example
 
 ```ts
-import { useCurrencyConverter, useConvertCurrency } from "katanakit-js";
+import { onCurrencyConverter, convertCurrency } from "katanakit-js";
 
 // One-shot helper (wires the Frankfurter provider on first call):
-const result = await useConvertCurrency({ amount: 100, from: "USD", to: "EUR" });
+const result = await convertCurrency({ amount: 100, from: "USD", to: "EUR" });
 if (result.ok) console.log(result.data.converted, result.data.rate);
 
 // Or hold the facade and subscribe to rate updates (Observer):
-const currency = useCurrencyConverter();
-const unsubscribe = currency.useSubscribe({
+const currency = onCurrencyConverter();
+const unsubscribe = currency.subscribe({
   onRatesUpdate: (snapshot) => console.log("rates for", snapshot.date),
 });
 ```
@@ -52,16 +52,15 @@ const unsubscribe = currency.useSubscribe({
 
 ## Methods
 
-### useClearCache()
+### clearCache()
 
 ```ts
-useClearCache(): void;
+clearCache(): void;
 ```
 
-Defined in: [core/services/currency.service.ts:300](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L300)
+Defined in: [core/services/currency.service.ts:297](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L297)
 
-Drops every cached snapshot. In-flight responses are discarded too: they
-were requested before the drop and must not repopulate the cache.
+Drops every cached snapshot. In-flight responses are discarded too: they were requested before the drop and must not repopulate the cache.
 
 #### Returns
 
@@ -69,10 +68,10 @@ were requested before the drop and must not repopulate the cache.
 
 ***
 
-### useConvert()
+### convert()
 
 ```ts
-useConvert(options): Promise<SafeResult<{
+convert(options): Promise<SafeResult<{
   amount: number;
   converted: number;
   date: string;
@@ -146,7 +145,7 @@ useConvert(options): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [core/services/currency.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L207)
+Defined in: [core/services/currency.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L207)
 
 Converts an amount between two currencies.
 
@@ -244,23 +243,23 @@ belongs to.
 #### Example
 
 ```ts
-const result = await useConvertCurrency({ amount: 100, from: "USD", to: "EUR" });
+const result = await convertCurrency({ amount: 100, from: "USD", to: "EUR" });
 // result.ok → { amount: 100, from: "USD", to: "EUR", rate: 0.88865, converted: 88.87, date: "2026-10-16" }
 ```
 
 #### Implementation of
 
-[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`useConvert`](../interfaces/ICurrencyConverterService.md#useconvert)
+[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`convert`](../interfaces/ICurrencyConverterService.md#convert)
 
 ***
 
-### useGetRate()
+### getRate()
 
 ```ts
-useGetRate(from, to): Promise<SafeResult<number>>;
+getRate(from, to): Promise<SafeResult<number>>;
 ```
 
-Defined in: [core/services/currency.service.ts:267](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L267)
+Defined in: [core/services/currency.service.ts:267](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L267)
 
 Returns the exchange rate between two currencies.
 
@@ -280,20 +279,20 @@ Returns the exchange rate between two currencies.
 #### Example
 
 ```ts
-const rate = await useGetExchangeRate("USD", "EUR");
+const rate = await onGetExchangeRate("USD", "EUR");
 // rate.ok → 0.92
 ```
 
 #### Implementation of
 
-[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`useGetRate`](../interfaces/ICurrencyConverterService.md#usegetrate)
+[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`getRate`](../interfaces/ICurrencyConverterService.md#getrate)
 
 ***
 
-### useGetSnapshot()
+### getSnapshot()
 
 ```ts
-useGetSnapshot(): 
+getSnapshot(): 
   | {
   base:   | "USD"
      | "EUR"
@@ -334,7 +333,7 @@ useGetSnapshot():
   | null;
 ```
 
-Defined in: [core/services/currency.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L292)
+Defined in: [core/services/currency.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L292)
 
 Returns the cached snapshot without fetching — every rate quoted against
 the pivot currency.
@@ -450,17 +449,17 @@ not, and an unknown key must not invalidate the snapshot).
 
 #### Implementation of
 
-[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`useGetSnapshot`](../interfaces/ICurrencyConverterService.md#usegetsnapshot)
+[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`getSnapshot`](../interfaces/ICurrencyConverterService.md#getsnapshot)
 
 ***
 
-### useHasProvider()
+### hasProvider()
 
 ```ts
-useHasProvider(): boolean;
+hasProvider(): boolean;
 ```
 
-Defined in: [core/services/currency.service.ts:158](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L158)
+Defined in: [core/services/currency.service.ts:158](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L158)
 
 Whether a rate source is already injected.
 
@@ -473,10 +472,10 @@ configured, so a custom one is never clobbered.
 
 ***
 
-### useRefreshRates()
+### refreshRates()
 
 ```ts
-useRefreshRates(): Promise<SafeResult<{
+refreshRates(): Promise<SafeResult<{
   base:   | "USD"
      | "EUR"
      | "GBP"
@@ -515,7 +514,7 @@ useRefreshRates(): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [core/services/currency.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L282)
+Defined in: [core/services/currency.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L282)
 
 Forces a rate refresh, bypassing the cache (Observer fires `onRatesUpdate`
 when it succeeds).
@@ -565,17 +564,17 @@ Never throws.
 
 #### Implementation of
 
-[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`useRefreshRates`](../interfaces/ICurrencyConverterService.md#userefreshrates)
+[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`refreshRates`](../interfaces/ICurrencyConverterService.md#refreshrates)
 
 ***
 
-### useSetProvider()
+### setProvider()
 
 ```ts
-useSetProvider(provider): void;
+setProvider(provider): void;
 ```
 
-Defined in: [core/services/currency.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L146)
+Defined in: [core/services/currency.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L146)
 
 Swaps the rate source at runtime (DI).
 
@@ -597,13 +596,13 @@ are discarded instead of written.
 
 ***
 
-### useSetTtlMs()
+### setTtlMs()
 
 ```ts
-useSetTtlMs(ttlMs): void;
+setTtlMs(ttlMs): void;
 ```
 
-Defined in: [core/services/currency.service.ts:167](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L167)
+Defined in: [core/services/currency.service.ts:167](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L167)
 
 Changes the cache time-to-live at runtime.
 
@@ -611,7 +610,7 @@ Changes the cache time-to-live at runtime.
 
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
-| `ttlMs` | `number` | New TTL in milliseconds. `0` caches until `useClearCache()`. |
+| `ttlMs` | `number` | New TTL in milliseconds. `0` caches until `clearCache()`. |
 
 #### Returns
 
@@ -619,13 +618,13 @@ Changes the cache time-to-live at runtime.
 
 ***
 
-### useSubscribe()
+### subscribe()
 
 ```ts
-useSubscribe(events): () => void;
+subscribe(events): () => void;
 ```
 
-Defined in: [core/services/currency.service.ts:183](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L183)
+Defined in: [core/services/currency.service.ts:183](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L183)
 
 Subscribes to rate events (Observer).
 
@@ -644,13 +643,13 @@ An unsubscribe function.
 #### Example
 
 ```ts
-const off = currency.useSubscribe({ onRatesUpdate: (s) => render(s) });
+const off = currency.subscribe({ onRatesUpdate: (s) => render(s) });
 off();
 ```
 
 #### Implementation of
 
-[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`useSubscribe`](../interfaces/ICurrencyConverterService.md#usesubscribe)
+[`ICurrencyConverterService`](../interfaces/ICurrencyConverterService.md).[`subscribe`](../interfaces/ICurrencyConverterService.md#subscribe)
 
 ***
 
@@ -660,7 +659,7 @@ off();
 static create(options?): CurrencyConverterService;
 ```
 
-Defined in: [core/services/currency.service.ts:131](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L131)
+Defined in: [core/services/currency.service.ts:131](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L131)
 
 Creates a NO-singleton instance with injected dependencies (DI).
 Useful for tests and for custom rate sources.
@@ -691,7 +690,7 @@ const currency = CurrencyConverterService.create({ provider: fakeRates });
 static getInstance(): CurrencyConverterService;
 ```
 
-Defined in: [core/services/currency.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/currency.service.ts#L112)
+Defined in: [core/services/currency.service.ts:112](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/currency.service.ts#L112)
 
 Returns the shared instance (Singleton).
 

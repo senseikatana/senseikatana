@@ -2,7 +2,7 @@
 
 # Class: GeometryPerimeterService
 
-Defined in: [core/services/geometry.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L213)
+Defined in: [core/services/geometry.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L213)
 
 GeometryPerimeterService — pure perimeter calculations for geometric shapes.
 All methods are stateless — input → formatted string only.
@@ -14,13 +14,13 @@ per `CONTRIBUTING.md`.
 
 ## Methods
 
-### useCircle()
+### circle()
 
 ```ts
-useCircle(radius, options?): string;
+circle(radius, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L299)
+Defined in: [core/services/geometry.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L299)
 
 Calculates the perimeter (circumference) of a circle.
 
@@ -45,22 +45,22 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useCircle(5); // "31.42"
+GeometryUtils.perimeter.circle(5); // "31.42"
 ```
 
 ***
 
-### useEllipse()
+### ellipse()
 
 ```ts
-useEllipse(
+ellipse(
    semiMajor, 
    semiMinor, 
    options?
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:363](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L363)
+Defined in: [core/services/geometry.service.ts:363](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L363)
 
 Calculates the perimeter of an ellipse using Ramanujan's approximation II.
 
@@ -86,18 +86,18 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useEllipse(5, 3); // "25.53"
+GeometryUtils.perimeter.ellipse(5, 3); // "25.53"
 ```
 
 ***
 
-### useHexagon()
+### hexagon()
 
 ```ts
-useHexagon(side, options?): string;
+hexagon(side, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:317](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L317)
+Defined in: [core/services/geometry.service.ts:317](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L317)
 
 Calculates the perimeter of a regular hexagon.
 
@@ -122,22 +122,22 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useHexagon(3); // "18.00"
+GeometryUtils.perimeter.hexagon(3); // "18.00"
 ```
 
 ***
 
-### useParallelogram()
+### parallelogram()
 
 ```ts
-useParallelogram(
+parallelogram(
    side1, 
    side2, 
    options?
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:391](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L391)
+Defined in: [core/services/geometry.service.ts:391](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L391)
 
 Calculates the perimeter of a parallelogram.
 
@@ -163,22 +163,22 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useParallelogram(5, 3); // "16.00"
+GeometryUtils.perimeter.parallelogram(5, 3); // "16.00"
 ```
 
 ***
 
-### useRectangle()
+### rectangle()
 
 ```ts
-useRectangle(
+rectangle(
    width, 
    height, 
    options?
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:243](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L243)
+Defined in: [core/services/geometry.service.ts:243](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L243)
 
 Calculates the perimeter of a rectangle.
 
@@ -204,19 +204,19 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useRectangle(5, 10); // "30.00"
-GeometryUtils.perimeter.useRectangle(5, 10, { unit: "m" }); // "30.00 m"
+GeometryUtils.perimeter.rectangle(5, 10); // "30.00"
+GeometryUtils.perimeter.rectangle(5, 10, { unit: "m" }); // "30.00 m"
 ```
 
 ***
 
-### useSquare()
+### square()
 
 ```ts
-useSquare(side, options?): string;
+square(side, options?): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:261](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L261)
+Defined in: [core/services/geometry.service.ts:261](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L261)
 
 Calculates the perimeter of a square.
 
@@ -241,15 +241,15 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useSquare(4); // "16.00"
+GeometryUtils.perimeter.square(4); // "16.00"
 ```
 
 ***
 
-### useTrapezoid()
+### trapezoid()
 
 ```ts
-useTrapezoid(
+trapezoid(
    side1, 
    side2, 
    side3, 
@@ -258,7 +258,7 @@ useTrapezoid(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:338](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L338)
+Defined in: [core/services/geometry.service.ts:338](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L338)
 
 Calculates the perimeter of a trapezoid.
 
@@ -286,15 +286,15 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useTrapezoid(3, 5, 4, 4); // "16.00"
+GeometryUtils.perimeter.trapezoid(3, 5, 4, 4); // "16.00"
 ```
 
 ***
 
-### useTriangle()
+### triangle()
 
 ```ts
-useTriangle(
+triangle(
    side1, 
    side2, 
    side3, 
@@ -302,7 +302,7 @@ useTriangle(
 ): string;
 ```
 
-Defined in: [core/services/geometry.service.ts:281](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L281)
+Defined in: [core/services/geometry.service.ts:281](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L281)
 
 Calculates the perimeter of a triangle.
 
@@ -329,7 +329,7 @@ The formatted perimeter string.
 ```ts
 import { GeometryUtils } from "katanakit-js";
 
-GeometryUtils.perimeter.useTriangle(3, 4, 5); // "12.00"
+GeometryUtils.perimeter.triangle(3, 4, 5); // "12.00"
 ```
 
 ***
@@ -340,7 +340,7 @@ GeometryUtils.perimeter.useTriangle(3, 4, 5); // "12.00"
 static getInstance(): GeometryPerimeterService;
 ```
 
-Defined in: [core/services/geometry.service.ts:220](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/geometry.service.ts#L220)
+Defined in: [core/services/geometry.service.ts:220](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/geometry.service.ts#L220)
 
 Returns the shared instance (Singleton).
 

@@ -2,7 +2,7 @@
 
 # Class: ErrorService
 
-Defined in: [core/services/error.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/error.service.ts#L32)
+Defined in: [core/services/error.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/error.service.ts#L32)
 
 ErrorService — Singleton facade over error creation and normalization.
 
@@ -18,26 +18,26 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useErrorCustom } from "katanakit-js";
+import { errorCustom } from "katanakit-js";
 
-const error = useErrorCustom("User not found", 404);
+const error = errorCustom("User not found", 404);
 // { message: "User not found", code: 404 }
 ```
 
 ## Methods
 
-### useErrorCustom()
+### errorCustom()
 
 ```ts
-useErrorCustom(msg, code): {
+errorCustom(msg, code): {
   code: number;
   message: string;
 };
 ```
 
-Defined in: [core/services/error.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/error.service.ts#L86)
+Defined in: [core/services/error.service.ts:86](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/error.service.ts#L86)
 
-Create a custom error object. Use with `useLogger` for consistent error logging.
+Create a custom error object. Use with `onLogger` for consistent error logging.
 
 #### Parameters
 
@@ -72,32 +72,32 @@ message: string;
 #### Example
 
 ```ts
-import { useErrorCustom, useLogger } from "katanakit-js";
+import { errorCustom, onLogger } from "katanakit-js";
 
-const error = useErrorCustom("User not found", 404);
-useLogger(error.message, error, "error");
+const error = errorCustom("User not found", 404);
+onLogger(error.message, error, "error");
 // { message: "User not found", code: 404 }
 ```
 
 ***
 
-### useErrorNormalize()
+### errorNormalize()
 
 ```ts
-useErrorNormalize(error, fallbackStatus?): {
+errorNormalize(error, fallbackStatus?): {
   details?: unknown;
   message: string;
   status: number;
 };
 ```
 
-Defined in: [core/services/error.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/error.service.ts#L109)
+Defined in: [core/services/error.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/error.service.ts#L109)
 
 Normalizes any thrown value into the shared [ApiError](../type-aliases/ApiError.md) shape.
 
 Reads `message`, numeric `status` (or `statusCode`, used by some SDKs) and
 `details` when present; every other value becomes a generic error. This is
-the canonical mapper for `useAttempt()` at service boundaries.
+the canonical mapper for `onAttempt()` at service boundaries.
 
 #### Parameters
 
@@ -139,24 +139,24 @@ status: number;
 #### Example
 
 ```ts
-import { useAttempt, useErrorNormalize } from "katanakit-js";
+import { onAttempt, errorNormalize } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.call(), useErrorNormalize);
+const result = await onAttempt(() => sdk.call(), errorNormalize);
 if (!result.ok) console.error(result.error.status, result.error.message);
 ```
 
 ***
 
-### useErrorSerialize()
+### errorSerialize()
 
 ```ts
-useErrorSerialize(message?, code?): {
+errorSerialize(message?, code?): {
   code: number;
   message: string;
 };
 ```
 
-Defined in: [core/services/error.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/error.service.ts#L63)
+Defined in: [core/services/error.service.ts:63](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/error.service.ts#L63)
 
 Serialize an error into a plain object.
 Uses sensible defaults based on the status code when message is omitted.
@@ -194,10 +194,10 @@ message: string;
 #### Example
 
 ```ts
-const err = useErrorSerialize("User not found", 404);
+const err = errorSerialize("User not found", 404);
 // { message: "User not found", code: 404 }
 
-const err2 = useErrorSerialize("", 500);
+const err2 = errorSerialize("", 500);
 // { message: "Internal Server Error", code: 500 }
 ```
 
@@ -209,7 +209,7 @@ const err2 = useErrorSerialize("", 500);
 static getInstance(): ErrorService;
 ```
 
-Defined in: [core/services/error.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/error.service.ts#L39)
+Defined in: [core/services/error.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/error.service.ts#L39)
 
 Returns the shared instance (Singleton).
 

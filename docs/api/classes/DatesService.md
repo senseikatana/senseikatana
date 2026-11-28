@@ -2,7 +2,7 @@
 
 # Class: DatesService
 
-Defined in: [core/services/dates.service.ts:72](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L72)
+Defined in: [core/services/dates.service.ts:72](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L72)
 
 DatesService - Singleton para operaciones de fechas.
 
@@ -12,13 +12,13 @@ Puro, sin I/O, seguro para SSR.
 
 ## Methods
 
-### useAddDays()
+### addDays()
 
 ```ts
-useAddDays(date, days): string;
+addDays(date, days): string;
 ```
 
-Defined in: [core/services/dates.service.ts:395](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L395)
+Defined in: [core/services/dates.service.ts:393](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L393)
 
 Adds a number of days to a date.
 
@@ -38,22 +38,22 @@ The resulting date as an ISO string.
 #### Example
 
 ```ts
-useAddDays("2024-01-01", 10); // "2024-01-11"
+addDays("2024-01-01", 10); // "2024-01-11"
 ```
 
 ***
 
-### useDateAdd()
+### dateAdd()
 
 ```ts
-useDateAdd(
+dateAdd(
    date, 
    amount, 
    unit
 ): string;
 ```
 
-Defined in: [core/services/dates.service.ts:244](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L244)
+Defined in: [core/services/dates.service.ts:242](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L242)
 
 Returns the date a given number of units away, preserving calendar
 semantics — adding one month to the 31st lands on the 31st of a shorter
@@ -74,24 +74,24 @@ month, not on an overflow.
 #### Example
 
 ```ts
-useDateAdd("2026-01-31", 1, "months");  // "2026-02-28"
-useDateAdd(useNow(), 14, "days");       // two weeks out
-useDateAdd("2026-01-01", 2, "quarters");// "2026-07-01"
+dateAdd("2026-01-31", 1, "months");  // "2026-02-28"
+dateAdd(now(), 14, "days");       // two weeks out
+dateAdd("2026-01-01", 2, "quarters");// "2026-07-01"
 ```
 
 ***
 
-### useDateBetween()
+### dateBetween()
 
 ```ts
-useDateBetween(
+dateBetween(
    start, 
    end, 
    unit?
 ): number;
 ```
 
-Defined in: [core/services/dates.service.ts:184](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L184)
+Defined in: [core/services/dates.service.ts:182](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L182)
 
 Returns the whole number of `unit`s between two dates.
 
@@ -115,20 +115,20 @@ fractional year count is noise for a calendar API.
 #### Example
 
 ```ts
-useDateBetween("2020-01-01", "2022-04-16");            // 836
-useDateBetween("2020-01-01", "2022-04-16", "months");  // 27
-useDateBetween("2022-04-16", "2020-01-01", "days");   // -836
+dateBetween("2020-01-01", "2022-04-16");            // 836
+dateBetween("2020-01-01", "2022-04-16", "months");  // 27
+dateBetween("2022-04-16", "2020-01-01", "days");   // -836
 ```
 
 ***
 
-### useDateOrder()
+### dateOrder()
 
 ```ts
-useDateOrder(date1, date2): "before" | "after" | "same";
+dateOrder(date1, date2): "before" | "after" | "same";
 ```
 
-Defined in: [core/services/dates.service.ts:294](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L294)
+Defined in: [core/services/dates.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L292)
 
 Returns which of two dates comes first.
 
@@ -150,24 +150,24 @@ a boolean loses the direction you were asked about.
 #### Example
 
 ```ts
-useDateOrder(deadline, useNow()); // "before" | "after" | "same"
+dateOrder(deadline, now()); // "before" | "after" | "same"
 ```
 
 ***
 
-### useDateSubtract()
+### dateSubtract()
 
 ```ts
-useDateSubtract(
+dateSubtract(
    date, 
    amount, 
    unit
 ): string;
 ```
 
-Defined in: [core/services/dates.service.ts:249](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L249)
+Defined in: [core/services/dates.service.ts:247](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L247)
 
-Subtracts units from a date. The mirror of [useDateAdd](../functions/useDateAdd.md).
+Subtracts units from a date. The mirror of [dateAdd](#dateadd).
 
 #### Parameters
 
@@ -183,13 +183,13 @@ Subtracts units from a date. The mirror of [useDateAdd](../functions/useDateAdd.
 
 ***
 
-### useDurationBetween()
+### durationBetween()
 
 ```ts
-useDurationBetween(start, end): Duration;
+durationBetween(start, end): Duration;
 ```
 
-Defined in: [core/services/dates.service.ts:222](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L222)
+Defined in: [core/services/dates.service.ts:220](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L220)
 
 Returns the balanced breakdown of the span between two dates, without
 collapsing it to prose or to a single number.
@@ -212,7 +212,7 @@ without parsing English out of it.
 #### Example
 
 ```ts
-const span = useDurationBetween("2020-01-01", "2022-04-16");
+const span = durationBetween("2020-01-01", "2022-04-16");
 span.years;  // 2
 span.months; // 3
 span.days;   // 15
@@ -220,13 +220,13 @@ span.days;   // 15
 
 ***
 
-### useFirstDayOfMonth()
+### firstDayOfMonth()
 
 ```ts
-useFirstDayOfMonth(date?): string;
+firstDayOfMonth(date?): string;
 ```
 
-Defined in: [core/services/dates.service.ts:477](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L477)
+Defined in: [core/services/dates.service.ts:475](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L475)
 
 Returns the first day of the month for a given date.
 
@@ -245,22 +245,22 @@ The first day of the month as an ISO string.
 #### Example
 
 ```ts
-useFirstDayOfMonth("2024-06-15"); // "2024-06-01"
+firstDayOfMonth("2024-06-15"); // "2024-06-01"
 ```
 
 ***
 
-### useFormat()
+### format()
 
 ```ts
-useFormat(
+format(
    dateInput, 
    locale?, 
    options?
 ): string;
 ```
 
-Defined in: [core/services/dates.service.ts:320](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L320)
+Defined in: [core/services/dates.service.ts:318](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L318)
 
 Formats a date input into a localised string using `Intl.DateTimeFormat`.
 
@@ -288,19 +288,19 @@ If the input cannot be parsed as a date.
 #### Example
 
 ```ts
-useFormat("2024-06-15");                        // "6/15/2024" (en-US)
-useFormat(Date.now(), "es", { dateStyle: "full" }); // "sábado, 15 de junio de 2024"
+format("2024-06-15");                        // "6/15/2024" (en-US)
+format(Date.now(), "es", { dateStyle: "full" }); // "sábado, 15 de junio de 2024"
 ```
 
 ***
 
-### useIsAfter()
+### isAfter()
 
 ```ts
-useIsAfter(date1, date2): boolean;
+isAfter(date1, date2): boolean;
 ```
 
-Defined in: [core/services/dates.service.ts:462](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L462)
+Defined in: [core/services/dates.service.ts:460](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L460)
 
 Checks whether `date1` is after `date2`.
 
@@ -320,19 +320,19 @@ Checks whether `date1` is after `date2`.
 #### Example
 
 ```ts
-useIsAfter("2024-06-15", "2024-01-01"); // true
-useIsAfter("2024-06-15", "2024-06-15"); // false
+isAfter("2024-06-15", "2024-01-01"); // true
+isAfter("2024-06-15", "2024-06-15"); // false
 ```
 
 ***
 
-### useIsBefore()
+### isBefore()
 
 ```ts
-useIsBefore(date1, date2): boolean;
+isBefore(date1, date2): boolean;
 ```
 
-Defined in: [core/services/dates.service.ts:445](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L445)
+Defined in: [core/services/dates.service.ts:443](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L443)
 
 Checks whether `date1` is before `date2`.
 
@@ -352,19 +352,19 @@ Checks whether `date1` is before `date2`.
 #### Example
 
 ```ts
-useIsBefore("2024-01-01", "2024-06-15"); // true
-useIsBefore("2024-06-15", "2024-06-15"); // false
+isBefore("2024-01-01", "2024-06-15"); // true
+isBefore("2024-06-15", "2024-06-15"); // false
 ```
 
 ***
 
-### useIsEqual()
+### isEqual()
 
 ```ts
-useIsEqual(date1, date2): boolean;
+isEqual(date1, date2): boolean;
 ```
 
-Defined in: [core/services/dates.service.ts:428](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L428)
+Defined in: [core/services/dates.service.ts:426](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L426)
 
 Checks whether two dates are equal.
 
@@ -384,19 +384,19 @@ Checks whether two dates are equal.
 #### Example
 
 ```ts
-useIsEqual("2024-06-15", "2024-06-15"); // true
-useIsEqual("2024-06-15", "2024-06-16"); // false
+isEqual("2024-06-15", "2024-06-15"); // true
+isEqual("2024-06-15", "2024-06-16"); // false
 ```
 
 ***
 
-### useLastDayOfMonth()
+### lastDayOfMonth()
 
 ```ts
-useLastDayOfMonth(date?): string;
+lastDayOfMonth(date?): string;
 ```
 
-Defined in: [core/services/dates.service.ts:493](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L493)
+Defined in: [core/services/dates.service.ts:491](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L491)
 
 Returns the last day of the month for a given date.
 
@@ -415,19 +415,19 @@ The last day of the month as an ISO string.
 #### Example
 
 ```ts
-useLastDayOfMonth("2024-02-10"); // "2024-02-29" (leap year)
-useLastDayOfMonth("2024-06-15"); // "2024-06-30"
+lastDayOfMonth("2024-02-10"); // "2024-02-29" (leap year)
+lastDayOfMonth("2024-06-15"); // "2024-06-30"
 ```
 
 ***
 
-### useNow()
+### now()
 
 ```ts
-useNow(): string;
+now(): string;
 ```
 
-Defined in: [core/services/dates.service.ts:365](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L365)
+Defined in: [core/services/dates.service.ts:363](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L363)
 
 Returns today's date as an ISO date string.
 
@@ -440,18 +440,18 @@ The current date in `YYYY-MM-DD` format.
 #### Example
 
 ```ts
-useNow(); // "2024-06-15"
+now(); // "2024-06-15"
 ```
 
 ***
 
-### useNowDateTime()
+### nowDateTime()
 
 ```ts
-useNowDateTime(): string;
+nowDateTime(): string;
 ```
 
-Defined in: [core/services/dates.service.ts:379](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L379)
+Defined in: [core/services/dates.service.ts:377](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L377)
 
 Returns the current date and time as an ISO string (no timezone offset).
 
@@ -464,18 +464,18 @@ The current date-time in `YYYY-MM-DDTHH:MM:SS` format.
 #### Example
 
 ```ts
-useNowDateTime(); // "2024-06-15T14:30:00"
+nowDateTime(); // "2024-06-15T14:30:00"
 ```
 
 ***
 
-### useSubtractDays()
+### subtractDays()
 
 ```ts
-useSubtractDays(date, days): string;
+subtractDays(date, days): string;
 ```
 
-Defined in: [core/services/dates.service.ts:411](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L411)
+Defined in: [core/services/dates.service.ts:409](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L409)
 
 Subtracts a number of days from a date.
 
@@ -495,7 +495,7 @@ The resulting date as an ISO string.
 #### Example
 
 ```ts
-useSubtractDays("2024-01-11", 10); // "2024-01-01"
+subtractDays("2024-01-11", 10); // "2024-01-01"
 ```
 
 ***
@@ -506,7 +506,7 @@ useSubtractDays("2024-01-11", 10); // "2024-01-01"
 static getInstance(): DatesService;
 ```
 
-Defined in: [core/services/dates.service.ts:91](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/dates.service.ts#L91)
+Defined in: [core/services/dates.service.ts:89](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/dates.service.ts#L89)
 
 Obtiene la instancia única del DatesService (Singleton).
 
@@ -520,5 +520,5 @@ La instancia única de DatesService.
 
 ```ts
 const dates = DatesService.getInstance();
-dates.useNow();
+dates.now();
 ```

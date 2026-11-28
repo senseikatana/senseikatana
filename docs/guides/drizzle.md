@@ -9,12 +9,12 @@ description: Lazy Postgres client, the conversation tables and a Drizzle-backed 
 thin, fully typed layer over Postgres with no code-generation step. The adapter
 ships three pieces on `katanakit-js/adapters/drizzle`:
 
-1. **`useDrizzleClient()`** — a lazy singleton client over the node-postgres
+1. **`onDrizzleClient()`** — a lazy singleton client over the node-postgres
    driver (`pg`); `DATABASE_URL` is read on first call, never at import.
 2. **`conversations` / `messages`** — `pgTable` definitions shaped after the
    Prisma contract, so both integrations describe the same database and you
    can switch without a migration.
-3. **`useCreateDrizzleStore()` / `DrizzleConversationStore`** — a
+3. **`onCreateDrizzleStore()` / `DrizzleConversationStore`** — a
    `ConversationStore` for the assistant, so history survives restarts.
 
 ## Install
@@ -30,15 +30,15 @@ you use the subpath.
 ## Client
 
 ```ts
-import { conversations, useDrizzleClient } from "katanakit-js/adapters/drizzle";
+import { conversations, onDrizzleClient } from "katanakit-js/adapters/drizzle";
 
-const db = useDrizzleClient(); // DATABASE_URL from the environment
+const db = onDrizzleClient(); // DATABASE_URL from the environment
 const rows = await db.select().from(conversations).limit(5);
 ```
 
 `DATABASE_URL` must be in the process environment — the package never loads
 `.env` itself (Bun reads it automatically; on Node use `node --env-file=.env`).
-Pass a URL explicitly for tests: `useDrizzleClient("postgresql://…")`.
+Pass a URL explicitly for tests: `onDrizzleClient("postgresql://…")`.
 
 ## Tables and migrations
 
@@ -51,10 +51,10 @@ that points at your schema re-exports.
 ## Assistant persistence
 
 ```ts
-import { useInitAssistant } from "katanakit-js";
-import { DrizzleConversationStore, useCreateDrizzleStore } from "katanakit-js/adapters/drizzle";
+import { onInitAssistant } from "katanakit-js";
+import { DrizzleConversationStore, onCreateDrizzleStore } from "katanakit-js/adapters/drizzle";
 
-useInitAssistant({ store: useCreateDrizzleStore() });
+onInitAssistant({ store: onCreateDrizzleStore() });
 // or: { store: DrizzleConversationStore }
 ```
 

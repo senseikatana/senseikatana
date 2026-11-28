@@ -5,7 +5,7 @@ description: Framework-agnostic button with variants, sizes, loading state and a
 
 # Button
 
-`useButton(options)` creates a styled `<button>`; `buttonClass(options)` returns
+`onButton(options)` creates a styled `<button>`; `buttonClass(options)` returns
 the class list for SSR or framework templates.
 
 ## Variants
@@ -13,13 +13,13 @@ the class list for SSR or framework templates.
 <div ref="variants" class="demo-row"></div>
 
 ```ts
-import { useButton } from "@katanakit/ui";
+import { onButton } from "@katanakit/ui";
 
 row.append(
-  useButton({ label: "Primary" }),
-  useButton({ label: "Secondary", variant: "secondary" }),
-  useButton({ label: "Ghost", variant: "ghost" }),
-  useButton({ label: "Danger", variant: "danger" }),
+  onButton({ label: "Primary" }),
+  onButton({ label: "Secondary", variant: "secondary" }),
+  onButton({ label: "Ghost", variant: "ghost" }),
+  onButton({ label: "Danger", variant: "danger" }),
 );
 ```
 
@@ -28,17 +28,17 @@ row.append(
 <div ref="states" class="demo-row"></div>
 
 ```ts
-useButton({ label: "Small", size: "sm" });
-useButton({ label: "Large", size: "lg" });
-useButton({ label: "Loading", loading: true });
-useButton({ label: "Disabled", disabled: true });
+onButton({ label: "Small", size: "sm" });
+onButton({ label: "Large", size: "lg" });
+onButton({ label: "Loading", loading: true });
+onButton({ label: "Disabled", disabled: true });
 ```
 
 <ComponentContract
 	name="Button"
 	root="btn"
 	pure="buttonClass"
-	factory="useButton"
+	factory="onButton"
 />
 
 ## Options
@@ -61,24 +61,24 @@ markup yourself — the classes are stable strings.
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useButton } from "@katanakit/ui";
+import { onButton } from "@katanakit/ui";
 
 const variants = ref<HTMLElement>();
 const states = ref<HTMLElement>();
 
 onMounted(() => {
 	variants.value?.append(
-		useButton({ label: "Primary" }),
-		useButton({ label: "Secondary", variant: "secondary" }),
-		useButton({ label: "Ghost", variant: "ghost" }),
-		useButton({ label: "Danger", variant: "danger" }),
+		onButton({ label: "Primary" }),
+		onButton({ label: "Secondary", variant: "secondary" }),
+		onButton({ label: "Ghost", variant: "ghost" }),
+		onButton({ label: "Danger", variant: "danger" }),
 	);
 	states.value?.append(
-		useButton({ label: "Small", size: "sm" }),
-		useButton({ label: "Medium" }),
-		useButton({ label: "Large", size: "lg" }),
-		useButton({ label: "Loading", loading: true }),
-		useButton({ label: "Disabled", disabled: true }),
+		onButton({ label: "Small", size: "sm" }),
+		onButton({ label: "Medium" }),
+		onButton({ label: "Large", size: "lg" }),
+		onButton({ label: "Loading", loading: true }),
+		onButton({ label: "Disabled", disabled: true }),
 	);
 });
 </script>

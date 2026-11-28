@@ -8,7 +8,7 @@ type ConfigFacade<T> = {
 } & ConfigMethodEntries<T> & ApiConfigNestedMethods<T> & ApiConfigStateEntry<T>;
 ```
 
-Defined in: [types/core/config-facade.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/config-facade.ts#L63)
+Defined in: [types/core/config-facade.ts:54](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/config-facade.ts#L54)
 
 What every `define*Config` returns: the registered config under `config`,
 plus the methods declared alongside it so `this.config` resolves inside them.

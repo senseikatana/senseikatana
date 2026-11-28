@@ -26,6 +26,6 @@ const RssConfigSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/rss.schema.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/rss.schema.ts#L24)
+Defined in: [schemas/rss.schema.ts:24](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/rss.schema.ts#L24)
 
 Configuration for generating an RSS feed.

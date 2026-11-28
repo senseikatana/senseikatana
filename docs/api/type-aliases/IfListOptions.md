@@ -6,6 +6,6 @@
 type IfListOptions = z.infer<typeof IfListOptionsSchema>;
 ```
 
-Defined in: [types/adapters/insforge.ts:45](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/insforge.ts#L45)
+Defined in: [types/insforge/types.ts:45](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/insforge/types.ts#L45)
 
 Options for listing bucket objects.

@@ -2,7 +2,7 @@
 
 # Interface: Subscribable\<T\>
 
-Defined in: [types/core/reactive.ts:3](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/reactive.ts#L3)
+Defined in: [types/core/reactive.ts:3](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/reactive.ts#L3)
 
 ## Extended by
 
@@ -18,4 +18,4 @@ Defined in: [types/core/reactive.ts:3](https://github.com/senseikatana/katanakit
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="usesubscribe"></a> `useSubscribe` | (`listener`) => () => `void` | [types/core/reactive.ts:4](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/reactive.ts#L4) |
+| <a id="onsubscribe"></a> `onSubscribe` | (`listener`) => () => `void` | [types/core/reactive.ts:4](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/reactive.ts#L4) |

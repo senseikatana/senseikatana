@@ -2,7 +2,7 @@
 
 # Class: KeyVaultService
 
-Defined in: [core/services/keyvault.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L48)
+Defined in: [core/services/keyvault.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L48)
 
 KeyVaultService — Singleton facade for API key record lifecycle.
 
@@ -18,23 +18,23 @@ runtime I/O per `CONTRIBUTING.md` and is trivially testable.
 
 Security posture: a secret is only ever returned in full by an explicit
 reveal call site (the CLI's `keys reveal`). Everything else — lists, logs,
-config previews — goes through [KeyVaultService.useMaskSecret](#usemasksecret).
+config previews — goes through [KeyVaultService.maskSecret](#masksecret).
 
 ## Example
 
 ```ts
-import { useCreateKeyRecord, useMaskSecret } from "katanakit-js";
+import { createKeyRecord, maskSecret } from "katanakit-js";
 
-const result = useCreateKeyRecord({ provider: "openai", label: "ci", secret: "sk-…" });
-if (result.ok) console.log(useMaskSecret(result.data.secret)); // sk-••••••••••••1234
+const result = createKeyRecord({ provider: "openai", label: "ci", secret: "sk-…" });
+if (result.ok) console.log(maskSecret(result.data.secret)); // sk-••••••••••••1234
 ```
 
 ## Methods
 
-### useAddKey()
+### addKey()
 
 ```ts
-useAddKey(data, record): {
+addKey(data, record): {
   createdAt: string;
   keys: {
      createdAt: string;
@@ -60,7 +60,7 @@ useAddKey(data, record): {
 };
 ```
 
-Defined in: [core/services/keyvault.service.ts:195](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L195)
+Defined in: [core/services/keyvault.service.ts:195](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L195)
 
 Appends a record to the vault payload, touching `updatedAt`.
 
@@ -168,10 +168,10 @@ version: 1;
 
 ***
 
-### useCreateKeyRecord()
+### createKeyRecord()
 
 ```ts
-useCreateKeyRecord(input): SafeResult<{
+createKeyRecord(input): SafeResult<{
   createdAt: string;
   id: string;
   label: string;
@@ -183,7 +183,7 @@ useCreateKeyRecord(input): SafeResult<{
 }>;
 ```
 
-Defined in: [core/services/keyvault.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L68)
+Defined in: [core/services/keyvault.service.ts:68](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L68)
 
 Creates a validated key record with a fresh id and timestamps.
 
@@ -210,10 +210,10 @@ Creates a validated key record with a fresh id and timestamps.
 
 ***
 
-### useEmptyVault()
+### emptyVault()
 
 ```ts
-useEmptyVault(): {
+emptyVault(): {
   createdAt: string;
   keys: {
      createdAt: string;
@@ -239,7 +239,7 @@ useEmptyVault(): {
 };
 ```
 
-Defined in: [core/services/keyvault.service.ts:219](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L219)
+Defined in: [core/services/keyvault.service.ts:219](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L219)
 
 Returns an empty, schema-valid vault payload.
 
@@ -327,10 +327,10 @@ version: 1;
 
 ***
 
-### useFindKey()
+### findKey()
 
 ```ts
-useFindKey(data, id): 
+findKey(data, id): 
   | {
   createdAt: string;
   id: string;
@@ -344,7 +344,7 @@ useFindKey(data, id):
   | undefined;
 ```
 
-Defined in: [core/services/keyvault.service.ts:170](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L170)
+Defined in: [core/services/keyvault.service.ts:170](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L170)
 
 Finds a key record by id.
 
@@ -378,10 +378,10 @@ The record, or `undefined`.
 
 ***
 
-### useListKeys()
+### listKeys()
 
 ```ts
-useListKeys(data, options?): {
+listKeys(data, options?): {
   createdAt: string;
   id: string;
   label: string;
@@ -393,7 +393,7 @@ useListKeys(data, options?): {
 }[];
 ```
 
-Defined in: [core/services/keyvault.service.ts:181](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L181)
+Defined in: [core/services/keyvault.service.ts:181](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L181)
 
 Lists key records, newest first.
 
@@ -427,13 +427,13 @@ The matching records.
 
 ***
 
-### useMaskSecret()
+### maskSecret()
 
 ```ts
-useMaskSecret(secret): string;
+maskSecret(secret): string;
 ```
 
-Defined in: [core/services/keyvault.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L156)
+Defined in: [core/services/keyvault.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L156)
 
 Masks a secret for display: the first 8 and last 4 characters survive on
 long secrets (matching the `freellma••••••••••a8e9` style), short secrets
@@ -453,13 +453,13 @@ The masked form.
 
 ***
 
-### useProviderEnvName()
+### providerEnvName()
 
 ```ts
-useProviderEnvName(provider): string;
+providerEnvName(provider): string;
 ```
 
-Defined in: [core/services/keyvault.service.ts:238](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L238)
+Defined in: [core/services/keyvault.service.ts:238](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L238)
 
 Resolves the conventional environment variable name for a provider, e.g.
 `openai` → `OPENAI_API_KEY`. Unknown providers get a stable
@@ -479,10 +479,10 @@ The environment variable name.
 
 ***
 
-### useReplaceKey()
+### replaceKey()
 
 ```ts
-useReplaceKey(data, record): {
+replaceKey(data, record): {
   createdAt: string;
   keys: {
      createdAt: string;
@@ -508,7 +508,7 @@ useReplaceKey(data, record): {
 };
 ```
 
-Defined in: [core/services/keyvault.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L207)
+Defined in: [core/services/keyvault.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L207)
 
 Replaces the record with the same id (or appends it when absent), touching
 `updatedAt`.
@@ -617,10 +617,10 @@ version: 1;
 
 ***
 
-### useRevokeKey()
+### revokeKey()
 
 ```ts
-useRevokeKey(record): {
+revokeKey(record): {
   createdAt: string;
   id: string;
   label: string;
@@ -632,7 +632,7 @@ useRevokeKey(record): {
 };
 ```
 
-Defined in: [core/services/keyvault.service.ts:144](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L144)
+Defined in: [core/services/keyvault.service.ts:144](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L144)
 
 Marks a key as revoked. The record is kept for audit; revoking is
 idempotent and cannot fail.
@@ -718,10 +718,10 @@ updatedAt: string;
 
 ***
 
-### useRotateKeySecret()
+### rotateKeySecret()
 
 ```ts
-useRotateKeySecret(record, secret): SafeResult<{
+rotateKeySecret(record, secret): SafeResult<{
   createdAt: string;
   id: string;
   label: string;
@@ -733,7 +733,7 @@ useRotateKeySecret(record, secret): SafeResult<{
 }>;
 ```
 
-Defined in: [core/services/keyvault.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L105)
+Defined in: [core/services/keyvault.service.ts:105](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L105)
 
 Rotates a key's secret, keeping the record (and its id) stable so every
 config that references it stays valid. Revoked keys cannot rotate: the
@@ -777,7 +777,7 @@ caller must create a new record instead.
 static getInstance(): KeyVaultService;
 ```
 
-Defined in: [core/services/keyvault.service.ts:55](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/keyvault.service.ts#L55)
+Defined in: [core/services/keyvault.service.ts:55](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/keyvault.service.ts#L55)
 
 Returns the shared instance (Singleton).
 

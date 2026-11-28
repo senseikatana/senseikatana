@@ -2,7 +2,7 @@
 
 # Class: ValidationService
 
-Defined in: [core/services/validation.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L13)
+Defined in: [core/services/validation.service.ts:13](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/validation.service.ts#L13)
 
 ValidationService - Singleton para validaciones.
 
@@ -13,13 +13,13 @@ excepciones. Puro y sin I/O, seguro para SSR.
 
 ## Methods
 
-### useValidate()
+### validate()
 
 ```ts
-useValidate<T>(schema, data): FetchResult<T>;
+validate<T>(schema, data): FetchResult<T>;
 ```
 
-Defined in: [core/services/validation.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L57)
+Defined in: [core/services/validation.service.ts:55](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/validation.service.ts#L55)
 
 Validates unknown data (API responses, configs, user input) against a
 Zod schema and returns a Safe Result instead of throwing.
@@ -49,8 +49,8 @@ Framework-agnostic and pure: no I/O, SSR-safe.
 ```ts
 import { SmartVideoOptionsSchema } from "katanakit-js/schemas";
 
-const result = useValidate(SmartVideoOptionsSchema, JSON.parse(raw));
-if (result.ok) useBuildVideoEmbed(result.data);
+const result = onValidate(SmartVideoOptionsSchema, JSON.parse(raw));
+if (result.ok) onBuildVideoEmbed(result.data);
 ```
 
 ***
@@ -61,7 +61,7 @@ if (result.ok) useBuildVideoEmbed(result.data);
 static getInstance(): ValidationService;
 ```
 
-Defined in: [core/services/validation.service.ts:32](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/validation.service.ts#L32)
+Defined in: [core/services/validation.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/validation.service.ts#L30)
 
 Obtiene la instancia única del ValidationService (Singleton).
 
@@ -75,5 +75,5 @@ La instancia única de ValidationService.
 
 ```ts
 const validator = ValidationService.getInstance();
-validator.useValidate(SmartVideoOptionsSchema, raw);
+validator.validate(SmartVideoOptionsSchema, raw);
 ```

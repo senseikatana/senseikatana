@@ -26,15 +26,15 @@ It exports three building blocks plus one type:
 
 | Export | Kind | Purpose |
 | --- | --- | --- |
-| `useCreateApp()` | factory | creates a Hono app with hardened headers, CORS, `/health` and JSON error bodies |
-| `useSafeJson()` | response helper | maps a Safe Result to a JSON response with the matching status |
-| `useRequireCapability()` | middleware factory | turns an access capability into a Hono middleware |
-| `HonoAppOptions` | type | options accepted by `useCreateApp()` |
+| `onCreateApp()` | factory | creates a Hono app with hardened headers, CORS, `/health` and JSON error bodies |
+| `onSafeJson()` | response helper | maps a Safe Result to a JSON response with the matching status |
+| `onRequireCapability()` | middleware factory | turns an access capability into a Hono middleware |
+| `HonoAppOptions` | type | options accepted by `onCreateApp()` |
 
 Two design rules shape everything on this page:
 
 1. **Safe Results cross the boundary unchanged.** Handlers never throw on an
-   upstream failure; they return `useSafeJson(c, result)` and let the helper
+   upstream failure; they return `onSafeJson(c, result)` and let the helper
    pick the status. Every error body the adapter produces — 401, 403, 404, 500
    — uses the same `{ ok, data, error }` envelope as the rest of the toolkit,
    so clients parse one shape everywhere.
@@ -68,16 +68,16 @@ npm i @hono/node-server
 
 ## Create the app
 
-`useCreateApp()` returns a ready-to-mount Hono application. It is not a
+`onCreateApp()` returns a ready-to-mount Hono application. It is not a
 singleton: every call builds a fresh app, which is what you want in tests and
 worker isolates, and in a server entry point you simply call it once.
 
-### useCreateApp(options?)
+### onCreateApp(options?)
 
 ```ts
-import { useCreateApp } from "katanakit-js/adapters/hono";
+import { onCreateApp } from "katanakit-js/adapters/hono";
 
-const app = useCreateApp({
+const app = onCreateApp({
   corsOrigins: ["https://app.example.com"],
   health: true,
 });
@@ -113,7 +113,7 @@ In order, on every path:
 4. **A JSON 404** via `app.notFound()` for any unmatched route:
    `{ "ok": false, "data": null, "error": { "message": "Not Found", "status": 404 } }`.
 5. **A JSON 500** via `app.onError()` for anything a route or middleware
-   throws. The error is logged with `useLogger("Unhandled error:", error, "error")`
+   throws. The error is logged with `onLogger("Unhandled error:", error, "error")`
    and the response body is
    `{ "ok": false, "data": null, "error": { "message": "Internal Server Error", "status": 500 } }`.
    The internal message never reaches the client.
@@ -128,7 +128,7 @@ Mount routes with the standard Hono verbs. Handlers can be registered
 individually or chained; middleware runs in the order it is listed.
 
 ```ts
-const app = useCreateApp();
+const app = onCreateApp();
 
 app.get("/ping", (c) => c.json({ pong: true }));
 
@@ -145,19 +145,19 @@ point; deployment decides which line at the bottom actually starts it.
 ## Safe JSON responses
 
 The point of a proxy route is to forward the upstream outcome *as data*, not as
-an exception. `useSafeJson()` takes the Safe Result a KatanaKit fetch already
+an exception. `onSafeJson()` takes the Safe Result a KatanaKit fetch already
 returned and turns it into the HTTP response, status included.
 
-### useSafeJson(context, result, fallbackStatus?)
+### onSafeJson(context, result, fallbackStatus?)
 
 ```ts
-import { useSafeJson } from "katanakit-js/adapters/hono";
+import { onSafeJson } from "katanakit-js/adapters/hono";
 
 app.get("/products/:id", async (c) => {
-  const result = await useGetApi("shop", "productById", {
+  const result = await onGet("shop", "productById", {
     params: { id: c.req.param("id") },
   });
-  return useSafeJson(c, result);
+  return onSafeJson(c, result);
 });
 ```
 
@@ -194,25 +194,25 @@ Two behaviors worth internalizing:
 ### Proxying reads and writes
 
 A GET proxy only needs `params`; a POST proxy forwards a body — either what
-the caller sent, or a payload your route builds. `usePost()` serializes plain
+the caller sent, or a payload your route builds. `onPost()` serializes plain
 objects to JSON with the matching `Content-Type` and forwards raw bodies
 (`FormData`, `Blob`, `ReadableStream`, …) untouched.
 
 ```ts
-import { useGetApi, usePost } from "katanakit-js";
-import { useSafeJson } from "katanakit-js/adapters/hono";
+import { onGet, onPost } from "katanakit-js";
+import { onSafeJson } from "katanakit-js/adapters/hono";
 
 app.get("/catalog/search", async (c) => {
-  const result = await useGetApi("shop", "products", {
+  const result = await onGet("shop", "products", {
     query: { q: c.req.query("q"), limit: c.req.query("limit") },
   });
-  return useSafeJson(c, result, 502);
+  return onSafeJson(c, result, 502);
 });
 
 app.post("/catalog/products", async (c) => {
   const body = await c.req.json();
-  const result = await usePost("shop", "products", body);
-  return useSafeJson(c, result);
+  const result = await onPost("shop", "products", body);
+  return onSafeJson(c, result);
 });
 ```
 
@@ -224,7 +224,7 @@ parsing prose.
 
 ## Access guard
 
-`useRequireCapability(capability, resolveSubject)` builds a Hono
+`onRequireCapability(capability, resolveSubject)` builds a Hono
 `MiddlewareHandler` around the toolkit's access service, mirroring the Express
 guard and the Nest guard. The adapter ships **no auth provider** on purpose:
 you resolve the subject from whatever the request carries — JWT, session, API
@@ -232,9 +232,9 @@ key — and the guard maps the outcome to the API-shaped response.
 
 ```ts
 import type { AccessSubject } from "katanakit-js";
-import { useRequireCapability } from "katanakit-js/adapters/hono";
+import { onRequireCapability } from "katanakit-js/adapters/hono";
 
-const canPublish = useRequireCapability("content:publish", (c) => {
+const canPublish = onRequireCapability("content:publish", (c) => {
   const authorization = c.req.header("authorization");
   if (!authorization?.startsWith("Bearer ")) return null;
   return resolveSubjectFromToken(authorization.slice(7)); // your verification
@@ -251,7 +251,7 @@ app.post("/articles/:id/publish", canPublish, (c) => c.json({ ok: true }));
 | Outcome | Status | Body |
 | --- | --- | --- |
 | `resolveSubject` returns `null` | `401` | `{ ok: false, data: null, error: { message: "Authentication required", status: 401 } }` |
-| `useCan()` returns `false` or throws | `403` | `{ ok: false, data: null, error: { message: "Missing capability: <capability>", status: 403 } }` |
+| `onCan()` returns `false` or throws | `403` | `{ ok: false, data: null, error: { message: "Missing capability: <capability>", status: 403 } }` |
 | allowed | — | `await next()` |
 
 Returning `null` means **anonymous** (401); a subject that lacks the capability
@@ -277,16 +277,16 @@ interface AccessSubject {
 from the main `katanakit-js` barrel. Capabilities are inherited down the role
 hierarchy (`owner` > `admin` > `editor` > `author` > `member` > `guest`).
 
-`useCan()` grants the capability when **any** of the subject's roles provides
+`onCan()` grants the capability when **any** of the subject's roles provides
 it, directly or by inheritance. A malformed subject or unknown role makes
-`useCan()` throw; the guard catches that and fails closed with the 403 body, so
+`onCan()` throw; the guard catches that and fails closed with the 403 body, so
 an invalid subject never reaches your handler. **Fail closed is total:** if
 `resolveSubject` itself throws — for example a token decoder exploding on
 garbage — Hono routes the error to `app.onError()`, which logs it and answers
 `500`. Keep the resolver total by catching verification errors inside it and
 returning `null` for anything you cannot authenticate.
 
-`useRequireCapability` returns a standard Hono middleware, so it composes like
+`onRequireCapability` returns a standard Hono middleware, so it composes like
 any other:
 
 ```ts
@@ -317,7 +317,7 @@ Edge cases:
     await next();
   });
 
-  const canCreate = useRequireCapability("content:create", (c) =>
+  const canCreate = onRequireCapability("content:create", (c) =>
     c.get("subject") ?? null,
   );
   ```
@@ -401,7 +401,7 @@ For a plain local script that should bind a port itself, call
 
 ### CORS_ORIGINS at deploy time
 
-`useCreateApp()` resolves its allow-list in this order: the `corsOrigins`
+`onCreateApp()` resolves its allow-list in this order: the `corsOrigins`
 option, then `process.env.CORS_ORIGINS` (split on commas, trimmed, empties
 filtered), then `["http://localhost:3000"]`. Notes for real deployments:
 
@@ -413,12 +413,12 @@ filtered), then `["http://localhost:3000"]`. Notes for real deployments:
   does not depend on the flag.
 - On **Deno**, pass `corsOrigins` explicitly for the same reason — the env
   lookup is skipped entirely when the option is present.
-- The allow-list is resolved **once**, when `useCreateApp()` runs — not per
+- The allow-list is resolved **once**, when `onCreateApp()` runs — not per
   request. Build the app at startup and every request sees the same policy.
 - The factory enables no CORS credentials (`Access-Control-Allow-Credentials`
   is never set). Cookie-based cross-origin auth is therefore not supported by
   the factory; if you need it, build a plain `new Hono()` and mount Hono's
-  `cors()` with `credentials: true` yourself, reusing `useSafeJson()` and the
+  `cors()` with `credentials: true` yourself, reusing `onSafeJson()` and the
   other helpers.
 
 ## Testing
@@ -433,27 +433,27 @@ adapter tests.
 
 ```ts
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { useCreateApp } from "katanakit-js/adapters/hono";
+import { onCreateApp } from "katanakit-js/adapters/hono";
 
 afterEach(() => {
   vi.unstubAllEnvs();
 });
 
-describe("useCreateApp", () => {
+describe("onCreateApp", () => {
   it("serves /health with the toolkit JSON shape", async () => {
-    const response = await useCreateApp().request("/health");
+    const response = await onCreateApp().request("/health");
 
     expect(response.status).toBe(200);
     expect(await response.json()).toMatchObject({ status: "ok" });
   });
 
   it("can disable the health route", async () => {
-    const response = await useCreateApp({ health: false }).request("/health");
+    const response = await onCreateApp({ health: false }).request("/health");
     expect(response.status).toBe(404);
   });
 
   it("answers unknown routes with the safe-result 404 body", async () => {
-    const response = await useCreateApp().request("/nope");
+    const response = await onCreateApp().request("/nope");
 
     expect(response.status).toBe(404);
     expect(await response.json()).toEqual({
@@ -466,7 +466,7 @@ describe("useCreateApp", () => {
   it("reads CORS origins from the environment", async () => {
     vi.stubEnv("CORS_ORIGINS", "https://one.dev, https://two.dev");
 
-    const response = await useCreateApp().request("/health", {
+    const response = await onCreateApp().request("/health", {
       headers: { Origin: "https://two.dev" },
     });
 
@@ -484,25 +484,25 @@ A fixed subject per test keeps the app deterministic:
 
 ```ts
 import { afterEach, describe, expect, it } from "vitest";
-import { useResetRoles } from "katanakit-js";
-import { useCreateApp, useRequireCapability } from "katanakit-js/adapters/hono";
+import { onResetRoles } from "katanakit-js";
+import { onCreateApp, onRequireCapability } from "katanakit-js/adapters/hono";
 import type { AccessSubject } from "katanakit-js";
 
 afterEach(() => {
-  useResetRoles();
+  onResetRoles();
 });
 
 function appWithGuard(subject: AccessSubject | null) {
-  const app = useCreateApp();
+  const app = onCreateApp();
   app.get(
     "/admin",
-    useRequireCapability("content:publish", () => subject),
+    onRequireCapability("content:publish", () => subject),
     (c) => c.json({ ok: true }),
   );
   return app;
 }
 
-describe("useRequireCapability", () => {
+describe("onRequireCapability", () => {
   it("rejects anonymous requests with 401", async () => {
     const response = await appWithGuard(null).request("/admin");
 
@@ -538,21 +538,21 @@ describe("useRequireCapability", () => {
 });
 ```
 
-`useResetRoles()` clears any custom role definitions registered through
-`useRegisterRole()`, keeping the access service clean across tests.
+`onResetRoles()` clears any custom role definitions registered through
+`onRegisterRole()`, keeping the access service clean across tests.
 
-### `useSafeJson`: status mapping
+### `onSafeJson`: status mapping
 
 Test the helper directly by mounting a route that returns a canned result:
 
 ```ts
 import { describe, expect, it } from "vitest";
-import { useCreateApp, useSafeJson } from "katanakit-js/adapters/hono";
+import { onCreateApp, onSafeJson } from "katanakit-js/adapters/hono";
 import type { FetchResult } from "katanakit-js";
 
 function appWithResult(result: FetchResult<unknown>, fallbackStatus = 500) {
-  const app = useCreateApp();
-  app.get("/data", (c) => useSafeJson(c, result, fallbackStatus));
+  const app = onCreateApp();
+  app.get("/data", (c) => onSafeJson(c, result, fallbackStatus));
   return app;
 }
 
@@ -580,7 +580,7 @@ const network: FetchResult<unknown> = {
   status: 0,
 };
 
-describe("useSafeJson", () => {
+describe("onSafeJson", () => {
   it("returns the Safe Result with 200 on success", async () => {
     const response = await appWithResult(ok).request("/data");
 
@@ -621,11 +621,11 @@ runs on all four runtimes from [Deploy everywhere](#deploy-everywhere).
 ```ts
 // src/server.ts
 import type { AccessSubject } from "katanakit-js";
-import { defineApiConfig, useGetApi, usePost } from "katanakit-js";
+import { defineApiConfig, onGet, onPost } from "katanakit-js";
 import {
-  useCreateApp,
-  useRequireCapability,
-  useSafeJson,
+  onCreateApp,
+  onRequireCapability,
+  onSafeJson,
 } from "katanakit-js/adapters/hono";
 
 defineApiConfig({
@@ -648,26 +648,26 @@ here, not in route handlers, so changing the provider is a one-line edit.
 ### Step 2 — Build the app and the public read proxy
 
 ```ts
-const app = useCreateApp();
+const app = onCreateApp();
 
 app.get("/api/products", async (c) => {
-  const result = await useGetApi("store", "products", {
+  const result = await onGet("store", "products", {
     query: { q: c.req.query("q") },
   });
-  return useSafeJson(c, result, 502);
+  return onSafeJson(c, result, 502);
 });
 
 app.get("/api/products/:id", async (c) => {
-  const result = await useGetApi("store", "productById", {
+  const result = await onGet("store", "productById", {
     params: { id: c.req.param("id") },
   });
-  return useSafeJson(c, result, 502);
+  return onSafeJson(c, result, 502);
 });
 ```
 
-`useCreateApp()` already mounted `secureHeaders()`, CORS and `/health`, so the
+`onCreateApp()` already mounted `secureHeaders()`, CORS and `/health`, so the
 only thing left is routes. Both handlers read the request (`query`, `param`),
-call the registered endpoint and hand the Safe Result to `useSafeJson()`. The
+call the registered endpoint and hand the Safe Result to `onSafeJson()`. The
 `502` fallback marks network and configuration failures as upstream problems,
 while a real upstream `404` still leaves as a `404`.
 
@@ -681,7 +681,7 @@ function resolveSubjectFromToken(token: string): AccessSubject | null {
   return null;
 }
 
-const canCreateOrder = useRequireCapability("content:create", (c) => {
+const canCreateOrder = onRequireCapability("content:create", (c) => {
   const authorization = c.req.header("authorization");
   if (!authorization?.startsWith("Bearer ")) return null;
   return resolveSubjectFromToken(authorization.slice(7));
@@ -705,17 +705,17 @@ app.post("/api/orders", canCreateOrder, async (c) => {
     );
   }
 
-  const result = await usePost("store", "orders", body);
-  return useSafeJson(c, result);
+  const result = await onPost("store", "orders", body);
+  return onSafeJson(c, result);
 });
 ```
 
 The `.catch(() => null)` is deliberate: a malformed body would otherwise throw
 inside the handler and be swallowed by `onError()` as a 500. Validating it
-first keeps client mistakes at 400. A valid body is forwarded as-is — `usePost`
+first keeps client mistakes at 400. A valid body is forwarded as-is — `onPost`
 serializes plain objects to JSON with the correct `Content-Type` — and the
 upstream response (including a validation `422`, for example) travels back
-through `useSafeJson()`.
+through `onSafeJson()`.
 
 ### Step 5 — Export the app
 
@@ -732,16 +732,16 @@ Request summary:
 | Route | Access | Upstream call | Error mapping |
 | --- | --- | --- | --- |
 | `GET /health` | public | none | — |
-| `GET /api/products` | public | `useGetApi` + `query` | `useSafeJson`, fallback `502` |
-| `GET /api/products/:id` | public | `useGetApi` + `params` | `useSafeJson`, fallback `502` |
-| `POST /api/orders` | `content:create` | `usePost` + body | 400 for bad JSON, then `useSafeJson` |
+| `GET /api/products` | public | `onGet` + `query` | `onSafeJson`, fallback `502` |
+| `GET /api/products/:id` | public | `onGet` + `params` | `onSafeJson`, fallback `502` |
+| `POST /api/orders` | `content:create` | `onPost` + body | 400 for bad JSON, then `onSafeJson` |
 
 ## Related
 
 - [HTTP Client](/guides/services/http-client) — `defineApiConfig()`, URL building
   and every fetch option the handlers forward.
 - [Error Handling](/start/errors) — the Safe Result contract behind
-  `useSafeJson()`.
+  `onSafeJson()`.
 - [Express Server](/guides/services/express-server) — the same conventions for
   Express, including `CORS_ORIGINS` and the capability guard.
 - [NestJS](/guides/nestjs) — the DI version of the capability guard and the

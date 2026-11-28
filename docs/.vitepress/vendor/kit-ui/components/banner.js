@@ -164,7 +164,7 @@ function startCountdown(banner, value, endsAt, onExpire) {
  * Creates a promotional banner for offers, discounts and sale prices.
  *
  * Prices arrive as numbers and are formatted with `Intl.NumberFormat`; inject
- * `formatPrice` to reuse `useFormatCurrency` from `katanakit-js` instead. With
+ * `formatPrice` to reuse `onFormatCurrency` from `katanakit-js` instead. With
  * `endsAt` the banner shows a live countdown that stops itself once the node
  * leaves the document.
  *
@@ -175,7 +175,7 @@ function startCountdown(banner, value, endsAt, onExpire) {
  * @example
  * ```ts
  * document.body.append(
- *   useBanner({
+ *   onBanner({
  *     layout: "hero",
  *     tone: "danger",
  *     title: "Black Friday",
@@ -190,8 +190,8 @@ function startCountdown(banner, value, endsAt, onExpire) {
  * );
  * ```
  */
-export function useBanner(options = {}) {
-    requireDom("useBanner");
+export function onBanner(options = {}) {
+    requireDom("onBanner");
     const layout = options.layout ?? "card";
     const format = options.formatPrice ?? defaultFormat(options.currency ?? "USD", options.locale ?? "en");
     const banner = document.createElement("article");
@@ -204,8 +204,18 @@ export function useBanner(options = {}) {
         const image = document.createElement("img");
         image.src = options.image;
         image.alt = options.imageAlt ?? "";
-        // Offer art is usually above the fold, but a strip below it is not.
-        image.loading = "lazy";
+        // Lazy is the safe default, but a hero image that lazy-loads is an LCP
+        // regression: the browser discovers it late and the largest paint waits.
+        // `priority` flips the same element to eager with a high fetch
+        // priority, so callers can mark the one image that is above the fold
+        // without giving up the default for every offer strip below it.
+        if (options.priority) {
+            image.loading = "eager";
+            image.setAttribute("fetchpriority", "high");
+        }
+        else {
+            image.loading = "lazy";
+        }
         media.append(image);
         banner.append(media);
     }

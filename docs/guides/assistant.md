@@ -12,10 +12,10 @@ fallible call returns a Safe Result that never throws.
 
 Three levels, pick the one you need:
 
-- **One-shot chat** — `useChat()` answers a single conversation turn.
-- **Tool-calling agent** — `useRunAgent()` runs an autonomous loop that can
+- **One-shot chat** — `onChat()` answers a single conversation turn.
+- **Tool-calling agent** — `onRunAgent()` runs an autonomous loop that can
   read, write and execute through the tools you hand it.
-- **Session-aware bots** — `useInitAssistant()` + `useReply()` add sessions over
+- **Session-aware bots** — `onInitAssistant()` + `onReply()` add sessions over
   the REST channel (below).
 
 ## When to use Kitt — and when not
@@ -33,22 +33,22 @@ completions with tool calls against any OpenAI-compatible endpoint.
 ## 1. Configure the provider
 
 ```ts
-import { useInitAgent } from "katanakit-js";
+import { onInitAgent } from "katanakit-js";
 
 // Register once. apiKey falls back to process.env.DASHSCOPE_API_KEY.
-useInitAgent({ model: "qwen3.8-max" });
+onInitAgent({ model: "qwen3.8-max" });
 ```
 
 The Kitt preset is exported as sensible defaults: `KITT_SYSTEM_PROMPT`,
 `kittPreset`, `KITT_BASE_URL` and `KITT_DEFAULT_MODEL` (`qwen3.8-max`).
-Override any of them per call: `useInitAgent({ systemPrompt, model, baseUrl })`.
+Override any of them per call: `onInitAgent({ systemPrompt, model, baseUrl })`.
 
 ## 2. One-shot chat
 
 ```ts
-import { useChat } from "katanakit-js";
+import { onChat } from "katanakit-js";
 
-const review = await useChat([
+const review = await onChat([
 	{ role: "user", content: "Summarize the benefits of solar energy in three bullet points." },
 ]);
 if (review.ok) console.log(review.data);
@@ -60,10 +60,10 @@ Each tool is `{ name, description, parameters (JSON Schema), execute(input) }`.
 The agent loops until it answers or `maxSteps` is reached:
 
 ```ts
-import { useRunAgent } from "katanakit-js";
+import { onRunAgent } from "katanakit-js";
 import fs from "node:fs/promises";
 
-const result = await useRunAgent("Fix the type errors in src/", {
+const result = await onRunAgent("Fix the type errors in src/", {
 	tools: [
 		{
 			name: "readFile",
@@ -79,19 +79,19 @@ const result = await useRunAgent("Fix the type errors in src/", {
 ## 4. Sessions
 
 ```ts
-import { useInitAssistant, useReply } from "katanakit-js";
+import { onInitAssistant, onReply } from "katanakit-js";
 
-useInitAssistant({
+onInitAssistant({
 	// apiKey      — process.env.DASHSCOPE_API_KEY
 	// baseUrl     — KITT_BASE_URL
 	// model       — "qwen3.8-max"
 	// systemPrompt — KITT_SYSTEM_PROMPT
-	// store       — in-memory (useCreateMemoryStore)
+	// store       — in-memory (onCreateMemoryStore)
 	// tools       — AiTool[]
 	// maxSteps    — number
 });
 
-const result = await useReply(undefined, "What are your hours?");
+const result = await onReply(undefined, "What are your hours?");
 if (result.ok) {
 	console.log(result.data.reply, result.data.sessionId);
 } else {
@@ -99,15 +99,15 @@ if (result.ok) {
 }
 ```
 
-`useReply(sessionId | undefined, text)` creates a session when `sessionId` is
+`onReply(sessionId | undefined, text)` creates a session when `sessionId` is
 omitted; pass `result.data.sessionId` on later turns. Also on the main barrel:
 
 | Helper | Signature |
 | --- | --- |
-| `useCreateSession` | `(channel?) => Promise<string>` |
-| `useGetHistory` | `(sessionId) => Promise<AiMessage[]>` |
-| `useResetSession` | `(sessionId) => Promise<void>` |
-| `useCreateMemoryStore` | `() => ConversationStore` |
+| `onCreateSession` | `(channel?) => Promise<string>` |
+| `onGetHistory` | `(sessionId) => Promise<AiMessage[]>` |
+| `onResetSession` | `(sessionId) => Promise<void>` |
+| `onCreateMemoryStore` | `() => ConversationStore` |
 
 ## 5. REST channel
 
@@ -117,10 +117,10 @@ dependencies. Install the ones you use — the assistant itself needs none of
 them for the in-process helpers above.
 
 ```ts
-import { useStartAssistant, useCreateAssistantRouter } from "katanakit-js/adapters/assistant";
+import { onStartAssistant, onCreateAssistantRouter } from "katanakit-js/adapters/assistant";
 
-useStartAssistant(); // port?, host?, mountPath = "/assistant", options?
-// or mount useCreateAssistantRouter() on an existing Express app
+onStartAssistant(); // port?, host?, mountPath = "/assistant", options?
+// or mount onCreateAssistantRouter() on an existing Express app
 ```
 
 | Method | Path | Body | Response |
@@ -130,11 +130,11 @@ useStartAssistant(); // port?, host?, mountPath = "/assistant", options?
 | `DELETE` | `/assistant/sessions/:id` | — | `204` or `404` |
 
 The endpoints are **public by default**. In production, pass an auth guard
-(applied to every route). Unknown session ids return `404`, and `useReply`
+(applied to every route). Unknown session ids return `404`, and `onReply`
 rejects a `sessionId` that does not exist.
 
 ```ts
-useStartAssistant(3000, "localhost", "/assistant", {
+onStartAssistant(3000, "localhost", "/assistant", {
 	guard: (req, res, next) =>
 		req.header("authorization") === `Bearer ${process.env.ASSISTANT_API_KEY}`
 			? next()
@@ -153,7 +153,7 @@ curl -X POST http://localhost:3000/assistant/chat \
 ```ts
 app.use(
 	"/assistant",
-	useCreateAssistantRouter({
+	onCreateAssistantRouter({
 		rateLimit: rateLimit({ windowMs: 60_000, max: 30 }),
 	}),
 );
@@ -161,7 +161,7 @@ app.use(
 
 ## 6. Persistence
 
-Memory by default (`useCreateMemoryStore()`); history is lost on process
+Memory by default (`onCreateMemoryStore()`); history is lost on process
 restart. For a database, install the optional Prisma peer — it is not part of
 the core package:
 
@@ -174,10 +174,10 @@ use Prisma — the `Conversation` and `Message` models ship in
 `dist/prisma/schema.prisma` (source: `src/prisma/schema.prisma`):
 
 ```ts
-import { useInitAssistant } from "katanakit-js";
-import { useCreatePrismaStore, PrismaConversationStore } from "katanakit-js/prisma";
+import { onInitAssistant } from "katanakit-js";
+import { onCreatePrismaStore, PrismaConversationStore } from "katanakit-js/prisma";
 
-useInitAssistant({ store: useCreatePrismaStore() });
+onInitAssistant({ store: onCreatePrismaStore() });
 // or: { store: PrismaConversationStore }
 ```
 
@@ -194,10 +194,10 @@ bun add drizzle-orm pg
 ```
 
 ```ts
-import { useInitAssistant } from "katanakit-js";
-import { useCreateDrizzleStore, DrizzleConversationStore } from "katanakit-js/adapters/drizzle";
+import { onInitAssistant } from "katanakit-js";
+import { onCreateDrizzleStore, DrizzleConversationStore } from "katanakit-js/adapters/drizzle";
 
-useInitAssistant({ store: useCreateDrizzleStore() });
+onInitAssistant({ store: onCreateDrizzleStore() });
 // or: { store: DrizzleConversationStore }
 ```
 

@@ -11,22 +11,19 @@ import docsSite from '../../../config/docs-site.json';
 export const docsLinks = {
   home: `${docsSite.siteOrigin}${docsSite.docsHome}`,
   gettingStarted: `${docsSite.siteOrigin}${docsSite.docsBase}/start/getting-started`,
-  guides: `${docsSite.siteOrigin}${docsSite.docsBase}/guides/`,
+  guides: `${docsSite.siteOrigin}${docsSite.docsBase}/guides/services/`,
   uiKit: `${docsSite.siteOrigin}${docsSite.docsBase}/ui-kit/`,
   api: `${docsSite.siteOrigin}${docsSite.docsBase}/api/`,
   changelog: `${docsSite.siteOrigin}${docsSite.docsBase}/changelog`,
 } as const;
 
 /**
- * The portfolio lives on its own domain. `samuraicoder.dev/works/<slug>` is the
- * canonical URL for every project, and these cards mirror what that site
- * actually publishes — nothing here renders the content, this site only links
- * out. Do not add an href that returns 404: check the target first.
+ * The portfolio lives in this repo under `web/src/content/works/<locale>/`.
+ * `senseikatana.com/works/<slug>` is the canonical URL for every project.
+ * These cards mirror the published content; do not add an href that returns
+ * 404: check the target first.
  */
-export const WORKSPACE_URL = 'https://samuraicoder.dev';
-
-/** The workspace's page for one project. */
-export const workUrl = (slug: string) => `${WORKSPACE_URL}/works/${slug}`;
+export const workUrl = (slug: string) => `/works/${slug}`;
 
 /** Open-source family. Versions are the published npm ones where they exist. */
 export const featuredWorks = [
@@ -67,7 +64,7 @@ export const featuredWorks = [
   },
 ] as const;
 
-/** Client work, each with its own page on the workspace. */
+/** Client work, each with its own page in this site. */
 export const clientWorks = [
   {
     title: 'Empresa Plana',
@@ -123,21 +120,21 @@ export const site = {
     linkedin: 'https://www.linkedin.com/in/senseijurado/',
   },
   cta: { label: 'Hablemos', href: '/contact' },
-  secondary: { label: 'Ver proyectos', href: WORKSPACE_URL },
+  secondary: { label: 'Ver proyectos', href: '/works' },
   /**
    * Primary navigation: Works · Services · About · Contact.
    * `labelKey` resolves through the dictionaries, so each locale shows its own
-   * wording. The KatanaKit docs left this nav — they live on samuraicoder.dev.
+   * wording. The KatanaKit docs live under /docs on this host.
    */
   nav: [
-    { labelKey: 'nav.works', href: WORKSPACE_URL, external: true },
+    { labelKey: 'nav.works', href: '/works' },
     { labelKey: 'nav.services', href: '/services' },
     { labelKey: 'nav.about', href: '/about' },
     { labelKey: 'nav.contact', href: '/contact' },
   ],
   menu: [
     { labelKey: 'nav.home', href: '/' },
-    { labelKey: 'nav.works', href: WORKSPACE_URL, external: true },
+    { labelKey: 'nav.works', href: '/works' },
     { labelKey: 'nav.services', href: '/services' },
     { labelKey: 'nav.about', href: '/about' },
     { labelKey: 'nav.blog', href: '/posts' },
@@ -149,7 +146,7 @@ export const site = {
       links: [
         ['Inicio', '/'],
         ['Servicios', '/services'],
-        ['Proyectos', WORKSPACE_URL],
+        ['Proyectos', '/works'],
         ['Sobre mí', '/about'],
         ['Blog', '/posts'],
       ] as [string, string][],

@@ -36,15 +36,15 @@ apply:
 - **Module scope is process scope.** On the server, a signal created at module
   level lives for the life of the process and is shared by every request.
   Create signals inside the request handler when the value is request-bound.
-- **Storage degrades safely.** `useCreateStorageSignal()` relies on the
+- **Storage degrades safely.** `onCreateStorageSignal()` relies on the
   [Storage](/guides/services/storage) service, which returns `null` outside the
   browser (falling back to an ephemeral in-memory store). The signal starts from
-  its fallback value. Wrap a request handler in `useRunStorageScope()` when
+  its fallback value. Wrap a request handler in `onRunStorageScope()` when
   server-side calls must share state within one request only.
-- **Effects run once at creation.** Because `useCreateEffect()` executes its
+- **Effects run once at creation.** Because `onCreateEffect()` executes its
   callback immediately, an SSR pass runs effects once with the initial values.
   Keep server effects free of browser APIs, or use
-  [`useIsBrowser()`](/guides/services/dom#useisbrowser) as a guard.
+  [`onIsBrowser()`](/guides/services/dom#onisbrowser) as a guard.
 
 ## Cleanup and disposal
 
@@ -53,11 +53,11 @@ or a timer alive exposes an explicit handle:
 
 | Primitive                | Teardown handle                                                |
 | ------------------------ | -------------------------------------------------------------- |
-| `useCreateEffect()`      | `dispose()` returned by the helper, runs the final cleanup      |
-| `useCreateSignal()`      | `getter.useSubscribe()` returns an unsubscribe function         |
-| `useCreateDebouncedSignal()` | `setter.useCancel()` aborts the pending write              |
-| `useCreateMemo()`        | none — it is a read-only value driven by its dependencies       |
-| `useCreateBatch()`       | none — flushing is synchronous                                  |
+| `onCreateEffect()`      | `dispose()` returned by the helper, runs the final cleanup      |
+| `onCreateSignal()`      | `getter.onSubscribe()` returns an unsubscribe function         |
+| `onCreateDebouncedSignal()` | `setter.onCancel()` aborts the pending write              |
+| `onCreateMemo()`        | none — it is a read-only value driven by its dependencies       |
+| `onCreateBatch()`       | none — flushing is synchronous                                  |
 
 In a component framework, call these from the matching lifecycle hook
 (`onUnmounted`, `useEffect` cleanup, `onDestroy`); in a plain script, call them
@@ -67,33 +67,33 @@ when the widget is removed.
 
 ```ts
 import {
-  useCreateSignal, useCreateEffect, useCreateMemo,
-  useCreateToggle, useCreateStorageSignal, useCreateDebouncedSignal,
+  onCreateSignal, onCreateEffect, onCreateMemo,
+  onCreateToggle, onCreateStorageSignal, onCreateDebouncedSignal,
 } from "katanakit-js";
 
 // Basic signal: callable getter + value-or-updater setter
-const [count, setCount] = useCreateSignal(0);
+const [count, setCount] = onCreateSignal(0);
 console.log(count()); // 0
 setCount(5);
 console.log(count()); // 5
 
 // Effect — re-runs when a signal read by the callback changes
-const disposeEffect = useCreateEffect(() => {
+const disposeEffect = onCreateEffect(() => {
   console.log("Count changed:", count());
 });
 
 // Memo — derived value, recomputed when count changes
-const doubled = useCreateMemo(() => count() * 2);
+const doubled = onCreateMemo(() => count() * 2);
 
-// Toggle — boolean signal with useSet/useToggle helpers
-const [isOpen, { useToggle }] = useCreateToggle(false);
-useToggle(); // isOpen() === true
+// Toggle — boolean signal with onSet/onToggle helpers
+const [isOpen, { onToggle }] = onCreateToggle(false);
+onToggle(); // isOpen() === true
 
 // Storage-persisted signal — reads at creation, writes through on set
-const [theme, setTheme] = useCreateStorageSignal("theme", "light");
+const [theme, setTheme] = onCreateStorageSignal("theme", "light");
 
 // Debounced signal — setter commits after 300 ms of quiet
-const [search, setSearch] = useCreateDebouncedSignal("", 300);
+const [search, setSearch] = onCreateDebouncedSignal("", 300);
 
 // Later, during teardown
 disposeEffect();
@@ -101,7 +101,7 @@ disposeEffect();
 
 ## Signals
 
-### useCreateSignal(initialValue)
+### onCreateSignal(initialValue)
 
 Creates the source primitive every other helper builds on.
 
@@ -114,22 +114,22 @@ Creates the source primitive every other helper builds on.
 **Returns** `[SignalGetter<T>, SignalSetter<T>]`:
 
 - the **getter** is callable (`count()`) and exposes
-  `useSubscribe(listener)` — the listener receives `(newValue, oldValue)` and
+  `onSubscribe(listener)` — the listener receives `(newValue, oldValue)` and
   the call returns an unsubscribe function;
 - the **setter** accepts either a value or an updater
   `(prev: T) => T`, so increments do not need a read-then-write sequence.
 
 ```ts
-import { useCreateSignal } from "katanakit-js";
+import { onCreateSignal } from "katanakit-js";
 
-const [count, setCount] = useCreateSignal(0);
+const [count, setCount] = onCreateSignal(0);
 
 count();                       // 0
 setCount(1);                   // direct value
 setCount((prev) => prev + 1);  // updater — prev is the current value
 count();                       // 2
 
-const unsubscribe = count.useSubscribe((newValue, oldValue) => {
+const unsubscribe = count.onSubscribe((newValue, oldValue) => {
   console.log(`${oldValue} -> ${newValue}`);
 });
 
@@ -145,30 +145,30 @@ unsubscribe(); // stop listening
   (`setUser({ ...user, name: "Ada" })`); in-place mutation followed by
   `setUser(user)` will **not** notify.
 - **Listener isolation.** A throwing listener is caught and logged through
-  [`useLogger()`](/guides/services/logger) (`[createSignal] Listener error:`);
+  [`onLogger()`](/guides/services/logger) (`[createSignal] Listener error:`);
   it never breaks the setter or the other listeners.
-- **Unsubscribe is not automatic.** Every `useSubscribe()` call owns its own
+- **Unsubscribe is not automatic.** Every `onSubscribe()` call owns its own
   removal function; clearing a component without calling it leaks the listener.
 - **Batch-aware.** Inside a `batch()` block, notifications are deferred until
   the outermost batch completes (see
-  [`useCreateBatch()`](#usecreatebatch)).
+  [`onCreateBatch()`](#oncreatebatch)).
 
 **Real use case** — an Astro island filter bar: hold the query and the selected
 tag in signals, keep them in the client script only, and let the browser bundle
 stay free of any UI framework.
 
 ```ts
-const [query, setQuery] = useCreateSignal("");
-const [tag, setTag] = useCreateSignal<string | null>(null);
+const [query, setQuery] = onCreateSignal("");
+const [tag, setTag] = onCreateSignal<string | null>(null);
 
 document.querySelector("input")?.addEventListener("input", (event) => {
   setQuery((event.target as HTMLInputElement).value);
 });
 ```
 
-### useCreateToggle(initialValue = false)
+### onCreateToggle(initialValue = false)
 
-A thin boolean specialization of `useCreateSignal()` with ergonomic setters.
+A thin boolean specialization of `onCreateSignal()` with ergonomic setters.
 
 **Parameters**
 
@@ -179,18 +179,18 @@ A thin boolean specialization of `useCreateSignal()` with ergonomic setters.
 **Returns** `[SignalGetter<boolean>, ToggleSignalSetter]` where the second item
 exposes:
 
-- `useSet(value: boolean)` — same semantics as the signal setter;
-- `useToggle()` — flips the current value using an updater, so it is safe to
+- `onSet(value: boolean)` — same semantics as the signal setter;
+- `onToggle()` — flips the current value using an updater, so it is safe to
   call at any time, including inside `batch()`.
 
 ```ts
-import { useCreateToggle } from "katanakit-js";
+import { onCreateToggle } from "katanakit-js";
 
-const [isOpen, { useSet, useToggle }] = useCreateToggle();
+const [isOpen, { onSet, onToggle }] = onCreateToggle();
 isOpen();    // false
-useToggle();
+onToggle();
 isOpen();    // true
-useSet(false);
+onSet(false);
 isOpen();    // false
 ```
 
@@ -199,14 +199,14 @@ isOpen();    // false
 attribute.
 
 ```ts
-const [expanded, { useToggle }] = useCreateToggle(false);
+const [expanded, { onToggle }] = onCreateToggle(false);
 
-useCreateEffect(() => {
-  useSetAttribute("#faq-trigger", "aria-expanded", String(expanded()));
+onCreateEffect(() => {
+  onSetAttribute("#faq-trigger", "aria-expanded", String(expanded()));
 }, [expanded]);
 ```
 
-### useCreateDebouncedSignal(initialValue, delayMs = 300)
+### onCreateDebouncedSignal(initialValue, delayMs = 300)
 
 Wraps a signal with a trailing debounce on **writes**. The getter continues to
 return the last committed value; callers of the setter keep scheduling new
@@ -219,26 +219,26 @@ writes until the input goes quiet.
 | `initialValue` | `T`      | —       | Initial value                        |
 | `delayMs`      | `number` | `300`   | Quiet period before the write commits |
 
-**Returns** `[SignalGetter<T>, SignalSetter<T> & { useCancel: () => void }]`.
+**Returns** `[SignalGetter<T>, SignalSetter<T> & { onCancel: () => void }]`.
 The setter behaves like a regular signal setter, but each call clears the
-previous pending timer. `useCancel()` aborts the pending write.
+previous pending timer. `onCancel()` aborts the pending write.
 
 ```ts
-import { useCreateDebouncedSignal, useCreateEffect } from "katanakit-js";
+import { onCreateDebouncedSignal, onCreateEffect } from "katanakit-js";
 
-const [query, setQuery] = useCreateDebouncedSignal("", 300);
+const [query, setQuery] = onCreateDebouncedSignal("", 300);
 
 input.addEventListener("input", (event) => {
   setQuery((event.target as HTMLInputElement).value); // reschedules on each keystroke
 });
 
 // Runs only after 300 ms without typing
-useCreateEffect(() => {
+onCreateEffect(() => {
   const value = query().trim();
   if (value) void search(value);
 }, [query]);
 
-setQuery.useCancel(); // e.g. on widget teardown — drop any pending write
+setQuery.onCancel(); // e.g. on widget teardown — drop any pending write
 ```
 
 **Cleanup rules and edge cases**
@@ -251,7 +251,7 @@ setQuery.useCancel(); // e.g. on widget teardown — drop any pending write
   not at call time.
 - **Always cancel on teardown.** A pending `setTimeout` keeps the callback
   reachable; on the server it can also delay process shutdown. Call
-  `setQuery.useCancel()` when the owning widget is removed.
+  `setQuery.onCancel()` when the owning widget is removed.
 - **Not a replacement for a raw signal.** Only committed values reach
   subscribers. If another part of the UI must reflect every keystroke
   immediately, keep a plain signal for the raw input and debounce the value you
@@ -263,7 +263,7 @@ pause instead of one per keystroke.
 
 ## Derived state
 
-### useCreateMemo(computation, signals?)
+### onCreateMemo(computation, signals?)
 
 Creates a **read-only derived signal**. The computation runs eagerly at
 creation and whenever any dependency notifies; the result is stored in an
@@ -277,23 +277,23 @@ internal signal and exposed as a `SignalGetter<T>`.
 | `signals`     | `Subscribable<unknown>[]`   | Optional explicit dependencies, in addition to tracked reads |
 
 **Returns** `SignalGetter<T>` — callable, and subscribable through
-`useSubscribe`, which means a memo can be used as a dependency of effects and
+`onSubscribe`, which means a memo can be used as a dependency of effects and
 other memos.
 
 ```ts
-import { useCreateSignal, useCreateMemo, useCreateEffect } from "katanakit-js";
+import { onCreateSignal, onCreateMemo, onCreateEffect } from "katanakit-js";
 
-const [a, setA] = useCreateSignal(2);
-const [b, setB] = useCreateSignal(3);
+const [a, setA] = onCreateSignal(2);
+const [b, setB] = onCreateSignal(3);
 
-const sum = useCreateMemo(() => a() + b());
+const sum = onCreateMemo(() => a() + b());
 sum(); // 5
 
 setA(10);
 sum(); // 13
 
 // Memos are valid dependencies for effects too
-useCreateEffect(() => {
+onCreateEffect(() => {
   console.log("sum is", sum());
 }, [sum]);
 ```
@@ -304,7 +304,7 @@ useCreateEffect(() => {
   the memo, and again on every dependency change. Keep it cheap, or drive
   expensive work from an effect with your own caching.
 - **Equality gate on the result.** The internal signal only notifies when the
-  computed value changes (`!==`). `useCreateMemo(() => x() % 2, [x])` does not
+  computed value changes (`!==`). `onCreateMemo(() => x() % 2, [x])` does not
   notify when `x` moves from `1` to `3`.
 - **No dispose function.** The internal effect subscribes to the dependency
   signals for the life of the graph. Create short-lived memos only when their
@@ -323,19 +323,19 @@ derive the subtotal and the formatted total with memos, and let an effect
 persist or render the summary without recomputing it in every handler.
 
 ```ts
-const [items, setItems] = useCreateSignal<CartItem[]>([]);
+const [items, setItems] = onCreateSignal<CartItem[]>([]);
 
-const subtotal = useCreateMemo(
+const subtotal = onCreateMemo(
   () => items().reduce((sum, item) => sum + item.price * item.qty, 0),
   [items],
 );
 
-const total = useCreateMemo(() => subtotal() * 1.21, [subtotal]);
+const total = onCreateMemo(() => subtotal() * 1.21, [subtotal]);
 ```
 
 ## Effects
 
-### useCreateEffect(callback, signals?)
+### onCreateEffect(callback, signals?)
 
 Runs a side effect immediately, then again whenever a signal read by the
 callback emits a new value. This is the bridge between the reactive graph and
@@ -352,11 +352,11 @@ the outside world: DOM updates, logging, storage writes, network calls.
 unsubscribes from every dependency.
 
 ```ts
-import { useCreateSignal, useCreateEffect } from "katanakit-js";
+import { onCreateSignal, onCreateEffect } from "katanakit-js";
 
-const [name, setName] = useCreateSignal("world");
+const [name, setName] = onCreateSignal("world");
 
-const dispose = useCreateEffect(() => {
+const dispose = onCreateEffect(() => {
   console.log(`Hello, ${name()}!`);
   return () => console.log("cleaning up");
 });
@@ -376,12 +376,12 @@ dispose();         // runs the final cleanup and unsubscribes
   it twice runs the final cleanup twice. Keep the reference and drop it after
   teardown.
 - **Errors are contained.** Exceptions thrown by the callback or by a cleanup
-  are caught and logged through [`useLogger()`](/guides/services/logger)
+  are caught and logged through [`onLogger()`](/guides/services/logger)
   (`[createEffect] ...`); they never propagate to the setter.
 - **Dynamic dependencies.** The effect tracks signals read during each run.
   When conditional reads change, subscriptions to signals no longer read are
   removed. The optional explicit array keeps listed signals subscribed even if
-  they are not read; entries without `useSubscribe` are ignored.
+  they are not read; entries without `onSubscribe` are ignored.
 - **Batched notifications.** Inside `batch()`, the effect runs once per queued
   notification when the outermost batch flushes, reading the final state.
 
@@ -390,17 +390,17 @@ the effect applies the theme to the root element and persists it, and its
 cleanup detaches the class when the widget unmounts.
 
 ```ts
-const [theme, setTheme] = useCreateStorageSignal("theme", "light");
+const [theme, setTheme] = onCreateStorageSignal("theme", "light");
 
-const dispose = useCreateEffect(() => {
-  const root = useGetRoot();
+const dispose = onCreateEffect(() => {
+  const root = onGetRoot();
   if (!root) return;
-  useToggleClass(root, "dark", theme() === "dark");
-  return () => useRemoveClass(root, "dark");
+  onToggleClass(root, "dark", theme() === "dark");
+  return () => onRemoveClass(root, "dark");
 });
 ```
 
-### useCreateBatch()
+### onCreateBatch()
 
 Returns a `batch(callback)` function that **defers signal notifications** until
 the callback completes. All primitives created by this module cooperate with
@@ -409,13 +409,13 @@ it — signals queue their notifications, and effects/memos run on the flush.
 **Returns** `(callback: () => void) => void`.
 
 ```ts
-import { useCreateBatch, useCreateSignal, useCreateEffect } from "katanakit-js";
+import { onCreateBatch, onCreateSignal, onCreateEffect } from "katanakit-js";
 
-const batch = useCreateBatch();
-const [first, setFirst] = useCreateSignal("Ada");
-const [last, setLast] = useCreateSignal("Lovelace");
+const batch = onCreateBatch();
+const [first, setFirst] = onCreateSignal("Ada");
+const [last, setLast] = onCreateSignal("Lovelace");
 
-useCreateEffect(() => {
+onCreateEffect(() => {
   render(`${first()} ${last()}`);
 }, [first, last]);
 
@@ -432,14 +432,14 @@ batch(() => {
   call simply joins the active queue.
 - **Deferral, not coalescing.** Batching does not merge writes. If an effect
   subscribes to two changed signals it still runs once per notification at
-  flush, always reading the final state; direct `useSubscribe` listeners
+  flush, always reading the final state; direct `onSubscribe` listeners
   receive each change in order with its historical `(newValue, oldValue)` pair.
 - **Synchronous by design.** The callback type returns `void`; keep it
   synchronous. Awaiting inside a batch closes the batch before the async work
   finishes and reintroduces intermediate notifications.
 - **Errors do not swallow the flush.** A throwing callback is caught and logged
   (`[createBatch] Batch block error:`), and the queued notifications still run.
-- **Reusable.** `useCreateBatch()` returns a stable function bound to the
+- **Reusable.** `onCreateBatch()` returns a stable function bound to the
   module-level queue; create it once and reuse it across handlers.
 
 **Real use case** — a submit handler that updates several related fields (name,
@@ -448,7 +448,7 @@ in `batch()` and subscribers observe one consistent update cycle.
 
 ## Stores / persistence
 
-### useCreateStorageSignal(key, fallbackValue, target = "localStorage")
+### onCreateStorageSignal(key, fallbackValue, target = "localStorage")
 
 Creates a signal whose value is read from a storage backend at creation and
 written back on every setter call. It composes the
@@ -475,14 +475,14 @@ an updater and writes through to storage; the updater form computes the next
 value against the current signal before persisting it.
 
 ```ts
-import { useCreateStorageSignal } from "katanakit-js";
+import { onCreateStorageSignal } from "katanakit-js";
 
-const [theme, setTheme] = useCreateStorageSignal<"light" | "dark">("theme", "light");
+const [theme, setTheme] = onCreateStorageSignal<"light" | "dark">("theme", "light");
 
 theme();          // "light" on first visit, or the stored value afterwards
 setTheme("dark"); // updates the signal and writes to localStorage
 
-const [token, setToken] = useCreateStorageSignal("token", "", "sessionStorage");
+const [token, setToken] = onCreateStorageSignal("token", "", "sessionStorage");
 
 setToken((prev) => `${prev}-refreshed`); // updater is persisted too
 ```
@@ -491,17 +491,17 @@ setToken((prev) => `${prev}-refreshed`); // updater is persisted too
 
 - **Reads happen once.** Only creation reads storage; a second tab writing the
   same key does not update this signal (no `storage` event subscription).
-  Recreate the signal or call `useGetStorage(key, target)` to re-read.
+  Recreate the signal or call `onGetStorage(key, target)` to re-read.
 - **Writes happen on every call.** Unlike notifications, storage is written
   even when the new value equals the previous one.
 - **Serialization.** Values are stored as JSON; strings are stored raw. Keep
   values JSON-serializable (no `Map`, `Set`, `Date` instances or functions).
 - **SSR fallback.** Outside the browser the Storage service returns `null`, so
   the signal starts from `fallbackValue`; writes go to an ephemeral in-memory
-  store. Use `useRunStorageScope()` around a server handler to share that
+  store. Use `onRunStorageScope()` around a server handler to share that
   in-memory store within a single request.
 - **Removal is separate.** The setter cannot delete the key; call
-  `useRemoveStorage(key, target)` from the Storage service when the preference
+  `onRemoveStorage(key, target)` from the Storage service when the preference
   should be forgotten.
 - **Quota and private mode are silent.** Failed writes are ignored by the
   storage strategy; the in-memory signal keeps working for the session.
@@ -519,5 +519,5 @@ fallback and picks up the persisted value in the browser.
 - [Query Client](/guides/query-client) — server-state caching, retries and
   invalidation built on top of these primitives.
 - [Storage](/guides/services/storage) — the backend behind
-  `useCreateStorageSignal()`, including SSR scoping.
+  `onCreateStorageSignal()`, including SSR scoping.
 - [API Reference](/api/) — every export, generated from source.

@@ -10,8 +10,8 @@ holds one module-level registry of API definitions (`ApisConfig`) and exposes
 two kinds of work:
 
 1. **Pure building** — URL construction and body serialization are plain
-   functions with no I/O. You can call `useBuildUrl()` to get the exact address
-   `useFetch()` would request, without touching the network.
+   functions with no I/O. You can call `onBuildUrl()` to get the exact address
+   `onFetch()` would request, without touching the network.
 2. **Safe async requests** — every fetch returns a `FetchResult<T>`
    (`{ data, error, url, status, ok }`), a discriminated union that never
    throws. HTTP failures, network errors, config mistakes and even a failing
@@ -31,7 +31,7 @@ never by mutating the registry per request.
 ## Quick example
 
 ```ts
-import { defineApiConfig, useGetApi, usePost } from "katanakit-js";
+import { defineApiConfig, onGet, onPost } from "katanakit-js";
 
 defineApiConfig({
   hpApi: {
@@ -64,7 +64,7 @@ interface Product {
   stock: number;
 }
 
-const result = await useGetApi<Product>("dummyjson", "productById", {
+const result = await onGet<Product>("dummyjson", "productById", {
   params: { id: 1 },
 });
 
@@ -88,22 +88,22 @@ interface Spell {
   description: string;
 }
 
-const spells = await useGetApi<Spell[]>("hpApi", "spells");
+const spells = await onGet<Spell[]>("hpApi", "spells");
 if (spells.ok) console.log(spells.data.length); // 77
 
-const phones = await useGetApi<{ products: Product[]; total: number }>(
+const phones = await onGet<{ products: Product[]; total: number }>(
   "dummyjson",
   "searchProducts",
   { query: { q: "phone" } },
 );
 if (phones.ok) console.log(phones.data.total); // 194 products, filtered by q
 
-const gryffindor = await useGetApi<{ name: string }[]>("hpApi", "houseCharacters", {
+const gryffindor = await onGet<{ name: string }[]>("hpApi", "houseCharacters", {
   params: { house: "gryffindor" },
 });
 
 // POST works the same way: JSON body, Safe Result back.
-const created = await usePost<{ id: number; title: string }>("dummyjson", "addProduct", {
+const created = await onPost<{ id: number; title: string }>("dummyjson", "addProduct", {
   title: "Handmade ceramic mug",
   price: 24.5,
 });
@@ -122,14 +122,14 @@ The literal also accepts Options-API-style sections when you prefer one big
 object over a flat list. They are additive — flat entries keep working.
 
 ```ts
-import { defineApiConfig, useFetch } from "katanakit-js";
+import { defineApiConfig, onFetch } from "katanakit-js";
 
 export default defineApiConfig({
   dummyjson: { baseUri: "https://dummyjson.com", endpoints: { byId: "/products/:id" } },
   debug: true,
   getProduct: async function () {
     if (this.config.debug) console.log("fetching product");
-    return useFetch("dummyjson", "byId", { params: { id: 1 } });
+    return onFetch("dummyjson", "byId", { params: { id: 1 } });
   },
 });
 ```
@@ -148,7 +148,7 @@ export default defineApiConfig({
   methods: {
     async listProducts() {
       this.data.calls += 1;
-      return useFetch("dummyjson", "products");
+      return onFetch("dummyjson", "products");
     },
     callCount() {
       return this.data.calls;
@@ -173,7 +173,7 @@ Rules the function enforces:
   `defaultQueryParams` is optional.
 - Boolean flags are kept on `config` for your own methods to read — they are
   **never** registered as APIs.
-- Methods are split out of the config (via `useSplitConfig`) and returned on
+- Methods are split out of the config (via `onSplitConfig`) and returned on
   the facade. Write them as method shorthand or with `function`, **not** as
   arrows: `this` is undefined inside an arrow.
 - Any other non-method object value throws
@@ -189,62 +189,60 @@ is typed as `ApiEntry` and `api.getProduct()` keeps its return type.
 analytics, commerce), expose boolean feature flags, and export typed methods
 that read `this.config`; components only import the methods.
 
-### useInit(apisConfig) / useInitApis(apisConfig)
+### onInitApis(apisConfig)
 
 ::: warning Deprecated
-Both are deprecated in favor of [`defineApiConfig()`](#defineapiconfiginput),
-which registers **and** returns the config. They remain exported for backwards
+Deprecated in favor of [`defineApiConfig()`](#defineapiconfiginput), which
+registers **and** returns the config. It remains exported for backwards
 compatibility.
 :::
 
-`useInit()` merges (shallow-spreads) the given definitions into the singleton
-registry; `useInitApis()` is an alias that delegates to it. Called twice, the
-later definition wins for identical keys:
+`onInitApis()` merges (shallow-spreads) the given definitions into the
+singleton registry. Called twice, the later definition wins for identical keys:
 
 ```ts
-import { useInit } from "katanakit-js";
+import { onInitApis } from "katanakit-js";
 
-useInit({
+onInitApis({
   dummyjson: { baseUri: "https://dummyjson.com", endpoints: { byId: "/products/:id" } },
 });
 ```
 
 **Real use case** — legacy code paths that register a plugin API at runtime
-(for example a test fixture) can keep calling `useInit()` without migrating the
-rest of the app.
+(for example a test fixture) can keep calling `onInitApis()` without migrating
+the rest of the app.
 
-### useGetApis() / useGetApisConfig()
+### onGetApis()
 
 Return a **shallow copy** of the registry, so iterating or deleting keys
-locally never mutates the singleton. `useGetApisConfig()` is an alias for
-`useGetApis()`.
+locally never mutates the singleton.
 
 ```ts
-import { useGetApis } from "katanakit-js";
+import { onGetApis } from "katanakit-js";
 
-const apis = useGetApis();
+const apis = onGetApis();
 for (const [name, entry] of Object.entries(apis)) {
   console.log(name, entry.baseUri, Object.keys(entry.endpoints));
 }
 ```
 
 **Real use case** — a health-check endpoint that pings every registered API:
-read the copy, `Promise.allSettled(useGet(name, endpoint))` over each entry, and
+read the copy, `Promise.allSettled(onGet(name, endpoint))` over each entry, and
 report which integrations are reachable.
 
 ## URL building
 
-### useBuildUrl(apiName, endpointName, options?)
+### onBuildUrl(apiName, endpointName, options?)
 
 Returns the URL of a registered endpoint **without calling `fetch`**. It runs
-the exact same pipeline as `useFetch()` — registry lookup, `:param`
+the exact same pipeline as `onFetch()` — registry lookup, `:param`
 substitution, `defaultQueryParams` merge and the http(s) guard — then hands you
 the string:
 
 ```ts
-import { useBuildUrl } from "katanakit-js";
+import { onBuildUrl } from "katanakit-js";
 
-useBuildUrl("dummyjson", "productById", { params: { id: 1 } });
+onBuildUrl("dummyjson", "productById", { params: { id: 1 } });
 // → "https://dummyjson.com/products/1"
 ```
 
@@ -266,44 +264,37 @@ the process. It throws on an unregistered API, an unknown endpoint and a
 disallowed scheme.
 
 ```ts
-useBuildUrl("dummyjson", "productById");              // throws: endpoint is missing :id
-useBuildUrl("nope", "byId");                        // throws: API not registered
+onBuildUrl("dummyjson", "productById");              // throws: endpoint is missing :id
+onBuildUrl("nope", "byId");                        // throws: API not registered
 ```
 
 **Real use case** — SSR/prerender links: render `<a href>` for a detail page
-without fetching it on the server, then let the client call `useGetApi()`
+without fetching it on the server, then let the client call `onGet()`
 on demand.
 
 ```tsx
-<a href={useBuildUrl("myApi", "download", { params: { id: 42 } })}>Download</a>
+<a href={onBuildUrl("myApi", "download", { params: { id: 42 } })}>Download</a>
 ```
 
 If you need the URL a request **did** use, read `result.url` from a
 `FetchResult` instead.
 
-### useBuildApiUrl(apiName, endpointName, options?)
-
-::: warning Deprecated
-Behaviorally identical wrapper kept for backwards compatibility and scheduled
-for removal in the next major. Use [`useBuildUrl()`](#usebuildurlapiname-endpointname-options).
-:::
-
 ## Requests per method
 
 Every request helper returns a `FetchResult<T>` and never throws. The method
-helpers (`useGet`, `usePost`, …) accept **only URL options** — for headers,
-`signal`, `credentials` or `transform`, use [`useFetch()`](#usefetchapiname-endpointname-options).
+helpers (`onGet`, `onPost`, …) accept **only URL options** — for headers,
+`signal`, `credentials` or `transform`, use [`onFetch()`](#onfetchapiname-endpointname-options).
 
-### useFetch(apiName, endpointName, options?)
+### onFetch(apiName, endpointName, options?)
 
 The general-purpose request. URL options live at the **top level**, next to
 `method`/`headers`/`body`/`signal` and any other `RequestInit` field — no
 nesting:
 
 ```ts
-import { useFetch } from "katanakit-js";
+import { onFetch } from "katanakit-js";
 
-const result = await useFetch<{ products: unknown[] }>("dummyjson", "products", {
+const result = await onFetch<{ products: unknown[] }>("dummyjson", "products", {
   method: "GET",
   query: { limit: 2 },
   headers: { Authorization: `Bearer ${token}` },
@@ -325,20 +316,18 @@ What the method does, in order:
    `error.details` with the parsed body (truncated to 32 KiB so a hostile
    response cannot exhaust memory).
 4. Reads the body: `204` and empty bodies become `null`; JSON content is parsed
-   with [`useTryJsonParse()`](/start/errors#usetryjsonparse); anything else is
+   with [`onTryJsonParse()`](/start/errors#ontryjsonparse); anything else is
    returned as raw text.
 5. Applies `transform` when given, and returns `{ data, error: null, url, status, ok: true }`.
 6. Catches thrown `fetch` errors as
    `"Network/Client Error: <message>"` with `status: 0`.
-
-`useFetchApi()` is an alias of `useFetch()` with the same options object.
 
 **Real use case** — authenticated mutations: attach a bearer token and an
 `AbortSignal` for cancellation, and inspect `error.details` to surface the
 backend's validation message.
 
 ```ts
-const result = await useFetch("dummyjson", "posts", {
+const result = await onFetch("dummyjson", "posts", {
   method: "POST",
   body: { title: "Hello" },
   headers: { Authorization: `Bearer ${token}` },
@@ -346,17 +335,17 @@ const result = await useFetch("dummyjson", "posts", {
 });
 ```
 
-### useGet(apiName, endpointName, urlOptions?) / useGetApi(apiName, endpointName, urlOptions?)
+### onGet(apiName, endpointName, urlOptions?) / onGet(apiName, endpointName, urlOptions?)
 
-GET helper over a registered endpoint; `useGetApi()` is the alias. Both accept
+GET helper over a registered endpoint; `onGet()` is the alias. Both accept
 the same [`UrlOptions`](#params-query-and-ignoredefaultquery) and return a
 `FetchResult<T>` — the type argument is not inferred, so annotate it with the
 response shape:
 
 ```ts
-import { useGetApi } from "katanakit-js";
+import { onGet } from "katanakit-js";
 
-const result = await useGetApi<Product>("dummyjson", "productById", {
+const result = await onGet<Product>("dummyjson", "productById", {
   params: { id: 1 },
 });
 
@@ -373,23 +362,23 @@ as a query param and read `result.status` to distinguish "no results" (`200`)
 from a backend failure (`5xx`).
 
 ```ts
-const result = await useGetApi<{ products: Product[]; total: number }>(
+const result = await onGet<{ products: Product[]; total: number }>(
   "dummyjson",
   "searchProducts",
   { query: { q: term, limit: 10 } },
 );
 ```
 
-### usePost(apiName, endpointName, body?, urlOptions?)
+### onPost(apiName, endpointName, body?, urlOptions?)
 
 POST helper. The body is auto-serialized (see
 [Body serialization](#body-serialization)) and `urlOptions` is the fourth
 argument, so `params` and `query` work exactly as in GET:
 
 ```ts
-import { usePost } from "katanakit-js";
+import { onPost } from "katanakit-js";
 
-const result = await usePost<Post>("dummyjson", "posts", {
+const result = await onPost<Post>("dummyjson", "posts", {
   title: "Hello World",
   body: "My first post",
   userId: 1,
@@ -406,33 +395,33 @@ JSON content type.
 const form = new FormData();
 form.append("file", file);
 
-await usePost("myApi", "upload", form, { query: { visibility: "private" } });
+await onPost("myApi", "upload", form, { query: { visibility: "private" } });
 ```
 
-### usePut(apiName, endpointName, body?, urlOptions?)
+### onPut(apiName, endpointName, body?, urlOptions?)
 
 PUT helper for full-resource replacement. Same signature and serialization
-rules as `usePost()`.
+rules as `onPost()`.
 
 ```ts
-import { usePut } from "katanakit-js";
+import { onPut } from "katanakit-js";
 
-await usePut("dummyjson", "postById", { title: "Updated" }, {
+await onPut("dummyjson", "postById", { title: "Updated" }, {
   params: { id: 1 },
 });
 ```
 
 **Real use case** — admin editors: a "Save" action sends the complete record,
-while draft autosave can use `usePatch()` to send only the changed fields.
+while draft autosave can use `onPatch()` to send only the changed fields.
 
-### usePatch(apiName, endpointName, body?, urlOptions?)
+### onPatch(apiName, endpointName, body?, urlOptions?)
 
 PATCH helper for partial updates.
 
 ```ts
-import { usePatch } from "katanakit-js";
+import { onPatch } from "katanakit-js";
 
-await usePatch("dummyjson", "postById", { title: "New title" }, {
+await onPatch("dummyjson", "postById", { title: "New title" }, {
   params: { id: 1 },
 });
 ```
@@ -441,14 +430,14 @@ await usePatch("dummyjson", "postById", { title: "New title" }, {
 boolean) without round-tripping the whole entity, which avoids clobbering
 concurrent edits.
 
-### useDelete(apiName, endpointName, urlOptions?)
+### onDelete(apiName, endpointName, urlOptions?)
 
 DELETE helper. It takes no body; pass identifiers through `params` or `query`.
 
 ```ts
-import { useDelete } from "katanakit-js";
+import { onDelete } from "katanakit-js";
 
-await useDelete("dummyjson", "postById", { params: { id: 1 } });
+await onDelete("dummyjson", "postById", { params: { id: 1 } });
 ```
 
 **Real use case** — delete the row from a list, then branch on `result.ok` to
@@ -457,12 +446,12 @@ throws, it composes cleanly inside event handlers.
 
 ### OPTIONS and other methods
 
-There is **no dedicated OPTIONS helper and no `usePostApi`/`usePutApi`/… aliases**
+There is **no dedicated OPTIONS helper and no `onPostApi`/`onPutApi`/… aliases**
 in the current API. For any method without a helper, call
-[`useFetch()`](#usefetchapiname-endpointname-options) with an explicit `method`:
+[`onFetch()`](#onfetchapiname-endpointname-options) with an explicit `method`:
 
 ```ts
-const result = await useFetch("myApi", "corsProbe", { method: "OPTIONS" });
+const result = await onFetch("myApi", "corsProbe", { method: "OPTIONS" });
 ```
 
 ## Full CRUD, end to end
@@ -474,11 +463,11 @@ returns the same `FetchResult<T>`, so the error branch never changes shape:
 ```ts
 import {
   defineApiConfig,
-  useDelete,
-  useGetApi,
-  usePatch,
-  usePost,
-  usePut,
+  onDelete,
+  onGet,
+  onPatch,
+  onPost,
+  onPut,
 } from "katanakit-js";
 
 defineApiConfig({
@@ -502,7 +491,7 @@ interface Post {
 }
 
 // 1. CREATE — POST /posts/add returns the new resource (id assigned).
-const created = await usePost<Post>("dummyjson", "addPost", {
+const created = await onPost<Post>("dummyjson", "addPost", {
   title: "Shipping Safe Results",
   body: "A guide to error-free HTTP.",
   userId: 5,
@@ -510,12 +499,12 @@ const created = await usePost<Post>("dummyjson", "addPost", {
 if (!created.ok) return report(created.error);
 
 // 2. READ ONE — GET /posts/:id
-const fetched = await useGetApi<Post>("dummyjson", "postById", { params: { id: 1 } });
+const fetched = await onGet<Post>("dummyjson", "postById", { params: { id: 1 } });
 if (!fetched.ok) return report(fetched.error);
 console.log(fetched.data.title);
 
 // 3. UPDATE — PUT replaces the whole resource.
-const replaced = await usePut<Post>(
+const replaced = await onPut<Post>(
   "dummyjson",
   "postById",
   { ...fetched.data, title: "Shipping Safe Results (v2)" },
@@ -524,7 +513,7 @@ const replaced = await usePut<Post>(
 if (!replaced.ok) return report(replaced.error);
 
 // 4. PARTIAL UPDATE — PATCH sends only the changed field.
-const patched = await usePatch<Post>(
+const patched = await onPatch<Post>(
   "dummyjson",
   "postById",
   { title: "Shipping Safe Results (final)" },
@@ -533,13 +522,13 @@ const patched = await usePatch<Post>(
 if (!patched.ok) return report(patched.error);
 
 // 5. DELETE — the payload echoes the removed resource.
-const deleted = await useDelete<Post & { isDeleted: boolean }>("dummyjson", "postById", {
+const deleted = await onDelete<Post & { isDeleted: boolean }>("dummyjson", "postById", {
   params: { id: 1 },
 });
 if (deleted.ok) console.log(deleted.data.id, deleted.data.isDeleted); // 1 true
 
 // 6. LIST — pagination through `limit` and `skip`.
-const page = await useGetApi<{ posts: Post[]; total: number; skip: number; limit: number }>(
+const page = await onGet<{ posts: Post[]; total: number; skip: number; limit: number }>(
   "dummyjson",
   "posts",
   { query: { limit: 10, skip: 0 } },
@@ -565,7 +554,7 @@ dependency; Apollo Client is the step up when the whole app speaks GraphQL.
 ### Option A — the toolkit makes the call
 
 Point an API at the GraphQL endpoint and post `{ query, variables }`. This is
-the same `usePost()` used above, so the Safe Result, headers and `transform`
+the same `onPost()` used above, so the Safe Result, headers and `transform`
 hooks all behave identically:
 
 ```ts
@@ -585,7 +574,7 @@ interface CountryDetail {
   };
 }
 
-const result = await usePost<{ data: CountryDetail }>("countries", "graphql", {
+const result = await onPost<{ data: CountryDetail }>("countries", "graphql", {
   query: `
     query Country($code: ID!) {
       country(code: $code) {
@@ -610,10 +599,10 @@ exactly like any REST payload, and a schema change upstream becomes a field
 error instead of a runtime surprise:
 
 ```ts
-import { useValidate } from "katanakit-js";
+import { onValidate } from "katanakit-js";
 import { z } from "zod";
 
-const parsed = useValidate(
+const parsed = onValidate(
   z.object({
     data: z.object({
       country: z.object({
@@ -693,7 +682,7 @@ bundle Apollo — it is an optional client, like React itself.
 | Cost | a URL per resource | a client library and a schema to learn |
 | Best when | a few stable endpoints, boring data | many entities the UI composes differently each screen |
 
-They mix: keep `useGetApi()` for the stable REST APIs — auth, uploads, health —
+They mix: keep `onGet()` for the stable REST APIs — auth, uploads, health —
 and let Apollo own the screens where one view reads six related entities.
 
 > Serving your own GraphQL? The client side does not change: whatever your
@@ -704,7 +693,7 @@ and let Apollo own the screens where one view reads six related entities.
 
 ### params, query and ignoreDefaultQuery
 
-`UrlOptions` is the shared URL-building shape used by `useBuildUrl()` and every
+`UrlOptions` is the shared URL-building shape used by `onBuildUrl()` and every
 method helper:
 
 ```ts
@@ -722,7 +711,7 @@ interface UrlOptions {
   configured defaults for a single call.
 
 ```ts
-import { defineApiConfig, useGetApi } from "katanakit-js";
+import { defineApiConfig, onGet } from "katanakit-js";
 
 defineApiConfig({
   dummyjson: {
@@ -732,10 +721,10 @@ defineApiConfig({
   },
 });
 
-await useGetApi("dummyjson", "products", { query: { skip: 40 } });
+await onGet("dummyjson", "products", { query: { skip: 40 } });
 // → /products?limit=20&skip=40
 
-await useGetApi("dummyjson", "products", { query: { limit: 5 }, ignoreDefaultQuery: true });
+await onGet("dummyjson", "products", { query: { limit: 5 }, ignoreDefaultQuery: true });
 // → /products?limit=5
 ```
 
@@ -747,7 +736,7 @@ to `fetch`. The only injected default is `redirect: "error"`; everything you
 specify wins because it is spread afterwards.
 
 ```ts
-const result = await useFetch("myApi", "session", {
+const result = await onFetch("myApi", "session", {
   method: "GET",
   credentials: "include",
   cache: "no-store",
@@ -767,7 +756,7 @@ interface ProductTitles {
   titles: string[];
 }
 
-const result = await useFetch<ProductTitles>("dummyjson", "products", {
+const result = await onFetch<ProductTitles>("dummyjson", "products", {
   query: { limit: 20 },
   transform: (body) => {
     const { products } = body as { products: { title: string }[] };
@@ -793,7 +782,7 @@ the keys at the top level instead. When both are present, the flat keys win;
 
 ### Body serialization
 
-Helpers and `useFetch()` share one serializer:
+Helpers and `onFetch()` share one serializer:
 
 - **Passed through untouched** — `FormData`, `Blob`, `URLSearchParams`,
   `ArrayBuffer`, typed arrays (`ArrayBuffer.isView`), `ReadableStream` and
@@ -806,8 +795,8 @@ Helpers and `useFetch()` share one serializer:
 *not* `undefined`: it is stringified to `"null"` with the JSON content type.
 
 ```ts
-await usePost("myApi", "events", { type: "click", at: Date.now() }); // JSON
-await usePost("myApi", "raw", new URLSearchParams({ a: "1" }));      // no JSON header
+await onPost("myApi", "events", { type: "click", at: Date.now() }); // JSON
+await onPost("myApi", "raw", new URLSearchParams({ a: "1" }));      // no JSON header
 ```
 
 ### The Safe Result
@@ -830,9 +819,9 @@ interface ApiError {
 On transport failures `url` is the final URL (`response.url`), except for
 config errors where it stays `""`. This is the same `{ data, error, ok }`
 contract documented in [Error Handling](/start/errors); internally the service
-parses bodies with `useTryJsonParse()` from `result.service.ts`, and the shape
-mirrors `useAttempt()`. Wrap the result in TanStack Query with
-[`useSafeQueryFn()`](/guides/query-client) when you need caching, retries or
+parses bodies with `onTryJsonParse()` from `result.service.ts`, and the shape
+mirrors `onAttempt()`. Wrap the result in TanStack Query with
+[`onSafeQueryFn()`](/guides/query-client) when you need caching, retries or
 refetching.
 
 ## Class access
@@ -848,17 +837,17 @@ synchronous or asynchronous:
 import { FetchApiManager } from "katanakit-js";
 
 const http = FetchApiManager.getInstance();
-const removeAuth = http.useAddRequestInterceptor(({ init }) => {
+const removeAuth = http.onAddRequestInterceptor(({ init }) => {
   const headers = new Headers(init.headers);
   headers.set("X-Example", "intercepted");
   init.headers = headers;
 });
 
-const result = await http.useGet("service", "items");
+const result = await http.onGet("service", "items");
 removeAuth();
 ```
 
-`useAddRequestInterceptor()` returns a function that unregisters that
+`onAddRequestInterceptor()` returns a function that unregisters that
 interceptor. The interceptor list is captured when a request starts, so changes
 to registrations while a request is running apply to later requests. With no
 registered interceptors, requests keep the existing fetch behavior.
@@ -879,30 +868,30 @@ import { FetchApiManager } from "katanakit-js";
 
 const http = FetchApiManager.getInstance();
 
-http.useInit({
+http.onInit({
   dummyjson: { baseUri: "https://dummyjson.com", endpoints: { byId: "/products/:id" } },
 });
 
-const result = await http.useFetch<Product>("dummyjson", "byId", { params: { id: 1 } });
+const result = await http.onFetch<Product>("dummyjson", "byId", { params: { id: 1 } });
 ```
 
 Instance methods, in one table:
 
 | Method | Signature | Notes |
 | --- | --- | --- |
-| `useInit` | `(apisConfig: ApisConfig) => void` | Deprecated; merges into the registry. |
-| `useGetApis` | `() => ApisConfig` | Shallow copy of the registry. |
-| `useBuildUrl` | `(apiName, endpointName, options?) => string` | Synchronous; throws. |
-| `useAddRequestInterceptor` | `(interceptor: RequestInterceptor) => () => void` | Adds a FIFO request interceptor; returns its unregister function. |
-| `useFetch` | `<T>(apiName, endpointName, options?) => Promise<FetchResult<T>>` | Full option set. |
-| `useGet` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | URL options only. |
-| `usePost` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
-| `usePut` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
-| `usePatch` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
-| `useDelete` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | No body. |
+| `onInitApis` | `(apisConfig: ApisConfig) => void` | Deprecated; merges into the registry. |
+| `onGetApis` | `() => ApisConfig` | Shallow copy of the registry. |
+| `onBuildUrl` | `(apiName, endpointName, options?) => string` | Synchronous; throws. |
+| `onAddRequestInterceptor` | `(interceptor: RequestInterceptor) => () => void` | Adds a FIFO request interceptor; returns its unregister function. |
+| `onFetch` | `<T>(apiName, endpointName, options?) => Promise<FetchResult<T>>` | Full option set. |
+| `onGet` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | URL options only. |
+| `onPost` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
+| `onPut` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
+| `onPatch` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | Auto-serialized body. |
+| `onDelete` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | No body. |
 
-The module-level aliases `useFetchApi`, `useGetApi` and `useGetApisConfig` are
-**not** methods on the class — they exist only as exported wrappers.
+The module-level functions are **not** methods on the class — they are thin
+exported wrappers that delegate to the singleton.
 
 **Real use case** — dependency injection in tests: hand a mock
 `FetchApiManager`-shaped object to your service layer instead of stubbing the
@@ -911,10 +900,10 @@ global `fetch`, and leave the real registry untouched.
 ## Related
 
 - [Error Handling](/start/errors) — the Safe Result contract and the
-  `useAttempt()` / `useTryJsonParse()` / `useErrorNormalize()` helpers.
+  `onAttempt()` / `onTryJsonParse()` / `onErrorNormalize()` helpers.
 - [Query Client](/guides/query-client) — cache, retry and invalidate HTTP
-  results through `useSafeQueryFn()`.
-- [Framework Adapters](/guides/framework-adapters) — reactive `useQuery` /
-  `useMutation` bindings per framework.
+  results through `onSafeQueryFn()`.
+- [Framework Adapters](/guides/framework-adapters) — reactive `onQuery` /
+  `onMutation` bindings per framework.
 - [API Reference](/api/classes/FetchApiManager) — the class generated from
   source.

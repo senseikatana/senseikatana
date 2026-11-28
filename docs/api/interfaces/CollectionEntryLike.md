@@ -2,9 +2,9 @@
 
 # Interface: CollectionEntryLike\<TData\>
 
-Defined in: [types/adapters/astro.ts:8](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L8)
+Defined in: [types/astro/types.ts:8](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L8)
 
-Minimal shape of an Astro content collection entry.
+Minimal shape of an Astro collection entry.
 
 ## Type Parameters
 
@@ -22,6 +22,6 @@ Minimal shape of an Astro content collection entry.
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="data"></a> `data?` | `TData` | [types/adapters/astro.ts:11](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L11) |
-| <a id="id"></a> `id` | `string` | [types/adapters/astro.ts:9](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L9) |
-| <a id="slug"></a> `slug?` | `string` | [types/adapters/astro.ts:10](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L10) |
+| <a id="data"></a> `data?` | `TData` | [types/astro/types.ts:11](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L11) |
+| <a id="id"></a> `id` | `string` | [types/astro/types.ts:9](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L9) |
+| <a id="slug"></a> `slug?` | `string` | [types/astro/types.ts:10](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L10) |

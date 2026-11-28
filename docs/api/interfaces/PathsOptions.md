@@ -2,7 +2,9 @@
 
 # Interface: PathsOptions\<T, TParam, TProps\>
 
-Defined in: [types/adapters/astro.ts:15](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L15)
+Defined in: [types/astro/types.ts:16](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L16)
+
+Options for building Astro paths from a collection.
 
 ## Type Parameters
 
@@ -16,7 +18,7 @@ Defined in: [types/adapters/astro.ts:15](https://github.com/senseikatana/katanak
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="param"></a> `param?` | `TParam` | [types/adapters/astro.ts:16](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L16) |
-| <a id="paramsfrom"></a> `paramsFrom?` | (`item`) => `Record`\<`string`, `string`\> | [types/adapters/astro.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L19) |
-| <a id="propsfrom"></a> `propsFrom?` | (`item`) => `TProps` | [types/adapters/astro.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L18) |
-| <a id="valuefrom"></a> `valueFrom?` | (`item`) => `string` \| `number` | [types/adapters/astro.ts:17](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L17) |
+| <a id="param"></a> `param?` | `TParam` | [types/astro/types.ts:17](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L17) |
+| <a id="paramsfrom"></a> `paramsFrom?` | (`item`) => `Record`\<`string`, `string`\> | [types/astro/types.ts:20](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L20) |
+| <a id="propsfrom"></a> `propsFrom?` | (`item`) => `TProps` | [types/astro/types.ts:19](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L19) |
+| <a id="valuefrom"></a> `valueFrom?` | (`item`) => `string` \| `number` | [types/astro/types.ts:18](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L18) |

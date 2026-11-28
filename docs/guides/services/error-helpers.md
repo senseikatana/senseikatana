@@ -1,6 +1,6 @@
 ---
 title: Error Helpers
-description: "Safe Results and the useAttempt, useTryJsonParse, useErrorNormalize, useErrorSerialize and useErrorCustom helpers — every function explained."
+description: "Safe Results and the onAttempt, onTryJsonParse, onErrorNormalize, onSerializeError and onErrorCustom helpers — every function explained."
 ---
 
 # Error Helpers
@@ -11,9 +11,9 @@ description: "Safe Results and the useAttempt, useTryJsonParse, useErrorNormaliz
 Result contract shared across the library, so three design rules apply to every
 function on this page:
 
-1. **Fallible operations never throw.** `useAttempt()` returns a Safe Result for
-   both sync throws and async rejections, `useTryJsonParse()` returns one for
-   malformed JSON, and `useErrorNormalize()` accepts any caught value at all —
+1. **Fallible operations never throw.** `onAttempt()` returns a Safe Result for
+   both sync throws and async rejections, `onTryJsonParse()` returns one for
+   malformed JSON, and `onErrorNormalize()` accepts any caught value at all —
    `Error`, SDK object, string, `null`, `undefined`.
 2. **Errors are values, not control flow.** The `SafeResult<T, E = ApiError>`
    discriminated union is the single shape every caller routes through:
@@ -28,71 +28,71 @@ function on this page:
    when `ok` is `false` and `data` is present when it is `true`.
 
 3. **Two error shapes, two moments.** Inbound, unknown failures become an
-   `ApiError` — `{ message, status, details? }` — via `useErrorNormalize()`.
+   `ApiError` — `{ message, status, details? }` — via `onErrorNormalize()`.
    Outbound, errors that cross an HTTP/JSON boundary become an
-   `ISerializedError` — `{ message, code }` — via `useErrorSerialize()` or
-   `useErrorCustom()`. Mixing them up is the most common source of `undefined`
+   `ISerializedError` — `{ message, code }` — via `onSerializeError()` or
+   `onErrorCustom()`. Mixing them up is the most common source of `undefined`
    fields in API responses.
 
 **When to still throw.** Safe Results are for *fallible operations*: network
 calls, SDKs, parsing untrusted text, storage. Keep throwing for *programming
 errors* that should stop the program at its first invalid state — missing
 configuration, invalid arguments in pure functions, invariant violations.
-`useAttempt()` exists to draw that line at the boundary: everything inside the
+`onAttempt()` exists to draw that line at the boundary: everything inside the
 operation may throw; the boundary hands back a value.
 
 ## Quick example
 
 ```ts
 import {
-  useAttempt,
-  useTryJsonParse,
-  useErrorNormalize,
-  useErrorSerialize,
+  onAttempt,
+  onTryJsonParse,
+  onErrorNormalize,
+  onSerializeError,
 } from "katanakit-js";
 
 // 1. Wrap a fallible boundary — sync throws and rejections both resolve
-const user = await useAttempt(() => sdk.users.find(id));
+const user = await onAttempt(() => sdk.users.find(id));
 
 // 2. Parse untrusted text without try/catch
-const parsed = useTryJsonParse<{ id: number; name: string }>(
+const parsed = onTryJsonParse<{ id: number; name: string }>(
   '{"id":1,"name":"Kira"}',
 );
 console.log(parsed.ok ? parsed.data.name : parsed.error.message);
 
 // 3. Normalize a value that escaped a third-party boundary
-const normalized = useErrorNormalize(
+const normalized = onErrorNormalize(
   { message: "Rate limited", statusCode: 429, details: { retryAfter: 30 } },
 );
 // { message: "Rate limited", status: 429, details: { retryAfter: 30 } }
 
 // 4. Build the payload for an HTTP error response
-const body = useErrorSerialize(normalized.message, normalized.status);
+const body = onSerializeError(normalized.message, normalized.status);
 // { message: "Rate limited", code: 429 }
 ```
 
 ## Boundaries
 
-### useAttempt(operation, mapError?)
+### onAttempt(operation, mapError?)
 
 Runs an operation — sync or async — and captures **any** throw as a Safe Result.
 It is the canonical replacement for ad-hoc `try/catch` at service boundaries:
-the mapper defaults to [`useErrorNormalize()`](#useerrornormalizeerror-fallbackstatus),
+the mapper defaults to [`onErrorNormalize()`](#onerrornormalizeerror-fallbackstatus),
 so SDK errors, `Error` instances and plain strings all come back with the same
 shape.
 
 - `operation: () => T | Promise<T>` — the function to run. Because the helper
   `await`s it, a returned value and a returned promise are handled identically.
 - `mapError: (error: unknown) => ApiError` — optional error mapper, applied to
-  the caught value. Defaults to `useErrorNormalize`.
+  the caught value. Defaults to `onErrorNormalize`.
 - **Returns** `Promise<SafeResult<T>>`: `{ data, error: null, ok: true }` on
   success, `{ data: null, error, ok: false }` on failure. With the default
   mapper it never rejects.
 
 ```ts
-import { useAttempt } from "katanakit-js";
+import { onAttempt } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.insert("posts", row));
+const result = await onAttempt(() => sdk.insert("posts", row));
 
 if (result.ok) {
   console.log(result.data);           // Post
@@ -106,7 +106,7 @@ The type parameter is inferred from the operation's return value. Annotate it
 when the operation returns `any` or a union you want narrowed:
 
 ```ts
-const result = await useAttempt<User[]>(() => sdk.users.list());
+const result = await onAttempt<User[]>(() => sdk.users.list());
 ```
 
 **Edge cases.**
@@ -116,24 +116,24 @@ const result = await useAttempt<User[]>(() => sdk.users.list());
   pure and defensive; when in doubt, avoid property access that can throw.
 - **Fallback status.** Thrown values without a numeric status normalize with
   `status: 0`, which is the library-wide "no HTTP status available" marker. Pass
-  a domain mapper — for example `(error) => useErrorNormalize(error, 500)` — to
+  a domain mapper — for example `(error) => onErrorNormalize(error, 500)` — to
   treat unknown failures as server errors.
 - **Aborts are just errors.** An `AbortController` rejection is normalized like
   any other throw: its `message` survives, its `status` falls back to `0`.
   Branch on `result.error.message` if the caller must distinguish cancellation.
 - **No rethrow option.** If a caller genuinely needs to propagate the original
   exception (TanStack Query's `queryFn`, for example), don't wrap it in
-  `useAttempt`; throwing is the contract there.
+  `onAttempt`; throwing is the contract there.
 
 **Real use case** — an API boundary around a typed SDK that throws several
 different shapes. One call normalizes them all, and the caller decides policy
 once:
 
 ```ts
-import { useAttempt } from "katanakit-js";
+import { onAttempt } from "katanakit-js";
 
 async function getUser(id: string) {
-  const result = await useAttempt(() => sdk.users.find(id));
+  const result = await onAttempt(() => sdk.users.find(id));
 
   if (!result.ok) {
     if (result.error.status === 404) return null;
@@ -148,17 +148,17 @@ async function getUser(id: string) {
 unexpected throw terminate the worker; every reply is a Safe Result envelope:
 
 ```ts
-import { useAttempt } from "katanakit-js";
+import { onAttempt } from "katanakit-js";
 
 self.onmessage = async (event: MessageEvent) => {
-  const result = await useAttempt(() => handleMessage(event.data));
+  const result = await onAttempt(() => handleMessage(event.data));
   self.postMessage(result);
 };
 ```
 
 ## Parsing
 
-### useTryJsonParse(text)
+### onTryJsonParse(text)
 
 Parses JSON without throwing; failures come back as a Safe Result. The helper
 wraps `JSON.parse` and keeps the fallback policy at the call site — return the
@@ -173,9 +173,9 @@ raw string, retry, or surface the error — instead of nesting another
   is a syntax failure, not an HTTP one.
 
 ```ts
-import { useTryJsonParse } from "katanakit-js";
+import { onTryJsonParse } from "katanakit-js";
 
-const parsed = useTryJsonParse<{ id: number }>(raw);
+const parsed = onTryJsonParse<{ id: number }>(raw);
 return parsed.ok ? parsed.data : raw;
 ```
 
@@ -185,14 +185,14 @@ return parsed.ok ? parsed.data : raw;
   Always branch on `ok`, never on the truthiness of `data`, or valid payloads
   get treated as failures.
 - **No schema validation.** The generic parameter is an assertion, not a
-  guarantee: `useTryJsonParse<{ id: number }>('{"id":"x"}')` succeeds and lies.
-  Run the parsed value through `useValidate()` when the shape matters.
+  guarantee: `onTryJsonParse<{ id: number }>('{"id":"x"}')` succeeds and lies.
+  Run the parsed value through `onValidate()` when the shape matters.
 - **Only syntax matters.** Trailing whitespace is fine, trailing commas are not.
   A string that parses to a primitive (`"42"`, `"true"`) is returned as such.
 - **Circular data cannot reach the parser.** JSON text cannot contain reference
   cycles; the failure mode lives one step earlier — `JSON.stringify()` throws on
   a circular object before any text exists. If you serialize error `details`,
-  sanitize them first (see [`useErrorNormalize()`](#useerrornormalizeerror-fallbackstatus)).
+  sanitize them first (see [`onErrorNormalize()`](#onerrornormalizeerror-fallbackstatus)).
 - **Runtime abuse falls outside the contract.** The signature requires a string;
   at runtime `JSON.parse` coerces `null` to the string `"null"` and returns
   `null`, while `undefined` fails as invalid JSON.
@@ -201,13 +201,13 @@ return parsed.ok ? parsed.data : raw;
 JSON when the content type lies or is missing, raw text otherwise.
 
 ```ts
-import { useTryJsonParse } from "katanakit-js";
+import { onTryJsonParse } from "katanakit-js";
 
 async function readBody(response: Response) {
   const text = await response.text();
   if (!text) return null;
 
-  const parsed = useTryJsonParse(text);
+  const parsed = onTryJsonParse(text);
   return parsed.ok ? parsed.data : text;
 }
 ```
@@ -217,10 +217,10 @@ async function readBody(response: Response) {
 routing it:
 
 ```ts
-import { useTryJsonParse } from "katanakit-js";
+import { onTryJsonParse } from "katanakit-js";
 
 self.onmessage = (event: MessageEvent<string>) => {
-  const parsed = useTryJsonParse<WorkerMessage>(event.data);
+  const parsed = onTryJsonParse<WorkerMessage>(event.data);
   if (!parsed.ok) return postError(parsed.error);
   route(parsed.data);
 };
@@ -228,17 +228,17 @@ self.onmessage = (event: MessageEvent<string>) => {
 
 ## Shaping & serializing
 
-Two shapes serve two directions. `useErrorNormalize()` handles values coming
-**in** from unknown code and produces the runtime `ApiError`. `useErrorSerialize()`
-and `useErrorCustom()` prepare errors going **out** to clients, logs and queues
+Two shapes serve two directions. `onErrorNormalize()` handles values coming
+**in** from unknown code and produces the runtime `ApiError`. `onSerializeError()`
+and `onErrorCustom()` prepare errors going **out** to clients, logs and queues
 as the transport-safe `ISerializedError`.
 
-### useErrorNormalize(error, fallbackStatus?)
+### onErrorNormalize(error, fallbackStatus?)
 
 Normalizes any thrown value into the shared `ApiError` shape. It reads
 `message`, a numeric `status` (or `statusCode`, used by some SDKs) and `details`
 when present; every other value becomes a generic error. This is the canonical
-mapper behind `useAttempt()`.
+mapper behind `onAttempt()`.
 
 - `error: unknown` — the caught value: `Error`, SDK error object, string, or
   anything else.
@@ -261,9 +261,9 @@ Precedence matters: `status` wins over `statusCode`, and both win over
 `"Unknown error"`.
 
 ```ts
-import { useAttempt, useErrorNormalize } from "katanakit-js";
+import { onAttempt, onErrorNormalize } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.call(), useErrorNormalize);
+const result = await onAttempt(() => sdk.call(), onErrorNormalize);
 if (!result.ok) console.error(result.error.status, result.error.message);
 
 // Object.assign(new Error("boom"), { statusCode: 503, details: { retry: true } })
@@ -289,13 +289,13 @@ if (!result.ok) console.error(result.error.status, result.error.message);
 log the stable fields; downstream sinks never need to know which SDK threw:
 
 ```ts
-import { useErrorNormalize, useLogger } from "katanakit-js";
+import { onErrorNormalize, onLogger } from "katanakit-js";
 
 try {
   await processQueue();
 } catch (error) {
-  const apiError = useErrorNormalize(error, 500);
-  useLogger(`Queue failed: ${apiError.message}`, apiError, "error");
+  const apiError = onErrorNormalize(error, 500);
+  onLogger(`Queue failed: ${apiError.message}`, apiError, "error");
 }
 ```
 
@@ -303,15 +303,15 @@ try {
 keep its precedence rules, and add a source prefix for grepping:
 
 ```ts
-import { useAttempt, useErrorNormalize } from "katanakit-js";
+import { onAttempt, onErrorNormalize } from "katanakit-js";
 
-const result = await useAttempt(() => sdk.call(), (error) => {
-  const normalized = useErrorNormalize(error, 500);
+const result = await onAttempt(() => sdk.call(), (error) => {
+  const normalized = onErrorNormalize(error, 500);
   return { ...normalized, message: `[sdk] ${normalized.message}` };
 });
 ```
 
-### useErrorSerialize(message, code)
+### onSerializeError(message, code)
 
 Serializes an error into the transport-safe `{ message, code }` object. When
 `message` is omitted or empty, the message falls back to a sensible default for
@@ -337,11 +337,11 @@ The built-in message table covers the statuses services emit most:
 Any other code falls back to `"Error"` unless a message is supplied.
 
 ```ts
-import { useErrorSerialize } from "katanakit-js";
+import { onSerializeError } from "katanakit-js";
 
-useErrorSerialize("User not found", 404); // { message: "User not found", code: 404 }
-useErrorSerialize("", 500);               // { message: "Internal Server Error", code: 500 }
-useErrorSerialize("", 418);               // { message: "Error", code: 418 }
+onSerializeError("User not found", 404); // { message: "User not found", code: 404 }
+onSerializeError("", 500);               // { message: "Internal Server Error", code: 500 }
+onSerializeError("", 418);               // { message: "Error", code: 418 }
 ```
 
 **Edge cases.**
@@ -351,23 +351,23 @@ useErrorSerialize("", 418);               // { message: "Error", code: 418 }
 - **Unknown codes are preserved.** `418` with no message yields
   `{ message: "Error", code: 418 }` — the code is never rewritten.
 - **This is a data shape, not an `Error`.** Throwing it does nothing special;
-  to throw, build an `Error` and let `useAttempt()` normalize it.
+  to throw, build an `Error` and let `onAttempt()` normalize it.
 - **Mind the naming.** Serialized errors use `code`; runtime `ApiError` values
   use `status`. Converting between them is explicit:
-  `useErrorSerialize(error.message, error.status)`.
+  `onSerializeError(error.message, error.status)`.
 
 **Real use case** — an HTTP boundary that turns any failure into a JSON
 response. The `|| 500` floors unknown statuses (which normalize to `0`) into a
 valid HTTP code, and the empty message produces `"Internal Server Error"`:
 
 ```ts
-import { useAttempt, useErrorSerialize } from "katanakit-js";
+import { onAttempt, onSerializeError } from "katanakit-js";
 
-const result = await useAttempt(() => loadDashboard(userId));
+const result = await onAttempt(() => loadDashboard(userId));
 
 if (!result.ok) {
   const code = result.error.status || 500;
-  return Response.json(useErrorSerialize(result.error.message, code), {
+  return Response.json(onSerializeError(result.error.message, code), {
     status: code,
   });
 }
@@ -379,41 +379,41 @@ return Response.json(result.data);
 cross a JSON boundary, so both use the serialized shape:
 
 ```ts
-import { useErrorSerialize } from "katanakit-js";
+import { onSerializeError } from "katanakit-js";
 
-self.postMessage(useErrorSerialize("Job failed: invalid payload", 400));
+self.postMessage(onSerializeError("Job failed: invalid payload", 400));
 ```
 
-### useErrorCustom(msg, code)
+### onErrorCustom(msg, code)
 
 Creates a custom serialized error in one call. It is a thin, intention-revealing
-alias of `useErrorSerialize()` with both parameters required, used when an error
+alias of `onSerializeError()` with both parameters required, used when an error
 is *authored* rather than reactively serialized — a domain rule failure, an
 explicit rejection, a guard clause.
 
 - `msg: string` — error message (required).
 - `code: number` — HTTP status code (required).
 - **Returns** `ISerializedError`: `{ message, code }`, with the same
-  status-code message fallback as `useErrorSerialize()` when `msg` is empty.
+  status-code message fallback as `onSerializeError()` when `msg` is empty.
 - **Never throws.**
 
 ```ts
-import { useErrorCustom, useLogger } from "katanakit-js";
+import { onErrorCustom, onLogger } from "katanakit-js";
 
-const error = useErrorCustom("User not found", 404);
-useLogger(error.message, error, "error");
+const error = onErrorCustom("User not found", 404);
+onLogger(error.message, error, "error");
 // { message: "User not found", code: 404 }
 ```
 
 **Edge cases.**
 
-- **The parameters are required at the type level,** but `useErrorCustom("", 404)`
-  still resolves to `"Not Found"` because it delegates to `useErrorSerialize()`.
+- **The parameters are required at the type level,** but `onErrorCustom("", 404)`
+  still resolves to `"Not Found"` because it delegates to `onSerializeError()`.
   Prefer writing the real message.
-- **No stack, no prototype.** Like `useErrorSerialize()`, the result is a plain
+- **No stack, no prototype.** Like `onSerializeError()`, the result is a plain
   data object — convenient for RPC, logging and tests.
 - **Do not use it as an exception.** If control flow must stop inside the
-  operation, throw an `Error`; `useAttempt()` turns it into the right shape at
+  operation, throw an `Error`; `onAttempt()` turns it into the right shape at
   the boundary.
 
 **Real use case** — a validation service returning domain errors without
@@ -421,11 +421,11 @@ committing to HTTP mechanics. Controllers later map `code` to a response
 status:
 
 ```ts
-import { useErrorCustom } from "katanakit-js";
+import { onErrorCustom } from "katanakit-js";
 
 function assertAge(age: number) {
   if (age < 18) {
-    return useErrorCustom("Must be 18 or older", 403);
+    return onErrorCustom("Must be 18 or older", 403);
   }
   return null;
 }
@@ -435,19 +435,19 @@ function assertAge(age: number) {
 
 | Situation                                     | Helper               | Result shape        |
 | --------------------------------------------- | -------------------- | ------------------- |
-| A boundary that can throw or reject (sync/async) | `useAttempt`      | `SafeResult<T>`     |
-| Untrusted JSON text                           | `useTryJsonParse`    | `SafeResult<T>`     |
-| An unknown caught value                       | `useErrorNormalize`  | `ApiError`          |
-| An outbound HTTP/JSON error payload           | `useErrorSerialize`  | `ISerializedError`  |
-| An intentionally authored domain error        | `useErrorCustom`     | `ISerializedError`  |
+| A boundary that can throw or reject (sync/async) | `onAttempt`      | `SafeResult<T>`     |
+| Untrusted JSON text                           | `onTryJsonParse`    | `SafeResult<T>`     |
+| An unknown caught value                       | `onErrorNormalize`  | `ApiError`          |
+| An outbound HTTP/JSON error payload           | `onSerializeError`  | `ISerializedError`  |
+| An intentionally authored domain error        | `onErrorCustom`     | `ISerializedError`  |
 
 ## Related
 
 - [Error Handling](/start/errors) — the Safe Result contract, the full
-  `useAttempt` / `useTryJsonParse` / `useErrorNormalize` walkthrough and when
+  `onAttempt` / `onTryJsonParse` / `onErrorNormalize` walkthrough and when
   not to use them.
 - [HTTP Client](/guides/services/http-client) — the fetch facade, which reads
-  response bodies with `useTryJsonParse()`.
-- [Logger](/guides/services/logger) — where `useErrorCustom()` payloads usually
+  response bodies with `onTryJsonParse()`.
+- [Logger](/guides/services/logger) — where `onErrorCustom()` payloads usually
   end up.
 - [API Reference](/api/) — every export, generated from source.

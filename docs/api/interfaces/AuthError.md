@@ -2,7 +2,7 @@
 
 # Interface: AuthError
 
-Defined in: [core/services/auth.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L16)
+Defined in: [core/services/auth.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L16)
 
 Why a provider could not answer.
 
@@ -15,6 +15,6 @@ parsing a message.
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="details"></a> `details?` | `unknown` | [core/services/auth.service.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L19) |
-| <a id="message"></a> `message` | `string` | [core/services/auth.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L17) |
-| <a id="status"></a> `status?` | `number` | [core/services/auth.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L18) |
+| <a id="details"></a> `details?` | `unknown` | [core/services/auth.service.ts:19](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L19) |
+| <a id="message"></a> `message` | `string` | [core/services/auth.service.ts:17](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L17) |
+| <a id="status"></a> `status?` | `number` | [core/services/auth.service.ts:18](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L18) |

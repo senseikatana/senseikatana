@@ -30,6 +30,29 @@ const services = defineCollection({
   }),
 });
 
+const works = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/works' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    client: z.string().optional(),
+    sector: z.string().optional(),
+    year: z.string().optional(),
+    image: z.string().optional(),
+    liveUrl: z.string().url().optional(),
+    repoUrl: z.string().url().optional(),
+    role: z.string().optional(),
+    stack: z.array(z.string()).default([]),
+    challenge: z.string().optional(),
+    solution: z.string().optional(),
+    outcome: z.string().optional(),
+    metrics: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
+    featured: z.boolean().default(false),
+    order: z.number().default(99),
+    draft: z.boolean().default(false),
+  }),
+});
+
 const experience = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/experience' }),
   schema: z.object({
@@ -45,4 +68,4 @@ const experience = defineCollection({
   }),
 });
 
-export const collections = { blog, experience, services };
+export const collections = { blog, experience, services, works };

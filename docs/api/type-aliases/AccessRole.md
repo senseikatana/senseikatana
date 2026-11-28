@@ -6,10 +6,10 @@
 type AccessRole = z.infer<typeof AccessRoleSchema>;
 ```
 
-Defined in: [types/core/access.ts:37](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L37)
+Defined in: [types/core/access.ts:31](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L31)
 
 A role slug. Closed vocabulary by convention (`BuiltInRole`), open by
-schema: `useRegisterRole` takes any slug matching the pattern.
+schema: `onRegisterRole` takes any slug matching the pattern.
 
 - `owner` — the site owner; the only role that can manage roles and perform
   system-level operations. There should be exactly one owner.

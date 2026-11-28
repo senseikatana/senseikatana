@@ -15,15 +15,15 @@ dependencies, so this subpath costs nothing unless you import it deliberately.
 
 What the reference server provides:
 
-- **App factory** — `useExpressCreate()`, `useExpressGetApp()`, `useGetApp()`
+- **App factory** — `onExpressCreate()`, `onExpressGetApp()`, `onGetApp()`
   and `app` all resolve to the same process-wide `Application`.
 - **Hardened defaults** — CORS allow-list read from `CORS_ORIGINS`,
   `x-powered-by` disabled, and 100 kB caps on JSON and URL-encoded bodies.
-- **Lifecycle helpers** — `useExpressStart()` and `useExpressFinalize()` are
+- **Lifecycle helpers** — `onExpressStart()` and `onExpressFinalize()` are
   idempotent, so bootstrapping code can be repeated safely.
 - **Raw body handling** — the JSON parser captures the raw request buffer and
-  `useGetRawBody()` exposes it for webhook signature verification.
-- **Capability guard** — `useRequireCapability()` turns a `useCan()` access
+  `onGetRawBody()` exposes it for webhook signature verification.
+- **Capability guard** — `onRequireCapability()` turns a `onCan()` access
   check into 401/403 Express middleware.
 - **Demo surface** — a health check and a users router mount automatically; a
   products CRUD controller is exported for you to mount yourself.
@@ -36,15 +36,15 @@ What the reference server provides:
 | `X-Powered-By` | disabled |
 | Health check | `GET /health` |
 | Demo users router | mounted at `/` |
-| Error + 404 handler | registered by `useExpressFinalize()`, invoked by `useExpressStart()` |
+| Error + 404 handler | registered by `onExpressFinalize()`, invoked by `onExpressStart()` |
 
 **Use the reference server** for prototypes, dev servers, demos and small
 internal APIs where you want a running server with sane defaults in two lines
 and do not already have an Express app.
 
 **Mount the pieces in an existing app** when you already run Express: import
-only what you need — `useRequireCapability()`, `useGetRawBody()`, the products
-controller handlers — and skip `useExpressCreate()` / `useExpressStart()` so the
+only what you need — `onRequireCapability()`, `onGetRawBody()`, the products
+controller handlers — and skip `onExpressCreate()` / `onExpressStart()` so the
 demo users router, the automatic `/health` route and the global 404 never enter
 your middleware stack. The caveat: the factory and lifecycle exports share a
 module-level singleton, so you cannot build a second independent reference
@@ -53,10 +53,10 @@ server in the same process.
 ## Quick example
 
 ```ts
-import { useExpressStart } from "katanakit-js/adapters/express";
+import { onExpressStart } from "katanakit-js/adapters/express";
 
 // Finalizes error/404 handling and listens on http://localhost:3000
-useExpressStart();
+onExpressStart();
 ```
 
 The server answers immediately:
@@ -72,22 +72,22 @@ curl http://localhost:3000/
 Pass a port and host when the defaults do not fit:
 
 ```ts
-useExpressStart(8080, "0.0.0.0"); // all interfaces, custom port
+onExpressStart(8080, "0.0.0.0"); // all interfaces, custom port
 ```
 
 ## Lifecycle
 
 The adapter keeps three process-wide flags: whether the app was created,
 whether error handling was finalized, and whether the server was started.
-Every lifecycle call checks its flag first, so `useExpressCreate()` →
-`useExpressFinalize()` → `useExpressStart()` is safe to call from more than one
+Every lifecycle call checks its flag first, so `onExpressCreate()` →
+`onExpressFinalize()` → `onExpressStart()` is safe to call from more than one
 module. The intended order is: create, mount your routers, finalize, start —
-`useExpressStart()` performs the last two steps for you.
+`onExpressStart()` performs the last two steps for you.
 
-### useExpressStart(port?, host?)
+### onExpressStart(port?, host?)
 
 ```ts
-const useExpressStart: (port?: number, host?: string) => void;
+const onExpressStart: (port?: number, host?: string) => void;
 ```
 
 | Parameter | Type | Default | Description |
@@ -98,28 +98,28 @@ const useExpressStart: (port?: number, host?: string) => void;
 Starting is **idempotent**: the first call sets the `started` flag, finalizes
 error handling, resolves the app and calls `app.listen()`. When the socket is
 listening, the log line `Server running on http://<host>:<port>` is emitted
-through `useLogger`. Subsequent calls are no-ops, even with different
+through `onLogger`. Subsequent calls are no-ops, even with different
 arguments — whoever starts first wins.
 
 ```ts
-import { useExpressStart } from "katanakit-js/adapters/express";
+import { onExpressStart } from "katanakit-js/adapters/express";
 
 const port = Number(process.env.PORT ?? 3000);
 const host = process.env.HOST ?? "localhost";
 
-useExpressStart(port, host);
+onExpressStart(port, host);
 ```
 
 Edge cases:
 
 - **No stop or restart.** The function returns `void` and discards the
-  underlying `http.Server`; there is no `useStop()`. Stop the process instead.
+  underlying `http.Server`; there is no `onStop()`. Stop the process instead.
 - **Binding.** `localhost` accepts connections only from the same machine.
   Containers and PaaS runtimes usually need `"0.0.0.0"`.
 - **Occupied port.** No `'error'` listener is attached to the server, so
   `EADDRINUSE` surfaces as an unhandled error event — the process crashes
   rather than receiving a rejected promise.
-- **Random port.** `useExpressStart(0)` lets the OS pick a port, but the log
+- **Random port.** `onExpressStart(0)` lets the OS pick a port, but the log
   line prints the literal `0`, so you cannot discover the assigned port from
   the adapter.
 
@@ -127,31 +127,31 @@ Edge cases:
 environment, start once at the top of your entry file, and let the platform
 handle restarts.
 
-### useStart(port?, host?)
+### onStart(port?, host?)
 
 ```ts
-const useStart: typeof useExpressStart;
+const onStart: typeof onExpressStart;
 ```
 
-A shorter alias re-exported from `app.ts` (`export const useStart =
-useExpressStart`). It is the same function reference, so behavior, defaults and
+A shorter alias re-exported from `app.ts` (`export const onStart =
+onExpressStart`). It is the same function reference, so behavior, defaults and
 idempotency are identical; pick the name that reads best next to the `app`
 proxy.
 
 ```ts
-import { app, useStart } from "katanakit-js/adapters/express";
+import { app, onStart } from "katanakit-js/adapters/express";
 
 app.get("/ping", (_request, response) => response.json({ pong: true }));
-useStart(3000);
+onStart(3000);
 ```
 
-**Real use case** — one-file scripts: `app` plus `useStart` keeps route
+**Real use case** — one-file scripts: `app` plus `onStart` keeps route
 registration and boot in a single module without importing the longer names.
 
-### useExpressFinalize()
+### onExpressFinalize()
 
 ```ts
-const useExpressFinalize: () => void;
+const onExpressFinalize: () => void;
 ```
 
 Registers the two terminal middlewares, in order:
@@ -162,21 +162,21 @@ Registers the two terminal middlewares, in order:
 
 Express runs middleware in registration order, so finalize **after** mounting
 every router; otherwise the 404 catch-all shadows the routes you add later.
-`useExpressStart()` calls it automatically; call it yourself when you want the
+`onExpressStart()` calls it automatically; call it yourself when you want the
 error/404 behavior without listening. It is idempotent, but the `finalized`
 flag latches — finalizing too early permanently shadows anything mounted
 afterwards in that process.
 
 ```ts
-import { useExpressCreate, useExpressFinalize } from "katanakit-js/adapters/express";
+import { onExpressCreate, onExpressFinalize } from "katanakit-js/adapters/express";
 
-const app = useExpressCreate();
+const app = onExpressCreate();
 
 app.get("/reports", (_request, response) => response.json({ reports: [] }));
 
 // 404 catch-all goes last — then hand `app` to a test runner or an external
 // HTTP server without starting one here.
-useExpressFinalize();
+onExpressFinalize();
 ```
 
 **Real use case** — integration tests: build the app, mount the router under
@@ -190,12 +190,12 @@ builds it, and building applies the full default stack in this order: CORS,
 `x-powered-by` disabled, JSON parser (with raw-body capture), URL-encoded
 parser, `GET /health`, and the demo users `router` mounted at `/`. The error
 handler and 404 are **not** part of creation — they only arrive with
-`useExpressFinalize()`.
+`onExpressFinalize()`.
 
-### useExpressCreate()
+### onExpressCreate()
 
 ```ts
-const useExpressCreate: () => Application;
+const onExpressCreate: () => Application;
 ```
 
 Returns the existing app when one was already created; otherwise creates an
@@ -205,13 +205,13 @@ object. Mount your own routers on the returned app before finalizing or
 starting.
 
 ```ts
-import { useExpressCreate, useExpressStart } from "katanakit-js/adapters/express";
+import { onExpressCreate, onExpressStart } from "katanakit-js/adapters/express";
 
-const app = useExpressCreate();
+const app = onExpressCreate();
 
 app.use("/products", productsRouter); // your router
 
-useExpressStart(3000); // finalizes first, then listens
+onExpressStart(3000); // finalizes first, then listens
 ```
 
 Edge cases:
@@ -228,45 +228,45 @@ Edge cases:
 **Real use case** — feature-router architecture: create the app once, mount
 `/users`, `/products` and `/webhooks` routers from separate modules, then start.
 
-### useExpressGetApp()
+### onExpressGetApp()
 
 ```ts
-const useExpressGetApp: () => Application;
+const onExpressGetApp: () => Application;
 ```
 
 Returns the app instance, creating it if needed. Behaviorally identical to
-`useExpressCreate()` — both delegate to the same `useCreate()` method — but the
+`onExpressCreate()` — both delegate to the same `onCreate()` method — but the
 name documents intent: "give me the app that may already exist". Prefer it in
 middleware-heavy setup code and in tests.
 
 ```ts
-import { useExpressGetApp } from "katanakit-js/adapters/express";
+import { onExpressGetApp } from "katanakit-js/adapters/express";
 
-const app = useExpressGetApp();
+const app = onExpressGetApp();
 
 app.get("/version", (_request, response) => response.json({ version: "1.0.0" }));
 ```
 
 **Real use case** — a plugin module receives no arguments and still needs the
-app: `useExpressGetApp().use(metricsMiddleware)` registers against the shared
+app: `onExpressGetApp().use(metricsMiddleware)` registers against the shared
 instance without care for who created it.
 
-### useGetApp()
+### onGetApp()
 
 ```ts
-const useGetApp: typeof useExpressGetApp;
+const onGetApp: typeof onExpressGetApp;
 ```
 
-The shorter alias, re-exported from `app.ts` (`export const useGetApp =
-useExpressGetApp`). Same function reference, same lazy creation, same
-singleton. It exists to pair with `useStart` and the `app` proxy in compact
+The shorter alias, re-exported from `app.ts` (`export const onGetApp =
+onExpressGetApp`). Same function reference, same lazy creation, same
+singleton. It exists to pair with `onStart` and the `app` proxy in compact
 entry modules.
 
 ```ts
-import { useGetApp, useStart } from "katanakit-js/adapters/express";
+import { onGetApp, onStart } from "katanakit-js/adapters/express";
 
-useGetApp().get("/ready", (_request, response) => response.json({ ready: true }));
-useStart();
+onGetApp().get("/ready", (_request, response) => response.json({ ready: true }));
+onStart();
 ```
 
 **Real use case** — smoke-test scripts that need to register a route and boot
@@ -292,12 +292,12 @@ app.get("/custom", (_request, response) => response.json({ ok: true }));
 
 Edge cases:
 
-- The proxy is not strictly equal to the instance returned by `useGetApp()`
-  (`app === useGetApp()` is `false`). Prefer `useGetApp()` when you need the
+- The proxy is not strictly equal to the instance returned by `onGetApp()`
+  (`app === onGetApp()` is `false`). Prefer `onGetApp()` when you need the
   concrete reference, for example to pass it to another library that inspects
   it.
 - Calling `app.listen()` directly bypasses the lifecycle: error handling is
-  never finalized and nothing is logged. Use `useStart()` / `useExpressStart()`
+  never finalized and nothing is logged. Use `onStart()` / `onExpressStart()`
   instead.
 - Each access to a method returns a freshly bound function, which is harmless
   for calls but makes `app.use === app.use` false.
@@ -321,12 +321,12 @@ parser failures — malformed JSON, payloads over the limit — are forwarded to
 the global error handler, which always responds
 `500 { "error": "Internal Server Error" }` regardless of the error status. To
 return `400`/`413` instead, register your own four-argument error middleware
-**before** calling `useExpressFinalize()`.
+**before** calling `onExpressFinalize()`.
 
-### useGetRawBody(request)
+### onGetRawBody(request)
 
 ```ts
-function useGetRawBody(request: Request): Buffer | undefined;
+function onGetRawBody(request: Request): Buffer | undefined;
 ```
 
 Returns the raw request body buffer captured by the JSON parser's `verify`
@@ -345,12 +345,12 @@ signature. Capture the buffer and hash it as-is.
 
 ```ts
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { useExpressGetApp, useGetRawBody } from "katanakit-js/adapters/express";
+import { onExpressGetApp, onGetRawBody } from "katanakit-js/adapters/express";
 
-const app = useExpressGetApp();
+const app = onExpressGetApp();
 
 app.post("/webhooks/github", (request, response) => {
-  const raw = useGetRawBody(request);
+  const raw = onGetRawBody(request);
   const received = request.header("x-hub-signature-256") ?? "";
   const expected = `sha256=${createHmac("sha256", process.env.WEBHOOK_SECRET ?? "")
     .update(raw ?? Buffer.alloc(0))
@@ -376,7 +376,7 @@ Edge cases:
 - The `verify` hook runs for every JSON request, including malformed payloads,
   but the global error handler still turns parse failures into a 500 response.
 - Mounting KatanaKit in an **existing** Express app means implementing the
-  `verify` hook yourself if you want `useGetRawBody()` to find anything: the
+  `verify` hook yourself if you want `onGetRawBody()` to find anything: the
   accessor only reads `request.rawBody`.
 
 **Real use case** — GitHub, Stripe and Slack webhooks all sign the raw
@@ -385,7 +385,7 @@ parsed object.
 
 ## Access guard
 
-`useRequireCapability()` builds a standard `RequestHandler` around the toolkit's
+`onRequireCapability()` builds a standard `RequestHandler` around the toolkit's
 access service. The adapter ships no auth provider on purpose: your callback
 resolves the subject from whatever the request carries — JWT, session, API
 key — and the guard maps the outcome to an API-shaped response:
@@ -393,17 +393,17 @@ key — and the guard maps the outcome to an API-shaped response:
 | Outcome | Status | Body |
 | --- | --- | --- |
 | `resolveSubject` returns `null` | `401` | `{ ok: false, data: null, error: { message: "Authentication required", status: 401 } }` |
-| `useCan()` returns `false` or throws | `403` | `{ ok: false, data: null, error: { message: "Missing capability: <capability>", status: 403 } }` |
+| `onCan()` returns `false` or throws | `403` | `{ ok: false, data: null, error: { message: "Missing capability: <capability>", status: 403 } }` |
 | allowed | — | calls `next()` |
 
 Returning `null` means **anonymous** (401); returning a subject that lacks the
 capability means **authenticated but forbidden** (403). The guard never
 redirects — it is designed for JSON APIs.
 
-### useRequireCapability(capability, resolveSubject)
+### onRequireCapability(capability, resolveSubject)
 
 ```ts
-function useRequireCapability(
+function onRequireCapability(
   capability: AccessCapability,
   resolveSubject: (request: Request) => AccessSubject | null,
 ): RequestHandler;
@@ -435,26 +435,26 @@ interface AccessSubject {
 }
 ```
 
-`useCan()` grants the capability when **any** of the subject's roles provides
+`onCan()` grants the capability when **any** of the subject's roles provides
 it, directly or by inheritance. A malformed subject or unknown role makes
-`useCan()` throw; the guard catches that and fails closed with the 403 body —
+`onCan()` throw; the guard catches that and fails closed with the 403 body —
 an invalid subject never reaches your handler.
 
 ```ts
 import type { Request } from "express";
 import type { AccessSubject } from "katanakit-js";
-import { useExpressGetApp, useRequireCapability } from "katanakit-js/adapters/express";
+import { onExpressGetApp, onRequireCapability } from "katanakit-js/adapters/express";
 
 type RequestWithSubject = Request & { subject?: AccessSubject };
 
 const resolveSubject = (request: Request): AccessSubject | null =>
   (request as RequestWithSubject).subject ?? null;
 
-const app = useExpressGetApp();
+const app = onExpressGetApp();
 
 app.get(
   "/admin/reports",
-  useRequireCapability("system:admin", resolveSubject),
+  onRequireCapability("system:admin", resolveSubject),
   (_request, response) => response.json({ reports: [] }),
 );
 ```
@@ -474,7 +474,7 @@ Edge cases:
 
 **Real use case** — session middleware authenticates and attaches `request.user`,
 then every sensitive route composes the guard with its capability:
-`router.delete("/posts/:id", useRequireCapability("content:delete:any", resolve), handler)`.
+`router.delete("/posts/:id", onRequireCapability("content:delete:any", resolve), handler)`.
 
 ## Demo controllers
 
@@ -490,29 +490,29 @@ router when you want a working CRUD surface:
 ```ts
 import { Router } from "express";
 import {
-  useExpressCreateProduct,
-  useExpressDeleteProduct,
-  useExpressGetAllProducts,
-  useExpressGetProductById,
-  useExpressGetApp,
-  useExpressUpdateProduct,
+  onExpressCreateProduct,
+  onExpressDeleteProduct,
+  onExpressGetAllProducts,
+  onExpressGetProductById,
+  onExpressGetApp,
+  onExpressUpdateProduct,
 } from "katanakit-js/adapters/express";
 
 const productsRouter = Router();
 
-productsRouter.get("/", useExpressGetAllProducts);
-productsRouter.get("/:id", useExpressGetProductById);
-productsRouter.post("/", useExpressCreateProduct);
-productsRouter.put("/:id", useExpressUpdateProduct);
-productsRouter.delete("/:id", useExpressDeleteProduct);
+productsRouter.get("/", onExpressGetAllProducts);
+productsRouter.get("/:id", onExpressGetProductById);
+productsRouter.post("/", onExpressCreateProduct);
+productsRouter.put("/:id", onExpressUpdateProduct);
+productsRouter.delete("/:id", onExpressDeleteProduct);
 
-useExpressGetApp().use("/products", productsRouter);
+onExpressGetApp().use("/products", productsRouter);
 ```
 
-### useExpressGetAllProducts(request, response)
+### onExpressGetAllProducts(request, response)
 
 ```ts
-const useExpressGetAllProducts: (request: Request, response: Response) => void;
+const onExpressGetAllProducts: (request: Request, response: Response) => void;
 ```
 
 Responds `200` with the whole array, unwrapped:
@@ -520,7 +520,7 @@ Responds `200` with the whole array, unwrapped:
 been created yet.
 
 ```ts
-productsRouter.get("/", useExpressGetAllProducts);
+productsRouter.get("/", onExpressGetAllProducts);
 // GET /products → [{ "id": 1, "name": "Widget", "price": 9.99 }]
 ```
 
@@ -528,10 +528,10 @@ productsRouter.get("/", useExpressGetAllProducts);
 response shape and swap the module-level array for your Prisma query, so
 clients do not notice the change.
 
-### useExpressGetProductById(request, response)
+### onExpressGetProductById(request, response)
 
 ```ts
-const useExpressGetProductById: (request: Request, response: Response) => void;
+const onExpressGetProductById: (request: Request, response: Response) => void;
 ```
 
 Reads `request.params.id`, parses it with `Number.parseInt(id, 10)` and finds a
@@ -540,7 +540,7 @@ matching product. On success responds `200` with the product **wrapped under a
 `404 { "error": "Product not found" }`.
 
 ```ts
-productsRouter.get("/:id", useExpressGetProductById);
+productsRouter.get("/:id", onExpressGetProductById);
 // GET /products/1 → { "productById": { "id": 1, "name": "Widget", "price": 9.99 } }
 // GET /products/999 → 404 { "error": "Product not found" }
 ```
@@ -553,13 +553,13 @@ Edge cases:
   tests against the demo.
 
 **Real use case** — a typed detail endpoint: the `:id` param is the natural
-place to authorize row-level access with `useRequireCapability("content:edit:own", …)`
+place to authorize row-level access with `onRequireCapability("content:edit:own", …)`
 before loading the record.
 
-### useExpressCreateProduct(request, response)
+### onExpressCreateProduct(request, response)
 
 ```ts
-const useExpressCreateProduct: (request: Request, response: Response) => void;
+const onExpressCreateProduct: (request: Request, response: Response) => void;
 ```
 
 Reads `name` and `price` from `request.body`, defaulting to `""` and `0`
@@ -567,7 +567,7 @@ respectively. Assigns `id = nextId++`, coerces `price` with `Number()` and
 responds `201` with the created product.
 
 ```ts
-productsRouter.post("/", useExpressCreateProduct);
+productsRouter.post("/", onExpressCreateProduct);
 // POST /products { "name": "Gadget", "price": 19.99 }
 // → 201 { "id": 1, "name": "Gadget", "price": 19.99 }
 ```
@@ -585,10 +585,10 @@ Edge cases:
 persistence call, keep the `201` contract, and add validation with a Zod schema
 from `katanakit-js` at the boundary.
 
-### useExpressUpdateProduct(request, response)
+### onExpressUpdateProduct(request, response)
 
 ```ts
-const useExpressUpdateProduct: (request: Request, response: Response) => void;
+const onExpressUpdateProduct: (request: Request, response: Response) => void;
 ```
 
 Finds the product by parsed `:id` (404 when missing) and applies **partial**
@@ -596,7 +596,7 @@ updates: `name ?? product.name` and `Number(price ?? product.price)`. Responds
 `200` with the updated product.
 
 ```ts
-productsRouter.put("/:id", useExpressUpdateProduct);
+productsRouter.put("/:id", onExpressUpdateProduct);
 // PUT /products/1 { "name": "Updated Widget" }
 // → { "id": 1, "name": "Updated Widget", "price": 9.99 }
 ```
@@ -613,10 +613,10 @@ Edge cases:
 fields they changed, and the demo's nullish coalescing gives you
 partial-update semantics without extra code.
 
-### useExpressDeleteProduct(request, response)
+### onExpressDeleteProduct(request, response)
 
 ```ts
-const useExpressDeleteProduct: (request: Request, response: Response) => void;
+const onExpressDeleteProduct: (request: Request, response: Response) => void;
 ```
 
 Finds the index by parsed `:id`; responds `404 { "error": "Product not found" }`
@@ -624,7 +624,7 @@ when absent, otherwise removes the record from the array with `splice()` and
 responds `204` with an empty body.
 
 ```ts
-productsRouter.delete("/:id", useExpressDeleteProduct);
+productsRouter.delete("/:id", onExpressDeleteProduct);
 // DELETE /products/1 → 204 No Content
 // DELETE /products/999 → 404 { "error": "Product not found" }
 ```
@@ -666,7 +666,7 @@ Edge cases:
 - Any other single-segment `GET` (for example `/favicon.ico`) falls into the
   `/:id` demo branch and returns a message; replace the router for real
   services.
-- Using `useExpressCreate()` always mounts it; if that conflicts with your
+- Using `onExpressCreate()` always mounts it; if that conflicts with your
   routes, build a plain Express app and import only the pieces you need.
 
 **Real use case** — scaffolding: keep the router shape as a template
@@ -682,15 +682,15 @@ import type { Request } from "express";
 import { Router } from "express";
 import type { AccessSubject } from "katanakit-js";
 import {
-  useExpressCreateProduct,
-  useExpressDeleteProduct,
-  useExpressGetAllProducts,
-  useExpressGetProductById,
-  useExpressGetApp,
-  useExpressStart,
-  useExpressUpdateProduct,
-  useGetRawBody,
-  useRequireCapability,
+  onExpressCreateProduct,
+  onExpressDeleteProduct,
+  onExpressGetAllProducts,
+  onExpressGetProductById,
+  onExpressGetApp,
+  onExpressStart,
+  onExpressUpdateProduct,
+  onGetRawBody,
+  onRequireCapability,
 } from "katanakit-js/adapters/express";
 
 type RequestWithSubject = Request & { subject?: AccessSubject };
@@ -698,7 +698,7 @@ type RequestWithSubject = Request & { subject?: AccessSubject };
 const resolveSubject = (request: Request): AccessSubject | null =>
   (request as RequestWithSubject).subject ?? null;
 
-const app = useExpressGetApp();
+const app = onExpressGetApp();
 
 // Demo identity — replace with JWT/session verification in production.
 app.use((request, _response, next) => {
@@ -707,29 +707,29 @@ app.use((request, _response, next) => {
 });
 
 const products = Router();
-products.get("/", useExpressGetAllProducts);
-products.get("/:id", useExpressGetProductById);
-products.post("/", useRequireCapability("content:create", resolveSubject), useExpressCreateProduct);
-products.put("/:id", useRequireCapability("content:edit:any", resolveSubject), useExpressUpdateProduct);
-products.delete("/:id", useRequireCapability("content:delete:any", resolveSubject), useExpressDeleteProduct);
+products.get("/", onExpressGetAllProducts);
+products.get("/:id", onExpressGetProductById);
+products.post("/", onRequireCapability("content:create", resolveSubject), onExpressCreateProduct);
+products.put("/:id", onRequireCapability("content:edit:any", resolveSubject), onExpressUpdateProduct);
+products.delete("/:id", onRequireCapability("content:delete:any", resolveSubject), onExpressDeleteProduct);
 
 app.use("/products", products);
 
 app.post("/webhooks/github", (request, response) => {
-  const raw = useGetRawBody(request);
+  const raw = onGetRawBody(request);
   response.json({ bytes: raw?.length ?? 0 });
 });
 
-useExpressStart(3000); // finalizes error/404 handling, then listens
+onExpressStart(3000); // finalizes error/404 handling, then listens
 ```
 
-Register routes before `useExpressStart()` so the 404 catch-all stays last, and
+Register routes before `onExpressStart()` so the 404 catch-all stays last, and
 keep granular data validation inside handlers while the guard owns coarse
 capability checks.
 
 ## Related
 
-- [NestJS](/guides/nestjs) — the same `useRequireCapability` pattern expressed
+- [NestJS](/guides/nestjs) — the same `onRequireCapability` pattern expressed
   as a Nest `CanActivate` guard.
 - [HTTP Client](/guides/services/http-client) — call outbound APIs from your
   route handlers with Safe Results.

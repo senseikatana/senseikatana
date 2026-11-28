@@ -2,7 +2,7 @@
 
 # Interface: IAuthProvider
 
-Defined in: [core/services/auth.service.ts:65](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L65)
+Defined in: [core/services/auth.service.ts:65](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L65)
 
 An identity provider the kit can ask *"who is this?"*.
 
@@ -28,7 +28,7 @@ Implement it for any IdP: the two shipped are Better Auth and InsForge.
 const nationalId: IAuthProvider = {
   provider: "dni",
   methods: ["password"],
-  async useResolve(input) {
+  async resolve(input) {
     const token = bearer(input);
     if (!token) return { data: null, error: null, ok: true };
     const person = await registry.lookup(token);
@@ -43,15 +43,15 @@ const nationalId: IAuthProvider = {
 
 | Property | Modifier | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ | ------ |
-| <a id="methods"></a> `methods?` | `readonly` | readonly `string`[] | Methods this deployment enabled — `"password"`, `"oauth:google"`, `"otp"`, `"passkey"`. Informational: it describes the deployment's configuration, and never feeds into authorization. | [core/services/auth.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L73) |
-| <a id="provider"></a> `provider` | `readonly` | `string` | Stable id used to select this provider, e.g. `"better-auth"`. | [core/services/auth.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L67) |
+| <a id="methods"></a> `methods?` | `readonly` | readonly `string`[] | Methods this deployment enabled — `"password"`, `"oauth:google"`, `"otp"`, `"passkey"`. Informational: it describes the deployment's configuration, and never feeds into authorization. | [core/services/auth.service.ts:73](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L73) |
+| <a id="provider"></a> `provider` | `readonly` | `string` | Stable id used to select this provider, e.g. `"better-auth"`. | [core/services/auth.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L67) |
 
 ## Methods
 
-### useResolve()
+### resolve()
 
 ```ts
-useResolve(input): Promise<AuthResult<
+resolve(input): Promise<AuthResult<
   | {
   claims?: Record<string, unknown>;
   email?: string;
@@ -63,7 +63,7 @@ useResolve(input): Promise<AuthResult<
 | null>>;
 ```
 
-Defined in: [core/services/auth.service.ts:75](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/auth.service.ts#L75)
+Defined in: [core/services/auth.service.ts:75](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/auth.service.ts#L75)
 
 Resolves the caller. Returns `null` data for an anonymous request.
 

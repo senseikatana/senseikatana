@@ -2,22 +2,22 @@
 
 # Class: AssistantService
 
-Defined in: [core/services/assistant.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L104)
+Defined in: [core/services/assistant.service.ts:104](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L104)
 
 AssistantService - Singleton para el asistente conversacional.
 
 Aplica el patrón Singleton: una única instancia mantiene el store de
 conversaciones, las herramientas y el presupuesto de pasos del agente.
 El store es intercambiable (Strategy implícita: in-memory por defecto,
-Prisma u otro persistente vía `useInitAssistant`), y la lógica de completado
+Prisma u otro persistente vía `initAssistant`), y la lógica de completado
 delega en [AgentService](AgentService.md).
 
 ## Example
 
 ```ts
 const assistant = AssistantService.getInstance();
-assistant.useInitAssistant({ model: "qwen3.8-max" });
-const result = await assistant.useReply(undefined, "Hello!");
+assistant.initAssistant({ model: "qwen3.8-max" });
+const result = await assistant.reply(undefined, "Hello!");
 ```
 
 ## Implements
@@ -26,13 +26,13 @@ const result = await assistant.useReply(undefined, "Hello!");
 
 ## Methods
 
-### useCreateSession()
+### createSession()
 
 ```ts
-useCreateSession(channel?): Promise<string>;
+createSession(channel?): Promise<string>;
 ```
 
-Defined in: [core/services/assistant.service.ts:165](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L165)
+Defined in: [core/services/assistant.service.ts:163](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L163)
 
 Creates a new conversation session.
 
@@ -50,14 +50,14 @@ The new session id.
 
 #### Implementation of
 
-[`IAssistantService`](../interfaces/IAssistantService.md).[`useCreateSession`](../interfaces/IAssistantService.md#usecreatesession)
+[`IAssistantService`](../interfaces/IAssistantService.md).[`createSession`](../interfaces/IAssistantService.md#createsession)
 
 ***
 
-### useGetHistory()
+### getHistory()
 
 ```ts
-useGetHistory(sessionId): Promise<{
+getHistory(sessionId): Promise<{
   content: string | null;
   name?: string;
   role: "system" | "user" | "assistant" | "tool";
@@ -73,7 +73,7 @@ useGetHistory(sessionId): Promise<{
 }[]>;
 ```
 
-Defined in: [core/services/assistant.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L185)
+Defined in: [core/services/assistant.service.ts:183](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L183)
 
 Returns the full message history of a session, oldest first.
 
@@ -104,21 +104,21 @@ The accumulated messages.
 
 #### Implementation of
 
-[`IAssistantService`](../interfaces/IAssistantService.md).[`useGetHistory`](../interfaces/IAssistantService.md#usegethistory)
+[`IAssistantService`](../interfaces/IAssistantService.md).[`getHistory`](../interfaces/IAssistantService.md#gethistory)
 
 ***
 
-### useInitAssistant()
+### initAssistant()
 
 ```ts
-useInitAssistant(config?): void;
+initAssistant(config?): void;
 ```
 
-Defined in: [core/services/assistant.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L146)
+Defined in: [core/services/assistant.service.ts:144](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L144)
 
 Configures the assistant: provider (Kitt) plus an optional conversation store.
 
-Defaults mirror `useInitAgent`: `apiKey` falls back to
+Defaults mirror `onInitAgent`: `apiKey` falls back to
 `process.env.DASHSCOPE_API_KEY`, and `baseUrl`/`model`/`systemPrompt` fall
 back to the Kitt preset. The default store is in-memory; pass
 `{ store }` to persist conversations (e.g. a Prisma-backed store).
@@ -136,26 +136,26 @@ back to the Kitt preset. The default store is in-memory; pass
 #### Example
 
 ```ts
-AssistantService.getInstance().useInitAssistant({ model: "qwen3.8-max" });
+AssistantService.getInstance().initAssistant({ model: "qwen3.8-max" });
 ```
 
 #### Implementation of
 
-[`IAssistantService`](../interfaces/IAssistantService.md).[`useInitAssistant`](../interfaces/IAssistantService.md#useinitassistant)
+[`IAssistantService`](../interfaces/IAssistantService.md).[`initAssistant`](../interfaces/IAssistantService.md#initassistant)
 
 ***
 
-### useReply()
+### reply()
 
 ```ts
-useReply(
+reply(
    sessionId, 
    text, 
    options?
 ): Promise<AssistantResult>;
 ```
 
-Defined in: [core/services/assistant.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L214)
+Defined in: [core/services/assistant.service.ts:212](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L212)
 
 Sends a user message within a conversation and returns the assistant reply.
 If no `sessionId` is provided, a new session is created. The user message and
@@ -178,23 +178,23 @@ An [AssistantResult](../type-aliases/AssistantResult.md) with the reply and sess
 #### Example
 
 ```ts
-const result = await AssistantService.getInstance().useReply(undefined, "Hello!");
+const result = await AssistantService.getInstance().reply(undefined, "Hello!");
 if (result.ok) console.log(result.data.reply);
 ```
 
 #### Implementation of
 
-[`IAssistantService`](../interfaces/IAssistantService.md).[`useReply`](../interfaces/IAssistantService.md#usereply)
+[`IAssistantService`](../interfaces/IAssistantService.md).[`reply`](../interfaces/IAssistantService.md#reply)
 
 ***
 
-### useResetSession()
+### resetSession()
 
 ```ts
-useResetSession(sessionId): Promise<void>;
+resetSession(sessionId): Promise<void>;
 ```
 
-Defined in: [core/services/assistant.service.ts:194](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L194)
+Defined in: [core/services/assistant.service.ts:192](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L192)
 
 Deletes a conversation session and its messages.
 
@@ -210,17 +210,17 @@ Deletes a conversation session and its messages.
 
 #### Implementation of
 
-[`IAssistantService`](../interfaces/IAssistantService.md).[`useResetSession`](../interfaces/IAssistantService.md#useresetsession)
+[`IAssistantService`](../interfaces/IAssistantService.md).[`resetSession`](../interfaces/IAssistantService.md#resetsession)
 
 ***
 
-### useSessionExists()
+### sessionExists()
 
 ```ts
-useSessionExists(sessionId): Promise<boolean>;
+sessionExists(sessionId): Promise<boolean>;
 ```
 
-Defined in: [core/services/assistant.service.ts:175](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L175)
+Defined in: [core/services/assistant.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L173)
 
 Checks whether a conversation session exists.
 
@@ -238,7 +238,7 @@ Checks whether a conversation session exists.
 
 #### Implementation of
 
-[`IAssistantService`](../interfaces/IAssistantService.md).[`useSessionExists`](../interfaces/IAssistantService.md#usesessionexists)
+[`IAssistantService`](../interfaces/IAssistantService.md).[`sessionExists`](../interfaces/IAssistantService.md#sessionexists)
 
 ***
 
@@ -248,7 +248,7 @@ Checks whether a conversation session exists.
 static getInstance(): AssistantService;
 ```
 
-Defined in: [core/services/assistant.service.ts:124](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/assistant.service.ts#L124)
+Defined in: [core/services/assistant.service.ts:122](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/assistant.service.ts#L122)
 
 Obtiene la instancia única del AssistantService (Singleton).
 

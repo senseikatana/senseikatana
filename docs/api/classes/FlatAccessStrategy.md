@@ -2,7 +2,7 @@
 
 # Class: FlatAccessStrategy
 
-Defined in: [core/services/access.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L213)
+Defined in: [core/services/access.service.ts:213](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L213)
 
 Estrategia estricta: sólo verifica capacidades declaradas explícitamente
 en el rol del sujeto, sin her jerarquía. Útil cuando cada rol debe
@@ -13,7 +13,7 @@ declarar todo lo que puede hacer.
 ```ts
 const access = new AccessService(new FlatAccessStrategy());
 // "editor" ya NO hereda las capacidades de "author"
-access.useCan({ id: 1, roles: ["editor"] }, "content:create"); // false
+access.can({ id: 1, roles: ["editor"] }, "content:create"); // false
 ```
 
 ## Implements
@@ -28,7 +28,7 @@ access.useCan({ id: 1, roles: ["editor"] }, "content:create"); // false
 new FlatAccessStrategy(): FlatAccessStrategy;
 ```
 
-Defined in: [core/services/access.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L216)
+Defined in: [core/services/access.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L216)
 
 #### Returns
 
@@ -36,13 +36,13 @@ Defined in: [core/services/access.service.ts:216](https://github.com/senseikatan
 
 ## Methods
 
-### useCan()
+### can()
 
 ```ts
-useCan(subject, capability): boolean;
+can(subject, capability): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:247](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L247)
+Defined in: [core/services/access.service.ts:247](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L247)
 
 Whether the subject may perform a capability.
 
@@ -61,17 +61,17 @@ Whether the subject may perform a capability.
 
 #### Implementation of
 
-[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`useCan`](../interfaces/IAccessStrategy.md#usecan)
+[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`can`](../interfaces/IAccessStrategy.md#can)
 
 ***
 
-### useCapabilitiesFor()
+### capabilitiesFor()
 
 ```ts
-useCapabilitiesFor(role): string[];
+capabilitiesFor(role): string[];
 ```
 
-Defined in: [core/services/access.service.ts:222](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L222)
+Defined in: [core/services/access.service.ts:222](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L222)
 
 Effective capabilities of a role (own plus inherited).
 
@@ -87,17 +87,17 @@ Effective capabilities of a role (own plus inherited).
 
 #### Implementation of
 
-[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`useCapabilitiesFor`](../interfaces/IAccessStrategy.md#usecapabilitiesfor)
+[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`capabilitiesFor`](../interfaces/IAccessStrategy.md#capabilitiesfor)
 
 ***
 
-### useHasRole()
+### hasRole()
 
 ```ts
-useHasRole(subject, role): boolean;
+hasRole(subject, role): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:243](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L243)
+Defined in: [core/services/access.service.ts:243](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L243)
 
 Exact role membership - no hierarchy involved.
 
@@ -116,17 +116,17 @@ Exact role membership - no hierarchy involved.
 
 #### Implementation of
 
-[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`useHasRole`](../interfaces/IAccessStrategy.md#usehasrole)
+[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`hasRole`](../interfaces/IAccessStrategy.md#hasrole)
 
 ***
 
-### useRegisterRole()
+### registerRole()
 
 ```ts
-useRegisterRole(definition): void;
+registerRole(definition): void;
 ```
 
-Defined in: [core/services/access.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L227)
+Defined in: [core/services/access.service.ts:227](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L227)
 
 Registers (or replaces) a role definition.
 
@@ -146,17 +146,17 @@ Registers (or replaces) a role definition.
 
 #### Implementation of
 
-[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`useRegisterRole`](../interfaces/IAccessStrategy.md#useregisterrole)
+[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`registerRole`](../interfaces/IAccessStrategy.md#registerrole)
 
 ***
 
-### useResetRoles()
+### resetRoles()
 
 ```ts
-useResetRoles(): void;
+resetRoles(): void;
 ```
 
-Defined in: [core/services/access.service.ts:232](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L232)
+Defined in: [core/services/access.service.ts:232](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L232)
 
 Restores the built-in role registry.
 
@@ -166,14 +166,14 @@ Restores the built-in role registry.
 
 #### Implementation of
 
-[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`useResetRoles`](../interfaces/IAccessStrategy.md#useresetroles)
+[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`resetRoles`](../interfaces/IAccessStrategy.md#resetroles)
 
 ***
 
-### useRoles()
+### roles()
 
 ```ts
-useRoles(): {
+roles(): {
   capabilities: string[];
   label: string;
   rank: number;
@@ -181,7 +181,7 @@ useRoles(): {
 }[];
 ```
 
-Defined in: [core/services/access.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L239)
+Defined in: [core/services/access.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L239)
 
 Lists every registered role definition.
 
@@ -196,4 +196,4 @@ Lists every registered role definition.
 
 #### Implementation of
 
-[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`useRoles`](../interfaces/IAccessStrategy.md#useroles)
+[`IAccessStrategy`](../interfaces/IAccessStrategy.md).[`roles`](../interfaces/IAccessStrategy.md#roles)

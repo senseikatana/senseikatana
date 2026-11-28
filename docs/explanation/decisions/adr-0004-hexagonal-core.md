@@ -34,7 +34,7 @@ exception is documented in code rather than hidden: `http.service.ts` wraps the
 global `fetch` (present in every supported runtime).
 
 The second historical exception — `reactive.service.ts` "persists through
-injected storage functions" — was removed. `useCreateStorageSignal` is the one
+injected storage functions" — was removed. `onCreateStorageSignal` is the one
 reactive helper that performs real I/O, so it now lives in
 `infrastructure/storage/storage-signal.service.ts` alongside the storage
 helpers it calls. Core holds only pure signal primitives. Nothing in `core/`

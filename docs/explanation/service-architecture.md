@@ -1,13 +1,13 @@
 ---
 title: Service Architecture
-description: "Why every service is a Singleton facade — the Singleton/Facade/Observer/Strategy/DI vocabulary, the use* vs on* naming rule, and how the core stays free of I/O."
+description: "Why every service is a Singleton facade — the Singleton/Facade/Observer/Strategy/DI vocabulary, the on* naming rule, and how the core stays free of I/O."
 ---
 
 # Service architecture: one vocabulary
 
-Every `src/core/services/` module in KatanaKit is a **Singleton class** that
-exposes `use*` methods, and every module also re-exports those methods as thin
-`use*` wrapper functions. That shape is not decoration — it is the vocabulary
+Every `src/core/services/` module in KatanaKit is a **Singleton class** with
+plain-named methods, and every module also re-exports the main ones as thin
+`on*` wrapper functions. That shape is not decoration — it is the vocabulary
 that lets you read any service in the kit the same way, whether it is
 `FormatterService`, `UnitConverterService`, `CurrencyConverterService` or
 `ReactiveService`.
@@ -30,14 +30,14 @@ export class CurrencyConverterService {
     /* the shared instance */
   }
 
-  async useConvert(options: CurrencyConvertOptions): Promise<SafeResult<CurrencyConversion>> {
+  async convert(options: CurrencyConvertOptions): Promise<SafeResult<CurrencyConversion>> {
     /* ... */
   }
 }
 
 // Thin wrapper over the singleton — the functional API stays stable.
-export async function useConvertCurrency(options: CurrencyConvertOptions) {
-  return CurrencyConverterService.getInstance().useConvert(options);
+export async function onConvertCurrency(options: CurrencyConvertOptions) {
+  return CurrencyConverterService.getInstance().convert(options);
 }
 ```
 
@@ -47,7 +47,7 @@ Three things fall out of this shape:
   provider — state needs a home, and the singleton is that home. Pure
   functions cannot hold a TTL cache without smuggling state through globals.
 - **The call site never changes.** The wrappers keep the functional surface
-  (`useConvertCurrency(...)`) that the kit has always had, so the refactor to
+  (`onConvertCurrency(...)`) that the kit has always had, so the refactor to
   classes was invisible to consumers. Prefer the class when you need to hold an
   instance or inject dependencies; prefer the wrapper when you just call it.
 - **`create()` is the DI door.** Statics are limited to `getInstance()` and
@@ -64,10 +64,10 @@ predict the API of any service before reading it.
 | Pattern | What it means here | Worked example |
 | --- | --- | --- |
 | **Singleton** | `getInstance()` returns the one shared instance. | Every core service. |
-| **Facade** | One call hides the machinery behind it. | `useConvertCurrency()` hides rate fetching, caching, cross-rate math and rounding. |
+| **Facade** | One call hides the machinery behind it. | `onConvertCurrency()` hides rate fetching, caching, cross-rate math and rounding. |
 | **Observer** | The service invokes your `on*` callbacks when something happens. | `onRatesUpdate` / `onRatesError` on rate fetches. |
 | **Strategy** | An algorithm is swapped through a contract. | `IAccessStrategy` (hierarchical vs flat), `ICryptoStrategy` (UUID/hash backends). |
-| **Dependency Injection** | Collaborators arrive through `create(options)` or `useSet*`, never through imports at call sites. | `UnitConverterService` formats through an injected `IFormatterService`; `CurrencyConverterService` fetches through an injected `ICurrencyRateProvider`. |
+| **Dependency Injection** | Collaborators arrive through `create(options)` or a `set*()` method, never through imports at call sites. | `UnitConverterService` formats through an injected `IFormatterService`; `CurrencyConverterService` fetches through an injected `ICurrencyRateProvider`. |
 
 Patterns compose on purpose. `CurrencyConverterService` is Singleton + Facade +
 Observer + DI at once: one shared instance, one call per conversion, callbacks
@@ -80,21 +80,22 @@ from?), and the answers stay separate.
 
 Names in the kit carry meaning. Three rules, applied uniformly:
 
-1. **`use*` is the public prefix** for every method you call imperatively —
-   `useConvert`, `useSubscribe`, `useFormatCurrency`. It is the same convention
-   as React hooks: a `use*` name means *you invoke this*.
-2. **`on*` is reserved exclusively for Observer callbacks** — handlers the
-   service invokes, never methods you call (`onRatesUpdate`, `onRatesError`).
-   An `on*` name means *the service invokes this*. Imperative methods are
-   never renamed to `on*`, even when they sound event-ish — `useSubscribe` is
-   the call; the `on*` handlers are its payload (see
-   [ADR-0010](/explanation/decisions/adr-0010-use-prefix-on-callbacks)).
+1. **`on*` is the public prefix** for module-level helpers and facades —
+   `onConvertCurrency`, `onFetch`, `onLogger`, `onDateBetween`. It is also the
+   form for callbacks the kit invokes (`onRatesUpdate`, `onRatesError`) and
+   for UI element factories (`onButton`).
+2. **Class methods use plain descriptive names** — `convert`, `getSnapshot`,
+   `setProvider`, `log`, `pathFrom`. They are reached through the singleton
+   (`Service.getInstance()`) or through `create()`.
 3. **Private helpers use plain, unprefixed names** (`resolveRate`,
    `roundAmount`) — they are implementation, not API.
 
-The payoff is mechanical: in any call site you can tell who calls whom from the
-prefix alone. A code review can flag a new `on*` method that should be a
-`use*` method (or the reverse) without knowing the module.
+The module-level `on*` helpers are thin wrappers over the singleton methods, so
+the same behavior is reachable both ways. See
+[ADR-0017](/explanation/decisions/adr-0017-on-prefix-for-module-helpers).
+
+The payoff is mechanical: a review can tell a module-level helper from a class
+method by the prefix alone, without knowing the module.
 
 ## Why the core has no platform I/O
 
@@ -127,8 +128,8 @@ follow:
   provider through `CurrencyConverterService.create({ provider })` and never
   waits on a real request.
 - **The rate source is a decision, not a dependency.** The default
-  (Frankfurter/ECB) is wired by `useCurrencyConverter()` in the composition
-  module; a live-market provider is one `useSetProvider()` away (see
+  (Frankfurter/ECB) is wired by `onCurrencyConverter()` in the composition
+  module; a live-market provider is one `setProvider()` away (see
   [ADR-0012](/explanation/decisions/adr-0012-currency-adapter-in-infrastructure)
   and
   [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates)).
@@ -146,7 +147,7 @@ pay for.
 
 Not everything is a Singleton, and the exceptions are named:
 
-- **`adapters/nuxt`** exports pure functions (`useUnwrap`, `useSafeResponse`)
+- **`adapters/nuxt`** exports pure functions (`onUnwrap`, `onSafeResponse`)
   — they bridge values to Nuxt server routes and own no state.
 - **Strategy objects** (`LocalStorageStrategy`, `NativeUuidStrategy`, …) are
   plain values implementing a contract; they are the *swappable* half of DI,

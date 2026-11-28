@@ -18,7 +18,7 @@ inject into `<head>`. Three design rules apply to every function on this page:
    title and `siteTitle` is the **brand**.
 3. **No DOM required** — every helper returns strings or plain objects, so the
    same call works in Astro, VitePress, an Express handler, a Bun server or a
-   browser SPA. `useApplySeoTag()` is the only function that touches
+   browser SPA. `onApplySeoTag()` is the only function that touches
    `document`, and it no-ops during SSR.
 
 Configuration is **fail-fast**: a full `SiteConfig` must include `seo` and
@@ -28,14 +28,14 @@ Configuration is **fail-fast**: a full `SiteConfig` must include `seo` and
 
 The library dogfoods this service: the docs site registers its own config with
 [`defineSeoMetaConfig()`](#defineseometaconfigconfig) and feeds
-[`useSeoMeta()`](#useseometaopts-defaults) into VitePress'
+[`onSeoMeta()`](#onseometaopts-defaults) into VitePress'
 [`transformHead`](#vitepress-transformhead) (see
 [Real use cases](#real-use-cases)).
 
 ## Quick example
 
 ```ts
-import { defineSeoMetaConfig, useSeoMeta } from "katanakit-js";
+import { defineSeoMetaConfig, onSeoMeta } from "katanakit-js";
 
 // 1. Register the site once, at startup.
 defineSeoMetaConfig({
@@ -50,7 +50,7 @@ defineSeoMetaConfig({
 });
 
 // 2. Ask for per-page metas — only the page fields.
-const seo = useSeoMeta({
+const seo = onSeoMeta({
   title: "Debugging CSS Grid",
   description: "A practical walkthrough",
   canonical: "https://myblog.com/posts/debugging-css-grid/",
@@ -76,7 +76,7 @@ link plus the JSON-LD `Article` script are already part of `seo.html`.
 
 Registers the site-wide SEO config **once** at app startup — the same
 `define*Config` pattern used by the HTTP client and the other services. After
-the call, every `useSeoMeta(opts)` resolves the omitted site fields against this
+the call, every `onSeoMeta(opts)` resolves the omitted site fields against this
 config, so pages only pass their own fields.
 
 ```ts
@@ -142,7 +142,7 @@ in a module-level pointer, so there are no import side effects.
 | `seo.jsonLd` | `boolean` | When `true`, appends a JSON-LD `<script>` (`WebSite` or `Article`). |
 | `nav` | `Array?` | Optional `{ label, href, external }` list. Copied to the result untouched, so layout components can read navigation from the same object. |
 
-### useSeoMetaConfig()
+### onSeoMetaConfig()
 
 Returns the registered `SiteConfig`, or the bundled **demo defaults**
 (`siteConfig`: `https://example.com`, "My Site", RSS enabled,
@@ -150,15 +150,15 @@ canonical/openGraph/jsonLd on) when [`defineSeoMetaConfig()`](#defineseometaconf
 was never called.
 
 ```ts
-import { useSeoMetaConfig } from "katanakit-js";
+import { onSeoMetaConfig } from "katanakit-js";
 
-const { site, title, lang, nav } = useSeoMetaConfig();
+const { site, title, lang, nav } = onSeoMetaConfig();
 ```
 
 Use it in components that need the active site values (footers, feed
 generators, sitemap builders) without hard-coding them twice.
 
-### useResetSeoMetaConfig()
+### onResetSeoMetaConfig()
 
 Clears the registration and restores the demo defaults. Intended for tests;
 call it in `afterEach` so one test cannot leak config into another.
@@ -166,34 +166,34 @@ call it in `afterEach` so one test cannot leak config into another.
 ```ts
 import { afterEach, describe, it } from "vitest";
 import {
-  defineSeoMetaConfig, useResetSeoMetaConfig, useSeoMeta, useSeoMetaConfig,
+  defineSeoMetaConfig, onResetSeoMetaConfig, onSeoMeta, onSeoMetaConfig,
 } from "katanakit-js";
 
-afterEach(() => useResetSeoMetaConfig());
+afterEach(() => onResetSeoMetaConfig());
 
 describe("page metas", () => {
   it("uses the registered brand", () => {
-    defineSeoMetaConfig({ ...useSeoMetaConfig(), title: "Test Site" });
-    expect(useSeoMeta({ title: "Post" }).title).toBe("Post | Test Site");
+    defineSeoMetaConfig({ ...onSeoMetaConfig(), title: "Test Site" });
+    expect(onSeoMeta({ title: "Post" }).title).toBe("Post | Test Site");
   });
 });
 ```
 
 ### Overriding per call
 
-`useSeoMeta(opts, defaults?)` takes an explicit second argument. It **still
+`onSeoMeta(opts, defaults?)` takes an explicit second argument. It **still
 wins** over the registered config, so per-request overrides and isolated tests
 stay possible:
 
 ```ts
-import { useSeoMeta, useSeoMetaConfig } from "katanakit-js";
+import { onSeoMeta, onSeoMetaConfig } from "katanakit-js";
 
-const preview = useSeoMeta(
+const preview = onSeoMeta(
   { title: "Preview" },
   {
-    ...useSeoMetaConfig(),
+    ...onSeoMetaConfig(),
     site: "https://preview.myblog.com",
-    seo: { ...useSeoMetaConfig().seo, noindex: true },
+    seo: { ...onSeoMetaConfig().seo, noindex: true },
   },
 );
 ```
@@ -204,11 +204,11 @@ argument, and then to the bundled demo defaults.
 
 ::: warning `SiteConfig` is fail-fast: `seo` and `rss` are required
 
-`UseSeoMetaOptions` accepts partial `seo` / `rss` because the defaults fill the
+`SeoMetaOptions` accepts partial `seo` / `rss` because the defaults fill the
 gaps — but a full `SiteConfig` (your registered config or the `defaults` you
-pass to `useSeoMeta`) must include complete `seo` and `rss` blocks.
-`defineSeoMetaConfig`, `useSeoTag`, `useGenerateMetaTags`, `useHeadTags`,
-`useRssHeadLink` and the `useSeoMeta` defaults throw
+pass to `onSeoMeta`) must include complete `seo` and `rss` blocks.
+`defineSeoMetaConfig`, `onGenerateMetaTags`, `onHeadTags`,
+`onRssHeadLink` and the `onSeoMeta` defaults throw
 `[Seo] SiteConfig.seo is required (caller)` /
 `[Seo] SiteConfig.rss is required (caller)` instead of crashing later with
 `Cannot read properties of undefined`.
@@ -224,29 +224,29 @@ const config: SiteConfig = { ...siteConfig, site: "https://myblog.com", title: "
 
 ## Per-page metas
 
-### useSeoMeta(opts, defaults?)
+### onSeoMeta(opts, defaults?)
 
 The workhorse: merges the flat page options with the site config, resolves the
 Open Graph defaults and returns the flat fields plus `html` (the serialized
 head fragment) and `tags` (the structured nodes).
 
 ```ts
-import { useSeoMeta, type UseSeoMetaOptions } from "katanakit-js";
+import { onSeoMeta, type SeoMetaOptions } from "katanakit-js";
 
-const seo = useSeoMeta({
+const seo = onSeoMeta({
   title: "My Post",
   description: "A great post",
   ogType: "article",
   canonical: "https://myblog.com/posts/my-post/",
   ogImage: { url: "/covers/my-post.png", width: 1200, height: 630, alt: "Post cover" },
-} satisfies UseSeoMetaOptions);
+} satisfies SeoMetaOptions);
 
 // Narrow the type when a page never passes certain site keys:
-useSeoMeta({ title: "Home" } as UseSeoMetaOptions<"rss" | "nav">);
+onSeoMeta({ title: "Home" } as SeoMetaOptions<"rss" | "nav">);
 ```
 
-Calling `useSeoMeta()` with `null` / a non-object throws
-`[Seo] useSeoMeta(opts) is required (received empty options).`
+Calling `onSeoMeta()` with `null` / a non-object throws
+`[Seo] onSeoMeta(opts) is required (received empty options).`
 
 #### Site fields (usually configured once)
 
@@ -283,7 +283,7 @@ Calling `useSeoMeta()` with `null` / a non-object throws
 | `ogType` | `string` | `"website"` (default), `"article"`, `"profile"` or a custom type. |
 | `ogLocale` | `string` | Defaults to `lang` with `-` replaced by `_`. |
 | `ogSiteName` | `string` | Defaults to the brand; a string value here also seeds the brand when `siteTitle` is absent. |
-| `ogImage` | `string`, `SeoOgImageObject` or array | Absolute or relative URL, or an object with `url`, `secureUrl`, `type`, `width`, `height`, `alt`. |
+| `ogImage` | `string`, object or array | Absolute or relative URL, or an object with `url`, `secureUrl`, `type`, `width`, `height`, `alt`. |
 | `ogImageUrl` | `string` | Fallback alias used to resolve the `ogImage` field when `ogImage` is not a plain URL. |
 | `ogImageSecureUrl` | `string` | Scalar variant of `og:image:secure_url`. |
 | `ogImageType` | `string` | Scalar variant of `og:image:type`. |
@@ -338,10 +338,10 @@ Conventionally passed together with `ogType: "article"`; they render as
    absolute `http(s)` URLs pass through.
 
 ```ts
-useSeoMeta({ title: "About" }).title;           // "About | My Blog"
-useSeoMeta({ title: "My Blog" }).title;         // "My Blog" — no suffix
-useSeoMeta({}).title;                           // "My Blog" — brand fallback
-useSeoMeta({ title: "About | My Blog" }).title; // already suffixed, untouched
+onSeoMeta({ title: "About" }).title;           // "About | My Blog"
+onSeoMeta({ title: "My Blog" }).title;         // "My Blog" — no suffix
+onSeoMeta({}).title;                           // "My Blog" — brand fallback
+onSeoMeta({ title: "About | My Blog" }).title; // already suffixed, untouched
 ```
 
 #### Canonical and robots
@@ -352,7 +352,7 @@ explicit `canonical` always wins. Set `seo.canonical: false` to emit the link
 only when the page passes one.
 
 ```ts
-const { canonical } = useSeoMeta({
+const { canonical } = onSeoMeta({
   title: "Deploy notes",
   url: "https://myblog.com/deploy-notes/",
 });
@@ -366,7 +366,7 @@ order — `index`, `follow`, `noindex`, `nofollow`, `none`, `noarchive`,
 set `robots` itself, so a page can always override the global stance.
 
 ```ts
-useSeoMeta({
+onSeoMeta({
   title: "Staging draft",
   robots: { noindex: true, nofollow: true, noarchive: true },
 }).robots; // "noindex, nofollow, noarchive"
@@ -374,14 +374,14 @@ useSeoMeta({
 
 #### Article pages and JSON-LD
 
-When `seo.jsonLd` is enabled, `useSeoMeta` appends a
+When `seo.jsonLd` is enabled, `onSeoMeta` appends a
 `<script type="application/ld+json">` node built from the resolved fields:
 `Article` for `ogType: "article"` (headline, description, author, publisher,
 dates, image and `mainEntityOfPage`), `WebSite` otherwise. The serialized JSON
 escapes `<`, `>` and `&` so it cannot break out of the script element.
 
 ```ts
-const seo = useSeoMeta({
+const seo = onSeoMeta({
   title: "Shipping v6",
   description: "Release notes for v6",
   canonical: "https://myblog.com/releases/v6/",
@@ -405,9 +405,9 @@ per page. The same switch controls the `jsonLd` field on the result.
 are flattened. The HTML essentials survive:
 
 ```ts
-import { siteConfig, useSeoMeta } from "katanakit-js";
+import { siteConfig, onSeoMeta } from "katanakit-js";
 
-const seo = useSeoMeta(
+const seo = onSeoMeta(
   { title: "Internal doc", ogTitle: "Ignored" },
   { ...siteConfig, seo: { ...siteConfig.seo, openGraph: false } },
 );
@@ -418,18 +418,18 @@ seo.title;   // "Internal doc | My Site"
 
 #### The return shape
 
-`SeoTagResult` extends `UseSeoMetaOptions` with the serialized output, so the
+`SeoTagResult` extends `SeoMetaOptions` with the serialized output, so the
 resolved fields and the head payload arrive in a single object:
 
 | Field | Type | Use it when |
 | --- | --- | --- |
-| resolved fields | `UseSeoMetaOptions` | Read `title`, `description`, `canonical`, `ogImage`, `robots`, `lang`, the `seo` flags and `nav` without re-deriving them. |
+| resolved fields | `SeoMetaOptions` | Read `title`, `description`, `canonical`, `ogImage`, `robots`, `lang`, the `seo` flags and `nav` without re-deriving them. |
 | `html` | `string` | Injecting the whole head fragment at once (SSR templates, Astro, Express). |
 | `tags` | `SeoTagNode[]` | The framework wants structured nodes (VitePress `transformHead`, custom serializers). |
 | `jsonLd` | `Record<string, unknown>?` | Consuming the structured data separately (API responses, tests). |
 
 ```ts
-const { html, tags, jsonLd, title, siteTitle } = useSeoMeta({ title: "Home" });
+const { html, tags, jsonLd, title, siteTitle } = onSeoMeta({ title: "Home" });
 
 tags[0]; // { tag: "title", text: "Home | My Blog" }
 ```
@@ -438,32 +438,25 @@ tags[0]; // { tag: "title", text: "Home | My Blog" }
 
 | Type | Shape |
 | --- | --- |
-| `UseSeoMetaOptions<OmitKeys?>` | Input object — every key optional; the generic removes site keys you never pass. |
-| `UseSeoMetaBase` | The full input before the generic `Omit`. |
-| `SeoMetaFlat` / `SeoMetaInput` | HTML + Open Graph + article fields (`SeoMetaInput` allows `null` values). |
-| `SeoMetaArticle` | The `article*` extension fields. |
-| `SeoOgImageObject` | `{ url?, secureUrl?, type?, width?, height?, alt? }`. |
-| `SeoRobotsObject` | Boolean-able directives: `index`, `follow`, `noindex`, `nofollow`, `none`, `noarchive`, `nosnippet`. |
-| `SeoArrayable<T>` / `SeoBooleanable` | List and boolean-ish helpers used by the fields above. |
+| `SeoMeta` | Core HTML head fields — `title`, `description`, `keywords`, `author`, `canonical`, `url`, `viewport`, `robots`. |
+| `SeoSocial` | Open Graph, article and Twitter/X fields — `og*`, `article*`, `twitter*`. |
+| `SeoMetaOptions<OmitKeys?>` | `SeoMeta & SeoSocial` plus site fields (`site`, `siteTitle`, `lang`, `rss`, `seo`, `nav`); the generic removes site keys you never pass. |
 | `SeoTagNode` | `{ tag, attrs?, text? }` where `tag` is `"title"`, `"meta"`, `"link"` or `"script"`. |
-| `SeoTagResult` | Resolved flat fields + `html`, `tags`, optional `jsonLd`. |
+| `SeoTagResult` | `SeoMetaOptions` plus `html`, `tags`, optional `jsonLd`. |
 | `SiteConfig` | The registered config shape. |
-| `SeoMeta` / `SeoTagsResult` | Deprecated legacy aliases. |
 
 ## Utilities
 
-### useHeadTags(config, meta)
+### onHeadTags(config, meta)
 
 One-shot alternative to registering a config: returns the **full `<head>`
-HTML** (meta + RSS link) for a config object you already hold. It accepts both
-the flat `SeoMetaInput` and the legacy `SeoMeta` shape — the legacy path is
-detected by the presence of `publishedTime`, `modifiedTime`, `noindex` or a
-legacy `tags` array (when `articleTag` is absent).
+HTML** (meta + RSS link) for a config object you already hold. It accepts the
+flat `SeoMetaOptions` object.
 
 ```ts
-import { siteConfig, useHeadTags } from "katanakit-js";
+import { siteConfig, onHeadTags } from "katanakit-js";
 
-const html = useHeadTags(siteConfig, {
+const html = onHeadTags(siteConfig, {
   title: "Changelog",
   description: "Every release, in one page",
   canonical: "https://example.com/changelog/",
@@ -475,16 +468,16 @@ const html = useHeadTags(siteConfig, {
 Because `siteConfig.rss.enabled` is `true` in the demo defaults, the result
 also carries `<link rel="alternate" type="application/rss+xml">`.
 
-### useGenerateMetaTags(config, meta)
+### onGenerateMetaTags(config, meta)
 
 Same idea, but **meta tags only**: the RSS autodiscovery link is disabled
 internally and `rel="alternate"` links are filtered out. It takes the legacy
 `SeoMeta` shape and asserts both `seo` and `rss` blocks.
 
 ```ts
-import { siteConfig, useGenerateMetaTags } from "katanakit-js";
+import { siteConfig, onGenerateMetaTags } from "katanakit-js";
 
-const metaHtml = useGenerateMetaTags(siteConfig, {
+const metaHtml = onGenerateMetaTags(siteConfig, {
   title: "Checkout",
   description: "Complete your purchase",
   noindex: true,
@@ -492,45 +485,45 @@ const metaHtml = useGenerateMetaTags(siteConfig, {
 // <title>Checkout | My Site</title> + metas, no RSS <link>
 ```
 
-Prefer `useSeoMeta(...).html` for new code; this helper exists for migrations
+Prefer `onSeoMeta(...).html` for new code; this helper exists for migrations
 from the legacy API.
 
-### useTitle(config, pageTitle?)
+### onTitle(config, pageTitle?)
 
 Returns only the escaped `<title>` element — no metas, no canonical, no RSS.
 Use it when your framework owns the rest of the head. Throws
-`[Seo] SiteConfig is required (useTitle received empty config).` when `config`
+`[Seo] SiteConfig is required (onTitle received empty config).` when `config`
 is not an object.
 
 ```ts
-import { siteConfig, useTitle } from "katanakit-js";
+import { siteConfig, onTitle } from "katanakit-js";
 
-useTitle(siteConfig);            // <title>My Site</title>
-useTitle(siteConfig, "About");   // <title>About | My Site</title>
-useTitle(siteConfig, "My Site"); // <title>My Site</title> — no suffix
+onTitle(siteConfig);            // <title>My Site</title>
+onTitle(siteConfig, "About");   // <title>About | My Site</title>
+onTitle(siteConfig, "My Site"); // <title>My Site</title> — no suffix
 ```
 
-Unlike `useSeoMeta`, `useTitle` always appends the suffix when the titles
+Unlike `onSeoMeta`, `onTitle` always appends the suffix when the titles
 differ — it does not check whether `pageTitle` is already suffixed — and it
 escapes `&`, `<` and `>` in the text.
 
-### useRssHeadLink(config)
+### onRssHeadLink(config)
 
 Returns the standalone RSS autodiscovery element, or `""` when
 `rss.enabled` is `false`. `path` defaults to `"/rss.xml"` and `title` defaults
 to `config.title`.
 
 ```ts
-import { siteConfig, useRssHeadLink } from "katanakit-js";
+import { siteConfig, onRssHeadLink } from "katanakit-js";
 
-useRssHeadLink(siteConfig);
+onRssHeadLink(siteConfig);
 // <link rel="alternate" type="application/rss+xml" title="My Site" href="/rss.xml" />
 ```
 
 Use it when you render the rest of the head by hand but still want feed readers
 to discover the feed.
 
-### useApplySeoTag(seo, head?)
+### onApplySeoTag(seo, head?)
 
 Applies a `SeoTagResult` to a DOM head (Vanilla / SPA). It removes every node
 marked with `data-katanakit-seo` from a previous call, then appends the fresh
@@ -539,72 +532,28 @@ when `document` is unavailable it is a no-op, so it is safe to call from shared
 code.
 
 ```ts
-import { useApplySeoTag, useSeoMeta } from "katanakit-js";
+import { onApplySeoTag, onSeoMeta } from "katanakit-js";
 
 function renderPageMeta() {
-  useApplySeoTag(useSeoMeta({ title: "Dashboard" }));
+  onApplySeoTag(onSeoMeta({ title: "Dashboard" }));
 }
 ```
 
 On the server, keep using `seo.html` / `seo.tags`; this helper is only for
 client-side navigation.
 
-### useSeoTag(config, meta) — deprecated
-
-The legacy entry point: `useSeoTag(siteConfig, { title, description, ... })`.
-It still works and maps the old `SeoMeta` shape onto `useSeoMeta` — notably
-`publishedTime` → `articlePublishedTime`, `modifiedTime` →
-`articleModifiedTime`, `tags` → `articleTag`, `url` → `url` + `ogUrl`, and
-`noindex` → `robots: "noindex, nofollow"`. `useSeoTags` is an alias.
-
-```ts
-import { siteConfig, useSeoTag } from "katanakit-js";
-
-// Deprecated — legacy shape and positional config.
-const { html } = useSeoTag(siteConfig, {
-  title: "My Post",
-  description: "A great post",
-  ogType: "article",
-  publishedTime: "2026-10-01",
-  modifiedTime: "2026-10-05",
-  tags: ["css", "grid"],
-  noindex: false,
-});
-```
-
-Migrate to the registered-config pattern and the flat object:
-
-```ts
-// Before (deprecated)
-useSeoTag(config, { title: "Post", publishedTime: "2026-10-01", tags: ["css"] });
-
-// After
-defineSeoMetaConfig(config);
-useSeoMeta({
-  title: "Post",
-  ogType: "article",
-  articlePublishedTime: "2026-10-01",
-  articleTag: ["css"],
-});
-```
-
-The new API drops the positional `config` argument entirely: register once with
-[`defineSeoMetaConfig()`](#defineseometaconfigconfig), then pass only page
-fields. `useSeoTag` remains exported for backward compatibility but receives no
-new features.
-
 ## Real use cases
 
 ### Astro: render the head fragment
 
-Register the config in a shared module, then let a layout call `useSeoMeta`
+Register the config in a shared module, then let a layout call `onSeoMeta`
 per page and render `seo.html` with a Fragment. Astro owns the static head
 tags, the service owns the dynamic ones.
 
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import { useSeoMeta } from "katanakit-js";
+import { onSeoMeta } from "katanakit-js";
 
 interface Props {
   title: string;
@@ -613,7 +562,7 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-const seo = useSeoMeta({
+const seo = onSeoMeta({
   title,
   description,
   canonical: Astro.url.href,
@@ -645,7 +594,7 @@ skipped. Open Graph and Twitter/X cards are emitted by the same helper call.
 ```ts
 // docs/.vitepress/config.ts
 import { defineConfig, type HeadConfig } from "vitepress";
-import { defineSeoMetaConfig, useSeoMeta } from "katanakit-js";
+import { defineSeoMetaConfig, onSeoMeta } from "katanakit-js";
 
 defineSeoMetaConfig({
   site: "https://docs.example.com",
@@ -662,7 +611,7 @@ export default defineConfig({
   // …site config…
 
   transformHead({ pageData, title }) {
-    const { tags } = useSeoMeta({
+    const { tags } = onSeoMeta({
       title,
       description: pageData.description || "Documentation for My Project",
       keywords: "docs, my project",
@@ -690,7 +639,7 @@ helper is pure, so there is no shared state to worry about between requests.
 
 ```ts
 import express from "express";
-import { defineSeoMetaConfig, useSeoMeta } from "katanakit-js";
+import { defineSeoMetaConfig, onSeoMeta } from "katanakit-js";
 
 defineSeoMetaConfig({
   site: "https://myblog.com",
@@ -715,7 +664,7 @@ app.get("/posts/:slug", async (req, res) => {
   const post = await findPost(req.params.slug);
   if (!post) return res.status(404).send("Not found");
 
-  const seo = useSeoMeta({
+  const seo = onSeoMeta({
     title: post.title,
     description: post.excerpt,
     canonical: `https://myblog.com/posts/${post.slug}/`,
@@ -729,7 +678,7 @@ app.get("/posts/:slug", async (req, res) => {
 
 ### RSS autodiscovery
 
-When `rss.enabled` is `true`, `useSeoMeta` appends the discovery link to
+When `rss.enabled` is `true`, `onSeoMeta` appends the discovery link to
 `tags` automatically, so feed readers and browsers can find the feed from any
 page:
 
@@ -738,7 +687,7 @@ page:
 ```
 
 If a framework renders the head without the fragment, call
-[`useRssHeadLink()`](#userssheadlinkconfig) with the same config and inject the
+[`onRssHeadLink()`](#onrssheadlinkconfig) with the same config and inject the
 result yourself. Generating the feed body is a separate concern — see
 [RSS](/guides/services/rss).
 

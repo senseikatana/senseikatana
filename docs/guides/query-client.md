@@ -5,16 +5,16 @@ description: TanStack Query Core, bundled with KatanaKit. Cache, deduplicate, re
 
 KatanaKit bundles [TanStack Query Core](https://tanstack.com/query) as a dependency — you install `katanakit-js` and the engine comes with it, no extra install. KatanaKit re-exports the full `@tanstack/query-core` API and adds:
 
-- **Framework bindings** (`useQuery` / `useMutation`) for React, Vue, Solid, Svelte and Angular, returning TanStack's native result object (`isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, `refetch`, …).
-- **`useSafeQueryFn`** — bridges KatanaKit's Safe Result (`{ data, error, ok }`) to TanStack's throw-on-error `queryFn`.
+- **Framework bindings** (`onQuery` / `onMutation`) for React, Vue, Solid, Svelte and Angular, returning TanStack's native result object (`isPending`, `isFetching`, `isSuccess`, `isError`, `data`, `error`, `status`, `refetch`, …).
+- **`onSafeQueryFn`** — bridges KatanaKit's Safe Result (`{ data, error, ok }`) to TanStack's throw-on-error `queryFn`.
 
 Everything TanStack gives you is available: stale-while-revalidate, focus/reconnect refetch, retries with exponential backoff, request deduplication, garbage collection, infinite queries, optimistic updates and devtools.
 
 ## Quick start
 
 ```tsx
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
-import { useGetApi, defineApiConfig } from "katanakit-js";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/react";
+import { onGet, defineApiConfig } from "katanakit-js";
 
 defineApiConfig({
   pokeapi: {
@@ -24,9 +24,9 @@ defineApiConfig({
 });
 
 function Pokemon({ id }: { id: number }) {
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isPending, isError, error } = onQuery({
     queryKey: ["pokemon", id],
-    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
+    queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id } })),
     staleTime: 60_000,
   });
 
@@ -36,24 +36,24 @@ function Pokemon({ id }: { id: number }) {
 }
 ```
 
-`useSafeQueryFn` unwraps the Safe Result: on `ok: false` it throws `error`, so TanStack can retry and surface it through `error` / `isError`.
+`onSafeQueryFn` unwraps the Safe Result: on `ok: false` it throws `error`, so TanStack can retry and surface it through `error` / `isError`.
 
 ## The shared client
 
 All adapters share one module-level `QueryClient` unless you pass your own:
 
 ```ts
-import { useQueryClient, useInitQueryClient } from "katanakit-js";
+import { onQueryClient, onInitQueryClient } from "katanakit-js";
 
 // Configure the shared client once (defaults for every query).
-useInitQueryClient({
+onInitQueryClient({
   defaultOptions: {
     queries: { staleTime: 60_000, retry: 2, refetchOnWindowFocus: true },
   },
 });
 
 // Access it anywhere to invalidate, prefetch, set data, …
-const qc = useQueryClient();
+const qc = onQueryClient();
 await qc.invalidateQueries({ queryKey: ["pokemon"] });
 ```
 
@@ -63,20 +63,20 @@ Pass a scoped client as the second argument when you need isolation (e.g. tests)
 import { QueryClient } from "katanakit-js";
 
 const client = new QueryClient();
-useQuery({ queryKey: ["a"], queryFn: fetchA }, client);
+onQuery({ queryKey: ["a"], queryFn: fetchA }, client);
 ```
 
-On the **server** (SSR), don't use the module singleton — create one client per request with `useCreateQueryClient()` and dehydrate/hydrate around the request, otherwise cached data can leak across users:
+On the **server** (SSR), don't use the module singleton — create one client per request with `onCreateQueryClient()` and dehydrate/hydrate around the request, otherwise cached data can leak across users:
 
 ```ts
-import { useCreateQueryClient, dehydrate } from "katanakit-js";
+import { onCreateQueryClient, dehydrate } from "katanakit-js";
 
-const client = useCreateQueryClient();
+const client = onCreateQueryClient();
 await client.prefetchQuery({ queryKey, queryFn });
 const state = dehydrate(client); // ship to the client and hydrate()
 ```
 
-## useQuery
+## onQuery
 
 The returned object is TanStack's native `QueryObserverResult`:
 
@@ -98,44 +98,44 @@ Use `isPending` for "no data yet" and `isFetching` for "a background refetch is 
 ::: code-group
 
 ```tsx [React]
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/react";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/react";
 
-const query = useQuery({
+const query = onQuery({
   queryKey: ["pokemon", id],
-  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
+  queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id } })),
 });
 // query.data, query.isPending, query.isError, query.error, query.status…
 ```
 
 ```vue [Vue]
 <script setup>
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vue";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/vue";
 
-const query = useQuery({
+const query = onQuery({
   queryKey: ["pokemon", id],
-  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id } })),
+  queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id } })),
 });
 // query.data, query.isPending, query.isError, query.status (reactive)
 </script>
 ```
 
 ```tsx [Solid]
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/solid";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/solid";
 
-const query = useQuery(() => ({
+const query = onQuery(() => ({
   queryKey: ["pokemon", id()],
-  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: id() } })),
+  queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: id() } })),
 }));
 // query.data, query.isPending, query.isError… (reactive store)
 ```
 
 ```svelte [Svelte]
 <script lang="ts">
-  import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/svelte";
+  import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/svelte";
 
-  const query = useQuery({
+  const query = onQuery({
     queryKey: ["pokemon", 25],
-    queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+    queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: 25 } })),
   });
 </script>
 
@@ -147,31 +147,31 @@ const query = useQuery(() => ({
 ```
 
 ```ts [Angular]
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/angular";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/angular";
 
-readonly query = useQuery({
+readonly query = onQuery({
   queryKey: ["pokemon", 25],
-  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+  queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: 25 } })),
 });
 // query.data(), query.isPending(), query.isError()… (signals)
 ```
 
 :::
 
-## useMutation
+## onMutation
 
 Mutations run a `mutationFn` and expose `isPending`, `data`, `error`, `mutate`, `reset`:
 
 ::: code-group
 
 ```tsx [React]
-import { useMutation, useQueryClient } from "katanakit-js/adapters/react";
-import { usePost } from "katanakit-js";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/react";
+import { onPost } from "katanakit-js";
 
 function CreateUser() {
-  const qc = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  const qc = onQueryClient();
+  const { mutate, isPending } = onMutation({
+    mutationFn: (name: string) => onPost("api", "createUser", { name }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
   });
 
@@ -181,12 +181,12 @@ function CreateUser() {
 
 ```vue [Vue]
 <script setup>
-import { useMutation, useQueryClient } from "katanakit-js/adapters/vue";
-import { usePost } from "katanakit-js";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/vue";
+import { onPost } from "katanakit-js";
 
-const qc = useQueryClient();
-const mutation = useMutation({
-  mutationFn: (name: string) => usePost("api", "createUser", { name }),
+const qc = onQueryClient();
+const mutation = onMutation({
+  mutationFn: (name: string) => onPost("api", "createUser", { name }),
   onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
 });
 </script>
@@ -197,22 +197,22 @@ const mutation = useMutation({
 ```
 
 ```tsx [Solid]
-import { useMutation, useQueryClient } from "katanakit-js/adapters/solid";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/solid";
 
-const qc = useQueryClient();
-const mutation = useMutation(() => ({
-  mutationFn: (name: string) => usePost("api", "createUser", { name }),
+const qc = onQueryClient();
+const mutation = onMutation(() => ({
+  mutationFn: (name: string) => onPost("api", "createUser", { name }),
   onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
 }));
 ```
 
 ```svelte [Svelte]
 <script lang="ts">
-  import { useMutation, useQueryClient } from "katanakit-js/adapters/svelte";
+  import { onMutation, onQueryClient } from "katanakit-js/adapters/svelte";
 
-  const qc = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: (name: string) => usePost("api", "createUser", { name }),
+  const qc = onQueryClient();
+  const mutation = onMutation({
+    mutationFn: (name: string) => onPost("api", "createUser", { name }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
   });
 </script>
@@ -221,11 +221,11 @@ const mutation = useMutation(() => ({
 ```
 
 ```ts [Angular]
-import { useMutation, useQueryClient } from "katanakit-js/adapters/angular";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/angular";
 
-private readonly qc = useQueryClient();
-readonly mutation = useMutation({
-  mutationFn: (name: string) => usePost("api", "createUser", { name }),
+private readonly qc = onQueryClient();
+readonly mutation = onMutation({
+  mutationFn: (name: string) => onPost("api", "createUser", { name }),
   onSuccess: () => this.qc.invalidateQueries({ queryKey: ["users"] }),
 });
 ```
@@ -239,12 +239,12 @@ Not every runtime is a framework. `katanakit-js/adapters/vanilla` returns the ra
 worker, a terminal UI:
 
 ```ts
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vanilla";
-import { useGetApi } from "katanakit-js";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/vanilla";
+import { onGet } from "katanakit-js";
 
-const observer = useQuery({
+const observer = onQuery({
   queryKey: ["pokemon", 25],
-  queryFn: useSafeQueryFn(() => useGetApi("pokeapi", "pokemonById", { params: { id: 25 } })),
+  queryFn: onSafeQueryFn(() => onGet("pokeapi", "pokemonById", { params: { id: 25 } })),
 });
 
 const render = () => {
@@ -280,4 +280,4 @@ import {
 } from "katanakit-js";
 ```
 
-Need the TanStack devtools? Install `@tanstack/query-devtools` and point it at `useQueryClient()` — the cache is the standard TanStack one.
+Need the TanStack devtools? Install `@tanstack/query-devtools` and point it at `onQueryClient()` — the cache is the standard TanStack one.

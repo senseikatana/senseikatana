@@ -2,7 +2,7 @@
 
 # Interface: CacheDecoratorOptions
 
-Defined in: [infrastructure/decorators/cache.decorator.ts:30](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/decorators/cache.decorator.ts#L30)
+Defined in: [infrastructure/decorators/cache.decorator.ts:30](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/decorators/cache.decorator.ts#L30)
 
 CacheDecorator - Decorator Pattern para caché de resultados.
 
@@ -45,12 +45,12 @@ await getCached(1); // sirve de caché
 
 Keys live in a `Map` (no prototype-pollution risk). Expired
 entries are reclaimed lazily — when their key is requested again — and
-`useClearCache()` drops everything. For high-cardinality keys (unbounded
-input space) call `useClearCache()` periodically or set a `ttlMs`.
+`onClearCache()` drops everything. For high-cardinality keys (unbounded
+input space) call `onClearCache()` periodically or set a `ttlMs`.
 
 ## Properties
 
 | Property | Type | Description | Defined in |
 | ------ | ------ | ------ | ------ |
-| <a id="keyfn"></a> `keyFn?` | (...`args`) => `string` | Genera la clave de caché a partir de los argumentos. | [infrastructure/decorators/cache.decorator.ts:34](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/decorators/cache.decorator.ts#L34) |
-| <a id="ttlms"></a> `ttlMs?` | `number` | Time-to-live de cada entrada en milisegundos. `0` = sin expiración. | [infrastructure/decorators/cache.decorator.ts:32](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/decorators/cache.decorator.ts#L32) |
+| <a id="keyfn"></a> `keyFn?` | (...`args`) => `string` | Genera la clave de caché a partir de los argumentos. | [infrastructure/decorators/cache.decorator.ts:34](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/decorators/cache.decorator.ts#L34) |
+| <a id="ttlms"></a> `ttlMs?` | `number` | Time-to-live de cada entrada en milisegundos. `0` = sin expiración. | [infrastructure/decorators/cache.decorator.ts:32](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/decorators/cache.decorator.ts#L32) |

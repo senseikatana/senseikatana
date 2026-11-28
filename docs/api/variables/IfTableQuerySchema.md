@@ -17,6 +17,6 @@ const IfTableQuerySchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/insforge.schema.ts:34](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/insforge.schema.ts#L34)
+Defined in: [schemas/insforge.schema.ts:34](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/insforge.schema.ts#L34)
 
 Options for a table read. Filters map to equality clauses.

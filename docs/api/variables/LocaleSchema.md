@@ -15,6 +15,6 @@ const LocaleSchema: ZodEnum<{
 }>;
 ```
 
-Defined in: [schemas/common.schema.ts:13](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/common.schema.ts#L13)
+Defined in: [schemas/common.schema.ts:13](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/common.schema.ts#L13)
 
 Locales with first-class formatting support.

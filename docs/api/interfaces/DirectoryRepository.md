@@ -2,7 +2,7 @@
 
 # Interface: DirectoryRepository
 
-Defined in: [core/services/directory.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L29)
+Defined in: [core/services/directory.service.ts:29](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L29)
 
 Where user records actually live.
 
@@ -17,13 +17,13 @@ tempted to write sync code that only works against the fake.
 
 ## Methods
 
-### useCountByRole()
+### countByRole()
 
 ```ts
-useCountByRole(role): Promise<number>;
+countByRole(role): Promise<number>;
 ```
 
-Defined in: [core/services/directory.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L48)
+Defined in: [core/services/directory.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L48)
 
 How many active users hold each role.
 
@@ -44,10 +44,10 @@ role change and an unadministrable system.
 
 ***
 
-### useCreate()
+### create()
 
 ```ts
-useCreate(user): Promise<DirectoryResult<{
+create(user): Promise<DirectoryResult<{
   displayName?: string;
   email?: string;
   id: string | number;
@@ -59,7 +59,7 @@ useCreate(user): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L33)
+Defined in: [core/services/directory.service.ts:33](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L33)
 
 Persists a new person. Fails with `already_active` on a duplicate.
 
@@ -84,15 +84,15 @@ Persists a new person. Fails with `already_active` on a duplicate.
 
 ***
 
-### useDelete()
+### delete()
 
 ```ts
-useDelete(id): Promise<DirectoryResult<true>>;
+delete(id): Promise<DirectoryResult<true>>;
 ```
 
-Defined in: [core/services/directory.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L39)
+Defined in: [core/services/directory.service.ts:39](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L39)
 
-Row removal. Soft-delete belongs in [useUpdate](#useupdate), not here.
+Row removal. Soft-delete belongs in [update](#update), not here.
 
 #### Parameters
 
@@ -106,10 +106,10 @@ Row removal. Soft-delete belongs in [useUpdate](#useupdate), not here.
 
 ***
 
-### useGet()
+### get()
 
 ```ts
-useGet(id): Promise<DirectoryResult<{
+get(id): Promise<DirectoryResult<{
   displayName?: string;
   email?: string;
   id: string | number;
@@ -121,7 +121,7 @@ useGet(id): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L31)
+Defined in: [core/services/directory.service.ts:31](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L31)
 
 #### Parameters
 
@@ -144,13 +144,13 @@ Defined in: [core/services/directory.service.ts:31](https://github.com/senseikat
 
 ***
 
-### useList()
+### list()
 
 ```ts
-useList(query): Promise<DirectoryPageResult>;
+list(query): Promise<DirectoryPageResult>;
 ```
 
-Defined in: [core/services/directory.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L30)
+Defined in: [core/services/directory.service.ts:30](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L30)
 
 #### Parameters
 
@@ -170,10 +170,10 @@ Defined in: [core/services/directory.service.ts:30](https://github.com/senseikat
 
 ***
 
-### useUpdate()
+### update()
 
 ```ts
-useUpdate(id, patch): Promise<DirectoryResult<{
+update(id, patch): Promise<DirectoryResult<{
   displayName?: string;
   email?: string;
   id: string | number;
@@ -185,7 +185,7 @@ useUpdate(id, patch): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L34)
+Defined in: [core/services/directory.service.ts:34](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L34)
 
 #### Parameters
 

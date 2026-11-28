@@ -5,7 +5,7 @@ description: Status pill with five semantic variants.
 
 # Badge
 
-`useBadge(options)` creates a `<span class="badge">`; `badgeClass(options)`
+`onBadge(options)` creates a `<span class="badge">`; `badgeClass(options)`
 returns the classes for SSR markup.
 
 ## Variants
@@ -13,14 +13,14 @@ returns the classes for SSR markup.
 <div ref="badges" class="demo-row"></div>
 
 ```ts
-import { useBadge } from "@katanakit/ui";
+import { onBadge } from "@katanakit/ui";
 
 row.append(
-  useBadge({ label: "Draft" }),
-  useBadge({ label: "Info", variant: "info" }),
-  useBadge({ label: "Paid", variant: "success" }),
-  useBadge({ label: "Pending", variant: "warning" }),
-  useBadge({ label: "Failed", variant: "danger" }),
+  onBadge({ label: "Draft" }),
+  onBadge({ label: "Info", variant: "info" }),
+  onBadge({ label: "Paid", variant: "success" }),
+  onBadge({ label: "Pending", variant: "warning" }),
+  onBadge({ label: "Failed", variant: "danger" }),
 );
 ```
 
@@ -28,7 +28,7 @@ row.append(
 	name="Badge"
 	root="badge"
 	pure="badgeClass"
-	factory="useBadge"
+	factory="onBadge"
 />
 
 ## Options
@@ -46,17 +46,17 @@ Variants use KatanaKit palette tokens, so they invert automatically with
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useBadge } from "@katanakit/ui";
+import { onBadge } from "@katanakit/ui";
 
 const badges = ref<HTMLElement>();
 
 onMounted(() => {
 	badges.value?.append(
-		useBadge({ label: "Draft" }),
-		useBadge({ label: "Info", variant: "info" }),
-		useBadge({ label: "Paid", variant: "success" }),
-		useBadge({ label: "Pending", variant: "warning" }),
-		useBadge({ label: "Failed", variant: "danger" }),
+		onBadge({ label: "Draft" }),
+		onBadge({ label: "Info", variant: "info" }),
+		onBadge({ label: "Paid", variant: "success" }),
+		onBadge({ label: "Pending", variant: "warning" }),
+		onBadge({ label: "Failed", variant: "danger" }),
 	);
 });
 </script>

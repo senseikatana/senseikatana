@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for agents working in this repository. Verified 2026-11-08.
+Guidance for agents working in this repository. Verified 2026-11-28.
 
 Check `gh issue list --state open` before changing anything here.
 
@@ -20,14 +20,17 @@ The only workspace is `web/` (`@senseikatana/web`), an Astro site built with Fea
 Architecture: `web/src/pages/` is a thin route layer, `web/src/features/` owns components and
 queries, and `web/src/content/` holds the Markdown collections (`<collection>/<locale>/<slug>.md`).
 i18n: English is the default locale at the root; `es` and `ca` are prefixed. Site sections are
-`/posts`, `/services`, `/about`, `/contact`.
+`/posts`, `/services`, `/works`, `/about`, `/contact`.
 
-**Projects are not in this repo.** They live on `samuraicoder.dev`, in a separate repository
-deployed to its own Cloudflare Pages project, where each one has a page at
-`samuraicoder.dev/works/<slug>`. `senseikatana.com/projects/*` and the older `/works/*` 301 to
-those. The home page links out with an `↗` instead of rendering cards from a local collection —
-see `featuredWorks` and `clientWorks` in `web/src/config/site.ts`. Do not reintroduce a `projects`
-collection here: the split is what lets both sites build and deploy independently.
+**Projects live in this repo.** The case studies are `web/src/content/works/<locale>/<slug>.md`
+and are served at `/works/` and `/works/<slug>/` (`/es/works/…` and `/ca/works/…`). The home page
+renders the open-source and client cards from `featuredWorks` and `clientWorks` in
+`web/src/config/site.ts`, and those hrefs are local `/works/<slug>` paths. `/projects/*` (the old
+prefix) 301s to `/works/*`.
+
+> The `samuraicoder.dev` and `katanakami.com` zones and the separate `samuraicoder` Pages
+> project were deleted on 2026-11-28. Do not point links back at them: the works content now
+> lives here and the old `/works` showcase was reabsorbed.
 
 **Navigation is Works · Services · About · Contact**, centred in the navbar, with no
 Documentation entry. The docs still exist at `/docs/` — the nav simply does not link them.
@@ -80,7 +83,7 @@ bun run format     # prettier --write
 bun run docs:dev      # vitepress dev for docs/
 bun run docs:build    # sync generated content from ../katanakit-js, then build
 bun run docs:preview  # build, then serve the Pages shape locally
-bun run docs:deploy   # build and deploy to the senseikatana-docs Pages project
+bun run docs:deploy   # build and deploy to the katanakit-docs Pages project, then the proxy Worker
 bun run docs:gh       # build and publish a `gh-pages` branch deployment
 bun run docs:clean    # remove VitePress caches and build output
 ```
@@ -118,13 +121,16 @@ Production is `senseikatana.com`, served by Cloudflare Pages from `main`. Verify
   `workflow_dispatch`. It requires the `CLOUDFLARE_API_TOKEN` (Pages: Edit) and
   `CLOUDFLARE_ACCOUNT_ID` repository secrets.
 - Local: `bun run deploy` (production) and `bun run deploy:preview` (a `dev` preview alias).
+- Docs: `bun run docs:deploy` builds `docs/`, publishes the `katanakit-docs` Pages project
+  (creating it on first deploy) and deploys `workers/docs-proxy` with the
+  `senseikatana.com/docs*` routes.
 - Remote preview of the dev server: `bun run tunnel` (cloudflared quick tunnel to port 4321).
 
-The docs pipeline is now legacy. `bun run docs:deploy` still builds `docs/` and pushes it to the
-`katanakit-docs` Pages project, but that project is unreachable (`katanakit-docs.pages.dev`
-returns 404) and the live documentation is Starlight at `samuraicoder.dev/katanakit/`. The
-`workers/docs-proxy` Worker no longer proxies: it 301s `/docs/*` (and the legacy `/en/docs*`) to
-that Starlight site, so this repo keeps the redirect without depending on the dead Pages project.
+The docs pipeline is VitePress in `docs/`; `bun run docs:deploy` builds it, publishes the
+`katanakit-docs` Pages project and deploys `workers/docs-proxy`. The Worker mounts the build
+under `senseikatana.com/docs/` (home alias `/docs/overview`, legacy `/en/docs*` redirects).
+Generated API and changelog pages are synced from `../katanakit-js` on every build by
+`scripts/docs.mjs`; narrative pages live here in `docs/`.
 
 ## Committing
 
@@ -149,9 +155,10 @@ that Starlight site, so this repo keeps the redirect without depending on the de
   and `gh` calls see private repos and make them look public; an unauthenticated request is what
   a visitor gets. `snippets-codes-vault`, `obsidian-workspaces` and `recetas-caseras` are private
   — never link them.
-- Only these are public and linkable: `katanakit-js`, `katanakit-css`, `katanakit-sysli`,
-  `katanakit-wp`, `hueplay`, `empresaplana.cat`, `erp-lite-dashboard`, `pos-system`,
-  `plate-numerology`.
+- Only these are public and linkable: `katanakit-js`, `katanakit-css`, `katanakit-wp`,
+  `hueplay`, `pos-system`, `suite-vivirdeia`. The old `katanakit-sysli`,
+  `empresaplana.cat`, `erp-lite-dashboard` and `plate-numerology` repositories were deleted;
+  do not link them. The `empresaplana.cat` live site is still public and linkable.
 - `prettier --write` runs on commit, so run it before committing to see the real diff.
 
 ## Verifying remote state

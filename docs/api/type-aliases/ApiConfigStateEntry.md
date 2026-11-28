@@ -10,10 +10,9 @@ type ApiConfigStateEntry<T> = T extends {
 } : unknown;
 ```
 
-Defined in: [types/core/config-facade.ts:41](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/config-facade.ts#L41)
+Defined in: [types/core/config-facade.ts:32](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/config-facade.ts#L32)
 
-State declared by the `data()` section — the return type of that factory.
-Absent when the literal declares no `data`, matching the runtime facade.
+State declared by the `data()` section — the return type of that factory. Absent when the literal declares no `data`, matching the runtime facade.
 
 ## Type Parameters
 

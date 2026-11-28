@@ -20,16 +20,17 @@ way `getStaticPaths()` and endpoint handlers expect:
 - **RSS 2.0 endpoints** — build XML, the `<link>` tag and the full `GET`
   handler for `src/pages/rss.xml.ts`, with escaping and CDATA handled for you.
 
-Like the other framework adapters, this is a **function module**: there is no
-`AstroService.getInstance()` to call. Import the helpers directly, either from
-the dedicated subpath or from the main barrel:
+Like the other framework adapters, the helpers are **module-level functions**
+published only on the dedicated subpath. A singleton facade
+(`AstroCollections.getInstance()`) exposes the same six methods when you prefer
+dependency injection:
 
 ```ts
 // Astro-only helpers (paths, pagination, RSS)
-import { useAstroPathsFrom } from "katanakit-js/adapters/astro";
+import { pathsFrom } from "katanakit-js/adapters/astro";
 
-// SEO helpers re-exported by the adapter — also available on the main barrel
-import { useSeoMeta, siteConfig } from "katanakit-js";
+// SEO helpers re-exported by the adapter — the same functions live on the main barrel
+import { onSeoMeta, siteConfig } from "katanakit-js";
 ```
 
 ::: tip Import paths
@@ -67,10 +68,10 @@ data as props:
 ---
 // src/pages/blog/[slug].astro
 import { getCollection } from "astro:content";
-import { useAstroGetStaticPaths } from "katanakit-js/adapters/astro";
+import { staticPaths } from "katanakit-js/adapters/astro";
 
 export async function getStaticPaths() {
-  const result = await useAstroGetStaticPaths(getCollection, "blog", {
+  const result = await staticPaths(getCollection, "blog", {
     param: "slug",
     valueFrom: (entry) => entry.slug ?? entry.id,
     propsFrom: (entry) => entry.data as { title: string; date: string },
@@ -102,10 +103,10 @@ Every static route in Astro needs the same boilerplate: map a collection to
 full range, from a raw array you already have to a collection fetched from
 `astro:content`.
 
-### useAstroPathsFrom(items, options?)
+### pathsFrom(items, options?)
 
 ```ts
-function useAstroPathsFrom<T, TParam extends string = "slug", TProps = T>(
+function pathsFrom<T, TParam extends string = "slug", TProps = T>(
   items: T[],
   options?: PathsOptions<T, TParam, TProps>,
 ): AstroPath<TParam, TProps>[];
@@ -142,14 +143,14 @@ Edge cases worth knowing before you ship:
   in the same literal object.
 
 ```ts
-import { useAstroPathsFrom } from "katanakit-js/adapters/astro";
+import { pathsFrom } from "katanakit-js/adapters/astro";
 
 const products = [
   { slug: "mug", title: "Katana Mug", price: 18 },
   { slug: "tee", title: "Katana Tee", price: 32 },
 ];
 
-const paths = useAstroPathsFrom(products, {
+const paths = pathsFrom(products, {
   param: "slug",
   valueFrom: (product) => product.slug,
   propsFrom: (product) => ({ title: product.title, price: product.price }),
@@ -163,7 +164,7 @@ const paths = useAstroPathsFrom(products, {
 For a multi-segment route, `paramsFrom` builds the full record:
 
 ```ts
-const paths = useAstroPathsFrom(products, {
+const paths = pathsFrom(products, {
   paramsFrom: (product) => ({ category: product.category, slug: product.slug }),
   propsFrom: (product) => product,
 });
@@ -179,7 +180,7 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog");
   const published = posts.filter((post) => !post.data.draft);
 
-  return useAstroPathsFrom(published, {
+  return pathsFrom(published, {
     param: "slug",
     valueFrom: (post) => post.slug ?? post.id,
     propsFrom: (post) => post.data,
@@ -187,10 +188,10 @@ export async function getStaticPaths() {
 }
 ```
 
-### useAstroPathsFromValues(values, param?)
+### pathsFromValues(values, param?)
 
 ```ts
-function useAstroPathsFromValues<TParam extends string = "slug">(
+function pathsFromValues<TParam extends string = "slug">(
   values: (string | number)[],
   param?: TParam,
 ): AstroPath<TParam, string | number>[];
@@ -198,24 +199,24 @@ function useAstroPathsFromValues<TParam extends string = "slug">(
 
 The shortcut for routes whose pages need no payload beyond the value itself:
 tags, categories, authors, years, letters. It maps each value to a path whose
-`props` **is the original value** — unlike `useAstroPathsFrom`, `props` keeps
+`props` **is the original value** — unlike `pathsFrom`, `props` keeps
 the `number` type for numeric inputs.
 
 - `param` defaults to `"slug"`; pass the segment name that matches the file
   (`[tag].astro` → `"tag"`).
 - Params are always strings, so `2` emits `{ year: "2" }`.
 - **Duplicates are preserved.** The helper does not dedupe; feed it the output
-  of [`useAstroExtractUniqueValues()`](#useastroextractuniquevaluesitems-keyfrom)
+  of [`uniqueValues()`](#uniquevaluesitems-keyfrom)
   when uniqueness matters.
 - Empty array → empty paths array.
 
 ```ts
-import { useAstroPathsFromValues } from "katanakit-js/adapters/astro";
+import { pathsFromValues } from "katanakit-js/adapters/astro";
 
 const years = [2024, 2025, 2026];
 
 export async function getStaticPaths() {
-  return useAstroPathsFromValues(years, "year");
+  return pathsFromValues(years, "year");
 }
 // [
 //   { params: { year: "2024" }, props: 2024 },
@@ -228,10 +229,10 @@ export async function getStaticPaths() {
 `Astro.props` back to a number for the query, avoiding any string parsing of
 `Astro.params`.
 
-### useAstroGetStaticPaths(getCollectionFn, collectionName, options?)
+### staticPaths(getCollectionFn, collectionName, options?)
 
 ```ts
-async function useAstroGetStaticPaths<
+async function staticPaths<
   TData = unknown,
   TParam extends string = "slug",
   TProps = CollectionEntryLike<TData>,
@@ -244,7 +245,7 @@ async function useAstroGetStaticPaths<
 
 The Safe Result wrapper around the previous two steps: it calls
 `getCollectionFn(collectionName)`, converts the entries with
-`useAstroPathsFrom()` and returns the result instead of letting a build-time
+`pathsFrom()` and returns the result instead of letting a build-time
 error escape the route module. Pass Astro's `getCollection` directly as the
 first argument — the adapter never imports `astro:content` itself.
 
@@ -270,7 +271,7 @@ exist or is malformed):
 ```
 
 `options` is forwarded verbatim, so the same defaults and edge cases from
-`useAstroPathsFrom()` apply. In particular, **the default `props` is the whole
+`pathsFrom()` apply. In particular, **the default `props` is the whole
 collection entry** (`TProps` defaults to `CollectionEntryLike<TData>`), not
 `entry.data` — always pass `propsFrom` if the page expects frontmatter fields at
 the top level.
@@ -279,10 +280,10 @@ the top level.
 ---
 // src/pages/blog/[slug].astro
 import { getCollection } from "astro:content";
-import { useAstroGetStaticPaths } from "katanakit-js/adapters/astro";
+import { staticPaths } from "katanakit-js/adapters/astro";
 
 export async function getStaticPaths() {
-  const result = await useAstroGetStaticPaths(getCollection, "blog", {
+  const result = await staticPaths(getCollection, "blog", {
     param: "slug",
     valueFrom: (entry) => entry.slug ?? entry.id,
     propsFrom: (entry) => entry.data as { title: string },
@@ -309,10 +310,10 @@ Once a collection is fetched, these two helpers answer the questions that come
 up while rendering: "where is the entry with this slug?" and "what are all the
 distinct values across this field?".
 
-### useAstroFindEntry(items, value, keyFrom?)
+### findEntry(items, value, keyFrom?)
 
 ```ts
-function useAstroFindEntry<T>(
+function findEntry<T>(
   items: T[],
   value: string,
   keyFrom?: (item: T) => string | number,
@@ -330,10 +331,10 @@ arguments. On a collection with duplicate keys, the first match wins — orderin
 is the order of the input array.
 
 ```ts
-import { useAstroFindEntry } from "katanakit-js/adapters/astro";
+import { findEntry } from "katanakit-js/adapters/astro";
 
 const posts = await getCollection("blog");
-const post = useAstroFindEntry(posts, "hello-world");
+const post = findEntry(posts, "hello-world");
 
 if (!post) {
   throw new Error("Post not found");
@@ -345,7 +346,7 @@ console.log(post.data.title);
 With a custom key:
 
 ```ts
-const author = useAstroFindEntry(authors, "ada", (entry) => entry.data.handle);
+const author = findEntry(authors, "ada", (entry) => entry.data.handle);
 ```
 
 **Real use case** — related posts: resolve a list of slugs stored in another
@@ -353,14 +354,14 @@ entry's frontmatter into full entries while filtering out the dangling ones:
 
 ```ts
 const related = (post.data.related ?? [])
-  .map((slug) => useAstroFindEntry(posts, slug))
+  .map((slug) => findEntry(posts, slug))
   .filter((entry): entry is NonNullable<typeof entry> => entry !== null);
 ```
 
-### useAstroExtractUniqueValues(items, keyFrom)
+### uniqueValues(items, keyFrom)
 
 ```ts
-function useAstroExtractUniqueValues<T, V>(items: T[], keyFrom: (item: T) => V | V[]): V[];
+function uniqueValues<T, V>(items: T[], keyFrom: (item: T) => V | V[]): V[];
 ```
 
 Returns the distinct values produced by `keyFrom` across all items, in
@@ -379,7 +380,7 @@ consequences:
 Empty input → empty array.
 
 ```ts
-import { useAstroExtractUniqueValues } from "katanakit-js/adapters/astro";
+import { uniqueValues } from "katanakit-js/adapters/astro";
 
 const posts = [
   { title: "A", tags: ["typescript", "astro"] },
@@ -387,28 +388,28 @@ const posts = [
   { title: "C", tags: [] },
 ];
 
-const tags = useAstroExtractUniqueValues(posts, (post) => post.tags);
+const tags = uniqueValues(posts, (post) => post.tags);
 // ["typescript", "astro", "vue"]
 ```
 
 **Real use case** — a tag index with no duplicated routes: extract the unique
-tags, then hand them to `useAstroPathsFromValues()` in one line:
+tags, then hand them to `pathsFromValues()` in one line:
 
 ```ts
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  const tags = useAstroExtractUniqueValues(posts, (post) => post.data.tags);
+  const tags = uniqueValues(posts, (post) => post.data.tags);
 
-  return useAstroPathsFromValues(tags, "tag");
+  return pathsFromValues(tags, "tag");
 }
 ```
 
 ## Pagination
 
-### useAstroGeneratePagination(items, pageSize?, param?)
+### paginate(items, pageSize?, param?)
 
 ```ts
-function useAstroGeneratePagination<T, TParam extends string = "page">(
+function paginate<T, TParam extends string = "page">(
   items: T[],
   pageSize?: number,
   param?: TParam,
@@ -453,7 +454,7 @@ Key behaviors:
 ---
 // src/pages/blog/[...page].astro
 import { getCollection } from "astro:content";
-import { useAstroGeneratePagination } from "katanakit-js/adapters/astro";
+import { paginate } from "katanakit-js/adapters/astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -461,7 +462,7 @@ export async function getStaticPaths() {
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
   );
 
-  return useAstroGeneratePagination(sorted, 10, "page");
+  return paginate(sorted, 10, "page");
 }
 
 const { items, currentPage, totalPages } = Astro.props;
@@ -491,10 +492,10 @@ The RSS helpers cover the three layers of an Astro feed: the XML itself, the
 serves it at `/rss.xml`. They are the Astro-facing counterparts of the
 framework-agnostic helpers documented under [RSS](/guides/services/rss).
 
-### useAstroGenerateRss(config)
+### onAstroGenerateRss(config)
 
 ```ts
-function useAstroGenerateRss(config: RssConfig): RssResult;
+function onAstroGenerateRss(config: RssConfig): RssResult;
 // RssResult = SafeResult<string, { message: string; details?: unknown }>
 ```
 
@@ -543,9 +544,9 @@ The result is a discriminated union, so a missing required field surfaces as
 data rather than an exception:
 
 ```ts
-import { useAstroGenerateRss } from "katanakit-js/adapters/astro";
+import { onAstroGenerateRss } from "katanakit-js/adapters/astro";
 
-const result = useAstroGenerateRss({
+const result = onAstroGenerateRss({
   title: "My Blog",
   description: "Posts about TypeScript",
   site: "https://example.com",
@@ -593,7 +594,7 @@ A minimal output (abridged) looks like this:
 emit a podcast `<enclosure>`:
 
 ```ts
-const result = useAstroGenerateRss({
+const result = onAstroGenerateRss({
   title: "Katana FM",
   description: "A podcast about TypeScript",
   site: "https://example.com",
@@ -607,10 +608,10 @@ const result = useAstroGenerateRss({
 });
 ```
 
-### useAstroRssLinkTag(config)
+### onAstroRssLinkTag(config)
 
 ```ts
-function useAstroRssLinkTag(config: Pick<RssConfig, "title" | "xmlPath">): string;
+function onAstroRssLinkTag(config: Pick<RssConfig, "title" | "xmlPath">): string;
 ```
 
 Returns the `<link>` tag that advertises the feed to readers and crawlers:
@@ -619,7 +620,7 @@ Returns the `<link>` tag that advertises the feed to readers and crawlers:
 <link rel="alternate" type="application/rss+xml" title="My Blog" href="/rss.xml" />
 ```
 
-- `xmlPath` defaults to `"/rss.xml"`, matching `useAstroGenerateRss()`.
+- `xmlPath` defaults to `"/rss.xml"`, matching `onAstroGenerateRss()`.
 - The title is escaped with the same XML escaping used by the feed builder.
 - It is a plain string, so render it in Astro with `set:html` to avoid escaping
   the tag itself.
@@ -627,10 +628,10 @@ Returns the `<link>` tag that advertises the feed to readers and crawlers:
 ```astro
 ---
 // src/layouts/BaseLayout.astro
-import { useAstroRssLinkTag } from "katanakit-js/adapters/astro";
+import { onAstroRssLinkTag } from "katanakit-js/adapters/astro";
 import { siteConfig } from "katanakit-js";
 
-const rssLink = useAstroRssLinkTag({
+const rssLink = onAstroRssLinkTag({
   title: siteConfig.title,
   xmlPath: siteConfig.rss.path,
 });
@@ -646,14 +647,14 @@ the tag and (if you gate the endpoint the same way) the route:
 
 ```ts
 const rssLink = siteConfig.rss.enabled
-  ? useAstroRssLinkTag({ title: siteConfig.title, xmlPath: siteConfig.rss.path })
+  ? onAstroRssLinkTag({ title: siteConfig.title, xmlPath: siteConfig.rss.path })
   : "";
 ```
 
-### useAstroCreateRssEndpoint(config)
+### onAstroCreateRssEndpoint(config)
 
 ```ts
-function useAstroCreateRssEndpoint(
+function onAstroCreateRssEndpoint(
   config: Omit<RssConfig, "items"> & {
     items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>);
   },
@@ -677,18 +678,18 @@ Responses:
 | --------------------------- | ------ | ------------------------------------------------------------------------------------------------ |
 | Feed generated              | `200`  | XML with `Content-Type: application/xml; charset=utf-8` and `Cache-Control: public, max-age=3600` |
 | Missing site URL            | `500`  | `{ "error": "RSS feed requires a 'site' URL." }` as `application/json`                            |
-| `useAstroGenerateRss` fails | `500`  | `{ "error": "<message>" }` as `application/json`                                                  |
+| `onAstroGenerateRss` fails | `500`  | `{ "error": "<message>" }` as `application/json`                                                  |
 | Unexpected throw            | `500`  | `{ "error": "<message or 'Unknown error generating RSS.'>" }` as `application/json`               |
 
 The cache header is fixed at one hour — if you need a different policy, build
-the `Response` yourself around `useAstroGenerateRss()`.
+the `Response` yourself around `onAstroGenerateRss()`.
 
 ```ts
 // src/pages/rss.xml.ts
-import { useAstroCreateRssEndpoint } from "katanakit-js/adapters/astro";
+import { onAstroCreateRssEndpoint } from "katanakit-js/adapters/astro";
 import { getCollection } from "astro:content";
 
-export const GET = useAstroCreateRssEndpoint({
+export const GET = onAstroCreateRssEndpoint({
   title: "My Blog",
   description: "Posts about TypeScript",
   site: "https://example.com",
@@ -711,10 +712,10 @@ runs once at build time, so the feed is a static asset; under on-demand
 rendering it runs per request. Either way the adapter never caches the items
 itself — only the HTTP response advertises the one-hour cache.
 
-### useAstroCreateRssEndpointFromConfig(siteConfig, items)
+### onAstroCreateRssEndpointFromConfig(siteConfig, items)
 
 ```ts
-function useAstroCreateRssEndpointFromConfig(
+function onAstroCreateRssEndpointFromConfig(
   siteConfig: SiteConfig,
   items: RssItem[] | (() => RssItem[] | Promise<RssItem[]>),
 ): (context: { site?: URL | string }) => Promise<Response>;
@@ -740,11 +741,11 @@ the factory:
 
 ```ts
 // src/pages/rss.xml.ts
-import { useAstroCreateRssEndpointFromConfig } from "katanakit-js/adapters/astro";
+import { onAstroCreateRssEndpointFromConfig } from "katanakit-js/adapters/astro";
 import { siteConfig } from "katanakit-js";
 import { getCollection } from "astro:content";
 
-export const GET = useAstroCreateRssEndpointFromConfig(siteConfig, async () => {
+export const GET = onAstroCreateRssEndpointFromConfig(siteConfig, async () => {
   const posts = await getCollection("blog");
   const published = posts.filter((post) => !post.data.draft);
 
@@ -763,7 +764,7 @@ export const GET = useAstroCreateRssEndpointFromConfig(siteConfig, async () => {
 **Real use case** — a blog whose feed metadata already lives in one place:
 `siteConfig` powers the SEO tags, the RSS `<link>` tag and the feed endpoint,
 so changing the site title or description updates all three in one commit. Use
-`useAstroCreateRssEndpoint()` instead when the feed needs per-feed overrides
+`onAstroCreateRssEndpoint()` instead when the feed needs per-feed overrides
 (`customData`, `xslUrl`) that live outside `SiteConfig`.
 
 ## SEO re-exports
@@ -772,15 +773,15 @@ The adapter's third module is a convenience layer over the framework-agnostic
 SEO helpers, so an Astro project can import everything from one subpath. It
 re-exports:
 
-- **Functions** — `useApplySeoTag`, `useGenerateMetaTags`, `useHeadTags`,
-  `useRssHeadLink`, `useSeoMeta`, `useSeoTag`, `useSeoTags`, `useTitle`.
-- **Types** — `SeoMeta`, `SeoMetaFlat`, `SeoMetaInput`, `SeoTagNode`,
-  `SeoTagResult`, `SeoTagsResult`, `UseSeoMetaBase`, `UseSeoMetaOptions`.
+- **Functions** — `onApplySeoTag`, `onGenerateMetaTags`, `onHeadTags`,
+  `onRssHeadLink`, `onSeoMeta`, `onTitle`.
+- **Types** — `SeoMeta`, `SeoMetaOptions`, `SeoSocial`, `SeoTagNode`,
+  `SeoTagResult`.
 - **Site configuration** — `SiteConfig` and the default `siteConfig`.
 
 These are the same implementations documented in [SEO](/guides/services/seo);
 this page intentionally does not duplicate their contracts. In Astro, the
-typical flow is to call `useSeoMeta()` in the frontmatter of a layout and pass
+typical flow is to call `onSeoMeta()` in the frontmatter of a layout and pass
 the generated tag HTML into `<head>` with `set:html`.
 
 ## Related

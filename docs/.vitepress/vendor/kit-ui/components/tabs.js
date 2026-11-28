@@ -24,18 +24,14 @@
  *
  * ## SSR
  *
- * {@link tabsClass} is pure. {@link useTabs} needs a DOM.
+ * {@link tabsClass} is pure. {@link onTabs} needs a DOM.
  *
  * @module ui/components/tabs
  */
 /* -------------------------------------------------------------------------- */
 /* Constants                                                                  */
 /* -------------------------------------------------------------------------- */
-/**
- * Keys that move between tabs.
- *
- * Home and End are included because a long tablist is otherwise tedious to cross.
- */
+/** Keys that move between tabs. Home and End are included because a long tablist is otherwise tedious to cross. */
 const NAVIGATION = new Set(["ArrowRight", "ArrowLeft", "Home", "End"]);
 /* -------------------------------------------------------------------------- */
 /* Pure surface (SSR-safe)                                                    */
@@ -69,7 +65,7 @@ function requireDom(api) {
  * @param parent - Element receiving the content.
  * @param value - A `Node` to append, or a string inserted as text.
  */
-function useInsert(parent, value) {
+function onInsert(parent, value) {
     if (typeof value === "string") {
         const text = document.createElement("p");
         text.className = "tabs__text";
@@ -88,7 +84,7 @@ function useInsert(parent, value) {
  *
  * @example
  * ```ts
- * const tabs = useTabs({
+ * const tabs = onTabs({
  *   label: "Account settings",
  *   tabs: [
  *     { id: "profile", label: "Profile", content: "…" },
@@ -98,8 +94,8 @@ function useInsert(parent, value) {
  * document.body.append(tabs.root);
  * ```
  */
-export function useTabs(options) {
-    requireDom("useTabs");
+export function onTabs(options) {
+    requireDom("onTabs");
     const root = document.createElement("div");
     root.className = tabsClass();
     const list = document.createElement("div");
@@ -125,11 +121,11 @@ export function useTabs(options) {
         if (index === selectedIndex)
             return;
         selectedIndex = index;
-        useApply();
+        onApply();
         options.onChange?.(id);
     };
     /** Reflects the selected tab onto `aria-selected`, `tabindex` and panels. */
-    function useApply() {
+    function onApply() {
         for (const [index, button] of buttons.entries()) {
             const active = index === selectedIndex;
             button.setAttribute("aria-selected", String(active));
@@ -165,7 +161,7 @@ export function useTabs(options) {
         // user tabs into the group and cannot get to the panel they just selected.
         panel.tabIndex = 0;
         if (definition.content !== undefined)
-            useInsert(panel, definition.content);
+            onInsert(panel, definition.content);
         root.append(panel);
         panels.push(panel);
     });
@@ -190,7 +186,7 @@ export function useTabs(options) {
         if (index === -1)
             return;
         selectedIndex = index;
-        useApply();
+        onApply();
         options.onChange?.(defs[index].id);
     });
     list.addEventListener("keydown", (event) => {
@@ -205,7 +201,7 @@ export function useTabs(options) {
             event.preventDefault();
             if (from !== selectedIndex) {
                 selectedIndex = from;
-                useApply();
+                onApply();
                 options.onChange?.(defs[from].id);
             }
             return;
@@ -226,6 +222,6 @@ export function useTabs(options) {
                 : enabledIndexes[(at + step + enabledIndexes.length) % enabledIndexes.length];
         focus(next);
     });
-    useApply();
+    onApply();
     return { root, list, buttons, panels, select };
 }

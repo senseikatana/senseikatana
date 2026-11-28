@@ -5,7 +5,7 @@ description: Inline alert with semantic variants, title/message and accessible d
 
 # Alert
 
-`useAlert(options)` creates a `.alert` with `role="alert"` for
+`onAlert(options)` creates a `.alert` with `role="alert"` for
 `warning`/`danger` and `role="status"` for `info`/`success`. Dismissible alerts get
 a button with `aria-label="Dismiss"`. `alertClass(options)` returns the classes
 for SSR markup.
@@ -15,13 +15,13 @@ for SSR markup.
 <div ref="alerts" class="demo-stack"></div>
 
 ```ts
-import { useAlert } from "@katanakit/ui";
+import { onAlert } from "@katanakit/ui";
 
 stack.append(
-  useAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
-  useAlert({ variant: "success", message: "Backup finished." }),
-  useAlert({ variant: "warning", message: "Quota at 90%." }),
-  useAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
+  onAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
+  onAlert({ variant: "success", message: "Backup finished." }),
+  onAlert({ variant: "warning", message: "Quota at 90%." }),
+  onAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
 );
 ```
 
@@ -30,7 +30,7 @@ stack.append(
 <div ref="dismissible" class="demo-stack"></div>
 
 ```ts
-useAlert({
+onAlert({
   variant: "info",
   message: "This one can be dismissed.",
   dismissible: true,
@@ -42,7 +42,7 @@ useAlert({
 	name="Alert"
 	root="alert"
 	pure="alertClass"
-	factory="useAlert"
+	factory="onAlert"
 />
 
 ## Options
@@ -63,20 +63,20 @@ markup yourself — the classes are stable strings.
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useAlert } from "@katanakit/ui";
+import { onAlert } from "@katanakit/ui";
 
 const alerts = ref<HTMLElement>();
 const dismissible = ref<HTMLElement>();
 
 onMounted(() => {
 	alerts.value?.append(
-		useAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
-		useAlert({ variant: "success", message: "Backup finished." }),
-		useAlert({ variant: "warning", message: "Quota at 90%." }),
-		useAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
+		onAlert({ variant: "info", title: "Heads up", message: "Deploy starts in 10 minutes." }),
+		onAlert({ variant: "success", message: "Backup finished." }),
+		onAlert({ variant: "warning", message: "Quota at 90%." }),
+		onAlert({ variant: "danger", title: "Build failed", message: "Check the logs." }),
 	);
 	dismissible.value?.append(
-		useAlert({
+		onAlert({
 			variant: "info",
 			message: "This one can be dismissed.",
 			dismissible: true,

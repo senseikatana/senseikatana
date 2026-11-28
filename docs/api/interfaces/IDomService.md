@@ -2,19 +2,19 @@
 
 # Interface: IDomService
 
-Defined in: [types/core/dom.ts:29](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L29)
+Defined in: [types/core/dom.ts:29](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L29)
 
 Contract of the DOM facade.
 
 ## Methods
 
-### useAddClass()
+### onAddClass()
 
 ```ts
-useAddClass(target, className): void;
+onAddClass(target, className): void;
 ```
 
-Defined in: [types/core/dom.ts:43](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L43)
+Defined in: [types/core/dom.ts:43](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L43)
 
 #### Parameters
 
@@ -29,13 +29,13 @@ Defined in: [types/core/dom.ts:43](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useAppend()
+### onAppend()
 
 ```ts
-useAppend(target, child): void;
+onAppend(target, child): void;
 ```
 
-Defined in: [types/core/dom.ts:64](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L64)
+Defined in: [types/core/dom.ts:64](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L64)
 
 #### Parameters
 
@@ -50,13 +50,13 @@ Defined in: [types/core/dom.ts:64](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useCreateElement()
+### onCreateElement()
 
 ```ts
-useCreateElement<T>(tagName, options?): HTMLElementTagNameMap[T];
+onCreateElement<T>(tagName, options?): HTMLElementTagNameMap[T];
 ```
 
-Defined in: [types/core/dom.ts:58](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L58)
+Defined in: [types/core/dom.ts:58](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L58)
 
 #### Type Parameters
 
@@ -77,13 +77,13 @@ Defined in: [types/core/dom.ts:58](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useGetAttribute()
+### onGetAttribute()
 
 ```ts
-useGetAttribute(target, attr): string | null;
+onGetAttribute(target, attr): string | null;
 ```
 
-Defined in: [types/core/dom.ts:47](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L47)
+Defined in: [types/core/dom.ts:47](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L47)
 
 #### Parameters
 
@@ -98,13 +98,13 @@ Defined in: [types/core/dom.ts:47](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useGetBody()
+### onGetBody()
 
 ```ts
-useGetBody(): HTMLBodyElement | null;
+onGetBody(): HTMLBodyElement | null;
 ```
 
-Defined in: [types/core/dom.ts:32](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L32)
+Defined in: [types/core/dom.ts:32](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L32)
 
 #### Returns
 
@@ -112,13 +112,13 @@ Defined in: [types/core/dom.ts:32](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useGetDataAttribute()
+### onGetDataAttribute()
 
 ```ts
-useGetDataAttribute(target, key): string | undefined;
+onGetDataAttribute(target, key): string | undefined;
 ```
 
-Defined in: [types/core/dom.ts:50](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L50)
+Defined in: [types/core/dom.ts:50](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L50)
 
 #### Parameters
 
@@ -133,13 +133,13 @@ Defined in: [types/core/dom.ts:50](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useGetElementByClass()
+### onGetElementByClass()
 
 ```ts
-useGetElementByClass<T>(className): T | null;
+onGetElementByClass<T>(className): T | null;
 ```
 
-Defined in: [types/core/dom.ts:34](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L34)
+Defined in: [types/core/dom.ts:34](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L34)
 
 #### Type Parameters
 
@@ -159,13 +159,13 @@ Defined in: [types/core/dom.ts:34](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useGetElementById()
+### onGetElementById()
 
 ```ts
-useGetElementById<T>(id): T | null;
+onGetElementById<T>(id): T | null;
 ```
 
-Defined in: [types/core/dom.ts:33](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L33)
+Defined in: [types/core/dom.ts:33](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L33)
 
 #### Type Parameters
 
@@ -185,13 +185,13 @@ Defined in: [types/core/dom.ts:33](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useGetRoot()
+### onGetRoot()
 
 ```ts
-useGetRoot(): HTMLElement | null;
+onGetRoot(): HTMLElement | null;
 ```
 
-Defined in: [types/core/dom.ts:31](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L31)
+Defined in: [types/core/dom.ts:31](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L31)
 
 #### Returns
 
@@ -199,13 +199,13 @@ Defined in: [types/core/dom.ts:31](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useHasClass()
+### onHasClass()
 
 ```ts
-useHasClass(target, className): boolean;
+onHasClass(target, className): boolean;
 ```
 
-Defined in: [types/core/dom.ts:46](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L46)
+Defined in: [types/core/dom.ts:46](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L46)
 
 #### Parameters
 
@@ -220,13 +220,13 @@ Defined in: [types/core/dom.ts:46](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useIsBrowser()
+### onIsBrowser()
 
 ```ts
-useIsBrowser(): boolean;
+onIsBrowser(): boolean;
 ```
 
-Defined in: [types/core/dom.ts:30](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L30)
+Defined in: [types/core/dom.ts:30](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L30)
 
 #### Returns
 
@@ -234,10 +234,10 @@ Defined in: [types/core/dom.ts:30](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useOn()
+### onOn()
 
 ```ts
-useOn<K>(
+onOn<K>(
    target, 
    event, 
    callback, 
@@ -245,7 +245,7 @@ useOn<K>(
 ): (() => void) | null;
 ```
 
-Defined in: [types/core/dom.ts:52](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L52)
+Defined in: [types/core/dom.ts:52](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L52)
 
 #### Type Parameters
 
@@ -268,15 +268,15 @@ Defined in: [types/core/dom.ts:52](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useQuerySelector()
+### onQuerySelector()
 
 #### Call Signature
 
 ```ts
-useQuerySelector<K>(selector): HTMLElementTagNameMap[K] | null;
+onQuerySelector<K>(selector): HTMLElementTagNameMap[K] | null;
 ```
 
-Defined in: [types/core/dom.ts:35](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L35)
+Defined in: [types/core/dom.ts:35](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L35)
 
 ##### Type Parameters
 
@@ -297,10 +297,10 @@ Defined in: [types/core/dom.ts:35](https://github.com/senseikatana/katanakit-js/
 #### Call Signature
 
 ```ts
-useQuerySelector<E>(selector): E | null;
+onQuerySelector<E>(selector): E | null;
 ```
 
-Defined in: [types/core/dom.ts:38](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L38)
+Defined in: [types/core/dom.ts:38](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L38)
 
 ##### Type Parameters
 
@@ -320,15 +320,15 @@ Defined in: [types/core/dom.ts:38](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useQuerySelectorAll()
+### onQuerySelectorAll()
 
 #### Call Signature
 
 ```ts
-useQuerySelectorAll<K>(selector): HTMLElementTagNameMap[K][];
+onQuerySelectorAll<K>(selector): HTMLElementTagNameMap[K][];
 ```
 
-Defined in: [types/core/dom.ts:39](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L39)
+Defined in: [types/core/dom.ts:39](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L39)
 
 ##### Type Parameters
 
@@ -349,10 +349,10 @@ Defined in: [types/core/dom.ts:39](https://github.com/senseikatana/katanakit-js/
 #### Call Signature
 
 ```ts
-useQuerySelectorAll<E>(selector): E[];
+onQuerySelectorAll<E>(selector): E[];
 ```
 
-Defined in: [types/core/dom.ts:42](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L42)
+Defined in: [types/core/dom.ts:42](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L42)
 
 ##### Type Parameters
 
@@ -372,13 +372,13 @@ Defined in: [types/core/dom.ts:42](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useRemove()
+### onRemove()
 
 ```ts
-useRemove(target): void;
+onRemove(target): void;
 ```
 
-Defined in: [types/core/dom.ts:65](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L65)
+Defined in: [types/core/dom.ts:65](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L65)
 
 #### Parameters
 
@@ -392,13 +392,13 @@ Defined in: [types/core/dom.ts:65](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useRemoveAttribute()
+### onRemoveAttribute()
 
 ```ts
-useRemoveAttribute(target, attr): void;
+onRemoveAttribute(target, attr): void;
 ```
 
-Defined in: [types/core/dom.ts:49](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L49)
+Defined in: [types/core/dom.ts:49](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L49)
 
 #### Parameters
 
@@ -413,13 +413,13 @@ Defined in: [types/core/dom.ts:49](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useRemoveClass()
+### onRemoveClass()
 
 ```ts
-useRemoveClass(target, className): void;
+onRemoveClass(target, className): void;
 ```
 
-Defined in: [types/core/dom.ts:44](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L44)
+Defined in: [types/core/dom.ts:44](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L44)
 
 #### Parameters
 
@@ -434,17 +434,17 @@ Defined in: [types/core/dom.ts:44](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useSetAttribute()
+### onSetAttribute()
 
 ```ts
-useSetAttribute(
+onSetAttribute(
    target, 
    attr, 
    value
 ): void;
 ```
 
-Defined in: [types/core/dom.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L48)
+Defined in: [types/core/dom.ts:48](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L48)
 
 #### Parameters
 
@@ -460,17 +460,17 @@ Defined in: [types/core/dom.ts:48](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useSetDataAttribute()
+### onSetDataAttribute()
 
 ```ts
-useSetDataAttribute(
+onSetDataAttribute(
    target, 
    key, 
    value
 ): void;
 ```
 
-Defined in: [types/core/dom.ts:51](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L51)
+Defined in: [types/core/dom.ts:51](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L51)
 
 #### Parameters
 
@@ -486,13 +486,13 @@ Defined in: [types/core/dom.ts:51](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useSetHtml()
+### onSetHtml()
 
 ```ts
-useSetHtml(target, html): void;
+onSetHtml(target, html): void;
 ```
 
-Defined in: [types/core/dom.ts:62](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L62)
+Defined in: [types/core/dom.ts:62](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L62)
 
 #### Parameters
 
@@ -507,13 +507,13 @@ Defined in: [types/core/dom.ts:62](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useSetText()
+### onSetText()
 
 ```ts
-useSetText(target, text): void;
+onSetText(target, text): void;
 ```
 
-Defined in: [types/core/dom.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L63)
+Defined in: [types/core/dom.ts:63](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L63)
 
 #### Parameters
 
@@ -528,17 +528,17 @@ Defined in: [types/core/dom.ts:63](https://github.com/senseikatana/katanakit-js/
 
 ***
 
-### useToggleClass()
+### onToggleClass()
 
 ```ts
-useToggleClass(
+onToggleClass(
    target, 
    className, 
    force?
 ): boolean | undefined;
 ```
 
-Defined in: [types/core/dom.ts:45](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/dom.ts#L45)
+Defined in: [types/core/dom.ts:45](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/dom.ts#L45)
 
 #### Parameters
 

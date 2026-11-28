@@ -110,13 +110,13 @@ storage.
 
 ```ts
 import {
-  useCreateKeyRecord,
-  useMaskSecret,
-  useEmitAgentConfig,
+  onCreateKeyRecord,
+  onMaskSecret,
+  onEmitAgentConfig,
 } from "katanakit-js";
 
-const record = useCreateKeyRecord({ provider: "openai", label: "ci", secret: "sk-…" });
-const config = useEmitAgentConfig("opencode", {
+const record = onCreateKeyRecord({ provider: "openai", label: "ci", secret: "sk-…" });
+const config = onEmitAgentConfig("opencode", {
   provider: "openai",
   secret: "sk-…",
   mcpServers: [],
@@ -126,10 +126,10 @@ const config = useEmitAgentConfig("opencode", {
 For persistence, use the infrastructure adapter:
 
 ```ts
-import { useSaveVaultFile, useLoadVaultFile, useVaultPath } from "katanakit-js";
+import { onSaveVaultFile, onLoadVaultFile, onVaultPath } from "katanakit-js";
 
-const path = await useVaultPath();
-await useSaveVaultFile(path, vaultData, passphrase);
+const path = await onVaultPath();
+await onSaveVaultFile(path, vaultData, passphrase);
 ```
 
 ## Security notes

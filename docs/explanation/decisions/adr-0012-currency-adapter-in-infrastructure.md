@@ -18,7 +18,7 @@ feature could not simply live in a core service that calls `fetch`.
 Two seams were needed: the core had to express *what* it needs (a dated rate
 snapshot for a base currency) without knowing *who* provides it, and something
 outside the core had to pick a default provider and plug it in — a package
-consumer calling `useConvertCurrency()` should not have to wire anything.
+consumer calling `onConvertCurrency()` should not have to wire anything.
 
 ## Decision
 
@@ -29,8 +29,8 @@ The need is expressed as the **port** `ICurrencyRateProvider` in
 The default implementation — `FrankfurterCurrencyProvider`, which performs its
 requests through the kit's own `FetchApiManager` — lives in
 `src/infrastructure/currency/`, alongside the **composition module**: the flat
-helpers (`useCurrencyConverter`, `useConvertCurrency`,
-`useGetExchangeRate`, `useRefreshExchangeRates`, `useSubscribeRates`) that wire
+helpers (`onCurrencyConverter`, `onConvertCurrency`,
+`onGetExchangeRate`, `onRefreshExchangeRates`, `onSubscribeRates`) that wire
 the default provider
 into the shared singleton on first use. Wiring is idempotent and never
 replaces a provider the consumer injected.

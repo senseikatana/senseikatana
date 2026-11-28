@@ -6,9 +6,9 @@ description: A tablist with roving tabindex, automatic or manual activation, and
 # Tabs <span class="vp-new-badge">new</span>
 
 ```ts
-import { useTabs } from "@katanakit/ui";
+import { onTabs } from "@katanakit/ui";
 
-const tabs = useTabs({
+const tabs = onTabs({
 	label: "Account settings",
 	tabs: [
 		{ id: "profile", label: "Profile", content: "…" },
@@ -89,7 +89,7 @@ to render the panel yourself.
 ## The returned elements
 
 ```ts
-const { root, list, buttons, panels, select } = useTabs({ tabs, label: "Sections" });
+const { root, list, buttons, panels, select } = onTabs({ tabs, label: "Sections" });
 
 document.body.append(root);
 select("billing"); // select without moving focus
@@ -97,13 +97,13 @@ select("billing"); // select without moving focus
 
 ## SSR
 
-`useTabs` needs a DOM. `tabsClass()` is pure and safe to call on the server.
+`onTabs` needs a DOM. `tabsClass()` is pure and safe to call on the server.
 
 <ComponentContract
 	name="Tabs"
 	root="tabs"
 	pure="tabsClass"
-	factory="useTabs"
+	factory="onTabs"
 />
 
 <style scoped>
@@ -121,7 +121,7 @@ select("billing"); // select without moving focus
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useTabs } from "@katanakit/ui";
+import { onTabs } from "@katanakit/ui";
 
 const demo = ref<HTMLElement>();
 const stops = ref<HTMLElement>();
@@ -137,7 +137,7 @@ const mount = (target?: HTMLElement, activation: "automatic" | "manual" = "autom
 	if (!target) return;
 	target.replaceChildren();
 	target.append(
-		useTabs({
+		onTabs({
 			label: "Sections",
 			activation,
 			tabs: DEFS,

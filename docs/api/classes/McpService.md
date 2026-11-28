@@ -2,7 +2,7 @@
 
 # Class: McpService
 
-Defined in: [core/services/mcp.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L41)
+Defined in: [core/services/mcp.service.ts:41](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L41)
 
 McpService — Singleton facade for MCP server registry management and
 host-config emission.
@@ -21,18 +21,18 @@ secret, generated config holds the indirection.
 ## Example
 
 ```ts
-import { useCreateMcpServer, useEmitOpenCodeServers } from "katanakit-js";
+import { onCreateMcpServer, onEmitOpenCodeServers } from "katanakit-js";
 
-const entry = useCreateMcpServer({ name: "context7", type: "remote", url: "https://mcp.context7.com/mcp" });
-if (entry.ok) console.log(useEmitOpenCodeServers([entry.data]));
+const entry = onCreateMcpServer({ name: "context7", type: "remote", url: "https://mcp.context7.com/mcp" });
+if (entry.ok) console.log(onEmitOpenCodeServers([entry.data]));
 ```
 
 ## Methods
 
-### useAddMcpServer()
+### onAddMcpServer()
 
 ```ts
-useAddMcpServer(data, entry): {
+onAddMcpServer(data, entry): {
   createdAt: string;
   keys: {
      createdAt: string;
@@ -58,7 +58,7 @@ useAddMcpServer(data, entry): {
 };
 ```
 
-Defined in: [core/services/mcp.service.ts:88](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L88)
+Defined in: [core/services/mcp.service.ts:88](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L88)
 
 Adds a server to the registry, replacing any entry with the same name —
 the same "same name wins wholesale" semantic OpenCode applies to config
@@ -167,10 +167,10 @@ version: 1;
 
 ***
 
-### useCreateMcpServer()
+### onCreateMcpServer()
 
 ```ts
-useCreateMcpServer(input): SafeResult<{
+onCreateMcpServer(input): SafeResult<{
   command?: string[];
   disabled?: boolean;
   environment?: Record<string, string>;
@@ -181,7 +181,7 @@ useCreateMcpServer(input): SafeResult<{
 }>;
 ```
 
-Defined in: [core/services/mcp.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L61)
+Defined in: [core/services/mcp.service.ts:61](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L61)
 
 Creates a validated MCP server entry.
 
@@ -214,13 +214,13 @@ Creates a validated MCP server entry.
 
 ***
 
-### useEmitOpenCodeServers()
+### onEmitOpenCodeServers()
 
 ```ts
-useEmitOpenCodeServers(servers): SafeResult<string>;
+onEmitOpenCodeServers(servers): SafeResult<string>;
 ```
 
-Defined in: [core/services/mcp.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L185)
+Defined in: [core/services/mcp.service.ts:185](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L185)
 
 Renders registry entries as a pretty-printed `mcp.servers` JSON fragment,
 ready to paste into `opencode.json(c)`.
@@ -239,10 +239,10 @@ ready to paste into `opencode.json(c)`.
 
 ***
 
-### useFindMcpServer()
+### onFindMcpServer()
 
 ```ts
-useFindMcpServer(data, name): 
+onFindMcpServer(data, name): 
   | {
   command?: string[];
   disabled?: boolean;
@@ -255,7 +255,7 @@ useFindMcpServer(data, name):
   | undefined;
 ```
 
-Defined in: [core/services/mcp.service.ts:127](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L127)
+Defined in: [core/services/mcp.service.ts:127](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L127)
 
 Finds a server by name.
 
@@ -288,10 +288,10 @@ The entry, or `undefined`.
 
 ***
 
-### useListMcpServers()
+### onListMcpServers()
 
 ```ts
-useListMcpServers(data): {
+onListMcpServers(data): {
   command?: string[];
   disabled?: boolean;
   environment?: Record<string, string>;
@@ -302,7 +302,7 @@ useListMcpServers(data): {
 }[];
 ```
 
-Defined in: [core/services/mcp.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L116)
+Defined in: [core/services/mcp.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L116)
 
 Lists registered servers in registration order.
 
@@ -333,13 +333,13 @@ The server entries.
 
 ***
 
-### useOpenCodeServersObject()
+### onOpenCodeServersObject()
 
 ```ts
-useOpenCodeServersObject(servers): SafeResult<Record<string, OpenCodeMcpServer>>;
+onOpenCodeServersObject(servers): SafeResult<Record<string, OpenCodeMcpServer>>;
 ```
 
-Defined in: [core/services/mcp.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L142)
+Defined in: [core/services/mcp.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L142)
 
 Projects registry entries into an OpenCode `mcp.servers` object.
 
@@ -362,10 +362,10 @@ Secrets are never interpolated — `environment`/`headers` values travel as
 
 ***
 
-### useRemoveMcpServer()
+### onRemoveMcpServer()
 
 ```ts
-useRemoveMcpServer(data, name): {
+onRemoveMcpServer(data, name): {
   createdAt: string;
   keys: {
      createdAt: string;
@@ -391,7 +391,7 @@ useRemoveMcpServer(data, name): {
 };
 ```
 
-Defined in: [core/services/mcp.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L102)
+Defined in: [core/services/mcp.service.ts:102](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L102)
 
 Removes a server from the registry. Removing an absent name is a no-op.
 
@@ -497,7 +497,7 @@ version: 1;
 static getInstance(): McpService;
 ```
 
-Defined in: [core/services/mcp.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/mcp.service.ts#L48)
+Defined in: [core/services/mcp.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/mcp.service.ts#L48)
 
 Returns the shared instance (Singleton).
 

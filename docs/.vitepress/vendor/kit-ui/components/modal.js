@@ -134,7 +134,7 @@ function requireDom(api) {
  * @returns The element the dialog is appended to.
  * @throws {Error} When the supplied target is neither an element nor a shadow root.
  */
-function usePortalTarget(container) {
+function onPortalTarget(container) {
     if (container === null || container === undefined) {
         if (typeof document === "undefined") {
             throw new Error("[KatanaUI] modal.open() needs a DOM; use modalClass() for SSR markup.");
@@ -163,7 +163,7 @@ function usePortalTarget(container) {
  * @param root - Element to search within.
  * @returns The focusable descendants, filtered to the visible ones.
  */
-function useFocusables(root) {
+function onFocusables(root) {
     return Array.from(root.querySelectorAll(FOCUSABLE)).filter((element) => element.getClientRects().length > 0);
 }
 /**
@@ -172,7 +172,7 @@ function useFocusables(root) {
  * @param parent - Element receiving the content.
  * @param value - A `Node` to append, or a string inserted as text.
  */
-function useInsert(parent, value) {
+function onInsert(parent, value) {
     // `ownerDocument`, not the global: with a `container` in another document the
     // node must be created there, or adoption throws.
     const doc = parent.ownerDocument;
@@ -234,14 +234,14 @@ let sequence = 0;
  */
 const guards = new Map();
 /** The topmost dialog — the last one inserted, which is `Map` insertion order. */
-function useTopmost() {
+function onTopmost() {
     let top;
     for (const entry of open.values())
         top = entry;
     return top;
 }
 /** The tree a dialog lives in. `focusin` does not cross a shadow boundary. */
-function useRoot(dialog) {
+function onRoot(dialog) {
     return dialog.getRootNode();
 }
 /**
@@ -254,8 +254,8 @@ function useRoot(dialog) {
  * @param dialog - The dialog being examined.
  * @returns The focused element, or `null`.
  */
-function useActive(dialog) {
-    const root = useRoot(dialog);
+function onActive(dialog) {
+    const root = onRoot(dialog);
     return (root.activeElement ?? document.activeElement) ?? null;
 }
 /**
@@ -273,17 +273,17 @@ function useActive(dialog) {
  *   or a re-render replacing it. Those fire no `focusin` at all, so the guard above
  *   never sees them.
  */
-function useEnsureGuard(dialog) {
-    const root = useRoot(dialog);
+function onEnsureGuard(dialog) {
+    const root = onRoot(dialog);
     if (guards.has(root) || typeof root.addEventListener !== "function")
         return;
     const pullBack = (dialogElement) => {
         // Fall back to the dialog itself: without this the trap is a silent no-op
         // whenever the dialog has no focusable children.
-        (useFocusables(dialogElement)[0] ?? dialogElement).focus();
+        (onFocusables(dialogElement)[0] ?? dialogElement).focus();
     };
     const onFocusIn = (event) => {
-        const entry = useTopmost();
+        const entry = onTopmost();
         if (!entry)
             return;
         const target = event.target;
@@ -293,7 +293,7 @@ function useEnsureGuard(dialog) {
     };
     // `focusout` does not bubble, so this has to be capture-phase to be robust.
     const onFocusOut = (event) => {
-        const entry = useTopmost();
+        const entry = onTopmost();
         if (!entry || entry.closing)
             return;
         // A move to a real element is the browser doing its job, not a leak. Only
@@ -323,25 +323,25 @@ function useEnsureGuard(dialog) {
         root.removeEventListener("focusout", onFocusOut, true);
     });
 }
-function useReleaseGuard(dialog) {
+function onReleaseGuard(dialog) {
     if (open.size > 0)
         return;
-    const root = useRoot(dialog);
+    const root = onRoot(dialog);
     const release = guards.get(root);
     if (!release)
         return;
     release();
     guards.delete(root);
 }
-function useRestoreFocus(restore) {
+function onRestoreFocus(restore) {
     if (typeof document === "undefined")
         return;
     // Prefer a still-open dialog over a detached target: the element that had
     // focus may belong to a dialog that is itself closing, and focusing it would
     // trap focus in a detached subtree.
-    const top = useTopmost();
+    const top = onTopmost();
     if (top) {
-        (useFocusables(top.dialog)[0] ?? top.dialog).focus();
+        (onFocusables(top.dialog)[0] ?? top.dialog).focus();
         return;
     }
     if (restore && restore.isConnected) {
@@ -353,7 +353,7 @@ function useRestoreFocus(restore) {
     // further away from the user's work, not closer. Removing the dialog already
     // drops focus to the body, which is the outcome we wanted anyway.
 }
-function useClose(entry, id) {
+function onClose(entry, id) {
     // Idempotent at both levels: `closing` stops re-entry, `finished` stops the
     // two completion paths from running twice.
     if (entry.closing)
@@ -387,10 +387,10 @@ function useClose(entry, id) {
         }
         unlockScroll();
         entry.dialog.remove();
-        useReleaseGuard(entry.dialog);
+        onReleaseGuard(entry.dialog);
         entry.options.onClose?.(id);
         if (entry.options.returnFocus !== false)
-            useRestoreFocus(entry.restoreTarget);
+            onRestoreFocus(entry.restoreTarget);
     };
     const reduced = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
     entry.shell.classList.add("modal--leaving");
@@ -409,7 +409,7 @@ function useClose(entry, id) {
     }
     setTimeout(finish, MODAL_EXIT_FALLBACK_MS);
 }
-function useBuild(options, id) {
+function onBuild(options, id) {
     const dialog = document.createElement("dialog");
     // Set before the children are built: the heading id is derived from it, and
     // assigning it afterwards left every dialog sharing `modal-title`, so
@@ -442,16 +442,16 @@ function useBuild(options, id) {
     const body = document.createElement("div");
     body.className = "modal__body";
     if (options.content !== undefined) {
-        useInsert(body, options.content);
+        onInsert(body, options.content);
     }
     else if (options.message) {
-        useInsert(body, options.message);
+        onInsert(body, options.message);
     }
     shell.append(body);
     if (options.footer !== undefined) {
         const footer = document.createElement("div");
         footer.className = "modal__footer";
-        useInsert(footer, options.footer);
+        onInsert(footer, options.footer);
         shell.append(footer);
     }
     if (options.dismissible !== false) {
@@ -470,11 +470,11 @@ function useBuild(options, id) {
     dialog.append(shell);
     return { dialog, shell };
 }
-function useOpen(options = {}) {
+function onOpen(options = {}) {
     requireDom("modal");
     sequence += 1;
     const id = `katana-modal-${sequence}`;
-    const { dialog, shell } = useBuild(options, id);
+    const { dialog, shell } = onBuild(options, id);
     const restoreTarget = typeof document === "undefined" ? null : document.activeElement;
     const entry = {
         dialog,
@@ -487,7 +487,7 @@ function useOpen(options = {}) {
             id,
             dialog,
             close() {
-                useClose(entry, id);
+                onClose(entry, id);
             },
         },
     };
@@ -497,7 +497,7 @@ function useOpen(options = {}) {
         event.preventDefault();
         if (options.dismissOnEscape === false)
             return;
-        useClose(entry, id);
+        onClose(entry, id);
     });
     // Backdrop click. `target === dialog` means the click landed on the backdrop
     // rather than on the shell.
@@ -506,13 +506,13 @@ function useOpen(options = {}) {
             return;
         if (options.dismissOnEscape === false)
             return;
-        useClose(entry, id);
+        onClose(entry, id);
     });
     dialog.addEventListener("click", (event) => {
         const target = event.target;
         if (!target?.closest?.("[data-katana-modal-close]"))
             return;
-        useClose(entry, id);
+        onClose(entry, id);
     });
     // Tab cycle. The native dialog traps focus for pointer and programmatic use,
     // but a browser will still let <kbd>Tab</kbd> walk into its own chrome.
@@ -532,13 +532,13 @@ function useOpen(options = {}) {
         // next press.
         if (typeof document !== "undefined" && !document.hasFocus())
             return;
-        const items = useFocusables(dialog);
+        const items = onFocusables(dialog);
         if (items.length === 0) {
             event.preventDefault();
             dialog.focus();
             return;
         }
-        const active = useActive(dialog);
+        const active = onActive(dialog);
         // Focus is inside an iframe. `document.activeElement` reports the frame,
         // and this Tab is already spent moving through the frame's own document, so
         // intervening would double-step it.
@@ -557,7 +557,7 @@ function useOpen(options = {}) {
             first.focus();
         }
     });
-    const target = usePortalTarget(options.container);
+    const target = onPortalTarget(options.container);
     target.append(dialog);
     // A detached target is an easy mistake — `shadowRoot` captured before attach,
     // or a `div` that was never inserted. Without this the dialog is invisible
@@ -568,7 +568,7 @@ function useOpen(options = {}) {
     }
     open.set(id, entry);
     lockScroll();
-    useEnsureGuard(dialog);
+    onEnsureGuard(dialog);
     try {
         // `showModal()` gives the top layer, the backdrop and inertness for the rest
         // of the document. The attribute is the fallback for engines without it;
@@ -584,7 +584,7 @@ function useOpen(options = {}) {
         open.delete(id);
         unlockScroll();
         dialog.remove();
-        useReleaseGuard(dialog);
+        onReleaseGuard(dialog);
         throw error;
     }
     // Evict the oldest rather than letting the stack grow without bound.
@@ -595,9 +595,9 @@ function useOpen(options = {}) {
         const stale = open.get(oldest.value);
         if (!stale)
             break;
-        useClose(stale, oldest.value);
+        onClose(stale, oldest.value);
     }
-    const first = options.initialFocus ?? useFocusables(dialog)[0] ?? dialog;
+    const first = options.initialFocus ?? onFocusables(dialog)[0] ?? dialog;
     first.focus({ preventScroll: true });
     return entry.handle;
 }
@@ -607,13 +607,13 @@ function useOpen(options = {}) {
  * @returns Nothing; a throwing dialog must not leave the rest of the stack open
  * with the page still locked.
  */
-function useCloseAll() {
+function onCloseAll() {
     for (const [id, entry] of [...open]) {
         try {
-            useClose(entry, id);
+            onClose(entry, id);
         }
         catch {
-            // `useClose` schedules `finish` before its only throw site, and `finish`
+            // `onClose` schedules `finish` before its only throw site, and `finish`
             // owns this lock — claiming it here too would underflow the refcount past
             // zero and unlock the page while a dialog is still open. Claim only what
             // `finish` has not been scheduled to do.
@@ -624,19 +624,19 @@ function useCloseAll() {
         }
     }
 }
-function useStore() {
+function onStore() {
     store ??= {
-        open: useOpen,
+        open: onOpen,
         close(id) {
             if (id !== undefined) {
                 const entry = open.get(id);
                 if (entry)
-                    useClose(entry, id);
+                    onClose(entry, id);
                 return;
             }
-            useCloseAll();
+            onCloseAll();
         },
-        closeAll: useCloseAll,
+        closeAll: onCloseAll,
     };
     return store;
 }
@@ -649,13 +649,13 @@ function useStore() {
  * modal.open({ title: "Delete project?", message: "This cannot be undone." });
  * ```
  *
- * Prefer this over {@link useModalStore} in application code; both hand back the
+ * Prefer this over {@link onModalStore} in application code; both hand back the
  * same singleton.
  */
 export const modal = {
-    open: (options) => useStore().open(options),
-    close: (id) => useStore().close(id),
-    closeAll: () => useStore().closeAll(),
+    open: (options) => onStore().open(options),
+    close: (id) => onStore().close(id),
+    closeAll: () => onStore().closeAll(),
 };
 /**
  * Returns the singleton dialog manager.
@@ -666,7 +666,7 @@ export const modal = {
  * @returns The shared {@link ModalStore}.
  * @throws {Error} Outside a DOM environment.
  */
-export function useModalStore() {
+export function onModalStore() {
     return modal;
 }
 /**

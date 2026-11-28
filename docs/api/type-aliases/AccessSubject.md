@@ -6,7 +6,7 @@
 type AccessSubject = z.infer<typeof AccessSubjectSchema>;
 ```
 
-Defined in: [types/core/access.ts:56](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L56)
+Defined in: [types/core/access.ts:50](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L50)
 
 Structural subject for access checks. Decoupled from the persistence layer:
 any object with an id and a role list can be checked (e.g. a Prisma

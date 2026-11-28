@@ -2,7 +2,7 @@
 
 # Class: GeneratorService
 
-Defined in: [core/services/generator.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L27)
+Defined in: [core/services/generator.service.ts:27](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L27)
 
 GeneratorService — Singleton facade for numeric ids, UUIDs, slugs, tokens
 and PBKDF2 hashing.
@@ -22,21 +22,21 @@ The auto-incrementing id counter is instance state, never a static.
 ## Example
 
 ```ts
-import { useUuid } from "katanakit-js";
+import { uuid } from "katanakit-js";
 
-const id = useUuid();
+const id = uuid();
 // => "3b241101-e2bb-4d7a-8615-..."
 ```
 
 ## Methods
 
-### useHash()
+### hash()
 
 ```ts
-useHash(plainText, salt?): Promise<string>;
+hash(plainText, salt?): Promise<string>;
 ```
 
-Defined in: [core/services/generator.service.ts:181](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L181)
+Defined in: [core/services/generator.service.ts:181](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L181)
 
 Derives a PBKDF2-SHA512 hash of `plainText`.
 Returns `"salt:hashHex"`. Prefer a unique salt per secret.
@@ -63,28 +63,28 @@ default salt for real password hashing; prefer scrypt/argon2id instead.
 #### Examples
 
 ```ts
-import { useHash } from "katanakit-js";
+import { hash } from "katanakit-js";
 
-const digest = await useHash("secret", "optional-salt");
+const digest = await hash("secret", "optional-salt");
 // => "optional-salt:<128 hex chars>"
 ```
 
 ```ts
 import { LazyNodeCryptoStrategy } from "katanakit-js";
 
-const digest = await LazyNodeCryptoStrategy.useHash("secret");
+const digest = await LazyNodeCryptoStrategy.hash("secret");
 // => "<32-char salt>:<128-char hex>"
 ```
 
 ***
 
-### useNumericId()
+### numericId()
 
 ```ts
-useNumericId(): number;
+numericId(): number;
 ```
 
-Defined in: [core/services/generator.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L57)
+Defined in: [core/services/generator.service.ts:57](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L57)
 
 Returns the next auto-incrementing numeric id.
 
@@ -97,23 +97,23 @@ A monotonically increasing integer starting from `1`.
 #### Example
 
 ```ts
-import { useNumericId } from "katanakit-js";
+import { numericId } from "katanakit-js";
 
-useNumericId(); // 1
-useNumericId(); // 2
+numericId(); // 1
+numericId(); // 2
 ```
 
 ***
 
-### usePbkdf2Hash()
+### pbkdf2Hash()
 
 ```ts
-usePbkdf2Hash(plainText, salt?): Promise<string>;
+pbkdf2Hash(plainText, salt?): Promise<string>;
 ```
 
-Defined in: [core/services/generator.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L216)
+Defined in: [core/services/generator.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L216)
 
-Alias for [GeneratorService.useHash](#usehash).
+Alias for [GeneratorService.hash](#hash).
 
 #### Parameters
 
@@ -131,21 +131,21 @@ Alias for [GeneratorService.useHash](#usehash).
 #### Example
 
 ```ts
-import { usePbkdf2Hash } from "katanakit-js";
+import { pbkdf2Hash } from "katanakit-js";
 
-const digest = await usePbkdf2Hash("secret");
+const digest = await pbkdf2Hash("secret");
 // => "<32-char salt>:<128-char hex>"
 ```
 
 ***
 
-### useSlugify()
+### slugify()
 
 ```ts
-useSlugify(text): string;
+slugify(text): string;
 ```
 
-Defined in: [core/services/generator.service.ts:114](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L114)
+Defined in: [core/services/generator.service.ts:114](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L114)
 
 Converts a text string into a URL-friendly slug.
 
@@ -168,21 +168,21 @@ If `text` is empty or falsy.
 #### Example
 
 ```ts
-import { useSlugify } from "katanakit-js";
+import { slugify } from "katanakit-js";
 
-useSlugify("Hello World!");      // "hello-world"
-useSlugify("  Café au Lait  ");  // "cafe-au-lait"
+slugify("Hello World!");      // "hello-world"
+slugify("  Café au Lait  ");  // "cafe-au-lait"
 ```
 
 ***
 
-### useToken()
+### token()
 
 ```ts
-useToken(): number;
+token(): number;
 ```
 
-Defined in: [core/services/generator.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L142)
+Defined in: [core/services/generator.service.ts:142](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L142)
 
 Returns a cryptographically strong 6-digit numeric token (100000–999999).
 
@@ -195,20 +195,20 @@ A random 6-digit integer.
 #### Example
 
 ```ts
-import { useToken } from "katanakit-js";
+import { token } from "katanakit-js";
 
-const code = useToken(); // e.g. 482916
+const code = token(); // e.g. 482916
 ```
 
 ***
 
-### useUuid()
+### uuid()
 
 ```ts
-useUuid(): string;
+uuid(): string;
 ```
 
-Defined in: [core/services/generator.service.ts:85](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L85)
+Defined in: [core/services/generator.service.ts:85](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L85)
 
 Generates a RFC 4122 v4 UUID string.
 
@@ -224,16 +224,16 @@ A RFC 4122 v4 UUID string.
 #### Examples
 
 ```ts
-import { useUuid } from "katanakit-js";
+import { uuid } from "katanakit-js";
 
-const id = useUuid();
+const id = uuid();
 // => "3b241101-e2bb-4d7a-8615-..."
 ```
 
 ```ts
 import { NativeUuidStrategy } from "katanakit-js";
 
-const id = NativeUuidStrategy.useGenerate();
+const id = NativeUuidStrategy.generate();
 // => "3b241101-e2bb-4d7a-8615-..."
 ```
 
@@ -245,7 +245,7 @@ const id = NativeUuidStrategy.useGenerate();
 static getInstance(): GeneratorService;
 ```
 
-Defined in: [core/services/generator.service.ts:37](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/generator.service.ts#L37)
+Defined in: [core/services/generator.service.ts:37](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/generator.service.ts#L37)
 
 Returns the shared instance (Singleton).
 

@@ -6,4 +6,4 @@
 type DirectoryPage = z.infer<typeof DirectoryPageSchema>;
 ```
 
-Defined in: [schemas/directory.schema.ts:74](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/directory.schema.ts#L74)
+Defined in: [schemas/directory.schema.ts:71](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/directory.schema.ts#L71)

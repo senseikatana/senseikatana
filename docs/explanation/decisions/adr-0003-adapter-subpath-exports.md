@@ -12,7 +12,7 @@ description: Anything that imports a framework is published only through the exp
 Adapters import framework packages: `express`, `vue`, `react`, `svelte`,
 `solid-js`, `@angular/core`, `hono`, `better-auth`, `photoswipe`, Nuxt's
 `safe` conventions, and so on. If the main barrel re-exported them, a bare
-`import { useLogger } from "katanakit-js"` would drag peers into every
+`import { onLogger } from "katanakit-js"` would drag peers into every
 bundle, every install would demand them, and the "zero side effects on
 import" guarantee would be impossible to defend.
 

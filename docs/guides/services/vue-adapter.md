@@ -1,6 +1,6 @@
 ---
 title: Vue Adapter
-description: "Vue 3 composables for the shared TanStack Query Core client and the HTTP client — useQuery, useMutation, useRequest and useKatanaWatch, documented function by function."
+description: "Vue 3 composables for the shared TanStack Query Core client and the HTTP client — onQuery, onMutation, onRequest and onKatanaWatch, documented function by function."
 ---
 
 # Vue Adapter
@@ -10,9 +10,9 @@ with Vue's reactivity system:
 
 - the shared **TanStack Query Core** client — caching, request deduplication,
   retries, stale-while-revalidate, focus/reconnect refetch and invalidation —
-  through `useQuery()` and `useMutation()`;
+  through `onQuery()` and `onMutation()`;
 - KatanaKit's **HTTP client** — Safe Result requests over the registered APIs —
-  through `useRequest()`.
+  through `onRequest()`.
 
 Vue is an optional peer dependency (`vue >= 3.0.0`): install it next to
 `katanakit-js` when you import this subpath. There is no Vue plugin to register;
@@ -20,8 +20,8 @@ every export is a plain composable or a plain function.
 
 Three rules shape the whole page:
 
-1. **Call composables in `setup()` or an active effect scope.** `useQuery()`,
-   `useMutation()` and `useRequest()` create observers and watchers that must be
+1. **Call composables in `setup()` or an active effect scope.** `onQuery()`,
+   `onMutation()` and `onRequest()` create observers and watchers that must be
    disposed; cleanup is automatic when an active scope or component instance
    exists (see [Lifecycle and cleanup](#lifecycle-and-cleanup)). Outside one,
    you own the teardown.
@@ -30,13 +30,13 @@ Three rules shape the whole page:
    so cached data is shared across components and across
    [framework adapters](/guides/framework-adapters). `queryKey` is the single
    source of identity.
-3. **Reactivity style depends on the function.** `useQuery()` / `useMutation()`
+3. **Reactivity style depends on the function.** `onQuery()` / `onMutation()`
    return one shallow-reactive result object (read `query.data` directly);
-   `useRequest` returns individual `Ref`s (read `data.value` in script,
+   `onRequest` returns individual `Ref`s (read `data.value` in script,
    `data` in templates).
 
 **SSR note (Nuxt).** The process-global `QueryClient` must not be shared across
-requests on a server. Create a per-request client with `useCreateQueryClient()`,
+requests on a server. Create a per-request client with `onCreateQueryClient()`,
 prefetch and `dehydrate()` / `hydrate()` — see
 [Query Client](/guides/query-client) — or use the server helpers documented in
 [Nuxt Adapter](/guides/services/nuxt-adapter). No composable here blocks `setup`
@@ -47,16 +47,15 @@ prefetch first.
 
 | Export | Kind | Purpose |
 | --- | --- | --- |
-| `useQuery` | Composable | Cached query observer with a reactive TanStack result. |
-| `useMutation` | Composable | Mutation observer with a reactive TanStack result. |
-| `useRequest` | Composable | Non-cached reactive GET returning `{ data, error, loading, refetch }`. |
-| `useKatanaWatch` / `useWatch` | Composable | Vue `watch` with `deep: true` by default and auto-stop on unmount. |
-| `useQueryClient` | Accessor | Returns the shared `QueryClient` singleton. |
-| `useInitQueryClient` | Config | Replaces the shared client with configured defaults. |
-| `useCreateQueryClient` | Factory | Creates a fresh client (per request on SSR). |
-| `useSafeQueryFn` | Bridge | Unwraps a Safe Result into a TanStack `queryFn` that throws. |
-| `useKatanaFetch` | Deprecated alias | Former name of `useRequest`. |
-| `RequestState<T>` | Type | Contract of the `useRequest` return value. |
+| `onQuery` | Composable | Cached query observer with a reactive TanStack result. |
+| `onMutation` | Composable | Mutation observer with a reactive TanStack result. |
+| `onRequest` | Composable | Non-cached reactive GET returning `{ data, error, loading, refetch }`. |
+| `onKatanaWatch` / `onWatch` | Composable | Vue `watch` with `deep: true` by default and auto-stop on unmount. |
+| `onQueryClient` | Accessor | Returns the shared `QueryClient` singleton. |
+| `onInitQueryClient` | Config | Replaces the shared client with configured defaults. |
+| `onCreateQueryClient` | Factory | Creates a fresh client (per request on SSR). |
+| `onSafeQueryFn` | Bridge | Unwraps a Safe Result into a TanStack `queryFn` that throws. |
+| `RequestState<T>` | Type | Contract of the `onRequest` return value. |
 
 ## Quick example
 
@@ -66,8 +65,8 @@ A component that follows a prop change, shares the cache with any other
 ```vue
 <script setup lang="ts">
 import { computed } from "vue";
-import { defineApiConfig, useGetApi } from "katanakit-js";
-import { useQuery, useQueryClient, useSafeQueryFn } from "katanakit-js/adapters/vue";
+import { defineApiConfig, onGet } from "katanakit-js";
+import { onQuery, onQueryClient, onSafeQueryFn } from "katanakit-js/adapters/vue";
 
 defineApiConfig({
   pokeapi: {
@@ -83,17 +82,17 @@ interface Pokemon {
 
 const props = defineProps<{ id: number }>();
 
-const query = useQuery(
+const query = onQuery(
   computed(() => ({
     queryKey: ["pokemon", props.id],
-    queryFn: useSafeQueryFn(() =>
-      useGetApi<Pokemon>("pokeapi", "pokemonById", { params: { id: props.id } }),
+    queryFn: onSafeQueryFn(() =>
+      onGet<Pokemon>("pokeapi", "pokemonById", { params: { id: props.id } }),
     ),
     staleTime: 60_000,
   })),
 );
 
-const qc = useQueryClient();
+const qc = onQueryClient();
 const refresh = () => qc.invalidateQueries({ queryKey: ["pokemon"] });
 </script>
 
@@ -115,10 +114,10 @@ can import everything from one path. Their full behavior is documented in
 [Query Client](/guides/query-client); this section focuses on what matters from
 Vue.
 
-### useQueryClient()
+### onQueryClient()
 
 ```ts
-function useQueryClient(): QueryClient;
+function onQueryClient(): QueryClient;
 ```
 
 Returns the shared `QueryClient`, lazily creating it on first call. Use it to
@@ -127,37 +126,37 @@ and event handlers. Because the client is module-global, the same instance is
 returned by every adapter (React, Solid, Svelte, Angular) in the same runtime.
 
 ```ts
-import { useQueryClient } from "katanakit-js/adapters/vue";
+import { onQueryClient } from "katanakit-js/adapters/vue";
 
-const qc = useQueryClient();
+const qc = onQueryClient();
 
 await qc.invalidateQueries({ queryKey: ["pokemon"] });
 qc.setQueryData(["pokemon", 25], { id: 25, name: "pikachu" });
 ```
 
-When called `useQuery({ ... }, client)`, the explicit `client` argument wins and
+When called `onQuery({ ... }, client)`, the explicit `client` argument wins and
 the singleton is not touched.
 
 **Real use case** — an optimistic update from a non-component module: when an
 external event (websocket, service worker message) says a record changed, grab
 the shared client and invalidate the matching key so every mounted
-`useQuery()` refetches without prop drilling.
+`onQuery()` refetches without prop drilling.
 
-### useInitQueryClient(config?)
+### onInitQueryClient(config?)
 
 ```ts
-function useInitQueryClient(config?: QueryClientConfig): QueryClient;
+function onInitQueryClient(config?: QueryClientConfig): QueryClient;
 ```
 
 Replaces the shared client with a configured one and **clears the previous
 client's caches** before swapping. Call it once at bootstrap to set app-wide
-defaults. Every later `useQuery()` / `useMutation()` picks up the new instance;
+defaults. Every later `onQuery()` / `onMutation()` picks up the new instance;
 observers created before the swap keep pointing at the old one.
 
 ```ts
-import { useInitQueryClient } from "katanakit-js/adapters/vue";
+import { onInitQueryClient } from "katanakit-js/adapters/vue";
 
-useInitQueryClient({
+onInitQueryClient({
   defaultOptions: {
     queries: { staleTime: 60_000, retry: 2, refetchOnWindowFocus: true },
   },
@@ -165,25 +164,25 @@ useInitQueryClient({
 ```
 
 `defaultQueryOptions()` is applied to the options passed to every
-`useQuery()` — both at creation and on each reactive option update.
+`onQuery()` — both at creation and on each reactive option update.
 
 **Real use case** — configure retry/`staleTime` policy once in the app entry
 file, then forget about it: components stay free of cache tuning, and tests can
-call `useInitQueryClient()` to start from a clean, deterministic cache.
+call `onInitQueryClient()` to start from a clean, deterministic cache.
 
-### useCreateQueryClient(config?)
+### onCreateQueryClient(config?)
 
 ```ts
-function useCreateQueryClient(config?: QueryClientConfig): QueryClient;
+function onCreateQueryClient(config?: QueryClientConfig): QueryClient;
 ```
 
 Creates a **fresh** client without touching the singleton. This is the SSR
 primitive: one client per request avoids leaking one user's data to another.
 
 ```ts
-import { dehydrate, useCreateQueryClient } from "katanakit-js";
+import { dehydrate, onCreateQueryClient } from "katanakit-js";
 
-const client = useCreateQueryClient();
+const client = onCreateQueryClient();
 await client.prefetchQuery({ queryKey, queryFn });
 const state = dehydrate(client); // ship to the client, then hydrate()
 ```
@@ -192,42 +191,42 @@ const state = dehydrate(client); // ship to the client, then hydrate()
 data per request, dehydrates the cache, and hydrates it in the browser so the
 first client render reads warm data instead of refetching.
 
-### useSafeQueryFn(fn)
+### onSafeQueryFn(fn)
 
 ```ts
-function useSafeQueryFn<T>(
+function onSafeQueryFn<T>(
   fn: (context: QueryFunctionContext) => Promise<FetchResult<T>>,
 ): (context: QueryFunctionContext) => Promise<T>;
 ```
 
 Bridges the two error contracts. KatanaKit requests return a Safe Result
 (`{ data, error, ok }`) and never throw; TanStack expects `queryFn` to resolve
-with data and **throw** on failure. `useSafeQueryFn()` unwraps the result and
+with data and **throw** on failure. `onSafeQueryFn()` unwraps the result and
 throws a real `Error` carrying `status` on failure, so `error`, `isError` and
 retry logic behave normally. The upstream response body is **not** attached to
 the thrown error.
 
 ```ts
-import { useFetch, useSafeQueryFn } from "katanakit-js";
+import { onFetch, onSafeQueryFn } from "katanakit-js";
 
-queryFn: useSafeQueryFn(({ signal }) =>
-  useFetch("pokeapi", "pokemonById", { method: "GET", params: { id }, signal }),
+queryFn: onSafeQueryFn(({ signal }) =>
+  onFetch("pokeapi", "pokemonById", { method: "GET", params: { id }, signal }),
 );
 ```
 
 The `context` argument is TanStack's `QueryFunctionContext`; forward its
 `signal` when you want a query cancellation to abort the HTTP request too.
 
-**Real use case** — migrate an existing `useGetApi()` call to a cached query
-without changing its error handling: wrap it in `useSafeQueryFn()` and the Safe
+**Real use case** — migrate an existing `onGet()` call to a cached query
+without changing its error handling: wrap it in `onSafeQueryFn()` and the Safe
 Result failure becomes a thrown error that TanStack retries and surfaces.
 
 ## Queries
 
-### useQuery(options, client?)
+### onQuery(options, client?)
 
 ```ts
-function useQuery<TQueryFnData = unknown, TError = Error, TData = TQueryFnData>(
+function onQuery<TQueryFnData = unknown, TError = Error, TData = TQueryFnData>(
   options: MaybeRef<QueryObserverOptions<TQueryFnData, TError, TData>>,
   client?: QueryClient,
 ): QueryObserverResult<TData, TError>;
@@ -243,7 +242,7 @@ when `data`, `status` or `fetchStatus` change.
 When it is reactive, a deep watcher calls `observer.setOptions()` with the
 unwrapped value, which changes the `queryKey` and triggers a fetch for the new
 key. `client.defaultQueryOptions()` is applied on creation and on every update,
-so app-wide defaults from `useInitQueryClient()` are honored.
+so app-wide defaults from `onInitQueryClient()` are honored.
 
 The result is TanStack's native `QueryObserverResult`. The fields you will reach
 for most:
@@ -265,7 +264,7 @@ for most:
 Edge cases worth knowing:
 
 - **Do not destructure the result.** The object is reactive, but its properties
-  are plain values; `const { data } = useQuery(...)` captures a snapshot. Read
+  are plain values; `const { data } = onQuery(...)` captures a snapshot. Read
   `query.data` or convert with `toRefs(query)`.
 - **Reactive options need a reactive source.** A plain object passed directly is
   evaluated once for the deep watcher; wrap it in `computed()` / `ref()` to
@@ -282,16 +281,16 @@ Edge cases worth knowing:
 ```vue
 <script setup lang="ts">
 import { computed } from "vue";
-import { useGetApi } from "katanakit-js";
-import { useQuery, useSafeQueryFn } from "katanakit-js/adapters/vue";
+import { onGet } from "katanakit-js";
+import { onQuery, onSafeQueryFn } from "katanakit-js/adapters/vue";
 
 const props = defineProps<{ id: number }>();
 
-const query = useQuery(
+const query = onQuery(
   computed(() => ({
     queryKey: ["pokemon", props.id],
-    queryFn: useSafeQueryFn(() =>
-      useGetApi<{ name: string }>("pokeapi", "pokemonById", { params: { id: props.id } }),
+    queryFn: onSafeQueryFn(() =>
+      onGet<{ name: string }>("pokeapi", "pokemonById", { params: { id: props.id } }),
     ),
   })),
 );
@@ -304,7 +303,7 @@ const query = useQuery(
 </template>
 ```
 
-**Cache sharing across components** — two components calling `useQuery()` with
+**Cache sharing across components** — two components calling `onQuery()` with
 the same `queryKey` share one cache entry; only one request is in flight
 (deduplication), both reactive results update together, and
 `invalidateQueries({ queryKey })` from anywhere refetches both. This is what
@@ -318,10 +317,10 @@ behavior TanStack provides.
 
 ## Mutations
 
-### useMutation(options, client?)
+### onMutation(options, client?)
 
 ```ts
-function useMutation<TData = unknown, TError = Error, TVariables = void, TContext = unknown>(
+function onMutation<TData = unknown, TError = Error, TVariables = void, TContext = unknown>(
   options: MaybeRef<MutationObserverOptions<TData, TError, TVariables, TContext>>,
   client?: QueryClient,
 ): MutationObserverResult<TData, TError, TVariables, TContext>;
@@ -362,18 +361,18 @@ Edge cases worth knowing:
   `mutateAsync()` when you want to `await` and `try/catch` in the caller.
 - **Reusing one observer.** Calling `mutate()` again while pending is allowed;
   the latest call wins the reactive state. Call `reset()` to clear it.
-- **Cleanup is scope-based**, like `useQuery()`: the subscription is removed via
+- **Cleanup is scope-based**, like `onQuery()`: the subscription is removed via
   `onScopeDispose()` when a scope owns the composable.
 
 ```vue
 <script setup lang="ts">
-import { usePost } from "katanakit-js";
-import { useMutation, useQueryClient } from "katanakit-js/adapters/vue";
+import { onPost } from "katanakit-js";
+import { onMutation, onQueryClient } from "katanakit-js/adapters/vue";
 
-const qc = useQueryClient();
+const qc = onQueryClient();
 
-const create = useMutation({
-  mutationFn: (name: string) => usePost<{ id: number; name: string }>("api", "createUser", { name }),
+const create = onMutation({
+  mutationFn: (name: string) => onPost<{ id: number; name: string }>("api", "createUser", { name }),
   onSuccess: () => qc.invalidateQueries({ queryKey: ["users"] }),
 });
 </script>
@@ -391,7 +390,7 @@ and in `onMutate` write the optimistic value into the cached list with
 
 ## Requests without a cache
 
-### useRequest(apiName, endpointName, options?)
+### onRequest(apiName, endpointName, options?)
 
 ```ts
 interface RequestState<T> {
@@ -401,18 +400,18 @@ interface RequestState<T> {
   refetch: () => Promise<void>;
 }
 
-function useRequest<T>(
+function onRequest<T>(
   apiName: string,
   endpointName: string,
   options?: MaybeRef<UrlOptions>,
 ): RequestState<T>;
 ```
 
-A lightweight, no-cache reactive GET over a registered API, built on `useFetch()`
+A lightweight, no-cache reactive GET over a registered API, built on `onFetch()`
 with `method: "GET"`. It bridges the Safe Result pattern to idiomatic Vue state
 and **never throws on HTTP errors** — failures go to `error` instead. Reach for
 it for one-off fetches that do not need TanStack's cache; use
-[`useQuery()`](#usequeryoptions-client) when you want caching, deduplication or
+[`onQuery()`](#onqueryoptions-client) when you want caching, deduplication or
 retries.
 
 Parameters:
@@ -449,17 +448,17 @@ Behavior details:
   disposed and aborts the in-flight controller. Outside a component instance
   there is no unmount hook: the request is not aborted automatically.
 - **SSR.** The fetch starts on the server too, but rendering does not await it;
-  use `useQuery()` with prefetching or the Nuxt server helpers when the first
+  use `onQuery()` with prefetching or the Nuxt server helpers when the first
   paint needs data.
 
 ```vue
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRequest } from "katanakit-js/adapters/vue";
+import { onRequest } from "katanakit-js/adapters/vue";
 
 const props = defineProps<{ id: number }>();
 
-const { data, error, loading, refetch } = useRequest<{ name: string }>(
+const { data, error, loading, refetch } = onRequest<{ name: string }>(
   "pokeapi",
   "pokemonById",
   computed(() => ({ params: { id: props.id } })),
@@ -477,29 +476,9 @@ const { data, error, loading, refetch } = useRequest<{ name: string }>(
 ```
 
 **Real use case** — a dashboard widget that must always show fresh server state
-and never serve a cached copy: `useRequest()` refetches on every mount and on
+and never serve a cached copy: `onRequest()` refetches on every mount and on
 every filter change, while `data` stays visible during the refetch so the card
 does not collapse back into a spinner.
-
-### useKatanaFetch
-
-::: warning Deprecated
-`useKatanaFetch` is an alias of [`useRequest`](#userequestapiname-endpointname-options),
-renamed for brevity. It remains exported for backwards compatibility and is
-scheduled for removal in the next major.
-:::
-
-```ts
-import { useKatanaFetch } from "katanakit-js/adapters/vue";
-
-const { data, loading } = useKatanaFetch<{ name: string }>("pokeapi", "pokemonById", {
-  params: { id: 25 },
-});
-```
-
-**Real use case** — migrating an existing codebase one file at a time: keep
-`useKatanaFetch` imports compiling until the rename is complete, then replace
-them with `useRequest`.
 
 ## Watch integration
 
@@ -508,10 +487,10 @@ Vue's native `watch` with one changed default — `deep: true` — plus automati
 teardown on unmount. It has no DOM dependency, so it is SSR-safe. A longer,
 framework-level overview lives in [Generic Watch](/guides/watch).
 
-### useKatanaWatch(source, callback, options?)
+### onKatanaWatch(source, callback, options?)
 
 ```ts
-function useKatanaWatch<T>(
+function onKatanaWatch<T>(
   source: WatchSource<T> | Array<WatchSource<unknown>>,
   callback: WatchCallback<T, T | undefined>,
   options: WatchOptions = {},
@@ -541,11 +520,11 @@ component, it keeps running until you call the returned handle.
 
 ```ts
 import { ref } from "vue";
-import { useKatanaWatch } from "katanakit-js/adapters/vue";
+import { onKatanaWatch } from "katanakit-js/adapters/vue";
 
 const product = ref({ name: "", price: 0 });
 
-const stop = useKatanaWatch(product, (next, previous) => {
+const stop = onKatanaWatch(product, (next, previous) => {
   console.log(previous, "->", next);
 });
 
@@ -557,20 +536,20 @@ stop(); // manual teardown outside a component
 deep-watching boilerplate or a manual `watch(..., { deep: true })` at each call
 site.
 
-### useWatch(source, callback, options?)
+### onWatch(source, callback, options?)
 
-`useWatch` is **the same function reference** as `useKatanaWatch` — same
+`onWatch` is **the same function reference** as `onKatanaWatch` — same
 signature, same defaults, same cleanup. It exists purely as the short everyday
 name.
 
 ```ts
 import { ref } from "vue";
-import { useWatch } from "katanakit-js/adapters/vue";
+import { onWatch } from "katanakit-js/adapters/vue";
 
 const cart = ref({ items: [] as { price: number }[] });
 const total = ref(0);
 
-useWatch(
+onWatch(
   () => cart.value.items,
   (items) => {
     total.value = items.reduce((sum, item) => sum + item.price, 0);
@@ -578,7 +557,7 @@ useWatch(
 );
 ```
 
-`useWatch` can also run schema-agnostic validation on every nested change:
+`onWatch` can also run schema-agnostic validation on every nested change:
 whatever parser exposes `safeParse` (Zod, Valibot, a custom function) can fill a
 `fieldErrors` ref from the callback.
 
@@ -590,14 +569,14 @@ mirror a selection into URL state, all with a single teardown handle.
 
 | Function | Cleanup mechanism | Trigger |
 | --- | --- | --- |
-| `useQuery` | `getCurrentScope()` + `onScopeDispose(unsubscribe)` | Component unmount or `effectScope().stop()`. |
-| `useMutation` | `getCurrentScope()` + `onScopeDispose(unsubscribe)` | Component unmount or `effectScope().stop()`. |
-| `useRequest` | `getCurrentInstance()` + `onUnmounted(abort)` | Component unmount only. |
-| `useKatanaWatch` | `getCurrentInstance()` + `onUnmounted(stop)` | Component unmount; manual `stop()` anywhere. |
+| `onQuery` | `getCurrentScope()` + `onScopeDispose(unsubscribe)` | Component unmount or `effectScope().stop()`. |
+| `onMutation` | `getCurrentScope()` + `onScopeDispose(unsubscribe)` | Component unmount or `effectScope().stop()`. |
+| `onRequest` | `getCurrentInstance()` + `onUnmounted(abort)` | Component unmount only. |
+| `onKatanaWatch` | `getCurrentInstance()` + `onUnmounted(stop)` | Component unmount; manual `stop()` anywhere. |
 
-`useQuery()` and `useMutation()` are the flexible pair: any active
+`onQuery()` and `onMutation()` are the flexible pair: any active
 `effectScope()` — not just a component — gets automatic disposal, which makes
-them safe inside composables and tests. `useRequest` and `useKatanaWatch` key on
+them safe inside composables and tests. `onRequest` and `onKatanaWatch` key on
 a component instance, matching the lifecycle hooks they use. When no scope or
 instance exists, none of them registers cleanup; the returned stop handle (where
 available) or the owning scope is your responsibility.
@@ -607,9 +586,9 @@ available) or the owning scope is your responsibility.
 - [Nuxt Adapter](/guides/services/nuxt-adapter) — server helpers and Vue
   re-exports for Nuxt.
 - [Query Client](/guides/query-client) — the shared TanStack engine behind
-  `useQuery()` and `useMutation()`.
+  `onQuery()` and `onMutation()`.
 - [HTTP Client](/guides/services/http-client) — `defineApiConfig`,
-  `useGetApi()` and the Safe Result consumed by `useRequest()`.
+  `onGet()` and the Safe Result consumed by `onRequest()`.
 - [Framework Adapters](/guides/framework-adapters) — the same surface across
   React, Solid, Svelte and Angular.
 - [API Reference](/api/) — every export generated from source.

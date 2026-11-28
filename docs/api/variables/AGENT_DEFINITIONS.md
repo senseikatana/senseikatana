@@ -6,7 +6,7 @@
 const AGENT_DEFINITIONS: readonly AgentDefinition[];
 ```
 
-Defined in: [core/services/agentconfig.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agentconfig.service.ts#L22)
+Defined in: [core/services/agentconfig.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agentconfig.service.ts#L22)
 
 The agent registry: every coding tool whose configuration this kit can
 generate. Adding a tool means adding one entry here plus one emitter — the

@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import WorkCard from '../../features/works/components/WorkCard.astro';
+import CtaSection from '../../components/CtaSection.astro';
+import { getWorks } from '../../features/works/queries';
+import { getLocale, useTranslations } from '../../i18n';
+
+const locale = getLocale(Astro.url.pathname, Astro.currentLocale);
+const tr = useTranslations(locale);
+const works = await getWorks(locale);
+---
+
+<Base title={tr('works.title')} description={tr('works.subtitle')}>
+  <Section top={false} inner="px-6 pt-16 pb-14 max-md:px-5">
+    <SectionHead
+      idx="01"
+      label={tr('works.label')}
+      title={tr('works.headline')}
+      lede={tr('works.subtitle')}
+      size="lg"
+    />
+  </Section>
+
+  <Section top={false} inner="px-6 pb-24 max-md:px-5">
+    {
+      works.length === 0 ? (
+        <div class="max-w-[60ch] border border-rule p-8">
+          <p class="label">{tr('works.label')}</p>
+          <p class="mt-3 text-[16px] leading-[1.6] text-steel">{tr('works.empty')}</p>
+        </div>
+      ) : (
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-rule">
+          {works.map((work) => (
+            <li class="contents">
+              <WorkCard work={work} />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Section>
+
+  <CtaSection title={tr('works.ctaTitle')} lede={tr('works.ctaBody')} />
+</Base>

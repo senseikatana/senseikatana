@@ -6,10 +6,9 @@
 type ConfigMethod = (...args) => unknown;
 ```
 
-Defined in: [types/core/config-facade.ts:7](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/config-facade.ts#L7)
+Defined in: [types/core/config-facade.ts:4](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/config-facade.ts#L4)
 
-Any method a consumer declares inline in a `define*Config` literal.
-Written with `function` (never an arrow) so `this` resolves to the facade.
+Any method a consumer declares inline in a `define*Config` literal. Written with `function` (never an arrow) so `this` resolves to the facade.
 
 ## Parameters
 

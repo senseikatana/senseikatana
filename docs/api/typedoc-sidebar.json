@@ -286,10 +286,6 @@
         "link": "/api/interfaces/IAssistantService.md"
       },
       {
-        "text": "IAstroService",
-        "link": "/api/interfaces/IAstroService.md"
-      },
-      {
         "text": "IAuthProvider",
         "link": "/api/interfaces/IAuthProvider.md"
       },
@@ -396,22 +392,6 @@
       {
         "text": "ScrollOptions",
         "link": "/api/interfaces/ScrollOptions.md"
-      },
-      {
-        "text": "SeoMetaArticle",
-        "link": "/api/interfaces/SeoMetaArticle.md"
-      },
-      {
-        "text": "SeoMetaFlat",
-        "link": "/api/interfaces/SeoMetaFlat.md"
-      },
-      {
-        "text": "SeoOgImageObject",
-        "link": "/api/interfaces/SeoOgImageObject.md"
-      },
-      {
-        "text": "SeoRobotsObject",
-        "link": "/api/interfaces/SeoRobotsObject.md"
       },
       {
         "text": "SeoTagNode",
@@ -960,16 +940,16 @@
         "link": "/api/type-aliases/ScrollPosition.md"
       },
       {
-        "text": "SeoArrayable",
-        "link": "/api/type-aliases/SeoArrayable.md"
+        "text": "SeoMeta",
+        "link": "/api/type-aliases/SeoMeta.md"
       },
       {
-        "text": "SeoBooleanable",
-        "link": "/api/type-aliases/SeoBooleanable.md"
+        "text": "SeoMetaOptions",
+        "link": "/api/type-aliases/SeoMetaOptions.md"
       },
       {
-        "text": "SeoMetaInput",
-        "link": "/api/type-aliases/SeoMetaInput.md"
+        "text": "SeoSocial",
+        "link": "/api/type-aliases/SeoSocial.md"
       },
       {
         "text": "SeoTagResult",
@@ -998,14 +978,6 @@
       {
         "text": "ThemeMode",
         "link": "/api/type-aliases/ThemeMode.md"
-      },
-      {
-        "text": "UseSeoMetaBase",
-        "link": "/api/type-aliases/UseSeoMetaBase.md"
-      },
-      {
-        "text": "UseSeoMetaOptions",
-        "link": "/api/type-aliases/UseSeoMetaOptions.md"
       },
       {
         "text": "ValidationIssue",
@@ -1630,6 +1602,170 @@
         "link": "/api/variables/NumberFormatOptionsSchema.md"
       },
       {
+        "text": "onAverage",
+        "link": "/api/variables/onAverage.md"
+      },
+      {
+        "text": "onChunk",
+        "link": "/api/variables/onChunk.md"
+      },
+      {
+        "text": "onCopyToClipboard",
+        "link": "/api/variables/onCopyToClipboard.md"
+      },
+      {
+        "text": "onCreateMemoryStore",
+        "link": "/api/variables/onCreateMemoryStore.md"
+      },
+      {
+        "text": "onDeepClone",
+        "link": "/api/variables/onDeepClone.md"
+      },
+      {
+        "text": "onDeepMerge",
+        "link": "/api/variables/onDeepMerge.md"
+      },
+      {
+        "text": "onErrorCustom",
+        "link": "/api/variables/onErrorCustom.md"
+      },
+      {
+        "text": "onEvery",
+        "link": "/api/variables/onEvery.md"
+      },
+      {
+        "text": "onEveryAsync",
+        "link": "/api/variables/onEveryAsync.md"
+      },
+      {
+        "text": "onFilter",
+        "link": "/api/variables/onFilter.md"
+      },
+      {
+        "text": "onFilterAsync",
+        "link": "/api/variables/onFilterAsync.md"
+      },
+      {
+        "text": "onFind",
+        "link": "/api/variables/onFind.md"
+      },
+      {
+        "text": "onFindAsync",
+        "link": "/api/variables/onFindAsync.md"
+      },
+      {
+        "text": "onFindIndex",
+        "link": "/api/variables/onFindIndex.md"
+      },
+      {
+        "text": "onFindLast",
+        "link": "/api/variables/onFindLast.md"
+      },
+      {
+        "text": "onFlatMap",
+        "link": "/api/variables/onFlatMap.md"
+      },
+      {
+        "text": "onFromEntries",
+        "link": "/api/variables/onFromEntries.md"
+      },
+      {
+        "text": "onGetUrlParams",
+        "link": "/api/variables/onGetUrlParams.md"
+      },
+      {
+        "text": "onGrantAwareCan",
+        "link": "/api/variables/onGrantAwareCan.md"
+      },
+      {
+        "text": "onGroupBy",
+        "link": "/api/variables/onGroupBy.md"
+      },
+      {
+        "text": "onIsObject",
+        "link": "/api/variables/onIsObject.md"
+      },
+      {
+        "text": "onKeys",
+        "link": "/api/variables/onKeys.md"
+      },
+      {
+        "text": "onMap",
+        "link": "/api/variables/onMap.md"
+      },
+      {
+        "text": "onMapAsync",
+        "link": "/api/variables/onMapAsync.md"
+      },
+      {
+        "text": "onOmit",
+        "link": "/api/variables/onOmit.md"
+      },
+      {
+        "text": "onPartition",
+        "link": "/api/variables/onPartition.md"
+      },
+      {
+        "text": "onPick",
+        "link": "/api/variables/onPick.md"
+      },
+      {
+        "text": "onQuerySelector",
+        "link": "/api/variables/onQuerySelector.md"
+      },
+      {
+        "text": "onQuerySelectorAll",
+        "link": "/api/variables/onQuerySelectorAll.md"
+      },
+      {
+        "text": "onReduce",
+        "link": "/api/variables/onReduce.md"
+      },
+      {
+        "text": "onReduceAsync",
+        "link": "/api/variables/onReduceAsync.md"
+      },
+      {
+        "text": "onRetry",
+        "link": "/api/variables/onRetry.md"
+      },
+      {
+        "text": "onReverse",
+        "link": "/api/variables/onReverse.md"
+      },
+      {
+        "text": "onRound",
+        "link": "/api/variables/onRound.md"
+      },
+      {
+        "text": "onSleep",
+        "link": "/api/variables/onSleep.md"
+      },
+      {
+        "text": "onSome",
+        "link": "/api/variables/onSome.md"
+      },
+      {
+        "text": "onSomeAsync",
+        "link": "/api/variables/onSomeAsync.md"
+      },
+      {
+        "text": "onSortBy",
+        "link": "/api/variables/onSortBy.md"
+      },
+      {
+        "text": "onSplitConfig",
+        "link": "/api/variables/onSplitConfig.md"
+      },
+      {
+        "text": "onUnique",
+        "link": "/api/variables/onUnique.md"
+      },
+      {
+        "text": "onValues",
+        "link": "/api/variables/onValues.md"
+      },
+      {
         "text": "PrincipalSchema",
         "link": "/api/variables/PrincipalSchema.md"
       },
@@ -1684,14 +1820,6 @@
       {
         "text": "ThemeModeSchema",
         "link": "/api/variables/ThemeModeSchema.md"
-      },
-      {
-        "text": "useQuerySelector",
-        "link": "/api/variables/useQuerySelector.md"
-      },
-      {
-        "text": "useQuerySelectorAll",
-        "link": "/api/variables/useQuerySelectorAll.md"
       },
       {
         "text": "ValidationIssueSchema",
@@ -1996,12 +2124,20 @@
         "link": "/api/functions/createMemoryStorage.md"
       },
       {
+        "text": "createMemoryStore",
+        "link": "/api/functions/createMemoryStore.md"
+      },
+      {
         "text": "defineApiConfig",
         "link": "/api/functions/defineApiConfig.md"
       },
       {
         "text": "defineSeoMetaConfig",
         "link": "/api/functions/defineSeoMetaConfig.md"
+      },
+      {
+        "text": "grantAwareCan",
+        "link": "/api/functions/grantAwareCan.md"
       },
       {
         "text": "LocalStorageStrategy",
@@ -2016,1308 +2152,1088 @@
         "link": "/api/functions/MemoryStorageStrategy.md"
       },
       {
+        "text": "onAddClass",
+        "link": "/api/functions/onAddClass.md"
+      },
+      {
+        "text": "onAddKey",
+        "link": "/api/functions/onAddKey.md"
+      },
+      {
+        "text": "onAddMcpServer",
+        "link": "/api/functions/onAddMcpServer.md"
+      },
+      {
+        "text": "onAddRequestInterceptor",
+        "link": "/api/functions/onAddRequestInterceptor.md"
+      },
+      {
+        "text": "onAgentDefinitions",
+        "link": "/api/functions/onAgentDefinitions.md"
+      },
+      {
+        "text": "onAppend",
+        "link": "/api/functions/onAppend.md"
+      },
+      {
+        "text": "onAppendFile",
+        "link": "/api/functions/onAppendFile.md"
+      },
+      {
+        "text": "onApplySeoTag",
+        "link": "/api/functions/onApplySeoTag.md"
+      },
+      {
+        "text": "onAttempt",
+        "link": "/api/functions/onAttempt.md"
+      },
+      {
+        "text": "onBearerToken",
+        "link": "/api/functions/onBearerToken.md"
+      },
+      {
+        "text": "onBlurActiveElement",
+        "link": "/api/functions/onBlurActiveElement.md"
+      },
+      {
+        "text": "onBuildUrl",
+        "link": "/api/functions/onBuildUrl.md"
+      },
+      {
+        "text": "onBuildVideoEmbed",
+        "link": "/api/functions/onBuildVideoEmbed.md"
+      },
+      {
+        "text": "onBuildVimeoEmbedUrl",
+        "link": "/api/functions/onBuildVimeoEmbedUrl.md"
+      },
+      {
+        "text": "onBuildYoutubeEmbedUrl",
+        "link": "/api/functions/onBuildYoutubeEmbedUrl.md"
+      },
+      {
+        "text": "onBuildYoutubeRssUrl",
+        "link": "/api/functions/onBuildYoutubeRssUrl.md"
+      },
+      {
+        "text": "onBuildYoutubeThumbnail",
+        "link": "/api/functions/onBuildYoutubeThumbnail.md"
+      },
+      {
+        "text": "onCan",
+        "link": "/api/functions/onCan.md"
+      },
+      {
+        "text": "onCapabilitiesFor",
+        "link": "/api/functions/onCapabilitiesFor.md"
+      },
+      {
+        "text": "onCapitalize",
+        "link": "/api/functions/onCapitalize.md"
+      },
+      {
+        "text": "onChat",
+        "link": "/api/functions/onChat.md"
+      },
+      {
+        "text": "onClearStorage",
+        "link": "/api/functions/onClearStorage.md"
+      },
+      {
+        "text": "onConvertCurrency",
+        "link": "/api/functions/onConvertCurrency.md"
+      },
+      {
+        "text": "onCopyFile",
+        "link": "/api/functions/onCopyFile.md"
+      },
+      {
+        "text": "onCreateBatch",
+        "link": "/api/functions/onCreateBatch.md"
+      },
+      {
+        "text": "onCreateDebouncedSignal",
+        "link": "/api/functions/onCreateDebouncedSignal.md"
+      },
+      {
+        "text": "onCreateEffect",
+        "link": "/api/functions/onCreateEffect.md"
+      },
+      {
+        "text": "onCreateElement",
+        "link": "/api/functions/onCreateElement.md"
+      },
+      {
+        "text": "onCreateKeyRecord",
+        "link": "/api/functions/onCreateKeyRecord.md"
+      },
+      {
+        "text": "onCreateMcpServer",
+        "link": "/api/functions/onCreateMcpServer.md"
+      },
+      {
+        "text": "onCreateMemo",
+        "link": "/api/functions/onCreateMemo.md"
+      },
+      {
+        "text": "onCreatePool",
+        "link": "/api/functions/onCreatePool.md"
+      },
+      {
+        "text": "onCreateQueryClient",
+        "link": "/api/functions/onCreateQueryClient.md"
+      },
+      {
+        "text": "onCreateSession",
+        "link": "/api/functions/onCreateSession.md"
+      },
+      {
+        "text": "onCreateSignal",
+        "link": "/api/functions/onCreateSignal.md"
+      },
+      {
+        "text": "onCreateStorageSignal",
+        "link": "/api/functions/onCreateStorageSignal.md"
+      },
+      {
+        "text": "onCreateToggle",
+        "link": "/api/functions/onCreateToggle.md"
+      },
+      {
+        "text": "onCurrencyConverter",
+        "link": "/api/functions/onCurrencyConverter.md"
+      },
+      {
+        "text": "onCustomError",
+        "link": "/api/functions/onCustomError.md"
+      },
+      {
+        "text": "onDateAdd",
+        "link": "/api/functions/onDateAdd.md"
+      },
+      {
+        "text": "onDateBetween",
+        "link": "/api/functions/onDateBetween.md"
+      },
+      {
+        "text": "onDateOrder",
+        "link": "/api/functions/onDateOrder.md"
+      },
+      {
+        "text": "onDateSubtract",
+        "link": "/api/functions/onDateSubtract.md"
+      },
+      {
+        "text": "onDebounce",
+        "link": "/api/functions/onDebounce.md"
+      },
+      {
+        "text": "onDebounceImmediate",
+        "link": "/api/functions/onDebounceImmediate.md"
+      },
+      {
+        "text": "onDecryptVault",
+        "link": "/api/functions/onDecryptVault.md"
+      },
+      {
+        "text": "onDelete",
+        "link": "/api/functions/onDelete.md"
+      },
+      {
+        "text": "onDestroyTheme",
+        "link": "/api/functions/onDestroyTheme.md"
+      },
+      {
+        "text": "onDurationBetween",
+        "link": "/api/functions/onDurationBetween.md"
+      },
+      {
+        "text": "onEmitAgentConfig",
+        "link": "/api/functions/onEmitAgentConfig.md"
+      },
+      {
+        "text": "onEmitOpenCodeServers",
+        "link": "/api/functions/onEmitOpenCodeServers.md"
+      },
+      {
+        "text": "onEmptyVault",
+        "link": "/api/functions/onEmptyVault.md"
+      },
+      {
+        "text": "onEncryptVault",
+        "link": "/api/functions/onEncryptVault.md"
+      },
+      {
+        "text": "onEnhanceVideoFacades",
+        "link": "/api/functions/onEnhanceVideoFacades.md"
+      },
+      {
+        "text": "onEnsureDir",
+        "link": "/api/functions/onEnsureDir.md"
+      },
+      {
+        "text": "onErrorNormalize",
+        "link": "/api/functions/onErrorNormalize.md"
+      },
+      {
+        "text": "onExitFullscreen",
+        "link": "/api/functions/onExitFullscreen.md"
+      },
+      {
+        "text": "onFakeBoolean",
+        "link": "/api/functions/onFakeBoolean.md"
+      },
+      {
+        "text": "onFakeCompanyName",
+        "link": "/api/functions/onFakeCompanyName.md"
+      },
+      {
+        "text": "onFakeDate",
+        "link": "/api/functions/onFakeDate.md"
+      },
+      {
+        "text": "onFakeEmail",
+        "link": "/api/functions/onFakeEmail.md"
+      },
+      {
+        "text": "onFakeFirstName",
+        "link": "/api/functions/onFakeFirstName.md"
+      },
+      {
+        "text": "onFakeFullName",
+        "link": "/api/functions/onFakeFullName.md"
+      },
+      {
+        "text": "onFakeLastName",
+        "link": "/api/functions/onFakeLastName.md"
+      },
+      {
+        "text": "onFakeList",
+        "link": "/api/functions/onFakeList.md"
+      },
+      {
+        "text": "onFakeNumber",
+        "link": "/api/functions/onFakeNumber.md"
+      },
+      {
+        "text": "onFakePhone",
+        "link": "/api/functions/onFakePhone.md"
+      },
+      {
+        "text": "onFakeSeed",
+        "link": "/api/functions/onFakeSeed.md"
+      },
+      {
+        "text": "onFakeSetDefaultRefDate",
+        "link": "/api/functions/onFakeSetDefaultRefDate.md"
+      },
+      {
+        "text": "onFakeText",
+        "link": "/api/functions/onFakeText.md"
+      },
+      {
+        "text": "onFakeUrl",
+        "link": "/api/functions/onFakeUrl.md"
+      },
+      {
+        "text": "onFakeUuid",
+        "link": "/api/functions/onFakeUuid.md"
+      },
+      {
+        "text": "onFakeVehicle",
+        "link": "/api/functions/onFakeVehicle.md"
+      },
+      {
+        "text": "onFetch",
+        "link": "/api/functions/onFetch.md"
+      },
+      {
+        "text": "onFileExists",
+        "link": "/api/functions/onFileExists.md"
+      },
+      {
+        "text": "onFindAgent",
+        "link": "/api/functions/onFindAgent.md"
+      },
+      {
+        "text": "onFindKey",
+        "link": "/api/functions/onFindKey.md"
+      },
+      {
+        "text": "onFindMcpServer",
+        "link": "/api/functions/onFindMcpServer.md"
+      },
+      {
+        "text": "onFocusElement",
+        "link": "/api/functions/onFocusElement.md"
+      },
+      {
+        "text": "onFormatCurrency",
+        "link": "/api/functions/onFormatCurrency.md"
+      },
+      {
+        "text": "onFormatNumber",
+        "link": "/api/functions/onFormatNumber.md"
+      },
+      {
+        "text": "onGenerateMetaTags",
+        "link": "/api/functions/onGenerateMetaTags.md"
+      },
+      {
+        "text": "onGet",
+        "link": "/api/functions/onGet.md"
+      },
+      {
+        "text": "onGetActiveElement",
+        "link": "/api/functions/onGetActiveElement.md"
+      },
+      {
+        "text": "onGetApis",
+        "link": "/api/functions/onGetApis.md"
+      },
+      {
+        "text": "onGetAttribute",
+        "link": "/api/functions/onGetAttribute.md"
+      },
+      {
+        "text": "onGetBackCamera",
+        "link": "/api/functions/onGetBackCamera.md"
+      },
+      {
+        "text": "onGetBasename",
+        "link": "/api/functions/onGetBasename.md"
+      },
+      {
+        "text": "onGetBattery",
+        "link": "/api/functions/onGetBattery.md"
+      },
+      {
+        "text": "onGetBody",
+        "link": "/api/functions/onGetBody.md"
+      },
+      {
+        "text": "onGetChannelVideos",
+        "link": "/api/functions/onGetChannelVideos.md"
+      },
+      {
+        "text": "onGetChannelVideosRss",
+        "link": "/api/functions/onGetChannelVideosRss.md"
+      },
+      {
+        "text": "onGetCwd",
+        "link": "/api/functions/onGetCwd.md"
+      },
+      {
+        "text": "onGetDataAttribute",
+        "link": "/api/functions/onGetDataAttribute.md"
+      },
+      {
+        "text": "onGetDirname",
+        "link": "/api/functions/onGetDirname.md"
+      },
+      {
+        "text": "onGetElementByClass",
+        "link": "/api/functions/onGetElementByClass.md"
+      },
+      {
+        "text": "onGetElementById",
+        "link": "/api/functions/onGetElementById.md"
+      },
+      {
+        "text": "onGetExchangeRate",
+        "link": "/api/functions/onGetExchangeRate.md"
+      },
+      {
+        "text": "onGetFileExtension",
+        "link": "/api/functions/onGetFileExtension.md"
+      },
+      {
+        "text": "onGetFileStats",
+        "link": "/api/functions/onGetFileStats.md"
+      },
+      {
+        "text": "onGetFrontCamera",
+        "link": "/api/functions/onGetFrontCamera.md"
+      },
+      {
+        "text": "onGetGeolocation",
+        "link": "/api/functions/onGetGeolocation.md"
+      },
+      {
+        "text": "onGetHistory",
+        "link": "/api/functions/onGetHistory.md"
+      },
+      {
+        "text": "onGetMediaStream",
+        "link": "/api/functions/onGetMediaStream.md"
+      },
+      {
+        "text": "onGetRelativePath",
+        "link": "/api/functions/onGetRelativePath.md"
+      },
+      {
+        "text": "onGetResolved",
+        "link": "/api/functions/onGetResolved.md"
+      },
+      {
+        "text": "onGetRoot",
+        "link": "/api/functions/onGetRoot.md"
+      },
+      {
+        "text": "onGetScrollPosition",
+        "link": "/api/functions/onGetScrollPosition.md"
+      },
+      {
+        "text": "onGetScrollProgress",
+        "link": "/api/functions/onGetScrollProgress.md"
+      },
+      {
+        "text": "onGetScrollX",
+        "link": "/api/functions/onGetScrollX.md"
+      },
+      {
+        "text": "onGetScrollY",
+        "link": "/api/functions/onGetScrollY.md"
+      },
+      {
+        "text": "onGetStorage",
+        "link": "/api/functions/onGetStorage.md"
+      },
+      {
+        "text": "onGetThemeMode",
+        "link": "/api/functions/onGetThemeMode.md"
+      },
+      {
+        "text": "onGetTitle",
+        "link": "/api/functions/onGetTitle.md"
+      },
+      {
+        "text": "onGetUploadsPlaylistId",
+        "link": "/api/functions/onGetUploadsPlaylistId.md"
+      },
+      {
+        "text": "onGetVideoDetails",
+        "link": "/api/functions/onGetVideoDetails.md"
+      },
+      {
+        "text": "onGetViewportSize",
+        "link": "/api/functions/onGetViewportSize.md"
+      },
+      {
+        "text": "onGetVimeoVideoId",
+        "link": "/api/functions/onGetVimeoVideoId.md"
+      },
+      {
+        "text": "onGetYoutubeConfig",
+        "link": "/api/functions/onGetYoutubeConfig.md"
+      },
+      {
+        "text": "onGetYoutubeVideoId",
+        "link": "/api/functions/onGetYoutubeVideoId.md"
+      },
+      {
+        "text": "onHasClass",
+        "link": "/api/functions/onHasClass.md"
+      },
+      {
+        "text": "onHashFile",
+        "link": "/api/functions/onHashFile.md"
+      },
+      {
+        "text": "onHasRole",
+        "link": "/api/functions/onHasRole.md"
+      },
+      {
+        "text": "onHasWorker",
+        "link": "/api/functions/onHasWorker.md"
+      },
+      {
+        "text": "onHeadTags",
+        "link": "/api/functions/onHeadTags.md"
+      },
+      {
+        "text": "onInitAgent",
+        "link": "/api/functions/onInitAgent.md"
+      },
+      {
+        "text": "onInitApis",
+        "link": "/api/functions/onInitApis.md"
+      },
+      {
+        "text": "onInitAssistant",
+        "link": "/api/functions/onInitAssistant.md"
+      },
+      {
+        "text": "onInitQueryClient",
+        "link": "/api/functions/onInitQueryClient.md"
+      },
+      {
+        "text": "onInitTheme",
+        "link": "/api/functions/onInitTheme.md"
+      },
+      {
+        "text": "onInitYoutube",
+        "link": "/api/functions/onInitYoutube.md"
+      },
+      {
+        "text": "onInterval",
+        "link": "/api/functions/onInterval.md"
+      },
+      {
+        "text": "onIsAtBottom",
+        "link": "/api/functions/onIsAtBottom.md"
+      },
+      {
+        "text": "onIsAtTop",
+        "link": "/api/functions/onIsAtTop.md"
+      },
+      {
+        "text": "onIsBrowser",
+        "link": "/api/functions/onIsBrowser.md"
+      },
+      {
+        "text": "onIsDocumentVisible",
+        "link": "/api/functions/onIsDocumentVisible.md"
+      },
+      {
+        "text": "onIsFullscreen",
+        "link": "/api/functions/onIsFullscreen.md"
+      },
+      {
+        "text": "onIsNode",
+        "link": "/api/functions/onIsNode.md"
+      },
+      {
+        "text": "onIsSupported",
+        "link": "/api/functions/onIsSupported.md"
+      },
+      {
+        "text": "onJoinPath",
+        "link": "/api/functions/onJoinPath.md"
+      },
+      {
+        "text": "onJsonParse",
+        "link": "/api/functions/onJsonParse.md"
+      },
+      {
+        "text": "onJsonStringify",
+        "link": "/api/functions/onJsonStringify.md"
+      },
+      {
+        "text": "onLazyLoaderHas",
+        "link": "/api/functions/onLazyLoaderHas.md"
+      },
+      {
+        "text": "onLazyLoaderInit",
+        "link": "/api/functions/onLazyLoaderInit.md"
+      },
+      {
+        "text": "onLazyLoaderStop",
+        "link": "/api/functions/onLazyLoaderStop.md"
+      },
+      {
+        "text": "onLazyLoaderStopAll",
+        "link": "/api/functions/onLazyLoaderStopAll.md"
+      },
+      {
+        "text": "onListKeys",
+        "link": "/api/functions/onListKeys.md"
+      },
+      {
+        "text": "onListMcpServers",
+        "link": "/api/functions/onListMcpServers.md"
+      },
+      {
+        "text": "onLoadVaultFile",
+        "link": "/api/functions/onLoadVaultFile.md"
+      },
+      {
+        "text": "onLogger",
+        "link": "/api/functions/onLogger.md"
+      },
+      {
+        "text": "onLoggerClear",
+        "link": "/api/functions/onLoggerClear.md"
+      },
+      {
+        "text": "onLoggerError",
+        "link": "/api/functions/onLoggerError.md"
+      },
+      {
+        "text": "onLoggerSetContext",
+        "link": "/api/functions/onLoggerSetContext.md"
+      },
+      {
+        "text": "onLoggerTable",
+        "link": "/api/functions/onLoggerTable.md"
+      },
+      {
+        "text": "onLoggerWarn",
+        "link": "/api/functions/onLoggerWarn.md"
+      },
+      {
+        "text": "onLowerCase",
+        "link": "/api/functions/onLowerCase.md"
+      },
+      {
+        "text": "onMaskSecret",
+        "link": "/api/functions/onMaskSecret.md"
+      },
+      {
+        "text": "onMatchesMedia",
+        "link": "/api/functions/onMatchesMedia.md"
+      },
+      {
+        "text": "onModalClose",
+        "link": "/api/functions/onModalClose.md"
+      },
+      {
+        "text": "onMoveFile",
+        "link": "/api/functions/onMoveFile.md"
+      },
+      {
+        "text": "onObserverCreate",
+        "link": "/api/functions/onObserverCreate.md"
+      },
+      {
+        "text": "onObserverDisconnect",
+        "link": "/api/functions/onObserverDisconnect.md"
+      },
+      {
+        "text": "onObserverDisconnectAll",
+        "link": "/api/functions/onObserverDisconnectAll.md"
+      },
+      {
+        "text": "onObserverHas",
+        "link": "/api/functions/onObserverHas.md"
+      },
+      {
+        "text": "onObserverKeys",
+        "link": "/api/functions/onObserverKeys.md"
+      },
+      {
+        "text": "onObserverObserve",
+        "link": "/api/functions/onObserverObserve.md"
+      },
+      {
+        "text": "onObserverObserveAll",
+        "link": "/api/functions/onObserverObserveAll.md"
+      },
+      {
+        "text": "onObserverUnobserve",
+        "link": "/api/functions/onObserverUnobserve.md"
+      },
+      {
+        "text": "onOn",
+        "link": "/api/functions/onOn.md"
+      },
+      {
+        "text": "onOnDeviceMotion",
+        "link": "/api/functions/onOnDeviceMotion.md"
+      },
+      {
+        "text": "onOnDeviceOrientation",
+        "link": "/api/functions/onOnDeviceOrientation.md"
+      },
+      {
+        "text": "onOnVisibilityChange",
+        "link": "/api/functions/onOnVisibilityChange.md"
+      },
+      {
+        "text": "onOpenCodeServersObject",
+        "link": "/api/functions/onOpenCodeServersObject.md"
+      },
+      {
+        "text": "onParseIso8601Duration",
+        "link": "/api/functions/onParseIso8601Duration.md"
+      },
+      {
+        "text": "onParseMediaSource",
+        "link": "/api/functions/onParseMediaSource.md"
+      },
+      {
+        "text": "onParseSmartVideoOptions",
+        "link": "/api/functions/onParseSmartVideoOptions.md"
+      },
+      {
+        "text": "onParseYoutubeRss",
+        "link": "/api/functions/onParseYoutubeRss.md"
+      },
+      {
+        "text": "onPatch",
+        "link": "/api/functions/onPatch.md"
+      },
+      {
+        "text": "onPost",
+        "link": "/api/functions/onPost.md"
+      },
+      {
+        "text": "onPrefersColorScheme",
+        "link": "/api/functions/onPrefersColorScheme.md"
+      },
+      {
+        "text": "onPrefersDarkMode",
+        "link": "/api/functions/onPrefersDarkMode.md"
+      },
+      {
+        "text": "onPrefersReducedMotion",
+        "link": "/api/functions/onPrefersReducedMotion.md"
+      },
+      {
+        "text": "onPrintPage",
+        "link": "/api/functions/onPrintPage.md"
+      },
+      {
+        "text": "onProviderEnvName",
+        "link": "/api/functions/onProviderEnvName.md"
+      },
+      {
+        "text": "onPut",
+        "link": "/api/functions/onPut.md"
+      },
+      {
+        "text": "onQueryClient",
+        "link": "/api/functions/onQueryClient.md"
+      },
+      {
+        "text": "onRace",
+        "link": "/api/functions/onRace.md"
+      },
+      {
+        "text": "onReadDir",
+        "link": "/api/functions/onReadDir.md"
+      },
+      {
+        "text": "onReadFile",
+        "link": "/api/functions/onReadFile.md"
+      },
+      {
+        "text": "onReadFileBuffer",
+        "link": "/api/functions/onReadFileBuffer.md"
+      },
+      {
+        "text": "onReadJsonFile",
+        "link": "/api/functions/onReadJsonFile.md"
+      },
+      {
+        "text": "onReadModuleFile",
+        "link": "/api/functions/onReadModuleFile.md"
+      },
+      {
+        "text": "onReadModuleJson",
+        "link": "/api/functions/onReadModuleJson.md"
+      },
+      {
+        "text": "onRefreshExchangeRates",
+        "link": "/api/functions/onRefreshExchangeRates.md"
+      },
+      {
+        "text": "onRegisterRole",
+        "link": "/api/functions/onRegisterRole.md"
+      },
+      {
+        "text": "onRemove",
+        "link": "/api/functions/onRemove.md"
+      },
+      {
+        "text": "onRemoveAttribute",
+        "link": "/api/functions/onRemoveAttribute.md"
+      },
+      {
+        "text": "onRemoveClass",
+        "link": "/api/functions/onRemoveClass.md"
+      },
+      {
+        "text": "onRemoveDir",
+        "link": "/api/functions/onRemoveDir.md"
+      },
+      {
+        "text": "onRemoveFile",
+        "link": "/api/functions/onRemoveFile.md"
+      },
+      {
+        "text": "onRemoveMcpServer",
+        "link": "/api/functions/onRemoveMcpServer.md"
+      },
+      {
+        "text": "onRemoveStorage",
+        "link": "/api/functions/onRemoveStorage.md"
+      },
+      {
+        "text": "onRepeat",
+        "link": "/api/functions/onRepeat.md"
+      },
+      {
+        "text": "onReplaceKey",
+        "link": "/api/functions/onReplaceKey.md"
+      },
+      {
+        "text": "onReply",
+        "link": "/api/functions/onReply.md"
+      },
+      {
+        "text": "onRequestFullscreen",
+        "link": "/api/functions/onRequestFullscreen.md"
+      },
+      {
+        "text": "onRequestMotionPermission",
+        "link": "/api/functions/onRequestMotionPermission.md"
+      },
+      {
+        "text": "onResetRoles",
+        "link": "/api/functions/onResetRoles.md"
+      },
+      {
+        "text": "onResetSeoMetaConfig",
+        "link": "/api/functions/onResetSeoMetaConfig.md"
+      },
+      {
+        "text": "onResetSession",
+        "link": "/api/functions/onResetSession.md"
+      },
+      {
+        "text": "onResetTheme",
+        "link": "/api/functions/onResetTheme.md"
+      },
+      {
+        "text": "onResolvePath",
+        "link": "/api/functions/onResolvePath.md"
+      },
+      {
+        "text": "onRevokeKey",
+        "link": "/api/functions/onRevokeKey.md"
+      },
+      {
+        "text": "onRoles",
+        "link": "/api/functions/onRoles.md"
+      },
+      {
+        "text": "onRotateKeySecret",
+        "link": "/api/functions/onRotateKeySecret.md"
+      },
+      {
+        "text": "onRssHeadLink",
+        "link": "/api/functions/onRssHeadLink.md"
+      },
+      {
+        "text": "onRun",
+        "link": "/api/functions/onRun.md"
+      },
+      {
+        "text": "onRunAgent",
+        "link": "/api/functions/onRunAgent.md"
+      },
+      {
+        "text": "onRunPool",
+        "link": "/api/functions/onRunPool.md"
+      },
+      {
+        "text": "onRunStorageScope",
+        "link": "/api/functions/onRunStorageScope.md"
+      },
+      {
+        "text": "onSafeQueryFn",
+        "link": "/api/functions/onSafeQueryFn.md"
+      },
+      {
+        "text": "onSalePrice",
+        "link": "/api/functions/onSalePrice.md"
+      },
+      {
+        "text": "onSaveVaultFile",
+        "link": "/api/functions/onSaveVaultFile.md"
+      },
+      {
+        "text": "onScrollTo",
+        "link": "/api/functions/onScrollTo.md"
+      },
+      {
+        "text": "onScrollToBottom",
+        "link": "/api/functions/onScrollToBottom.md"
+      },
+      {
+        "text": "onScrollToElement",
+        "link": "/api/functions/onScrollToElement.md"
+      },
+      {
+        "text": "onScrollToTop",
+        "link": "/api/functions/onScrollToTop.md"
+      },
+      {
+        "text": "onSeoMeta",
+        "link": "/api/functions/onSeoMeta.md"
+      },
+      {
+        "text": "onSeoMetaConfig",
+        "link": "/api/functions/onSeoMetaConfig.md"
+      },
+      {
+        "text": "onSerializeError",
+        "link": "/api/functions/onSerializeError.md"
+      },
+      {
+        "text": "onSessionExists",
+        "link": "/api/functions/onSessionExists.md"
+      },
+      {
+        "text": "onSetAttribute",
+        "link": "/api/functions/onSetAttribute.md"
+      },
+      {
+        "text": "onSetDataAttribute",
+        "link": "/api/functions/onSetDataAttribute.md"
+      },
+      {
+        "text": "onSetHtml",
+        "link": "/api/functions/onSetHtml.md"
+      },
+      {
+        "text": "onSetStorage",
+        "link": "/api/functions/onSetStorage.md"
+      },
+      {
+        "text": "onSetTempTitle",
+        "link": "/api/functions/onSetTempTitle.md"
+      },
+      {
+        "text": "onSetText",
+        "link": "/api/functions/onSetText.md"
+      },
+      {
+        "text": "onSetThemeMode",
+        "link": "/api/functions/onSetThemeMode.md"
+      },
+      {
+        "text": "onSetTimeout",
+        "link": "/api/functions/onSetTimeout.md"
+      },
+      {
+        "text": "onSetTitle",
+        "link": "/api/functions/onSetTitle.md"
+      },
+      {
+        "text": "onStopMediaStream",
+        "link": "/api/functions/onStopMediaStream.md"
+      },
+      {
+        "text": "onStopVibration",
+        "link": "/api/functions/onStopVibration.md"
+      },
+      {
+        "text": "onSubscribeRates",
+        "link": "/api/functions/onSubscribeRates.md"
+      },
+      {
+        "text": "onTerminate",
+        "link": "/api/functions/onTerminate.md"
+      },
+      {
+        "text": "onTerminateAll",
+        "link": "/api/functions/onTerminateAll.md"
+      },
+      {
+        "text": "onThrottle",
+        "link": "/api/functions/onThrottle.md"
+      },
+      {
+        "text": "onThrottleTrailing",
+        "link": "/api/functions/onThrottleTrailing.md"
+      },
+      {
+        "text": "onTitle",
+        "link": "/api/functions/onTitle.md"
+      },
+      {
+        "text": "onToCelsius",
+        "link": "/api/functions/onToCelsius.md"
+      },
+      {
+        "text": "onToCm",
+        "link": "/api/functions/onToCm.md"
+      },
+      {
+        "text": "onToFahrenheit",
+        "link": "/api/functions/onToFahrenheit.md"
+      },
+      {
+        "text": "onToggleClass",
+        "link": "/api/functions/onToggleClass.md"
+      },
+      {
+        "text": "onToggleTheme",
+        "link": "/api/functions/onToggleTheme.md"
+      },
+      {
+        "text": "onToInches",
+        "link": "/api/functions/onToInches.md"
+      },
+      {
+        "text": "onToKilometers",
+        "link": "/api/functions/onToKilometers.md"
+      },
+      {
+        "text": "onToKilos",
+        "link": "/api/functions/onToKilos.md"
+      },
+      {
+        "text": "onToMiles",
+        "link": "/api/functions/onToMiles.md"
+      },
+      {
+        "text": "onToPounds",
+        "link": "/api/functions/onToPounds.md"
+      },
+      {
+        "text": "onTryJsonParse",
+        "link": "/api/functions/onTryJsonParse.md"
+      },
+      {
+        "text": "onUpperCase",
+        "link": "/api/functions/onUpperCase.md"
+      },
+      {
+        "text": "onValidate",
+        "link": "/api/functions/onValidate.md"
+      },
+      {
+        "text": "onVaultPath",
+        "link": "/api/functions/onVaultPath.md"
+      },
+      {
+        "text": "onVerifyFileHash",
+        "link": "/api/functions/onVerifyFileHash.md"
+      },
+      {
+        "text": "onVibrate",
+        "link": "/api/functions/onVibrate.md"
+      },
+      {
+        "text": "onWatchGeolocation",
+        "link": "/api/functions/onWatchGeolocation.md"
+      },
+      {
+        "text": "onWorkerKeys",
+        "link": "/api/functions/onWorkerKeys.md"
+      },
+      {
+        "text": "onWriteFile",
+        "link": "/api/functions/onWriteFile.md"
+      },
+      {
+        "text": "onWriteJsonFile",
+        "link": "/api/functions/onWriteJsonFile.md"
+      },
+      {
+        "text": "resolveSubject",
+        "link": "/api/functions/resolveSubject.md"
+      },
+      {
         "text": "RetryDecorator",
         "link": "/api/functions/RetryDecorator.md"
       },
       {
         "text": "SessionStorageStrategy",
         "link": "/api/functions/SessionStorageStrategy.md"
-      },
-      {
-        "text": "useAddClass",
-        "link": "/api/functions/useAddClass.md"
-      },
-      {
-        "text": "useAddDays",
-        "link": "/api/functions/useAddDays.md"
-      },
-      {
-        "text": "useAddKey",
-        "link": "/api/functions/useAddKey.md"
-      },
-      {
-        "text": "useAddMcpServer",
-        "link": "/api/functions/useAddMcpServer.md"
-      },
-      {
-        "text": "useAddRequestInterceptor",
-        "link": "/api/functions/useAddRequestInterceptor.md"
-      },
-      {
-        "text": "useAgentDefinitions",
-        "link": "/api/functions/useAgentDefinitions.md"
-      },
-      {
-        "text": "useAppend",
-        "link": "/api/functions/useAppend.md"
-      },
-      {
-        "text": "useAppendFile",
-        "link": "/api/functions/useAppendFile.md"
-      },
-      {
-        "text": "useApplySeoTag",
-        "link": "/api/functions/useApplySeoTag.md"
-      },
-      {
-        "text": "useAttempt",
-        "link": "/api/functions/useAttempt.md"
-      },
-      {
-        "text": "useAverage",
-        "link": "/api/functions/useAverage.md"
-      },
-      {
-        "text": "useBearerToken",
-        "link": "/api/functions/useBearerToken.md"
-      },
-      {
-        "text": "useBlurActiveElement",
-        "link": "/api/functions/useBlurActiveElement.md"
-      },
-      {
-        "text": "useBuildUrl",
-        "link": "/api/functions/useBuildUrl.md"
-      },
-      {
-        "text": "useBuildVideoEmbed",
-        "link": "/api/functions/useBuildVideoEmbed.md"
-      },
-      {
-        "text": "useBuildVimeoEmbedUrl",
-        "link": "/api/functions/useBuildVimeoEmbedUrl.md"
-      },
-      {
-        "text": "useBuildYoutubeEmbedUrl",
-        "link": "/api/functions/useBuildYoutubeEmbedUrl.md"
-      },
-      {
-        "text": "useBuildYoutubeRssUrl",
-        "link": "/api/functions/useBuildYoutubeRssUrl.md"
-      },
-      {
-        "text": "useBuildYoutubeThumbnail",
-        "link": "/api/functions/useBuildYoutubeThumbnail.md"
-      },
-      {
-        "text": "useCan",
-        "link": "/api/functions/useCan.md"
-      },
-      {
-        "text": "useCapabilitiesFor",
-        "link": "/api/functions/useCapabilitiesFor.md"
-      },
-      {
-        "text": "useCapitalize",
-        "link": "/api/functions/useCapitalize.md"
-      },
-      {
-        "text": "useChat",
-        "link": "/api/functions/useChat.md"
-      },
-      {
-        "text": "useChunk",
-        "link": "/api/functions/useChunk.md"
-      },
-      {
-        "text": "useClearStorage",
-        "link": "/api/functions/useClearStorage.md"
-      },
-      {
-        "text": "useConvertCurrency",
-        "link": "/api/functions/useConvertCurrency.md"
-      },
-      {
-        "text": "useCopyFile",
-        "link": "/api/functions/useCopyFile.md"
-      },
-      {
-        "text": "useCopyToClipboard",
-        "link": "/api/functions/useCopyToClipboard.md"
-      },
-      {
-        "text": "useCreateBatch",
-        "link": "/api/functions/useCreateBatch.md"
-      },
-      {
-        "text": "useCreateDebouncedSignal",
-        "link": "/api/functions/useCreateDebouncedSignal.md"
-      },
-      {
-        "text": "useCreateEffect",
-        "link": "/api/functions/useCreateEffect.md"
-      },
-      {
-        "text": "useCreateElement",
-        "link": "/api/functions/useCreateElement.md"
-      },
-      {
-        "text": "useCreateKeyRecord",
-        "link": "/api/functions/useCreateKeyRecord.md"
-      },
-      {
-        "text": "useCreateMcpServer",
-        "link": "/api/functions/useCreateMcpServer.md"
-      },
-      {
-        "text": "useCreateMemo",
-        "link": "/api/functions/useCreateMemo.md"
-      },
-      {
-        "text": "useCreateMemoryStore",
-        "link": "/api/functions/useCreateMemoryStore.md"
-      },
-      {
-        "text": "useCreatePool",
-        "link": "/api/functions/useCreatePool.md"
-      },
-      {
-        "text": "useCreateQueryClient",
-        "link": "/api/functions/useCreateQueryClient.md"
-      },
-      {
-        "text": "useCreateSession",
-        "link": "/api/functions/useCreateSession.md"
-      },
-      {
-        "text": "useCreateSignal",
-        "link": "/api/functions/useCreateSignal.md"
-      },
-      {
-        "text": "useCreateStorageSignal",
-        "link": "/api/functions/useCreateStorageSignal.md"
-      },
-      {
-        "text": "useCreateToggle",
-        "link": "/api/functions/useCreateToggle.md"
-      },
-      {
-        "text": "useCurrencyConverter",
-        "link": "/api/functions/useCurrencyConverter.md"
-      },
-      {
-        "text": "useDateAdd",
-        "link": "/api/functions/useDateAdd.md"
-      },
-      {
-        "text": "useDateBetween",
-        "link": "/api/functions/useDateBetween.md"
-      },
-      {
-        "text": "useDateOrder",
-        "link": "/api/functions/useDateOrder.md"
-      },
-      {
-        "text": "useDateSubtract",
-        "link": "/api/functions/useDateSubtract.md"
-      },
-      {
-        "text": "useDebounce",
-        "link": "/api/functions/useDebounce.md"
-      },
-      {
-        "text": "useDebounceImmediate",
-        "link": "/api/functions/useDebounceImmediate.md"
-      },
-      {
-        "text": "useDecryptVault",
-        "link": "/api/functions/useDecryptVault.md"
-      },
-      {
-        "text": "useDeepClone",
-        "link": "/api/functions/useDeepClone.md"
-      },
-      {
-        "text": "useDeepMerge",
-        "link": "/api/functions/useDeepMerge.md"
-      },
-      {
-        "text": "useDelete",
-        "link": "/api/functions/useDelete.md"
-      },
-      {
-        "text": "useDestroyTheme",
-        "link": "/api/functions/useDestroyTheme.md"
-      },
-      {
-        "text": "useDurationBetween",
-        "link": "/api/functions/useDurationBetween.md"
-      },
-      {
-        "text": "useEmitAgentConfig",
-        "link": "/api/functions/useEmitAgentConfig.md"
-      },
-      {
-        "text": "useEmitOpenCodeServers",
-        "link": "/api/functions/useEmitOpenCodeServers.md"
-      },
-      {
-        "text": "useEmptyVault",
-        "link": "/api/functions/useEmptyVault.md"
-      },
-      {
-        "text": "useEncryptVault",
-        "link": "/api/functions/useEncryptVault.md"
-      },
-      {
-        "text": "useEnhanceVideoFacades",
-        "link": "/api/functions/useEnhanceVideoFacades.md"
-      },
-      {
-        "text": "useEnsureDir",
-        "link": "/api/functions/useEnsureDir.md"
-      },
-      {
-        "text": "useErrorCustom",
-        "link": "/api/functions/useErrorCustom.md"
-      },
-      {
-        "text": "useErrorNormalize",
-        "link": "/api/functions/useErrorNormalize.md"
-      },
-      {
-        "text": "useErrorSerialize",
-        "link": "/api/functions/useErrorSerialize.md"
-      },
-      {
-        "text": "useEvery",
-        "link": "/api/functions/useEvery.md"
-      },
-      {
-        "text": "useEveryAsync",
-        "link": "/api/functions/useEveryAsync.md"
-      },
-      {
-        "text": "useExitFullscreen",
-        "link": "/api/functions/useExitFullscreen.md"
-      },
-      {
-        "text": "useFakeBoolean",
-        "link": "/api/functions/useFakeBoolean.md"
-      },
-      {
-        "text": "useFakeCompanyName",
-        "link": "/api/functions/useFakeCompanyName.md"
-      },
-      {
-        "text": "useFakeDate",
-        "link": "/api/functions/useFakeDate.md"
-      },
-      {
-        "text": "useFakeEmail",
-        "link": "/api/functions/useFakeEmail.md"
-      },
-      {
-        "text": "useFakeFirstName",
-        "link": "/api/functions/useFakeFirstName.md"
-      },
-      {
-        "text": "useFakeFullName",
-        "link": "/api/functions/useFakeFullName.md"
-      },
-      {
-        "text": "useFakeLastName",
-        "link": "/api/functions/useFakeLastName.md"
-      },
-      {
-        "text": "useFakeList",
-        "link": "/api/functions/useFakeList.md"
-      },
-      {
-        "text": "useFakeNumber",
-        "link": "/api/functions/useFakeNumber.md"
-      },
-      {
-        "text": "useFakePhone",
-        "link": "/api/functions/useFakePhone.md"
-      },
-      {
-        "text": "useFakeSeed",
-        "link": "/api/functions/useFakeSeed.md"
-      },
-      {
-        "text": "useFakeSetDefaultRefDate",
-        "link": "/api/functions/useFakeSetDefaultRefDate.md"
-      },
-      {
-        "text": "useFakeText",
-        "link": "/api/functions/useFakeText.md"
-      },
-      {
-        "text": "useFakeUrl",
-        "link": "/api/functions/useFakeUrl.md"
-      },
-      {
-        "text": "useFakeUuid",
-        "link": "/api/functions/useFakeUuid.md"
-      },
-      {
-        "text": "useFakeVehicle",
-        "link": "/api/functions/useFakeVehicle.md"
-      },
-      {
-        "text": "useFetch",
-        "link": "/api/functions/useFetch.md"
-      },
-      {
-        "text": "useFetchApi",
-        "link": "/api/functions/useFetchApi.md"
-      },
-      {
-        "text": "useFileExists",
-        "link": "/api/functions/useFileExists.md"
-      },
-      {
-        "text": "useFilter",
-        "link": "/api/functions/useFilter.md"
-      },
-      {
-        "text": "useFilterAsync",
-        "link": "/api/functions/useFilterAsync.md"
-      },
-      {
-        "text": "useFind",
-        "link": "/api/functions/useFind.md"
-      },
-      {
-        "text": "useFindAgent",
-        "link": "/api/functions/useFindAgent.md"
-      },
-      {
-        "text": "useFindAsync",
-        "link": "/api/functions/useFindAsync.md"
-      },
-      {
-        "text": "useFindIndex",
-        "link": "/api/functions/useFindIndex.md"
-      },
-      {
-        "text": "useFindKey",
-        "link": "/api/functions/useFindKey.md"
-      },
-      {
-        "text": "useFindLast",
-        "link": "/api/functions/useFindLast.md"
-      },
-      {
-        "text": "useFindMcpServer",
-        "link": "/api/functions/useFindMcpServer.md"
-      },
-      {
-        "text": "useFirstDayOfMonth",
-        "link": "/api/functions/useFirstDayOfMonth.md"
-      },
-      {
-        "text": "useFlatMap",
-        "link": "/api/functions/useFlatMap.md"
-      },
-      {
-        "text": "useFocusElement",
-        "link": "/api/functions/useFocusElement.md"
-      },
-      {
-        "text": "useFormat",
-        "link": "/api/functions/useFormat.md"
-      },
-      {
-        "text": "useFormatCurrency",
-        "link": "/api/functions/useFormatCurrency.md"
-      },
-      {
-        "text": "useFormatNumber",
-        "link": "/api/functions/useFormatNumber.md"
-      },
-      {
-        "text": "useFromEntries",
-        "link": "/api/functions/useFromEntries.md"
-      },
-      {
-        "text": "useGenerateMetaTags",
-        "link": "/api/functions/useGenerateMetaTags.md"
-      },
-      {
-        "text": "useGet",
-        "link": "/api/functions/useGet.md"
-      },
-      {
-        "text": "useGetActiveElement",
-        "link": "/api/functions/useGetActiveElement.md"
-      },
-      {
-        "text": "useGetApi",
-        "link": "/api/functions/useGetApi.md"
-      },
-      {
-        "text": "useGetApis",
-        "link": "/api/functions/useGetApis.md"
-      },
-      {
-        "text": "useGetApisConfig",
-        "link": "/api/functions/useGetApisConfig.md"
-      },
-      {
-        "text": "useGetAttribute",
-        "link": "/api/functions/useGetAttribute.md"
-      },
-      {
-        "text": "useGetBackCamera",
-        "link": "/api/functions/useGetBackCamera.md"
-      },
-      {
-        "text": "useGetBasename",
-        "link": "/api/functions/useGetBasename.md"
-      },
-      {
-        "text": "useGetBattery",
-        "link": "/api/functions/useGetBattery.md"
-      },
-      {
-        "text": "useGetBody",
-        "link": "/api/functions/useGetBody.md"
-      },
-      {
-        "text": "useGetChannelVideos",
-        "link": "/api/functions/useGetChannelVideos.md"
-      },
-      {
-        "text": "useGetChannelVideosRss",
-        "link": "/api/functions/useGetChannelVideosRss.md"
-      },
-      {
-        "text": "useGetCwd",
-        "link": "/api/functions/useGetCwd.md"
-      },
-      {
-        "text": "useGetDataAttribute",
-        "link": "/api/functions/useGetDataAttribute.md"
-      },
-      {
-        "text": "useGetDirname",
-        "link": "/api/functions/useGetDirname.md"
-      },
-      {
-        "text": "useGetElementByClass",
-        "link": "/api/functions/useGetElementByClass.md"
-      },
-      {
-        "text": "useGetElementById",
-        "link": "/api/functions/useGetElementById.md"
-      },
-      {
-        "text": "useGetExchangeRate",
-        "link": "/api/functions/useGetExchangeRate.md"
-      },
-      {
-        "text": "useGetFileExtension",
-        "link": "/api/functions/useGetFileExtension.md"
-      },
-      {
-        "text": "useGetFileStats",
-        "link": "/api/functions/useGetFileStats.md"
-      },
-      {
-        "text": "useGetFrontCamera",
-        "link": "/api/functions/useGetFrontCamera.md"
-      },
-      {
-        "text": "useGetGeolocation",
-        "link": "/api/functions/useGetGeolocation.md"
-      },
-      {
-        "text": "useGetHistory",
-        "link": "/api/functions/useGetHistory.md"
-      },
-      {
-        "text": "useGetMediaStream",
-        "link": "/api/functions/useGetMediaStream.md"
-      },
-      {
-        "text": "useGetRelativePath",
-        "link": "/api/functions/useGetRelativePath.md"
-      },
-      {
-        "text": "useGetResolved",
-        "link": "/api/functions/useGetResolved.md"
-      },
-      {
-        "text": "useGetRoot",
-        "link": "/api/functions/useGetRoot.md"
-      },
-      {
-        "text": "useGetScrollPosition",
-        "link": "/api/functions/useGetScrollPosition.md"
-      },
-      {
-        "text": "useGetScrollProgress",
-        "link": "/api/functions/useGetScrollProgress.md"
-      },
-      {
-        "text": "useGetScrollX",
-        "link": "/api/functions/useGetScrollX.md"
-      },
-      {
-        "text": "useGetScrollY",
-        "link": "/api/functions/useGetScrollY.md"
-      },
-      {
-        "text": "useGetStorage",
-        "link": "/api/functions/useGetStorage.md"
-      },
-      {
-        "text": "useGetThemeMode",
-        "link": "/api/functions/useGetThemeMode.md"
-      },
-      {
-        "text": "useGetTitle",
-        "link": "/api/functions/useGetTitle.md"
-      },
-      {
-        "text": "useGetUploadsPlaylistId",
-        "link": "/api/functions/useGetUploadsPlaylistId.md"
-      },
-      {
-        "text": "useGetUrlParams",
-        "link": "/api/functions/useGetUrlParams.md"
-      },
-      {
-        "text": "useGetVideoDetails",
-        "link": "/api/functions/useGetVideoDetails.md"
-      },
-      {
-        "text": "useGetViewportSize",
-        "link": "/api/functions/useGetViewportSize.md"
-      },
-      {
-        "text": "useGetVimeoVideoId",
-        "link": "/api/functions/useGetVimeoVideoId.md"
-      },
-      {
-        "text": "useGetYoutubeConfig",
-        "link": "/api/functions/useGetYoutubeConfig.md"
-      },
-      {
-        "text": "useGetYoutubeVideoId",
-        "link": "/api/functions/useGetYoutubeVideoId.md"
-      },
-      {
-        "text": "useGrantAwareCan",
-        "link": "/api/functions/useGrantAwareCan.md"
-      },
-      {
-        "text": "useGroupBy",
-        "link": "/api/functions/useGroupBy.md"
-      },
-      {
-        "text": "useHasClass",
-        "link": "/api/functions/useHasClass.md"
-      },
-      {
-        "text": "useHash",
-        "link": "/api/functions/useHash.md"
-      },
-      {
-        "text": "useHashFile",
-        "link": "/api/functions/useHashFile.md"
-      },
-      {
-        "text": "useHasRole",
-        "link": "/api/functions/useHasRole.md"
-      },
-      {
-        "text": "useHasWorker",
-        "link": "/api/functions/useHasWorker.md"
-      },
-      {
-        "text": "useHeadTags",
-        "link": "/api/functions/useHeadTags.md"
-      },
-      {
-        "text": "useInitAgent",
-        "link": "/api/functions/useInitAgent.md"
-      },
-      {
-        "text": "useInitAssistant",
-        "link": "/api/functions/useInitAssistant.md"
-      },
-      {
-        "text": "useInitQueryClient",
-        "link": "/api/functions/useInitQueryClient.md"
-      },
-      {
-        "text": "useInitTheme",
-        "link": "/api/functions/useInitTheme.md"
-      },
-      {
-        "text": "useInitYoutube",
-        "link": "/api/functions/useInitYoutube.md"
-      },
-      {
-        "text": "useInterval",
-        "link": "/api/functions/useInterval.md"
-      },
-      {
-        "text": "useIsAfter",
-        "link": "/api/functions/useIsAfter.md"
-      },
-      {
-        "text": "useIsAtBottom",
-        "link": "/api/functions/useIsAtBottom.md"
-      },
-      {
-        "text": "useIsAtTop",
-        "link": "/api/functions/useIsAtTop.md"
-      },
-      {
-        "text": "useIsBefore",
-        "link": "/api/functions/useIsBefore.md"
-      },
-      {
-        "text": "useIsBrowser",
-        "link": "/api/functions/useIsBrowser.md"
-      },
-      {
-        "text": "useIsDocumentVisible",
-        "link": "/api/functions/useIsDocumentVisible.md"
-      },
-      {
-        "text": "useIsEqual",
-        "link": "/api/functions/useIsEqual.md"
-      },
-      {
-        "text": "useIsFullscreen",
-        "link": "/api/functions/useIsFullscreen.md"
-      },
-      {
-        "text": "useIsNode",
-        "link": "/api/functions/useIsNode.md"
-      },
-      {
-        "text": "useIsObject",
-        "link": "/api/functions/useIsObject.md"
-      },
-      {
-        "text": "useIsSupported",
-        "link": "/api/functions/useIsSupported.md"
-      },
-      {
-        "text": "useJoinPath",
-        "link": "/api/functions/useJoinPath.md"
-      },
-      {
-        "text": "useJsonParse",
-        "link": "/api/functions/useJsonParse.md"
-      },
-      {
-        "text": "useJsonStringify",
-        "link": "/api/functions/useJsonStringify.md"
-      },
-      {
-        "text": "useKeys",
-        "link": "/api/functions/useKeys.md"
-      },
-      {
-        "text": "useLastDayOfMonth",
-        "link": "/api/functions/useLastDayOfMonth.md"
-      },
-      {
-        "text": "useLazyLoaderHas",
-        "link": "/api/functions/useLazyLoaderHas.md"
-      },
-      {
-        "text": "useLazyLoaderInit",
-        "link": "/api/functions/useLazyLoaderInit.md"
-      },
-      {
-        "text": "useLazyLoaderStop",
-        "link": "/api/functions/useLazyLoaderStop.md"
-      },
-      {
-        "text": "useLazyLoaderStopAll",
-        "link": "/api/functions/useLazyLoaderStopAll.md"
-      },
-      {
-        "text": "useListKeys",
-        "link": "/api/functions/useListKeys.md"
-      },
-      {
-        "text": "useListMcpServers",
-        "link": "/api/functions/useListMcpServers.md"
-      },
-      {
-        "text": "useLoadVaultFile",
-        "link": "/api/functions/useLoadVaultFile.md"
-      },
-      {
-        "text": "useLogger",
-        "link": "/api/functions/useLogger.md"
-      },
-      {
-        "text": "useLoggerClear",
-        "link": "/api/functions/useLoggerClear.md"
-      },
-      {
-        "text": "useLoggerError",
-        "link": "/api/functions/useLoggerError.md"
-      },
-      {
-        "text": "useLoggerTable",
-        "link": "/api/functions/useLoggerTable.md"
-      },
-      {
-        "text": "useLoggerWarn",
-        "link": "/api/functions/useLoggerWarn.md"
-      },
-      {
-        "text": "useLowerCase",
-        "link": "/api/functions/useLowerCase.md"
-      },
-      {
-        "text": "useMap",
-        "link": "/api/functions/useMap.md"
-      },
-      {
-        "text": "useMapAsync",
-        "link": "/api/functions/useMapAsync.md"
-      },
-      {
-        "text": "useMaskSecret",
-        "link": "/api/functions/useMaskSecret.md"
-      },
-      {
-        "text": "useMatchesMedia",
-        "link": "/api/functions/useMatchesMedia.md"
-      },
-      {
-        "text": "useModalClose",
-        "link": "/api/functions/useModalClose.md"
-      },
-      {
-        "text": "useMoveFile",
-        "link": "/api/functions/useMoveFile.md"
-      },
-      {
-        "text": "useNow",
-        "link": "/api/functions/useNow.md"
-      },
-      {
-        "text": "useNowDateTime",
-        "link": "/api/functions/useNowDateTime.md"
-      },
-      {
-        "text": "useNumericId",
-        "link": "/api/functions/useNumericId.md"
-      },
-      {
-        "text": "useObserverCreate",
-        "link": "/api/functions/useObserverCreate.md"
-      },
-      {
-        "text": "useObserverDisconnect",
-        "link": "/api/functions/useObserverDisconnect.md"
-      },
-      {
-        "text": "useObserverDisconnectAll",
-        "link": "/api/functions/useObserverDisconnectAll.md"
-      },
-      {
-        "text": "useObserverHas",
-        "link": "/api/functions/useObserverHas.md"
-      },
-      {
-        "text": "useObserverKeys",
-        "link": "/api/functions/useObserverKeys.md"
-      },
-      {
-        "text": "useObserverObserve",
-        "link": "/api/functions/useObserverObserve.md"
-      },
-      {
-        "text": "useObserverObserveAll",
-        "link": "/api/functions/useObserverObserveAll.md"
-      },
-      {
-        "text": "useObserverUnobserve",
-        "link": "/api/functions/useObserverUnobserve.md"
-      },
-      {
-        "text": "useOmit",
-        "link": "/api/functions/useOmit.md"
-      },
-      {
-        "text": "useOn",
-        "link": "/api/functions/useOn.md"
-      },
-      {
-        "text": "useOnDeviceMotion",
-        "link": "/api/functions/useOnDeviceMotion.md"
-      },
-      {
-        "text": "useOnDeviceOrientation",
-        "link": "/api/functions/useOnDeviceOrientation.md"
-      },
-      {
-        "text": "useOnVisibilityChange",
-        "link": "/api/functions/useOnVisibilityChange.md"
-      },
-      {
-        "text": "useOpenCodeServersObject",
-        "link": "/api/functions/useOpenCodeServersObject.md"
-      },
-      {
-        "text": "useParseIso8601Duration",
-        "link": "/api/functions/useParseIso8601Duration.md"
-      },
-      {
-        "text": "useParseMediaSource",
-        "link": "/api/functions/useParseMediaSource.md"
-      },
-      {
-        "text": "useParseSmartVideoOptions",
-        "link": "/api/functions/useParseSmartVideoOptions.md"
-      },
-      {
-        "text": "useParseYoutubeRss",
-        "link": "/api/functions/useParseYoutubeRss.md"
-      },
-      {
-        "text": "usePartition",
-        "link": "/api/functions/usePartition.md"
-      },
-      {
-        "text": "usePatch",
-        "link": "/api/functions/usePatch.md"
-      },
-      {
-        "text": "usePbkdf2Hash",
-        "link": "/api/functions/usePbkdf2Hash.md"
-      },
-      {
-        "text": "usePick",
-        "link": "/api/functions/usePick.md"
-      },
-      {
-        "text": "usePost",
-        "link": "/api/functions/usePost.md"
-      },
-      {
-        "text": "usePrefersColorScheme",
-        "link": "/api/functions/usePrefersColorScheme.md"
-      },
-      {
-        "text": "usePrefersDarkMode",
-        "link": "/api/functions/usePrefersDarkMode.md"
-      },
-      {
-        "text": "usePrefersReducedMotion",
-        "link": "/api/functions/usePrefersReducedMotion.md"
-      },
-      {
-        "text": "usePrintPage",
-        "link": "/api/functions/usePrintPage.md"
-      },
-      {
-        "text": "useProviderEnvName",
-        "link": "/api/functions/useProviderEnvName.md"
-      },
-      {
-        "text": "usePut",
-        "link": "/api/functions/usePut.md"
-      },
-      {
-        "text": "useQueryClient",
-        "link": "/api/functions/useQueryClient.md"
-      },
-      {
-        "text": "useRace",
-        "link": "/api/functions/useRace.md"
-      },
-      {
-        "text": "useReadDir",
-        "link": "/api/functions/useReadDir.md"
-      },
-      {
-        "text": "useReadFile",
-        "link": "/api/functions/useReadFile.md"
-      },
-      {
-        "text": "useReadFileBuffer",
-        "link": "/api/functions/useReadFileBuffer.md"
-      },
-      {
-        "text": "useReadJsonFile",
-        "link": "/api/functions/useReadJsonFile.md"
-      },
-      {
-        "text": "useReadModuleFile",
-        "link": "/api/functions/useReadModuleFile.md"
-      },
-      {
-        "text": "useReadModuleJson",
-        "link": "/api/functions/useReadModuleJson.md"
-      },
-      {
-        "text": "useReduce",
-        "link": "/api/functions/useReduce.md"
-      },
-      {
-        "text": "useReduceAsync",
-        "link": "/api/functions/useReduceAsync.md"
-      },
-      {
-        "text": "useRefreshExchangeRates",
-        "link": "/api/functions/useRefreshExchangeRates.md"
-      },
-      {
-        "text": "useRegisterRole",
-        "link": "/api/functions/useRegisterRole.md"
-      },
-      {
-        "text": "useRemove",
-        "link": "/api/functions/useRemove.md"
-      },
-      {
-        "text": "useRemoveAttribute",
-        "link": "/api/functions/useRemoveAttribute.md"
-      },
-      {
-        "text": "useRemoveClass",
-        "link": "/api/functions/useRemoveClass.md"
-      },
-      {
-        "text": "useRemoveDir",
-        "link": "/api/functions/useRemoveDir.md"
-      },
-      {
-        "text": "useRemoveFile",
-        "link": "/api/functions/useRemoveFile.md"
-      },
-      {
-        "text": "useRemoveMcpServer",
-        "link": "/api/functions/useRemoveMcpServer.md"
-      },
-      {
-        "text": "useRemoveStorage",
-        "link": "/api/functions/useRemoveStorage.md"
-      },
-      {
-        "text": "useRepeat",
-        "link": "/api/functions/useRepeat.md"
-      },
-      {
-        "text": "useReplaceKey",
-        "link": "/api/functions/useReplaceKey.md"
-      },
-      {
-        "text": "useReply",
-        "link": "/api/functions/useReply.md"
-      },
-      {
-        "text": "useRequestFullscreen",
-        "link": "/api/functions/useRequestFullscreen.md"
-      },
-      {
-        "text": "useRequestMotionPermission",
-        "link": "/api/functions/useRequestMotionPermission.md"
-      },
-      {
-        "text": "useResetRoles",
-        "link": "/api/functions/useResetRoles.md"
-      },
-      {
-        "text": "useResetSeoMetaConfig",
-        "link": "/api/functions/useResetSeoMetaConfig.md"
-      },
-      {
-        "text": "useResetSession",
-        "link": "/api/functions/useResetSession.md"
-      },
-      {
-        "text": "useResetTheme",
-        "link": "/api/functions/useResetTheme.md"
-      },
-      {
-        "text": "useResolvePath",
-        "link": "/api/functions/useResolvePath.md"
-      },
-      {
-        "text": "useResolveSubject",
-        "link": "/api/functions/useResolveSubject.md"
-      },
-      {
-        "text": "useRetry",
-        "link": "/api/functions/useRetry.md"
-      },
-      {
-        "text": "useReverse",
-        "link": "/api/functions/useReverse.md"
-      },
-      {
-        "text": "useRevokeKey",
-        "link": "/api/functions/useRevokeKey.md"
-      },
-      {
-        "text": "useRoles",
-        "link": "/api/functions/useRoles.md"
-      },
-      {
-        "text": "useRotateKeySecret",
-        "link": "/api/functions/useRotateKeySecret.md"
-      },
-      {
-        "text": "useRound",
-        "link": "/api/functions/useRound.md"
-      },
-      {
-        "text": "useRssHeadLink",
-        "link": "/api/functions/useRssHeadLink.md"
-      },
-      {
-        "text": "useRun",
-        "link": "/api/functions/useRun.md"
-      },
-      {
-        "text": "useRunAgent",
-        "link": "/api/functions/useRunAgent.md"
-      },
-      {
-        "text": "useRunPool",
-        "link": "/api/functions/useRunPool.md"
-      },
-      {
-        "text": "useRunStorageScope",
-        "link": "/api/functions/useRunStorageScope.md"
-      },
-      {
-        "text": "useSafeQueryFn",
-        "link": "/api/functions/useSafeQueryFn.md"
-      },
-      {
-        "text": "useSalePrice",
-        "link": "/api/functions/useSalePrice.md"
-      },
-      {
-        "text": "useSaveVaultFile",
-        "link": "/api/functions/useSaveVaultFile.md"
-      },
-      {
-        "text": "useScrollTo",
-        "link": "/api/functions/useScrollTo.md"
-      },
-      {
-        "text": "useScrollToBottom",
-        "link": "/api/functions/useScrollToBottom.md"
-      },
-      {
-        "text": "useScrollToElement",
-        "link": "/api/functions/useScrollToElement.md"
-      },
-      {
-        "text": "useScrollToTop",
-        "link": "/api/functions/useScrollToTop.md"
-      },
-      {
-        "text": "useSeoMeta",
-        "link": "/api/functions/useSeoMeta.md"
-      },
-      {
-        "text": "useSeoMetaConfig",
-        "link": "/api/functions/useSeoMetaConfig.md"
-      },
-      {
-        "text": "useSessionExists",
-        "link": "/api/functions/useSessionExists.md"
-      },
-      {
-        "text": "useSetAttribute",
-        "link": "/api/functions/useSetAttribute.md"
-      },
-      {
-        "text": "useSetDataAttribute",
-        "link": "/api/functions/useSetDataAttribute.md"
-      },
-      {
-        "text": "useSetHtml",
-        "link": "/api/functions/useSetHtml.md"
-      },
-      {
-        "text": "useSetStorage",
-        "link": "/api/functions/useSetStorage.md"
-      },
-      {
-        "text": "useSetTempTitle",
-        "link": "/api/functions/useSetTempTitle.md"
-      },
-      {
-        "text": "useSetText",
-        "link": "/api/functions/useSetText.md"
-      },
-      {
-        "text": "useSetThemeMode",
-        "link": "/api/functions/useSetThemeMode.md"
-      },
-      {
-        "text": "useSetTimeout",
-        "link": "/api/functions/useSetTimeout.md"
-      },
-      {
-        "text": "useSetTitle",
-        "link": "/api/functions/useSetTitle.md"
-      },
-      {
-        "text": "useSleep",
-        "link": "/api/functions/useSleep.md"
-      },
-      {
-        "text": "useSlugify",
-        "link": "/api/functions/useSlugify.md"
-      },
-      {
-        "text": "useSome",
-        "link": "/api/functions/useSome.md"
-      },
-      {
-        "text": "useSomeAsync",
-        "link": "/api/functions/useSomeAsync.md"
-      },
-      {
-        "text": "useSortBy",
-        "link": "/api/functions/useSortBy.md"
-      },
-      {
-        "text": "useSplitConfig",
-        "link": "/api/functions/useSplitConfig.md"
-      },
-      {
-        "text": "useStopMediaStream",
-        "link": "/api/functions/useStopMediaStream.md"
-      },
-      {
-        "text": "useStopVibration",
-        "link": "/api/functions/useStopVibration.md"
-      },
-      {
-        "text": "useSubscribeRates",
-        "link": "/api/functions/useSubscribeRates.md"
-      },
-      {
-        "text": "useSubtractDays",
-        "link": "/api/functions/useSubtractDays.md"
-      },
-      {
-        "text": "useTerminate",
-        "link": "/api/functions/useTerminate.md"
-      },
-      {
-        "text": "useTerminateAll",
-        "link": "/api/functions/useTerminateAll.md"
-      },
-      {
-        "text": "useThrottle",
-        "link": "/api/functions/useThrottle.md"
-      },
-      {
-        "text": "useThrottleTrailing",
-        "link": "/api/functions/useThrottleTrailing.md"
-      },
-      {
-        "text": "useTitle",
-        "link": "/api/functions/useTitle.md"
-      },
-      {
-        "text": "useToCelsius",
-        "link": "/api/functions/useToCelsius.md"
-      },
-      {
-        "text": "useToCm",
-        "link": "/api/functions/useToCm.md"
-      },
-      {
-        "text": "useToFahrenheit",
-        "link": "/api/functions/useToFahrenheit.md"
-      },
-      {
-        "text": "useToggleClass",
-        "link": "/api/functions/useToggleClass.md"
-      },
-      {
-        "text": "useToggleTheme",
-        "link": "/api/functions/useToggleTheme.md"
-      },
-      {
-        "text": "useToInches",
-        "link": "/api/functions/useToInches.md"
-      },
-      {
-        "text": "useToken",
-        "link": "/api/functions/useToken.md"
-      },
-      {
-        "text": "useToKilometers",
-        "link": "/api/functions/useToKilometers.md"
-      },
-      {
-        "text": "useToKilos",
-        "link": "/api/functions/useToKilos.md"
-      },
-      {
-        "text": "useToMiles",
-        "link": "/api/functions/useToMiles.md"
-      },
-      {
-        "text": "useToPounds",
-        "link": "/api/functions/useToPounds.md"
-      },
-      {
-        "text": "useTryJsonParse",
-        "link": "/api/functions/useTryJsonParse.md"
-      },
-      {
-        "text": "useUnique",
-        "link": "/api/functions/useUnique.md"
-      },
-      {
-        "text": "useUpperCase",
-        "link": "/api/functions/useUpperCase.md"
-      },
-      {
-        "text": "useUuid",
-        "link": "/api/functions/useUuid.md"
-      },
-      {
-        "text": "useValidate",
-        "link": "/api/functions/useValidate.md"
-      },
-      {
-        "text": "useValues",
-        "link": "/api/functions/useValues.md"
-      },
-      {
-        "text": "useVaultPath",
-        "link": "/api/functions/useVaultPath.md"
-      },
-      {
-        "text": "useVerifyFileHash",
-        "link": "/api/functions/useVerifyFileHash.md"
-      },
-      {
-        "text": "useVibrate",
-        "link": "/api/functions/useVibrate.md"
-      },
-      {
-        "text": "useWatchGeolocation",
-        "link": "/api/functions/useWatchGeolocation.md"
-      },
-      {
-        "text": "useWorkerKeys",
-        "link": "/api/functions/useWorkerKeys.md"
-      },
-      {
-        "text": "useWriteFile",
-        "link": "/api/functions/useWriteFile.md"
-      },
-      {
-        "text": "useWriteJsonFile",
-        "link": "/api/functions/useWriteJsonFile.md"
       }
     ]
   }

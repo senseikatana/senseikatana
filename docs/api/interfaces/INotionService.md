@@ -2,16 +2,16 @@
 
 # Interface: INotionService
 
-Defined in: [types/adapters/notion.ts:89](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L89)
+Defined in: [types/notion/types.ts:89](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L89)
 
 Contract of the Notion adapter facade.
 
 ## Methods
 
-### useNotionAppendBlocks()
+### onNotionAppendBlocks()
 
 ```ts
-useNotionAppendBlocks(blockId, children): Promise<FetchResult<{
+onNotionAppendBlocks(blockId, children): Promise<FetchResult<{
 [key: string]: unknown;
   archived?: boolean;
   created_time?: string;
@@ -23,7 +23,7 @@ useNotionAppendBlocks(blockId, children): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:106](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L106)
+Defined in: [types/notion/types.ts:106](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L106)
 
 #### Parameters
 
@@ -47,10 +47,10 @@ Defined in: [types/adapters/notion.ts:106](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionArchivePage()
+### onNotionArchivePage()
 
 ```ts
-useNotionArchivePage(pageId): Promise<FetchResult<{
+onNotionArchivePage(pageId): Promise<FetchResult<{
 [key: string]: unknown;
   archived: boolean;
   cover?:   | {
@@ -217,7 +217,7 @@ useNotionArchivePage(pageId): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:100](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L100)
+Defined in: [types/notion/types.ts:100](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L100)
 
 #### Parameters
 
@@ -395,10 +395,10 @@ Defined in: [types/adapters/notion.ts:100](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionCreateDatabase()
+### onNotionCreateDatabase()
 
 ```ts
-useNotionCreateDatabase(
+onNotionCreateDatabase(
    parent, 
    title, 
    properties
@@ -513,7 +513,7 @@ useNotionCreateDatabase(
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:117](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L117)
+Defined in: [types/notion/types.ts:117](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L117)
 
 #### Parameters
 
@@ -637,10 +637,10 @@ Defined in: [types/adapters/notion.ts:117](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionCreatePage()
+### onNotionCreatePage()
 
 ```ts
-useNotionCreatePage(
+onNotionCreatePage(
    parent, 
    properties, 
    children?
@@ -811,7 +811,7 @@ useNotionCreatePage(
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:91](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L91)
+Defined in: [types/notion/types.ts:91](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L91)
 
 #### Parameters
 
@@ -991,10 +991,10 @@ Defined in: [types/adapters/notion.ts:91](https://github.com/senseikatana/katana
 
 ***
 
-### useNotionDeleteBlock()
+### onNotionDeleteBlock()
 
 ```ts
-useNotionDeleteBlock(blockId): Promise<FetchResult<{
+onNotionDeleteBlock(blockId): Promise<FetchResult<{
 [key: string]: unknown;
   archived?: boolean;
   created_time?: string;
@@ -1006,7 +1006,7 @@ useNotionDeleteBlock(blockId): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:111](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L111)
+Defined in: [types/notion/types.ts:111](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L111)
 
 #### Parameters
 
@@ -1029,10 +1029,10 @@ Defined in: [types/adapters/notion.ts:111](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionGetBlock()
+### onNotionGetBlock()
 
 ```ts
-useNotionGetBlock(blockId): Promise<FetchResult<{
+onNotionGetBlock(blockId): Promise<FetchResult<{
 [key: string]: unknown;
   archived?: boolean;
   created_time?: string;
@@ -1044,7 +1044,7 @@ useNotionGetBlock(blockId): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:101](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L101)
+Defined in: [types/notion/types.ts:101](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L101)
 
 #### Parameters
 
@@ -1067,10 +1067,10 @@ Defined in: [types/adapters/notion.ts:101](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionGetBlockChildren()
+### onNotionGetBlockChildren()
 
 ```ts
-useNotionGetBlockChildren(blockId, options?): Promise<FetchResult<{
+onNotionGetBlockChildren(blockId, options?): Promise<FetchResult<{
 [key: string]: unknown;
   block: Record<string, unknown>;
   has_more: boolean;
@@ -1090,7 +1090,7 @@ useNotionGetBlockChildren(blockId, options?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:102](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L102)
+Defined in: [types/notion/types.ts:102](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L102)
 
 #### Parameters
 
@@ -1124,10 +1124,10 @@ Defined in: [types/adapters/notion.ts:102](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionGetDatabase()
+### onNotionGetDatabase()
 
 ```ts
-useNotionGetDatabase(databaseId): Promise<FetchResult<{
+onNotionGetDatabase(databaseId): Promise<FetchResult<{
 [key: string]: unknown;
   archived?: boolean;
   cover?:   | {
@@ -1238,7 +1238,7 @@ useNotionGetDatabase(databaseId): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:112](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L112)
+Defined in: [types/notion/types.ts:112](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L112)
 
 #### Parameters
 
@@ -1360,10 +1360,10 @@ Defined in: [types/adapters/notion.ts:112](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionGetPage()
+### onNotionGetPage()
 
 ```ts
-useNotionGetPage(pageId): Promise<FetchResult<{
+onNotionGetPage(pageId): Promise<FetchResult<{
 [key: string]: unknown;
   archived: boolean;
   cover?:   | {
@@ -1530,7 +1530,7 @@ useNotionGetPage(pageId): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:90](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L90)
+Defined in: [types/notion/types.ts:90](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L90)
 
 #### Parameters
 
@@ -1708,10 +1708,10 @@ Defined in: [types/adapters/notion.ts:90](https://github.com/senseikatana/katana
 
 ***
 
-### useNotionGetUser()
+### onNotionGetUser()
 
 ```ts
-useNotionGetUser(userId): Promise<FetchResult<{
+onNotionGetUser(userId): Promise<FetchResult<{
 [key: string]: unknown;
   avatar_url?: string;
   bot?: {
@@ -1732,7 +1732,7 @@ useNotionGetUser(userId): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:127](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L127)
+Defined in: [types/notion/types.ts:127](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L127)
 
 #### Parameters
 
@@ -1764,10 +1764,10 @@ Defined in: [types/adapters/notion.ts:127](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionListAllBlockChildren()
+### onNotionListAllBlockChildren()
 
 ```ts
-useNotionListAllBlockChildren(blockId): Promise<FetchResult<{
+onNotionListAllBlockChildren(blockId): Promise<FetchResult<{
 [key: string]: unknown;
   archived?: boolean;
   created_time?: string;
@@ -1779,7 +1779,7 @@ useNotionListAllBlockChildren(blockId): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [types/adapters/notion.ts:133](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L133)
+Defined in: [types/notion/types.ts:133](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L133)
 
 #### Parameters
 
@@ -1802,10 +1802,10 @@ Defined in: [types/adapters/notion.ts:133](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionListAllDatabasePages()
+### onNotionListAllDatabasePages()
 
 ```ts
-useNotionListAllDatabasePages(
+onNotionListAllDatabasePages(
    databaseId, 
    filter?, 
    sorts?
@@ -1968,7 +1968,7 @@ useNotionListAllDatabasePages(
 }[]>>;
 ```
 
-Defined in: [types/adapters/notion.ts:134](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L134)
+Defined in: [types/notion/types.ts:134](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L134)
 
 #### Parameters
 
@@ -2140,10 +2140,10 @@ Defined in: [types/adapters/notion.ts:134](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionListUsers()
+### onNotionListUsers()
 
 ```ts
-useNotionListUsers(options?): Promise<FetchResult<{
+onNotionListUsers(options?): Promise<FetchResult<{
 [key: string]: unknown;
   has_more: boolean;
   next_cursor: string | null;
@@ -2170,7 +2170,7 @@ useNotionListUsers(options?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:128](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L128)
+Defined in: [types/notion/types.ts:128](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L128)
 
 #### Parameters
 
@@ -2210,10 +2210,10 @@ Defined in: [types/adapters/notion.ts:128](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionQueryDatabase()
+### onNotionQueryDatabase()
 
 ```ts
-useNotionQueryDatabase(databaseId, query?): Promise<FetchResult<{
+onNotionQueryDatabase(databaseId, query?): Promise<FetchResult<{
 [key: string]: unknown;
   has_more: boolean;
   next_cursor: string | null;
@@ -2364,7 +2364,7 @@ useNotionQueryDatabase(databaseId, query?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:113](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L113)
+Defined in: [types/notion/types.ts:113](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L113)
 
 #### Parameters
 
@@ -2531,10 +2531,10 @@ Defined in: [types/adapters/notion.ts:113](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionSearchContent()
+### onNotionSearchContent()
 
 ```ts
-useNotionSearchContent(query): Promise<FetchResult<{
+onNotionSearchContent(query): Promise<FetchResult<{
 [key: string]: unknown;
   has_more: boolean;
   next_cursor: string | null;
@@ -2785,7 +2785,7 @@ useNotionSearchContent(query): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:132](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L132)
+Defined in: [types/notion/types.ts:132](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L132)
 
 #### Parameters
 
@@ -3056,10 +3056,10 @@ Defined in: [types/adapters/notion.ts:132](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionUpdateBlock()
+### onNotionUpdateBlock()
 
 ```ts
-useNotionUpdateBlock(blockId, content): Promise<FetchResult<{
+onNotionUpdateBlock(blockId, content): Promise<FetchResult<{
 [key: string]: unknown;
   archived?: boolean;
   created_time?: string;
@@ -3071,7 +3071,7 @@ useNotionUpdateBlock(blockId, content): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:107](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L107)
+Defined in: [types/notion/types.ts:107](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L107)
 
 #### Parameters
 
@@ -3095,10 +3095,10 @@ Defined in: [types/adapters/notion.ts:107](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionUpdateDatabase()
+### onNotionUpdateDatabase()
 
 ```ts
-useNotionUpdateDatabase(
+onNotionUpdateDatabase(
    databaseId, 
    title, 
    properties?
@@ -3213,7 +3213,7 @@ useNotionUpdateDatabase(
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:122](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L122)
+Defined in: [types/notion/types.ts:122](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L122)
 
 #### Parameters
 
@@ -3337,10 +3337,10 @@ Defined in: [types/adapters/notion.ts:122](https://github.com/senseikatana/katan
 
 ***
 
-### useNotionUpdatePage()
+### onNotionUpdatePage()
 
 ```ts
-useNotionUpdatePage(pageId, properties): Promise<FetchResult<{
+onNotionUpdatePage(pageId, properties): Promise<FetchResult<{
 [key: string]: unknown;
   archived: boolean;
   cover?:   | {
@@ -3507,7 +3507,7 @@ useNotionUpdatePage(pageId, properties): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [types/adapters/notion.ts:96](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L96)
+Defined in: [types/notion/types.ts:96](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L96)
 
 #### Parameters
 

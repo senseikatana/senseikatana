@@ -81,7 +81,7 @@ import type { paths } from "./api/dummyjson.d.ts";
 type Product = paths["/products/{id}"]["get"]["responses"][200]["content"]["application/json"];
 ```
 
-That pairs with the toolkit as-is — `useGetApi<Product>("dummyjson", "productById", …)`
+That pairs with the toolkit as-is — `onGet<Product>("dummyjson", "productById", …)`
 gets compile-time checked against the generated type — or validate the payload
 at runtime with a schema, as the [HTTP Client
 guide](./http-client.md#option-a--the-toolkit-makes-the-call) shows.

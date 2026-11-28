@@ -1,5 +1,5 @@
 ---
-import { site, WORKSPACE_URL } from '../config/site';
+import { site } from '../config/site';
 import { getLocale, useTranslations } from '../i18n';
 import Logo from './Logo.astro';
 
@@ -10,10 +10,8 @@ const navKeys: Record<string, string> = {
   '/services': 'services',
   '/about': 'about',
   '/posts': 'blog',
+  '/works': 'works',
   '/contact': 'contact',
-  // The workspace is an absolute URL, not a path; map it so the label is
-  // translated instead of falling back to the authored Spanish one.
-  [WORKSPACE_URL]: 'works',
 };
 
 const labelFor = (href: string, fallback: string) => {

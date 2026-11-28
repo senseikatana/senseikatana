@@ -18,10 +18,6 @@ on:
         description: 'Only report what would change (no writes)'
         type: boolean
         default: false
-      attach_showcase:
-        description: 'Also attach showcase.senseikatana.com to Pages (serves a copy of the site)'
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -58,7 +54,6 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           DRY_RUN: ${{ inputs.dry_run }}
-          ATTACH_SHOWCASE: ${{ inputs.attach_showcase }}
         run: |
           set -euo pipefail
           token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
@@ -70,13 +65,9 @@ jobs:
           target="senseikatana-web.pages.dev"
           project="senseikatana-web"
 
-          # showcase is NOT a Pages custom domain: attaching it served a full
-          # duplicate of the site on the subdomain. It gets its own proxied
-          # record plus a redirect rule (see the step below).
+          # The legacy showcase host is NOT a Pages custom domain: attaching it
+          # served a full duplicate of the site. It must stay detached.
           names="senseikatana.com www.senseikatana.com"
-          # Temporary escape hatch: without Zone Rulesets permission the redirect
-          # rule cannot be installed, and a detached showcase answers 522.
-          [ "${ATTACH_SHOWCASE:-false}" = "true" ] && names="${names} showcase.senseikatana.com"
 
           zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id // empty')
           if [ -z "${zone}" ]; then
@@ -159,14 +150,12 @@ jobs:
               | jq -c '{name: .result.name, status: .result.status, errors}'
           done
 
-          # showcase must NOT stay attached: an attached domain serves the whole
-          # site, which is how the apex leaked onto the subdomain. Detach it and
-          # let the redirect rule above own that hostname.
+          # The legacy showcase host must NOT stay attached: an attached domain
+          # serves the whole site, which is how the apex leaked onto the
+          # subdomain. Detach it if it is still there.
           stale_showcase=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains" \
             | jq -r '.result[]? | select(.name == "showcase.senseikatana.com") | .name')
-          if [ -n "${stale_showcase}" ] && [ "${ATTACH_SHOWCASE:-false}" = "true" ]; then
-            echo "  showcase.senseikatana.com: kept attached (attach_showcase=true)"
-          elif [ -n "${stale_showcase}" ]; then
+          if [ -n "${stale_showcase}" ]; then
             if [ "${DRY_RUN:-false}" = "true" ]; then
               echo "  showcase.senseikatana.com: would detach (it serves a duplicate of the site)"
             else
@@ -187,116 +176,14 @@ jobs:
             done
           fi
 
-      - name: Cut samuraicoder.dev over to Pages
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          DRY_RUN: ${{ inputs.dry_run }}
-        run: |
-          set -euo pipefail
-          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
-          account=$(printf '%s' "${CLOUDFLARE_ACCOUNT_ID}" | tr -d '[:space:]')
-          api="https://api.cloudflare.com/client/v4/accounts/${account}"
-          cf="https://api.cloudflare.com/client/v4"
-          auth=(-H "Authorization: Bearer ${token}")
-          json=(-H "Content-Type: application/json")
-          zone_name="samuraicoder.dev"
-          project="samuraicoder"
-          target="samuraicoder.pages.dev"
-          names="${zone_name} www.${zone_name}"
-
-          zone=$(curl -sS "${auth[@]}" "${cf}/zones?name=${zone_name}" | jq -r '.result[0].id // empty')
-          if [ -z "${zone}" ]; then
-            echo "::error::Zone ${zone_name} not found with this token."
-            exit 1
-          fi
-          echo "zone: ${zone} (${zone_name}) | target: ${target}"
-
-          for name in ${names}; do
-            echo "== ${name} =="
-            records=$(curl -sS "${auth[@]}" "${cf}/zones/${zone}/dns_records?name=${name}")
-
-            if echo "${records}" | jq -e --arg t "${target}" \
-              '.result[]? | select(.type == "CNAME" and .content == $t and .proxied == true)' >/dev/null; then
-              echo "  ok: already a proxied CNAME to ${target}"
-              continue
-            fi
-
-            echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA" or .type == "CNAME")
-              | "  stale: \(.type) \(.name) -> \(.content)"'
-
-            if [ "${DRY_RUN:-false}" = "true" ]; then
-              echo "  would delete the records above and create CNAME -> ${target}"
-              continue
-            fi
-
-            for id in $(echo "${records}" | jq -r '.result[]? | select(.type == "A" or .type == "AAAA" or .type == "CNAME") | .id'); do
-              curl -sS "${auth[@]}" -X DELETE "${cf}/zones/${zone}/dns_records/${id}" | jq -c '{deleted: .result.id}'
-            done
-
-            created=$(curl -sS "${auth[@]}" "${json[@]}" -X POST "${cf}/zones/${zone}/dns_records" \
-              --data "$(jq -nc --arg n "${name}" --arg c "${target}" '{type:"CNAME", name:$n, content:$c, proxied:true, ttl:1}')")
-            echo "${created}" | jq -c '{success, errors, result: (.result | {type, name, content, proxied})}'
-            echo "${created}" | jq -e '.success' >/dev/null || { echo "::error::CNAME failed for ${name}"; exit 1; }
-          done
-
-          echo "== Pages custom domains (${project}) =="
-          for name in ${names}; do
-            domains=$(curl -sS "${auth[@]}" "${api}/pages/projects/${project}/domains")
-            status=$(echo "${domains}" | jq -r --arg n "$name" '.result[]? | select(.name == $n) | .status')
-            if [ "${status}" = "active" ]; then echo "  ${name}: active"; continue; fi
-            if [ "${DRY_RUN:-false}" = "true" ]; then echo "  ${name}: would (re)attach"; continue; fi
-            [ -n "${status}" ] && curl -sS "${auth[@]}" -X DELETE "${api}/pages/projects/${project}/domains/${name}" >/dev/null
-            echo "  ${name}: attaching"
-            curl -sS "${auth[@]}" "${json[@]}" -X POST "${api}/pages/projects/${project}/domains" \
-              --data "$(jq -nc --arg n "${name}" '{name:$n}')" \
-              | jq -c '{name: .result.name, status: .result.status, errors}'
-          done
-
-      - name: Redirect showcase to the workspace
-        if: ${{ inputs.dry_run != true }}
-        # Without Workers Scripts permission this is the way to redirect a host:
-        # a Single Redirect at the edge. If the token lacks Zone Rulesets, this
-        # fails and the DNS record simply keeps pointing at Pages; nothing breaks.
-        continue-on-error: true
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          set -uo pipefail
-          token=$(printf '%s' "${CLOUDFLARE_API_TOKEN}" | tr -d '[:space:]')
-          cf="https://api.cloudflare.com/client/v4"
-          zone=$(curl -sS -H "Authorization: Bearer ${token}" "${cf}/zones?name=senseikatana.com" | jq -r '.result[0].id // empty')
-          [ -z "${zone}" ] && { echo "::error::zone not found"; exit 1; }
-
-          body=$(jq -nc '{
-            rules: [{
-              action: "redirect",
-              description: "showcase -> workspace",
-              enabled: true,
-              expression: "(http.host eq \"showcase.senseikatana.com\")",
-              action_parameters: {
-                from_value: {
-                  status_code: 301,
-                  preserve_query_string: true,
-                  target_url: { value: "https://samuraicoder.dev/works" }
-                }
-              }
-            }]
-          }')
-          res=$(curl -sS -X PUT \
-            -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" \
-            "${cf}/zones/${zone}/rulesets/phases/http_request_dynamic_redirect/entrypoint" \
-            --data "${body}")
-          echo "${res}" | jq -c '{success, errors, rules: (.result.rules // [] | length)}'
-
       # Turning the proxy on activates every Worker route on the zone, so the
       # Worker copy that is live the moment DNS moves is the one answering.
       - name: Deploy the zone Workers
         if: ${{ inputs.dry_run != true }}
         # The current token has Pages + DNS but not "Workers Scripts: Edit", so
         # this fails with a 403 on the service. It must not abort the cutover:
-        # /docs still works through the Pages `_redirects` when no Worker route
-        # is deployed. Grant the permission and re-run to ship the redirector.
+        # deploy `bun run deploy:proxy` with a token that has Workers Scripts
+        # permission to serve /docs. The route is owned by workers/docs-proxy.
         continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -315,7 +202,7 @@ jobs:
           # fixed sleep, and assert a marker only the new build has.
           for i in $(seq 1 24); do
             html=$(curl -s --max-time 10 https://senseikatana.com/ || true)
-            if echo "${html}" | grep -q 'samuraicoder.dev/works/'; then
+            if echo "${html}" | grep -q 'href="/works' && ! echo "${html}" | grep -q 'samuraicoder.dev'; then
               echo "new build detected after $((i*5))s"
               break
             fi
@@ -324,7 +211,7 @@ jobs:
           done
 
           echo "== routes =="
-          for path in / /posts /about /services /projects/empresaplana /works/empresaplana /docs/overview; do
+          for path in / /posts /about /services /projects/empresaplana /works /works/empresaplana /ca/works /es/works /docs/overview; do
             printf '%-26s %s\n' "${path}" \
               "$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' --max-time 10 "https://senseikatana.com${path}")"
           done

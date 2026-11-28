@@ -21,13 +21,13 @@ export function alertClass(options = {}) {
  * @example
  * ```ts
  * document.body.append(
- *   useAlert({ variant: "warning", title: "Heads up", message: "Quota at 90%.", dismissible: true }),
+ *   onAlert({ variant: "warning", title: "Heads up", message: "Quota at 90%.", dismissible: true }),
  * );
  * ```
  */
-export function useAlert(options = {}) {
+export function onAlert(options = {}) {
     if (typeof document === "undefined") {
-        throw new Error("[KatanaUI] useAlert() needs a DOM; use alertClass() for SSR markup.");
+        throw new Error("[KatanaUI] onAlert() needs a DOM; use alertClass() for SSR markup.");
     }
     const variant = options.variant ?? "info";
     const alert = document.createElement("div");
@@ -53,7 +53,14 @@ export function useAlert(options = {}) {
         close.type = "button";
         close.className = "alert__close";
         close.setAttribute("aria-label", "Dismiss");
-        close.textContent = "×";
+        // The multiplication sign is decoration, not content. Left as bare text
+        // inside a button that also carries `aria-label`, some screen readers
+        // announce both ("times, Dismiss"); hiding the glyph from assistive tech
+        // leaves the label as the only name.
+        const glyph = document.createElement("span");
+        glyph.setAttribute("aria-hidden", "true");
+        glyph.textContent = "×";
+        close.append(glyph);
         close.addEventListener("click", () => {
             alert.remove();
             options.onDismiss?.();

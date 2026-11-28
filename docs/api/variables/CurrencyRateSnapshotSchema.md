@@ -44,6 +44,6 @@ const CurrencyRateSnapshotSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/core.schema.ts:84](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/core.schema.ts#L84)
+Defined in: [schemas/core.schema.ts:81](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/core.schema.ts#L81)
 
 A dated snapshot of exchange rates quoted against one base currency.

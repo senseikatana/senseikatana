@@ -87,9 +87,32 @@
     "ctaButton": "Parlem"
   },
   "works": {
+    "eyebrow": "senseikatana.com/works",
+    "label": "projectes",
+    "title": "Works",
     "headline": "Sistemes en ús,\nno maquetes.",
+    "subtitle": "Projectes reals, propis i de clients. El repte, la solució i el resultat, sense mètriques inventades.",
     "openSource": "Open source",
-    "clientWork": "Treball de client"
+    "clientWork": "Treball de client",
+    "empty": "Encara no hi ha casos publicats.",
+    "back": "Tornar a projectes",
+    "view": "Veure cas",
+    "challenge": "El repte",
+    "solution": "La solució",
+    "outcome": "El resultat",
+    "stack": "Stack",
+    "metrics": "Mètriques",
+    "role": "Rol",
+    "year": "Any",
+    "sector": "Sector",
+    "client": "Client",
+    "visit": "Veure en viu",
+    "repo": "Veure codi",
+    "demo": "Demo",
+    "project": "Projecte",
+    "ctaTitle": "Tens un repte semblant?",
+    "ctaBody": "Cada operació té les seves rareses. Explica'm la teva i veiem què es pot simplificar.",
+    "ctaButton": "Parlem"
   },
   "about": {
     "eyebrow": "senseikatana.com/about",

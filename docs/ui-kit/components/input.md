@@ -5,7 +5,7 @@ description: Accessible text field with label, help/error wiring and invalid sta
 
 # Input
 
-`useInput(options)` returns `{ root, input }`: a `.field` wrapper with the label
+`onInput(options)` returns `{ root, input }`: a `.field` wrapper with the label
 and message already wired through `for`, `aria-invalid` and `aria-describedby`.
 `inputClass(options)` returns the control classes for SSR markup.
 
@@ -14,9 +14,9 @@ and message already wired through `for`, `aria-invalid` and `aria-describedby`.
 <div ref="basic" class="demo-stack"></div>
 
 ```ts
-import { useInput } from "@katanakit/ui";
+import { onInput } from "@katanakit/ui";
 
-const { root } = useInput({
+const { root } = onInput({
   label: "Email",
   type: "email",
   name: "email",
@@ -32,14 +32,14 @@ form.append(root);
 <div ref="errors" class="demo-stack"></div>
 
 ```ts
-useInput({ label: "Email", type: "email", error: "Enter a valid email." });
+onInput({ label: "Email", type: "email", error: "Enter a valid email." });
 ```
 
 <ComponentContract
 	name="Input"
 	root="field"
 	pure="inputClass"
-	factory="useInput"
+	factory="onInput"
 />
 
 ## Options
@@ -58,32 +58,32 @@ useInput({ label: "Email", type: "email", error: "Enter a valid email." });
 | `onInput`     | `(value: string) => void`                                  | —        | Fired on every `input` event.                 |
 
 ::: tip Validation
-Pair the field with `useValidate()` from `katanakit-js`: run the Safe Result
-and pass `error.issues[0].message` to `useInput` — or rebuild the field when
+Pair the field with `onValidate()` from `katanakit-js`: run the Safe Result
+and pass `error.issues[0].message` to `onInput` — or rebuild the field when
 the state changes.
 :::
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useInput } from "@katanakit/ui";
+import { onInput } from "@katanakit/ui";
 
 const basic = ref<HTMLElement>();
 const errors = ref<HTMLElement>();
 
 onMounted(() => {
 	basic.value?.append(
-		useInput({
+		onInput({
 			label: "Email",
 			type: "email",
 			name: "email",
 			placeholder: "you@example.com",
 			help: "We only use it for receipts.",
 		}).root,
-		useInput({ label: "Password", type: "password", name: "password", value: "secret" }).root,
+		onInput({ label: "Password", type: "password", name: "password", value: "secret" }).root,
 	);
 	errors.value?.append(
-		useInput({
+		onInput({
 			label: "Email",
 			type: "email",
 			name: "email-error",

@@ -28,9 +28,9 @@ daily reference rates** — no key, no account. The bundled
 `FetchApiManager`.
 
 The **escape hatch is the `ICurrencyRateProvider` port** (ADR-0012): implement
-`useFetchRates(base, quotes?)` returning a `SafeResult<CurrencyRateSnapshot>`
+`fetchRates(base)` returning a `SafeResult<CurrencyRateSnapshot>`
 and inject it through `CurrencyConverterService.create({ provider })` or
-`useSetProvider()`. The kit documents this as the path to a live-market
+`setProvider()`. The kit documents this as the path to a live-market
 provider, not as an emergency workaround.
 
 The limitations are documented wherever the feature is taught, not buried:

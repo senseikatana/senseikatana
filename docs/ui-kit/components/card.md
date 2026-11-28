@@ -5,7 +5,7 @@ description: Surface container with optional header, body children and footer.
 
 # Card
 
-`useCard(options)` creates an `<article class="card">` with optional header, body
+`onCard(options)` creates an `<article class="card">` with optional header, body
 and footer. `cardClass(options)` returns the classes for SSR markup.
 
 ## Demo
@@ -13,11 +13,11 @@ and footer. `cardClass(options)` returns the classes for SSR markup.
 <div ref="cards" class="demo-grid"></div>
 
 ```ts
-import { useCard } from "@katanakit/ui";
+import { onCard } from "@katanakit/ui";
 
 grid.append(
-  useCard({ title: "Revenue", children: ["$12,400"], footer: "Updated 5 min ago" }),
-  useCard({ title: "Churn", children: ["2.1%"], elevated: true }),
+  onCard({ title: "Revenue", children: ["$12,400"], footer: "Updated 5 min ago" }),
+  onCard({ title: "Churn", children: ["2.1%"], elevated: true }),
 );
 ```
 
@@ -25,7 +25,7 @@ grid.append(
 	name="Card"
 	root="card"
 	pure="cardClass"
-	factory="useCard"
+	factory="onCard"
 />
 
 ## Options
@@ -45,15 +45,15 @@ The kit never owns the data — bind it to Safe Results from `katanakit-js`.
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { useCard } from "@katanakit/ui";
+import { onCard } from "@katanakit/ui";
 
 const cards = ref<HTMLElement>();
 
 onMounted(() => {
 	cards.value?.append(
-		useCard({ title: "Revenue", children: ["$12,400"], footer: "Updated 5 min ago" }),
-		useCard({ title: "Churn", children: ["2.1%"], elevated: true }),
-		useCard({ title: "Open tickets", children: ["18"] }),
+		onCard({ title: "Revenue", children: ["$12,400"], footer: "Updated 5 min ago" }),
+		onCard({ title: "Churn", children: ["2.1%"], elevated: true }),
+		onCard({ title: "Open tickets", children: ["18"] }),
 	);
 });
 </script>

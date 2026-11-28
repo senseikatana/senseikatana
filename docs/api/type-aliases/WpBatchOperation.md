@@ -6,6 +6,6 @@
 type WpBatchOperation = z.infer<typeof WpBatchOperationSchema>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:186](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/wordpress.ts#L186)
+Defined in: [types/wordpress/types.ts:186](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/wordpress/types.ts#L186)
 
 A batch operation for the WordPress REST API.

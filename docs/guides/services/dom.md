@@ -10,15 +10,15 @@ instance to create. Two design rules apply to every function on this page:
 
 1. **SSR-safe by default** — outside a browser (`typeof document === "undefined"`)
    queries return `null` / `[]`, boolean helpers return `false`, and setters are
-   no-ops. The only exception is `useCreateElement()`, which throws because a
+   no-ops. The only exception is `onCreateElement()`, which throws because a
    detached element has no server meaning.
 2. **Selectors or elements** — every helper that targets an element accepts
    either a CSS selector string (`"#submit"`, `".card"`) or an
    `Element` reference. Pass references when you already have them; pass
    selectors for terse event-delegation code paths.
 
-The setters are also hardened: `useSetAttribute()` blocks `on*` handlers,
-`javascript:`/`vbscript:` URLs and unsafe `data:` URIs, while `useSetText()` is
+The setters are also hardened: `onSetAttribute()` blocks `on*` handlers,
+`javascript:`/`vbscript:` URLs and unsafe `data:` URIs, while `onSetText()` is
 the safe way to render user content. See [Attributes](#attributes--data) and
 [Content](#content) for details.
 
@@ -26,21 +26,21 @@ the safe way to render user content. See [Attributes](#attributes--data) and
 
 ```ts
 import {
-  useQuerySelector, useQuerySelectorAll, useOn, useToggleClass,
-  useSetText, useGetRoot,
+  onQuerySelector, onQuerySelectorAll, onOn, onToggleClass,
+  onSetText, onGetRoot,
 } from "katanakit-js";
 
-const root = useGetRoot();
-const button = useQuerySelector<HTMLButtonElement>("#menu-toggle");
-const items = useQuerySelectorAll<HTMLLIElement>("nav .item");
+const root = onGetRoot();
+const button = onQuerySelector<HTMLButtonElement>("#menu-toggle");
+const items = onQuerySelectorAll<HTMLLIElement>("nav .item");
 
 // Toggle a class on <html> and update an accessible label
-const off = useOn(button, "click", () => {
-  const open = useToggleClass(root!, "menu-open");
+const off = onOn(button, "click", () => {
+  const open = onToggleClass(root!, "menu-open");
   button?.setAttribute("aria-expanded", String(open ?? false));
 });
 
-items.forEach((item) => useSetText(item, item.textContent?.toUpperCase() ?? ""));
+items.forEach((item) => onSetText(item, item.textContent?.toUpperCase() ?? ""));
 
 // Cleanup when the component unmounts
 off?.();
@@ -48,16 +48,16 @@ off?.();
 
 ## Browser & root references
 
-### useIsBrowser()
+### onIsBrowser()
 
 Returns `true` only when both `window` and `document` exist. Use it to gate
 code that cannot be expressed through the other helpers — for example, deciding
 whether to attach a third-party library that touches `window`.
 
 ```ts
-import { useIsBrowser } from "katanakit-js";
+import { onIsBrowser } from "katanakit-js";
 
-if (useIsBrowser()) {
+if (onIsBrowser()) {
   const { default: confetti } = await import("canvas-confetti");
   confetti({ particleCount: 80, spread: 60 });
 }
@@ -67,58 +67,58 @@ if (useIsBrowser()) {
 canvas animation that only loads in the browser, while the same module stays
 importable from a server component that pre-renders the static fallback.
 
-### useGetRoot()
+### onGetRoot()
 
 Returns `document.documentElement` (the `<html>` element) or `null` on the
 server. This is the canonical hook for theme classes, `lang` attributes and
 anything that must be set at the document level.
 
 ```ts
-import { useGetRoot, useAddClass, useRemoveClass } from "katanakit-js";
+import { onGetRoot, onAddClass, onRemoveClass } from "katanakit-js";
 
-const root = useGetRoot();
+const root = onGetRoot();
 
 export function setDarkMode(enabled: boolean) {
   if (!root) return;
-  useToggleClass(root, "dark", enabled);
+  onToggleClass(root, "dark", enabled);
 }
 ```
 
-### useGetBody()
+### onGetBody()
 
 Returns `document.body` cast as `HTMLBodyElement`, or `null` on the server.
 Use it for scroll locking, page-level classes and global overlays.
 
 ```ts
-import { useGetBody, useAddClass, useRemoveClass } from "katanakit-js";
+import { onGetBody, onAddClass, onRemoveClass } from "katanakit-js";
 
-const body = useGetBody();
+const body = onGetBody();
 
 export function lockScroll(locked: boolean) {
   if (!body) return;
-  if (locked) useAddClass(body, "overflow-hidden");
-  else useRemoveClass(body, "overflow-hidden");
+  if (locked) onAddClass(body, "overflow-hidden");
+  else onRemoveClass(body, "overflow-hidden");
 }
 ```
 
 **Real use case** — a modal component locks body scroll while open; because
-`useGetBody()` returns `null` during SSR, the same component renders on the
+`onGetBody()` returns `null` during SSR, the same component renders on the
 server without branching on `typeof window`.
 
 ## Querying elements
 
-### useQuerySelector(selector)
+### onQuerySelector(selector)
 
 Typed wrapper around `document.querySelector`. The overloads infer the element
-type from the tag name (`useQuerySelector("input")` → `HTMLInputElement | null`)
+type from the tag name (`onQuerySelector("input")` → `HTMLInputElement | null`)
 or from an explicit type argument for selectors.
 
 ```ts
-import { useQuerySelector } from "katanakit-js";
+import { onQuerySelector } from "katanakit-js";
 
-const form = useQuerySelector("form.checkout");                 // HTMLFormElement | null
-const email = useQuerySelector<HTMLInputElement>("#email");     // HTMLInputElement | null
-const firstRow = useQuerySelector<HTMLTableRowElement>("tbody tr");
+const form = onQuerySelector("form.checkout");                 // HTMLFormElement | null
+const email = onQuerySelector<HTMLInputElement>("#email");     // HTMLInputElement | null
+const firstRow = onQuerySelector<HTMLTableRowElement>("tbody tr");
 ```
 
 Returns `null` when the element does not exist **or** when called outside the
@@ -128,7 +128,7 @@ browser, so always guard with `?.` or an early return.
 the reference for `setCustomValidity()`:
 
 ```ts
-const email = useQuerySelector<HTMLInputElement>("#email");
+const email = onQuerySelector<HTMLInputElement>("#email");
 
 function validateEmail() {
   if (!email) return true;
@@ -138,16 +138,16 @@ function validateEmail() {
 }
 ```
 
-### useQuerySelectorAll(selector)
+### onQuerySelectorAll(selector)
 
 Typed `querySelectorAll` that returns a **real array** (`Element[]`, never a
 `NodeList`), so `.map()`, `.filter()` and `for...of` work without
 `Array.from()`. Returns `[]` outside the browser.
 
 ```ts
-import { useQuerySelectorAll } from "katanakit-js";
+import { onQuerySelectorAll } from "katanakit-js";
 
-const rows = useQuerySelectorAll<HTMLTableRowElement>("tbody tr");
+const rows = onQuerySelectorAll<HTMLTableRowElement>("tbody tr");
 const emails = rows.map((row) => row.dataset.email).filter(Boolean);
 ```
 
@@ -155,77 +155,77 @@ const emails = rows.map((row) => row.dataset.email).filter(Boolean);
 every row, then read the selection in one pass.
 
 ```ts
-const checkboxes = useQuerySelectorAll<HTMLInputElement>("tbody input[type=checkbox]");
+const checkboxes = onQuerySelectorAll<HTMLInputElement>("tbody input[type=checkbox]");
 
 export function selectAll(checked: boolean) {
   checkboxes.forEach((box) => (box.checked = checked));
 }
 ```
 
-### useGetElementById(id)
+### onGetElementById(id)
 
 Shortcut for `document.getElementById`, with an optional type parameter.
-Unlike `useQuerySelector`, the id is passed **without** `#`.
+Unlike `onQuerySelector`, the id is passed **without** `#`.
 
 ```ts
-import { useGetElementById } from "katanakit-js";
+import { onGetElementById } from "katanakit-js";
 
-const dialog = useGetElementById<HTMLDialogElement>("confirm-dialog");
+const dialog = onGetElementById<HTMLDialogElement>("confirm-dialog");
 ```
 
 **Real use case** — imperative UI (dialogs, popovers, video players): keep a
 stable id in the markup and grab the element when the action runs, avoiding
 global state just to hold a reference.
 
-### useGetElementByClass(className)
+### onGetElementByClass(className)
 
 Finds the **first** element with a class, accepting `"card"` or `".card"` —
 handy when class names arrive from configuration or CMS data.
 
 ```ts
-import { useGetElementByClass } from "katanakit-js";
+import { onGetElementByClass } from "katanakit-js";
 
-const hero = useGetElementByClass("hero");     // `.hero` added internally
-const card = useGetElementByClass<HTMLElement>(".card");
+const hero = onGetElementByClass("hero");     // `.hero` added internally
+const card = onGetElementByClass<HTMLElement>(".card");
 ```
 
 ## Classes
 
-### useAddClass(target, className)
+### onAddClass(target, className)
 
 Adds a class to the resolved element; silent no-op when the element or the DOM
 is missing. Idempotent: adding twice does nothing.
 
 ```ts
-import { useAddClass } from "katanakit-js";
+import { onAddClass } from "katanakit-js";
 
-useAddClass("#header", "sticky");
-useAddClass(myElement, "visible");
+onAddClass("#header", "sticky");
+onAddClass(myElement, "visible");
 ```
 
-### useRemoveClass(target, className)
+### onRemoveClass(target, className)
 
 Removes one class or an **array of classes** in a single call — useful when
 cleanup depends on several mutually exclusive states.
 
 ```ts
-import { useRemoveClass } from "katanakit-js";
+import { onRemoveClass } from "katanakit-js";
 
-useRemoveClass("#header", "sticky");
-useRemoveClass(myElement, ["visible", "active", "loading"]);
+onRemoveClass("#header", "sticky");
+onRemoveClass(myElement, ["visible", "active", "loading"]);
 ```
 
-### useToggleClass(target, className, force?)
+### onToggleClass(target, className, force?)
 
 Toggles a class and returns whether it is now present (`boolean | undefined`).
 Pass `force` to make the operation deterministic — `force: true` adds, `false`
 removes — which avoids read-then-write races in event handlers.
 
 ```ts
-import { useToggleClass } from "katanakit-js";
+import { onToggleClass } from "katanakit-js";
 
-const isOpen = useToggleClass(".sidebar", "open");
-useToggleClass(".sidebar", "hidden", false);  // guaranteed closed
+const isOpen = onToggleClass(".sidebar", "open");
+onToggleClass(".sidebar", "hidden", false);  // guaranteed closed
 ```
 
 **Real use case** — accordions and drawers: keep the source of truth in the DOM
@@ -235,44 +235,44 @@ class and mirror it to `aria-expanded`, so CSS and accessibility never drift:
 const trigger = "#faq-1-trigger";
 const panel = "#faq-1-panel";
 
-useOn(trigger, "click", () => {
-  const open = useToggleClass(panel, "is-open") ?? false;
-  useSetAttribute(trigger, "aria-expanded", String(open));
+onOn(trigger, "click", () => {
+  const open = onToggleClass(panel, "is-open") ?? false;
+  onSetAttribute(trigger, "aria-expanded", String(open));
 });
 ```
 
-### useHasClass(target, className)
+### onHasClass(target, className)
 
 Returns `false` (never throws) when the element is missing — safe to call in
 render paths and SSR.
 
 ```ts
-import { useHasClass } from "katanakit-js";
+import { onHasClass } from "katanakit-js";
 
-if (useHasClass(".btn-submit", "disabled")) {
+if (onHasClass(".btn-submit", "disabled")) {
   showTooltip("Complete the form first");
 }
 ```
 
 ## Attributes & data
 
-### useGetAttribute(target, attr)
+### onGetAttribute(target, attr)
 
 Returns the attribute value or `null` when the attribute or element is absent.
 
 ```ts
-import { useGetAttribute } from "katanakit-js";
+import { onGetAttribute } from "katanakit-js";
 
-const href = useGetAttribute("a.cta", "href");
-const alt = useGetAttribute<HTMLImageElement>("img.cover", "alt");
+const href = onGetAttribute("a.cta", "href");
+const alt = onGetAttribute<HTMLImageElement>("img.cover", "alt");
 ```
 
-### useSetAttribute(target, attr, value)
+### onSetAttribute(target, attr, value)
 
 Sets an attribute with **XSS protection**. The function throws when:
 
 - the attribute is an event handler (`onclick`, `onerror`, …) — use
-  [`useOn()`](#useontarget-event-callback-options) instead;
+  [`onOn()`](#onontarget-event-callback-options) instead;
 - the value of a URL-like attribute (`href`, `src`, `action`, `formaction`,
   `xlink:href`) uses a `javascript:` or `vbscript:` scheme;
 - a `data:` URI is not a raster image (`png`, `jpg`, `gif`, `webp`);
@@ -282,14 +282,14 @@ Control characters are stripped before the scheme check, so obfuscations like
 `java\nscript:` are rejected too.
 
 ```ts
-import { useSetAttribute } from "katanakit-js";
+import { onSetAttribute } from "katanakit-js";
 
-useSetAttribute("img.hero", "src", "/photo.jpg");
-useSetAttribute("a.link", "href", "https://example.com");
-useSetAttribute("button.next", "aria-disabled", "true");
+onSetAttribute("img.hero", "src", "/photo.jpg");
+onSetAttribute("a.link", "href", "https://example.com");
+onSetAttribute("button.next", "aria-disabled", "true");
 
-// Throws — use useOn() for events
-// useSetAttribute("button", "onclick", "doSomething()");
+// Throws — use onOn() for events
+// onSetAttribute("button", "onclick", "doSomething()");
 ```
 
 **Real use case** — link previews built from API data: you can safely write
@@ -297,45 +297,45 @@ useSetAttribute("button.next", "aria-disabled", "true");
 script URLs are rejected at the boundary:
 
 ```ts
-const { data } = await useGet<Card>("cms", "cardById", { params: { id } });
+const { data } = await onGet<Card>("cms", "cardById", { params: { id } });
 
 if (data) {
-  useSetAttribute("#card-link", "href", data.url);
-  useSetAttribute("#card-image", "src", data.image);
+  onSetAttribute("#card-link", "href", data.url);
+  onSetAttribute("#card-image", "src", data.image);
 }
 ```
 
-### useRemoveAttribute(target, attr)
+### onRemoveAttribute(target, attr)
 
 Removes an attribute; no-op when the element is missing. Common for enabling
 controls (`disabled`), clearing validation hints, or resetting ARIA state.
 
 ```ts
-import { useRemoveAttribute } from "katanakit-js";
+import { onRemoveAttribute } from "katanakit-js";
 
-useRemoveAttribute("#submit", "disabled");
+onRemoveAttribute("#submit", "disabled");
 ```
 
-### useGetDataAttribute(target, key)
+### onGetDataAttribute(target, key)
 
 Reads `data-*` values through `dataset`, so the key is camelCase
 (`data-user-id` → `"userId"`). Returns `undefined` when absent.
 
 ```ts
-import { useGetDataAttribute } from "katanakit-js";
+import { onGetDataAttribute } from "katanakit-js";
 
-const userId = useGetDataAttribute("tr.row", "userId");
+const userId = onGetDataAttribute("tr.row", "userId");
 ```
 
-### useSetDataAttribute(target, key, value)
+### onSetDataAttribute(target, key, value)
 
 Writes `data-*` values through `dataset`; the DOM reflects the kebab-case
 attribute (`key: "userId"` → `data-user-id`).
 
 ```ts
-import { useSetDataAttribute } from "katanakit-js";
+import { onSetDataAttribute } from "katanakit-js";
 
-useSetDataAttribute("tr.row", "status", "active");
+onSetDataAttribute("tr.row", "status", "active");
 ```
 
 **Real use case** — list-to-detail navigation without a router state library:
@@ -343,15 +343,15 @@ stamp each row with the entity id at render time and read it in the click
 handler.
 
 ```ts
-useQuerySelectorAll<HTMLTableRowElement>("tbody tr").forEach((row) => {
-  useSetDataAttribute(row, "recordId", row.id);
-  useOn(row, "dblclick", () => openRecord(useGetDataAttribute(row, "recordId")));
+onQuerySelectorAll<HTMLTableRowElement>("tbody tr").forEach((row) => {
+  onSetDataAttribute(row, "recordId", row.id);
+  onOn(row, "dblclick", () => openRecord(onGetDataAttribute(row, "recordId")));
 });
 ```
 
 ## Events
 
-### useOn(target, event, callback, options?)
+### onOn(target, event, callback, options?)
 
 Attaches a listener and returns an **unsubscribe function** (`() => void`), or
 `null` outside the browser or when the selector matches nothing. `target` can
@@ -360,13 +360,13 @@ selector. The callback is typed from `HTMLElementEventMap`, and `options` is
 forwarded to `addEventListener` (`capture`, `once`, `passive`, …).
 
 ```ts
-import { useOn } from "katanakit-js";
+import { onOn } from "katanakit-js";
 
-const offScroll = useOn(window, "scroll", () => {
+const offScroll = onOn(window, "scroll", () => {
   document.body.classList.toggle("scrolled", window.scrollY > 24);
 }, { passive: true });
 
-const offClick = useOn("#cta", "click", (event) => {
+const offClick = onOn("#cta", "click", (event) => {
   event.preventDefault();
   track("cta-click");
 });
@@ -382,16 +382,16 @@ explicit. In component frameworks this pairs directly with lifecycle hooks:
 
 ```ts
 // Vue
-onMounted(() => { off = useOn(window, "resize", onResize); });
+onMounted(() => { off = onOn(window, "resize", onResize); });
 onBeforeUnmount(() => off?.());
 
 // React
-useEffect(() => useOn(window, "resize", onResize) ?? undefined, []);
+useEffect(() => onOn(window, "resize", onResize) ?? undefined, []);
 ```
 
 ## Content
 
-### useCreateElement(tagName, options?)
+### onCreateElement(tagName, options?)
 
 Creates a detached element with typed tag inference. **Throws outside the
 browser** — this is the one helper that cannot degrade to a no-op, because the
@@ -399,59 +399,59 @@ return value is always used. The optional `options` argument is the standard
 `ElementCreationOptions` (customized built-ins).
 
 ```ts
-import { useCreateElement, useSetText, useAppend } from "katanakit-js";
+import { onCreateElement, onSetText, onAppend } from "katanakit-js";
 
-const badge = useCreateElement("span");
-useSetText(badge, "New");
-useAddClass(badge, "badge");
+const badge = onCreateElement("span");
+onSetText(badge, "New");
+onAddClass(badge, "badge");
 
-useAppend("#product-name", badge);
+onAppend("#product-name", badge);
 ```
 
-### useSetText(target, text)
+### onSetText(target, text)
 
 Sets `textContent`. **This is the safe sink for user-generated content** — no
 HTML parsing happens, so `<script>` in the string is displayed literally.
 
 ```ts
-import { useSetText } from "katanakit-js";
+import { onSetText } from "katanakit-js";
 
-useSetText("#greeting", `Hello, ${user.name}!`);
+onSetText("#greeting", `Hello, ${user.name}!`);
 ```
 
 **Real use case** — comments, chat messages and profile names: any value that
-originated from another user must go through `useSetText`, never
-`useSetHtml`.
+originated from another user must go through `onSetText`, never
+`onSetHtml`.
 
-### useSetHtml(target, html)
+### onSetHtml(target, html)
 
 Sets `innerHTML`. Powerful and equally dangerous: it is an **HTML injection
 sink**. Only pass trusted static markup; sanitize everything else with a
 dedicated library (for example DOMPurify) before calling.
 
 ```ts
-import { useSetHtml } from "katanakit-js";
+import { onSetHtml } from "katanakit-js";
 
 // Safe — developer-authored markup
-useSetHtml("#banner", "<strong>Black Friday</strong> — 40% off");
+onSetHtml("#banner", "<strong>Black Friday</strong> — 40% off");
 
 // Never do this with user input
-// useSetHtml("#comment", comment.body);
+// onSetHtml("#comment", comment.body);
 ```
 
-### useAppend(target, child)
+### onAppend(target, child)
 
 Appends a child (element or selector) to a parent (element or selector).
 Missing parents or children are ignored, so it is safe for optional UI.
 
 ```ts
-import { useCreateElement, useSetText, useAppend, useAddClass } from "katanakit-js";
+import { onCreateElement, onSetText, onAppend, onAddClass } from "katanakit-js";
 
 function addTodo(text: string) {
-  const item = useCreateElement("li");
-  useSetText(item, text);
-  useAddClass(item, "todo-item");
-  useAppend("#todo-list", item);
+  const item = onCreateElement("li");
+  onSetText(item, text);
+  onAddClass(item, "todo-item");
+  onAppend("#todo-list", item);
 }
 ```
 
@@ -459,37 +459,37 @@ function addTodo(text: string) {
 append the row immediately, then replace its contents or remove it when the
 server confirms — no virtual DOM required.
 
-### useRemove(target)
+### onRemove(target)
 
 Removes the element from the DOM. No-op when missing.
 
 ```ts
-import { useRemove } from "katanakit-js";
+import { onRemove } from "katanakit-js";
 
-useRemove(".toast--dismissed");
+onRemove(".toast--dismissed");
 ```
 
 ## Modals
 
-### useModalClose(modalSelector, useRemoveDOM?)
+### onModalClose(modalSelector, onRemoveDOM?)
 
 Closes a modal in one call, with two strategies:
 
-- `useRemoveDOM = false` (default) toggles the `hidden` class, keeping the
+- `onRemoveDOM = false` (default) toggles the `hidden` class, keeping the
   element in the DOM — the right choice when the modal may reopen and you want
   to preserve its state.
-- `useRemoveDOM = true` removes the node entirely — useful for one-shot
+- `onRemoveDOM = true` removes the node entirely — useful for one-shot
   interstitials and modals created per session.
 
 ```ts
-import { useModalClose, useOn, useQuerySelector } from "katanakit-js";
+import { onModalClose, onOn, onQuerySelector } from "katanakit-js";
 
 // Close button inside the dialog
-useOn("#modal .close", "click", () => useModalClose("#modal"));
+onOn("#modal .close", "click", () => onModalClose("#modal"));
 
 // Click on the backdrop — but not on the panel itself
-useOn("#modal", "click", (event) => {
-  if (event.target === useQuerySelector("#modal")) useModalClose("#modal", true);
+onOn("#modal", "click", (event) => {
+  if (event.target === onQuerySelector("#modal")) onModalClose("#modal", true);
 });
 ```
 
@@ -501,29 +501,29 @@ above will not find it again.
 
 ```ts
 import {
-  useQuerySelector, useAddClass, useRemove, useOn, useGetStorage, useSetStorage,
+  onQuerySelector, onAddClass, onRemove, onOn, onGetStorage, onSetStorage,
 } from "katanakit-js";
 
 const DISMISS_KEY = "promo:dismissed";
-const banner = useQuerySelector("#promo-banner");
+const banner = onQuerySelector("#promo-banner");
 
-if (banner && !useGetStorage<boolean>(DISMISS_KEY)) {
-  useAddClass(banner, "is-visible");
+if (banner && !onGetStorage<boolean>(DISMISS_KEY)) {
+  onAddClass(banner, "is-visible");
 }
 
-useOn("#promo-close", "click", () => {
-  useRemove("#promo-banner");
-  useSetStorage(DISMISS_KEY, true);
+onOn("#promo-close", "click", () => {
+  onRemove("#promo-banner");
+  onSetStorage(DISMISS_KEY, true);
 });
 ```
 
 The banner composes three services (`DOM` here, `Storage` for persistence and
-`useOn` for wiring) and still renders safely on the server, because every call
+`onOn` for wiring) and still renders safely on the server, because every call
 degrades or no-ops without a `document`.
 
 ## Related
 
 - [Watch](/guides/watch) — reactive `MutationObserver` wrapper for DOM changes.
 - [Storage](/guides/services/storage) — persist UI state like dismissed banners.
-- [Theme](/guides/services/theme) — the themed cousin of `useGetRoot()`.
-- [API Reference](/api/variables/useQuerySelector) — every export, generated from source.
+- [Theme](/guides/services/theme) — the themed cousin of `onGetRoot()`.
+- [API Reference](/api/variables/onQuerySelector) — every export, generated from source.

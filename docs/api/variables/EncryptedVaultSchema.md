@@ -22,7 +22,6 @@ const EncryptedVaultSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/keyvault.schema.ts:119](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/keyvault.schema.ts#L119)
+Defined in: [schemas/keyvault.schema.ts:116](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/keyvault.schema.ts#L116)
 
-Encrypted vault file as it exists on disk. Versioned so a future format can
-migrate instead of guessing.
+Encrypted vault file as it exists on disk. Versioned so a future format can migrate instead of guessing.

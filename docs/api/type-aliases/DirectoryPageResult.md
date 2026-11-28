@@ -10,6 +10,6 @@ type DirectoryPageResult = DirectoryResult<{
 }>;
 ```
 
-Defined in: [schemas/directory.schema.ts:81](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/directory.schema.ts#L81)
+Defined in: [schemas/directory.schema.ts:78](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/directory.schema.ts#L78)
 
 Shape a repository must satisfy — lets a plain object be passed as one.

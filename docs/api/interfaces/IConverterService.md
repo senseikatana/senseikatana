@@ -2,23 +2,23 @@
 
 # Interface: IConverterService
 
-Defined in: [types/core/formatter.ts:16](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L16)
+Defined in: [types/core/formatter.ts:16](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L16)
 
 Contract of the unit converter facade.
 
 ## Methods
 
-### useToCelsius()
+### toCelsius()
 
 ```ts
-useToCelsius(
+toCelsius(
    fahrenheit, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:17](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L17)
+Defined in: [types/core/formatter.ts:17](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L17)
 
 #### Parameters
 
@@ -34,17 +34,17 @@ Defined in: [types/core/formatter.ts:17](https://github.com/senseikatana/katanak
 
 ***
 
-### useToCm()
+### toCm()
 
 ```ts
-useToCm(
+toCm(
    inches, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L22)
+Defined in: [types/core/formatter.ts:22](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L22)
 
 #### Parameters
 
@@ -60,17 +60,17 @@ Defined in: [types/core/formatter.ts:22](https://github.com/senseikatana/katanak
 
 ***
 
-### useToFahrenheit()
+### toFahrenheit()
 
 ```ts
-useToFahrenheit(
+toFahrenheit(
    celsius, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L18)
+Defined in: [types/core/formatter.ts:18](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L18)
 
 #### Parameters
 
@@ -86,17 +86,17 @@ Defined in: [types/core/formatter.ts:18](https://github.com/senseikatana/katanak
 
 ***
 
-### useToInches()
+### toInches()
 
 ```ts
-useToInches(
+toInches(
    cm, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:21](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L21)
+Defined in: [types/core/formatter.ts:21](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L21)
 
 #### Parameters
 
@@ -112,17 +112,17 @@ Defined in: [types/core/formatter.ts:21](https://github.com/senseikatana/katanak
 
 ***
 
-### useToKilometers()
+### toKilometers()
 
 ```ts
-useToKilometers(
+toKilometers(
    miles, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L19)
+Defined in: [types/core/formatter.ts:19](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L19)
 
 #### Parameters
 
@@ -138,17 +138,17 @@ Defined in: [types/core/formatter.ts:19](https://github.com/senseikatana/katanak
 
 ***
 
-### useToKilos()
+### toKilos()
 
 ```ts
-useToKilos(
+toKilos(
    pounds, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:23](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L23)
+Defined in: [types/core/formatter.ts:23](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L23)
 
 #### Parameters
 
@@ -164,17 +164,17 @@ Defined in: [types/core/formatter.ts:23](https://github.com/senseikatana/katanak
 
 ***
 
-### useToMiles()
+### toMiles()
 
 ```ts
-useToMiles(
+toMiles(
    km, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:20](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L20)
+Defined in: [types/core/formatter.ts:20](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L20)
 
 #### Parameters
 
@@ -190,17 +190,17 @@ Defined in: [types/core/formatter.ts:20](https://github.com/senseikatana/katanak
 
 ***
 
-### useToPounds()
+### toPounds()
 
 ```ts
-useToPounds(
+toPounds(
    kilos, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [types/core/formatter.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/formatter.ts#L24)
+Defined in: [types/core/formatter.ts:24](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/formatter.ts#L24)
 
 #### Parameters
 

@@ -6,7 +6,7 @@
 type IfConfig = z.infer<typeof IfConfigSchema>;
 ```
 
-Defined in: [types/adapters/insforge.ts:21](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/insforge.ts#L21)
+Defined in: [types/insforge/types.ts:21](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/insforge/types.ts#L21)
 
 Config for the InsForge adapter. InsForge is the database fallback
 (primary data layer is Cloudflare); storage and edge functions

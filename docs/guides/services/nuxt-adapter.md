@@ -1,6 +1,6 @@
 ---
 title: Nuxt Adapter
-description: "H3 server-route helpers (useUnwrap, useSafeResponse, useEventResponse) and Vue watchers (useKatanaWatch, useWatch) for Nuxt apps — every export explained."
+description: "H3 server-route helpers (onUnwrap, onSafeResponse, onEventResponse) and Vue watchers (onKatanaWatch, onWatch) for Nuxt apps — every export explained."
 ---
 
 # Nuxt Adapter
@@ -11,11 +11,11 @@ from the main `katanakit-js` barrel, so always import it from the subpath.
 
 The adapter covers the two boundaries where a Nuxt app meets KatanaKit:
 
-1. **Server routes** — `useUnwrap()`, `useSafeResponse()` and `useEventResponse()`
+1. **Server routes** — `onUnwrap()`, `onSafeResponse()` and `onEventResponse()`
    translate a core Safe Result (`FetchResult<T>`) into an H3-compatible error
    or response. Nitro route handlers return plain values, throw errors, or
    mutate the event's status code; these three helpers cover each combination.
-2. **Client reactivity** — `useKatanaWatch()` and its short alias `useWatch()`
+2. **Client reactivity** — `onKatanaWatch()` and its short alias `onWatch()`
    re-export the Vue adapter's deep-by-default watcher, so Nuxt components can
    import it from the same subpath used by their server code.
 
@@ -23,21 +23,21 @@ Requests themselves are already isomorphic: the core HTTP client runs on the
 global `fetch` and returns Safe Results on the server and in the browser alike.
 That is why this adapter deliberately ships **no request wrappers** — it is glue
 for types and runtime boundaries, not a second HTTP facade. `defineApiConfig()`
-still comes from `katanakit-js`, and every `useGetApi()` / `usePost()` call in a
+still comes from `katanakit-js`, and every `onGet()` / `onPost()` call in a
 server route is a direct core call.
 
 ::: warning Server-only vs client-safe
 `nuxt.service.ts` imports `node:module` at the top level to detect H3. Treat
-`useUnwrap()`, `useSafeResponse()` and `useEventResponse()` as **server-only**.
+`onUnwrap()`, `onSafeResponse()` and `onEventResponse()` as **server-only**.
 The watcher module is client-safe and SSR-safe; client-only code can also
 import it from `katanakit-js/adapters/vue`, which has no Node dependency.
 :::
 
 ::: tip h3 is detected, not required
-KatanaKit does not declare `h3` as a dependency. `useUnwrap()` resolves it
+KatanaKit does not declare `h3` as a dependency. `onUnwrap()` resolves it
 lazily from the host app and caches the result for the process lifetime. In a
 Nuxt project H3 is already present; elsewhere the helper falls back to a
-branded plain `Error` (see [`useUnwrap()`](#useunwrapresult-context)).
+branded plain `Error` (see [`onUnwrap()`](#onunwrapresult-context)).
 :::
 
 ## Quick example
@@ -59,8 +59,8 @@ defineApiConfig({
 
 ```ts
 // server/api/pokemon/[id].ts
-import { useGetApi } from "katanakit-js";
-import { useUnwrap } from "katanakit-js/adapters/nuxt";
+import { onGet } from "katanakit-js";
+import { onUnwrap } from "katanakit-js/adapters/nuxt";
 
 interface Pokemon {
   id: number;
@@ -69,11 +69,11 @@ interface Pokemon {
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
-  const result = await useGetApi<Pokemon>("pokeapi", "pokemonById", {
+  const result = await onGet<Pokemon>("pokeapi", "pokemonById", {
     params: { id },
   });
 
-  return useUnwrap(result, `Pokemon ${id}`);
+  return onUnwrap(result, `Pokemon ${id}`);
 });
 ```
 
@@ -89,15 +89,15 @@ fetch method — and differ only in how they hand the outcome back to Nitro.
 
 | Helper             | On success              | On failure                                  | HTTP status                    | Never throws |
 | ------------------ | ----------------------- | ------------------------------------------- | ------------------------------ | ------------ |
-| `useUnwrap()`      | returns `data`          | throws an H3 error                          | from `error.status` (500 on 0) | no           |
-| `useSafeResponse()`| returns `{ data, error: null, ok: true }` | returns `{ data: null, error, ok: false }` | left untouched (200)           | yes          |
-| `useEventResponse()`| returns `data`         | returns `{ error, status }`                 | set from `error.status` (500 on 0) | yes       |
+| `onUnwrap()`      | returns `data`          | throws an H3 error                          | from `error.status` (500 on 0) | no           |
+| `onSafeResponse()`| returns `{ data, error: null, ok: true }` | returns `{ data: null, error, ok: false }` | left untouched (200)           | yes          |
+| `onEventResponse()`| returns `data`         | returns `{ error, status }`                 | set from `error.status` (500 on 0) | yes       |
 
 Pick the helper by where the failure should surface: in the **HTTP status and
-error page** (`useUnwrap`, `useEventResponse`) or in the **response body**
-(`useSafeResponse`).
+error page** (`onUnwrap`, `onEventResponse`) or in the **response body**
+(`onSafeResponse`).
 
-### useUnwrap(result, context?)
+### onUnwrap(result, context?)
 
 Unwraps a Safe Result and **throws** on failure, which is the idiomatic way to
 fail a Nitro route. On success it returns `result.data` unchanged, so the
@@ -108,7 +108,7 @@ without a manual `if (result.ok)` branch.
 
 | Name      | Type                | Default     | Description                                                                 |
 | --------- | ------------------- | ----------- | --------------------------------------------------------------------------- |
-| `result`  | `FetchResult<T>`    | —           | A result from `useGetApi`, `useFetchApi`, `usePost`, or any core method.    |
+| `result`  | `FetchResult<T>`    | —           | A result from `onGet`, `onFetch`, `onPost`, or any core method.    |
 | `context` | `string`            | `undefined` | Optional prefix added to the thrown message, e.g. `"Pokemon 25"`.           |
 
 **Returns** — `T`: the data from the successful branch. There is no failure
@@ -117,7 +117,7 @@ return value; the only outcomes are the data or a throw.
 **How the error is built**
 
 1. `statusCode` is `result.error.status || 500`, so a `0` (the
-   `useErrorNormalize()` fallback for network failures) becomes `500`.
+   `onErrorNormalize()` fallback for network failures) becomes `500`.
 2. With `context`, the message is `` `${context}: ${result.error.message}` ``;
    otherwise the upstream message is passed through.
 3. When the host app exposes `h3`, `h3.createError({ statusCode, statusMessage,
@@ -132,15 +132,15 @@ there is no `require()` overhead per request.
 
 ```ts
 // server/api/orders/[id].ts
-import { useGetApi } from "katanakit-js";
-import { useUnwrap } from "katanakit-js/adapters/nuxt";
+import { onGet } from "katanakit-js";
+import { onUnwrap } from "katanakit-js/adapters/nuxt";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
 
   // No context: the upstream message is thrown as-is
-  const result = await useGetApi("shop", "orderById", { params: { id } });
-  return useUnwrap(result);
+  const result = await onGet("shop", "orderById", { params: { id } });
+  return onUnwrap(result);
 });
 ```
 
@@ -149,13 +149,13 @@ export default defineEventHandler(async (event) => {
 
 ```ts
 // server/api/contacts.post.ts
-import { usePost } from "katanakit-js";
-import { useUnwrap } from "katanakit-js/adapters/nuxt";
+import { onPost } from "katanakit-js";
+import { onUnwrap } from "katanakit-js/adapters/nuxt";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const result = await usePost("crm", "createContact", body);
-  return useUnwrap(result, "Create contact");
+  const result = await onPost("crm", "createContact", body);
+  return onUnwrap(result, "Create contact");
 });
 ```
 
@@ -164,12 +164,12 @@ export default defineEventHandler(async (event) => {
 - The thrown message is what lands in the error response body as
   `statusMessage`; keep `context` short and free of secrets — it is user-visible
   in development and often in production error payloads.
-- `useUnwrap()` must run inside an active request: throwing is only meaningful
+- `onUnwrap()` must run inside an active request: throwing is only meaningful
   where Nitro can catch it. Do not call it in `server/plugins/` startup code.
 - For non-2xx upstream responses with a `0` status (network-level failure), the
   client sees `500`, not `0`, because HTTP has no zero status.
 
-### useSafeResponse(result)
+### onSafeResponse(result)
 
 Normalizes a Safe Result into a stable three-field envelope without throwing
 and without touching the event. It is the helper for endpoints whose **body**
@@ -203,14 +203,14 @@ Three details matter:
   upstream `ApiError` is **dropped**, so do not rely on it crossing the wire.
 - The helper does **not** set the HTTP status code. The route answers `200`
   even when the upstream failed; the failure lives in the JSON body. Use
-  [`useEventResponse()`](#useeventresponseevent-result) when the HTTP status must
-  mirror the upstream one, and [`useUnwrap()`](#useunwrapresult-context) when
+  [`onEventResponse()`](#oneventresponseevent-result) when the HTTP status must
+  mirror the upstream one, and [`onUnwrap()`](#onunwrapresult-context) when
   you want an error page.
 
 ```ts
 // server/api/users.ts
-import { useGetApi } from "katanakit-js";
-import { useSafeResponse } from "katanakit-js/adapters/nuxt";
+import { onGet } from "katanakit-js";
+import { onSafeResponse } from "katanakit-js/adapters/nuxt";
 
 interface User {
   id: string;
@@ -218,8 +218,8 @@ interface User {
 }
 
 export default defineEventHandler(async () => {
-  const result = await useGetApi<User[]>("api", "users");
-  return useSafeResponse(result);
+  const result = await onGet<User[]>("api", "users");
+  return onSafeResponse(result);
 });
 ```
 
@@ -239,7 +239,7 @@ keeps its normal render path and surfaces the failure inline:
 
 ```ts
 // app/pages/users.vue
-const { data } = await useFetch("/api/users");
+const { data } = await onFetch("/api/users");
 
 if (data.value && !data.value.ok) {
   showBanner(data.value.error?.message ?? "Unknown error");
@@ -260,7 +260,7 @@ failure should be.
 - The envelope is JSON only. Streaming or binary upstream responses do not fit
   this helper — return the raw response from the route instead.
 
-### useEventResponse(event, result)
+### onEventResponse(event, result)
 
 Sets the HTTP status on the H3 event and returns either the data or a compact
 error body. It is the middle ground between the other two helpers: the HTTP
@@ -288,8 +288,8 @@ status.
 
 ```ts
 // server/api/products.ts
-import { useFetchApi } from "katanakit-js";
-import { useEventResponse } from "katanakit-js/adapters/nuxt";
+import { onFetch } from "katanakit-js";
+import { onEventResponse } from "katanakit-js/adapters/nuxt";
 
 interface Product {
   sku: string;
@@ -297,8 +297,8 @@ interface Product {
 }
 
 export default defineEventHandler(async (event) => {
-  const result = await useFetchApi<Product[]>("shop", "products");
-  return useEventResponse(event, result);
+  const result = await onFetch<Product[]>("shop", "products");
+  return onEventResponse(event, result);
 });
 ```
 
@@ -316,17 +316,17 @@ stays small and predictable.
 - The helper mutates `event.node.res.statusCode` directly. Any code that reads
   the status later in the same request sees the mapped value — do not reset it
   afterwards.
-- If the route throws after `useEventResponse()` returns, Nitro's error handler
+- If the route throws after `onEventResponse()` returns, Nitro's error handler
   takes over and the status is replaced. Use this helper only as the route's
   final statement.
 - `error` in the returned body is a **string**, unlike the object returned by
-  [`useSafeResponse()`](#usesaferesponseresult). Keep the two envelopes straight
+  [`onSafeResponse()`](#onsaferesponseresult). Keep the two envelopes straight
   when the same consumer calls both route styles.
 
 ## Composable wrappers
 
 This subpath intentionally exports **no data-fetching composables**. There is
-no `useRequest`, no `useQuery`, no `useNuxtQuery` and no `useMutation` in
+no `onRequest`, no `onQuery`, no `onNuxtQuery` and no `onMutation` in
 `katanakit-js/adapters/nuxt`. Reaching for those from this import path is a
 common assumption that the source does not support.
 
@@ -341,14 +341,14 @@ The complete public surface of `katanakit-js/adapters/nuxt` is:
 
 | Export             | Kind              | Runtime      | Summary                                                        |
 | ------------------ | ----------------- | ------------ | -------------------------------------------------------------- |
-| `useUnwrap`        | function          | server only  | Returns data or throws an H3 error.                            |
-| `useSafeResponse`  | function          | server only  | Returns a `{ data, error, ok }` body, status untouched.        |
-| `useEventResponse` | function          | server only  | Maps the result onto the event status and returns data/error.  |
-| `useKatanaWatch`   | function          | client + SSR | Vue `watch` with `deep: true` by default.                      |
-| `useWatch`         | constant alias    | client + SSR | The same function reference as `useKatanaWatch`.               |
+| `onUnwrap`        | function          | server only  | Returns data or throws an H3 error.                            |
+| `onSafeResponse`  | function          | server only  | Returns a `{ data, error, ok }` body, status untouched.        |
+| `onEventResponse` | function          | server only  | Maps the result onto the event status and returns data/error.  |
+| `onKatanaWatch`   | function          | client + SSR | Vue `watch` with `deep: true` by default.                      |
+| `onWatch`         | constant alias    | client + SSR | The same function reference as `onKatanaWatch`.               |
 
 For reactive GETs inside `<script setup>`, pair the core client with the Vue
-adapter's `useRequest`, or call `useGetApi()` in an event handler — both are
+adapter's `onRequest`, or call `onGet()` in an event handler — both are
 outside this subpath on purpose.
 
 ## Query/watch integration
@@ -358,7 +358,7 @@ watcher. It exists so Nuxt code has one import path for everything KatanaKit
 related, and it adds no Nuxt-specific behavior: same signature, same defaults,
 same SSR safety.
 
-### useKatanaWatch(source, callback, options?)
+### onKatanaWatch(source, callback, options?)
 
 Thin wrapper around Vue's `watch` with `deep: true` as the default, so nested
 mutations on refs and reactive objects re-trigger the callback without extra
@@ -384,12 +384,12 @@ The module touches no DOM APIs, so it is SSR-safe. It only reads the optional
 ```vue
 <script setup lang="ts">
 import { ref } from "vue";
-import { useKatanaWatch } from "katanakit-js/adapters/nuxt";
+import { onKatanaWatch } from "katanakit-js/adapters/nuxt";
 
 const draft = ref({ title: "", body: "" });
 
 // deep: true by default — editing any nested field fires the callback
-useKatanaWatch(draft, (next, previous) => {
+onKatanaWatch(draft, (next, previous) => {
   if (next.title !== previous?.title) scheduleAutosave(next);
 });
 </script>
@@ -401,12 +401,12 @@ new field; the callback receives the whole model after each mutation:
 
 ```ts
 import { ref } from "vue";
-import { useKatanaWatch } from "katanakit-js/adapters/nuxt";
+import { onKatanaWatch } from "katanakit-js/adapters/nuxt";
 
 const newProduct = ref({ name: "", price: 0 });
 const fieldErrors = ref<Record<string, string>>({});
 
-useKatanaWatch(newProduct, () => {
+onKatanaWatch(newProduct, () => {
   fieldErrors.value = validate(newProduct.value);
 });
 ```
@@ -414,20 +414,20 @@ useKatanaWatch(newProduct, () => {
 **Edge cases**
 
 - Opt out of deep tracking explicitly when the object is large:
-  `useKatanaWatch(cart, onChange, { deep: false })` — the call-site option
+  `onKatanaWatch(cart, onChange, { deep: false })` — the call-site option
   overrides the default because options are spread last.
 - Watching several sources uses the native array form:
-  `useKatanaWatch([() => filters.min, () => filters.max], refetch)`.
+  `onKatanaWatch([() => filters.min, () => filters.max], refetch)`.
 - `flush`, `immediate` and `once` are forwarded untouched, so timing-sensitive
   watchers behave exactly like native Vue.
 - Outside `setup` there is no component instance to attach to; keep the returned
   handle and call it when the owning scope ends (for example, in a Pinia store
   teardown or a manual effect cleanup).
 
-### useWatch(source, callback, options?)
+### onWatch(source, callback, options?)
 
-Short alias of [`useKatanaWatch()`](#usekatanawatchsource-callback-options).
-It is the **same function reference** (`useWatch = useKatanaWatch`), not a
+Short alias of [`onKatanaWatch()`](#onkatanawatchsource-callback-options).
+It is the **same function reference** (`onWatch = onKatanaWatch`), not a
 re-implementation, so every parameter, default and return type above applies
 unchanged. The long name is the safer choice when a file also imports a
 framework-level watcher and you want the origin to be obvious at a glance.
@@ -435,11 +435,11 @@ framework-level watcher and you want the origin to be obvious at a glance.
 ```vue
 <script setup lang="ts">
 import { ref } from "vue";
-import { useWatch } from "katanakit-js/adapters/nuxt";
+import { onWatch } from "katanakit-js/adapters/nuxt";
 
 const query = ref({ text: "", page: 1 });
 
-useWatch(query, (next, previous) => {
+onWatch(query, (next, previous) => {
   if (next.text !== previous?.text) next.page = 1; // reset pagination on search
   track("filter-changed", next);
 });
@@ -452,7 +452,7 @@ consequences (page reset, analytics event, refetch) from a single callback.
 
 **Edge cases**
 
-- Nuxt does not auto-import a `useWatch` composable, so an explicit import is
+- Nuxt does not auto-import a `onWatch` composable, so an explicit import is
   always required — and explicit imports win over any auto-import regardless.
 - Because both names are the same reference, there is no behavioral difference
   to document; pick one per file and stay consistent for readability.
@@ -463,7 +463,7 @@ consequences (page reset, analytics event, refetch) from a single callback.
 ## Related
 
 - [HTTP Client](/guides/services/http-client) — `defineApiConfig` and the Safe Result every helper on this page consumes.
-- [Error Handling](/start/errors) — `useAttempt`, `useErrorNormalize` and the `ApiError` shape behind `error.status`.
+- [Error Handling](/start/errors) — `onAttempt`, `onErrorNormalize` and the `ApiError` shape behind `error.status`.
 - [Vue Adapter](/guides/services/vue-adapter) — the composables that live outside this server-focused subpath.
 - [Framework Adapters](/guides/framework-adapters) — how the Nuxt adapter fits next to the React, Solid, Svelte, Angular and Vue entries.
 - [API Reference](/api/) — every export, generated from source.

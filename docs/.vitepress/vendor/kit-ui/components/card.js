@@ -16,12 +16,12 @@ export function cardClass(options = {}) {
  *
  * @example
  * ```ts
- * document.body.append(useCard({ title: "Revenue", children: ["$12,400"] }));
+ * document.body.append(onCard({ title: "Revenue", children: ["$12,400"] }));
  * ```
  */
-export function useCard(options = {}) {
+export function onCard(options = {}) {
     if (typeof document === "undefined") {
-        throw new Error("[KatanaUI] useCard() needs a DOM; use cardClass() for SSR markup.");
+        throw new Error("[KatanaUI] onCard() needs a DOM; use cardClass() for SSR markup.");
     }
     const card = document.createElement("article");
     card.className = cardClass(options);

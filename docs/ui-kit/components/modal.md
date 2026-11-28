@@ -132,7 +132,7 @@ second `open()` rips it out of the first dialog.
 | `closeAll()`       | `void`         | Every open dialog.                           |
 
 `ModalHandle` is `{ id, dialog, close() }` — `dialog` is the `<dialog>` element,
-for content the options could not express. `modal` and `useModalStore()` hand
+for content the options could not express. `modal` and `onModalStore()` hand
 back the same singleton; `ModalService.getInstance()` is the DI escape hatch.
 
 ```ts

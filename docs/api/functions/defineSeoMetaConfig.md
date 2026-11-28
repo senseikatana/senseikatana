@@ -6,12 +6,12 @@
 function defineSeoMetaConfig(config): SiteConfig;
 ```
 
-Defined in: [config/seo.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/config/seo.service.ts#L146)
+Defined in: [config/seo.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/config/seo.service.ts#L156)
 
 Registers the site-wide SEO config once — the same `define*Config` pattern
 used by the HTTP client and the other services.
 
-After the call, every `useSeoMeta(opts)` resolves against this config, so
+After the call, every `onSeoMeta(opts)` resolves against this config, so
 pages only pass their own fields. An explicit second argument still wins, so
 per-call overrides and tests stay possible.
 
@@ -34,7 +34,7 @@ When required blocks (`seo`, `rss`) are missing.
 ## Example
 
 ```ts
-import { defineSeoMetaConfig, useSeoMeta } from "katanakit-js";
+import { defineSeoMetaConfig, onSeoMeta } from "katanakit-js";
 
 defineSeoMetaConfig({
   site: "https://myblog.com",
@@ -47,6 +47,6 @@ defineSeoMetaConfig({
   seo: { noindex: false, canonical: true, openGraph: true, twitterCard: true, jsonLd: true },
 });
 
-const seo = useSeoMeta({ title: "My Post", description: "A great post" });
+const seo = onSeoMeta({ title: "My Post", description: "A great post" });
 // seo.site === "https://myblog.com", seo.html / seo.tags ready for <head>
 ```

@@ -6,6 +6,6 @@
 type NotionConfig = z.infer<typeof NotionConfigSchema>;
 ```
 
-Defined in: [types/adapters/notion.ts:27](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/notion.ts#L27)
+Defined in: [types/notion/types.ts:27](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/notion/types.ts#L27)
 
 Configuration for the Notion API integration.

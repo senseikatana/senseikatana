@@ -6,7 +6,7 @@
 type AccessCapability = z.infer<typeof AccessCapabilitySchema>;
 ```
 
-Defined in: [types/core/access.ts:45](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L45)
+Defined in: [types/core/access.ts:39](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L39)
 
 A namespaced capability, `<domain>:<action>[:<scope>]`.
 

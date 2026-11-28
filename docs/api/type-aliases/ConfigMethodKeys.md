@@ -6,7 +6,7 @@
 type ConfigMethodKeys<T> = { [K in keyof T]-?: NonNullable<T[K]> extends ConfigMethod ? K : never }[keyof T];
 ```
 
-Defined in: [types/core/config-facade.ts:14](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/config-facade.ts#L14)
+Defined in: [types/core/config-facade.ts:11](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/config-facade.ts#L11)
 
 Keys of `T` whose value is a [ConfigMethod](ConfigMethod.md). Methods declared as
 optional are still detected (`NonNullable`), so they are split out of the

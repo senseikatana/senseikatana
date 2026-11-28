@@ -1,6 +1,6 @@
 # @senseikatana/web
 
-Astro site for [senseikatana.com](https://senseikatana.com): services, case studies and blog.
+Astro site for [senseikatana.com](https://senseikatana.com): services, works and blog.
 
 ## Structure
 
@@ -8,10 +8,12 @@ Astro site for [senseikatana.com](https://senseikatana.com): services, case stud
 src/
 ├── components/       # Global UI used by more than one feature
 ├── config/           # Site, brand and navigation data
-├── content/          # Markdown collections (blog, services, works)
+├── content/          # Markdown collections (blog, experience, services, works)
 ├── content.config.ts # Collection schemas
 ├── features/         # Vertical slices — only real domains
 │   ├── blog/         # components/ + queries.ts
+│   ├── contact/      # components/ + queries.ts
+│   ├── experience/   # components/ + queries.ts
 │   ├── services/     # components/ + queries.ts
 │   └── works/        # components/ + queries.ts
 ├── i18n/             # Locales and the t() helper
@@ -32,5 +34,5 @@ Feature-Based Architecture applies to **domain slices**, not to infrastructure.
 - `src/pages/` never queries a collection directly. It imports from a feature's `queries.ts`.
 - There is no `features/shared/`. If something is shared, it is not a feature.
 
-This is deliberate FBA-lite: three slices that each earn their keep, and no boilerplate around
-them. Adding a fourth slice means adding a real domain, not a folder for leftovers.
+This is deliberate FBA-lite: the slices each earn their keep, and no boilerplate around
+them. Adding another slice means adding a real domain, not a folder for leftovers.

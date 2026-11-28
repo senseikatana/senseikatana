@@ -13,14 +13,14 @@ and not an app template.
 ## What it is
 
 A **service toolkit**: small services with one consistent shape, each usable
-alone. The main barrel exports `use*` functions for HTTP, logging, storage,
+alone. The main barrel exports `on*` helpers for HTTP, logging, storage,
 dates, formatting, filesystem, workers and more; framework adapters layer on
-top as thin bindings. You adopt it piece by piece — `useLogger` today, the
+top as thin bindings. You adopt it piece by piece — `onLogger` today, the
 query cache next week — and nothing forces the rest.
 
 ## The goals this design serves
 
-1. **One consistent API.** Every public helper is a `use*` function over a
+1. **One consistent API.** Every public helper is an `on*` function over a
    Singleton facade, every fallible call returns the same Safe Result, every
    configuration entry point is a `define*Config`. Learn one service and you
    can guess the shape of the next. The reasoning is recorded in

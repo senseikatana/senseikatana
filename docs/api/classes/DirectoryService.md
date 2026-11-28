@@ -2,7 +2,7 @@
 
 # Class: DirectoryService
 
-Defined in: [core/services/directory.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L211)
+Defined in: [core/services/directory.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L211)
 
 User management over any storage, with the lockout guards built in.
 
@@ -21,7 +21,7 @@ only thing that happened.
 ```ts
 const directory = new DirectoryService({ repository });
 
-const suspended = await directory.useSuspend(actor, 42, "left the company");
+const suspended = await directory.suspend(actor, 42, "left the company");
 if (!suspended.ok && suspended.error.code === "last_owner") {
   // render the "promote someone else first" message
 }
@@ -35,7 +35,7 @@ if (!suspended.ok && suspended.error.code === "last_owner") {
 new DirectoryService(__namedParameters): DirectoryService;
 ```
 
-Defined in: [core/services/directory.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L214)
+Defined in: [core/services/directory.service.ts:214](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L214)
 
 #### Parameters
 
@@ -49,10 +49,10 @@ Defined in: [core/services/directory.service.ts:214](https://github.com/senseika
 
 ## Methods
 
-### useAddRole()
+### addRole()
 
 ```ts
-useAddRole(
+addRole(
    actor, 
    id, 
    role
@@ -68,7 +68,7 @@ useAddRole(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L282)
+Defined in: [core/services/directory.service.ts:282](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L282)
 
 Grants a role. Refuses when the actor does not already hold it.
 
@@ -95,10 +95,10 @@ Grants a role. Refuses when the actor does not already hold it.
 
 ***
 
-### useCreate()
+### create()
 
 ```ts
-useCreate(actor, user): Promise<DirectoryResult<{
+create(actor, user): Promise<DirectoryResult<{
   displayName?: string;
   email?: string;
   id: string | number;
@@ -110,7 +110,7 @@ useCreate(actor, user): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L239)
+Defined in: [core/services/directory.service.ts:239](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L239)
 
 Registers a person.
 
@@ -140,17 +140,17 @@ without changing this signature.
 
 ***
 
-### useDelete()
+### delete()
 
 ```ts
-useDelete(actor, id): Promise<DirectoryResult<true>>;
+delete(actor, id): Promise<DirectoryResult<true>>;
 ```
 
-Defined in: [core/services/directory.service.ts:397](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L397)
+Defined in: [core/services/directory.service.ts:397](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L397)
 
 Removes the record permanently.
 
-Separate from [useSuspend](#usesuspend) on purpose — and it does not touch the
+Separate from [suspend](#suspend) on purpose — and it does not touch the
 provider account, so a caller who needs real revocation must do that too.
 
 #### Parameters
@@ -166,10 +166,10 @@ provider account, so a caller who needs real revocation must do that too.
 
 ***
 
-### useGet()
+### get()
 
 ```ts
-useGet(id): Promise<DirectoryResult<{
+get(id): Promise<DirectoryResult<{
   displayName?: string;
   email?: string;
   id: string | number;
@@ -181,7 +181,7 @@ useGet(id): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:228](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L228)
+Defined in: [core/services/directory.service.ts:228](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L228)
 
 Fetches one user.
 
@@ -206,13 +206,13 @@ Fetches one user.
 
 ***
 
-### useList()
+### list()
 
 ```ts
-useList(query?): Promise<DirectoryPageResult>;
+list(query?): Promise<DirectoryPageResult>;
 ```
 
-Defined in: [core/services/directory.service.ts:219](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L219)
+Defined in: [core/services/directory.service.ts:219](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L219)
 
 Lists users, filtered and paginated by the repository.
 
@@ -228,10 +228,10 @@ Lists users, filtered and paginated by the repository.
 
 ***
 
-### useReactivate()
+### reactivate()
 
 ```ts
-useReactivate(actor, id): Promise<DirectoryResult<{
+reactivate(actor, id): Promise<DirectoryResult<{
   displayName?: string;
   email?: string;
   id: string | number;
@@ -243,7 +243,7 @@ useReactivate(actor, id): Promise<DirectoryResult<{
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:372](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L372)
+Defined in: [core/services/directory.service.ts:372](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L372)
 
 Returns a suspended account to service.
 
@@ -269,10 +269,10 @@ Returns a suspended account to service.
 
 ***
 
-### useRemoveRole()
+### removeRole()
 
 ```ts
-useRemoveRole(
+removeRole(
    actor, 
    id, 
    role
@@ -288,7 +288,7 @@ useRemoveRole(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:312](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L312)
+Defined in: [core/services/directory.service.ts:312](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L312)
 
 Revokes a role, keeping the person active.
 
@@ -315,10 +315,10 @@ Revokes a role, keeping the person active.
 
 ***
 
-### useSuspend()
+### suspend()
 
 ```ts
-useSuspend(
+suspend(
    actor, 
    id, 
    reason?
@@ -334,15 +334,15 @@ useSuspend(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:340](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L340)
+Defined in: [core/services/directory.service.ts:340](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L340)
 
 Suspends access while keeping the record and its audit trail.
 
 This is the operation a real offboarding uses, and it is **not**
-`useDelete`. Removing the row loses the evidence that the account existed;
+`delete`. Removing the row loses the evidence that the account existed;
 leaving the account merely "inactive" in a provider that has no such state
 means someone can still sign in. Suspension is the reversible, auditable
-middle ground, and [useDelete](#usedelete) is reserved for a genuine correction.
+middle ground, and [delete](#delete) is reserved for a genuine correction.
 
 #### Parameters
 
@@ -367,10 +367,10 @@ middle ground, and [useDelete](#usedelete) is reserved for a genuine correction.
 
 ***
 
-### useUpdate()
+### update()
 
 ```ts
-useUpdate(
+update(
    actor, 
    id, 
    patch
@@ -386,12 +386,12 @@ useUpdate(
 }>>;
 ```
 
-Defined in: [core/services/directory.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/directory.service.ts#L258)
+Defined in: [core/services/directory.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/directory.service.ts#L258)
 
 Patches a user's fields.
 
 Roles go through the demotion guards even here, because an `update` that
-silently accepts `{ roles: [] }` is a way around `useRemoveRole` entirely.
+silently accepts `{ roles: [] }` is a way around `removeRole` entirely.
 
 #### Parameters
 

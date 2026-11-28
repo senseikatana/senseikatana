@@ -2,7 +2,7 @@
 
 # Class: AgentService
 
-Defined in: [core/services/agent.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L258)
+Defined in: [core/services/agent.service.ts:258](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L258)
 
 AgentService - Singleton facade con Strategy Pattern.
 
@@ -14,26 +14,26 @@ intercambiable. Por defecto usa [OpenAiCompatibleStrategy](OpenAiCompatibleStrat
 
 ```ts
 // Configurar el proveedor
-AgentService.getInstance().useInitAgent({ apiKey: process.env.DASHSCOPE_API_KEY });
+AgentService.getInstance().initAgent({ apiKey: process.env.DASHSCOPE_API_KEY });
 
 // Cambiar de estrategia en runtime (p. ej. un mock en tests)
-AgentService.getInstance().useSetStrategy(new OpenAiCompatibleStrategy());
+AgentService.getInstance().setStrategy(new OpenAiCompatibleStrategy());
 ```
 
 ## Methods
 
-### useChat()
+### chat()
 
 ```ts
-useChat(messages, options?): Promise<AiResult<string>>;
+chat(messages, options?): Promise<AiResult<string>>;
 ```
 
-Defined in: [core/services/agent.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L373)
+Defined in: [core/services/agent.service.ts:373](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L373)
 
 Sends a single chat completion and returns the assistant text as a Safe Result.
 
 Use this for review / questioning (single-shot). For autonomous multi-step
-work with tools, use [useRunAgent](../functions/useRunAgent.md).
+work with tools, use [runAgent](#runagent).
 
 #### Parameters
 
@@ -51,9 +51,9 @@ A `AiResult` with the assistant text.
 #### Example
 
 ```ts
-import { useChat } from "katanakit-js";
+import { chat } from "katanakit-js";
 
-const result = await useChat([
+const result = await chat([
   { role: "user", content: "Summarize the benefits of solar energy in three bullet points." },
 ]);
 if (result.ok) console.log(result.data);
@@ -61,13 +61,13 @@ if (result.ok) console.log(result.data);
 
 ***
 
-### useGetStrategy()
+### getStrategy()
 
 ```ts
-useGetStrategy(): IAiProviderStrategy;
+getStrategy(): IAiProviderStrategy;
 ```
 
-Defined in: [core/services/agent.service.ts:304](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L304)
+Defined in: [core/services/agent.service.ts:304](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L304)
 
 Returns the currently active provider strategy.
 
@@ -77,13 +77,13 @@ Returns the currently active provider strategy.
 
 ***
 
-### useInitAgent()
+### initAgent()
 
 ```ts
-useInitAgent(config?): void;
+initAgent(config?): void;
 ```
 
-Defined in: [core/services/agent.service.ts:334](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L334)
+Defined in: [core/services/agent.service.ts:334](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L334)
 
 Registers the AI provider for the Kitt assistant.
 
@@ -103,9 +103,9 @@ and `systemPrompt` fall back to the [kittPreset](../variables/kittPreset.md) def
 #### Example
 
 ```ts
-import { useInitAgent } from "katanakit-js";
+import { initAgent } from "katanakit-js";
 
-useInitAgent({
+initAgent({
   apiKey: process.env.DASHSCOPE_API_KEY,
   model: "qwen3.8-max",
 });
@@ -113,13 +113,13 @@ useInitAgent({
 
 ***
 
-### useRunAgent()
+### runAgent()
 
 ```ts
-useRunAgent(goal, options?): Promise<AgentResult>;
+runAgent(goal, options?): Promise<AgentResult>;
 ```
 
-Defined in: [core/services/agent.service.ts:423](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L423)
+Defined in: [core/services/agent.service.ts:423](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L423)
 
 Runs the tool-calling agent loop against a goal until it emits a final
 answer or exhausts `maxSteps`.
@@ -140,9 +140,9 @@ An `AgentResult` with the final message and executed steps.
 #### Example
 
 ```ts
-import { useRunAgent } from "katanakit-js";
+import { runAgent } from "katanakit-js";
 
-const result = await useRunAgent("Fix the type errors reported by tsc", {
+const result = await runAgent("Fix the type errors reported by tsc", {
   tools: [
     {
       name: "runCommand",
@@ -157,13 +157,13 @@ const result = await useRunAgent("Fix the type errors reported by tsc", {
 
 ***
 
-### useSetStrategy()
+### setStrategy()
 
 ```ts
-useSetStrategy(strategy): void;
+setStrategy(strategy): void;
 ```
 
-Defined in: [core/services/agent.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L299)
+Defined in: [core/services/agent.service.ts:299](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L299)
 
 Intercambia la estrategia de proveedor en runtime (Strategy Pattern).
 
@@ -185,7 +185,7 @@ Intercambia la estrategia de proveedor en runtime (Strategy Pattern).
 static create(strategy?): AgentService;
 ```
 
-Defined in: [core/services/agent.service.ts:290](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L290)
+Defined in: [core/services/agent.service.ts:290](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L290)
 
 Crea una instancia NO-singleton con una estrategia específica.
 Útil para tests o para aislar varios proveedores.
@@ -210,7 +210,7 @@ Una nueva instancia de AgentService.
 static getInstance(): AgentService;
 ```
 
-Defined in: [core/services/agent.service.ts:276](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/agent.service.ts#L276)
+Defined in: [core/services/agent.service.ts:276](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/agent.service.ts#L276)
 
 Obtiene la instancia única del AgentService (Singleton).
 

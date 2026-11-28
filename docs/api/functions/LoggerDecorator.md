@@ -10,7 +10,7 @@ function LoggerDecorator<T>(
 ): T;
 ```
 
-Defined in: [infrastructure/decorators/logger.decorator.ts:39](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/decorators/logger.decorator.ts#L39)
+Defined in: [infrastructure/decorators/logger.decorator.ts:39](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/decorators/logger.decorator.ts#L39)
 
 LoggerDecorator - Decorator Pattern para trazado de llamadas.
 

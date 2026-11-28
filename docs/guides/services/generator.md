@@ -1,16 +1,15 @@
 ---
 title: Generator
-description: "RFC 4122 UUIDs, incremental IDs, 6-digit tokens, PBKDF2-SHA512 hashing and URL slugs — every helper and strategy explained."
+description: "RFC 4122 UUIDs, incremental IDs, 6-digit tokens, PBKDF2-SHA512 hashing and URL slugs — every generator method and strategy explained."
 ---
 
 # Generator
 
-`generator.service.ts` hosts the Singleton facade `GeneratorService`, whose
-methods are re-exported as thin `use*` wrappers, plus two exported strategy
-objects. It has **zero runtime dependencies** and no instance to create. Two
-design rules apply to every export:
+`generator.service.ts` hosts the Singleton facade `GeneratorService`, plus two
+exported strategy objects. It has **zero runtime dependencies**. Two design
+rules apply to every export:
 
-1. **Strategy-driven crypto** — `useUuid()` delegates to `NativeUuidStrategy`
+1. **Strategy-driven crypto** — `uuid()` delegates to `NativeUuidStrategy`
    and the hash helpers delegate to `LazyNodeCryptoStrategy`. Both satisfy the
    public `IUuidStrategy` / `ICryptoStrategy` types, so you can use the objects
    directly, swap them in tests, or compose them into your own services.
@@ -21,38 +20,38 @@ design rules apply to every export:
    runtime.
 
 Everything is synchronous except the hash helpers. The only state is the
-numeric counter behind `useNumericId()`, owned by the singleton.
+numeric counter behind `numericId()`, owned by the singleton.
 
 ## Quick example
 
 ```ts
-import {
-  useUuid, useSlugify, useNumericId, useToken, usePbkdf2Hash,
-} from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
+
+const generator = GeneratorService.getInstance();
 
 const post = {
-  id: useUuid(),                                   // "3b241101-e2bb-4d7a-8615-..."
-  slug: useSlugify("KatanaKit v6: Release Notes"), // "katanakit-v6-release-notes"
-  position: useNumericId(),                        // 1
-  inviteCode: useToken(),                          // e.g. 482916
-  secretHash: await usePbkdf2Hash("s3cret"),       // "<32-char salt>:<128-char hex>"
+  id: generator.uuid(),                                   // "3b241101-e2bb-4d7a-8615-..."
+  slug: generator.slugify("KatanaKit v6: Release Notes"), // "katanakit-v6-release-notes"
+  position: generator.numericId(),                        // 1
+  inviteCode: generator.token(),                          // e.g. 482916
+  secretHash: await generator.pbkdf2Hash("s3cret"),       // "<32-char salt>:<128-char hex>"
 };
 ```
 
-The four synchronous helpers run in the browser, Node and Bun alike.
-`usePbkdf2Hash()` (and every hash helper) requires a Node/Bun runtime because it
+The four synchronous methods run in the browser, Node and Bun alike.
+`pbkdf2Hash()` (and every hash method) requires a Node/Bun runtime because it
 loads `node:crypto` on first call.
 
 ## IDs
 
-### useUuid()
+### uuid()
 
 Generates a **RFC 4122 version 4 UUID** string. This is the default choice for
 database keys, request ids and anything that must be unique across processes.
 
 | | |
 | --- | --- |
-| Signature | `useUuid(): string` |
+| Signature | `uuid(): string` |
 | Parameters | none |
 | Returns | `"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"` |
 | Strategy | `NativeUuidStrategy` |
@@ -68,9 +67,9 @@ Uniqueness and security notes:
   secrecy, and leaking one exposes a valid lookup key.
 
 ```ts
-import { useUuid } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-const id = useUuid();
+const id = GeneratorService.getInstance().uuid();
 // => "3b241101-e2bb-4d7a-8615-9f2c1c0a7d10"
 ```
 
@@ -79,52 +78,53 @@ you can build related rows before the insert round-trip, keep ids stable across
 environments, and merge data imports without auto-increment clashes.
 
 ```ts
-const userId = useUuid();
-const projectId = useUuid();
+const { uuid } = GeneratorService.getInstance();
+const userId = uuid();
+const projectId = uuid();
 
 await db.insert(projects).values({ id: projectId, ownerId: userId, name });
 ```
 
 ### NativeUuidStrategy
 
-The strategy object behind `useUuid()`, implementing `IUuidStrategy`. Import it
-when you need the strategy itself rather than the convenience function —
+The strategy object behind `uuid()`, implementing `IUuidStrategy`. Import it
+when you need the strategy itself rather than the convenience method —
 dependency injection, deterministic test doubles, or a custom generator that
 delegates to it.
 
 | | |
 | --- | --- |
 | Object | `NativeUuidStrategy: IUuidStrategy` |
-| Method | `useGenerate(): string` |
+| Method | `generate(): string` |
 | Returns | RFC 4122 v4 UUID string |
 
 ```ts
 import { NativeUuidStrategy } from "katanakit-js";
 
-const id = NativeUuidStrategy.useGenerate();
+const id = NativeUuidStrategy.generate();
 
 // Swap in a deterministic double while testing
-const fixedStrategy = { useGenerate: () => "00000000-0000-4000-8000-000000000000" };
+const fixedStrategy = { generate: () => "00000000-0000-4000-8000-000000000000" };
 ```
 
 **Real use case** — tests and fixtures: inject a predictable strategy so
 snapshots, seeded databases and golden files stay identical between runs while
 production keeps using real randomness.
 
-### useNumericId()
+### numericId()
 
-Returns the next value of a **module-level auto-incrementing counter**, starting
-at `1`. Each call advances the counter and returns the new value.
+Returns the next value of an **auto-incrementing counter**, starting at `1`.
+Each call advances the counter and returns the new value.
 
 | | |
 | --- | --- |
-| Signature | `useNumericId(): number` |
+| Signature | `numericId(): number` |
 | Parameters | none |
 | Returns | Monotonically increasing integer (`1`, `2`, `3`, …) |
 
 Notes:
 
-- The counter is **per module instance**: server restarts, separate worker
+- The counter is **per singleton instance**: server restarts, separate worker
   threads, bundled copies and hot-reloads each get their own sequence.
 - It is not durable and not collision-free across processes — never use it as a
   database primary key or a distributed identifier.
@@ -133,10 +133,12 @@ Notes:
   generate those once per element or derive them from data.
 
 ```ts
-import { useNumericId } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-useNumericId(); // 1
-useNumericId(); // 2
+const { numericId } = GeneratorService.getInstance();
+
+numericId(); // 1
+numericId(); // 2
 ```
 
 **Real use case** — transient local identifiers: numbering rows while seeding
@@ -144,22 +146,24 @@ or mocking a list, or labelling repeated blocks in generated output where a
 simple readable sequence is enough.
 
 ```ts
+const { numericId } = GeneratorService.getInstance();
+
 const rows = ["alpha", "beta", "gamma"].map((name) => ({
-  key: useNumericId(),
+  key: numericId(),
   label: name,
 }));
 ```
 
 ## Tokens & hashing
 
-### useToken()
+### token()
 
 Returns a **cryptographically strong 6-digit numeric token** between `100000`
 and `999999` (inclusive), suitable for short user-facing codes.
 
 | | |
 | --- | --- |
-| Signature | `useToken(): number` |
+| Signature | `token(): number` |
 | Parameters | none |
 | Returns | Integer in `[100000, 999999]` |
 | Source | `crypto.getRandomValues(new Uint32Array(1))`, with a `Math.random` fallback |
@@ -177,36 +181,37 @@ Security notes:
   code to validate, not as a primary key.
 
 ```ts
-import { useToken } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-const code = useToken(); // e.g. 482916
+const code = GeneratorService.getInstance().token(); // e.g. 482916
 ```
 
 **Real use case** — email verification: issue a code, store its PBKDF2 hash
 with an expiry, and let the user confirm it once.
 
 ```ts
-import { useToken, usePbkdf2Hash } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-const code = useToken();
+const generator = GeneratorService.getInstance();
+const code = generator.token();
 
 await db.insert(verificationCodes).values({
   email,
-  codeHash: await usePbkdf2Hash(String(code)),
+  codeHash: await generator.pbkdf2Hash(String(code)),
   expiresAt: new Date(Date.now() + 10 * 60 * 1000),
   usedAt: null,
 });
 ```
 
-### useHash(plainText, salt?)
+### hash(plainText, salt?)
 
 Derives a **PBKDF2-SHA512** digest of `plainText` and returns
-`"salt:hashHex"` in a single string. The function is one-way: there is no
+`"salt:hashHex"` in a single string. The method is one-way: there is no
 decrypt counterpart.
 
 | | |
 | --- | --- |
-| Signature | `useHash(plainText: string, salt?: string): Promise<string>` |
+| Signature | `hash(plainText: string, salt?: string): Promise<string>` |
 | Parameters | `plainText` — text to hash; `salt` — optional salt, stored verbatim in the result |
 | Returns | `"<salt>:<128-char hex digest>"` |
 | Algorithm | PBKDF2, SHA-512, 100,000 iterations, 64-byte derived key |
@@ -226,12 +231,14 @@ Security notes:
 - The helper lazy-loads `node:crypto`; it runs in Node/Bun, not in browsers.
 
 ```ts
-import { useHash } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-const digest = await useHash("secret");
+const { hash } = GeneratorService.getInstance();
+
+const digest = await hash("secret");
 // => "<32-char salt>:<128 hex chars>"
 
-const deterministic = await useHash("secret", "my-fixed-salt");
+const deterministic = await hash("secret", "my-fixed-salt");
 // => "my-fixed-salt:<128 hex chars>"
 ```
 
@@ -239,45 +246,46 @@ const deterministic = await useHash("secret", "my-fixed-salt");
 column:
 
 ```ts
-import { useHash } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-const stored = await useHash("correct horse battery staple");
+const { hash } = GeneratorService.getInstance();
+const stored = await hash("correct horse battery staple");
 
 async function verify(input: string, persisted: string): Promise<boolean> {
   const [salt, digest] = persisted.split(":");
-  const [, candidate] = (await useHash(input, salt)).split(":");
+  const [, candidate] = (await hash(input, salt)).split(":");
   // Compare with a constant-time function in production
   return candidate === digest;
 }
 ```
 
-### usePbkdf2Hash(plainText, salt?)
+### pbkdf2Hash(plainText, salt?)
 
-An **alias of `useHash()`** with the same implementation and defaults. Prefer
+An **alias of `hash()`** with the same implementation and defaults. Prefer
 this name in authentication code: it makes the algorithm explicit at the call
 site and leaves room for a dedicated password-hashing helper later.
 
 | | |
 | --- | --- |
-| Signature | `usePbkdf2Hash(plainText: string, salt?: string): Promise<string>` |
-| Parameters | same as `useHash()` |
+| Signature | `pbkdf2Hash(plainText: string, salt?: string): Promise<string>` |
+| Parameters | same as `hash()` |
 | Returns | `"<salt>:<128-char hex digest>"` |
 | Algorithm | PBKDF2, SHA-512, 100,000 iterations, 64-byte derived key |
 
 ```ts
-import { usePbkdf2Hash } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-const digest = await usePbkdf2Hash("secret");
+const digest = await GeneratorService.getInstance().pbkdf2Hash("secret");
 // => "<32-char salt>:<128-char hex>"
 ```
 
 **Real use case** — API key storage: issue a random key to the user, store only
-`await usePbkdf2Hash(key)` in the database, and verify incoming requests by
+`await pbkdf2Hash(key)` in the database, and verify incoming requests by
 re-hashing with the stored salt. A leaked table then contains no usable keys.
 
 ### LazyNodeCryptoStrategy
 
-The strategy object behind every hash helper, implementing `ICryptoStrategy`.
+The strategy object behind every hash method, implementing `ICryptoStrategy`.
 It uses a **dynamic `import("node:crypto")`** inside each call, which is why it
 works in both CJS and pure ESM builds without a top-level `require`, and why
 the rest of the module stays importable in the browser.
@@ -285,42 +293,29 @@ the rest of the module stays importable in the browser.
 | | |
 | --- | --- |
 | Object | `LazyNodeCryptoStrategy: ICryptoStrategy` |
-| Methods | `useHash(plainText, salt?)`, deprecated `useEncrypt(plainText, salt?)` |
+| Method | `hash(plainText, salt?)` |
 | Returns | `"<salt>:<128-char hex digest>"` |
 
 ```ts
 import { LazyNodeCryptoStrategy } from "katanakit-js";
 
-const digest = await LazyNodeCryptoStrategy.useHash("secret");
+const digest = await LazyNodeCryptoStrategy.hash("secret");
 ```
 
 **Real use case** — composition and testing: accept an `ICryptoStrategy` in
 your own service, default to `LazyNodeCryptoStrategy` in production, and inject
 a synchronous fake in unit tests so no `node:crypto` call is required.
 
-### useEncrypt(plainText, salt?) — deprecated
-
-Legacy alias for `useHash()` kept for backwards compatibility. It performs the
-exact same PBKDF2 hashing; the name is misleading and the function exists only
-so older imports keep working.
-
-```ts
-import { useEncrypt } from "katanakit-js";
-
-// Don't add new calls — migrate to useHash() or usePbkdf2Hash()
-const digest = await useEncrypt("secret");
-```
-
 ## Slugs
 
-### useSlugify(text)
+### slugify(text)
 
 Converts text into a **URL-friendly slug**: lowercase, accent-free and
 hyphen-separated.
 
 | | |
 | --- | --- |
-| Signature | `useSlugify(text: string): string` |
+| Signature | `slugify(text: string): string` |
 | Parameters | `text` — required; empty or falsy input throws |
 | Returns | Lowercase hyphen-separated slug (may be an empty string) |
 | Throws | `Error("Text is required for slugify")` when `text` is empty or falsy |
@@ -347,14 +342,16 @@ Notes:
   library) and slugify the result.
 
 ```ts
-import { useSlugify } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
 
-useSlugify("Hello World!");               // "hello-world"
-useSlugify("  Café au Lait  ");           // "cafe-au-lait"
-useSlugify("KatanaKit v6: Release Notes"); // "katanakit-v6-release-notes"
-useSlugify("Привет мир");                  // "" — validate before saving
+const { slugify } = GeneratorService.getInstance();
 
-// useSlugify(""); // throws Error("Text is required for slugify")
+slugify("Hello World!");               // "hello-world"
+slugify("  Café au Lait  ");           // "cafe-au-lait"
+slugify("KatanaKit v6: Release Notes"); // "katanakit-v6-release-notes"
+slugify("Привет мир");                  // "" — validate before saving
+
+// slugify(""); // throws Error("Text is required for slugify")
 ```
 
 **Real use case** — content URLs with collision handling: derive the base slug
@@ -362,14 +359,16 @@ at write time, then append a short unique suffix when another row already uses
 it.
 
 ```ts
-import { useSlugify, useUuid } from "katanakit-js";
+import { GeneratorService } from "katanakit-js";
+
+const { slugify, uuid } = GeneratorService.getInstance();
 
 async function uniqueSlug(title: string): Promise<string> {
-  const base = useSlugify(title);
+  const base = slugify(title);
   if (!base) throw new Error("Title cannot produce a slug");
 
   const taken = await db.findBySlug(base);
-  return taken ? `${base}-${useUuid().slice(0, 8)}` : base;
+  return taken ? `${base}-${uuid().slice(0, 8)}` : base;
 }
 ```
 
@@ -377,8 +376,8 @@ async function uniqueSlug(title: string): Promise<string> {
 
 - [Storage](/guides/services/storage) — persist generated ids, tokens and
   hashes behind an SSR-safe API.
-- [Error Helpers](/guides/services/error-helpers) — wrap the async hash helpers
-  in `useAttempt()` at application boundaries.
+- [Error Helpers](/guides/services/error-helpers) — wrap the async hash methods
+  in `onAttempt()` at application boundaries.
 - [Formatter](/guides/services/formatter) — the other string-focused service,
-  which links back to `useSlugify()`.
+  which links back to `slugify()`.
 - [API Reference](/api/) — every export on this page, generated from source.

@@ -6,10 +6,9 @@
 type FormSubmitHandler<T> = (values) => void | Promise<void>;
 ```
 
-Defined in: [types/core/forms.ts:15](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/forms.ts#L15)
+Defined in: [types/core/forms.ts:12](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/forms.ts#L12)
 
-Receives the parsed, typed values once validation passes. May be async;
-the adapters keep the submit button busy until it settles.
+Receives the parsed, typed values once validation passes. May be async; the adapters keep the submit button busy until it settles.
 
 ## Type Parameters
 

@@ -20,16 +20,16 @@ Every helper here accepts `null` / `undefined` and returns a sensible empty
 value instead:
 
 ```ts
-import { useFilter, useMap, useSortBy } from "katanakit-js";
+import { onFilter, onMap, onSortBy } from "katanakit-js";
 
-const { data, error } = await useGet<Product>("shop", "products");
+const { data, error } = await onGet<Product>("shop", "products");
 
 if (error) return renderError(error);
 
 // data is Product[] | null | undefined — and these three calls are safe.
-const inStock = useFilter(data, (product) => product.inStock);
-const names = useMap(data, (product) => product.name);
-const cheapest = useSortBy(data, (product) => product.price);
+const inStock = onFilter(data, (product) => product.inStock);
+const names = onMap(data, (product) => product.name);
+const cheapest = onSortBy(data, (product) => product.price);
 ```
 
 `ArrayService.getInstance()` exposes the same methods on a singleton, if you
@@ -37,12 +37,12 @@ prefer the facade style.
 
 ## Two guarantees
 
-1. **Nullish in, empty out.** `useFilter(null, fn)` is `[]`, `useFind(null, fn)`
-   is `undefined`, `useFindIndex(null, fn)` is `-1`, `useSome` is `false`,
-   `useReduce` returns the initial value.
+1. **Nullish in, empty out.** `onFilter(null, fn)` is `[]`, `onFind(null, fn)`
+   is `undefined`, `onFindIndex(null, fn)` is `-1`, `onSome` is `false`,
+   `onReduce` returns the initial value.
 2. **Nothing mutates its input.** `Array.prototype.sort` and `reverse` mutate in
    place — dangerous when the array came from a store, a cache or a query
-   result you do not own. `useSortBy` and `useReverse` always return a copy.
+   result you do not own. `onSortBy` and `onReverse` always return a copy.
 
 ## Why not just use the native methods?
 
@@ -57,30 +57,30 @@ These helpers earn their place at three seams:
 
 ## Filtering
 
-### useFilter(array, predicate)
+### onFilter(array, predicate)
 
 Keeps the items that satisfy `predicate`. The predicate receives the item, its
 index and the source array — the same signature as the native one.
 
 ```ts
-const cheap = useFilter(products, (product) => product.price < 20);
+const cheap = onFilter(products, (product) => product.price < 20);
 const names = cheap.map((product) => product.name);   // Product[] -> string[]
 ```
 
-### useFind(array, predicate) / useFindLast(array, predicate) / useFindIndex(array, predicate)
+### onFind(array, predicate) / onFindLast(array, predicate) / onFindIndex(array, predicate)
 
 The first match, the last match, or its index. `-1` when there is no match.
 
 ```ts
-useFind(products, (product) => product.id === wanted);   // Product | undefined
-useFindLast(products, (product) => product.inStock);
-useFindIndex(products, (product) => product.id === "sku-1");
+onFind(products, (product) => product.id === wanted);   // Product | undefined
+onFindLast(products, (product) => product.inStock);
+onFindIndex(products, (product) => product.id === "sku-1");
 ```
 
-`useFindLast` scans from the end, so it is safe to pass a predicate with side
+`onFindLast` scans from the end, so it is safe to pass a predicate with side
 effects.
 
-### useSome(array, predicate) / useEvery(array, predicate)
+### onSome(array, predicate) / onEvery(array, predicate)
 
 Whether at least one, or every, item matches.
 
@@ -88,54 +88,54 @@ One deliberate difference from the native behaviour: **nullish input is
 `false` for both.** `[].every(() => false)` is `true`, so a missing collection
 must not silently claim "everything passed".
 
-### usePartition(array, predicate)
+### onPartition(array, predicate)
 
 Splits into `[matching, rest]` in a single pass.
 
 ```ts
-const [inStock, soldOut] = usePartition(products, (product) => product.inStock);
+const [inStock, soldOut] = onPartition(products, (product) => product.inStock);
 ```
 
 ## Transforming
 
-### useMap(array, transform)
+### onMap(array, transform)
 
 Projects every item. Returns `[]` for nullish input — and this is the pair you
 reach for when composing, because the native `.map()` cannot be chained onto
 possibly-nullish data:
 
 ```ts
-const byId = useFromEntries(useMap(products, (product) => [product.id, product.name] as const));
+const byId = onFromEntries(onMap(products, (product) => [product.id, product.name] as const));
 ```
 
-### useFlatMap(array, transform) / useReduce(array, reducer, initial)
+### onFlatMap(array, transform) / onReduce(array, reducer, initial)
 
 Map-then-flatten one level, and fold to a single value. `initial` is **required**
-in `useReduce` so the return type stays unambiguous for an empty collection.
+in `onReduce` so the return type stays unambiguous for an empty collection.
 
 ```ts
-useFlatMap(orders, (order) => order.lines);
-useReduce(products, (total, product) => total + product.price, 0);
+onFlatMap(orders, (order) => order.lines);
+onReduce(products, (total, product) => total + product.price, 0);
 ```
 
-### useSortBy(array, selector, direction?)
+### onSortBy(array, selector, direction?)
 
 Sorts a **copy** by a derived key. `Date` keys compare chronologically, not as
 strings — which is the bug you get from a hand-written comparator.
 
 ```ts
-useSortBy(products, (product) => product.price);              // ascending
-useSortBy(products, (product) => product.price, "desc");
-useSortBy(products, (product) => product.releasedAt);         // Date, correct order
+onSortBy(products, (product) => product.price);              // ascending
+onSortBy(products, (product) => product.price, "desc");
+onSortBy(products, (product) => product.releasedAt);         // Date, correct order
 ```
 
-### useReverse(array)
+### onReverse(array)
 
 A reversed copy. The native `reverse` mutates in place.
 
 ## Objects
 
-### useKeys(object) / useValues(object)
+### onKeys(object) / onValues(object)
 
 Typed `Object.keys` / `Object.values`. The native calls return `string[]` and
 `unknown[]` respectively; these preserve the shape of the object.
@@ -143,16 +143,16 @@ Typed `Object.keys` / `Object.values`. The native calls return `string[]` and
 ```ts
 const user = { id: "1", name: "Ana" };
 
-useKeys(user);   // ("id" | "name")[]  — not string[]
-useValues(user); // string[]
+onKeys(user);   // ("id" | "name")[]  — not string[]
+onValues(user); // string[]
 ```
 
-### useFromEntries(entries)
+### onFromEntries(entries)
 
 Typed `Object.fromEntries`. Returns `{}` for nullish input.
 
 ```ts
-const byId = useFromEntries(useMap(products, (product) => [product.id, product] as const));
+const byId = onFromEntries(onMap(products, (product) => [product.id, product] as const));
 // Record<string, Product>
 ```
 
@@ -163,19 +163,19 @@ purpose, because the two shapes have different network costs:
 
 | Helper | Execution | Why |
 | --- | --- | --- |
-| `useMapAsync`, `useFilterAsync` | **parallel**, input order preserved | every item is needed anyway |
-| `useFindAsync`, `useSomeAsync`, `useEveryAsync` | **sequential, short-circuit** | stop at the first answer |
-| `useReduceAsync` | sequential | a reduce cannot be reordered |
+| `onMapAsync`, `onFilterAsync` | **parallel**, input order preserved | every item is needed anyway |
+| `onFindAsync`, `onSomeAsync`, `onEveryAsync` | **sequential, short-circuit** | stop at the first answer |
+| `onReduceAsync` | sequential | a reduce cannot be reordered |
 
 ```ts
 // Six requests fire at once and come back in order.
-const details = await useMapAsync(ids, (id) => fetchProduct(id));
+const details = await onMapAsync(ids, (id) => fetchProduct(id));
 
 // Only the first request that matches is ever sent.
-const first = await useFindAsync(ids, async (id) => (await isAvailable(id)) === true);
+const first = await onFindAsync(ids, async (id) => (await isAvailable(id)) === true);
 ```
 
-Short-circuiting is observable, and covered by tests: `useFindAsync` stops
+Short-circuiting is observable, and covered by tests: `onFindAsync` stops
 after the first matching item, so no further requests are issued.
 
 ## Already in UtilsService
@@ -184,14 +184,14 @@ These predate this module and live in `utils.service.ts`. They cover the array
 operations that **native JavaScript does not have at all**:
 
 ```ts
-import { useUnique, useChunk, useGroupBy } from "katanakit-js";
+import { onUnique, onChunk, onGroupBy } from "katanakit-js";
 
-useUnique([1, 2, 2, 3, 1]);            // [1, 2, 3]
-useChunk([1, 2, 3, 4, 5], 2);          // [[1, 2], [3, 4], [5]]
-useGroupBy(items, "type");             // Record<string, Item[]>
+onUnique([1, 2, 2, 3, 1]);            // [1, 2, 3]
+onChunk([1, 2, 3, 4, 5], 2);          // [[1, 2], [3, 4], [5]]
+onGroupBy(items, "type");             // Record<string, Item[]>
 ```
 
-`usePick`, `useOmit`, `useDeepClone` and `useDeepMerge` are the object
+`onPick`, `onOmit`, `onDeepClone` and `onDeepMerge` are the object
 counterparts.
 
 ## Choosing between them
@@ -201,13 +201,13 @@ counterparts.
 - Anything from a network call, a form, local storage or a query result →
   **these helpers**, because `null` is a real possibility at that boundary.
 - `Map`, `Set` and `NodeList` → convert first with `Array.from`. For DOM
-  collections, [`useQuerySelectorAll`](/guides/services/dom) already returns a
+  collections, [`onQuerySelectorAll`](/guides/services/dom) already returns a
   real array.
 
 ## Related
 
-- [DOM](/guides/services/dom) — `useQuerySelectorAll` returns `Element[]`, so
+- [DOM](/guides/services/dom) — `onQuerySelectorAll` returns `Element[]`, so
   every helper above applies directly to the result.
-- [Error Handling](/start/errors) — `useGet` returns Safe Results, which is why
+- [Error Handling](/start/errors) — `onGet` returns Safe Results, which is why
   nullish collections reach these helpers in the first place.
 - [API Reference](/api/) — every export, generated from source.

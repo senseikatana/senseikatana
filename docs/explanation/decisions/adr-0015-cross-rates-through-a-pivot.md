@@ -30,15 +30,15 @@ direct quote also makes the two directions of a pair disagree —
 ## Decision
 
 Store every rate against **one pivot currency** (`USD` by default, configurable
-through `useCurrencyConverter({ pivot })` or `CurrencyConverterService.create({ pivot })`)
+through `onCurrencyConverter({ pivot })` or `CurrencyConverterService.create({ pivot })`)
 and resolve each pair by division:
 
 ```ts
 rate(A → B) = pivot[B] / pivot[A]   // the pivot itself counts as 1
 ```
 
-The cache holds one snapshot instead of one per base, and `useGetRate` /
-`useConvert` share it. `useGetSnapshot()` and `useRefreshRates()` therefore take
+The cache holds one snapshot instead of one per base, and `getRate` /
+`convert` share it. `getSnapshot()` and `refreshRates()` therefore take
 no base: there is exactly one snapshot to read or refresh.
 
 ## Consequences

@@ -9,17 +9,17 @@ RSS in KatanaKit is **not a singleton core service**. There is no `RssService`
 class and no `getInstance()` call: the surface is split into three independent
 pieces that share one set of types.
 
-- **Astro endpoints** — `useAstroGenerateRss()`, `useAstroRssLinkTag()`,
-  `useAstroCreateRssEndpoint()` and `useAstroCreateRssEndpointFromConfig()` build
+- **Astro endpoints** — `onAstroGenerateRss()`, `onAstroRssLinkTag()`,
+  `onAstroCreateRssEndpoint()` and `onAstroCreateRssEndpointFromConfig()` build
   the RSS 2.0 XML, the `<head>` advertising tag and the `GET` handler for
   `src/pages/rss.xml.ts`. They live on the
   [`katanakit-js/adapters/astro`](/guides/services/astro-adapter#rss-endpoints)
   subpath.
-- **Head autodiscovery** — `useRssHeadLink()` (package root) emits the
+- **Head autodiscovery** — `onRssHeadLink()` (package root) emits the
   `<link rel="alternate" type="application/rss+xml">` tag from a `SiteConfig`,
   in any framework. It is the framework-agnostic counterpart of
-  `useAstroRssLinkTag()`.
-- **YouTube feeds** — `useBuildYoutubeRssUrl()` and `useParseYoutubeRss()` build
+  `onAstroRssLinkTag()`.
+- **YouTube feeds** — `onBuildYoutubeRssUrl()` and `onParseYoutubeRss()` build
   the keyless YouTube channel feed URL and parse its Atom entries into
   normalized videos, with no API key and zero quota cost.
 
@@ -29,10 +29,10 @@ produce:
 
 | You need to…                                     | Use                                                        |
 | ------------------------------------------------ | ---------------------------------------------------------- |
-| Serve a full feed from an Astro route            | `useAstroCreateRssEndpointFromConfig()`                    |
-| Generate an RSS 2.0 XML string anywhere          | `useAstroGenerateRss()`                                    |
-| Advertise an existing feed in `<head>`           | `useRssHeadLink()`                                         |
-| Display a channel's latest YouTube videos        | `useBuildYoutubeRssUrl()` + `useParseYoutubeRss()`         |
+| Serve a full feed from an Astro route            | `onAstroCreateRssEndpointFromConfig()`                    |
+| Generate an RSS 2.0 XML string anywhere          | `onAstroGenerateRss()`                                    |
+| Advertise an existing feed in `<head>`           | `onRssHeadLink()`                                         |
+| Display a channel's latest YouTube videos        | `onBuildYoutubeRssUrl()` + `onParseYoutubeRss()`         |
 
 ## Quick example
 
@@ -41,11 +41,11 @@ title/description) and maps a content collection:
 
 ```ts
 // src/pages/rss.xml.ts
-import { useAstroCreateRssEndpointFromConfig } from "katanakit-js/adapters/astro";
+import { onAstroCreateRssEndpointFromConfig } from "katanakit-js/adapters/astro";
 import { siteConfig } from "katanakit-js";
 import { getCollection } from "astro:content";
 
-export const GET = useAstroCreateRssEndpointFromConfig(siteConfig, async () => {
+export const GET = onAstroCreateRssEndpointFromConfig(siteConfig, async () => {
   const posts = await getCollection("blog");
 
   return posts
@@ -61,7 +61,7 @@ export const GET = useAstroCreateRssEndpointFromConfig(siteConfig, async () => {
 ```
 
 The endpoint is only half of the integration: readers and crawlers find
-`/rss.xml` through the autodiscovery tag. `useRssHeadLink(siteConfig)` produces
+`/rss.xml` through the autodiscovery tag. `onRssHeadLink(siteConfig)` produces
 it from the same config, so the route and the tag never drift apart.
 
 ## Type reference
@@ -69,7 +69,7 @@ it from the same config, so the route and the tag never drift apart.
 ### RssConfig
 
 `RssConfig` is inferred from `RssConfigSchema` and is the shared input for
-`useAstroGenerateRss()` and the endpoint helpers.
+`onAstroGenerateRss()` and the endpoint helpers.
 
 | Field           | Type        | Default      | Notes                                                                              |
 | --------------- | ----------- | ------------ | ---------------------------------------------------------------------------------- |
@@ -139,10 +139,10 @@ type RssResult =
 ```
 
 ```ts
-import { useAstroGenerateRss } from "katanakit-js/adapters/astro";
+import { onAstroGenerateRss } from "katanakit-js/adapters/astro";
 import type { RssResult } from "katanakit-js";
 
-const result: RssResult = useAstroGenerateRss(config);
+const result: RssResult = onAstroGenerateRss(config);
 
 if (result.ok) {
   result.data; // full RSS 2.0 XML string
@@ -165,26 +165,26 @@ adapter subpath:
 
 ```ts
 import {
-  useAstroGenerateRss,
-  useAstroRssLinkTag,
-  useAstroCreateRssEndpoint,
-  useAstroCreateRssEndpointFromConfig,
+  onAstroGenerateRss,
+  onAstroRssLinkTag,
+  onAstroCreateRssEndpoint,
+  onAstroCreateRssEndpointFromConfig,
 } from "katanakit-js/adapters/astro";
 ```
 
 | Helper                                 | Layer                  | Returns                                                |
 | -------------------------------------- | ---------------------- | ------------------------------------------------------ |
-| `useAstroGenerateRss()`                | RSS 2.0 XML builder    | `RssResult` (XML string or error)                      |
-| `useAstroRssLinkTag()`                 | `<head>` advertising   | `<link … />` string                                    |
-| `useAstroCreateRssEndpoint()`          | Astro `GET` handler    | `(context) => Promise<Response>`                       |
-| `useAstroCreateRssEndpointFromConfig()` | Astro `GET` handler   | `(context) => Promise<Response>` from a `SiteConfig`   |
+| `onAstroGenerateRss()`                | RSS 2.0 XML builder    | `RssResult` (XML string or error)                      |
+| `onAstroRssLinkTag()`                 | `<head>` advertising   | `<link … />` string                                    |
+| `onAstroCreateRssEndpoint()`          | Astro `GET` handler    | `(context) => Promise<Response>`                       |
+| `onAstroCreateRssEndpointFromConfig()` | Astro `GET` handler   | `(context) => Promise<Response>` from a `SiteConfig`   |
 
 The sections below summarize each layer; the full parameter tables, defaults,
 failure modes and response headers live on the
 [Astro adapter page](/guides/services/astro-adapter#rss-endpoints) and are not
 duplicated here.
 
-### useAstroGenerateRss(config)
+### onAstroGenerateRss(config)
 
 The pure core: takes an `RssConfig` and returns the complete RSS 2.0 document as
 a Safe Result. Call it directly when you manage the `Response` yourself — a
@@ -194,19 +194,19 @@ channel-level and item-level `customData` against `]]>` injection, and emits
 `guid` as the resolved absolute link with `isPermaLink="true"`. The `site`
 trailing slash is trimmed, so relative links resolve predictably.
 
-Full contract: [`useAstroGenerateRss(config)`](/guides/services/astro-adapter#useastrogeneraterssconfig).
+Full contract: [`onAstroGenerateRss(config)`](/guides/services/astro-adapter#onastrogeneraterssconfig).
 
-### useAstroRssLinkTag(config)
+### onAstroRssLinkTag(config)
 
 Returns the standalone `<link rel="alternate" type="application/rss+xml">` tag
 from `{ title, xmlPath }`, defaulting `xmlPath` to `"/rss.xml"`. It is the
-Astro-only equivalent of `useRssHeadLink()`: same output shape, but it takes the
+Astro-only equivalent of `onRssHeadLink()`: same output shape, but it takes the
 two fields directly instead of a `SiteConfig`. Render it in Astro with
 `set:html` so the tag itself is not escaped.
 
-Full contract: [`useAstroRssLinkTag(config)`](/guides/services/astro-adapter#useastrorsslinktagconfig).
+Full contract: [`onAstroRssLinkTag(config)`](/guides/services/astro-adapter#onastrorsslinktagconfig).
 
-### useAstroCreateRssEndpoint(config)
+### onAstroCreateRssEndpoint(config)
 
 Creates the `GET` handler for `src/pages/rss.xml.ts`. `items` accepts a static
 array or a sync/async factory, which is the hook for fetching collections and
@@ -214,26 +214,26 @@ remote CMS data. The site URL resolves from `config.site` first, then the Astro
 request context (`context.site`); without either, the handler responds `500`
 with `{ "error": "RSS feed requires a 'site' URL." }`. On success it returns the
 XML with `Content-Type: application/xml; charset=utf-8` and a fixed one-hour
-`Cache-Control` — build the `Response` yourself around `useAstroGenerateRss()`
+`Cache-Control` — build the `Response` yourself around `onAstroGenerateRss()`
 if you need another policy.
 
-Full contract: [`useAstroCreateRssEndpoint(config)`](/guides/services/astro-adapter#useastrocreaterssendpointconfig).
+Full contract: [`onAstroCreateRssEndpoint(config)`](/guides/services/astro-adapter#onastrocreaterssendpointconfig).
 
-### useAstroCreateRssEndpointFromConfig(siteConfig, items)
+### onAstroCreateRssEndpointFromConfig(siteConfig, items)
 
 The zero-duplication variant used in the [quick example](#quick-example): it
 maps `siteConfig.rss.title`, `siteConfig.rss.description`, `siteConfig.site`,
 `siteConfig.rss.path` and `siteConfig.lang` onto the config above. Two
 `siteConfig.rss` fields are **not enforced**: `enabled` (gate the route
 yourself) and `limit` (slice items in the factory). Use
-`useAstroCreateRssEndpoint()` when the feed needs `customData` or `xslUrl`
+`onAstroCreateRssEndpoint()` when the feed needs `customData` or `xslUrl`
 overrides that do not belong in `SiteConfig`.
 
-Full contract: [`useAstroCreateRssEndpointFromConfig(siteConfig, items)`](/guides/services/astro-adapter#useastrocreaterssendpointfromconfigsiteconfig-items).
+Full contract: [`onAstroCreateRssEndpointFromConfig(siteConfig, items)`](/guides/services/astro-adapter#onastrocreaterssendpointfromconfigsiteconfig-items).
 
 ## Head autodiscovery
 
-### useRssHeadLink(config)
+### onRssHeadLink(config)
 
 Returns the serialized RSS autodiscovery tag for a `SiteConfig`, or an empty
 string when the feed is disabled — so it is safe to inject unconditionally.
@@ -248,9 +248,9 @@ string when the feed is disabled — so it is safe to inject unconditionally.
 | `config.rss.limit`     | `number`  | —            | Not used to build the tag.                                    |
 
 ```ts
-import { siteConfig, useRssHeadLink } from "katanakit-js";
+import { siteConfig, onRssHeadLink } from "katanakit-js";
 
-useRssHeadLink(siteConfig);
+onRssHeadLink(siteConfig);
 // <link rel="alternate" type="application/rss+xml" title="My Site" href="/rss.xml" />
 ```
 
@@ -263,28 +263,28 @@ double-quoted attribute the serializer always emits.
 Edge cases:
 
 - A missing `rss` block throws
-  `[Seo] SiteConfig.rss is required (useRssHeadLink). Pass rss: { enabled, path, limit }.`
+  `[Seo] SiteConfig.rss is required (onRssHeadLink). Pass rss: { enabled, path, limit }.`
   instead of silently producing a feedless page.
 - A `null`/`undefined` config throws `[Seo] SiteConfig is required …`.
 - Disabled feeds return `""` (never `null`), so `head.includes(rssLink)` checks
   and template injection stay simple.
-- `useSeoMeta()` already appends this exact tag when `rss.enabled` is `true`,
-  and `useHeadTags()` includes it. Only call `useRssHeadLink()` directly when
+- `onSeoMeta()` already appends this exact tag when `rss.enabled` is `true`,
+  and `onHeadTags()` includes it. Only call `onRssHeadLink()` directly when
   you are assembling the head yourself, to avoid duplicate `<link>` tags.
-  `useGenerateMetaTags()` deliberately strips the RSS link.
+  `onGenerateMetaTags()` deliberately strips the RSS link.
 
-**Real use case** — a custom server-rendered `<head>`: `useHeadTags()` combines
+**Real use case** — a custom server-rendered `<head>`: `onHeadTags()` combines
 the per-page metas and the autodiscovery link in one call, so an Express or
 router-based SSR app advertises the feed without template duplication:
 
 ```ts
 import express from "express";
-import { siteConfig, useHeadTags } from "katanakit-js";
+import { siteConfig, onHeadTags } from "katanakit-js";
 
 const app = express();
 
 app.get("/", (_req, res) => {
-  const head = useHeadTags(siteConfig, {
+  const head = onHeadTags(siteConfig, {
     title: "Home",
     description: "Latest posts",
   });
@@ -301,15 +301,15 @@ and basic metadata. Two helpers cover it: one builds the URL, one parses the
 response. Neither needs an API key, and neither touches the YouTube Data API
 quota.
 
-### useBuildYoutubeRssUrl(channelId)
+### onBuildYoutubeRssUrl(channelId)
 
 Builds the keyless channel feed URL with `URLSearchParams`, so the id is
 encoded safely.
 
 ```ts
-import { useBuildYoutubeRssUrl } from "katanakit-js";
+import { onBuildYoutubeRssUrl } from "katanakit-js";
 
-useBuildYoutubeRssUrl("UC_x5XG1OV2P6uZZ5FSM9Ttw");
+onBuildYoutubeRssUrl("UC_x5XG1OV2P6uZZ5FSM9Ttw");
 // https://www.youtube.com/feeds/videos.xml?channel_id=UC_x5XG1OV2P6uZZ5FSM9Ttw
 ```
 
@@ -319,30 +319,30 @@ produces a syntactically valid URL (`?channel_id=`), and the request will simply
 come back without entries.
 
 **Real use case** — a build-time "latest videos" strip: fetch the URL once at
-build time, parse it with `useParseYoutubeRss()`, and ship static markup. If you
-prefer a Safe Result over two manual steps, `useGetChannelVideosRss()` wraps the
-fetch plus parse (register it with `useInitYoutube()` first; an empty `apiKey`
+build time, parse it with `onParseYoutubeRss()`, and ship static markup. If you
+prefer a Safe Result over two manual steps, `onGetChannelVideosRss()` wraps the
+fetch plus parse (register it with `onInitYoutube()` first; an empty `apiKey`
 is fine for the keyless feed):
 
 ```ts
-import { useGetChannelVideosRss, useInitYoutube } from "katanakit-js";
+import { onGetChannelVideosRss, onInitYoutube } from "katanakit-js";
 
-useInitYoutube({ apiKey: "", channelId: "UC_x5XG1OV2P6uZZ5FSM9Ttw" });
+onInitYoutube({ apiKey: "", channelId: "UC_x5XG1OV2P6uZZ5FSM9Ttw" });
 
-const result = await useGetChannelVideosRss();
+const result = await onGetChannelVideosRss();
 if (result.ok) renderLatest(result.data);
 ```
 
-### useParseYoutubeRss(xml)
+### onParseYoutubeRss(xml)
 
 Parses the channel feed into `YoutubeVideoNormalized[]`. It is pure and
 SSR-safe: a regex pass over `<entry>` blocks, no `DOMParser`, no network.
 
 ```ts
-import { useBuildYoutubeRssUrl, useParseYoutubeRss } from "katanakit-js";
+import { onBuildYoutubeRssUrl, onParseYoutubeRss } from "katanakit-js";
 
-const response = await fetch(useBuildYoutubeRssUrl("UC_x5XG1OV2P6uZZ5FSM9Ttw"));
-const videos = useParseYoutubeRss(await response.text());
+const response = await fetch(onBuildYoutubeRssUrl("UC_x5XG1OV2P6uZZ5FSM9Ttw"));
+const videos = onParseYoutubeRss(await response.text());
 
 videos.slice(0, 6).forEach((video) => {
   console.log(video.title, video.thumbnail);
@@ -379,10 +379,10 @@ Edge cases:
   validation. If the feed format changes, you get fewer (or zero) results
   instead of an error.
 - The feed has no `durationSeconds` or `viewCount`. When you have an API key,
-  pass the ids to `useGetVideoDetails()` (up to 50) to enrich them.
+  pass the ids to `onGetVideoDetails()` (up to 50) to enrich them.
 
 **Real use case** — an SSR "shorts/latest videos" section: parse the feed on the
-server, enrich ids with `useGetVideoDetails()`, and render posters from
+server, enrich ids with `onGetVideoDetails()`, and render posters from
 `thumbnail` linking to `url`. Because the feed URL is keyless, local development
 and preview builds work without any YouTube credentials.
 
@@ -390,6 +390,6 @@ and preview builds work without any YouTube credentials.
 
 - [Astro Adapter](/guides/services/astro-adapter#rss-endpoints) — full parameter
   tables, failure modes and response headers for the four RSS helpers.
-- [SEO](/guides/services/seo) — `SiteConfig`, `useSeoMeta()` and the head
+- [SEO](/guides/services/seo) — `SiteConfig`, `onSeoMeta()` and the head
   pipeline that embeds the autodiscovery link.
 - [API Reference](/api/) — every export on this page, generated from source.

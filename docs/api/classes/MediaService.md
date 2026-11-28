@@ -2,7 +2,7 @@
 
 # Class: MediaService
 
-Defined in: [core/services/media.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L36)
+Defined in: [core/services/media.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L36)
 
 MediaService — Singleton facade over media source parsing and embed
 markup generation (YouTube, Vimeo and direct video files).
@@ -19,17 +19,17 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useBuildVideoEmbed } from "katanakit-js";
+import { onBuildVideoEmbed } from "katanakit-js";
 
-const { html } = useBuildVideoEmbed({ src: "https://youtu.be/…", title: "My talk" });
+const { html } = onBuildVideoEmbed({ src: "https://youtu.be/…", title: "My talk" });
 ```
 
 ## Methods
 
-### useBuildVideoEmbed()
+### onBuildVideoEmbed()
 
 ```ts
-useBuildVideoEmbed(options): {
+onBuildVideoEmbed(options): {
   id: string;
   provider: "unknown" | "file" | "youtube" | "vimeo";
   raw: string;
@@ -38,7 +38,7 @@ useBuildVideoEmbed(options): {
 };
 ```
 
-Defined in: [core/services/media.service.ts:248](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L248)
+Defined in: [core/services/media.service.ts:248](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L248)
 
 Builds the semantically correct embed HTML for any supported source.
 
@@ -83,18 +83,18 @@ all interpolated attributes.
 #### Example
 
 ```ts
-const { html } = useBuildVideoEmbed({ src: "https://youtu.be/…", title: "My talk" });
+const { html } = onBuildVideoEmbed({ src: "https://youtu.be/…", title: "My talk" });
 ```
 
 ***
 
-### useBuildVimeoEmbedUrl()
+### onBuildVimeoEmbedUrl()
 
 ```ts
-useBuildVimeoEmbedUrl(videoId): string;
+onBuildVimeoEmbedUrl(videoId): string;
 ```
 
-Defined in: [core/services/media.service.ts:195](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L195)
+Defined in: [core/services/media.service.ts:195](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L195)
 
 Builds the Vimeo player embed URL with privacy defaults.
 
@@ -112,13 +112,13 @@ Player URL ready for `<iframe src>`.
 
 ***
 
-### useBuildYoutubeEmbedUrl()
+### onBuildYoutubeEmbedUrl()
 
 ```ts
-useBuildYoutubeEmbedUrl(videoId, options?): string;
+onBuildYoutubeEmbedUrl(videoId, options?): string;
 ```
 
-Defined in: [core/services/media.service.ts:174](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L174)
+Defined in: [core/services/media.service.ts:174](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L174)
 
 Builds the privacy-enhanced YouTube embed URL (`youtube-nocookie`).
 
@@ -141,13 +141,13 @@ Embed URL ready for `<iframe src>`.
 
 ***
 
-### useBuildYoutubeThumbnail()
+### onBuildYoutubeThumbnail()
 
 ```ts
-useBuildYoutubeThumbnail(videoId, quality?): string;
+onBuildYoutubeThumbnail(videoId, quality?): string;
 ```
 
-Defined in: [core/services/media.service.ts:208](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L208)
+Defined in: [core/services/media.service.ts:208](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L208)
 
 Builds the public YouTube thumbnail URL (no API key needed).
 
@@ -166,13 +166,13 @@ Thumbnail image URL.
 
 ***
 
-### useGetVimeoVideoId()
+### onGetVimeoVideoId()
 
 ```ts
-useGetVimeoVideoId(input): string | null;
+onGetVimeoVideoId(input): string | null;
 ```
 
-Defined in: [core/services/media.service.ts:129](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L129)
+Defined in: [core/services/media.service.ts:129](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L129)
 
 Extracts a Vimeo video id from a URL or bare numeric id.
 
@@ -190,13 +190,13 @@ The numeric id or `null`.
 
 ***
 
-### useGetYoutubeVideoId()
+### onGetYoutubeVideoId()
 
 ```ts
-useGetYoutubeVideoId(input): string | null;
+onGetYoutubeVideoId(input): string | null;
 ```
 
-Defined in: [core/services/media.service.ts:89](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L89)
+Defined in: [core/services/media.service.ts:89](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L89)
 
 Extracts a YouTube video id from a watch / shorts / live / embed /
 `youtu.be` URL or a bare 11-char id. Returns `null` when not matched.
@@ -216,24 +216,24 @@ The 11-char video id or `null`.
 #### Example
 
 ```ts
-useGetYoutubeVideoId("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // "dQw4w9WgXcQ"
-useGetYoutubeVideoId("https://youtu.be/dQw4w9WgXcQ"); // "dQw4w9WgXcQ"
-useGetYoutubeVideoId("dQw4w9WgXcQ"); // "dQw4w9WgXcQ"
+onGetYoutubeVideoId("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); // "dQw4w9WgXcQ"
+onGetYoutubeVideoId("https://youtu.be/dQw4w9WgXcQ"); // "dQw4w9WgXcQ"
+onGetYoutubeVideoId("dQw4w9WgXcQ"); // "dQw4w9WgXcQ"
 ```
 
 ***
 
-### useParseMediaSource()
+### onParseMediaSource()
 
 ```ts
-useParseMediaSource(input): {
+onParseMediaSource(input): {
   id: string;
   provider: "unknown" | "file" | "youtube" | "vimeo";
   raw: string;
 };
 ```
 
-Defined in: [core/services/media.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L156)
+Defined in: [core/services/media.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L156)
 
 Normalizes any supported input into a [MediaSource](../type-aliases/MediaSource.md).
 Pure and SSR-safe: no DOM, no fetch.
@@ -273,16 +273,16 @@ Original input (URL or bare id).
 #### Example
 
 ```ts
-useParseMediaSource("https://youtu.be/dQw4w9WgXcQ");
+onParseMediaSource("https://youtu.be/dQw4w9WgXcQ");
 // { provider: "youtube", id: "dQw4w9WgXcQ", raw: "…" }
 ```
 
 ***
 
-### useParseSmartVideoOptions()
+### onParseSmartVideoOptions()
 
 ```ts
-useParseSmartVideoOptions(input): FetchResult<{
+onParseSmartVideoOptions(input): FetchResult<{
   aspect?: string;
   caption?: string;
   className?: string;
@@ -299,7 +299,7 @@ useParseSmartVideoOptions(input): FetchResult<{
 }>;
 ```
 
-Defined in: [core/services/media.service.ts:225](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L225)
+Defined in: [core/services/media.service.ts:225](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L225)
 
 Validates unknown input (parsed JSON, frontmatter, CMS payloads) against
 the `SmartVideoOptions` schema. Returns a Safe Result instead of throwing.
@@ -333,8 +333,8 @@ the `SmartVideoOptions` schema. Returns a Safe Result instead of throwing.
 #### Example
 
 ```ts
-const result = useParseSmartVideoOptions(JSON.parse(raw));
-if (result.ok) useBuildVideoEmbed(result.data);
+const result = onParseSmartVideoOptions(JSON.parse(raw));
+if (result.ok) onBuildVideoEmbed(result.data);
 ```
 
 ***
@@ -345,7 +345,7 @@ if (result.ok) useBuildVideoEmbed(result.data);
 static getInstance(): MediaService;
 ```
 
-Defined in: [core/services/media.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/media.service.ts#L43)
+Defined in: [core/services/media.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/media.service.ts#L43)
 
 Returns the shared instance (Singleton).
 

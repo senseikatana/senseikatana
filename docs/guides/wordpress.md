@@ -45,25 +45,25 @@ defineWordPressConfig({
 
 ```ts
 import {
-	useWpGetPosts,
-	useWpGetPost,
-	useWpCreatePost,
-	useWpUpdatePost,
-	useWpDeletePost,
-	useWpListAllPosts,
-	useWpSearchAllPosts,
-	useWpFindPostBySlug,
+	onWpGetPosts,
+	onWpGetPost,
+	onWpCreatePost,
+	onWpUpdatePost,
+	onWpDeletePost,
+	onWpListAllPosts,
+	onWpSearchAllPosts,
+	onWpFindPostBySlug,
 } from "katanakit-js/adapters/wordpress";
 
 // Paginated list
-const posts = await useWpGetPosts({ per_page: 5, status: "publish", orderby: "date", order: "desc" });
+const posts = await onWpGetPosts({ per_page: 5, status: "publish", orderby: "date", order: "desc" });
 
 // Single post with embedded resources
-const post = await useWpGetPost(42, { _embed: true });
+const post = await onWpGetPost(42, { _embed: true });
 if (post.ok) console.log(post.data.title.rendered);
 
 // Create
-await useWpCreatePost({
+await onWpCreatePost({
 	title: "My New Post",
 	content: "<p>Hello World!</p>",
 	status: "publish", // "draft" | "pending" | "publish"
@@ -72,20 +72,20 @@ await useWpCreatePost({
 });
 
 // Update and delete (trash by default, permanent with `true`)
-await useWpUpdatePost(42, { title: "Updated Title", status: "publish" });
-await useWpDeletePost(42);
-await useWpDeletePost(42, true);
+await onWpUpdatePost(42, { title: "Updated Title", status: "publish" });
+await onWpDeletePost(42);
+await onWpDeletePost(42, true);
 
 // ALL posts — the helper loops through pagination for you
-const all = await useWpListAllPosts({ status: "publish" });
+const all = await onWpListAllPosts({ status: "publish" });
 if (all.ok) console.log(`Total: ${all.data.length}`);
 
 // Keyword search across all pages of results
-const found = await useWpSearchAllPosts("tutorial");
+const found = await onWpSearchAllPosts("tutorial");
 if (found.ok) found.data.forEach((p) => console.log(p.title.rendered));
 
 // Dynamic routes like /blog/:slug
-const bySlug = await useWpFindPostBySlug("hello-world");
+const bySlug = await onWpFindPostBySlug("hello-world");
 if (bySlug.ok && bySlug.data) console.log(bySlug.data.title.rendered);
 ```
 
@@ -93,48 +93,48 @@ if (bySlug.ok && bySlug.data) console.log(bySlug.data.title.rendered);
 
 ```ts
 import {
-	useWpGetPages,
-	useWpGetPage,
-	useWpCreatePage,
-	useWpUpdatePage,
-	useWpDeletePage,
+	onWpGetPages,
+	onWpGetPage,
+	onWpCreatePage,
+	onWpUpdatePage,
+	onWpDeletePage,
 } from "katanakit-js/adapters/wordpress";
 
-const pages = await useWpGetPages({ per_page: 20 });
+const pages = await onWpGetPages({ per_page: 20 });
 
-const page = await useWpGetPage(10);
+const page = await onWpGetPage(10);
 if (page.ok) console.log(page.data.title.rendered);
 
-await useWpCreatePage({
+await onWpCreatePage({
 	title: "About Us",
 	content: "<p>Welcome to our site!</p>",
 	status: "publish",
 	parent: 0, // top-level page; set a page ID for child pages
 });
 
-await useWpUpdatePage(10, { title: "Updated About" });
-await useWpDeletePage(10); // trash
+await onWpUpdatePage(10, { title: "Updated About" });
+await onWpDeletePage(10); // trash
 ```
 
 ## 4. Media
 
 ```ts
 import {
-	useWpGetMedia,
-	useWpGetMediaItem,
-	useWpUploadMedia,
-	useWpUpdateMedia,
-	useWpDeleteMedia,
+	onWpGetMedia,
+	onWpGetMediaItem,
+	onWpUploadMedia,
+	onWpUpdateMedia,
+	onWpDeleteMedia,
 } from "katanakit-js/adapters/wordpress";
 
-const media = await useWpGetMedia({ per_page: 20, media_type: "image" });
+const media = await onWpGetMedia({ per_page: 20, media_type: "image" });
 
-const item = await useWpGetMediaItem(42);
+const item = await onWpGetMediaItem(42);
 if (item.ok) console.log(item.data.source_url);
 
 // Upload from the browser (File from <input type="file">)
 const file = document.querySelector("input[type=file]").files[0];
-const uploaded = await useWpUploadMedia(file, {
+const uploaded = await onWpUploadMedia(file, {
 	title: "My Image",
 	alt_text: "Description for accessibility",
 	caption: "Image caption",
@@ -144,66 +144,66 @@ if (uploaded.ok) console.log(uploaded.data.source_url); // use in content
 // Upload from Node.js (Buffer)
 import fs from "node:fs";
 const buffer = fs.readFileSync("photo.jpg");
-await useWpUploadMedia(buffer, { title: "Photo" });
+await onWpUploadMedia(buffer, { title: "Photo" });
 
-await useWpUpdateMedia(42, { alt_text: "New alt text", caption: "Updated caption" });
-await useWpDeleteMedia(42, true); // permanent
+await onWpUpdateMedia(42, { alt_text: "New alt text", caption: "Updated caption" });
+await onWpDeleteMedia(42, true); // permanent
 ```
 
 ## 5. Categories, tags, comments and users
 
 ```ts
 import {
-	useWpGetCategories,
-	useWpCreateCategory,
-	useWpUpdateCategory,
-	useWpDeleteCategory,
-	useWpGetTags,
-	useWpCreateTag,
-	useWpDeleteTag,
-	useWpGetComments,
-	useWpCreateComment,
-	useWpUpdateComment,
-	useWpDeleteComment,
-	useWpGetUsers,
-	useWpGetCurrentUser,
-	useWpCreateUser,
-	useWpUpdateUser,
-	useWpDeleteUser,
+	onWpGetCategories,
+	onWpCreateCategory,
+	onWpUpdateCategory,
+	onWpDeleteCategory,
+	onWpGetTags,
+	onWpCreateTag,
+	onWpDeleteTag,
+	onWpGetComments,
+	onWpCreateComment,
+	onWpUpdateComment,
+	onWpDeleteComment,
+	onWpGetUsers,
+	onWpGetCurrentUser,
+	onWpCreateUser,
+	onWpUpdateUser,
+	onWpDeleteUser,
 } from "katanakit-js/adapters/wordpress";
 
 // Categories and tags
-const cats = await useWpGetCategories({ per_page: 50 });
-await useWpCreateCategory({ name: "Technology", slug: "tech", description: "Tech posts" });
-await useWpUpdateCategory(5, { name: "Tech News" });
-await useWpDeleteCategory(5);
+const cats = await onWpGetCategories({ per_page: 50 });
+await onWpCreateCategory({ name: "Technology", slug: "tech", description: "Tech posts" });
+await onWpUpdateCategory(5, { name: "Tech News" });
+await onWpDeleteCategory(5);
 
-const tags = await useWpGetTags({ search: "javascript" });
-await useWpCreateTag({ name: "TypeScript", slug: "typescript" });
-await useWpDeleteTag(12);
+const tags = await onWpGetTags({ search: "javascript" });
+await onWpCreateTag({ name: "TypeScript", slug: "typescript" });
+await onWpDeleteTag(12);
 
 // Comments (creation works for authenticated and public flows)
-const comments = await useWpGetComments({ post: 42, per_page: 10 });
-await useWpCreateComment({
+const comments = await onWpGetComments({ post: 42, per_page: 10 });
+await onWpCreateComment({
 	post: 42,
 	content: "Great article!",
 	author_name: "John",
 	author_email: "john@example.com",
 });
-await useWpUpdateComment(7, { content: "Updated comment" });
-await useWpDeleteComment(7);
+await onWpUpdateComment(7, { content: "Updated comment" });
+await onWpDeleteComment(7);
 
 // Users
-const users = await useWpGetUsers({ roles: "editor" });
-const me = await useWpGetCurrentUser();
-await useWpCreateUser({
+const users = await onWpGetUsers({ roles: "editor" });
+const me = await onWpGetCurrentUser();
+await onWpCreateUser({
 	username: "johndoe",
 	email: "john@example.com",
 	password: "secure-password",
 	roles: ["editor"],
 });
-await useWpUpdateUser(2, { name: "John Smith" });
-await useWpDeleteUser(2, 1); // reassign content to user 1
+await onWpUpdateUser(2, { name: "John Smith" });
+await onWpDeleteUser(2, 1); // reassign content to user 1
 ```
 
 ## 6. Custom post types
@@ -212,32 +212,32 @@ Any registered CPT works — `product`, `portfolio`, `event`, …:
 
 ```ts
 import {
-	useWpGetCustomPosts,
-	useWpGetCustomPost,
-	useWpCreateCustomPost,
-	useWpUpdateCustomPost,
-	useWpDeleteCustomPost,
+	onWpGetCustomPosts,
+	onWpGetCustomPost,
+	onWpCreateCustomPost,
+	onWpUpdateCustomPost,
+	onWpDeleteCustomPost,
 } from "katanakit-js/adapters/wordpress";
 
-const products = await useWpGetCustomPosts("product", { per_page: 10 });
-const product = await useWpGetCustomPost("product", 15);
+const products = await onWpGetCustomPosts("product", { per_page: 10 });
+const product = await onWpGetCustomPost("product", 15);
 
-await useWpCreateCustomPost("product", {
+await onWpCreateCustomPost("product", {
 	title: "Widget",
 	content: "<p>A great widget</p>",
 	status: "publish",
 });
 
-await useWpUpdateCustomPost("product", 15, { title: "Updated Widget" });
-await useWpDeleteCustomPost("product", 15, true);
+await onWpUpdateCustomPost("product", 15, { title: "Updated Widget" });
+await onWpDeleteCustomPost("product", 15, true);
 ```
 
 ## 7. Batch requests
 
 ```ts
-import { useWpBatch } from "katanakit-js/adapters/wordpress";
+import { onWpBatch } from "katanakit-js/adapters/wordpress";
 
-const result = await useWpBatch([
+const result = await onWpBatch([
 	{ method: "GET", path: "/wp/v2/posts?per_page=2" },
 	{ method: "GET", path: "/wp/v2/pages?per_page=2" },
 	{ method: "GET", path: "/wp/v2/categories?per_page=5" },
@@ -253,14 +253,14 @@ if (result.ok) {
 `_fields` requests only what a list view needs — a large payload reduction:
 
 ```ts
-const posts = await useWpGetPosts({ per_page: 20, _fields: "id,title,link,slug,date" });
+const posts = await onWpGetPosts({ per_page: 20, _fields: "id,title,link,slug,date" });
 ```
 
 `_embed` inlines related resources (author, featured media, terms) instead of
 extra round trips:
 
 ```ts
-const posts = await useWpGetPosts({ _embed: "author,wp:featuredmedia" });
+const posts = await onWpGetPosts({ _embed: "author,wp:featuredmedia" });
 
 if (posts.ok) {
 	for (const post of posts.data) {
@@ -276,7 +276,7 @@ if (posts.ok) {
 on the `acf` property of posts, pages, media and CPT entries:
 
 ```ts
-const posts = await useWpGetPosts({ per_page: 5, _fields: "id,title,acf" });
+const posts = await onWpGetPosts({ per_page: 5, _fields: "id,title,acf" });
 
 if (posts.ok) {
 	for (const post of posts.data) {
@@ -285,7 +285,7 @@ if (posts.ok) {
 }
 
 // Everything at once for a full-featured list view
-const full = await useWpGetPosts({
+const full = await onWpGetPosts({
 	per_page: 5,
 	_fields: "id,title,link,slug,date,acf",
 	_embed: "author,wp:featuredmedia",
@@ -312,22 +312,22 @@ So the adapter splits the job in two:
 
 | Task | Reachable over REST? | Adapter method |
 | --- | --- | --- |
-| Declare the site's roles | No — PHP only | `useWpDefineRoles()` |
-| Make them usable by guards | Local | `useWpSyncRoles()` |
-| Assign a role to a user | Yes | `useWpAssignRole()` |
-| Read who holds a role | Yes | `useWpGetUsersByRole()` |
-| Check the site grants what you declared | Yes (read-only) | `useWpAuditRole()` |
+| Declare the site's roles | No — PHP only | `onWpDefineRoles()` |
+| Make them usable by guards | Local | `onWpSyncRoles()` |
+| Assign a role to a user | Yes | `onWpAssignRole()` |
+| Read who holds a role | Yes | `onWpGetUsersByRole()` |
+| Check the site grants what you declared | Yes (read-only) | `onWpAuditRole()` |
 
 ### Declare
 
 A role carries **two** capability vocabularies, and they are not the same thing:
 
 - `capabilities` — the toolkit's namespaced capabilities (`orders:read:own`).
-  These drive `useCan()` and the framework guards, so dashboard routes and the
+  These drive `onCan()` and the framework guards, so dashboard routes and the
   rest of the app speak one language.
 - `wpCapabilities` — WordPress' own snake_case names (`read_private_orders`).
   These are the declaration the site must actually hold, and the baseline
-  `useWpAuditRole()` compares against.
+  `onWpAuditRole()` compares against.
 
 Never derive one from the other. `orders:read:own` is a policy decision;
 `read_private_orders` is a WordPress permission. Collapsing them hides who is
@@ -336,8 +336,8 @@ allowed to touch somebody else's record.
 ```ts
 import {
 	defineWordPressConfig,
-	useWpDefineRoles,
-	useWpSyncRoles,
+	onWpDefineRoles,
+	onWpSyncRoles,
 } from "katanakit-js/adapters/wordpress";
 
 defineWordPressConfig({
@@ -345,7 +345,7 @@ defineWordPressConfig({
 	auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
 });
 
-useWpDefineRoles([
+onWpDefineRoles([
 	{
 		slug: "store_customer",
 		label: "Store Customer",
@@ -369,9 +369,9 @@ useWpDefineRoles([
 	},
 ]);
 
-// Publish the declarations to the access service — without this, `useCan()`
+// Publish the declarations to the access service — without this, `onCan()`
 // throws on the unknown slug.
-useWpSyncRoles();
+onWpSyncRoles();
 ```
 
 `rank` places the role on the toolkit ladder (lower is more privileged,
@@ -382,52 +382,52 @@ not a conflict.
 
 ### Use them as a subject
 
-`useWpAsSubject()` mirrors a user's roles verbatim into an
+`onWpAsSubject()` mirrors a user's roles verbatim into an
 [`AccessSubject`](/guides/access-control), so the guards accept it directly:
 
 ```ts
-import { useCan } from "katanakit-js";
-import { useWpAsSubject, useWpGetCurrentUser } from "katanakit-js/adapters/wordpress";
+import { onCan } from "katanakit-js";
+import { onWpAsSubject, onWpGetCurrentUser } from "katanakit-js/adapters/wordpress";
 
-const me = await useWpGetCurrentUser();
+const me = await onWpGetCurrentUser();
 if (me.ok) {
-	const subject = useWpAsSubject(me.data);
-	useCan(subject, "orders:read:own"); // true for a store_customer
+	const subject = onWpAsSubject(me.data);
+	onCan(subject, "orders:read:own"); // true for a store_customer
 }
 ```
 
 It mirrors instead of filtering unknown slugs on purpose: a subject quietly
 stripped of its roles fails closed and looks like a missing grant. Unknown roles
-throw instead — which is exactly why `useWpSyncRoles()` belongs right after the
+throw instead — which is exactly why `onWpSyncRoles()` belongs right after the
 declarations.
 
-The subject plugs straight into `useRequireCapability()` — one guard per
+The subject plugs straight into `onRequireCapability()` — one guard per
 framework, same `401`/`403` semantics everywhere. See
 [Capability guards](/guides/framework-adapters#capability-guards) for the Astro,
 Next, Nuxt, Hono and Express wiring.
 
 The subject composes with the rest of the access kit. A dashboard that shares
-one order with one person reaches for `useGrantAwareCan()` — the subject's
+one order with one person reaches for `onGrantAwareCan()` — the subject's
 global roles answer *"what class of thing may they ever do"*, a grant answers
 *"may they do it to this one"*:
 
 ```ts
-import { useGrantAwareCan } from "katanakit-js";
+import { onGrantAwareCan } from "katanakit-js";
 
-const decision = useGrantAwareCan({
+const decision = onGrantAwareCan({
 	subject,
 	resource: { type: "order", id: orderId },
 	capability: "orders:read:any",
-	useGrants: ({ subject, resource }) => listSharedOrders(subject.id, resource),
+	onGrants: ({ subject, resource }) => listSharedOrders(subject.id, resource),
 });
 ```
 
 ### Assign
 
 ```ts
-import { useWpAssignRole, useWpUnassignRole, useWpGetUsersByRole } from "katanakit-js/adapters/wordpress";
+import { onWpAssignRole, onWpUnassignRole, onWpGetUsersByRole } from "katanakit-js/adapters/wordpress";
 
-const assigned = await useWpAssignRole(42, "store_customer");
+const assigned = await onWpAssignRole(42, "store_customer");
 
 if (!assigned.ok && assigned.status === 422) {
 	// WordPress accepted the request but dropped the slug: the site has no such
@@ -435,12 +435,12 @@ if (!assigned.ok && assigned.status === 422) {
 	console.error(assigned.error.message);
 }
 
-await useWpUnassignRole(42, "store_customer");
-const customers = await useWpGetUsersByRole("store_customer", { per_page: 50 });
+await onWpUnassignRole(42, "store_customer");
+const customers = await onWpGetUsersByRole("store_customer", { per_page: 50 });
 ```
 
-That `422` is the whole reason `useWpAssignRole()` exists instead of a plain
-`useWpUpdateUser()`. **WordPress silently discards a role slug it does not
+That `422` is the whole reason `onWpAssignRole()` exists instead of a plain
+`onWpUpdateUser()`. **WordPress silently discards a role slug it does not
 know** and still answers `200` with the user unchanged, so a naive assignment
 reports success for a grant that never happened. The adapter re-reads the roles
 on the response and fails loudly instead.
@@ -453,9 +453,9 @@ satisfies the request, and nothing there can be silently ignored.
 The declaration is only worth something if the site agrees with it:
 
 ```ts
-import { useWpAuditRole } from "katanakit-js/adapters/wordpress";
+import { onWpAuditRole } from "katanakit-js/adapters/wordpress";
 
-const audit = await useWpAuditRole("store_customer");
+const audit = await onWpAuditRole("store_customer");
 
 if (audit.ok) {
 	console.log(audit.data.status); // "verified" | "partial" | "unverifiable"
@@ -483,7 +483,7 @@ is how a green badge ends up hiding a hole.
 - **`roles`, `capabilities` and `extra_capabilities` need `context=edit`.**
   Reading users with the default context returns no roles at all, and an audit
   built on that reports every capability missing. The role methods ask for the
-  context explicitly — a bare `useWpGetUsers()` does not.
+  context explicitly — a bare `onWpGetUsers()` does not.
 - **Capabilities are global names, not per-post-type.** `edit_published_orders`
   says nothing about `orders` being the only thing it reaches; that scoping
   lives in the post type's capability map on the PHP side. `read` on a customer
@@ -512,4 +512,4 @@ is how a green badge ends up hiding a hole.
 - [Astro Adapter](/guides/services/astro-adapter) — turning these calls into static routes.
 - [Query Client](/guides/query-client) — caching and invalidating CMS reads.
 - [HTTP Client](/guides/services/http-client) — the underlying Safe Result and options.
-- [Access Control](/guides/access-control) — the roles, capabilities and guards `useWpSyncRoles()` feeds.
+- [Access Control](/guides/access-control) — the roles, capabilities and guards `onWpSyncRoles()` feeds.

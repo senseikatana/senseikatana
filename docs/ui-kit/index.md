@@ -26,11 +26,11 @@ tokens and the `.*` component classes) before using any factory:
 
 ```ts
 import "@katanakit/ui/styles.css";
-import { useButton, useInput, useCard, useBadge, useAlert, toast } from "@katanakit/ui";
+import { onButton, onInput, onCard, onBadge, onAlert, toast } from "@katanakit/ui";
 
 document.body.append(
-	useButton({ label: "Save" }),
-	useInput({ label: "Email", type: "email" }).root,
+	onButton({ label: "Save" }),
+	onInput({ label: "Email", type: "email" }).root,
 );
 
 toast.success("Saved.");
@@ -70,8 +70,8 @@ the same primitives the toolkit already guarantees.
 
 | UI need | KatanaKit service |
 | --- | --- |
-| Tables, filters, pagination | `FetchApiManager`, `useGetApi` |
-| Theme switching and persistence | `ThemeService`, `useInitTheme` |
+| Tables, filters, pagination | `FetchApiManager`, `onGet` |
+| Theme switching and persistence | `ThemeService`, `onInitTheme` |
 | Remembered UI state | `StorageService` strategies |
 | Reactive widgets and stores | `ReactiveService` signals |
 | Lazy blocks, infinite scroll | `ObserverService`, `LazyLoaderService` |

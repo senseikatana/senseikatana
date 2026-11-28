@@ -2,19 +2,19 @@
 
 # Interface: IAccessService
 
-Defined in: [types/core/access.ts:59](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L59)
+Defined in: [types/core/access.ts:53](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L53)
 
 Contract of the access-control facade. Pure, no I/O.
 
 ## Methods
 
-### useCan()
+### onCan()
 
 ```ts
-useCan(subject, capability): boolean;
+onCan(subject, capability): boolean;
 ```
 
-Defined in: [types/core/access.ts:60](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L60)
+Defined in: [types/core/access.ts:54](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L54)
 
 #### Parameters
 
@@ -31,13 +31,13 @@ Defined in: [types/core/access.ts:60](https://github.com/senseikatana/katanakit-
 
 ***
 
-### useCapabilitiesFor()
+### onCapabilitiesFor()
 
 ```ts
-useCapabilitiesFor(role): string[];
+onCapabilitiesFor(role): string[];
 ```
 
-Defined in: [types/core/access.ts:62](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L62)
+Defined in: [types/core/access.ts:56](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L56)
 
 #### Parameters
 
@@ -51,13 +51,13 @@ Defined in: [types/core/access.ts:62](https://github.com/senseikatana/katanakit-
 
 ***
 
-### useHasRole()
+### onHasRole()
 
 ```ts
-useHasRole(subject, role): boolean;
+onHasRole(subject, role): boolean;
 ```
 
-Defined in: [types/core/access.ts:61](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L61)
+Defined in: [types/core/access.ts:55](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L55)
 
 #### Parameters
 
@@ -74,13 +74,13 @@ Defined in: [types/core/access.ts:61](https://github.com/senseikatana/katanakit-
 
 ***
 
-### useRegisterRole()
+### onRegisterRole()
 
 ```ts
-useRegisterRole(definition): void;
+onRegisterRole(definition): void;
 ```
 
-Defined in: [types/core/access.ts:63](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L63)
+Defined in: [types/core/access.ts:57](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L57)
 
 #### Parameters
 
@@ -98,10 +98,10 @@ Defined in: [types/core/access.ts:63](https://github.com/senseikatana/katanakit-
 
 ***
 
-### useRoles()
+### onRoles()
 
 ```ts
-useRoles(): {
+onRoles(): {
   capabilities: string[];
   label: string;
   rank: number;
@@ -109,7 +109,7 @@ useRoles(): {
 }[];
 ```
 
-Defined in: [types/core/access.ts:64](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/access.ts#L64)
+Defined in: [types/core/access.ts:58](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/access.ts#L58)
 
 #### Returns
 

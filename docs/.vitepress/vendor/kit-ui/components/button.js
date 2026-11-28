@@ -26,17 +26,26 @@ export function buttonClass(options = {}) {
  *
  * @example
  * ```ts
- * document.body.append(useButton({ label: "Save", onClick: () => save() }));
+ * document.body.append(onButton({ label: "Save", onClick: () => save() }));
  * ```
  */
-export function useButton(options = {}) {
+export function onButton(options = {}) {
     if (typeof document === "undefined") {
-        throw new Error("[KatanaUI] useButton() needs a DOM; use buttonClass() for SSR markup.");
+        throw new Error("[KatanaUI] onButton() needs a DOM; use buttonClass() for SSR markup.");
     }
     const button = document.createElement("button");
     button.type = options.type ?? "button";
     button.className = buttonClass(options);
-    button.textContent = options.label ?? "";
+    // An icon-only button has no visible text, so a screen reader has nothing
+    // to announce unless we give it a name. `ariaLabel` is that name. When a
+    // visible `label` exists it already names the button, and an `aria-label`
+    // on top of it would only override the visible wording for assistive tech.
+    if (options.ariaLabel && !options.label) {
+        button.setAttribute("aria-label", options.ariaLabel);
+    }
+    else {
+        button.textContent = options.label ?? "";
+    }
     if (options.loading) {
         button.setAttribute("aria-busy", "true");
     }

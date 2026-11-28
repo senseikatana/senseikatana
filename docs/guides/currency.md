@@ -14,31 +14,31 @@ usual jobs; the `CurrencyConverterService` facade underneath exposes the rest
 
 ```ts
 import {
-  useConvertCurrency,
-  useGetExchangeRate,
-  useRefreshExchangeRates,
-  useSubscribeRates,
-  useCurrencyConverter,
+  onConvertCurrency,
+  onGetExchangeRate,
+  onRefreshExchangeRates,
+  onSubscribeRates,
+  onCurrencyConverter,
 } from "katanakit-js";
 ```
 
 ## 1. Convert an amount
 
-`useConvertCurrency()` returns the math plus the rate and date it came from. It
+`onConvertCurrency()` returns the math plus the rate and date it came from. It
 **converts and does not format** — rendering is
-[`useFormatCurrency()`](/guides/services/formatter)'s job, and the two compose:
+[`onFormatCurrency()`](/guides/services/formatter)'s job, and the two compose:
 
 ```ts
-import { useConvertCurrency, useFormatCurrency } from "katanakit-js";
+import { onConvertCurrency, onFormatCurrency } from "katanakit-js";
 
-const result = await useConvertCurrency({ amount: 100, from: "USD", to: "EUR" });
+const result = await onConvertCurrency({ amount: 100, from: "USD", to: "EUR" });
 
 if (result.ok) {
   result.data.converted; // 88.87 — money: exactly 2 decimals
   result.data.rate;      // 0.88865 — full precision from the source
   result.data.date;      // "2026-10-16" — the day the rate belongs to
 
-  const shown = useFormatCurrency({
+  const shown = onFormatCurrency({
     amount: result.data.converted,
     currency: result.data.to,
     locale: "es",
@@ -57,7 +57,7 @@ Two rules to remember:
 - **`date` is the rate's day, not today's.** Display it next to the amount
   whenever the number is on an invoice or a report.
 
-Pass `digits: 2` to `useFormatCurrency()` when you want two decimals on a
+Pass `digits: 2` to `onFormatCurrency()` when you want two decimals on a
 zero-decimal currency like JPY. Conversion and formatting stay separate on
 purpose: one produces the number, the other decides how it looks — see
 [Formatter](/guides/services/formatter).
@@ -68,7 +68,7 @@ Every helper resolves to `{ data, error, ok }` and never throws, so the failure
 modes are values you can log, render or retry:
 
 ```ts
-const result = await useConvertCurrency({ amount: 100, from: "USD", to: "ARS" });
+const result = await onConvertCurrency({ amount: 100, from: "USD", to: "ARS" });
 
 if (!result.ok) {
   // result.error.message — what happened
@@ -89,22 +89,22 @@ without making any request.
 
 ## 3. Read a rate and control the cache
 
-`useGetExchangeRate()` returns just the rate. Rates are cached as **one snapshot
+`onGetExchangeRate()` returns just the rate. Rates are cached as **one snapshot
 quoted against a pivot currency** (USD by default) with a TTL of 10 minutes, and
 concurrent calls collapse into a single request:
 
 ```ts
-import { useCurrencyConverter, useGetExchangeRate, useRefreshExchangeRates } from "katanakit-js";
+import { onCurrencyConverter, onGetExchangeRate, onRefreshExchangeRates } from "katanakit-js";
 
-const rate = await useGetExchangeRate("USD", "EUR");
+const rate = await onGetExchangeRate("USD", "EUR");
 if (rate.ok) console.log(rate.data); // 0.89087
 
 // Tune the cache once, at startup:
-useCurrencyConverter({ ttlMs: 5 * 60 * 1000 }); // 5 minutes
+onCurrencyConverter({ ttlMs: 5 * 60 * 1000 }); // 5 minutes
 // ttlMs: 0 → cached until you clear it explicitly.
 
 // Bypass the cache when you need a fresh quote now:
-await useRefreshExchangeRates();
+await onRefreshExchangeRates();
 ```
 
 ### Why a pivot?
@@ -117,23 +117,24 @@ So every rate is stored against **one pivot** and each pair is resolved by
 division: `rate(A → B) = pivot[B] / pivot[A]`. The rounding then sits on the
 well-conditioned side of the pair, and both directions are exactly reciprocal —
 `rate(A→B) × rate(B→A) = 1`, with no drift between them. Move the pivot closer
-to your usual pairs with `useCurrencyConverter({ pivot: "EUR" })`, or set it on
+to your usual pairs with `onCurrencyConverter({ pivot: "EUR" })`, or set it on
 `CurrencyConverterService.create({ pivot })`.
 
-The facade gives you the remaining cache controls: `useGetSnapshot()` reads the
-cached snapshot without fetching, and `useClearCache()` drops everything
-(including responses that are still in flight).
+The facade gives you the remaining cache controls: `getSnapshot()` reads the
+cached snapshot without fetching, and `clearCache()` drops everything
+(including responses that are still in flight). Use them through
+`CurrencyConverterService.getInstance()`.
 
 ## 4. Subscribe to rate updates
 
-The service is an Observer: `useSubscribeRates()` registers callbacks and
-returns an unsubscribe function. Handlers named `on*` are callbacks the service
-invokes — they are the only `on*` surface in the kit.
+The service is an Observer: `onSubscribeRates()` registers callbacks and
+returns an unsubscribe function. Handlers named `on*` in this payload are callbacks the
+service invokes, not methods you call.
 
 ```ts
-import { useSubscribeRates } from "katanakit-js";
+import { onSubscribeRates } from "katanakit-js";
 
-const off = useSubscribeRates({
+const off = onSubscribeRates({
   onRatesUpdate: (snapshot) => render(snapshot.rates, snapshot.date),
   onRatesError: (error) => console.warn("rates unavailable", error.message),
 });
@@ -143,8 +144,8 @@ off();
 ```
 
 `onRatesUpdate` fires whenever a snapshot is stored in the cache — after any
-fetch triggered by a conversion, `useGetExchangeRate()` or
-`useRefreshExchangeRates()`. A throwing handler is logged and does not affect
+fetch triggered by a conversion, `onGetExchangeRate()` or
+`onRefreshExchangeRates()`. A throwing handler is logged and does not affect
 the other subscribers.
 
 ## 5. Swap the provider for live-market rates
@@ -155,7 +156,7 @@ it — no service code changes:
 
 ```ts
 import {
-  useCurrencyConverter,
+  onCurrencyConverter,
   type Currency,
   type CurrencyRateSnapshot,
   type ICurrencyRateProvider,
@@ -163,13 +164,13 @@ import {
 } from "katanakit-js";
 
 const liveRates: ICurrencyRateProvider = {
-  async useFetchRates(base: Currency): Promise<SafeResult<CurrencyRateSnapshot>> {
+  async fetchRates(base: Currency): Promise<SafeResult<CurrencyRateSnapshot>> {
     // Call your provider here. Return a Safe Result — never throw.
     return { data: { base, date: "2026-10-19", rates: {} }, error: null, ok: true };
   },
 };
 
-useCurrencyConverter({ provider: liveRates });
+onCurrencyConverter({ provider: liveRates });
 ```
 
 Equivalent injection points, pick one:
@@ -181,11 +182,11 @@ import { CurrencyConverterService } from "katanakit-js";
 const currency = CurrencyConverterService.create({ provider: liveRates });
 
 // Or the shared singleton:
-CurrencyConverterService.getInstance().useSetProvider(liveRates);
+CurrencyConverterService.getInstance().setProvider(liveRates);
 ```
 
 Injecting a provider **drops the cache**: every stored snapshot came from the
-previous source. `useCurrencyConverter()` is idempotent and never replaces a
+previous source. `onCurrencyConverter()` is idempotent and never replaces a
 provider you injected yourself.
 
 ## Rate coverage
@@ -202,7 +203,7 @@ The kit typechecks **33 currencies**: the 30 the ECB source covers, plus `ARS`,
 Frankfurter covers the ECB set — **not** `ARS`, `COP` or `CLP`. Pairs involving
 those three return an explicit `404` error instead of a wrong number; that is
 the deal, and the provider swap above is the escape hatch. Formatting
-(`useFormatCurrency`) works for all 33.
+(`onFormatCurrency`) works for all 33.
 
 ::: warning These are reference rates, not a forex quote
 The default source returns **ECB daily reference rates**: published around
@@ -228,7 +229,7 @@ Frankfurter client on top of the kit's HTTP API.
   pairs divide through a pivot instead of consuming the source's quote.
 - [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates) — why ECB
   reference rates, and the provider port as the escape hatch.
-- [Formatter](/guides/services/formatter) — `useFormatCurrency()` and the
+- [Formatter](/guides/services/formatter) — `onFormatCurrency()` and the
   `digits` option.
 - [Service architecture](/explanation/service-architecture) — why the rate
   source is a port and the adapter lives in `src/infrastructure/`.

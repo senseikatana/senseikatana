@@ -12,10 +12,10 @@ equivalent.
 
 This page is the other half of that workflow — how to make WordPress actually
 have the role your dashboard expects. Choose one of the two options below and
-then verify the result with `useWpAuditRole()`.
+then verify the result with `onWpAuditRole()`.
 
 > A dashboard that assigns a role WordPress does not know gets a `422` from
-> `useWpAssignRole()`, naming the missing role. That is the signal this page
+> `onWpAssignRole()`, naming the missing role. That is the signal this page
 > addresses. See [ADR-0007](/explanation/decisions/adr-0007-wordpress-roles-declared-not-created)
 > for why the split exists at all.
 
@@ -219,14 +219,14 @@ if ( get_option( 'store_orders_roles_version' ) < 2 ) {
 ## Verify the result
 
 The declaration in your dashboard and the capabilities in WordPress have to say
-the same thing. `useWpAuditRole()` compares them:
+the same thing. `onWpAuditRole()` compares them:
 
 ```ts
 import {
 	defineWordPressConfig,
-	useWpDefineRoles,
-	useWpAuditRole,
-	useWpSyncRoles,
+	onWpDefineRoles,
+	onWpAuditRole,
+	onWpSyncRoles,
 } from "katanakit-js/adapters/wordpress";
 
 defineWordPressConfig({
@@ -234,7 +234,7 @@ defineWordPressConfig({
 	auth: { type: "application-passwords", username: "admin", password: "xxxx xxxx xxxx" },
 });
 
-useWpDefineRoles([
+onWpDefineRoles([
 	{
 		slug: "store_customer",
 		label: "Store Customer",
@@ -251,9 +251,9 @@ useWpDefineRoles([
 		],
 	},
 ]);
-useWpSyncRoles();
+onWpSyncRoles();
 
-const audit = await useWpAuditRole("store_customer");
+const audit = await onWpAuditRole("store_customer");
 
 if (audit.ok) {
 	console.log(audit.data.status); // "verified" | "partial" | "unverifiable"

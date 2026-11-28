@@ -156,7 +156,7 @@ interface ChartAdapter {
 ## SSR and hydration
 
 - Primitives are no-ops on the server and activate on the client.
-- `useInitTheme` already guards `window`; the kit never runs theme code during SSR.
+- `onInitTheme` already guards `window`; the kit never runs theme code during SSR.
 - Charts render a sized placeholder server-side and mount on the client to avoid
   layout shift.
 - No component reads `location`, `matchMedia` or storage at import time.

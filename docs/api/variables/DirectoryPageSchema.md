@@ -24,6 +24,6 @@ const DirectoryPageSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/directory.schema.ts:64](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/directory.schema.ts#L64)
+Defined in: [schemas/directory.schema.ts:61](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/directory.schema.ts#L61)
 
 A page of results plus the cursor for the next one.

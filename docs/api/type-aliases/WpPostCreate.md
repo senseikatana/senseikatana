@@ -6,6 +6,6 @@
 type WpPostCreate = z.infer<typeof WpPostCreateSchema>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:57](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/wordpress.ts#L57)
+Defined in: [types/wordpress/types.ts:57](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/wordpress/types.ts#L57)
 
 Payload for creating a WordPress post.

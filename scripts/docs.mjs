@@ -55,6 +55,34 @@ function clean() {
   console.log('docs: cleaned .vitepress/.temp, .vitepress/cache and ./ .vitepress');
 }
 
+/**
+ * `wrangler pages deploy` fails when the Pages project does not exist yet.
+ * Create it on first deploy; an existing project makes the create exit
+ * non-zero, which is safe to ignore because the deploy below is the real
+ * check.
+ */
+function ensurePagesProject() {
+  try {
+    run(
+      'bunx',
+      [
+        WRANGLER,
+        'pages',
+        'project',
+        'create',
+        CLOUDFLARE_PROJECT,
+        '--production-branch',
+        CLOUDFLARE_BRANCH,
+        '--force',
+      ],
+      { stdio: 'ignore' },
+    );
+    console.log(`docs: created Pages project ${CLOUDFLARE_PROJECT}`);
+  } catch {
+    console.log(`docs: Pages project ${CLOUDFLARE_PROJECT} already exists`);
+  }
+}
+
 /** Copy generated katanakit-js docs to senseikatana/docs/ */
 function syncFromKit() {
   if (!existsSync(KATANAKIT_ROOT)) {
@@ -100,14 +128,19 @@ function syncFromKit() {
   const srcUi = join(KATANAKIT_ROOT, 'packages', 'ui', 'dist');
   const dstUi = join(ROOT, 'docs', '.vitepress', 'vendor', 'kit-ui');
   if (existsSync(srcUi)) {
-    mkdirSync(join(dstUi, 'components'), { recursive: true });
-    copyFileSync(join(srcUi, 'styles.css'), join(dstUi, 'styles.css'));
-    copyFileSync(join(srcUi, 'index.js'), join(dstUi, 'index.js'));
-    for (const file of readdirSync(join(srcUi, 'components'))) {
-      if (file.endsWith('.js')) {
-        copyFileSync(join(srcUi, 'components', file), join(dstUi, 'components', file));
+    // Mirror every runtime module (top-level, components/, utils/…) so a new
+    // subfolder in the kit build never breaks the docs bundle.
+    const copyJs = (from, to) => {
+      mkdirSync(to, { recursive: true });
+      for (const entry of readdirSync(from, { withFileTypes: true })) {
+        const src = join(from, entry.name);
+        const dst = join(to, entry.name);
+        if (entry.isDirectory()) copyJs(src, dst);
+        else if (entry.name.endsWith('.js')) copyFileSync(src, dst);
       }
-    }
+    };
+    copyJs(srcUi, dstUi);
+    copyFileSync(join(srcUi, 'styles.css'), join(dstUi, 'styles.css'));
     console.log('docs: vendored packages/ui/dist (styles + js)');
   }
 
@@ -322,6 +355,7 @@ async function main() {
       }
 
       const branch = mode === 'gh' ? 'gh-pages' : CLOUDFLARE_BRANCH;
+      if (mode === 'deploy') ensurePagesProject();
       const args = [WRANGLER, 'pages', 'deploy', DIST_DIR, '--branch', branch];
       if (mode !== 'gh') args.push('--project-name', CLOUDFLARE_PROJECT);
       run('bunx', args);

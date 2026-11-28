@@ -2,7 +2,7 @@
 
 # Class: FakerService
 
-Defined in: [core/services/faker.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L36)
+Defined in: [core/services/faker.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L36)
 
 FakerService — generic fake data for tests, seeds and forms.
 
@@ -14,28 +14,28 @@ never enters the initial bundle and consumers who don't use it don't
 install it.
 
 Every public method uses the `use*` prefix per `CONTRIBUTING.md`; the
-module level `useFake*` functions below are thin wrappers kept for
+module level `onFake*` functions below are thin wrappers kept for
 call-site ergonomics.
 
 ## Example
 
 ```ts
-import { useFakeSeed, useFakeUuid } from "katanakit-js";
+import { fakeSeed, fakeUuid } from "katanakit-js";
 
-const seed = await useFakeSeed(); // random, but loggable/replayable
-await useFakeSeed(seed);          // replays the same sequence
-await useFakeUuid();
+const seed = await fakeSeed(); // random, but loggable/replayable
+await fakeSeed(seed);          // replays the same sequence
+await fakeUuid();
 ```
 
 ## Methods
 
-### useFakeBoolean()
+### fakeBoolean()
 
 ```ts
-useFakeBoolean(): Promise<boolean>;
+fakeBoolean(): Promise<boolean>;
 ```
 
-Defined in: [core/services/faker.service.ts:234](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L234)
+Defined in: [core/services/faker.service.ts:234](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L234)
 
 Generates a random boolean.
 
@@ -47,13 +47,13 @@ Generates a random boolean.
 
 ***
 
-### useFakeCompanyName()
+### fakeCompanyName()
 
 ```ts
-useFakeCompanyName(): Promise<string>;
+fakeCompanyName(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:186](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L186)
+Defined in: [core/services/faker.service.ts:186](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L186)
 
 Generates a fake company name.
 
@@ -65,13 +65,13 @@ A company name.
 
 ***
 
-### useFakeDate()
+### fakeDate()
 
 ```ts
-useFakeDate(from?, to?): Promise<Date>;
+fakeDate(from?, to?): Promise<Date>;
 ```
 
-Defined in: [core/services/faker.service.ts:252](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L252)
+Defined in: [core/services/faker.service.ts:252](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L252)
 
 Generates a random date within an optional range.
 
@@ -80,7 +80,7 @@ Generates a random date within an optional range.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `from?` | `string` \| `number` \| `Date` | Lower bound (default: `1970-01-01`). |
-| `to?` | `string` \| `number` \| `Date` | Upper bound (default: faker's reference date, see [useFakeSetDefaultRefDate](../functions/useFakeSetDefaultRefDate.md) — the current time when unset). |
+| `to?` | `string` \| `number` \| `Date` | Upper bound (default: faker's reference date, see [fakeSetDefaultRefDate](#fakesetdefaultrefdate) — the current time when unset). |
 
 #### Returns
 
@@ -91,18 +91,18 @@ A `Date` instance.
 #### Example
 
 ```ts
-const hiredAt = await useFakeDate(new Date("2020-01-01"), new Date("2025-12-31"));
+const hiredAt = await fakeDate(new Date("2020-01-01"), new Date("2025-12-31"));
 ```
 
 ***
 
-### useFakeEmail()
+### fakeEmail()
 
 ```ts
-useFakeEmail(): Promise<string>;
+fakeEmail(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L136)
+Defined in: [core/services/faker.service.ts:136](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L136)
 
 Generates a fake email address.
 
@@ -114,13 +114,13 @@ An email address.
 
 ***
 
-### useFakeFirstName()
+### fakeFirstName()
 
 ```ts
-useFakeFirstName(): Promise<string>;
+fakeFirstName(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L156)
+Defined in: [core/services/faker.service.ts:156](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L156)
 
 Generates a fake first name.
 
@@ -132,13 +132,13 @@ A first name.
 
 ***
 
-### useFakeFullName()
+### fakeFullName()
 
 ```ts
-useFakeFullName(): Promise<string>;
+fakeFullName(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L146)
+Defined in: [core/services/faker.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L146)
 
 Generates a fake full name.
 
@@ -150,13 +150,13 @@ A full name, e.g. `"Ada Lovelace"`.
 
 ***
 
-### useFakeLastName()
+### fakeLastName()
 
 ```ts
-useFakeLastName(): Promise<string>;
+fakeLastName(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:166](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L166)
+Defined in: [core/services/faker.service.ts:166](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L166)
 
 Generates a fake last name.
 
@@ -168,13 +168,13 @@ A last name.
 
 ***
 
-### useFakeList()
+### fakeList()
 
 ```ts
-useFakeList<T>(factory, count): Promise<T[]>;
+fakeList<T>(factory, count): Promise<T[]>;
 ```
 
-Defined in: [core/services/faker.service.ts:298](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L298)
+Defined in: [core/services/faker.service.ts:298](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L298)
 
 Builds an array of fake items from a factory (sync or async).
 
@@ -200,19 +200,19 @@ A promise resolving to the generated array.
 #### Example
 
 ```ts
-const vehicles = await useFakeList(() => useFakeVehicle(), 5);
-const relations = await useFakeList((index) => ({ user: users[index % users.length] }), 10);
+const vehicles = await fakeList(() => fakeVehicle(), 5);
+const relations = await fakeList((index) => ({ user: users[index % users.length] }), 10);
 ```
 
 ***
 
-### useFakeNumber()
+### fakeNumber()
 
 ```ts
-useFakeNumber(min?, max?): Promise<number>;
+fakeNumber(min?, max?): Promise<number>;
 ```
 
-Defined in: [core/services/faker.service.ts:224](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L224)
+Defined in: [core/services/faker.service.ts:224](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L224)
 
 Generates an integer within an inclusive range.
 
@@ -232,18 +232,18 @@ A random integer between `min` and `max`.
 #### Example
 
 ```ts
-const age = await useFakeNumber(18, 65);
+const age = await fakeNumber(18, 65);
 ```
 
 ***
 
-### useFakePhone()
+### fakePhone()
 
 ```ts
-useFakePhone(): Promise<string>;
+fakePhone(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:176](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L176)
+Defined in: [core/services/faker.service.ts:176](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L176)
 
 Generates a fake phone number.
 
@@ -255,13 +255,13 @@ A phone number string.
 
 ***
 
-### useFakeSeed()
+### fakeSeed()
 
 ```ts
-useFakeSeed(seed?): Promise<number>;
+fakeSeed(seed?): Promise<number>;
 ```
 
-Defined in: [core/services/faker.service.ts:88](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L88)
+Defined in: [core/services/faker.service.ts:88](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L88)
 
 Seeds the faker instance for reproducible output, or rolls a new random seed.
 
@@ -283,25 +283,25 @@ The seed that was set.
 #### Example
 
 ```ts
-import { useFakeSeed, useFakeUuid } from "katanakit-js";
+import { fakeSeed, fakeUuid } from "katanakit-js";
 
-const seed = await useFakeSeed(); // random, but loggable/replayable
-await useFakeSeed(seed);          // replays the same sequence
-await useFakeUuid();
+const seed = await fakeSeed(); // random, but loggable/replayable
+await fakeSeed(seed);          // replays the same sequence
+await fakeUuid();
 ```
 
 ***
 
-### useFakeSetDefaultRefDate()
+### fakeSetDefaultRefDate()
 
 ```ts
-useFakeSetDefaultRefDate(refDate?): Promise<Date>;
+fakeSetDefaultRefDate(refDate?): Promise<Date>;
 ```
 
-Defined in: [core/services/faker.service.ts:110](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L110)
+Defined in: [core/services/faker.service.ts:110](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L110)
 
 Pins the reference date faker uses for relative date helpers, so
-date-dependent output stays reproducible next to [useFakeSeed](../functions/useFakeSeed.md).
+date-dependent output stays reproducible next to [fakeSeed](#fakeseed).
 
 #### Parameters
 
@@ -318,22 +318,22 @@ The reference date now in effect.
 #### Example
 
 ```ts
-import { useFakeSeed, useFakeSetDefaultRefDate, useFakeDate } from "katanakit-js";
+import { fakeSeed, fakeSetDefaultRefDate, fakeDate } from "katanakit-js";
 
-await useFakeSeed(42);
-await useFakeSetDefaultRefDate("2026-01-01");
-await useFakeDate(); // reproducible between 1970-01-01 and 2026-01-01
+await fakeSeed(42);
+await fakeSetDefaultRefDate("2026-01-01");
+await fakeDate(); // reproducible between 1970-01-01 and 2026-01-01
 ```
 
 ***
 
-### useFakeText()
+### fakeText()
 
 ```ts
-useFakeText(words?): Promise<string>;
+fakeText(words?): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L207)
+Defined in: [core/services/faker.service.ts:207](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L207)
 
 Generates lorem-ipsum text.
 
@@ -351,13 +351,13 @@ A space-separated string of words.
 
 ***
 
-### useFakeUrl()
+### fakeUrl()
 
 ```ts
-useFakeUrl(): Promise<string>;
+fakeUrl(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:196](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L196)
+Defined in: [core/services/faker.service.ts:196](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L196)
 
 Generates a fake URL.
 
@@ -369,13 +369,13 @@ An absolute URL.
 
 ***
 
-### useFakeUuid()
+### fakeUuid()
 
 ```ts
-useFakeUuid(): Promise<string>;
+fakeUuid(): Promise<string>;
 ```
 
-Defined in: [core/services/faker.service.ts:126](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L126)
+Defined in: [core/services/faker.service.ts:126](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L126)
 
 Generates a v4 UUID.
 
@@ -388,15 +388,15 @@ A random UUID string.
 #### Example
 
 ```ts
-const id = await useFakeUuid();
+const id = await fakeUuid();
 ```
 
 ***
 
-### useFakeVehicle()
+### fakeVehicle()
 
 ```ts
-useFakeVehicle(): Promise<{
+fakeVehicle(): Promise<{
   brand: string;
   color: string;
   fuel: string;
@@ -407,7 +407,7 @@ useFakeVehicle(): Promise<{
 }>;
 ```
 
-Defined in: [core/services/faker.service.ts:271](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L271)
+Defined in: [core/services/faker.service.ts:271](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L271)
 
 Generates a generic fake vehicle (brand, model, type, fuel, color, vin, plate).
 
@@ -428,7 +428,7 @@ A [FakeVehicle](../type-aliases/FakeVehicle.md) object.
 #### Example
 
 ```ts
-const vehicle = await useFakeVehicle();
+const vehicle = await fakeVehicle();
 // { brand: "Jeep", model: "Wrangler", plate: "HJ47FNP", ... }
 ```
 
@@ -440,7 +440,7 @@ const vehicle = await useFakeVehicle();
 static getInstance(): FakerService;
 ```
 
-Defined in: [core/services/faker.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/faker.service.ts#L46)
+Defined in: [core/services/faker.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/faker.service.ts#L46)
 
 Returns the shared instance (Singleton).
 

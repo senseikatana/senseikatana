@@ -6,7 +6,7 @@
 const BUILT_IN_CAPABILITIES: readonly ["content:create", "content:publish", "content:edit:own", "content:edit:any", "content:delete:own", "content:delete:any", "conversations:use", "conversations:moderate", "members:manage", "members:suspend", "members:delete", "roles:assign", "system:admin"];
 ```
 
-Defined in: [schemas/access.schema.ts:49](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/access.schema.ts#L49)
+Defined in: [schemas/access.schema.ts:49](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/access.schema.ts#L49)
 
 Capabilities that ship with the kit. Namespaced as `<domain>:<action>
 [:<scope>]`; the scope suffix is what keeps `edit:own` and `edit:any`

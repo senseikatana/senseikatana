@@ -10,8 +10,8 @@ independently; the kit never blocks core releases.
 
 ## Phase 0 — Foundations
 
-- [x] Foundation components: `useButton`, `useInput`, `useCard`, `useBadge`,
-      `useAlert` (+ `*Class` SSR helpers) in the private `@katanakit/ui` workspace.
+- [x] Foundation components: `onButton`, `onInput`, `onCard`, `onBadge`,
+      `onAlert` (+ `*Class` SSR helpers) in the private `@katanakit/ui` workspace.
 - [x] Stylesheet build: `@katanakit/ui/styles.css` (self-contained vendored
       framework + dark tokens + `.*` classes).
 - [x] Docs skeleton: UI Kit section with component pages and live demos.

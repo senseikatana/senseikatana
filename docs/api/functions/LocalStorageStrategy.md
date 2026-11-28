@@ -6,7 +6,7 @@
 function LocalStorageStrategy(storage?): StorageStrategy;
 ```
 
-Defined in: [infrastructure/storage/storage.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/storage/storage.service.ts#L116)
+Defined in: [infrastructure/storage/storage.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/storage/storage.service.ts#L116)
 
 Creates a strategy backed by `window.localStorage`.
 
@@ -26,5 +26,5 @@ A [StorageStrategy](../interfaces/StorageStrategy.md).
 
 ```ts
 const strategy = LocalStorageStrategy();
-strategy.useSetItem("token", "abc123");
+strategy.onSetItem("token", "abc123");
 ```

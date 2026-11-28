@@ -6,4 +6,4 @@
 type ProductType = z.infer<typeof ProductTypeSchema>;
 ```
 
-Defined in: [types/adapters/express.ts:5](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/express.ts#L5)
+Defined in: [types/express/types.ts:5](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/express/types.ts#L5)

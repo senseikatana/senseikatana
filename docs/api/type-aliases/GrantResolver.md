@@ -6,7 +6,7 @@
 type GrantResolver = (input) => readonly Grant[];
 ```
 
-Defined in: [core/services/grant.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/grant.service.ts#L22)
+Defined in: [core/services/grant.service.ts:22](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/grant.service.ts#L22)
 
 Supplies the roles a subject holds over one resource.
 
@@ -16,7 +16,7 @@ and it must not know that a *global* role ladder and a *per-resource* ACL
 need different storage with different query shapes.
 
 Return every grant you can see for this pair, expired or not. Expiry is
-evaluated by [useGrantAwareCan](../functions/useGrantAwareCan.md) so the rule lives in one place instead
+evaluated by [grantAwareCan](../functions/grantAwareCan.md) so the rule lives in one place instead
 of in every caller that remembered to write it.
 
 ## Parameters

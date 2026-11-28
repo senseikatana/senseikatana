@@ -18,13 +18,13 @@ export function inputClass(options = {}) {
  *
  * @example
  * ```ts
- * const { root, input } = useInput({ label: "Email", type: "email", error: "Required" });
+ * const { root, input } = onInput({ label: "Email", type: "email", error: "Required" });
  * form.append(root);
  * ```
  */
-export function useInput(options = {}) {
+export function onInput(options = {}) {
     if (typeof document === "undefined") {
-        throw new Error("[KatanaUI] useInput() needs a DOM; use inputClass() for SSR markup.");
+        throw new Error("[KatanaUI] onInput() needs a DOM; use inputClass() for SSR markup.");
     }
     inputCounter += 1;
     const id = options.name ? `${options.name}` : `input-${inputCounter}`;
@@ -45,6 +45,10 @@ export function useInput(options = {}) {
         }
         root.append(label);
     }
+    // `autocomplete`, `inputmode` and `spellcheck` are browser hints, not
+    // component state. The factory exposes them so callers do not have to reach
+    // into the returned `input` and set attributes by hand: password managers,
+    // mobile keyboards and spellcheckers all key off these three.
     const input = document.createElement("input");
     input.className = inputClass(options);
     input.type = options.type ?? "text";
@@ -59,6 +63,16 @@ export function useInput(options = {}) {
         input.disabled = true;
     if (options.required)
         input.required = true;
+    // The DOM property is typed as the `AutoFill` union, which cannot express
+    // every valid token a caller may want (`"one-time-code"`, vendor hints).
+    // Writing the attribute keeps the component honest about accepting a plain
+    // string and avoids a cast at every call site.
+    if (options.autocomplete !== undefined)
+        input.setAttribute("autocomplete", options.autocomplete);
+    if (options.inputmode !== undefined)
+        input.inputMode = options.inputmode;
+    if (options.spellCheck !== undefined)
+        input.spellcheck = options.spellCheck;
     if (options.error) {
         input.setAttribute("aria-invalid", "true");
         input.setAttribute("aria-describedby", messageId);

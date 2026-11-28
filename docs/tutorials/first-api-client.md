@@ -59,7 +59,7 @@ trigger in the next step.
 Create `src/index.ts`:
 
 ```ts [src/index.ts]
-import { useGetApi } from "katanakit-js";
+import { onGet } from "katanakit-js";
 
 import "./api.ts";
 
@@ -69,7 +69,7 @@ interface Pokemon {
   types: { type: { name: string } }[];
 }
 
-const result = await useGetApi<Pokemon>("pokeapi", "pokemonById", {
+const result = await onGet<Pokemon>("pokeapi", "pokemonById", {
   params: { id: 25 },
 });
 
@@ -125,22 +125,22 @@ export const PokemonSchema = z.object({
 export type Pokemon = z.infer<typeof PokemonSchema>;
 ```
 
-Now wrap the response in `useValidate` — in `src/index.ts`, replace the body:
+Now wrap the response in `onValidate` — in `src/index.ts`, replace the body:
 
 ```ts [src/index.ts]
-import { useGetApi, useValidate } from "katanakit-js";
+import { onGet, onValidate } from "katanakit-js";
 
 import "./api.ts";
 import { PokemonSchema } from "./pokemon.schema.ts";
 
-const result = await useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
+const result = await onGet("pokeapi", "pokemonById", { params: { id: 25 } });
 
 if (!result.ok) {
   console.error(`Failed: ${result.error.message} (${result.error.status})`);
   process.exit(1);
 }
 
-const validated = useValidate(PokemonSchema, result.data);
+const validated = onValidate(PokemonSchema, result.data);
 
 if (!validated.ok) {
   console.error(`Unexpected payload: ${validated.error.message}`);
@@ -150,7 +150,7 @@ if (!validated.ok) {
 console.log(`${validated.data.name} — ${validated.data.types[0].type.name} type`);
 ```
 
-`useValidate` returns a Safe Result too, so both failure modes — transport and
+`onValidate` returns a Safe Result too, so both failure modes — transport and
 malformed payload — are branches, not exceptions. The `Pokemon` type now comes
 from the schema, which means there is exactly one place to update when the API
 changes shape.
@@ -167,22 +167,22 @@ many places, so let the query cache decide when a network call is actually
 needed. Replace `src/index.ts` with:
 
 ```ts [src/index.ts]
-import { useGetApi, useValidate } from "katanakit-js";
-import { useQueryClient, useSafeQueryFn } from "katanakit-js/adapters/vanilla";
+import { onGet, onValidate } from "katanakit-js";
+import { onQueryClient, onSafeQueryFn } from "katanakit-js/adapters/vanilla";
 
 import "./api.ts";
 import { PokemonSchema } from "./pokemon.schema.ts";
 
 let requests = 0;
 
-const fetchPokemon = useSafeQueryFn(async () => {
+const fetchPokemon = onSafeQueryFn(async () => {
   requests += 1;
-  const result = await useGetApi("pokeapi", "pokemonById", { params: { id: 25 } });
+  const result = await onGet("pokeapi", "pokemonById", { params: { id: 25 } });
   if (!result.ok) return result;
-  return useValidate(PokemonSchema, result.data);
+  return onValidate(PokemonSchema, result.data);
 });
 
-const client = useQueryClient();
+const client = onQueryClient();
 const query = { queryKey: ["pokemon", 25], queryFn: fetchPokemon, staleTime: 60_000 };
 
 const first = await client.fetchQuery(query);
@@ -194,7 +194,7 @@ console.log(`first and second are the same object: ${first === second}`);
 ```
 
 Two reads of the same `queryKey` inside the 60-second `staleTime` window mark
-one network call. `useSafeQueryFn` bridges the two contracts: it unwraps the
+one network call. `onSafeQueryFn` bridges the two contracts: it unwraps the
 Safe Result for the query cache (throwing turns a failure into a cached
 `error` state) and the vanilla adapter hands you plain TanStack Query — the
 same engine the React, Vue, Svelte, Solid and Angular adapters wrap.

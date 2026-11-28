@@ -17,7 +17,7 @@ The adapter is deliberately small. It exports four building blocks:
 | --- | --- | --- |
 | `KatanaKitModule` | dynamic module | registers APIs and the shared query client at bootstrap |
 | `KatanaKitService` | injectable facade | the same `use*` HTTP methods, resolved through DI |
-| `useRequireCapability()` | guard factory | turns an access capability into a Nest `CanActivate` guard |
+| `onRequireCapability()` | guard factory | turns an access capability into a Nest `CanActivate` guard |
 | `KatanaLogger` | `LoggerService` | forwards Nest logs to `LoggerService` from KatanaKit |
 
 `KATANA_KIT_OPTIONS` and the `KatanaKitModuleOptions` type are also exported for
@@ -70,7 +70,7 @@ export class ProductsService {
   constructor(private readonly kit: KatanaKitService) {}
 
   findById(id: string) {
-    return this.kit.useGet<{ id: string; name: string }>("catalog", "productById", {
+    return this.kit.onGet<{ id: string; name: string }>("catalog", "productById", {
       params: { id },
     });
   }
@@ -174,16 +174,16 @@ safe because they share the same process-global registry.
 | Method | Signature | Notes |
 | --- | --- | --- |
 | `onModuleInit` | `() => void` | registers `apis` and `queryClient` once |
-| `useInit` | `(apisConfig: ApisConfig) => void` | runtime registration, idempotent per entry |
-| `useGetApis` | `() => ApisConfig` | shallow copy of the registry |
-| `useBuildUrl` | `(apiName, endpointName, options?) => string` | synchronous; throws on config errors |
-| `useFetch` | `<T>(apiName, endpointName, options?) => Promise<FetchResult<T>>` | full option set |
-| `useGet` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | URL options only |
-| `usePost` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | auto-serialized body |
-| `usePut` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | auto-serialized body |
-| `usePatch` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | auto-serialized body |
-| `useDelete` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | no body |
-| `useQueryClient` | `() => QueryClient` | shared process-global client |
+| `onInit` | `(apisConfig: ApisConfig) => void` | runtime registration, idempotent per entry |
+| `onGetApis` | `() => ApisConfig` | shallow copy of the registry |
+| `onBuildUrl` | `(apiName, endpointName, options?) => string` | synchronous; throws on config errors |
+| `onFetch` | `<T>(apiName, endpointName, options?) => Promise<FetchResult<T>>` | full option set |
+| `onGet` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | URL options only |
+| `onPost` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | auto-serialized body |
+| `onPut` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | auto-serialized body |
+| `onPatch` | `<T>(apiName, endpointName, body?, urlOptions?) => Promise<FetchResult<T>>` | auto-serialized body |
+| `onDelete` | `<T>(apiName, endpointName, urlOptions?) => Promise<FetchResult<T>>` | no body |
+| `onQueryClient` | `() => QueryClient` | shared process-global client |
 
 ### onModuleInit()
 
@@ -195,10 +195,10 @@ do (see [Testing](#testing)).
 - **Parameters** — none.
 - **Returns** — `void`. Idempotent: repeated calls after the first are no-ops.
 
-### useInit(apisConfig)
+### onInit(apisConfig)
 
 Registers APIs without going through the module options. Under the hood it calls
-the core `FetchApiManager.useInit()`, which shallow-merges the definitions into
+the core `FetchApiManager.onInit()`, which shallow-merges the definitions into
 the singleton registry (later definitions win for identical keys) and is
 idempotent per entry.
 
@@ -207,7 +207,7 @@ idempotent per entry.
 - **Returns** — `void`.
 
 ```ts
-kit.useInit({
+kit.onInit({
   analytics: {
     baseUri: "https://analytics.example.com",
     endpoints: { events: "/events" },
@@ -220,7 +220,7 @@ its feature flag is enabled, or a test that needs a fixture API without booting
 the whole module graph. In a Nest app, prefer
 `KatanaKitModule.forRoot({ apis })` for the integrations known at bootstrap.
 
-### useGetApis()
+### onGetApis()
 
 Returns a **shallow copy** of the registry, so iterating or deleting keys never
 mutates the singleton.
@@ -229,7 +229,7 @@ mutates the singleton.
 - **Returns** — `ApisConfig` (a copy).
 
 ```ts
-const apis = kit.useGetApis();
+const apis = kit.onGetApis();
 
 for (const [name, entry] of Object.entries(apis)) {
   logger.log(`${name}: ${entry.baseUri} (${Object.keys(entry.endpoints).length} endpoints)`);
@@ -241,7 +241,7 @@ upstream services are configured. Combine it with `Promise.allSettled()` over a
 cheap endpoint per API to distinguish "not configured" from "configured but
 unreachable".
 
-### useBuildUrl(apiName, endpointName, options?)
+### onBuildUrl(apiName, endpointName, options?)
 
 Builds the exact URL a request would use, without performing it: `baseUri` +
 endpoint path, `:param` substitution, `defaultQueryParams` merge and the
@@ -256,16 +256,16 @@ http(s) scheme guard.
   placeholder or a disallowed scheme.
 
 ```ts
-const url = kit.useBuildUrl("catalog", "productById", { params: { id: "p-42" } });
+const url = kit.onBuildUrl("catalog", "productById", { params: { id: "p-42" } });
 // → "https://api.example.com/v1/products/p-42"
 ```
 
 **Real use case** — links you hand to another system (webhooks, report
 downloads, emails) where you want the URL without paying for a request. Call it
 during bootstrap when a config mistake should fail fast, or wrap it with
-[`useAttempt()`](/start/errors) when the failure belongs to the request.
+[`onAttempt()`](/start/errors) when the failure belongs to the request.
 
-### useFetch(apiName, endpointName, options?)
+### onFetch(apiName, endpointName, options?)
 
 The general-purpose request. URL options live at the top level, next to
 `method`, `headers`, `body`, `signal` and any other `RequestInit` field — no
@@ -290,12 +290,12 @@ interface ApiError {
 }
 ```
 
-Like the core service, `useFetch()` calls `fetch` with `redirect: "error"` by
+Like the core service, `onFetch()` calls `fetch` with `redirect: "error"` by
 default — opt into redirects explicitly with `redirect: "follow"` when the
 endpoint is trusted.
 
 ```ts
-const result = await kit.useFetch<{ id: string }>("catalog", "products", {
+const result = await kit.onFetch<{ id: string }>("catalog", "products", {
   method: "POST",
   body: { name: "Canvas Tote", price: 24 },
   headers: { Authorization: `Bearer ${token}` },
@@ -313,7 +313,7 @@ request-scoped provider) and attaches it at call time through `headers` or
 `query`. The registry itself stays immutable after startup, exactly as the
 [HTTP Client](/guides/services/http-client) docs recommend.
 
-### useGet(apiName, endpointName, urlOptions?)
+### onGet(apiName, endpointName, urlOptions?)
 
 GET helper over a registered endpoint, accepting only URL options.
 
@@ -322,7 +322,7 @@ GET helper over a registered endpoint, accepting only URL options.
   because the type argument is not inferred.
 
 ```ts
-const result = await kit.useGet<Product>("catalog", "productById", {
+const result = await kit.onGet<Product>("catalog", "productById", {
   params: { id: "p-42" },
 });
 
@@ -337,7 +337,7 @@ if (result.ok) {
 first, and only call upstream when the entity is missing, as the
 [products example](#full-example-a-products-resource) does.
 
-### usePost(apiName, endpointName, body?, urlOptions?)
+### onPost(apiName, endpointName, body?, urlOptions?)
 
 POST helper. The body is JSON-serialized with a matching `Content-Type` unless
 it is already raw (`FormData`, `Blob`, `URLSearchParams`, `ArrayBuffer`, typed
@@ -350,7 +350,7 @@ untouched.
   true`.
 
 ```ts
-const result = await kit.usePost<Product>("catalog", "products", {
+const result = await kit.onPost<Product>("catalog", "products", {
   name: "Canvas Tote",
   price: 24,
 });
@@ -360,25 +360,25 @@ const result = await kit.usePost<Product>("catalog", "products", {
 upload in a Nest interceptor/controller and pass the incoming `File`/`Blob`
 straight through, letting the runtime set the boundary instead of forcing JSON.
 
-### usePut(apiName, endpointName, body?, urlOptions?)
+### onPut(apiName, endpointName, body?, urlOptions?)
 
 PUT helper for full-resource replacement. Same signature and serialization
-rules as `usePost()`.
+rules as `onPost()`.
 
 - **Parameters** — `apiName`, `endpointName`, `body?: unknown`,
   `urlOptions?: UrlOptions`.
 - **Returns** — `Promise<FetchResult<T>>`.
 
 ```ts
-await kit.usePut<Product>("catalog", "productById", fullProduct, {
+await kit.onPut<Product>("catalog", "productById", fullProduct, {
   params: { id: "p-42" },
 });
 ```
 
 **Real use case** — an internal sync job that mirrors a complete record from
-one system to another; use `usePatch()` instead when only a few fields change.
+one system to another; use `onPatch()` instead when only a few fields change.
 
-### usePatch(apiName, endpointName, body?, urlOptions?)
+### onPatch(apiName, endpointName, body?, urlOptions?)
 
 PATCH helper for partial updates.
 
@@ -387,7 +387,7 @@ PATCH helper for partial updates.
 - **Returns** — `Promise<FetchResult<T>>`.
 
 ```ts
-await kit.usePatch<Product>("catalog", "productById", { price: 29 }, {
+await kit.onPatch<Product>("catalog", "productById", { price: 29 }, {
   params: { id: "p-42" },
 });
 ```
@@ -396,7 +396,7 @@ await kit.usePatch<Product>("catalog", "productById", { price: 29 }, {
 round-tripping the entity, which avoids clobbering fields another writer changed
 concurrently.
 
-### useDelete(apiName, endpointName, urlOptions?)
+### onDelete(apiName, endpointName, urlOptions?)
 
 DELETE helper. It takes no body; pass identifiers through `params` or `query`.
 
@@ -405,7 +405,7 @@ DELETE helper. It takes no body; pass identifiers through `params` or `query`.
   `data: null` with `ok: true`.
 
 ```ts
-const result = await kit.useDelete("catalog", "productById", {
+const result = await kit.onDelete("catalog", "productById", {
   params: { id: "p-42" },
 });
 
@@ -418,7 +418,7 @@ if (result.ok) {
 resources and branches on `result.ok` per item, collecting failures into a
 report instead of aborting on the first throw.
 
-### useQueryClient()
+### onQueryClient()
 
 Returns the shared TanStack `QueryClient`, creating it on first access.
 
@@ -427,7 +427,7 @@ Returns the shared TanStack `QueryClient`, creating it on first access.
   `katanakit-js`).
 
 ```ts
-const client = kit.useQueryClient();
+const client = kit.onQueryClient();
 
 await client.invalidateQueries({ queryKey: ["products"] });
 ```
@@ -436,11 +436,11 @@ await client.invalidateQueries({ queryKey: ["products"] });
 The shared client is **process-global** — the same instance is reused across
 requests for the lifetime of the Nest process. Do not use it to cache
 per-request, per-user data without scoping the `queryKey` by user; for
-request-scoped caches use `useCreateQueryClient()` / `QueryClientFactory.create()`
+request-scoped caches use `onCreateQueryClient()` / `QueryClientFactory.create()`
 from `katanakit-js` instead.
 :::
 
-**Real use case** — write-through invalidation: after a successful `usePost()`,
+**Real use case** — write-through invalidation: after a successful `onPost()`,
 invalidate the list key so the next read refetches, or seed the cache with
 `client.setQueryData()` using the entity the upstream returned.
 
@@ -461,11 +461,11 @@ export class CatalogService {
   constructor(private readonly kit: KatanaKitService) {}
 
   findById(id: string) {
-    return this.kit.useGet<Product>("catalog", "productById", { params: { id } });
+    return this.kit.onGet<Product>("catalog", "productById", { params: { id } });
   }
 
   create(input: Pick<Product, "name" | "price">) {
-    return this.kit.usePost<Product>("catalog", "products", input);
+    return this.kit.onPost<Product>("catalog", "products", input);
   }
 }
 ```
@@ -475,14 +475,14 @@ method names you would import from the main barrel.
 
 ## Route guard
 
-`useRequireCapability(capability, resolveSubject)` builds a Nest guard from the
+`onRequireCapability(capability, resolveSubject)` builds a Nest guard from the
 toolkit's access service. It mirrors the behavior of the Express guard in
 [Express Server](/guides/services/express-server) on Nest's exception pipeline.
 
 ```ts
-import { useRequireCapability } from "katanakit-js/adapters/nestjs";
+import { onRequireCapability } from "katanakit-js/adapters/nestjs";
 
-const Guard = useRequireCapability(
+const Guard = onRequireCapability(
   "content:publish",
   (request) => request.account ?? null,
 );
@@ -507,15 +507,15 @@ member | guest` and capabilities are inherited down the hierarchy.
 | Scenario | Exception | Body |
 | --- | --- | --- |
 | `resolveSubject` returns `null` | `UnauthorizedException` | `{ "ok": false, "data": null, "error": { "message": "Authentication required", "status": 401 } }` |
-| Subject resolved but `useCan()` is `false` | `ForbiddenException` | `{ "ok": false, "data": null, "error": { "message": "Missing capability: <capability>", "status": 403 } }` |
-| `useCan()` throws (malformed subject, unknown role) | `ForbiddenException` | same 403 body — the guard fails closed |
+| Subject resolved but `onCan()` is `false` | `ForbiddenException` | `{ "ok": false, "data": null, "error": { "message": "Missing capability: <capability>", "status": 403 } }` |
+| `onCan()` throws (malformed subject, unknown role) | `ForbiddenException` | same 403 body — the guard fails closed |
 
 Both bodies use the same `{ ok, data, error }` envelope as the rest of the
 toolkit, so clients can parse errors uniformly.
 
 ### Request typing
 
-`useRequireCapability<TRequest>` defaults to `unknown`, so parameterize it with
+`onRequireCapability<TRequest>` defaults to `unknown`, so parameterize it with
 the platform request type. Nest runs on Express by default; with the Fastify
 adapter the raw request is Fastify's. A structural type works for both and keeps
 KatanaKit free of framework imports:
@@ -525,13 +525,13 @@ KatanaKit free of framework imports:
 ```ts [Express]
 import type { Request } from "express";
 import type { AccessSubject } from "katanakit-js";
-import { useRequireCapability } from "katanakit-js/adapters/nestjs";
+import { onRequireCapability } from "katanakit-js/adapters/nestjs";
 
 interface AccountRequest extends Request {
   account?: AccessSubject | null;
 }
 
-export const CanPublish = useRequireCapability<AccountRequest>(
+export const CanPublish = onRequireCapability<AccountRequest>(
   "content:publish",
   (request) => request.account ?? null,
 );
@@ -539,13 +539,13 @@ export const CanPublish = useRequireCapability<AccountRequest>(
 
 ```ts [Fastify]
 import type { AccessSubject } from "katanakit-js";
-import { useRequireCapability } from "katanakit-js/adapters/nestjs";
+import { onRequireCapability } from "katanakit-js/adapters/nestjs";
 
 interface FastifyAccountRequest {
   account?: AccessSubject | null;
 }
 
-export const CanPublish = useRequireCapability<FastifyAccountRequest>(
+export const CanPublish = onRequireCapability<FastifyAccountRequest>(
   "content:publish",
   (request) => request.account ?? null,
 );
@@ -592,12 +592,12 @@ KatanaKit's logger.
 
 | Nest method | Forwards to | Console level |
 | --- | --- | --- |
-| `log(message, …)` | `useLogger` | `log` |
-| `error(message, …)` | `useLoggerError` | `error` |
-| `warn(message, …)` | `useLoggerWarn` | `warn` |
-| `debug(message, …)` | `useLogger` | `log` |
-| `verbose(message, …)` | `useLogger` | `log` |
-| `table(data)` | `useLoggerTable` | `table` |
+| `log(message, …)` | `onLogger` | `log` |
+| `error(message, …)` | `onLoggerError` | `error` |
+| `warn(message, …)` | `onLoggerWarn` | `warn` |
+| `debug(message, …)` | `onLogger` | `log` |
+| `verbose(message, …)` | `onLogger` | `log` |
+| `table(data)` | `onLoggerTable` | `table` |
 
 Nest has five log levels and KatanaKit has three, so **`debug` and `verbose`
 both map to `log`**. Messages are normalized before forwarding: strings pass
@@ -626,11 +626,11 @@ module's `providers` — the `@Injectable()` decorator is already in place.
 a table, then lets the application run under the same logger:
 
 ```ts
-import { useGetApis } from "katanakit-js";
+import { onGetApis } from "katanakit-js";
 
 const logger = new KatanaLogger();
 
-const apis = useGetApis();
+const apis = onGetApis();
 logger.table(
   Object.entries(apis).map(([name, entry]) => ({
     api: name,
@@ -688,23 +688,23 @@ calls `onModuleInit()`, before the first request is served.
 ```ts
 // products/products.guards.ts
 import type { AccessSubject } from "katanakit-js";
-import { useRequireCapability } from "katanakit-js/adapters/nestjs";
+import { onRequireCapability } from "katanakit-js/adapters/nestjs";
 
 export interface AccountRequest {
   account?: AccessSubject | null;
 }
 
-export const CanCreateProduct = useRequireCapability<AccountRequest>(
+export const CanCreateProduct = onRequireCapability<AccountRequest>(
   "content:create",
   (request) => request.account ?? null,
 );
 
-export const CanEditProduct = useRequireCapability<AccountRequest>(
+export const CanEditProduct = onRequireCapability<AccountRequest>(
   "content:edit:any",
   (request) => request.account ?? null,
 );
 
-export const CanDeleteProduct = useRequireCapability<AccountRequest>(
+export const CanDeleteProduct = onRequireCapability<AccountRequest>(
   "content:delete:any",
   (request) => request.account ?? null,
 );
@@ -743,7 +743,7 @@ export class ProductsService {
     const cached = this.store.get(id);
     if (cached) return cached;
 
-    const result = await this.kit.useGet<Product>("catalog", "productById", {
+    const result = await this.kit.onGet<Product>("catalog", "productById", {
       params: { id },
     });
 
@@ -759,7 +759,7 @@ export class ProductsService {
   }
 
   async list(query?: string): Promise<Product[]> {
-    const result = await this.kit.useGet<Product[]>("catalog", "products", {
+    const result = await this.kit.onGet<Product[]>("catalog", "products", {
       query: { q: query, limit: 20 },
     });
 
@@ -772,7 +772,7 @@ export class ProductsService {
   }
 
   async create(input: CreateProductInput): Promise<Product> {
-    const result = await this.kit.usePost<Product>("catalog", "products", input);
+    const result = await this.kit.onPost<Product>("catalog", "products", input);
 
     if (!result.ok) {
       throw new BadRequestException({
@@ -788,7 +788,7 @@ export class ProductsService {
   async update(id: string, changes: Partial<CreateProductInput>): Promise<Product> {
     const current = await this.findById(id);
 
-    const result = await this.kit.usePatch<Product>(
+    const result = await this.kit.onPatch<Product>(
       "catalog",
       "productById",
       changes,
@@ -810,7 +810,7 @@ export class ProductsService {
   async remove(id: string): Promise<{ id: string }> {
     await this.findById(id);
 
-    const result = await this.kit.useDelete("catalog", "productById", {
+    const result = await this.kit.onDelete("catalog", "productById", {
       params: { id },
     });
 
@@ -840,7 +840,7 @@ Why this shape matters:
    `create()`/`update()` refresh it after upstream confirms, so repeated reads
    skip the network. Restarting the process clears it — replace the `Map` with
    Prisma or another store without touching the HTTP logic.
-4. **`useDelete()` may return `data: null` on `204`.** The service ignores the
+4. **`onDelete()` may return `data: null` on `204`.** The service ignores the
    upstream body and answers `{ id }`, keeping the controller contract stable.
 
 ### Step 4 — Controller: guard the writes
@@ -928,9 +928,9 @@ No import of `KatanaKitModule` is needed: it is global, and
 `KatanaKitService` is already available to any provider.
 
 **Request summary:** `GET /products` and `GET /products/:id` are open and go
-through `useGet`; `POST /products`, `PATCH /products/:id` and
+through `onGet`; `POST /products`, `PATCH /products/:id` and
 `DELETE /products/:id` pass a capability guard first, then write through
-`usePost`/`usePatch`/`useDelete`, and every upstream failure is translated into
+`onPost`/`onPatch`/`onDelete`, and every upstream failure is translated into
 a 404 or 400 by `ProductsService`.
 
 ## Testing
@@ -959,11 +959,11 @@ describe("CatalogService", () => {
   });
 
   it("registers the APIs passed to the module options", () => {
-    expect(kit.useGetApis()).toHaveProperty("catalog");
+    expect(kit.onGetApis()).toHaveProperty("catalog");
   });
 
   it("builds the same URL the request would use", () => {
-    expect(kit.useBuildUrl("catalog", "productById", { params: { id: "p-42" } }))
+    expect(kit.onBuildUrl("catalog", "productById", { params: { id: "p-42" } }))
       .toBe("https://api.example.com/v1/products/p-42");
   });
 });
@@ -974,7 +974,7 @@ Two gotchas:
 - The registry behind `KatanaKitService` is the **process-global**
   `FetchApiManager` singleton, shared across test files in the same worker.
   Register unique API keys per file, or register the same fixture in
-  `beforeEach()` — `useInit()` merges and later definitions win.
+  `beforeEach()` — `onInit()` merges and later definitions win.
 - `onModuleInit()` is idempotent, so calling it after manually registering a
   fixture is safe; it never re-registers the options.
 
@@ -990,7 +990,7 @@ import { ProductsService } from "./products.service.js";
 describe("ProductsService", () => {
   it("maps an upstream 404 to NotFoundException", async () => {
     const kit = {
-      useGet: vi.fn().mockResolvedValue({
+      onGet: vi.fn().mockResolvedValue({
         data: null,
         error: { message: "HTTP Error: Not Found", status: 404 },
         url: "https://api.example.com/v1/products/missing",
@@ -1002,7 +1002,7 @@ describe("ProductsService", () => {
     const products = new ProductsService(kit);
 
     await expect(products.findById("missing")).rejects.toBeInstanceOf(NotFoundException);
-    expect(kit.useGet).toHaveBeenCalledWith("catalog", "productById", {
+    expect(kit.onGet).toHaveBeenCalledWith("catalog", "productById", {
       params: { id: "missing" },
     });
   });
@@ -1019,14 +1019,14 @@ import {
   type ExecutionContext,
 } from "@nestjs/common";
 import type { AccessSubject } from "katanakit-js";
-import { useRequireCapability } from "katanakit-js/adapters/nestjs";
+import { onRequireCapability } from "katanakit-js/adapters/nestjs";
 import { expect, it } from "vitest";
 
 interface TestRequest {
   account?: AccessSubject | null;
 }
 
-const Guard = useRequireCapability<TestRequest>(
+const Guard = onRequireCapability<TestRequest>(
   "content:publish",
   (request) => request.account ?? null,
 );
@@ -1063,7 +1063,7 @@ it("rejects a member with 403", () => {
 - [HTTP Client](/guides/services/http-client) — registration, URL building and
   every option the facade forwards.
 - [Error Handling](/start/errors) — the Safe Result contract and the
-  `useAttempt()` helper.
+  `onAttempt()` helper.
 - [Framework Adapters](/guides/framework-adapters) — the browser-side adapters
   sharing the same query client.
 - [Express Server](/guides/services/express-server) — the Express variant of the

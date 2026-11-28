@@ -4,10 +4,10 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-01-01",
   "routes": [
-    // samuraicoder.dev — docs/library paths only.
-    { "pattern": "samuraicoder.dev/docs", "zone_name": "samuraicoder.dev" },
-    { "pattern": "samuraicoder.dev/docs/*", "zone_name": "samuraicoder.dev" },
-    { "pattern": "samuraicoder.dev/en/docs", "zone_name": "samuraicoder.dev" },
-    { "pattern": "samuraicoder.dev/en/docs/*", "zone_name": "samuraicoder.dev" },
+    // senseikatana.com — docs/library paths only.
+    { "pattern": "senseikatana.com/docs", "zone_name": "senseikatana.com" },
+    { "pattern": "senseikatana.com/docs/*", "zone_name": "senseikatana.com" },
+    { "pattern": "senseikatana.com/en/docs", "zone_name": "senseikatana.com" },
+    { "pattern": "senseikatana.com/en/docs/*", "zone_name": "senseikatana.com" },
   ],
 }

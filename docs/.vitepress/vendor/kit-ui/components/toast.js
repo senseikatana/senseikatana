@@ -21,8 +21,8 @@
  * - **Pure** — {@link toastClass} and {@link toastContainerClass} return plain
  *   strings and never touch the DOM, so Astro/Nuxt templates can render markup
  *   directly: `<div class={toastClass({ type: "success" })}>`.
- * - **Factories** — {@link useToastStore} (the singleton behind {@link toast}),
- *   {@link useToast} for a single detached element, {@link useToastContainer}
+ * - **Factories** — {@link onToastStore} (the singleton behind {@link toast}),
+ *   {@link onToast} for a single detached element, {@link onToastContainer}
  *   for a hand-rolled stack.
  *
  * Accessibility: every stack is a polite live region (`role="region"` with
@@ -152,7 +152,7 @@ function buildIcon(type) {
 /**
  * Creates a standalone toast element with no auto-dismiss wiring.
  *
- * Use {@link useToastStore} for real notifications; this is for hand-rolled
+ * Use {@link onToastStore} for real notifications; this is for hand-rolled
  * stacks that own their own lifecycle.
  *
  * @param options - Variant, content, dismissibility and callback.
@@ -161,11 +161,11 @@ function buildIcon(type) {
  *
  * @example
  * ```ts
- * stack.append(useToast({ type: "error", message: "Upload failed." }));
+ * stack.append(onToast({ type: "error", message: "Upload failed." }));
  * ```
  */
-export function useToast(options = {}) {
-    requireDom("useToast");
+export function onToast(options = {}) {
+    requireDom("onToast");
     const variant = options.type ?? "info";
     const toast = document.createElement("div");
     toast.className = toastClass(options);
@@ -194,10 +194,15 @@ export function useToast(options = {}) {
         close.type = "button";
         close.className = "toast__close";
         close.setAttribute("aria-label", options.closeLabel ?? "Dismiss notification");
-        close.textContent = "×";
+        // Decorative glyph, hidden from assistive tech: the `aria-label` above is
+        // the button's only accessible name, otherwise the "×" is announced too.
+        const glyph = document.createElement("span");
+        glyph.setAttribute("aria-hidden", "true");
+        glyph.textContent = "×";
+        close.append(glyph);
         // Marked, not wired: the standalone builder has no id and no registry
-        // entry, so the store attaches the real handler (see useShow) and routes
-        // it through useRemove. Binding here would skip the exit animation and
+        // entry, so the store attaches the real handler (see onShow) and routes
+        // it through onRemove. Binding here would skip the exit animation and
         // leak the entry in `mounted`.
         close.dataset.katanaToastClose = "";
         toast.append(close);
@@ -213,11 +218,11 @@ export function useToast(options = {}) {
  *
  * @example
  * ```ts
- * document.body.append(useToastContainer({ position: "top-center" }));
+ * document.body.append(onToastContainer({ position: "top-center" }));
  * ```
  */
-export function useToastContainer(options = {}) {
-    requireDom("useToastContainer");
+export function onToastContainer(options = {}) {
+    requireDom("onToastContainer");
     const stack = document.createElement("div");
     stack.className = toastContainerClass(options);
     stack.setAttribute("role", "region");
@@ -232,7 +237,7 @@ const stacks = new Map();
 const mounted = new Map();
 /** Monotonic id counter — ids only need to be unique within a page. */
 let sequence = 0;
-/** Cached singleton facade, so `useToastStore()` is cheap and truly shared. */
+/** Cached singleton facade, so `onToastStore()` is cheap and truly shared. */
 let store = null;
 /**
  * Ceiling on live toasts per stack.
@@ -242,16 +247,16 @@ let store = null;
  * reader, so it is an accessibility problem as much as a memory one.
  */
 const MAX_PER_STACK = 5;
-function useStack(position) {
+function onStack(position) {
     const existing = stacks.get(position);
     if (existing?.isConnected)
         return existing;
-    const stack = useToastContainer({ position });
+    const stack = onToastContainer({ position });
     document.body.append(stack);
     stacks.set(position, stack);
     return stack;
 }
-function useRemove(entry, id) {
+function onRemove(entry, id) {
     // Idempotent: a second `dismiss()` (or an auto-timer landing inside the exit
     // window) must be a no-op, not a second `onClose`.
     if (entry.removing)
@@ -301,11 +306,11 @@ function useRemove(entry, id) {
         entry.element.addEventListener("animationend", onAnimationEnd);
     fallback = setTimeout(finish, TOAST_EXIT_FALLBACK_MS);
 }
-function useSchedule(entry, id) {
+function onSchedule(entry, id) {
     if (entry.remaining <= 0)
         return;
     entry.startedAt = Date.now();
-    entry.timer = setTimeout(() => useRemove(entry, id), entry.remaining);
+    entry.timer = setTimeout(() => onRemove(entry, id), entry.remaining);
 }
 /**
  * Binds hover/focus pause-resume to a toast element.
@@ -313,7 +318,7 @@ function useSchedule(entry, id) {
  * Re-invoked after {@link ToastHandle.update} swaps the node, so listeners
  * never end up attached to a detached element.
  */
-function useBindPause(entry, id) {
+function onBindPause(entry, id) {
     const pause = () => {
         // A toast on its way out must not be re-armed.
         if (entry.removing || !entry.timer)
@@ -332,7 +337,7 @@ function useBindPause(entry, id) {
         if (related && entry.element.contains(related))
             return;
         entry.element.classList.remove("toast--paused");
-        useSchedule(entry, id);
+        onSchedule(entry, id);
     };
     const element = entry.element;
     element.addEventListener("mouseenter", pause);
@@ -346,7 +351,7 @@ function useBindPause(entry, id) {
  * `update()` swaps the whole node, so a bar created before the swap has to be
  * carried over — and a newly timed toast needs one created for the first time.
  */
-function useSyncProgressBar(entry) {
+function onSyncProgressBar(entry) {
     const existing = entry.element.querySelector(".toast__progress");
     if (entry.remaining <= 0) {
         existing?.remove();
@@ -361,22 +366,22 @@ function useSyncProgressBar(entry) {
     entry.element.append(bar);
 }
 /** Wires the close button (delegated, so it survives `update()` swapping nodes). */
-function useBindClose(entry, id) {
+function onBindClose(entry, id) {
     entry.element.addEventListener("click", (event) => {
         const target = event.target;
         if (!target?.closest?.("[data-katana-toast-close]"))
             return;
-        useRemove(entry, id);
+        onRemove(entry, id);
     });
 }
-function useShow(options = {}) {
-    requireDom("useToastStore");
+function onShow(options = {}) {
+    requireDom("onToastStore");
     const position = options.position ?? "top-right";
-    const stack = useStack(position);
+    const stack = onStack(position);
     sequence += 1;
     const id = `toast-${sequence}`;
     const entry = {
-        element: useToast(options),
+        element: onToast(options),
         handle: {
             id,
             update(next) {
@@ -388,7 +393,7 @@ function useShow(options = {}) {
                 const { position: _ignored, ...patch } = next;
                 const merged = { ...entry.options, ...patch };
                 entry.options = merged;
-                const replacement = useToast(merged);
+                const replacement = onToast(merged);
                 replacement.dataset.toastId = id;
                 const bar = entry.element.querySelector(".toast__progress");
                 if (bar)
@@ -405,18 +410,18 @@ function useShow(options = {}) {
                 // Set before insertion so the bar's animation starts at the right
                 // duration instead of flashing with the stylesheet fallback.
                 replacement.style.setProperty("--katana-toast-duration", `${entry.remaining}ms`);
-                useSyncProgressBar(entry);
+                onSyncProgressBar(entry);
                 if (entry.timer)
                     clearTimeout(entry.timer);
                 entry.timer = null;
                 // Re-bind: the node the listeners were attached to is gone.
-                useBindPause(entry, id);
-                useBindClose(entry, id);
+                onBindPause(entry, id);
+                onBindClose(entry, id);
                 if (!replacement.classList.contains("toast--paused"))
-                    useSchedule(entry, id);
+                    onSchedule(entry, id);
             },
             dismiss() {
-                useRemove(entry, id);
+                onRemove(entry, id);
             },
         },
         options,
@@ -428,18 +433,18 @@ function useShow(options = {}) {
     const element = entry.element;
     element.dataset.toastId = id;
     element.style.setProperty("--katana-toast-duration", `${entry.remaining}ms`);
-    useSyncProgressBar(entry);
+    onSyncProgressBar(entry);
     // Pause on hover and on keyboard focus so the timer never races the user.
-    useBindPause(entry, id);
-    useBindClose(entry, id);
+    onBindPause(entry, id);
+    onBindClose(entry, id);
     mounted.set(id, entry);
     stack.append(element);
-    useSchedule(entry, id);
-    useTrimStack(stack);
+    onSchedule(entry, id);
+    onTrimStack(stack);
     return entry.handle;
 }
 /** Dismisses the oldest toasts once a stack exceeds {@link MAX_PER_STACK}. */
-function useTrimStack(stack) {
+function onTrimStack(stack) {
     const live = stack.querySelectorAll(".toast:not(.toast--leaving)");
     const excess = live.length - MAX_PER_STACK;
     if (excess <= 0)
@@ -448,7 +453,7 @@ function useTrimStack(stack) {
         for (const [id, candidate] of mounted) {
             if (candidate.element !== node)
                 continue;
-            useRemove(candidate, id);
+            onRemove(candidate, id);
             break;
         }
     }
@@ -463,29 +468,29 @@ function useTrimStack(stack) {
  * @returns The shared {@link ToastStore}.
  * @throws {Error} When a method is called outside a DOM environment.
  */
-function useStore() {
+function onStore() {
     requireDom("toast");
     // Cached so repeated calls hand back the same object.
     store ??= {
-        show: useShow,
-        info: (message, options = {}) => useShow({ ...options, type: "info", message }),
-        success: (message, options = {}) => useShow({ ...options, type: "success", message }),
-        warning: (message, options = {}) => useShow({ ...options, type: "warning", message }),
-        error: (message, options = {}) => useShow({ ...options, type: "error", message }),
-        loading: (message, options = {}) => useShow({ ...options, type: "loading", message }),
+        show: onShow,
+        info: (message, options = {}) => onShow({ ...options, type: "info", message }),
+        success: (message, options = {}) => onShow({ ...options, type: "success", message }),
+        warning: (message, options = {}) => onShow({ ...options, type: "warning", message }),
+        error: (message, options = {}) => onShow({ ...options, type: "error", message }),
+        loading: (message, options = {}) => onShow({ ...options, type: "loading", message }),
         dismiss(id) {
             if (id) {
                 const entry = mounted.get(id);
                 if (entry)
-                    useRemove(entry, id);
+                    onRemove(entry, id);
                 return;
             }
             for (const [key, entry] of [...mounted])
-                useRemove(entry, key);
+                onRemove(entry, key);
         },
         clear() {
             for (const [key, entry] of [...mounted])
-                useRemove(entry, key);
+                onRemove(entry, key);
         },
     };
     return store;
@@ -500,19 +505,19 @@ function useStore() {
  * toast.error("Upload failed.", { duration: 0 });
  * ```
  *
- * Prefer this over {@link useToastStore} in application code. Both hand back
+ * Prefer this over {@link onToastStore} in application code. Both hand back
  * the same singleton; this one is a stable module-level binding you can pass
  * around without wiring a local `const`.
  */
 export const toast = {
-    show: (options) => useStore().show(options),
-    info: (message, options) => useStore().info(message, options),
-    success: (message, options) => useStore().success(message, options),
-    warning: (message, options) => useStore().warning(message, options),
-    error: (message, options) => useStore().error(message, options),
-    loading: (message, options) => useStore().loading(message, options),
-    dismiss: (id) => useStore().dismiss(id),
-    clear: () => useStore().clear(),
+    show: (options) => onStore().show(options),
+    info: (message, options) => onStore().info(message, options),
+    success: (message, options) => onStore().success(message, options),
+    warning: (message, options) => onStore().warning(message, options),
+    error: (message, options) => onStore().error(message, options),
+    loading: (message, options) => onStore().loading(message, options),
+    dismiss: (id) => onStore().dismiss(id),
+    clear: () => onStore().clear(),
 };
 /**
  * Returns the singleton toast manager.
@@ -525,11 +530,11 @@ export const toast = {
  *
  * @example
  * ```ts
- * const notifier = useToastStore();
+ * const notifier = onToastStore();
  * notifier.success("Profile saved.");
  * ```
  */
-export function useToastStore() {
+export function onToastStore() {
     return toast;
 }
 /**
@@ -546,6 +551,6 @@ export function useToastStore() {
 export const ToastService = {
     /** Returns the shared {@link ToastStore}. */
     getInstance() {
-        return useToastStore();
+        return onToastStore();
     },
 };

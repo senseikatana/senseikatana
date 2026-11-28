@@ -17,37 +17,37 @@ the browser, in private mode and on the server. Three design rules apply:
    Result here: persistence is best-effort by contract.
 2. **JSON by convention** — plain strings are stored verbatim; every other
    value is serialized with `JSON.stringify`. Reads go through
-   [`useTryJsonParse()`](/start/errors), and values that are not valid JSON
+   [`onTryJsonParse()`](/start/errors), and values that are not valid JSON
    fall back to the raw string (the legacy contract for keys written by other
    code).
 3. **SSR-safe with request isolation** — outside the browser the module falls
    back to in-memory storage. Wrap a server request in
-   [`useRunStorageScope()`](#userunstoragescopefn) to share values within that
+   [`onRunStorageScope()`](#onrunstoragescopefn) to share values within that
    request without leaking them across requests.
 
 Web Storage semantics still apply underneath: `localStorage` persists across
 sessions and is shared by every tab of the same origin, while `sessionStorage`
 lives only for the tab and survives reloads. The module does **not** subscribe
 to the `storage` event, so a value written by another tab is picked up on the
-next `useGetStorage()` call but never notifies you reactively. The in-memory
+next `onGetStorage()` call but never notifies you reactively. The in-memory
 fallback lasts only as long as the page or the server scope that owns it.
 
 ## Quick example
 
 ```ts
 import {
-  useSetStorage, useGetStorage, useRemoveStorage, useClearStorage, useRunStorageScope,
+  onSetStorage, onGetStorage, onRemoveStorage, onClearStorage, onRunStorageScope,
 } from "katanakit-js";
 
-await useRunStorageScope(() => {
-  useSetStorage("user", { name: "John", role: "admin" });
-  useSetStorage("theme", "dark");
+await onRunStorageScope(() => {
+  onSetStorage("user", { name: "John", role: "admin" });
+  onSetStorage("theme", "dark");
 
-  const user = useGetStorage<{ name: string; role: string }>("user");
-  const theme = useGetStorage<string>("theme"); // "dark"
+  const user = onGetStorage<{ name: string; role: string }>("user");
+  const theme = onGetStorage<string>("theme"); // "dark"
 
-  useRemoveStorage("theme");
-  useClearStorage();
+  onRemoveStorage("theme");
+  onClearStorage();
 });
 ```
 
@@ -55,11 +55,11 @@ In the browser the same calls run directly — the scope wrapper is a no-op
 there:
 
 ```ts
-import { useGetStorage, useSetStorage } from "katanakit-js";
+import { onGetStorage, onSetStorage } from "katanakit-js";
 
-useSetStorage("sidebar:collapsed", true);
+onSetStorage("sidebar:collapsed", true);
 
-const collapsed = useGetStorage<boolean>("sidebar:collapsed") ?? false;
+const collapsed = onGetStorage<boolean>("sidebar:collapsed") ?? false;
 ```
 
 ## Backends at a glance
@@ -72,7 +72,7 @@ const collapsed = useGetStorage<boolean>("sidebar:collapsed") ?? false;
 
 ## Reading & writing
 
-### useGetStorage(key, target?)
+### onGetStorage(key, target?)
 
 Reads a key and deserializes it. `key` is the storage key, and `target`
 selects the backend (`"localStorage"` by default, or `"sessionStorage"`).
@@ -81,17 +81,17 @@ Returns the parsed value typed as `T` (default `unknown`), or `null` when the
 key does not exist, the storage is unavailable, or `getItem` throws.
 
 ```ts
-import { useGetStorage } from "katanakit-js";
+import { onGetStorage } from "katanakit-js";
 
-const token = useGetStorage<string>("auth_token");
-const session = useGetStorage<SessionData>("session", "sessionStorage");
-const collapsed = useGetStorage<boolean>("sidebar:collapsed") ?? false;
+const token = onGetStorage<string>("auth_token");
+const session = onGetStorage<SessionData>("session", "sessionStorage");
+const collapsed = onGetStorage<boolean>("sidebar:collapsed") ?? false;
 ```
 
 Two edge cases are worth internalizing:
 
-- **Numeric-looking strings become numbers.** `useSetStorage("count", "42")`
-  stores the raw string `"42"`, but `useGetStorage("count")` parses it as JSON
+- **Numeric-looking strings become numbers.** `onSetStorage("count", "42")`
+  stores the raw string `"42"`, but `onGetStorage("count")` parses it as JSON
   and returns the number `42`. If you need the string back, read it and coerce,
   or store it inside an object.
 - **`null` is ambiguous.** A missing key and a stored `null` (serialized as
@@ -102,54 +102,54 @@ Two edge cases are worth internalizing:
 safe fallback when nothing was ever stored:
 
 ```ts
-import { useGetStorage } from "katanakit-js";
+import { onGetStorage } from "katanakit-js";
 
-const mode = useGetStorage<"light" | "dark">("theme:mode") ?? "system";
-const columns = useGetStorage<number>("table:columns") ?? 4;
+const mode = onGetStorage<"light" | "dark">("theme:mode") ?? "system";
+const columns = onGetStorage<number>("table:columns") ?? 4;
 ```
 
-### useSetStorage(key, value, target?)
+### onSetStorage(key, value, target?)
 
 Writes a value under `key` on the selected `target` (`"localStorage"` by
 default). Strings are stored verbatim; anything else goes through
 `JSON.stringify`. Returns `void` — and never throws.
 
 ```ts
-import { useSetStorage } from "katanakit-js";
+import { onSetStorage } from "katanakit-js";
 
-useSetStorage("auth_token", "abc123");
-useSetStorage("user", { name: "Alice" }, "sessionStorage");
+onSetStorage("auth_token", "abc123");
+onSetStorage("user", { name: "Alice" }, "sessionStorage");
 ```
 
 Serialization follows JSON rules: functions and `undefined` properties are
 dropped, `Date` objects become ISO strings and `undefined` itself is stored as
 the literal string `"undefined"`. When the backend rejects the write — quota
 exceeded, Safari private mode, storage disabled by the user — the failure is
-swallowed on purpose; check with a follow-up `useGetStorage()` if the write
+swallowed on purpose; check with a follow-up `onGetStorage()` if the write
 must be confirmed.
 
 **Real use case** — persisting table state so the view survives a reload:
 
 ```ts
-import { useSetStorage } from "katanakit-js";
+import { onSetStorage } from "katanakit-js";
 
 function persistFilters(filters: TableFilters) {
-  useSetStorage("table:filters", filters);
-  useSetStorage("table:updatedAt", Date.now());
+  onSetStorage("table:filters", filters);
+  onSetStorage("table:updatedAt", Date.now());
 }
 ```
 
-### useRemoveStorage(key, target?)
+### onRemoveStorage(key, target?)
 
 Deletes a single key from the selected backend. Removing a key that does not
 exist is a no-op, and unavailable storage is ignored — so it is safe to call
 in cleanup paths and during logout regardless of environment.
 
 ```ts
-import { useRemoveStorage } from "katanakit-js";
+import { onRemoveStorage } from "katanakit-js";
 
-useRemoveStorage("auth_token");
-useRemoveStorage("draft", "sessionStorage");
+onRemoveStorage("auth_token");
+onRemoveStorage("draft", "sessionStorage");
 ```
 
 **Real use case** — logout: clear credentials from every backend the app
@@ -157,42 +157,42 @@ might have used, without worrying about which one is present:
 
 ```ts
 function logout() {
-  useRemoveStorage("auth_token");
-  useRemoveStorage("auth_token", "sessionStorage");
-  useRemoveStorage("user", "sessionStorage");
+  onRemoveStorage("auth_token");
+  onRemoveStorage("auth_token", "sessionStorage");
+  onRemoveStorage("user", "sessionStorage");
 }
 ```
 
-### useClearStorage(target?)
+### onClearStorage(target?)
 
 Removes **every key** from the selected backend (`"localStorage"` by default).
 Use it for an explicit "reset app" action, not for routine cleanup.
 
 ```ts
-import { useClearStorage } from "katanakit-js";
+import { onClearStorage } from "katanakit-js";
 
-useClearStorage("sessionStorage");
+onClearStorage("sessionStorage");
 ```
 
-Because Web Storage is scoped by origin, `useClearStorage()` also wipes keys
+Because Web Storage is scoped by origin, `onClearStorage()` also wipes keys
 written by other libraries or other apps on the same origin. When only your
 keys should disappear, remove them one by one with
-[`useRemoveStorage()`](#useremovestoragekey-target).
+[`onRemoveStorage()`](#onremovestoragekey-target).
 
 **Real use case** — a support "reset application state" button that also
 drops the user's cached preferences:
 
 ```ts
 function resetApp() {
-  useClearStorage();
-  useClearStorage("sessionStorage");
+  onClearStorage();
+  onClearStorage("sessionStorage");
   location.reload();
 }
 ```
 
 ## SSR & request isolation
 
-### useRunStorageScope(fn)
+### onRunStorageScope(fn)
 
 Runs `fn` against a dedicated pair of in-memory strategies and resolves with
 its return value. The function is always async (it returns `Promise<T>`, even
@@ -204,19 +204,19 @@ in the browser) and `fn` may be synchronous or return a promise.
   is shared, so concurrent first calls await the same promise.
 
 ```ts
-import { useRunStorageScope, useSetStorage, useGetStorage } from "katanakit-js";
+import { onRunStorageScope, onSetStorage, onGetStorage } from "katanakit-js";
 
 export default defineEventHandler((event) => {
-  return useRunStorageScope(() => {
-    useSetStorage("req-id", event.context.id);
-    return useGetStorage("req-id");
+  return onRunStorageScope(() => {
+    onSetStorage("req-id", event.context.id);
+    return onGetStorage("req-id");
   });
 });
 ```
 
 **The critical gotcha:** on the server, calls made **outside** a scope resolve
 a fresh ephemeral memory store on every invocation. That means
-`useSetStorage("a", 1)` followed immediately by `useGetStorage("a")` returns
+`onSetStorage("a", 1)` followed immediately by `onGetStorage("a")` returns
 `null` — the write is not visible to the next call. Wrap the whole request
 handler so every write and read inside shares the same scope. Inside the
 scope, values persist for the duration of `fn` and are discarded when it
@@ -245,16 +245,16 @@ instead, so the result is always safe to call.
 import { LocalStorageStrategy } from "katanakit-js";
 
 const strategy = LocalStorageStrategy();
-strategy.useSetItem("token", "abc123");
+strategy.onSetItem("token", "abc123");
 
-const token = strategy.useGetItem<string>("token"); // "abc123"
-strategy.useRemoveItem("token");
+const token = strategy.onGetItem<string>("token"); // "abc123"
+strategy.onRemoveItem("token");
 ```
 
 Note the difference from the internal resolution: this factory does not probe
 the backend, so in a browser where `window.localStorage` exists but rejects
 writes (private mode), it returns a web-backed strategy whose writes fail
-silently. The module-level `useSetStorage()` path probes first and falls back
+silently. The module-level `onSetStorage()` path probes first and falls back
 to memory; call the factory directly only when you control the storage
 instance.
 
@@ -272,9 +272,9 @@ lifetime of the underlying Web Storage — per tab, cleared when it closes.
 import { SessionStorageStrategy } from "katanakit-js";
 
 const strategy = SessionStorageStrategy();
-strategy.useSetItem("wizard-step", 2);
+strategy.onSetItem("wizard-step", 2);
 
-strategy.useGetItem<number>("wizard-step"); // 2
+strategy.onGetItem<number>("wizard-step"); // 2
 ```
 
 **Real use case** — a multi-step checkout wizard: keep the in-progress step in
@@ -291,9 +291,9 @@ so two strategies never share data.
 import { MemoryStorageStrategy } from "katanakit-js";
 
 const strategy = MemoryStorageStrategy();
-strategy.useSetItem("temp", "value");
+strategy.onSetItem("temp", "value");
 
-strategy.useGetItem<string>("temp"); // "value"
+strategy.onGetItem<string>("temp"); // "value"
 ```
 
 **Real use case** — unit tests for code that depends on storage: the memory
@@ -321,7 +321,7 @@ mem.removeItem("key");
 
 Each call returns an independent store — **never share one across server
 requests**, or you reintroduce exactly the cross-request leak that
-[`useRunStorageScope()`](#userunstoragescopefn) prevents.
+[`onRunStorageScope()`](#onrunstoragescopefn) prevents.
 
 ## Types
 
@@ -334,10 +334,10 @@ the `StorageStrategy` contract. Both are exported from the package root:
 type StorageTarget = "localStorage" | "sessionStorage";
 
 interface StorageStrategy {
-  useGetItem<T = unknown>(key: string): T | null;
-  useSetItem(key: string, value: unknown): void;
-  useRemoveItem(key: string): void;
-  useClear(): void;
+  onGetItem<T = unknown>(key: string): T | null;
+  onSetItem(key: string, value: unknown): void;
+  onRemoveItem(key: string): void;
+  onClear(): void;
 }
 ```
 
@@ -348,8 +348,8 @@ methods.
 ## Related
 
 - [Theme](/guides/services/theme) — theme modes persisted through storage.
-- [Reactive](/guides/services/reactive) — `useCreateStorageSignal()` wraps these helpers into a signal that writes through to storage.
+- [Reactive](/guides/services/reactive) — `onCreateStorageSignal()` wraps these helpers into a signal that writes through to storage.
 - [DOM](/guides/services/dom) — composes storage for dismissible banners.
-- [Error Handling](/start/errors) — `useTryJsonParse()`, the parser behind `useGetStorage()`.
+- [Error Handling](/start/errors) — `onTryJsonParse()`, the parser behind `onGetStorage()`.
 - [Query Client](/guides/query-client) — caching and persisting server state.
-- [API Reference](/api/functions/useGetStorage) — every export, generated from source.
+- [API Reference](/api/functions/onGetStorage) — every export, generated from source.

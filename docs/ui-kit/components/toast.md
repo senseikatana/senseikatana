@@ -16,8 +16,8 @@ The `toast` export is a lazy facade over a per-page singleton: importing it duri
 SSR is safe, and `document` is only touched when a method actually runs.
 
 `toastClass()` and `toastContainerClass()` return plain class strings for SSR
-markup, `useToast()` builds a single detached element when you own the lifecycle
-yourself, and `useToastStore()` is the same store as `toast` under the `use*`
+markup, `onToast()` builds a single detached element when you own the lifecycle
+yourself, and `onToastStore()` is the same store as `toast` under the `use*`
 accessor convention.
 
 No JSX, no framework runtime — the store talks to `document.body` directly, so the
@@ -122,7 +122,7 @@ toast.info("Bottom center", { position: "bottom-center" });
 	name="Toast"
 	root="toast"
 	pure="toastClass"
-	factory="useToast"
+	factory="onToast"
 />
 
 ## Store API
@@ -138,14 +138,14 @@ toast.info("Bottom center", { position: "bottom-center" });
 | `dismiss(id?)`          | `void`         | One by id, or every toast when omitted.                  |
 | `clear()`               | `void`         | Every toast across all positions.                        |
 
-`ToastHandle` is `{ id, update(partial), dismiss() }`. `toast` and `useToastStore()`
+`ToastHandle` is `{ id, update(partial), dismiss() }`. `toast` and `onToastStore()`
 hand back the same singleton object, so you can pass the notifier around without
 wiring a local `const`:
 
 ```ts
-import { useToastStore } from "@katanakit/ui";
+import { onToastStore } from "@katanakit/ui";
 
-function notifyUser(notifier = useToastStore()) {
+function notifyUser(notifier = onToastStore()) {
 	notifier.success("Done.");
 }
 ```
@@ -176,7 +176,7 @@ Both are pure and SSR-safe: no DOM, no state, just stable strings.
 - `prefers-reduced-motion: reduce` removes every animation and the slide-in transform.
 
 ::: info SSR
-`toast.*`, `useToast()` and `useToastContainer()` need a DOM and throw with a
+`toast.*`, `onToast()` and `onToastContainer()` need a DOM and throw with a
 pointer to the fix — but only when called, never on import. On the server use
 `toastClass()` and `toastContainerClass()`, which are pure.
 :::
@@ -215,7 +215,7 @@ import { toastClass, toastContainerClass } from "@katanakit/ui";
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-import { toast, useToast } from "@katanakit/ui";
+import { toast, onToast } from "@katanakit/ui";
 
 // Importing is SSR-safe — only *calling* these needs a DOM. VitePress evaluates
 // this block during SSR, so every call is inside `onMounted` or a click handler,
@@ -226,7 +226,7 @@ onMounted(() => {
 	const host = variants.value;
 	if (!host) return;
 
-	// `useToast()` builds one element with no viewport pinning and no timer —
+	// `onToast()` builds one element with no viewport pinning and no timer —
 	// the right tool for a static inline demo.
 	for (const [type, text] of [
 		["info", "Sync started."],
@@ -234,7 +234,7 @@ onMounted(() => {
 		["warning", "Quota at 90%."],
 		["error", "Upload failed."],
 	] as const) {
-		host.append(useToast({ type, message: text }));
+		host.append(onToast({ type, message: text }));
 	}
 });
 

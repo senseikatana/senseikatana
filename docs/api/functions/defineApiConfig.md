@@ -6,7 +6,7 @@
 function defineApiConfig<T>(input): ConfigFacade<T>;
 ```
 
-Defined in: [core/services/http.service.ts:574](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/http.service.ts#L574)
+Defined in: [core/services/http.service.ts:572](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/http.service.ts#L572)
 
 Declares the API registry in a single call - the config-file entry point.
 
@@ -47,7 +47,7 @@ If a non-method value is an object that is not an API entry,
 ## Example
 
 ```ts
-import { defineApiConfig, useFetch } from "katanakit-js";
+import { defineApiConfig, fetch } from "katanakit-js";
 
 export default defineApiConfig({
   apis: {
@@ -60,7 +60,7 @@ export default defineApiConfig({
   methods: {
     async getPokemon(id: number) {
       this.data.calls += 1;
-      return useFetch("pokeapi", "byId", { params: { id } });
+      return fetch("pokeapi", "byId", { params: { id } });
     },
   },
 });

@@ -10,7 +10,7 @@ function RetryDecorator<T>(
 ): T;
 ```
 
-Defined in: [infrastructure/decorators/retry.decorator.ts:36](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/decorators/retry.decorator.ts#L36)
+Defined in: [infrastructure/decorators/retry.decorator.ts:36](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/decorators/retry.decorator.ts#L36)
 
 RetryDecorator - Decorator Pattern para reintentos.
 
@@ -60,6 +60,6 @@ const robust = RetryDecorator(LoggerDecorator(flakyRequest), 2, 200);
 ## Remarks
 
 Only **thrown** errors trigger a retry. KatanaKit's Safe Result
-helpers (`useFetch`, `useGet`, ...) never throw — they return `{ ok: false }`
+helpers (`onFetch`, `onGet`, ...) never throw — they return `{ ok: false }`
 — so they are not retried as-is. To retry those, make `fn` throw on failure
-(e.g. unwrap with `useSafeQueryFn`) or check `result.ok` inside `fn`.
+(e.g. unwrap with `onSafeQueryFn`) or check `result.ok` inside `fn`.

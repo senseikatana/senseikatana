@@ -5,7 +5,10 @@ description: Public methods stay use*; on* marks only callbacks the service invo
 
 # ADR-0010: The `use*` prefix is kept for public methods; `on*` is reserved for Observer callbacks
 
-**Status:** Accepted · **Date:** 2026-10-19
+**Status:** Superseded by [ADR-0017](/explanation/decisions/adr-0017-on-prefix-for-module-helpers) · **Date:** 2026-10-19
+
+> **Superseded.** The naming convention below was replaced in v7.6.0; the
+> record is kept unedited as history. Current rule: [ADR-0017](/explanation/decisions/adr-0017-on-prefix-for-module-helpers).
 
 ## Context
 
@@ -14,7 +17,7 @@ subscribers pass `onRatesUpdate` / `onRatesError` handlers that the service
 invokes when a rate snapshot lands or a fetch fails. Seeing `on*` names next to
 `use*` methods raised a natural question: should callback-shaped surface rename
 to `on*`, or should the `use*` convention bend for event-ish methods
-(`useSubscribe` → `onSubscribe`, `useConvert` → …)?
+(`onSubscribe` → `onSubscribe`, `useConvert` → …)?
 
 `CONTRIBUTING.md` had always said: every public method (except `getInstance()`)
 uses the `use` prefix. Renaming would have been a public contract break across
@@ -28,7 +31,7 @@ The `on*` prefix is reserved **exclusively** for Observer callbacks — function
 the service invokes, never methods you call. The two prefixes encode direction:
 `use*` means *you call the service*, `on*` means *the service calls you*.
 
-Registration is itself a `use*` method — `useSubscribe(events)` — and the
+Registration is itself a `use*` method — `onSubscribe(events)` — and the
 `on*` names live only inside the payload it accepts
 (`CurrencyRateEvents.onRatesUpdate`, `.onRatesError`). No imperative method is
 ever named `on*`, no callback is ever named `use*`.
@@ -47,5 +50,5 @@ enforce it today; code review does. And `use*` keeps the mild surprise for
 readers who expect hooks, which is accepted (ADR-0002).
 
 **Also.** Where a name feels event-ish, the verb keeps the `use*` form and the
-noun moves into the payload: `useSubscribe({ onRatesUpdate })`. That shape now
+noun moves into the payload: `onSubscribe({ onRatesUpdate })`. That shape now
 guides every future Observer in the kit.

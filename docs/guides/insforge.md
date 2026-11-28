@@ -32,15 +32,15 @@ defineInsforgeConfig({ baseUrl: process.env.INSFORGE_URL!, apiKey: process.env.I
 
 ```ts
 import {
-	useIfSelect,
-	useIfInsert,
-	useIfUpdate,
-	useIfDelete,
-	useIfRpc,
+	onIfSelect,
+	onIfInsert,
+	onIfUpdate,
+	onIfDelete,
+	onIfRpc,
 } from "katanakit-js/adapters/insforge";
 
 // SELECT — filters, order and limit are typed
-const posts = await useIfSelect<{ id: number; title: string }>({
+const posts = await onIfSelect<{ id: number; title: string }>({
 	table: "posts",
 	filters: { author_id: 7 },
 	order: { column: "created_at", ascending: false },
@@ -49,43 +49,43 @@ const posts = await useIfSelect<{ id: number; title: string }>({
 if (posts.ok) console.log(posts.data);
 
 // INSERT — one or many rows
-const created = await useIfInsert("posts", [{ title: "Hello" }]);
+const created = await onIfInsert("posts", [{ title: "Hello" }]);
 
 // UPDATE / DELETE — filters are required; a missing filter is a validation error
-await useIfUpdate({ table: "posts", filters: { id: 7 } }, { title: "Updated" });
-const deleted = await useIfDelete({ table: "posts", filters: { id: 7 } });
+await onIfUpdate({ table: "posts", filters: { id: 7 } }, { title: "Updated" });
+const deleted = await onIfDelete({ table: "posts", filters: { id: 7 } });
 
 // RPC — call a Postgres function
-const total = await useIfRpc<number>({ name: "count_posts", params: { author_id: 7 } });
+const total = await onIfRpc<number>({ name: "count_posts", params: { author_id: 7 } });
 ```
 
 ## 3. Storage buckets
 
 ```ts
 import {
-	useIfUpload,
-	useIfDownload,
-	useIfRemove,
-	useIfListObjects,
-	useIfGetPublicUrl,
+	onIfUpload,
+	onIfDownload,
+	onIfRemove,
+	onIfListObjects,
+	onIfGetPublicUrl,
 } from "katanakit-js/adapters/insforge";
 
 const ref = { bucket: "covers", path: "post-7.webp" };
 
-const uploaded = await useIfUpload(ref, file); // File / Blob; same path replaces
-const blob = await useIfDownload(ref);
-const objects = await useIfListObjects("covers", { prefix: "post-", limit: 50 });
-const publicUrl = useIfGetPublicUrl(ref); // synchronous, returns FetchResult
+const uploaded = await onIfUpload(ref, file); // File / Blob; same path replaces
+const blob = await onIfDownload(ref);
+const objects = await onIfListObjects("covers", { prefix: "post-", limit: 50 });
+const publicUrl = onIfGetPublicUrl(ref); // synchronous, returns FetchResult
 if (publicUrl.ok) console.log(publicUrl.data.publicUrl);
-await useIfRemove(ref);
+await onIfRemove(ref);
 ```
 
 ## 4. Edge functions
 
 ```ts
-import { useIfInvokeFunction } from "katanakit-js/adapters/insforge";
+import { onIfInvokeFunction } from "katanakit-js/adapters/insforge";
 
-const result = await useIfInvokeFunction<{ processed: number }>({
+const result = await onIfInvokeFunction<{ processed: number }>({
 	name: "resize-images",
 	body: { postId: 7 },
 });

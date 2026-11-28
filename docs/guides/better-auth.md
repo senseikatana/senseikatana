@@ -45,10 +45,10 @@ export const auth = betterAuth({ /* storage, socialProviders, plugins… */ });
 // src/pages/api/auth/[...all].ts
 import type { APIRoute } from "astro";
 import { auth } from "~/auth";
-import { useAuthHandler } from "katanakit-js/adapters/better-auth";
+import { onAuthHandler } from "katanakit-js/adapters/better-auth";
 
 export const ALL: APIRoute = async ({ request }) => {
-	const result = await useAuthHandler(auth, request);
+	const result = await onAuthHandler(auth, request);
 	return result.ok ? result.data : new Response("Auth unavailable", { status: 500 });
 };
 ```
@@ -59,10 +59,10 @@ export const ALL: APIRoute = async ({ request }) => {
 // src/middleware.ts
 import { defineMiddleware } from "astro:middleware";
 import { auth } from "~/auth";
-import { useAstroAuthLocals } from "katanakit-js/adapters/better-auth";
+import { onAstroAuthLocals } from "katanakit-js/adapters/better-auth";
 
 export const onRequest = defineMiddleware(async (context, next) => {
-	const locals = await useAstroAuthLocals(auth, context.request);
+	const locals = await onAstroAuthLocals(auth, context.request);
 	if (locals.ok) {
 		context.locals.user = locals.data.user;
 		context.locals.session = locals.data.session;
@@ -77,9 +77,9 @@ only a real failure returns `ok: false`.
 ### Read the session anywhere server-side
 
 ```ts
-import { useAuthSession } from "katanakit-js/adapters/better-auth";
+import { onAuthSession } from "katanakit-js/adapters/better-auth";
 
-const session = await useAuthSession(auth, request); // Request | Headers | { headers }
+const session = await onAuthSession(auth, request); // Request | Headers | { headers }
 if (session.ok && session.data) {
 	console.log(session.data.user.email);
 }
@@ -88,7 +88,7 @@ if (session.ok && session.data) {
 ## Social providers — one call, every vendor
 
 Better Auth ships **36 social providers** (Google, GitHub, Discord, Microsoft,
-LinkedIn, Apple, TikTok, Notion, Spotify…). `useSocialProviders` validates your
+LinkedIn, Apple, TikTok, Notion, Spotify…). `onSocialProviders` validates your
 `socialProviders` before `betterAuth()` ever sees it, so a missing environment
 variable fails at **startup** instead of when a visitor clicks *Sign in with
 Google*.
@@ -96,9 +96,9 @@ Google*.
 ```ts
 // auth.ts — top-level await is fine in ESM
 import { betterAuth } from "better-auth";
-import { useSocialProviders } from "katanakit-js/adapters/better-auth";
+import { onSocialProviders } from "katanakit-js/adapters/better-auth";
 
-const social = await useSocialProviders({
+const social = await onSocialProviders({
 	google: {
 		clientId: process.env.GOOGLE_CLIENT_ID ?? "",
 		clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
@@ -132,7 +132,7 @@ Two configurations are passed through untouched, because their credentials only
 exist inside Better Auth:
 
 ```ts
-await useSocialProviders({
+await onSocialProviders({
 	google: () => ({ clientId: load("GOOGLE_ID"), clientSecret: load("GOOGLE_SECRET") }), // thunk
 	tiktok: { enabled: false }, // switched off — nothing to configure
 });
@@ -148,32 +148,32 @@ catches what TypeScript cannot see: empty values and unknown ids.
 ## Client — five frameworks, one factory
 
 ```ts
-import { useAuthClient } from "katanakit-js/adapters/better-auth";
+import { onAuthClient } from "katanakit-js/adapters/better-auth";
 
 // vanilla (no framework, plain <script>)
-const authClient = await useAuthClient();
+const authClient = await onAuthClient();
 
 // the four framework entries — only the one you pick is bundled
-const vue = await useAuthClient({ framework: "vue" });
-const react = await useAuthClient({ framework: "react" });
-const svelte = await useAuthClient({ framework: "svelte" });
-const solid = await useAuthClient({ framework: "solid" });
+const vue = await onAuthClient({ framework: "vue" });
+const react = await onAuthClient({ framework: "react" });
+const svelte = await onAuthClient({ framework: "svelte" });
+const solid = await onAuthClient({ framework: "solid" });
 ```
 
 The return type follows the framework, so destructuring keeps Better Auth's own types:
 
 ```ts
 // lib/auth-client.ts (Vue)
-import { useAuthClient } from "katanakit-js/adapters/better-auth";
+import { onAuthClient } from "katanakit-js/adapters/better-auth";
 
-export const authClient = await useAuthClient({ framework: "vue" });
+export const authClient = await onAuthClient({ framework: "vue" });
 export const { signIn, signUp, signOut, useSession } = authClient;
 ```
 
 Options are Better Auth's `BetterAuthClientOptions`:
 
 ```ts
-const authClient = await useAuthClient({
+const authClient = await onAuthClient({
 	framework: "react",
 	baseURL: "https://auth.example.com",
 	plugins: [/* organization(), twoFactor() … */],
@@ -184,11 +184,11 @@ const authClient = await useAuthClient({
 
 | Function                          | Returns                          | Fails when                         |
 | --------------------------------- | -------------------------------- | ---------------------------------- |
-| `useAuthClient(options?)`         | Framework-typed auth client      | the entry cannot be imported       |
-| `useAuthSession(auth, request)`   | Session \| `null`                | the API call throws                |
-| `useAuthHandler(auth, request)`   | `Response`                       | the handler throws                 |
-| `useAstroAuthLocals(auth, request)` | `{ user, session }`            | the session lookup fails           |
-| `useSocialProviders(providers)`   | The validated `socialProviders`  | a credential is empty, missing or unknown |
+| `onAuthClient(options?)`         | Framework-typed auth client      | the entry cannot be imported       |
+| `onAuthSession(auth, request)`   | Session \| `null`                | the API call throws                |
+| `onAuthHandler(auth, request)`   | `Response`                       | the handler throws                 |
+| `onAstroAuthLocals(auth, request)` | `{ user, session }`            | the session lookup fails           |
+| `onSocialProviders(providers)`   | The validated `socialProviders`  | a credential is empty, missing or unknown |
 
 Everything returns `{ data, error, ok }` — no `try/catch` at the call site.
 

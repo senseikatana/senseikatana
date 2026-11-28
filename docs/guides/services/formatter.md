@@ -23,8 +23,8 @@ Three rules shape the whole module:
    Numbers and currency delegate to `Intl.NumberFormat`; dates delegate to
    `Intl.DateTimeFormat` through Temporal; text uses the built-in case methods.
 
-The unit-conversion helpers (`useToCelsius()`, `useToKilometers()`,
-`useToKilos()` and the rest) live in `converter.service.ts` behind
+The unit-conversion helpers (`onToCelsius()`, `onToKilometers()`,
+`onToKilos()` and the rest) live in `converter.service.ts` behind
 `UnitConverterService`; they are documented on the
 [Converter](/guides/services/converter) page.
 
@@ -32,33 +32,35 @@ The unit-conversion helpers (`useToCelsius()`, `useToKilometers()`,
 
 ```ts
 import {
-  useFormatNumber,
-  useFormatCurrency,
-  useFormat,
-  useCapitalize,
-  useUpperCase,
-  useLowerCase,
-  useJsonStringify,
-  useJsonParse,
+  onFormatNumber,
+  onFormatCurrency,
+  onCapitalize,
+  onUpperCase,
+  onLowerCase,
+  onJsonStringify,
+  onJsonParse,
 } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useFormatNumber(1234.5);              // "1,234.50"
-useFormatNumber(1234.5, "de");        // "1.234,50"
-useFormatCurrency({ amount: 100 });   // "$100.00"
-useFormatCurrency({ amount: 100, taxes: 21, locale: "es" }); // "121,00 US$"
+const dates = DatesService.getInstance();
 
-useFormat("2024-06-15", "en");        // "6/15/2024"
-useCapitalize("hello world");         // "Hello world"
-useUpperCase("straße", "de");         // "STRASSE"
-useLowerCase("HELLO");                // "hello"
+onFormatNumber(1234.5);              // "1,234.50"
+onFormatNumber(1234.5, "de");        // "1.234,50"
+onFormatCurrency({ amount: 100 });   // "$100.00"
+onFormatCurrency({ amount: 100, taxes: 21, locale: "es" }); // "121,00 US$"
 
-useJsonStringify({ a: 1 });           // '{\n   "a": 1\n}'
-useJsonParse<{ a: number }>('{"a":1}'); // { a: 1 }
+dates.format("2024-06-15", "en");   // "6/15/2024"
+onCapitalize("hello world");         // "Hello world"
+onUpperCase("straße", "de");         // "STRASSE"
+onLowerCase("HELLO");                // "hello"
+
+onJsonStringify({ a: 1 });           // '{\n   "a": 1\n}'
+onJsonParse<{ a: number }>('{"a":1}'); // { a: 1 }
 ```
 
 ## Numbers
 
-### useFormatNumber(value, locale?, digits?)
+### onFormatNumber(value, locale?, digits?)
 
 Formats a number with locale-aware grouping and a **fixed** number of fraction
 digits. `digits` is applied as both the minimum and the maximum, so the output
@@ -66,11 +68,11 @@ is always padded or rounded to that precision:
 
 | Call | Result | Notes |
 | --- | --- | --- |
-| `useFormatNumber(1234.5)` | `"1,234.50"` | `en` defaults, 2 digits |
-| `useFormatNumber(1234.5, "de")` | `"1.234,50"` | `de` swaps separators |
-| `useFormatNumber(42, "en", 0)` | `"42"` | `0` disables decimals |
-| `useFormatNumber(0.5, "en", 4)` | `"0.5000"` | pads to exactly 4 digits |
-| `useFormatNumber(1.005, "en", 2)` | `"1.01"` | rounding is delegated to `Intl` |
+| `onFormatNumber(1234.5)` | `"1,234.50"` | `en` defaults, 2 digits |
+| `onFormatNumber(1234.5, "de")` | `"1.234,50"` | `de` swaps separators |
+| `onFormatNumber(42, "en", 0)` | `"42"` | `0` disables decimals |
+| `onFormatNumber(0.5, "en", 4)` | `"0.5000"` | pads to exactly 4 digits |
+| `onFormatNumber(1.005, "en", 2)` | `"1.01"` | rounding is delegated to `Intl` |
 
 **Parameters**
 
@@ -79,10 +81,10 @@ is always padded or rounded to that precision:
 - `digits` — fraction digits, applied to both min and max. Defaults to `2`.
 
 ```ts
-import { useFormatNumber, type Locale } from "katanakit-js";
+import { onFormatNumber, type Locale } from "katanakit-js";
 
 export function formatKpi(value: number, locale: Locale) {
-  return useFormatNumber(value, locale, 1);
+  return onFormatNumber(value, locale, 1);
 }
 ```
 
@@ -102,7 +104,7 @@ your data layer.
 
 ## Currency
 
-### useFormatCurrency(options)
+### onFormatCurrency(options)
 
 Formats an amount as currency, optionally applying a tax rate. Everything is
 configured through a single options object:
@@ -132,14 +134,14 @@ source does not validate the sign: negative values follow the fraction branch
 and reduce the total.
 
 ```ts
-import { useFormatCurrency } from "katanakit-js";
+import { onFormatCurrency } from "katanakit-js";
 
-useFormatCurrency({ amount: 100, currency: "USD" });                           // "$100.00"
-useFormatCurrency({ amount: 100, taxes: 21 });                                  // "$121.00"
-useFormatCurrency({ amount: 100, taxes: 0.21, locale: "es" });                  // "121,00 US$"
-useFormatCurrency({ amount: 100, taxes: 0.21, currency: "EUR", locale: "es" }); // "121,00 €"
-useFormatCurrency({ amount: 100, currency: "JPY" });                            // "¥100"
-useFormatCurrency({ amount: 100, currency: "JPY", digits: 2 });                 // "¥100.00"
+onFormatCurrency({ amount: 100, currency: "USD" });                           // "$100.00"
+onFormatCurrency({ amount: 100, taxes: 21 });                                  // "$121.00"
+onFormatCurrency({ amount: 100, taxes: 0.21, locale: "es" });                  // "121,00 US$"
+onFormatCurrency({ amount: 100, taxes: 0.21, currency: "EUR", locale: "es" }); // "121,00 €"
+onFormatCurrency({ amount: 100, currency: "JPY" });                            // "¥100"
+onFormatCurrency({ amount: 100, currency: "JPY", digits: 2 });                 // "¥100.00"
 ```
 
 **Edge cases**
@@ -159,7 +161,7 @@ and apply the tax rate at render time, passing the buyer's locale so the symbol
 and separators match their region.
 
 ```ts
-import { useFormatCurrency, type Currency, type Locale } from "katanakit-js";
+import { onFormatCurrency, type Currency, type Locale } from "katanakit-js";
 
 export function orderTotal(
   subtotal: number,
@@ -167,18 +169,18 @@ export function orderTotal(
   currency: Currency,
   locale: Locale,
 ) {
-  return useFormatCurrency({ amount: subtotal, taxes: taxPercent, currency, locale });
+  return onFormatCurrency({ amount: subtotal, taxes: taxPercent, currency, locale });
 }
 ```
 
 ## Dates
 
-### useFormat(dateInput, locale?, options?)
+### format(dateInput, locale?, options?)
 
-Formats a date-like value into a localized string. This helper ships with the
-[Dates service](/guides/services/dates) and is re-exported from the package
-root; it is documented here because it is the formatting entry point. The rest
-of the Temporal-based date toolkit lives on that page.
+Formats a date-like value into a localized string. This method lives on the
+[Dates service](/guides/services/dates) (`DatesService.getInstance().format`)
+and is documented here because it is the formatting entry point. The rest of
+the Temporal-based date toolkit lives on that page.
 
 **Accepted inputs**
 
@@ -198,30 +200,32 @@ implements **no custom tokens**, so the accepted keys are the standard ones:
 `second`, `fractionalSecondDigits`, `timeZone`, `timeZoneName`, and so on.
 
 ```ts
-import { useFormat } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useFormat("2024-06-15");                                    // "6/15/2024"
-useFormat("2024-06-15", "es", { dateStyle: "full" });       // "sábado, 15 de junio de 2024"
-useFormat("2024-06-15", "de", { dateStyle: "long" });       // "15. Juni 2024"
-useFormat(
+const dates = DatesService.getInstance();
+
+dates.format("2024-06-15");                                    // "6/15/2024"
+dates.format("2024-06-15", "es", { dateStyle: "full" });       // "sábado, 15 de junio de 2024"
+dates.format("2024-06-15", "de", { dateStyle: "long" });       // "15. Juni 2024"
+dates.format(
   new Date(2024, 5, 15, 14, 30),
   "en",
   { dateStyle: "medium", timeStyle: "short" },
-);                                                           // "Jun 15, 2024, 2:30 PM"
+);                                                              // "Jun 15, 2024, 2:30 PM"
 ```
 
 **Edge cases**
 
 - Date-time strings without an offset are parsed as `PlainDate` first, which
-  **drops the time silently**. `useFormat("2024-06-15T14:30:00", "en", { dateStyle: "medium" })`
+  **drops the time silently**. `dates.format("2024-06-15T14:30:00", "en", { dateStyle: "medium" })`
   returns `"Jun 15, 2024"`, and requesting `timeStyle` alone throws
   `Invalid date input`. When the time matters, pass a `Date`, epoch
   milliseconds, or a `Temporal.PlainDateTime`.
 - Strings carrying a UTC designator (`Z`) or a numeric offset (`+02:00`) are
   rejected, because neither `PlainDate` nor `PlainDateTime` accepts offsets.
-- Invalid input is logged through `useLogger` and then thrown as
+- Invalid input is logged through `onLogger` and then thrown as
   `new Error("Invalid date input: ...")`. Wrap the call with
-  [`useAttempt()`](/start/errors) at I/O boundaries.
+  [`onAttempt()`](/start/errors) at I/O boundaries.
 - `number`, `Date` and `Temporal.Instant` inputs are converted to the runtime's
   time zone, so a server in UTC and a browser in UTC+2 can render different
   hours for the same instant. Pass `timeZone` in `options` or a
@@ -238,61 +242,61 @@ time.
 Text helpers transform and normalize strings. All case helpers **trim**
 whitespace before returning.
 
-### useCapitalize(text, locale?)
+### onCapitalize(text, locale?)
 
 Upper-cases only the first character and leaves the rest untouched. Empty or
 whitespace-only input returns `""`, so it is safe to call on uncontrolled data.
 
 ```ts
-import { useCapitalize } from "katanakit-js";
+import { onCapitalize } from "katanakit-js";
 
-useCapitalize("hello world");   // "Hello world"
-useCapitalize("  hello  ");     // "Hello"
-useCapitalize("áÉl");           // "ÁÉl"
+onCapitalize("hello world");   // "Hello world"
+onCapitalize("  hello  ");     // "Hello"
+onCapitalize("áÉl");           // "ÁÉl"
 ```
 
 **Real use case** — rendering names from a database that stores them in
 lowercase: capitalize for display without mutating the stored value.
 
-### useUpperCase(text, locale?)
+### onUpperCase(text, locale?)
 
 Locale-aware upper case via `toLocaleUpperCase`, then `trim()`.
 
 ```ts
-import { useUpperCase } from "katanakit-js";
+import { onUpperCase } from "katanakit-js";
 
-useUpperCase("hello");          // "HELLO"
-useUpperCase("straße", "de");   // "STRASSE"
-useUpperCase("i", "tr");        // "İ" — Turkish dotted capital I
+onUpperCase("hello");          // "HELLO"
+onUpperCase("straße", "de");   // "STRASSE"
+onUpperCase("i", "tr");        // "İ" — Turkish dotted capital I
 ```
 
 **Edge case** — do not use it for case-insensitive comparisons: equal-looking
 strings can differ under locale rules. Use `localeCompare` (or
 `Intl.Collator`) for that.
 
-### useLowerCase(text, locale?)
+### onLowerCase(text, locale?)
 
-Mirror of `useUpperCase()` through `toLocaleLowerCase`, then `trim()`.
+Mirror of `onUpperCase()` through `toLocaleLowerCase`, then `trim()`.
 
 ```ts
-import { useLowerCase } from "katanakit-js";
+import { onLowerCase } from "katanakit-js";
 
-useLowerCase("HELLO");          // "hello"
-useLowerCase("I", "tr");        // "ı" — Turkish dotless lower case
+onLowerCase("HELLO");          // "hello"
+onLowerCase("I", "tr");        // "ı" — Turkish dotless lower case
 ```
 
 **Real use case** — normalizing user input (emails, tags, search terms) before
 persisting or comparing, with the locale the input was typed in.
 
-### useJsonStringify(data)
+### onJsonStringify(data)
 
 Pretty-prints a value as JSON with a **3-space** indent — note the unusual
 indent, which comes from `JSON.stringify(data, null, 3)`.
 
 ```ts
-import { useJsonStringify } from "katanakit-js";
+import { onJsonStringify } from "katanakit-js";
 
-useJsonStringify({ a: 1, nested: { b: 2 } });
+onJsonStringify({ a: 1, nested: { b: 2 } });
 // {
 //    "a": 1,
 //    "nested": {
@@ -309,7 +313,7 @@ the declared return type is `string`.
 **Real use case** — a developer-facing payload preview or a "copy debug state"
 button that needs readable JSON.
 
-### useJsonParse&lt;T&gt;(json)
+### onJsonParse&lt;T&gt;(json)
 
 A thin, typed wrapper around `JSON.parse` — useful to avoid `as` casts while
 keeping the familiar throw-on-invalid behavior. It performs **no runtime
@@ -317,14 +321,14 @@ validation**: the generic `T` is an assertion, not a guarantee. Invalid JSON
 throws `SyntaxError`.
 
 ```ts
-import { useJsonParse } from "katanakit-js";
+import { onJsonParse } from "katanakit-js";
 
-const config = useJsonParse<{ theme: "light" | "dark" }>('{"theme":"dark"}');
+const config = onJsonParse<{ theme: "light" | "dark" }>('{"theme":"dark"}');
 config.theme; // "dark"
 ```
 
 **Edge case** — for untrusted input (storage, network, user files), prefer
-[`useTryJsonParse()`](/start/errors), which returns a Safe Result instead of
+[`onTryJsonParse()`](/start/errors), which returns a Safe Result instead of
 throwing, and validate the parsed shape with a schema before using it.
 
 ## Related
@@ -332,8 +336,8 @@ throwing, and validate the parsed shape with a schema before using it.
 - [Converter](/guides/services/converter) — temperature, distance, height and
   weight conversions.
 - [Dates](/guides/services/dates) — the full Temporal toolkit behind
-  `useFormat()`.
-- [Generator](/guides/services/generator) — `useSlugify()` and other string
+  `format()`.
+- [Generator](/guides/services/generator) — `GeneratorService.getInstance().slugify()` and other string
   generators.
-- [Errors & Results](/start/errors) — `useTryJsonParse()` and Safe Results.
+- [Errors & Results](/start/errors) — `onTryJsonParse()` and Safe Results.
 - [API Reference](/api/) — every export, generated from source.

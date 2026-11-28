@@ -40,12 +40,12 @@ bundler or import map:
 ```html
 <script type="module">
   import {
-    useLogger,
+    onLogger,
     defineApiConfig,
-    useGetApi,
+    onGet,
   } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
 
-  useLogger("KatanaKit loaded from CDN");
+  onLogger("KatanaKit loaded from CDN");
   defineApiConfig({
     pokeapi: {
       baseUri: "https://pokeapi.co/api/v2",
@@ -69,7 +69,7 @@ floating `@latest`. There is **no IIFE/UMD** build — only ESM
 ## First call
 
 ```ts
-import { defineApiConfig, useGetApi } from "katanakit-js";
+import { defineApiConfig, onGet } from "katanakit-js";
 
 defineApiConfig({
   pokeapi: {
@@ -78,7 +78,7 @@ defineApiConfig({
   },
 });
 
-const result = await useGetApi<{ name: string }>("pokeapi", "pokemonById", {
+const result = await onGet<{ name: string }>("pokeapi", "pokemonById", {
   params: { id: 25 },
 });
 
@@ -86,7 +86,7 @@ if (result.ok) console.log(result.data.name); // "pikachu"
 else console.error(result.error.status, result.error.message);
 ```
 
-`useGetApi` never throws: it resolves to a **Safe Result** (`{ data, error,
+`onGet` never throws: it resolves to a **Safe Result** (`{ data, error,
 ok }`). The [Tutorial](/tutorials/first-api-client) takes this snippet further,
 step by step — validating the payload, caching it and handling failures.
 
@@ -95,27 +95,26 @@ step by step — validating the payload, caching it and handling failures.
 ```ts
 // Main barrel — core helpers + Astro/RSS + SEO (tree-shakeable named exports)
 import {
-  useLogger,
+  onLogger,
   defineApiConfig,
-  useGetApi,
-  useFormatCurrency,
-  useNow,
-  useChunk,
-  useInitTheme,
-  useAstroPathsFrom,
-  useAstroGenerateRss,
+  onGet,
+  onFormatCurrency,
+  onDateBetween,
+  onChunk,
+  onInitTheme,
 } from "katanakit-js";
 
 // Optional narrower / framework-only subpaths
-import { useAstroPathsFrom, useAstroGenerateRss } from "katanakit-js/adapters/astro";
-import { useUnwrap } from "katanakit-js/adapters/nuxt";
-import { useRequest } from "katanakit-js/adapters/vue";
-import { ServerExpress } from "katanakit-js/adapters/express";
-import { useRequireCapability } from "katanakit-js/adapters/next"; // also on /astro, /nuxt, /hono, /express, /nestjs
+import { pathsFrom, onAstroGenerateRss } from "katanakit-js/adapters/astro";
+import { onUnwrap } from "katanakit-js/adapters/nuxt";
+import { onRequest } from "katanakit-js/adapters/vue";
+import { ExpressService } from "katanakit-js/adapters/express";
+import { onRequireCapability } from "katanakit-js/adapters/next"; // also on /astro, /nuxt, /hono, /express, /nestjs
 ```
 
-Every public `use*` helper lives on the main barrel (`katanakit-js`). Framework
-adapters stay on their subpaths because they pull optional peers.
+Core and config helpers live on the main barrel (`katanakit-js`). Framework
+adapters — Astro included — stay on their subpaths because they pull optional
+peers.
 
 ## Use it in your framework
 
@@ -124,9 +123,9 @@ adapters stay on their subpaths because they pull optional peers.
 ```astro
 ---
 // src/pages/index.astro
-import { useLogger, defineApiConfig, useGetApi, AstroService } from "katanakit-js";
+import { onLogger, defineApiConfig, onGet } from "katanakit-js";
 
-useLogger("Building index page");
+onLogger("Building index page");
 
 defineApiConfig({
   pokeapi: {
@@ -135,7 +134,7 @@ defineApiConfig({
   },
 });
 
-const result = await useGetApi<{ name: string }>("pokeapi", "pokemonById", {
+const result = await onGet<{ name: string }>("pokeapi", "pokemonById", {
   params: { id: 25 },
 });
 ---
@@ -149,10 +148,10 @@ const result = await useGetApi<{ name: string }>("pokeapi", "pokemonById", {
 <button id="log-btn">Log</button>
 
 <script>
-  import { useLogger } from "katanakit-js";
+  import { onLogger } from "katanakit-js";
 
   document.getElementById("log-btn")?.addEventListener("click", () => {
-    useLogger("Clicked from Astro client script");
+    onLogger("Clicked from Astro client script");
   });
 </script>
 ```
@@ -162,8 +161,8 @@ CDN** import, mark the script `is:inline` so Astro does not rewrite it:
 
 ```astro
 <script is:inline type="module">
-  import { useLogger } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
-  useLogger("Loaded from the CDN");
+  import { onLogger } from "https://cdn.jsdelivr.net/npm/katanakit-js/+esm";
+  onLogger("Loaded from the CDN");
 </script>
 ```
 
@@ -171,25 +170,25 @@ CDN** import, mark the script `is:inline` so Astro does not rewrite it:
 
 ```ts
 // Vue SFC or Nuxt plugin / server route — main barrel
-import { useLogger, defineApiConfig, useGetApi } from "katanakit-js";
+import { onLogger, defineApiConfig, onGet } from "katanakit-js";
 
 // Nuxt-only helpers
-import { useUnwrap } from "katanakit-js/adapters/nuxt";
+import { onUnwrap } from "katanakit-js/adapters/nuxt";
 
-// Vue reactivity wrapper around useGetApi
-import { useRequest } from "katanakit-js/adapters/vue";
+// Vue reactivity wrapper around onGet
+import { onRequest } from "katanakit-js/adapters/vue";
 ```
 
 More depth per integration: [Astro Adapter](/guides/services/astro-adapter),
 [Nuxt Adapter](/guides/services/nuxt-adapter), [Vue Adapter](/guides/services/vue-adapter),
 [Express Server](/guides/services/express-server), and the reactive
-`useQuery`/`useMutation` bindings in [Framework Adapters](/guides/framework-adapters).
+`onQuery`/`onMutation` bindings in [Framework Adapters](/guides/framework-adapters).
 
 ## Configuration files — `define*Config`
 
 Every service that takes configuration exposes a **`define*Config`** entry
 point. One call registers the config and hands it back — there is no second
-`useInit*` step, so a whole file can be nothing but:
+`onInit*` step, so a whole file can be nothing but:
 
 ```ts
 // katanakit.config.ts
@@ -203,7 +202,7 @@ export default defineApiConfig({
   debug: true, // boolean flag
   getPokemon: async function () {
     //            ^^^^^^^^ `function`, never an arrow
-    return useFetch("pokeapi", "pokemonById", { params: { id: 25 } });
+    return onFetch("pokeapi", "pokemonById", { params: { id: 25 } });
   },
 });
 ```
@@ -224,7 +223,7 @@ is `undefined`. The compiler catches it — write `async function () { … }`.
 | WordPress | `defineWordPressConfig` | yes |
 | InsForge | `defineInsforgeConfig` | yes |
 
-The old `useInit*` functions still work and are marked `@deprecated` — they are
+The old `onInit*` functions still work and are marked `@deprecated` — they are
 a one-for-one rename of the config half; the full migration table lives in
 [Upgrade to v6](/guides/upgrade-to/v6).
 

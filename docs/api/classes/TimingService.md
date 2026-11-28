@@ -2,7 +2,7 @@
 
 # Class: TimingService
 
-Defined in: [core/services/timing.service.ts:37](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L37)
+Defined in: [core/services/timing.service.ts:37](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L37)
 
 TimingService — Singleton facade for timers, intervals, debounce/throttle
 and promise races.
@@ -20,21 +20,21 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useSetTimeout } from "katanakit-js";
+import { onSetTimeout } from "katanakit-js";
 
-const { promise, cancel } = useSetTimeout(() => 42, 1000);
+const { promise, cancel } = onSetTimeout(() => 42, 1000);
 cancel(); // rejects the promise with "Timeout cancelled"
 ```
 
 ## Methods
 
-### useDebounce()
+### onDebounce()
 
 ```ts
-useDebounce<T>(func, delayMs): (...args) => void;
+onDebounce<T>(func, delayMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:204](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L204)
+Defined in: [core/services/timing.service.ts:204](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L204)
 
 Returns a debounced version of `func` that delays invocation until
 `delayMs` milliseconds of quiet.
@@ -61,19 +61,19 @@ A debounced function with the same signature.
 #### Example
 
 ```ts
-const debouncedSearch = useDebounce(fetchResults, 300);
+const debouncedSearch = onDebounce(fetchResults, 300);
 input.addEventListener("input", () => debouncedSearch(input.value));
 ```
 
 ***
 
-### useDebounceImmediate()
+### onDebounceImmediate()
 
 ```ts
-useDebounceImmediate<T>(func, delayMs): (...args) => void;
+onDebounceImmediate<T>(func, delayMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:245](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L245)
+Defined in: [core/services/timing.service.ts:245](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L245)
 
 Leading-edge debounce: fires immediately on the first call, then ignores
 calls until `delayMs` of quiet. Additional calls during the wait window
@@ -101,7 +101,7 @@ A debounced function with the same signature.
 #### Example
 
 ```ts
-const save = useDebounceImmediate(submitForm, 500);
+const save = onDebounceImmediate(submitForm, 500);
 save("a"); // fires immediately
 save("b"); // queued
 save("c"); // queued (replaces "b")
@@ -110,17 +110,17 @@ save("c"); // queued (replaces "b")
 
 ***
 
-### useInterval()
+### onInterval()
 
 ```ts
-useInterval(
+onInterval(
    callback, 
    ms, 
    immediate?
 ): IntervalControl;
 ```
 
-Defined in: [core/services/timing.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L146)
+Defined in: [core/services/timing.service.ts:146](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L146)
 
 Repeatedly executes a callback at `ms` intervals with pause/resume/stop
 controls. Uses recursive `setTimeout` internally to avoid overlap.
@@ -143,7 +143,7 @@ An `IntervalControl` with `pause`, `resume`, `stop`, and
 #### Example
 
 ```ts
-const timer = useInterval(() => console.log("tick"), 1000);
+const timer = onInterval(() => console.log("tick"), 1000);
 setTimeout(() => timer.pause(), 3000);
 setTimeout(() => timer.resume(), 5000);
 setTimeout(() => timer.stop(), 10000);
@@ -151,17 +151,17 @@ setTimeout(() => timer.stop(), 10000);
 
 ***
 
-### useRace()
+### onRace()
 
 ```ts
-useRace<T>(
+onRace<T>(
    promise, 
    timeoutMs, 
    errorMessage?
 ): Promise<T>;
 ```
 
-Defined in: [core/services/timing.service.ts:424](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L424)
+Defined in: [core/services/timing.service.ts:424](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L424)
 
 Races a promise against a timeout. Clears the timer when the promise
 wins so the timeout rejection cannot become an unhandled rejection.
@@ -194,7 +194,7 @@ If the timeout fires first.
 
 ```ts
 try {
-  const data = await useRace(fetch("/api"), 5000);
+  const data = await onRace(fetch("/api"), 5000);
 } catch (e) {
   console.error(e); // "Operation timed out"
 }
@@ -202,17 +202,17 @@ try {
 
 ***
 
-### useRepeat()
+### onRepeat()
 
 ```ts
-useRepeat(
+onRepeat(
    callback, 
    iterations, 
    delayMs?
 ): Promise<void>;
 ```
 
-Defined in: [core/services/timing.service.ts:385](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L385)
+Defined in: [core/services/timing.service.ts:385](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L385)
 
 Executes a callback `iterations` times with an optional delay between
 each iteration.
@@ -232,19 +232,19 @@ each iteration.
 #### Example
 
 ```ts
-await useRepeat((i) => console.log(`Attempt ${i + 1}`), 3, 1000);
+await onRepeat((i) => console.log(`Attempt ${i + 1}`), 3, 1000);
 // Attempt 1 ... (1s) ... Attempt 2 ... (1s) ... Attempt 3
 ```
 
 ***
 
-### useSetTimeout()
+### onSetTimeout()
 
 ```ts
-useSetTimeout<T>(callback, ms): TimeoutControl<T>;
+onSetTimeout<T>(callback, ms): TimeoutControl<T>;
 ```
 
-Defined in: [core/services/timing.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L66)
+Defined in: [core/services/timing.service.ts:66](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L66)
 
 Executes a callback after `ms` milliseconds, returning a cancellable
 promise that resolves with the callback's result.
@@ -271,19 +271,19 @@ A `TimeoutControl` with `promise` and `cancel()`.
 #### Example
 
 ```ts
-const { promise, cancel } = useSetTimeout(() => 42, 1000);
+const { promise, cancel } = onSetTimeout(() => 42, 1000);
 cancel(); // rejects the promise with "Timeout cancelled"
 ```
 
 ***
 
-### useThrottle()
+### onThrottle()
 
 ```ts
-useThrottle<T>(func, limitMs): (...args) => void;
+onThrottle<T>(func, limitMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:300](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L300)
+Defined in: [core/services/timing.service.ts:300](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L300)
 
 Returns a throttled version of `func` that fires at most once per
 `limitMs` milliseconds (leading edge).
@@ -310,19 +310,19 @@ A throttled function with the same signature.
 #### Example
 
 ```ts
-const throttledScroll = useThrottle(onScroll, 100);
+const throttledScroll = onThrottle(onScroll, 100);
 window.addEventListener("scroll", throttledScroll);
 ```
 
 ***
 
-### useThrottleTrailing()
+### onThrottleTrailing()
 
 ```ts
-useThrottleTrailing<T>(func, limitMs): (...args) => void;
+onThrottleTrailing<T>(func, limitMs): (...args) => void;
 ```
 
-Defined in: [core/services/timing.service.ts:336](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L336)
+Defined in: [core/services/timing.service.ts:336](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L336)
 
 Throttle with trailing invocation: fires on the leading edge and also
 fires once at the end of the throttle window with the latest arguments.
@@ -349,7 +349,7 @@ A throttled function with the same signature.
 #### Example
 
 ```ts
-const throttledResize = useThrottleTrailing(onResize, 200);
+const throttledResize = onThrottleTrailing(onResize, 200);
 window.addEventListener("resize", throttledResize);
 ```
 
@@ -361,7 +361,7 @@ window.addEventListener("resize", throttledResize);
 static getInstance(): TimingService;
 ```
 
-Defined in: [core/services/timing.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/timing.service.ts#L44)
+Defined in: [core/services/timing.service.ts:44](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/timing.service.ts#L44)
 
 Returns the shared instance (Singleton).
 

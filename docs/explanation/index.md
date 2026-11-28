@@ -15,8 +15,7 @@ it — with the full picture.
   layer, and the design patterns that hold it together.
 - **[Service architecture](/explanation/service-architecture)** — why every
   service is a Singleton facade: the Singleton/Facade/Observer/Strategy/DI
-  vocabulary, the `use*` vs `on*` naming rule, and how the core stays free of
-  I/O.
+  vocabulary, the `on*` naming rule, and how the core stays free of I/O.
 - **[Decisions (ADRs)](/explanation/decisions/)** — the numbered records of
   decisions with consequences: what was chosen, and what it costs.
 

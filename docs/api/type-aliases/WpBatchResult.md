@@ -6,6 +6,6 @@
 type WpBatchResult = z.infer<typeof WpBatchResultSchema>;
 ```
 
-Defined in: [types/adapters/wordpress.ts:189](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/wordpress.ts#L189)
+Defined in: [types/wordpress/types.ts:189](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/wordpress/types.ts#L189)
 
 Result of a WordPress batch operation.

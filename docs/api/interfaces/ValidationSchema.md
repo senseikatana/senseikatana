@@ -2,7 +2,7 @@
 
 # Interface: ValidationSchema\<T\>
 
-Defined in: [types/core/validation.ts:20](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/validation.ts#L20)
+Defined in: [types/core/validation.ts:20](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/validation.ts#L20)
 
 Schema-agnostic contract. Accepts Zod (`safeParse`), Valibot
 (`safeParse`), Standard Schema (`~standard.validate`), Yup
@@ -18,8 +18,8 @@ Schema-agnostic contract. Accepts Zod (`safeParse`), Valibot
 
 | Property | Type | Defined in |
 | ------ | ------ | ------ |
-| <a id="standard"></a> `~standard?` | \{ `validate`: (`data`) => \| \{ `issues?`: \{ `message`: `string`; `path`: (`string` \| `number`)[]; \}[]; \} \| `Promise`\<\{ `issues?`: \{ `message`: `string`; `path`: (... \| ...)[]; \}[]; \}\>; \} | [types/core/validation.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/validation.ts#L22) |
-| `~standard.validate` | (`data`) => \| \{ `issues?`: \{ `message`: `string`; `path`: (`string` \| `number`)[]; \}[]; \} \| `Promise`\<\{ `issues?`: \{ `message`: `string`; `path`: (... \| ...)[]; \}[]; \}\> | [types/core/validation.ts:23](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/validation.ts#L23) |
-| <a id="safeparse"></a> `safeParse?` | (`data`) => [`ValidationParseResult`](../type-aliases/ValidationParseResult.md)\<`T`\> | [types/core/validation.ts:21](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/validation.ts#L21) |
-| <a id="validate"></a> `validate?` | (`data`) => `unknown` | [types/core/validation.ts:28](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/validation.ts#L28) |
-| <a id="validatesync"></a> `validateSync?` | (`data`) => `unknown` | [types/core/validation.ts:27](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/validation.ts#L27) |
+| <a id="standard"></a> `~standard?` | \{ `validate`: (`data`) => \| \{ `issues?`: \{ `message`: `string`; `path`: (`string` \| `number`)[]; \}[]; \} \| `Promise`\<\{ `issues?`: \{ `message`: `string`; `path`: (... \| ...)[]; \}[]; \}\>; \} | [types/core/validation.ts:22](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/validation.ts#L22) |
+| `~standard.validate` | (`data`) => \| \{ `issues?`: \{ `message`: `string`; `path`: (`string` \| `number`)[]; \}[]; \} \| `Promise`\<\{ `issues?`: \{ `message`: `string`; `path`: (... \| ...)[]; \}[]; \}\> | [types/core/validation.ts:23](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/validation.ts#L23) |
+| <a id="safeparse"></a> `safeParse?` | (`data`) => [`ValidationParseResult`](../type-aliases/ValidationParseResult.md)\<`T`\> | [types/core/validation.ts:21](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/validation.ts#L21) |
+| <a id="validate"></a> `validate?` | (`data`) => `unknown` | [types/core/validation.ts:28](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/validation.ts#L28) |
+| <a id="validatesync"></a> `validateSync?` | (`data`) => `unknown` | [types/core/validation.ts:27](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/validation.ts#L27) |

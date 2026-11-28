@@ -5,7 +5,7 @@ description: Stateful services are Singleton classes with getInstance(), publish
 
 # ADR-0002: Singleton facades exposed as `use*` functions
 
-**Status:** Accepted · **Date:** 2026-10-04 (released in v6.5.0)
+**Status:** Accepted (naming amended by [ADR-0017](/explanation/decisions/adr-0017-on-prefix-for-module-helpers)) · **Date:** 2026-10-04 (released in v6.5.0)
 
 ## Context
 
@@ -23,12 +23,12 @@ Every stateful service is a **Singleton class** — private constructor,
 `getInstance()` as the only entry — whose public methods use the `use*` prefix
 (`getInstance()` and the static `create()` are the exceptions). The module
 re-exports thin `use*` wrappers and destructured exports that delegate to the
-singleton, so consumers keep the functional API (`useLogger(...)`,
-`useFetch(...)`) while the class owns the state. Services that need isolated
+singleton, so consumers keep the functional API (`onLogger(...)`,
+`onFetch(...)`) while the class owns the state. Services that need isolated
 instances expose `create()` or an injectable strategy (storage backends,
 `AccessService`, `AgentService`). The configuration entry points follow the
 same shape: `define*Config` registers and returns the facade — the v6.0.0
-rename of `useInit*` kept the principle and improved the name
+rename of `onInit*` kept the principle and improved the name
 ([Upgrade to v6](/guides/upgrade-to/v6)).
 
 ## Consequences
@@ -52,4 +52,4 @@ injection and backwards compatibility.
 
 - [Architecture](/start/architecture) — the pattern table across all services.
 - [HTTP Client](/guides/services/http-client) — wrapper vs. `getInstance()` in practice.
-- [Upgrade to v6](/guides/upgrade-to/v6) — the `useInit*` → `define*Config` rename.
+- [Upgrade to v6](/guides/upgrade-to/v6) — the `onInit*` → `define*Config` rename.

@@ -2,19 +2,19 @@
 
 # Interface: StorageStrategy
 
-Defined in: [types/core/storage.ts:8](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/storage.ts#L8)
+Defined in: [types/core/storage.ts:8](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/storage.ts#L8)
 
 Strategy contract: homogeneous storage without `any`.
 
 ## Methods
 
-### useClear()
+### onClear()
 
 ```ts
-useClear(): void;
+onClear(): void;
 ```
 
-Defined in: [types/core/storage.ts:12](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/storage.ts#L12)
+Defined in: [types/core/storage.ts:12](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/storage.ts#L12)
 
 #### Returns
 
@@ -22,13 +22,13 @@ Defined in: [types/core/storage.ts:12](https://github.com/senseikatana/katanakit
 
 ***
 
-### useGetItem()
+### onGetItem()
 
 ```ts
-useGetItem<T>(key): T | null;
+onGetItem<T>(key): T | null;
 ```
 
-Defined in: [types/core/storage.ts:9](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/storage.ts#L9)
+Defined in: [types/core/storage.ts:9](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/storage.ts#L9)
 
 #### Type Parameters
 
@@ -48,13 +48,13 @@ Defined in: [types/core/storage.ts:9](https://github.com/senseikatana/katanakit-
 
 ***
 
-### useRemoveItem()
+### onRemoveItem()
 
 ```ts
-useRemoveItem(key): void;
+onRemoveItem(key): void;
 ```
 
-Defined in: [types/core/storage.ts:11](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/storage.ts#L11)
+Defined in: [types/core/storage.ts:11](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/storage.ts#L11)
 
 #### Parameters
 
@@ -68,13 +68,13 @@ Defined in: [types/core/storage.ts:11](https://github.com/senseikatana/katanakit
 
 ***
 
-### useSetItem()
+### onSetItem()
 
 ```ts
-useSetItem(key, value): void;
+onSetItem(key, value): void;
 ```
 
-Defined in: [types/core/storage.ts:10](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/storage.ts#L10)
+Defined in: [types/core/storage.ts:10](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/storage.ts#L10)
 
 #### Parameters
 

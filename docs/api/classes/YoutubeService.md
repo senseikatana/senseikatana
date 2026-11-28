@@ -2,7 +2,7 @@
 
 # Class: YoutubeService
 
-Defined in: [core/services/youtube.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L46)
+Defined in: [core/services/youtube.service.ts:46](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L46)
 
 YoutubeService — Singleton facade over the YouTube Data API v3 and the
 keyless channel RSS feed.
@@ -19,21 +19,21 @@ level `use*` functions below are thin wrappers kept for call-site ergonomics.
 ## Example
 
 ```ts
-import { useGetChannelVideos, useInitYoutube } from "katanakit-js";
+import { onGetChannelVideos, onInitYoutube } from "katanakit-js";
 
-useInitYoutube({ apiKey: process.env.YOUTUBE_API_KEY!, channelId: "UC…" });
-const page = await useGetChannelVideos({ maxResults: 6 });
+onInitYoutube({ apiKey: process.env.YOUTUBE_API_KEY!, channelId: "UC…" });
+const page = await onGetChannelVideos({ maxResults: 6 });
 ```
 
 ## Methods
 
-### useBuildYoutubeRssUrl()
+### onBuildYoutubeRssUrl()
 
 ```ts
-useBuildYoutubeRssUrl(channelId): string;
+onBuildYoutubeRssUrl(channelId): string;
 ```
 
-Defined in: [core/services/youtube.service.ts:177](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L177)
+Defined in: [core/services/youtube.service.ts:177](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L177)
 
 Builds the public channel RSS feed URL. Needs no API key and
 costs zero quota — ideal for "latest videos" widgets.
@@ -52,10 +52,10 @@ Feed URL.
 
 ***
 
-### useGetChannelVideos()
+### onGetChannelVideos()
 
 ```ts
-useGetChannelVideos(params?): Promise<FetchResult<{
+onGetChannelVideos(params?): Promise<FetchResult<{
   nextPageToken?: string;
   prevPageToken?: string;
   totalResults?: number;
@@ -79,7 +79,7 @@ useGetChannelVideos(params?): Promise<FetchResult<{
 }>>;
 ```
 
-Defined in: [core/services/youtube.service.ts:280](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L280)
+Defined in: [core/services/youtube.service.ts:280](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L280)
 
 Lists channel videos via the quota-cheap path
 (`channels` → `playlistItems`, never `search.list` which costs 100 units).
@@ -91,7 +91,7 @@ across every repo using the same GCP project.
 | Parameter | Type | Description |
 | ------ | ------ | ------ |
 | `params?` | \{ `channelId?`: `string`; `maxResults?`: `number`; `pageToken?`: `string`; `playlistId?`: `string`; \} | Channel/playlist, page size (1–50) and page token. |
-| `params.channelId?` | `string` | Channel id (defaults to the one from `useInitYoutube`). |
+| `params.channelId?` | `string` | Channel id (defaults to the one from `onInitYoutube`). |
 | `params.maxResults?` | `number` | Items per page (1–50, defaults to `12`). |
 | `params.pageToken?` | `string` | Opaque page token from a previous response. |
 | `params.playlistId?` | `string` | Skip the channels lookup when the uploads playlist id is known. |
@@ -125,10 +125,10 @@ Safe Result with normalized videos + pagination.
 
 ***
 
-### useGetChannelVideosRss()
+### onGetChannelVideosRss()
 
 ```ts
-useGetChannelVideosRss(channelId?): Promise<FetchResult<{
+onGetChannelVideosRss(channelId?): Promise<FetchResult<{
   channelTitle?: string;
   description: string;
   durationSeconds?: number;
@@ -147,7 +147,7 @@ useGetChannelVideosRss(channelId?): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [core/services/youtube.service.ts:458](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L458)
+Defined in: [core/services/youtube.service.ts:458](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L458)
 
 Fetches the keyless channel RSS feed and parses it. Zero quota,
 limited to the latest ~15 videos with basic metadata.
@@ -182,16 +182,16 @@ Safe Result with normalized videos.
 
 ***
 
-### useGetUploadsPlaylistId()
+### onGetUploadsPlaylistId()
 
 ```ts
-useGetUploadsPlaylistId(channelId?): Promise<FetchResult<string>>;
+onGetUploadsPlaylistId(channelId?): Promise<FetchResult<string>>;
 ```
 
-Defined in: [core/services/youtube.service.ts:224](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L224)
+Defined in: [core/services/youtube.service.ts:224](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L224)
 
 Resolves a channel id to its `uploads` playlist id (quota cost: 1 unit).
-Prefer passing `playlistId` to `useGetChannelVideos` to skip this call.
+Prefer passing `playlistId` to `onGetChannelVideos` to skip this call.
 
 #### Parameters
 
@@ -207,10 +207,10 @@ Safe Result with the uploads playlist id.
 
 ***
 
-### useGetVideoDetails()
+### onGetVideoDetails()
 
 ```ts
-useGetVideoDetails(ids): Promise<FetchResult<{
+onGetVideoDetails(ids): Promise<FetchResult<{
   channelTitle?: string;
   description: string;
   durationSeconds?: number;
@@ -229,7 +229,7 @@ useGetVideoDetails(ids): Promise<FetchResult<{
 }[]>>;
 ```
 
-Defined in: [core/services/youtube.service.ts:366](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L366)
+Defined in: [core/services/youtube.service.ts:366](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L366)
 
 Enriches videos with duration and view count (`videos.list`, 1 unit).
 
@@ -263,16 +263,16 @@ Safe Result with enriched videos.
 
 ***
 
-### useGetYoutubeConfig()
+### onGetYoutubeConfig()
 
 ```ts
-useGetYoutubeConfig(): {
+onGetYoutubeConfig(): {
   apiKey: string;
   channelId: string;
 };
 ```
 
-Defined in: [core/services/youtube.service.ts:166](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L166)
+Defined in: [core/services/youtube.service.ts:166](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L166)
 
 Returns a shallow copy of the YouTube config (safe to mutate locally).
 
@@ -298,13 +298,13 @@ Default channel id (`UC…`). Per-call params can override it.
 
 ***
 
-### useInitYoutube()
+### onInitYoutube()
 
 ```ts
-useInitYoutube(config): void;
+onInitYoutube(config): void;
 ```
 
-Defined in: [core/services/youtube.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L138)
+Defined in: [core/services/youtube.service.ts:138](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L138)
 
 Registers the YouTube APIs (`youtube` + keyless `youtubeFeed`) and
 stores the default channel. Call once per app, server/build-time —
@@ -325,19 +325,19 @@ the API key must never ship to the browser.
 #### Example
 
 ```ts
-useInitYoutube({ apiKey: process.env.YOUTUBE_API_KEY!, channelId: "UC…" });
-const page = await useGetChannelVideos({ maxResults: 6 });
+onInitYoutube({ apiKey: process.env.YOUTUBE_API_KEY!, channelId: "UC…" });
+const page = await onGetChannelVideos({ maxResults: 6 });
 ```
 
 ***
 
-### useParseIso8601Duration()
+### onParseIso8601Duration()
 
 ```ts
-useParseIso8601Duration(input): number;
+onParseIso8601Duration(input): number;
 ```
 
-Defined in: [core/services/youtube.service.ts:190](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L190)
+Defined in: [core/services/youtube.service.ts:190](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L190)
 
 Parses an ISO 8601 duration (`PT1H2M3S`) into seconds.
 Pure and SSR-safe.
@@ -356,10 +356,10 @@ Total seconds (`0` for invalid input).
 
 ***
 
-### useParseYoutubeRss()
+### onParseYoutubeRss()
 
 ```ts
-useParseYoutubeRss(xml): {
+onParseYoutubeRss(xml): {
   channelTitle?: string;
   description: string;
   durationSeconds?: number;
@@ -378,7 +378,7 @@ useParseYoutubeRss(xml): {
 }[];
 ```
 
-Defined in: [core/services/youtube.service.ts:426](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L426)
+Defined in: [core/services/youtube.service.ts:426](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L426)
 
 Parses a YouTube channel RSS feed (`feeds/videos.xml`) into normalized
 videos. Pure and SSR-safe — no network, no DOM parser.
@@ -419,7 +419,7 @@ Normalized videos (newest first, as served by the feed).
 static getInstance(): YoutubeService;
 ```
 
-Defined in: [core/services/youtube.service.ts:56](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/youtube.service.ts#L56)
+Defined in: [core/services/youtube.service.ts:56](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/youtube.service.ts#L56)
 
 Returns the shared instance (Singleton).
 

@@ -35,11 +35,11 @@ all. Folding either into the ladder corrupts the other.
 Two failure modes showed up in the existing code before this decision:
 
 - `ROLE_RANK` was a `Record<AccessRole, number>` hardcoded next to the registry.
-  A role registered through `useRegisterRole` resolved to `undefined`, and
+  A role registered through `onRegisterRole` resolved to `undefined`, and
   `undefined >= rank` is `false` — so **a custom role silently inherited
-  nothing** while still appearing in `useRoles()`. Extending the registry was a
+  nothing** while still appearing in `onRoles()`. Extending the registry was a
   lie.
-- `useRegisterRole` validated nothing, so a definition missing a field poisoned
+- `onRegisterRole` validated nothing, so a definition missing a field poisoned
   every subsequent check without a warning.
 
 ## Decision
@@ -62,7 +62,7 @@ offboarding.
 
 ### Anonymity is a value, not an error
 
-`useResolve()` returns `{ ok: true, data: null }` for a visitor and
+`resolve()` returns `{ ok: true, data: null }` for a visitor and
 `{ ok: false, error }` only when the provider itself failed. Collapsing them
 turns a broken identity provider into a public route, and the symptom — every
 guarded endpoint returning `401` — reads as "nobody is logged in" rather than
@@ -77,7 +77,7 @@ tuples, so autocomplete survives while a typo fails loudly at the schema
 boundary instead of silently granting nothing.
 
 `rank` moved from the hardcoded table into `AccessRoleDefinition`, and
-`useRegisterRole` validates before storing. This is what makes a custom role a
+`onRegisterRole` validates before storing. This is what makes a custom role a
 first-class participant in the hierarchy rather than a special case.
 
 The cost is accepted knowingly: a mistyped role slug no longer fails at compile
@@ -85,7 +85,7 @@ time. It fails at runtime with the `Unknown access role` error, one call earlier
 
 ### A grant is a role scoped to a resource
 
-`useGrantAwareCan()` checks global roles first, then `Grant` rows for that exact
+`onGrantAwareCan()` checks global roles first, then `Grant` rows for that exact
 resource. A grant reuses the **same registry** — `viewer`, `commenter` and
 `editor` mean whatever the deployment registered them to mean — so there is one
 vocabulary, not two. Only the scope differs.
@@ -108,10 +108,10 @@ otherwise live in a code review nobody reads:
 - nobody may suspend, delete or demote themselves;
 - you cannot grant a role more privileged than the best one you hold, and
   `owner` is never granted through these paths at all;
-- `useUpdate({ roles })` runs the same guards, because an update that accepts
-  `{ roles: [] }` is a way around `useRemoveRole`;
-- `useSuspend` is a **soft** offboarding — reversible, auditable, and distinct
-  from `useDelete`.
+- `update({ roles })` runs the same guards, because an update that accepts
+  `{ roles: [] }` is a way around `removeRole`;
+- `suspend` is a **soft** offboarding — reversible, auditable, and distinct
+  from `delete`.
 
 Every refusal carries a stable `code`, so a UI can say "promote someone else
 first" instead of matching on message text.
@@ -126,7 +126,7 @@ comment. `dist/` stays free of database concerns, so the core remains testable
 with a plain object.
 
 **Worse.** The public `AccessRoleDefinition` gained a required `rank` and
-`useRegisterRole` now throws on a malformed definition — a source-level break
+`onRegisterRole` now throws on a malformed definition — a source-level break
 for anyone who was registering a custom role, who was silently getting no
 inheritance anyway. Roles and capabilities are strings, so a typo is a runtime
 error rather than a compile error. `DirectoryService` is deliberately not a

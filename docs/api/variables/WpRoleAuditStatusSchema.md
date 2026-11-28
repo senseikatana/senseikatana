@@ -10,6 +10,6 @@ const WpRoleAuditStatusSchema: ZodEnum<{
 }>;
 ```
 
-Defined in: [schemas/wordpress.schema.ts:677](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/wordpress.schema.ts#L677)
+Defined in: [schemas/wordpress.schema.ts:670](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/wordpress.schema.ts#L670)
 
 How a declaration compares to the live site.

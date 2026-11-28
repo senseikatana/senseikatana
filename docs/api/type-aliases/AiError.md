@@ -6,6 +6,6 @@
 type AiError = z.infer<typeof AiErrorSchema>;
 ```
 
-Defined in: [types/core/ai.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/ai.ts#L48)
+Defined in: [types/core/ai.ts:45](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/ai.ts#L45)
 
 Safe error returned on non-2xx or network failures.

@@ -2,7 +2,7 @@
 
 # Class: UnitConverterService
 
-Defined in: [core/services/converter.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L24)
+Defined in: [core/services/converter.service.ts:24](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L24)
 
 UnitConverterService — Singleton facade for physical unit conversions.
 
@@ -10,7 +10,7 @@ Applies the **Singleton** pattern ([UnitConverterService.getInstance](#getinstan
 the **Facade** pattern (one call per conversion) and **Dependency Injection**:
 it never formats numbers itself, it delegates to an injected
 [IFormatterService](../interfaces/IFormatterService.md). Swap that dependency through
-[UnitConverterService.create](#create) or [UnitConverterService.useSetFormatter](#usesetformatter).
+[UnitConverterService.create](#create) or [UnitConverterService.setFormatter](#setformatter).
 
 Every conversion is pure and returns a formatted string; the underlying
 factors are instance state, never statics.
@@ -18,9 +18,9 @@ factors are instance state, never statics.
 ## Example
 
 ```ts
-import { useToKilometers } from "katanakit-js";
+import { toKilometers } from "katanakit-js";
 
-useToKilometers(1); // "1.61"
+toKilometers(1); // "1.61"
 ```
 
 ## Implements
@@ -29,13 +29,13 @@ useToKilometers(1); // "1.61"
 
 ## Methods
 
-### useSetFormatter()
+### setFormatter()
 
 ```ts
-useSetFormatter(formatter): void;
+setFormatter(formatter): void;
 ```
 
-Defined in: [core/services/converter.service.ts:71](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L71)
+Defined in: [core/services/converter.service.ts:71](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L71)
 
 Swaps the number formatter dependency at runtime (DI).
 
@@ -51,17 +51,17 @@ Swaps the number formatter dependency at runtime (DI).
 
 ***
 
-### useToCelsius()
+### toCelsius()
 
 ```ts
-useToCelsius(
+toCelsius(
    fahrenheit, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L96)
+Defined in: [core/services/converter.service.ts:96](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L96)
 
 Pure: °F → °C (formatted).
 
@@ -82,29 +82,29 @@ The formatted Celsius string.
 #### Example
 
 ```ts
-import { useToCelsius } from "katanakit-js";
+import { toCelsius } from "katanakit-js";
 
-useToCelsius(212); // "100.00"
-useToCelsius(32);  // "0.00"
+toCelsius(212); // "100.00"
+toCelsius(32);  // "0.00"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToCelsius`](../interfaces/IConverterService.md#usetocelsius)
+[`IConverterService`](../interfaces/IConverterService.md).[`toCelsius`](../interfaces/IConverterService.md#tocelsius)
 
 ***
 
-### useToCm()
+### toCm()
 
 ```ts
-useToCm(
+toCm(
    inches, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:192](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L192)
+Defined in: [core/services/converter.service.ts:192](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L192)
 
 Pure: inches → centimeters (formatted).
 
@@ -125,28 +125,28 @@ The formatted centimeter string.
 #### Example
 
 ```ts
-import { useToCm } from "katanakit-js";
+import { toCm } from "katanakit-js";
 
-useToCm(1); // "2.54"
+toCm(1); // "2.54"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToCm`](../interfaces/IConverterService.md#usetocm)
+[`IConverterService`](../interfaces/IConverterService.md).[`toCm`](../interfaces/IConverterService.md#tocm)
 
 ***
 
-### useToFahrenheit()
+### toFahrenheit()
 
 ```ts
-useToFahrenheit(
+toFahrenheit(
    celsius, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L116)
+Defined in: [core/services/converter.service.ts:116](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L116)
 
 Pure: °C → °F (formatted).
 
@@ -167,29 +167,29 @@ The formatted Fahrenheit string.
 #### Example
 
 ```ts
-import { useToFahrenheit } from "katanakit-js";
+import { toFahrenheit } from "katanakit-js";
 
-useToFahrenheit(100); // "212.00"
-useToFahrenheit(0);   // "32.00"
+toFahrenheit(100); // "212.00"
+toFahrenheit(0);   // "32.00"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToFahrenheit`](../interfaces/IConverterService.md#usetofahrenheit)
+[`IConverterService`](../interfaces/IConverterService.md).[`toFahrenheit`](../interfaces/IConverterService.md#tofahrenheit)
 
 ***
 
-### useToInches()
+### toInches()
 
 ```ts
-useToInches(
+toInches(
    cm, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L173)
+Defined in: [core/services/converter.service.ts:173](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L173)
 
 Pure: centimeters → inches (formatted).
 
@@ -210,30 +210,30 @@ The formatted inch string.
 #### Example
 
 ```ts
-import { useToInches } from "katanakit-js";
+import { toInches } from "katanakit-js";
 
-useToInches(2.54); // "1.00"
+toInches(2.54); // "1.00"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToInches`](../interfaces/IConverterService.md#usetoinches)
+[`IConverterService`](../interfaces/IConverterService.md).[`toInches`](../interfaces/IConverterService.md#toinches)
 
 ***
 
-### useToKilometers()
+### toKilometers()
 
 ```ts
-useToKilometers(
+toKilometers(
    miles, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:135](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L135)
+Defined in: [core/services/converter.service.ts:135](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L135)
 
-Pure: miles → kilometers (formatted). Round-trips with [UnitConverterService.useToMiles](#usetomiles).
+Pure: miles → kilometers (formatted). Round-trips with [UnitConverterService.toMiles](#tomiles).
 
 #### Parameters
 
@@ -252,28 +252,28 @@ The formatted kilometer string.
 #### Example
 
 ```ts
-import { useToKilometers } from "katanakit-js";
+import { toKilometers } from "katanakit-js";
 
-useToKilometers(1); // "1.61"
+toKilometers(1); // "1.61"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToKilometers`](../interfaces/IConverterService.md#usetokilometers)
+[`IConverterService`](../interfaces/IConverterService.md).[`toKilometers`](../interfaces/IConverterService.md#tokilometers)
 
 ***
 
-### useToKilos()
+### toKilos()
 
 ```ts
-useToKilos(
+toKilos(
    pounds, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L211)
+Defined in: [core/services/converter.service.ts:211](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L211)
 
 Pure: pounds → kilograms (formatted).
 
@@ -294,30 +294,30 @@ The formatted kilogram string.
 #### Example
 
 ```ts
-import { useToKilos } from "katanakit-js";
+import { toKilos } from "katanakit-js";
 
-useToKilos(1); // "0.45"
+toKilos(1); // "0.45"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToKilos`](../interfaces/IConverterService.md#usetokilos)
+[`IConverterService`](../interfaces/IConverterService.md).[`toKilos`](../interfaces/IConverterService.md#tokilos)
 
 ***
 
-### useToMiles()
+### toMiles()
 
 ```ts
-useToMiles(
+toMiles(
    km, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L154)
+Defined in: [core/services/converter.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L154)
 
-Pure: kilometers → miles (formatted). Round-trips with [UnitConverterService.useToKilometers](#usetokilometers).
+Pure: kilometers → miles (formatted). Round-trips with [UnitConverterService.toKilometers](#tokilometers).
 
 #### Parameters
 
@@ -336,28 +336,28 @@ The formatted mile string.
 #### Example
 
 ```ts
-import { useToMiles } from "katanakit-js";
+import { toMiles } from "katanakit-js";
 
-useToMiles(1.60934); // "1.00"
+toMiles(1.60934); // "1.00"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToMiles`](../interfaces/IConverterService.md#usetomiles)
+[`IConverterService`](../interfaces/IConverterService.md).[`toMiles`](../interfaces/IConverterService.md#tomiles)
 
 ***
 
-### useToPounds()
+### toPounds()
 
 ```ts
-useToPounds(
+toPounds(
    kilos, 
    locale?, 
    digits?
 ): string;
 ```
 
-Defined in: [core/services/converter.service.ts:230](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L230)
+Defined in: [core/services/converter.service.ts:230](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L230)
 
 Pure: kilograms → pounds (formatted).
 
@@ -378,14 +378,14 @@ The formatted pound string.
 #### Example
 
 ```ts
-import { useToPounds } from "katanakit-js";
+import { toPounds } from "katanakit-js";
 
-useToPounds(1); // "2.20"
+toPounds(1); // "2.20"
 ```
 
 #### Implementation of
 
-[`IConverterService`](../interfaces/IConverterService.md).[`useToPounds`](../interfaces/IConverterService.md#usetopounds)
+[`IConverterService`](../interfaces/IConverterService.md).[`toPounds`](../interfaces/IConverterService.md#topounds)
 
 ***
 
@@ -395,7 +395,7 @@ useToPounds(1); // "2.20"
 static create(formatter?): UnitConverterService;
 ```
 
-Defined in: [core/services/converter.service.ts:62](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L62)
+Defined in: [core/services/converter.service.ts:62](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L62)
 
 Creates a NO-singleton instance with an injected formatter (DI).
 Useful for tests or for custom number formatting.
@@ -426,7 +426,7 @@ const converter = UnitConverterService.create(myFormatter);
 static getInstance(): UnitConverterService;
 ```
 
-Defined in: [core/services/converter.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/converter.service.ts#L43)
+Defined in: [core/services/converter.service.ts:43](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/converter.service.ts#L43)
 
 Returns the shared instance (Singleton).
 

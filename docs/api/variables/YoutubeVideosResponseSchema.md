@@ -22,6 +22,6 @@ const YoutubeVideosResponseSchema: ZodObject<{
 }, $strip>;
 ```
 
-Defined in: [schemas/youtube.schema.ts:110](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/youtube.schema.ts#L110)
+Defined in: [schemas/youtube.schema.ts:110](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/youtube.schema.ts#L110)
 
 Minimal `videos.list` shape (only what the service reads).

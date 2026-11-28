@@ -1,38 +1,239 @@
 {
-	"version": "7.5.4",
+	"version": "7.6.0",
 	"stars": 0,
-	"newPages": [],
+	"newPages": [
+		"/",
+		"/examples/assistant",
+		"/examples/dashboard",
+		"/examples/query",
+		"/examples/seed",
+		"/explanation",
+		"/explanation/decisions",
+		"/explanation/decisions/adr-0001-safe-results",
+		"/explanation/decisions/adr-0002-singleton-facades",
+		"/explanation/decisions/adr-0003-adapter-subpath-exports",
+		"/explanation/decisions/adr-0004-hexagonal-core",
+		"/explanation/decisions/adr-0005-docs-as-code",
+		"/explanation/decisions/adr-0006-retire-telegram-whatsapp-adapters",
+		"/explanation/decisions/adr-0007-wordpress-roles-declared-not-created",
+		"/explanation/decisions/adr-0008-access-is-three-orthogonal-axes",
+		"/explanation/decisions/adr-0009-alias-imports-in-src",
+		"/explanation/decisions/adr-0010-use-prefix-on-callbacks",
+		"/explanation/decisions/adr-0011-no-static-business-methods",
+		"/explanation/decisions/adr-0012-currency-adapter-in-infrastructure",
+		"/explanation/decisions/adr-0013-round-money-with-intl",
+		"/explanation/decisions/adr-0014-frankfurter-ecb-rates",
+		"/explanation/decisions/adr-0015-cross-rates-through-a-pivot",
+		"/explanation/decisions/adr-0016-universal-runtime-apis-in-core",
+		"/explanation/decisions/adr-0017-on-prefix-for-module-helpers",
+		"/explanation/service-architecture",
+		"/explanation/why-katanakit",
+		"/guides/access-control",
+		"/guides/assistant",
+		"/guides/better-auth",
+		"/guides/bulma-tailwind-integration",
+		"/guides/bun-adapter",
+		"/guides/currency",
+		"/guides/drizzle",
+		"/guides/faker",
+		"/guides/filesystem",
+		"/guides/framework-adapters",
+		"/guides/hono",
+		"/guides/insforge",
+		"/guides/nestjs",
+		"/guides/notion",
+		"/guides/photoswipe",
+		"/guides/query-client",
+		"/guides/services",
+		"/guides/services/arrays",
+		"/guides/services/astro-adapter",
+		"/guides/services/converter",
+		"/guides/services/dates",
+		"/guides/services/dom",
+		"/guides/services/error-helpers",
+		"/guides/services/express-server",
+		"/guides/services/external-apis",
+		"/guides/services/formatter",
+		"/guides/services/forms",
+		"/guides/services/generator",
+		"/guides/services/geometry",
+		"/guides/services/http-client",
+		"/guides/services/katanakit-ai",
+		"/guides/services/logger",
+		"/guides/services/nuxt-adapter",
+		"/guides/services/observer",
+		"/guides/services/reactive",
+		"/guides/services/rss",
+		"/guides/services/seo",
+		"/guides/services/storage",
+		"/guides/services/theme",
+		"/guides/services/timing",
+		"/guides/services/viewport",
+		"/guides/services/vue-adapter",
+		"/guides/services/worker",
+		"/guides/upgrade-to",
+		"/guides/upgrade-to/v2",
+		"/guides/upgrade-to/v3",
+		"/guides/upgrade-to/v4",
+		"/guides/upgrade-to/v5",
+		"/guides/upgrade-to/v6",
+		"/guides/watch",
+		"/guides/wordpress",
+		"/guides/wordpress-roles",
+		"/packages/katanakit-ui",
+		"/packages/tailwind-components",
+		"/start/architecture",
+		"/start/errors",
+		"/start/getting-started",
+		"/start/roadmap",
+		"/tutorials/first-api-client",
+		"/ui-kit",
+		"/ui-kit/architecture",
+		"/ui-kit/components/alert",
+		"/ui-kit/components/badge",
+		"/ui-kit/components/button",
+		"/ui-kit/components/card",
+		"/ui-kit/components/input",
+		"/ui-kit/components/modal",
+		"/ui-kit/components/select",
+		"/ui-kit/components/tabs",
+		"/ui-kit/components/toast",
+		"/ui-kit/css",
+		"/ui-kit/css/core/apply",
+		"/ui-kit/css/core/breakpoints",
+		"/ui-kit/css/core/colors",
+		"/ui-kit/css/core/dark-mode",
+		"/ui-kit/css/core/tokens",
+		"/ui-kit/css/getting-started",
+		"/ui-kit/css/integrations/tailwind",
+		"/ui-kit/css/mixins/flex",
+		"/ui-kit/css/mixins/grid",
+		"/ui-kit/css/utilities/aspect-ratio",
+		"/ui-kit/css/utilities/border-style",
+		"/ui-kit/css/utilities/colors-extended",
+		"/ui-kit/css/utilities/container",
+		"/ui-kit/css/utilities/cursor",
+		"/ui-kit/css/utilities/display",
+		"/ui-kit/css/utilities/effects",
+		"/ui-kit/css/utilities/flex-classes",
+		"/ui-kit/css/utilities/float",
+		"/ui-kit/css/utilities/font-family",
+		"/ui-kit/css/utilities/gap",
+		"/ui-kit/css/utilities/grid-classes",
+		"/ui-kit/css/utilities/interactivity",
+		"/ui-kit/css/utilities/line-height",
+		"/ui-kit/css/utilities/list-style",
+		"/ui-kit/css/utilities/margin",
+		"/ui-kit/css/utilities/object",
+		"/ui-kit/css/utilities/overflow-direction",
+		"/ui-kit/css/utilities/padding",
+		"/ui-kit/css/utilities/position-values",
+		"/ui-kit/css/utilities/tables",
+		"/ui-kit/css/utilities/text-decoration",
+		"/ui-kit/css/utilities/text-transform",
+		"/ui-kit/css/utilities/typography",
+		"/ui-kit/css/utilities/visibility",
+		"/ui-kit/hyperui",
+		"/ui-kit/inventory",
+		"/ui-kit/llm-files",
+		"/ui-kit/roadmap",
+		"/ui-kit/tailwind-components",
+		"/ui-kit/tailwind-components/catalog",
+		"/ui-kit/tailwind-components/features",
+		"/ui-kit/tailwind-components/shared",
+		"/ui-kit/testing"
+	],
 	"changelog": {
-		"version": "7.5.4",
-		"date": "2026-11-18",
+		"version": "7.6.0",
+		"date": "2026-11-28",
 		"releases": [
+			{
+				"version": "7.6.0",
+				"date": "2026-11-28",
+				"items": [
+					{
+						"emoji": "🔑",
+						"html": "<strong>♻️ refactor: rename methods for consistency and clarity across core types <a href=\"https://github.com/senseikatana/katanakit-js/commit/7c8d0b3\"><code>7c8d0b3</code></a></strong>"
+					},
+					{
+						"emoji": "🧹",
+						"html": "<strong>🚀 feat: add format utilities for currency, date, and number formatting <a href=\"https://github.com/senseikatana/katanakit-js/commit/c857dc5\"><code>c857dc5</code></a></strong>"
+					},
+					{
+						"emoji": "🔑",
+						"html": "<strong>🔹 Refactor documentation for clarity and consistency <a href=\"https://github.com/senseikatana/katanakit-js/commit/c9da123\"><code>c9da123</code></a></strong>"
+					},
+					{
+						"emoji": "⬆️",
+						"html": "<strong>🧹 chore: update release workflow and dependencies <a href=\"https://github.com/senseikatana/katanakit-js/commit/d7b9e5d\"><code>d7b9e5d</code></a></strong>"
+					},
+					{
+						"emoji": "🔑",
+						"html": "<strong>♻️ refactor: rename hooks and functions to use 'on' prefix for consistency <a href=\"https://github.com/senseikatana/katanakit-js/commit/79d23ad\"><code>79d23ad</code></a></strong>"
+					},
+					{
+						"emoji": "📚",
+						"html": "<strong>📝 docs(structure): consolidate every doc page under docs/ <a href=\"https://github.com/senseikatana/katanakit-js/commit/50a3f91\"><code>50a3f91</code></a></strong>"
+					},
+					{
+						"emoji": "🐛",
+						"html": "<strong>📝 docs(ui): explain the accessible behaviour behind each fix <a href=\"https://github.com/senseikatana/katanakit-js/commit/83e123c\"><code>83e123c</code></a></strong>"
+					},
+					{
+						"emoji": "🐛",
+						"html": "<strong>🐛 fix(ui): accept any autocomplete token on useInput <a href=\"https://github.com/senseikatana/katanakit-js/commit/298a254\"><code>298a254</code></a></strong>"
+					},
+					{
+						"emoji": "🔑",
+						"html": "<strong>💄 style(components): add amount, dateLabel and formatCurrency <a href=\"https://github.com/senseikatana/katanakit-js/commit/fa43771\"><code>fa43771</code></a></strong>"
+					}
+				]
+			},
+			{
+				"version": "7.5.5",
+				"date": "2026-11-26",
+				"items": [
+					{
+						"emoji": "📚",
+						"html": "<strong>docs(ui): explain the accessible behaviour behind each fix</strong>"
+					},
+					{
+						"emoji": "🐛",
+						"html": "<strong>fix(ui): accept any autocomplete token on useInput</strong>"
+					},
+					{
+						"emoji": "💄",
+						"html": "<strong>style(components): add amount, dateLabel and formatCurrency</strong>"
+					}
+				]
+			},
 			{
 				"version": "7.5.4",
 				"date": "2026-11-18",
 				"items": [
 					{
-						"emoji": "✨",
-						"html": "<strong>🚀 feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord <code>98593cc</code></strong>"
+						"emoji": "🔑",
+						"html": "<strong>🚀 feat(INPUT-SURFACE-INVENTORY.md): add facade, grouped and isRecord <a href=\"https://github.com/senseikatana/katanakit-js/commit/98593cc\"><code>98593cc</code></a></strong>"
 					},
 					{
 						"emoji": "🤖",
-						"html": "<strong>🤖 ci: add release workflow and trim scripts to the essentials <code>2a42cc9</code></strong>"
+						"html": "<strong>🤖 ci: add release workflow and trim scripts to the essentials <a href=\"https://github.com/senseikatana/katanakit-js/commit/2a42cc9\"><code>2a42cc9</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(CONTRIBUTING.md): add out <code>233c95c</code></strong>"
+						"html": "<strong>📝 docs(CONTRIBUTING.md): add out <a href=\"https://github.com/senseikatana/katanakit-js/commit/233c95c\"><code>233c95c</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>🚀 feat(scripts): unify the docs script surface and add audit:urls <code>4757447</code></strong>"
+						"html": "<strong>🚀 feat(scripts): unify the docs script surface and add audit:urls <a href=\"https://github.com/senseikatana/katanakit-js/commit/4757447\"><code>4757447</code></a></strong>"
 					},
 					{
 						"emoji": "⬆️",
-						"html": "<strong>📦 build(bun.lock): add check and concurrently to package.json <code>7e04a13</code></strong>"
+						"html": "<strong>📦 build(bun.lock): add check and concurrently to package.json <a href=\"https://github.com/senseikatana/katanakit-js/commit/7e04a13\"><code>7e04a13</code></a></strong>"
 					},
 					{
 						"emoji": "⬆️",
-						"html": "<strong>📦 build(bun.lock): add better-auth to package.json and update to latest versions <code>7bbd5a0</code></strong>"
+						"html": "<strong>📦 build(bun.lock): add better-auth to package.json and update to latest versions <a href=\"https://github.com/senseikatana/katanakit-js/commit/7bbd5a0\"><code>7bbd5a0</code></a></strong>"
 					}
 				]
 			},
@@ -42,27 +243,27 @@
 				"items": [
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(CONTRIBUTING.md): add out <code>233c95c</code></strong>"
+						"html": "<strong>📝 docs(CONTRIBUTING.md): add out <a href=\"https://github.com/senseikatana/katanakit-js/commit/233c95c\"><code>233c95c</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>🚀 feat(scripts): unify the docs script surface and add audit:urls <code>4757447</code></strong>"
+						"html": "<strong>🚀 feat(scripts): unify the docs script surface and add audit:urls <a href=\"https://github.com/senseikatana/katanakit-js/commit/4757447\"><code>4757447</code></a></strong>"
 					},
 					{
 						"emoji": "⬆️",
-						"html": "<strong>📦 build(bun.lock): add check and concurrently to package.json <code>7e04a13</code></strong>"
+						"html": "<strong>📦 build(bun.lock): add check and concurrently to package.json <a href=\"https://github.com/senseikatana/katanakit-js/commit/7e04a13\"><code>7e04a13</code></a></strong>"
 					},
 					{
 						"emoji": "⬆️",
-						"html": "<strong>📦 build(bun.lock): add better-auth to package.json and update to latest versions <code>7bbd5a0</code></strong>"
+						"html": "<strong>📦 build(bun.lock): add better-auth to package.json and update to latest versions <a href=\"https://github.com/senseikatana/katanakit-js/commit/7bbd5a0\"><code>7bbd5a0</code></a></strong>"
 					},
 					{
-						"emoji": "✨",
-						"html": "<strong>🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites <code>7a463bb</code></strong>"
+						"emoji": "🔑",
+						"html": "<strong>🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites <a href=\"https://github.com/senseikatana/katanakit-js/commit/7a463bb\"><code>7a463bb</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <code>c606335</code></strong>"
+						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <a href=\"https://github.com/senseikatana/katanakit-js/commit/c606335\"><code>c606335</code></a></strong>"
 					}
 				]
 			},
@@ -71,28 +272,28 @@
 				"date": "2026-11-15",
 				"items": [
 					{
-						"emoji": "✨",
-						"html": "<strong>🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites <code>7a463bb</code></strong>"
+						"emoji": "🔑",
+						"html": "<strong>🚀 feat(scripts): add contract, DOCS_BASE and redesign all sites <a href=\"https://github.com/senseikatana/katanakit-js/commit/7a463bb\"><code>7a463bb</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <code>c606335</code></strong>"
+						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <a href=\"https://github.com/senseikatana/katanakit-js/commit/c606335\"><code>c606335</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(plans): update 1 file (+0/-131) <code>8a852a5</code></strong>"
+						"html": "<strong>📝 docs(plans): update 1 file (+0/-131) <a href=\"https://github.com/senseikatana/katanakit-js/commit/8a852a5\"><code>8a852a5</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections <code>5c8e24b</code></strong>"
+						"html": "<strong>📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections <a href=\"https://github.com/senseikatana/katanakit-js/commit/5c8e24b\"><code>5c8e24b</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(services): add deploy and docs to package.json <code>e2be25f</code></strong>"
+						"html": "<strong>📝 docs(services): add deploy and docs to package.json <a href=\"https://github.com/senseikatana/katanakit-js/commit/e2be25f\"><code>e2be25f</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(styles): add sets <code>ac9f42a</code></strong>"
+						"html": "<strong>📝 docs(styles): add sets <a href=\"https://github.com/senseikatana/katanakit-js/commit/ac9f42a\"><code>ac9f42a</code></a></strong>"
 					}
 				]
 			},
@@ -102,87 +303,27 @@
 				"items": [
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <code>c606335</code></strong>"
+						"html": "<strong>📝 docs(scripts): add DOCS_BASE, DOCS_HOME and rest <a href=\"https://github.com/senseikatana/katanakit-js/commit/c606335\"><code>c606335</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(plans): update 1 file (+0/-131) <code>8a852a5</code></strong>"
+						"html": "<strong>📝 docs(plans): update 1 file (+0/-131) <a href=\"https://github.com/senseikatana/katanakit-js/commit/8a852a5\"><code>8a852a5</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections <code>5c8e24b</code></strong>"
+						"html": "<strong>📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections <a href=\"https://github.com/senseikatana/katanakit-js/commit/5c8e24b\"><code>5c8e24b</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(services): add deploy and docs to package.json <code>e2be25f</code></strong>"
+						"html": "<strong>📝 docs(services): add deploy and docs to package.json <a href=\"https://github.com/senseikatana/katanakit-js/commit/e2be25f\"><code>e2be25f</code></a></strong>"
 					},
 					{
 						"emoji": "📚",
-						"html": "<strong>📝 docs(styles): add sets <code>ac9f42a</code></strong>"
+						"html": "<strong>📝 docs(styles): add sets <a href=\"https://github.com/senseikatana/katanakit-js/commit/ac9f42a\"><code>ac9f42a</code></a></strong>"
 					},
 					{
 						"emoji": "🐛",
-						"html": "<strong>🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports <code>17aac2c</code></strong>"
-					}
-				]
-			},
-			{
-				"version": "7.5.0",
-				"date": "2026-11-15",
-				"items": [
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(plans): update 1 file (+0/-131) <code>8a852a5</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(plans): update Plan: rrhh-suite — Suite de RRHH multi-tenant, Stack and Architecture sections <code>5c8e24b</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(services): add deploy and docs to package.json <code>e2be25f</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(styles): add sets <code>ac9f42a</code></strong>"
-					},
-					{
-						"emoji": "🐛",
-						"html": "<strong>🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports <code>17aac2c</code></strong>"
-					},
-					{
-						"emoji": "⬆️",
-						"html": "<strong>🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an <code>118405f</code></strong>"
-					}
-				]
-			},
-			{
-				"version": "7.4.0",
-				"date": "2026-11-08",
-				"items": [
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(services): add deploy and docs to package.json <code>e2be25f</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(styles): add sets <code>ac9f42a</code></strong>"
-					},
-					{
-						"emoji": "🐛",
-						"html": "<strong>🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports <code>17aac2c</code></strong>"
-					},
-					{
-						"emoji": "⬆️",
-						"html": "<strong>🚀 feat: bulma-tailwind-integration: add bulma and tailwindcss dependencies an <code>118405f</code></strong>"
-					},
-					{
-						"emoji": "✨",
-						"html": "<strong>🚀 feat: updates documentation, tests, and tooling across 23 files <code>0542810</code></strong>"
-					},
-					{
-						"emoji": "📚",
-						"html": "<strong>📝 docs(scripts): add candidate, countThrees and isForbiddenVersion <code>d78bbd9</code></strong>"
+						"html": "<strong>🐛 fix(schemas): migrate wordpress schema to zod v4 and restore missing exports <a href=\"https://github.com/senseikatana/katanakit-js/commit/17aac2c\"><code>17aac2c</code></a></strong>"
 					}
 				]
 			}
@@ -190,11 +331,21 @@
 	},
 	"versions": {
 		"latest": {
-			"version": "7.5.4",
-			"date": "2026-11-18",
-			"anchor": "#_7-5-4-2026-11-18"
+			"version": "7.6.0",
+			"date": "2026-11-28",
+			"anchor": "#_7-6-0-2026-11-28"
 		},
 		"recent": [
+			{
+				"version": "7.6.0",
+				"date": "2026-11-28",
+				"anchor": "#_7-6-0-2026-11-28"
+			},
+			{
+				"version": "7.5.5",
+				"date": "2026-11-26",
+				"anchor": "#_7-5-5-2026-11-26"
+			},
 			{
 				"version": "7.5.4",
 				"date": "2026-11-18",
@@ -209,16 +360,6 @@
 				"version": "7.5.2",
 				"date": "2026-11-15",
 				"anchor": "#_7-5-2-2026-11-15"
-			},
-			{
-				"version": "7.5.1",
-				"date": "2026-11-15",
-				"anchor": "#_7-5-1-2026-11-15"
-			},
-			{
-				"version": "7.5.0",
-				"date": "2026-11-15",
-				"anchor": "#_7-5-0-2026-11-15"
 			}
 		],
 		"previous": [
@@ -227,28 +368,28 @@
 				"version": "6.13.2",
 				"date": "2026-10-19",
 				"anchor": "#_6-13-2-2026-10-19",
-				"link": "/changelog"
+				"link": "/guides/upgrade-to/v6"
 			},
 			{
 				"major": "5",
 				"version": "5.2.0",
 				"date": "2026-09-26",
 				"anchor": "#_5-2-0-2026-09-26",
-				"link": "/changelog"
+				"link": "/guides/upgrade-to/v5"
 			},
 			{
 				"major": "4",
 				"version": "4.0.4",
 				"date": "2026-09-22",
 				"anchor": "#_4-0-4-2026-09-22",
-				"link": "/changelog"
+				"link": "/guides/upgrade-to/v4"
 			},
 			{
 				"major": "3",
 				"version": "3.2.4",
 				"date": "2026-09-18",
 				"anchor": "#_3-2-4-2026-09-18",
-				"link": "/changelog"
+				"link": "/guides/upgrade-to/v3"
 			}
 		]
 	}

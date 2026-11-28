@@ -6,14 +6,14 @@
 const BUILT_IN_ROLE_SLUGS: readonly ["owner", "admin", "editor", "author", "contributor", "member", "guest"];
 ```
 
-Defined in: [schemas/access.schema.ts:19](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/schemas/access.schema.ts#L19)
+Defined in: [schemas/access.schema.ts:19](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/schemas/access.schema.ts#L19)
 
 Role slugs that ship with the kit, ordered from most to least privileged.
 
 The vocabulary is deliberately editorial but domain-neutral — it describes
 *how much* of a resource pool a subject may touch, not *which* domain it
 belongs to. Deployments that need other names register their own (see
-`useRegisterRole`); nothing here is closed.
+`onRegisterRole`); nothing here is closed.
 
 - `owner` — the developer seat: the only role that can grant other roles.
 - `admin` — day-to-day administration: manage members, moderate anything.

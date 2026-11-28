@@ -24,18 +24,16 @@
 # Old section prefixes
 /blog/*            /posts/:splat              301
 /blog              /posts                     301
-# Projects moved to samuraicoder.dev, where each one has a page under /works/.
-# Cross-domain 301s keep every historical URL pointing at the page that serves it.
-/projects/*        https://samuraicoder.dev/works/:splat  301
-/projects          https://samuraicoder.dev/works          301
-/works/*           https://samuraicoder.dev/works/:splat  301
-/works             https://samuraicoder.dev/works          301
-/proyectos         https://samuraicoder.dev/works          301
-/ca/projects/*     https://samuraicoder.dev/ca/works/:splat 301
-/ca/projects       https://samuraicoder.dev/ca/works        301
-/ca/works/*        https://samuraicoder.dev/ca/works/:splat 301
-/ca/works          https://samuraicoder.dev/ca/works        301
-/ca/proyectos      https://samuraicoder.dev/ca/works        301
+# Works are served by this site under /works; /projects is the legacy prefix.
+/projects/*        /works/:splat              301
+/projects          /works                     301
+/proyectos         /works                     301
+/ca/projects/*     /ca/works/:splat           301
+/ca/projects       /ca/works                  301
+/ca/proyectos      /ca/works                  301
+/es/projects/*     /es/works/:splat           301
+/es/projects       /es/works                  301
+/es/proyectos      /es/works                  301
 /resume            /about                     301
 /curriculum        /about                     301
 /servicios         /services                  301
@@ -53,13 +51,13 @@
 /en/blog           /posts                     301
 /en/posts/*        /posts/:splat              301
 /en/posts          /posts                     301
-/en/works/*        https://samuraicoder.dev/works/:splat  301
-/en/works          https://samuraicoder.dev/works          301
-/en/projects/*     https://samuraicoder.dev/works/:splat  301
-/en/projects       https://samuraicoder.dev/works          301
+/en/works/*        /works/:splat              301
+/en/works          /works                     301
+/en/projects/*     /works/:splat              301
+/en/projects       /works                     301
 /en/services/*     /services/:splat           301
 /en/services       /services                  301
-/en/proyectos      https://samuraicoder.dev/works           301
+/en/proyectos      /works                     301
 /en/servicios      /services                  301
 /en/resume         /about                     301
 /en/curriculum     /about                     301

@@ -40,10 +40,10 @@ Legend: `[x]` done · `[ ]` planned.
 - [x] RSS service (`RssService`) with raw XML generation and Astro `GET`
       endpoints — no external dependencies.
 - [x] Site config (`SiteConfig`/`siteConfig`) and SEO module
-      (`useHeadTags`, `useGenerateMetaTags`, `useTitle`, `useRssHeadLink`).
-- [x] Nuxt adapter (`katanakit-js/adapters/nuxt`): `useUnwrap`,
-      `useSafeResponse`, `useEventResponse`.
-- [x] Vue adapter (`katanakit-js/adapters/vue`): `useRequest` composable
+      (`onHeadTags`, `onGenerateMetaTags`, `onTitle`, `onRssHeadLink`).
+- [x] Nuxt adapter (`katanakit-js/adapters/nuxt`): `onUnwrap`,
+      `onSafeResponse`, `onEventResponse`.
+- [x] Vue adapter (`katanakit-js/adapters/vue`): `onRequest` composable
       (`data`, `error`, `loading`, `refetch`).
 - [x] Express reference server (`katanakit-js/adapters/express`) with CORS
       restriction defaults and hardened headers.
@@ -52,14 +52,14 @@ Legend: `[x]` done · `[ ]` planned.
       lightbox binding, programmatic open, Safe Results, SSR guard.
 - [x] Better Auth adapter (`katanakit-js/adapters/better-auth`): client factory
       for five frameworks plus Safe Result session/handler/locals helpers.
-- [x] `useEncrypt` generates a random salt when none is provided.
+- [x] `GeneratorService.hash()` generates a random salt when none is provided.
 
 ### Quality and tooling
 
 - [x] Vitest suite (36+ files, 270+ tests) with the `@/` alias; jsdom coverage
       for the UI kit foundations.
 - [x] ESLint gate (`check` = eslint + `tsc6` typecheck + vitest; `fix` auto-fixes).
-- [x] Local releases: `useGit push --release` writes the complete CHANGELOG
+- [x] Local releases: `bun run release` writes the complete CHANGELOG
       section and syncs version refs before tagging, and `bun run release`
       publishes to npm (GitHub Actions was removed).
 - [x] English documentation: README, Getting Started, Architecture, API
@@ -76,7 +76,7 @@ Legend: `[x]` done · `[ ]` planned.
 - [ ] HTTP client: request interceptors and per-request cancellation plumbing
       in `FetchApiManager` (the query layer already forwards `AbortSignal`).
 - [ ] Reactive: automatic dependency tracking for
-      `useCreateEffect`/`useCreateMemo` (today signals are listed explicitly).
+      `onCreateEffect`/`onCreateMemo` (today signals are listed explicitly).
 - [ ] Structured/JSON logger strategy.
 - [ ] Add Vitest coverage reporting to the release gate.
 
@@ -88,4 +88,4 @@ Legend: `[x]` done · `[ ]` planned.
 - [ ] Deno / Cloudflare Workers compatibility pass.
 - [ ] More geometry (3D solids) and unit-system conversions.
 - [ ] E2E tests for the Express adapter.
-- [ ] AbortController support in `useInterval`/timeout helpers.
+- [ ] AbortController support in `onInterval`/timeout helpers.

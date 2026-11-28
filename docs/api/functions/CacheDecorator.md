@@ -4,12 +4,12 @@
 
 ```ts
 function CacheDecorator<T>(fn, options?): T & {
-  useCacheSize: () => number;
-  useClearCache: () => void;
+  onCacheSize: () => number;
+  onClearCache: () => void;
 };
 ```
 
-Defined in: [infrastructure/decorators/cache.decorator.ts:70](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/infrastructure/decorators/cache.decorator.ts#L70)
+Defined in: [infrastructure/decorators/cache.decorator.ts:67](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/infrastructure/decorators/cache.decorator.ts#L67)
 
 Decorates an async function with memoized results (Decorator Pattern).
 
@@ -29,8 +29,8 @@ Decorates an async function with memoized results (Decorator Pattern).
 ## Returns
 
 `T` & \{
-  `useCacheSize`: () => `number`;
-  `useClearCache`: () => `void`;
+  `onCacheSize`: () => `number`;
+  `onClearCache`: () => `void`;
 \}
 
 The decorated function with an attached cache registry.

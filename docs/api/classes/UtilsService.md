@@ -2,7 +2,7 @@
 
 # Class: UtilsService
 
-Defined in: [core/services/utils.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L9)
+Defined in: [core/services/utils.service.ts:9](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L9)
 
 UtilsService - Singleton para utilidades genéricas.
 
@@ -11,13 +11,13 @@ de arrays, objetos, tiempo y configuración. Puro, sin I/O, seguro para SSR.
 
 ## Methods
 
-### useAverage()
+### onAverage()
 
 ```ts
-useAverage(numbers): number;
+onAverage(numbers): number;
 ```
 
-Defined in: [core/services/utils.service.ts:360](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L360)
+Defined in: [core/services/utils.service.ts:348](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L348)
 
 Computes the arithmetic mean of an array of numbers. Returns `0` for an
 empty array.
@@ -37,19 +37,19 @@ The arithmetic mean.
 #### Example
 
 ```ts
-useAverage([1, 2, 3, 4, 5]); // 3
-useAverage([]);               // 0
+average([1, 2, 3, 4, 5]); // 3
+average([]);               // 0
 ```
 
 ***
 
-### useChunk()
+### onChunk()
 
 ```ts
-useChunk<T>(array, size): T[][];
+onChunk<T>(array, size): T[][];
 ```
 
-Defined in: [core/services/utils.service.ts:67](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L67)
+Defined in: [core/services/utils.service.ts:55](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L55)
 
 Splits an array into chunks of the given size.
 
@@ -79,19 +79,19 @@ If `size` is less than or equal to 0.
 #### Example
 
 ```ts
-useChunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
-useChunk(["a", "b", "c"], 1);  // [["a"], ["b"], ["c"]]
+chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+chunk(["a", "b", "c"], 1);  // [["a"], ["b"], ["c"]]
 ```
 
 ***
 
-### useCopyToClipboard()
+### onCopyToClipboard()
 
 ```ts
-useCopyToClipboard(text): Promise<boolean>;
+onCopyToClipboard(text): Promise<boolean>;
 ```
 
-Defined in: [core/services/utils.service.ts:292](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L292)
+Defined in: [core/services/utils.service.ts:280](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L280)
 
 Copies text to the clipboard (browser only). Returns `false` on failure
 or in non-browser environments (SSR).
@@ -111,19 +111,19 @@ or in non-browser environments (SSR).
 #### Example
 
 ```ts
-const ok = await useCopyToClipboard("Hello, world!");
+const ok = await copyToClipboard("Hello, world!");
 console.log(ok); // true (in a browser with clipboard API)
 ```
 
 ***
 
-### useDeepClone()
+### onDeepClone()
 
 ```ts
-useDeepClone<T>(value): T;
+onDeepClone<T>(value): T;
 ```
 
-Defined in: [core/services/utils.service.ts:141](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L141)
+Defined in: [core/services/utils.service.ts:129](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L129)
 
 Deep clones a value using `structuredClone` with a JSON fallback for
 environments that do not support it.
@@ -150,20 +150,20 @@ A deep copy of the value.
 
 ```ts
 const original = { a: { b: 1 } };
-const copy = useDeepClone(original);
+const copy = deepClone(original);
 copy.a.b = 2;
 original.a.b; // 1 (unchanged)
 ```
 
 ***
 
-### useDeepMerge()
+### onDeepMerge()
 
 ```ts
-useDeepMerge<T>(target, source): T;
+onDeepMerge<T>(target, source): T;
 ```
 
-Defined in: [core/services/utils.service.ts:166](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L166)
+Defined in: [core/services/utils.service.ts:154](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L154)
 
 Deep merges `source` into a shallow copy of `target`. Nested plain
 objects are merged recursively. Skips prototype-pollution keys
@@ -193,19 +193,19 @@ A new merged object.
 ```ts
 const base = { a: 1, b: { c: 2, d: 3 } };
 const override = { b: { c: 99, e: 4 }, f: 5 };
-useDeepMerge(base, override);
+deepMerge(base, override);
 // { a: 1, b: { c: 99, d: 3, e: 4 }, f: 5 }
 ```
 
 ***
 
-### useGetUrlParams()
+### onGetUrlParams()
 
 ```ts
-useGetUrlParams(urlString): Record<string, string>;
+onGetUrlParams(urlString): Record<string, string>;
 ```
 
-Defined in: [core/services/utils.service.ts:317](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L317)
+Defined in: [core/services/utils.service.ts:305](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L305)
 
 Parses query parameters from a URL string into a plain object.
 Returns an empty object for invalid URLs.
@@ -225,19 +225,19 @@ An object mapping parameter names to values.
 #### Example
 
 ```ts
-useGetUrlParams("https://example.com?q=hello&page=1");
+getUrlParams("https://example.com?q=hello&page=1");
 // { q: "hello", page: "1" }
 ```
 
 ***
 
-### useGroupBy()
+### onGroupBy()
 
 ```ts
-useGroupBy<T>(array, key): Record<string, T[]>;
+onGroupBy<T>(array, key): Record<string, T[]>;
 ```
 
-Defined in: [core/services/utils.service.ts:93](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L93)
+Defined in: [core/services/utils.service.ts:81](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L81)
 
 Groups array items by a key property or key selector function.
 
@@ -268,19 +268,19 @@ const items = [
   { type: "veggie", name: "carrot" },
   { type: "fruit", name: "banana" },
 ];
-useGroupBy(items, "type");
+groupBy(items, "type");
 // { fruit: [{ type: "fruit", name: "apple" }, { type: "fruit", name: "banana" }], veggie: [...] }
 ```
 
 ***
 
-### useIsObject()
+### onIsObject()
 
 ```ts
-useIsObject(item): item is Record<string, unknown>;
+onIsObject(item): item is Record<string, unknown>;
 ```
 
-Defined in: [core/services/utils.service.ts:121](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L121)
+Defined in: [core/services/utils.service.ts:109](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L109)
 
 Type guard that checks whether a value is a plain object (not null, not
 an array).
@@ -300,20 +300,20 @@ an array).
 #### Example
 
 ```ts
-useIsObject({ a: 1 });       // true
-useIsObject([1, 2]);          // false
-useIsObject(null);            // false
+isObject({ a: 1 });       // true
+isObject([1, 2]);          // false
+isObject(null);            // false
 ```
 
 ***
 
-### useOmit()
+### onOmit()
 
 ```ts
-useOmit<T, K>(obj, keys): Omit<T, K>;
+onOmit<T, K>(obj, keys): Omit<T, K>;
 ```
 
-Defined in: [core/services/utils.service.ts:228](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L228)
+Defined in: [core/services/utils.service.ts:216](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L216)
 
 Omits the listed keys from an object, returning a shallow copy without
 them. Shallow on purpose to avoid `structuredClone` failures on
@@ -343,18 +343,18 @@ A new object without the omitted keys.
 
 ```ts
 const user = { id: 1, name: "Alice", password: "secret" };
-useOmit(user, ["password"]); // { id: 1, name: "Alice" }
+omit(user, ["password"]); // { id: 1, name: "Alice" }
 ```
 
 ***
 
-### usePick()
+### onPick()
 
 ```ts
-usePick<T, K>(obj, keys): Pick<T, K>;
+onPick<T, K>(obj, keys): Pick<T, K>;
 ```
 
-Defined in: [core/services/utils.service.ts:201](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L201)
+Defined in: [core/services/utils.service.ts:189](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L189)
 
 Picks the listed keys from an object into a new object.
 
@@ -382,22 +382,22 @@ A new object with only the picked keys.
 
 ```ts
 const user = { id: 1, name: "Alice", email: "a@b.com" };
-usePick(user, ["id", "name"]); // { id: 1, name: "Alice" }
+pick(user, ["id", "name"]); // { id: 1, name: "Alice" }
 ```
 
 ***
 
-### useRetry()
+### onRetry()
 
 ```ts
-useRetry<T>(
+onRetry<T>(
    fn, 
    retries?, 
    delayMs?
 ): Promise<T>;
 ```
 
-Defined in: [core/services/utils.service.ts:269](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L269)
+Defined in: [core/services/utils.service.ts:257](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L257)
 
 Retries an async function with a fixed delay between attempts.
 
@@ -428,18 +428,18 @@ The last error if all retries are exhausted.
 #### Example
 
 ```ts
-const data = await useRetry(() => fetch("/api").then(r => r.json()), 3, 500);
+const data = await retry(() => fetch("/api").then(r => r.json()), 3, 500);
 ```
 
 ***
 
-### useRound()
+### onRound()
 
 ```ts
-useRound(value, decimals?): number;
+onRound(value, decimals?): number;
 ```
 
-Defined in: [core/services/utils.service.ts:340](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L340)
+Defined in: [core/services/utils.service.ts:328](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L328)
 
 Rounds a number (or numeric string) to the specified number of decimal
 places. Returns `0` for non-numeric input.
@@ -460,19 +460,19 @@ The rounded number.
 #### Example
 
 ```ts
-useRound(3.14159, 2);   // 3.14
-useRound("5.678", 1);   // 5.7
+round(3.14159, 2);   // 3.14
+round("5.678", 1);   // 5.7
 ```
 
 ***
 
-### useSleep()
+### onSleep()
 
 ```ts
-useSleep(ms): Promise<void>;
+onSleep(ms): Promise<void>;
 ```
 
-Defined in: [core/services/utils.service.ts:250](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L250)
+Defined in: [core/services/utils.service.ts:238](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L238)
 
 Returns a promise that resolves after `ms` milliseconds.
 
@@ -491,21 +491,21 @@ A promise that resolves after the delay.
 #### Example
 
 ```ts
-await useSleep(1000); // waits 1 second
+await onSleep(1000); // waits 1 second
 ```
 
 ***
 
-### useSplitConfig()
+### onSplitConfig()
 
 ```ts
-useSplitConfig<T>(input): {
+onSplitConfig<T>(input): {
   config: ConfigData<T>;
   methods: ConfigMethodEntries<T>;
 };
 ```
 
-Defined in: [core/services/utils.service.ts:388](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L388)
+Defined in: [core/services/utils.service.ts:376](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L376)
 
 Splits a `define*Config` literal into its config half (props and booleans)
 and its method half (values declared with `function`).
@@ -551,7 +551,7 @@ methods: ConfigMethodEntries<T>;
 #### Example
 
 ```ts
-const { config, methods } = useSplitConfig({
+const { config, methods } = splitConfig({
   token: "abc",
   debug: true,
   send: async function () {},
@@ -562,13 +562,13 @@ const { config, methods } = useSplitConfig({
 
 ***
 
-### useUnique()
+### onUnique()
 
 ```ts
-useUnique<T>(array): T[];
+onUnique<T>(array): T[];
 ```
 
-Defined in: [core/services/utils.service.ts:48](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L48)
+Defined in: [core/services/utils.service.ts:36](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L36)
 
 Returns a new array with duplicate values removed, preserving first-seen order.
 
@@ -593,8 +593,8 @@ A new array with unique values.
 #### Example
 
 ```ts
-useUnique([1, 2, 2, 3, 1]); // [1, 2, 3]
-useUnique(["a", "b", "a"]); // ["a", "b"]
+unique([1, 2, 2, 3, 1]); // [1, 2, 3]
+unique(["a", "b", "a"]); // ["a", "b"]
 ```
 
 ***
@@ -605,19 +605,8 @@ useUnique(["a", "b", "a"]); // ["a", "b"]
 static getInstance(): UtilsService;
 ```
 
-Defined in: [core/services/utils.service.ts:28](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/utils.service.ts#L28)
-
-Obtiene la instancia única del UtilsService (Singleton).
+Defined in: [core/services/utils.service.ts:16](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/utils.service.ts#L16)
 
 #### Returns
 
 `UtilsService`
-
-La instancia única de UtilsService.
-
-#### Example
-
-```ts
-const utils = UtilsService.getInstance();
-utils.useUnique([1, 2, 2, 3, 1]);
-```

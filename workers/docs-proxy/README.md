@@ -37,22 +37,20 @@ edit permission on the target zones.
 
 1. The Worker listens **only** on `/docs*` (and legacy `/en/docs*`) routes
    (see `wrangler.jsonc`).
-2. It calls the Pages project through a Service Binding (no HTTP hop).
-3. If the binding is unavailable (first deploy), it falls back to an HTTP
-   fetch of `katanakit-docs.pages.dev`.
-4. Everything outside those prefixes returns 404 so existing zone routes
-   (the personal site, the extranet app, samurai site, etc.) are never
-   affected.
+2. It fetches the Pages project's public URL (`katanakit-docs.pages.dev`) path
+   for path, following redirects.
+3. Everything outside those prefixes returns 404 so the personal site and the
+   rest of the zone never see this Worker.
 
 ## Adding a domain
 
 1. Make sure the zone exists in the Cloudflare account.
 2. Add a route entry in `wrangler.jsonc`.
-3. Re-deploy: `npx wrangler deploy -c workers/docs-proxy/wrangler.jsonc`.
+3. Re-deploy: `bunx wrangler@4.162.0 deploy -c workers/docs-proxy/wrangler.jsonc`.
 
 ## Removing the proxy
 
 Delete the routes from `wrangler.jsonc` and redeploy, or
-`npx wrangler delete -c workers/docs-proxy/wrangler.jsonc` to remove the
+`bunx wrangler@4.162.0 delete -c workers/docs-proxy/wrangler.jsonc` to remove the
 Worker entirely. The Pages project keeps running independently at
 `katanakit-docs.pages.dev`.

@@ -14,58 +14,59 @@ arithmetic — with immutable value types and explicit calendar math.
 Three rules apply to every helper on this page:
 
 1. **Immutable by design.** Helpers never mutate their inputs, and `Temporal`
-   values are immutable too. `useAddDays()` returns a brand-new ISO string; the
+   values are immutable too. `addDays()` returns a brand-new ISO string; the
    `PlainDate` or string you passed in stays untouched.
 2. **ISO calendar dates in, ISO strings out.** Arithmetic, boundary and
    comparison helpers accept `string | Temporal.PlainDate`. Strings must be
    plain calendar dates (`YYYY-MM-DD`) — a timestamp such as
-   `"2024-06-15T10:00:00Z"` throws a `RangeError`. Only `useFormat()` accepts
+   `"2024-06-15T10:00:00Z"` throws a `RangeError`. Only `format()` accepts
    the wider `TemporalInput` union.
 3. **SSR-safe and pure.** No `window`/`document`, no I/O, no hidden state.
    `Temporal.Now` reads the clock and time zone of the runtime, so on the server
-   you get the server's zone — see the notes on [`useNow()`](#usenow) for the
+   you get the server's zone — see the notes on [`now()`](#now) for the
    hydration implications.
 
 `@js-temporal/polyfill@0.5.1` is a direct dependency of `katanakit-js`, so
-there is nothing extra to install. Two equivalent entry points exist:
+there is nothing extra to install. The arithmetic primitives are also exposed
+as module-level wrappers:
 
 ```ts
-import { DatesService, useNow } from "katanakit-js";
+import { DatesService, onDateBetween, onDateAdd } from "katanakit-js";
 
-useNow();                              // named wrapper, recommended
-DatesService.getInstance().useNow();   // same singleton, same result
+const dates = DatesService.getInstance();
+
+dates.now();                                  // "2026-10-05"
+onDateAdd(dates.now(), 30, "days");           // "2026-11-04"
+onDateBetween("2020-01-01", "2022-04-16");    // 836
 ```
 
 `getInstance()` is idempotent: the first call creates the private instance and
 every later call returns it. There is no state to reset and no lifecycle to
-manage; prefer named wrappers at call sites and keep the facade for dependency
-injection or legacy code. The related types (`TemporalInput`, `Locale`,
-`DatesServiceTypes`) are re-exported from the same barrel.
+manage; prefer the `onDate*` wrappers for arithmetic at call sites and keep the
+facade for formatting, comparisons and dependency injection. The related types
+(`TemporalInput`, `Locale`) are re-exported from the same barrel.
 
 ## Quick example
 
 ```ts
-import {
-  useNow, useNowDateTime, useDateAdd, useDateSubtract,
-  useFirstDayOfMonth, useLastDayOfMonth,
-  useIsEqual, useIsBefore, useFormat,
-  useDateBetween, useDateOrder, useDurationBetween,
-} from "katanakit-js";
+import { DatesService, onDateAdd, onDateSubtract, onDateBetween, onDateOrder, onDurationBetween } from "katanakit-js";
 
-const today = useNow();                        // "2026-10-05"
-const stamp = useNowDateTime();                // "2026-10-05T17:28:45.227125197"
-const due = useDateAdd(today, 30, "days");     // "2026-11-04"
-const issued = useDateSubtract(today, 7, "days"); // "2026-09-28"
-const first = useFirstDayOfMonth(today);       // "2026-10-01"
-const last = useLastDayOfMonth(today);         // "2026-10-31"
-const overdue = useIsBefore(due, today);       // false
-const same = useIsEqual(due, today);           // false
-const age = useDateBetween(issued, today, "days");    // 7
-const months = useDateBetween(issued, today, "months"); // 0
-const state = useDateOrder(due, today);        // "after"
-useFormat(due, "en", { dateStyle: "long" });   // "November 4, 2026"
+const dates = DatesService.getInstance();
 
-const tenure = useDurationBetween("2020-01-01", "2022-04-16");
+const today = dates.now();                          // "2026-10-05"
+const stamp = dates.nowDateTime();                  // "2026-10-05T17:28:45.227125197"
+const due = onDateAdd(today, 30, "days");           // "2026-11-04"
+const issued = onDateSubtract(today, 7, "days");    // "2026-09-28"
+const first = dates.firstDayOfMonth(today);         // "2026-10-01"
+const last = dates.lastDayOfMonth(today);           // "2026-10-31"
+const overdue = dates.isBefore(due, today);         // false
+const same = dates.isEqual(due, today);             // false
+const age = onDateBetween(issued, today, "days");       // 7
+const months = onDateBetween(issued, today, "months");  // 0
+const state = onDateOrder(due, today);              // "after"
+dates.format(due, "en", { dateStyle: "long" });     // "November 4, 2026"
+
+const tenure = onDurationBetween("2020-01-01", "2022-04-16");
 tenure.years;  // 2
 tenure.months; // 3
 tenure.days;   // 15
@@ -73,9 +74,9 @@ tenure.days;   // 15
 
 ## Creating
 
-### useNow()
+### now()
 
-`useNow(): string`
+`now(): string`
 
 Returns the current calendar date in the runtime's time zone as a
 `Temporal.PlainDate` string — always `YYYY-MM-DD`, zero-padded, with no time,
@@ -96,21 +97,21 @@ offset or `Z` suffix. Internally this is
   same calendar day are byte-identical.
 
 ```ts
-import { useNow } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useNow(); // "2026-10-05"
+DatesService.getInstance().now(); // "2026-10-05"
 ```
 
 **Real use case** — the default value of a date picker or a "created on" field,
 without accidentally shipping a timestamp from the server:
 
-```ts
-<input type="date" name="due" value={useNow()} />
+```tsx
+<input type="date" name="due" value={dates.now()} />
 ```
 
-### useNowDateTime()
+### nowDateTime()
 
-`useNowDateTime(): string`
+`nowDateTime(): string`
 
 Returns the current wall-clock date and time with **no time-zone offset** —
 `Temporal.Now.plainDateTimeISO().toString()`. This is a "plain" value: it is
@@ -132,16 +133,17 @@ value back with `Temporal.PlainDateTime.from()`.
   intentionally locale-agnostic.
 
 ```ts
-import { useNowDateTime } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useNowDateTime(); // "2026-10-05T17:28:45.227125197"
+DatesService.getInstance().nowDateTime(); // "2026-10-05T17:28:45.227125197"
 ```
 
 **Real use case** — append a sortable, sub-second stamp to log lines that are
 already local to the host, where converting to UTC would only add noise:
 
 ```ts
-console.log(`[${useNowDateTime()}] job started`);
+const dates = DatesService.getInstance();
+console.log(`[${dates.nowDateTime()}] job started`);
 ```
 
 ## Arithmetic
@@ -152,9 +154,9 @@ adding one day always advances one day on the calendar, even across
 daylight-saving transitions, which plain `Date` millisecond math cannot
 guarantee.
 
-### useAddDays(date, days)
+### addDays(date, days)
 
-`useAddDays(date: string | Temporal.PlainDate, days: number): string`
+`dates.addDays(date: string | Temporal.PlainDate, days: number): string`
 
 Adds `days` calendar days to the base date and returns the result as
 `YYYY-MM-DD`. Internally: `toPlainDate(date).add({ days }).toString()`.
@@ -170,31 +172,33 @@ Adds `days` calendar days to the base date and returns the result as
 
 - Invalid strings throw `RangeError` from `Temporal.PlainDate.from()`; this
   helper does not wrap or swallow errors.
-- `days` must be an integer. `useAddDays(today, 1.5)` throws
+- `days` must be an integer. `addDays(today, 1.5)` throws
   `RangeError: unsupported fractional value 1.5` — round before calling.
 - A `PlainDate` argument is never mutated.
 
 ```ts
 import { Temporal } from "@js-temporal/polyfill";
-import { useAddDays } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useAddDays("2024-02-28", 2);  // "2024-03-01" — leap year handled
-useAddDays("2024-01-01", -1); // "2023-12-31" — negative days subtract
+const dates = DatesService.getInstance();
+
+dates.addDays("2024-02-28", 2);  // "2024-03-01" — leap year handled
+dates.addDays("2024-01-01", -1); // "2023-12-31" — negative days subtract
 
 const start = Temporal.PlainDate.from("2024-06-15");
-useAddDays(start, 10);        // "2024-06-25"
-start.toString();             // "2024-06-15" — untouched
+dates.addDays(start, 10);        // "2024-06-25"
+start.toString();                // "2024-06-15" — untouched
 ```
 
 **Real use case** — trial expiration:
-`const expiresAt = useAddDays(signupDate, 14)` stores a calendar date that
+`const expiresAt = dates.addDays(signupDate, 14)` stores a calendar date that
 survives DST changes and month-length differences.
 
-### useSubtractDays(date, days)
+### subtractDays(date, days)
 
-`useSubtractDays(date: string | Temporal.PlainDate, days: number): string`
+`dates.subtractDays(date: string | Temporal.PlainDate, days: number): string`
 
-Mirror image of [`useAddDays()`](#useadddaysdate-days): subtracts `days`
+Mirror image of [`addDays()`](#adddaysdate-days): subtracts `days`
 calendar days. Internally `toPlainDate(date).subtract({ days }).toString()`.
 Same input rules, same `RangeError` behavior, same immutability.
 
@@ -206,19 +210,21 @@ Same input rules, same `RangeError` behavior, same immutability.
 **Returns** `string` — the resulting ISO date.
 
 ```ts
-import { useSubtractDays } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useSubtractDays("2024-01-11", 10); // "2024-01-01"
-useSubtractDays("2024-03-01", 1);  // "2024-02-29"
+const dates = DatesService.getInstance();
+
+dates.subtractDays("2024-01-11", 10); // "2024-01-01"
+dates.subtractDays("2024-03-01", 1);  // "2024-02-29"
 ```
 
 **Real use case** — a rolling report window:
-`useSubtractDays(useNow(), 30)` gives the inclusive lower bound for a "last 30
-days" query without recomputing timestamps.
+`dates.subtractDays(dates.now(), 30)` gives the inclusive lower bound for a
+"last 30 days" query without recomputing timestamps.
 
-### useDateBetween(start, end, unit?)
+### onDateBetween(start, end, unit?)
 
-`useDateBetween(start: TemporalInput, end: TemporalInput, unit?: DateUnit): number`
+`onDateBetween(start: TemporalInput, end: TemporalInput, unit?: DateUnit): number`
 
 The number of whole `unit`s between two dates. Signed, never fractional,
 defaulting to `days`.
@@ -234,18 +240,18 @@ defaulting to `days`.
 spreadsheet built there translates without a lookup table.
 
 ```ts
-import { useDateBetween, useNow } from "katanakit-js";
+import { onDateBetween } from "katanakit-js";
 
-useDateBetween("2020-01-01", "2022-04-16");            // 836
-useDateBetween("2020-01-01", "2022-04-16", "months");  // 27
-useDateBetween("2020-01-01", "2022-04-16", "years");   // 2
-useDateBetween("2022-04-16", "2020-01-01", "days");   // -836
+onDateBetween("2020-01-01", "2022-04-16");            // 836
+onDateBetween("2020-01-01", "2022-04-16", "months");  // 27
+onDateBetween("2020-01-01", "2022-04-16", "years");   // 2
+onDateBetween("2022-04-16", "2020-01-01", "days");   // -836
 ```
 
 **Edge cases**
 
 - **Reversed arguments give a negative number**, never an absolute value.
-  `useDateBetween(end, start)` is exactly `-useDateBetween(start, end)` for
+  `onDateBetween(end, start)` is exactly `-onDateBetween(start, end)` for
   every unit — a property worth relying on.
 - **Never fractional.** `total()` reports `0.0849` years across a single month,
   because a year is not a whole number of months. The result is truncated to an
@@ -260,74 +266,75 @@ useDateBetween("2022-04-16", "2020-01-01", "days");   // -836
 - **An unknown unit falls back to `"days"`** instead of throwing, so a value
   arriving from a form or an API cannot crash a render.
 
-**Real use case** — an age field: `useDateBetween(birthday, useNow(), "years")`
+**Real use case** — an age field: `onDateBetween(birthday, dates.now(), "years")`
 is a number you can compare, threshold and sort, which is exactly what a
 parsed-string diff cannot give you.
 
-### useDurationBetween(start, end)
+### onDurationBetween(start, end)
 
-`useDurationBetween(start: TemporalInput, end: TemporalInput): Temporal.Duration`
+`onDurationBetween(start: TemporalInput, end: TemporalInput): Temporal.Duration`
 
 The balanced breakdown, as Temporal's own `Duration`. Use this when you need
 the parts separately rather than a single number.
 
 ```ts
-import { useDurationBetween } from "katanakit-js";
+import { onDurationBetween } from "katanakit-js";
 
-const span = useDurationBetween("2020-01-01", "2022-04-16");
+const span = onDurationBetween("2020-01-01", "2022-04-16");
 span.years;   // 2
 span.months;  // 3
 span.days;    // 15
 
-useDurationBetween("2022-04-16", "2020-01-01").years; // -2
+onDurationBetween("2022-04-16", "2020-01-01").years; // -2
 ```
 
 Months and days carry into the largest unit, so 15 months reads as
 `1 year, 3 months`. Asking for `years` and `months` separately and adding them
 gives the same figure as the duration.
 
-### useDateAdd(date, amount, unit) / useDateSubtract(date, amount, unit)
+### onDateAdd(date, amount, unit) / onDateSubtract(date, amount, unit)
 
-`useDateAdd(date: TemporalInput, amount: number, unit: DateUnit): string`
+`onDateAdd(date: TemporalInput, amount: number, unit: DateUnit): string`
 
 Returns the date a given number of units away, as an ISO string. Calendar
 semantics throughout: adding one month to the 31st lands on the 28th of a
 shorter February rather than overflowing into March.
 
 ```ts
-import { useDateAdd, useDateSubtract } from "katanakit-js";
+import { onDateAdd, onDateSubtract } from "katanakit-js";
 
-useDateAdd("2026-01-31", 1, "months");   // "2026-02-28"  (not 2026-03-03)
-useDateAdd("2026-01-01", 2, "quarters"); // "2026-07-01"
-useDateAdd("2026-01-01", 3, "years");    // "2029-01-01"
-useDateSubtract(useNow(), 90, "days");  // the quarter's start
+onDateAdd("2026-01-31", 1, "months");   // "2026-02-28"  (not 2026-03-03)
+onDateAdd("2026-01-01", 2, "quarters"); // "2026-07-01"
+onDateAdd("2026-01-01", 3, "years");    // "2029-01-01"
+onDateSubtract("2026-10-05", 90, "days");  // the quarter's start
 ```
 
-A negative `amount` moves backwards, so `useDateAdd(d, -7, "days")` and
-`useDateSubtract(d, 7, "days")` agree. `useAddDays()` and `useSubtractDays()`
-remain as the two-argument shorthand for the common day case.
+A negative `amount` moves backwards, so `onDateAdd(d, -7, "days")` and
+`onDateSubtract(d, 7, "days")` agree. `dates.addDays()` and
+`dates.subtractDays()` remain as the two-argument shorthand for the common day
+case.
 
-### useDateOrder(date1, date2)
+### onDateOrder(date1, date2)
 
-`useDateOrder(date1: TemporalInput, date2: TemporalInput): "before" | "after" | "same"`
+`onDateOrder(date1: TemporalInput, date2: TemporalInput): "before" | "after" | "same"`
 
-A three-way comparison. `useIsBefore()` answers yes/no; this answers *which
+A three-way comparison. `dates.isBefore()` answers yes/no; this answers *which
 way*, which is what a range filter or a sort actually needs.
 
 ```ts
-import { useDateOrder } from "katanakit-js";
+import { onDateOrder } from "katanakit-js";
 
-useDateOrder("2026-03-01", "2026-04-01"); // "before"
-useDateOrder("2026-04-01", "2026-03-01"); // "after"
-useDateOrder("2026-03-01", "2026-03-01"); // "same"
+onDateOrder("2026-03-01", "2026-04-01"); // "before"
+onDateOrder("2026-04-01", "2026-03-01"); // "after"
+onDateOrder("2026-03-01", "2026-03-01"); // "same"
 ```
 
 Compares down to the minute when a time is present. A bare date reads as
-midnight, so `useDateOrder("2026-03-01", "2026-03-01T00:00:01")` is `"before"`.
+midnight, so `onDateOrder("2026-03-01", "2026-03-01T00:00:01")` is `"before"`.
 
-### useFirstDayOfMonth(date = Temporal.Now.plainDateISO())
+### firstDayOfMonth(date = Temporal.Now.plainDateISO())
 
-`useFirstDayOfMonth(date?: string | Temporal.PlainDate): string`
+`dates.firstDayOfMonth(date?: string | Temporal.PlainDate): string`
 
 Returns day one of the month that contains `date`, via
 `toPlainDate(date).with({ day: 1 })` — no month-length arithmetic involved.
@@ -341,25 +348,27 @@ Returns day one of the month that contains `date`, via
 **Edge cases**
 
 - Omitting the argument uses today in the runtime's time zone; the same SSR
-  caveat as [`useNow()`](#usenow) applies.
+  caveat as [`now()`](#now) applies.
 - The input day is irrelevant: `"2024-02-29"`, `"2024-02-01"` and
   `"2024-02-15"` all return `"2024-02-01"`.
 - Invalid input throws `RangeError`.
 
 ```ts
-import { useFirstDayOfMonth } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useFirstDayOfMonth("2024-06-15"); // "2024-06-01"
-useFirstDayOfMonth();             // first day of the current month
+const dates = DatesService.getInstance();
+
+dates.firstDayOfMonth("2024-06-15"); // "2024-06-01"
+dates.firstDayOfMonth();             // first day of the current month
 ```
 
 **Real use case** — analytics dashboards and invoices: build the period with
-`useFirstDayOfMonth(anchor)` and `useLastDayOfMonth(anchor)` instead of
+`firstDayOfMonth(anchor)` and `lastDayOfMonth(anchor)` instead of
 hardcoding `01` or maintaining leap-year tables.
 
-### useLastDayOfMonth(date = Temporal.Now.plainDateISO())
+### lastDayOfMonth(date = Temporal.Now.plainDateISO())
 
-`useLastDayOfMonth(date?: string | Temporal.PlainDate): string`
+`dates.lastDayOfMonth(date?: string | Temporal.PlainDate): string`
 
 Returns the final day of the month that contains `date`. The implementation is
 deliberately defensive: add one month, snap to day one, then subtract one day
@@ -382,14 +391,16 @@ February and 30-day months correct without lookup tables.
 - Omitting the argument uses today; invalid input throws `RangeError`.
 
 ```ts
-import { useFirstDayOfMonth, useLastDayOfMonth } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useLastDayOfMonth("2024-02-10"); // "2024-02-29"
-useLastDayOfMonth("2023-02-10"); // "2023-02-28"
+const dates = DatesService.getInstance();
+
+dates.lastDayOfMonth("2024-02-10"); // "2024-02-29"
+dates.lastDayOfMonth("2023-02-10"); // "2023-02-28"
 
 const monthRange = {
-  from: useFirstDayOfMonth("2024-06-15"), // "2024-06-01"
-  to: useLastDayOfMonth("2024-06-15"),    // "2024-06-30"
+  from: dates.firstDayOfMonth("2024-06-15"), // "2024-06-01"
+  to: dates.lastDayOfMonth("2024-06-15"),    // "2024-06-30"
 };
 ```
 
@@ -401,65 +412,71 @@ of the month" becomes one call, and February is handled for free.
 The three comparison helpers all delegate to `Temporal.PlainDate.compare()`,
 accept the same `string | Temporal.PlainDate` inputs, ignore time zones
 entirely, and throw `RangeError` when a string is not a valid ISO calendar
-date. `useIsBefore()` and `useIsAfter()` are **strict**: both return `false`
+date. `isBefore()` and `isAfter()` are **strict**: both return `false`
 for equal dates. ISO strings must be zero-padded (`"2024-06-15"`);
 `"2024-6-15"` throws.
 
-### useIsEqual(date1, date2)
+### isEqual(date1, date2)
 
-`useIsEqual(date1: string | Temporal.PlainDate, date2: string | Temporal.PlainDate): boolean`
+`dates.isEqual(date1: string | Temporal.PlainDate, date2: string | Temporal.PlainDate): boolean`
 
 Returns `true` when both values represent the same calendar day.
 
 ```ts
-import { useIsEqual } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useIsEqual("2024-06-15", "2024-06-15"); // true
-useIsEqual("2024-06-15", "2024-06-16"); // false
+const dates = DatesService.getInstance();
+
+dates.isEqual("2024-06-15", "2024-06-15"); // true
+dates.isEqual("2024-06-15", "2024-06-16"); // false
 ```
 
 **Real use case** — idempotent day-scoped actions: skip creating today's journal
-entry when `useIsEqual(entry.date, useNow())` is already `true`.
+entry when `dates.isEqual(entry.date, dates.now())` is already `true`.
 
-### useIsBefore(date1, date2)
+### isBefore(date1, date2)
 
-`useIsBefore(date1: string | Temporal.PlainDate, date2: string | Temporal.PlainDate): boolean`
+`dates.isBefore(date1: string | Temporal.PlainDate, date2: string | Temporal.PlainDate): boolean`
 
 Returns `true` only when `date1` is strictly earlier than `date2`.
 
 ```ts
-import { useIsBefore } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useIsBefore("2024-01-01", "2024-06-15"); // true
-useIsBefore("2024-06-15", "2024-06-15"); // false — equality is not "before"
+const dates = DatesService.getInstance();
+
+dates.isBefore("2024-01-01", "2024-06-15"); // true
+dates.isBefore("2024-06-15", "2024-06-15"); // false — equality is not "before"
 ```
 
 **Real use case** — overdue badges and irreversible actions:
-`if (useIsBefore(booking.date, useNow()))` blocks rescheduling a past
+`if (dates.isBefore(booking.date, dates.now()))` blocks rescheduling a past
 reservation before touching the database.
 
-### useIsAfter(date1, date2)
+### isAfter(date1, date2)
 
-`useIsAfter(date1: string | Temporal.PlainDate, date2: string | Temporal.PlainDate): boolean`
+`dates.isAfter(date1: string | Temporal.PlainDate, date2: string | Temporal.PlainDate): boolean`
 
 Returns `true` only when `date1` is strictly later than `date2`.
 
 ```ts
-import { useIsAfter } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useIsAfter("2024-06-15", "2024-01-01"); // true
-useIsAfter("2024-06-15", "2024-06-15"); // false — equality is not "after"
+const dates = DatesService.getInstance();
+
+dates.isAfter("2024-06-15", "2024-01-01"); // true
+dates.isAfter("2024-06-15", "2024-06-15"); // false — equality is not "after"
 ```
 
 **Real use case** — release gating: a migration runs only when
-`useIsAfter(targetVersionDate, currentVersionDate)`, so re-running the same
+`dates.isAfter(targetVersionDate, currentVersionDate)`, so re-running the same
 release is a no-op.
 
 ## Formatting
 
-### useFormat(dateInput, locale = "en", options = {})
+### format(dateInput, locale = "en", options = {})
 
-`useFormat(dateInput: TemporalInput, locale: Locale = "en", options: Intl.DateTimeFormatOptions = {}): string`
+`dates.format(dateInput: TemporalInput, locale: Locale = "en", options: Intl.DateTimeFormatOptions = {}): string`
 
 The flexible counterpart to the strict workflow above: it normalizes every
 supported input shape to a Temporal type and delegates to
@@ -501,7 +518,7 @@ type TemporalInput =
 **Returns** `string` — the localized representation.
 
 **Throws** a plain `Error` with the message `Invalid date input: <input>`
-(after logging through `useLogger(..., "error")`). Unlike `Date`, it never
+(after logging through `onLogger(..., "error")`). Unlike `Date`, it never
 silently produces `"Invalid Date"`.
 
 **Edge cases**
@@ -509,7 +526,7 @@ silently produces `"Invalid Date"`.
 - The default `options` of `{}` still yields sensible output: `PlainDate`
   formats as date only (`"6/15/2024"` in `en`), while `PlainDateTime` includes
   the time (`"6/15/2024, 2:30:00 PM"`).
-- [`useNowDateTime()`](#usenowdatetime) output parses cleanly through
+- [`nowDateTime()`](#nowdatetime) output parses cleanly through
   `PlainDateTime.from()`, so the two helpers compose directly.
 - `Locale` is a narrow union: region variants such as `"en-US"` or `"pt-BR"`
   are rejected by TypeScript even though `Intl` would accept them at runtime.
@@ -518,27 +535,30 @@ silently produces `"Invalid Date"`.
   zone or supply `timeZone` in the options.
 
 ```ts
-import { useFormat, useNowDateTime } from "katanakit-js";
+import { DatesService } from "katanakit-js";
 
-useFormat("2024-06-15");                                       // "6/15/2024" (en)
-useFormat("2024-06-15", "en", { dateStyle: "long" });          // "June 15, 2024"
-useFormat("2024-06-15", "es", { dateStyle: "full" });          // "sábado, 15 de junio de 2024"
-useFormat("2024-06-15", "de", { dateStyle: "short" });         // "15.06.24"
-useFormat("2024-06-15T14:30:00", "en", { timeStyle: "short" }); // "2:30 PM"
-useFormat(new Date("2024-06-15T12:00:00"), "en", { dateStyle: "medium" });
+const dates = DatesService.getInstance();
+
+dates.format("2024-06-15");                                       // "6/15/2024" (en)
+dates.format("2024-06-15", "en", { dateStyle: "long" });          // "June 15, 2024"
+dates.format("2024-06-15", "es", { dateStyle: "full" });          // "sábado, 15 de junio de 2024"
+dates.format("2024-06-15", "de", { dateStyle: "short" });         // "15.06.24"
+dates.format("2024-06-15T14:30:00", "en", { timeStyle: "short" }); // "2:30 PM"
+dates.format(new Date("2024-06-15T12:00:00"), "en", { dateStyle: "medium" });
 
 // Throws Error("Invalid date input: 2024-06-15T00:00:00Z")
-useFormat("2024-06-15T00:00:00Z");
+dates.format("2024-06-15T00:00:00Z");
 ```
 
 **Real use case** — one stored ISO date rendered per request locale:
 
 ```ts
-const invoiceDate = useAddDays(useNow(), -30);
+const dates = DatesService.getInstance();
+const invoiceDate = dates.addDays(dates.now(), -30);
 
 return {
-  en: useFormat(invoiceDate, "en", { dateStyle: "medium" }),
-  es: useFormat(invoiceDate, "es", { dateStyle: "long" }),
+  en: dates.format(invoiceDate, "en", { dateStyle: "medium" }),
+  es: dates.format(invoiceDate, "es", { dateStyle: "long" }),
 };
 ```
 

@@ -2,7 +2,7 @@
 
 # Class: AccessService
 
-Defined in: [core/services/access.service.ts:272](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L272)
+Defined in: [core/services/access.service.ts:272](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L272)
 
 AccessService - Singleton facade con Strategy Pattern.
 
@@ -14,21 +14,21 @@ Por defecto usa [HierarchicalAccessStrategy](HierarchicalAccessStrategy.md).
 
 ```ts
 // Uso con la estrategia por defecto (jerárquica)
-AccessService.getInstance().useCan({ id: 1, roles: ["admin"] }, "members:manage");
+AccessService.getInstance().can({ id: 1, roles: ["admin"] }, "members:manage");
 
 // Cambiar a estrategia plana en runtime
-AccessService.getInstance().useSetStrategy(new FlatAccessStrategy());
+AccessService.getInstance().setStrategy(new FlatAccessStrategy());
 ```
 
 ## Methods
 
-### useCan()
+### can()
 
 ```ts
-useCan(subject, capability): boolean;
+can(subject, capability): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:358](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L358)
+Defined in: [core/services/access.service.ts:352](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L352)
 
 Whether the subject may perform a capability (delegado a la estrategia activa).
 
@@ -47,13 +47,13 @@ Whether the subject may perform a capability (delegado a la estrategia activa).
 
 ***
 
-### useCapabilitiesFor()
+### capabilitiesFor()
 
 ```ts
-useCapabilitiesFor(role): string[];
+capabilitiesFor(role): string[];
 ```
 
-Defined in: [core/services/access.service.ts:329](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L329)
+Defined in: [core/services/access.service.ts:327](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L327)
 
 Effective capabilities of a role (delegado a la estrategia activa).
 
@@ -69,13 +69,13 @@ Effective capabilities of a role (delegado a la estrategia activa).
 
 ***
 
-### useGetStrategy()
+### getStrategy()
 
 ```ts
-useGetStrategy(): IAccessStrategy;
+getStrategy(): IAccessStrategy;
 ```
 
-Defined in: [core/services/access.service.ts:322](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L322)
+Defined in: [core/services/access.service.ts:322](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L322)
 
 Returns the currently active strategy.
 
@@ -85,13 +85,13 @@ Returns the currently active strategy.
 
 ***
 
-### useHasRole()
+### hasRole()
 
 ```ts
-useHasRole(subject, role): boolean;
+hasRole(subject, role): boolean;
 ```
 
-Defined in: [core/services/access.service.ts:351](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L351)
+Defined in: [core/services/access.service.ts:347](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L347)
 
 Exact role membership - no hierarchy involved.
 
@@ -110,13 +110,13 @@ Exact role membership - no hierarchy involved.
 
 ***
 
-### useRegisterRole()
+### registerRole()
 
 ```ts
-useRegisterRole(definition): void;
+registerRole(definition): void;
 ```
 
-Defined in: [core/services/access.service.ts:336](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L336)
+Defined in: [core/services/access.service.ts:332](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L332)
 
 Registers (or replaces) a role definition (delegado a la estrategia activa).
 
@@ -136,13 +136,13 @@ Registers (or replaces) a role definition (delegado a la estrategia activa).
 
 ***
 
-### useResetRoles()
+### resetRoles()
 
 ```ts
-useResetRoles(): void;
+resetRoles(): void;
 ```
 
-Defined in: [core/services/access.service.ts:341](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L341)
+Defined in: [core/services/access.service.ts:337](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L337)
 
 Restores the built-in role registry (delegado a la estrategia activa).
 
@@ -152,10 +152,10 @@ Restores the built-in role registry (delegado a la estrategia activa).
 
 ***
 
-### useRoles()
+### roles()
 
 ```ts
-useRoles(): {
+roles(): {
   capabilities: string[];
   label: string;
   rank: number;
@@ -163,7 +163,7 @@ useRoles(): {
 }[];
 ```
 
-Defined in: [core/services/access.service.ts:346](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L346)
+Defined in: [core/services/access.service.ts:342](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L342)
 
 Lists every registered role definition (delegado a la estrategia activa).
 
@@ -178,13 +178,13 @@ Lists every registered role definition (delegado a la estrategia activa).
 
 ***
 
-### useSetStrategy()
+### setStrategy()
 
 ```ts
-useSetStrategy(strategy): void;
+setStrategy(strategy): void;
 ```
 
-Defined in: [core/services/access.service.ts:317](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L317)
+Defined in: [core/services/access.service.ts:317](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L317)
 
 Intercambia la estrategia de acceso en runtime (Strategy Pattern).
 
@@ -206,7 +206,7 @@ Intercambia la estrategia de acceso en runtime (Strategy Pattern).
 static create(strategy?): AccessService;
 ```
 
-Defined in: [core/services/access.service.ts:308](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L308)
+Defined in: [core/services/access.service.ts:308](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L308)
 
 Crea una instancia NO-singleton con una estrategia específica.
 Útil para tests o para aislar varios contextos de acceso.
@@ -237,7 +237,7 @@ const flatAccess = AccessService.create(new FlatAccessStrategy());
 static getInstance(): AccessService;
 ```
 
-Defined in: [core/services/access.service.ts:289](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/core/services/access.service.ts#L289)
+Defined in: [core/services/access.service.ts:289](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/core/services/access.service.ts#L289)
 
 Obtiene la instancia única del AccessService (Singleton).
 

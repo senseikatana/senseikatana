@@ -26,7 +26,7 @@ That leaves three audiences with three different needs:
 
 A fourth problem makes naive adoption worse: `wp_update_user()` silently drops
 a role slug the site does not know. The response is a `200` with the user
-unchanged, so `useWpUpdateUser({ roles })` reports success for a grant that never
+unchanged, so `onWpUpdateUser({ roles })` reports success for a grant that never
 happened. An audit that accepts "no error" as proof inherits that lie.
 
 ## Decision
@@ -37,7 +37,7 @@ never pretends the second is possible from JavaScript.
 A role declaration (`WpRoleDefinition`) carries both capability vocabularies:
 
 - `capabilities` — the toolkit's namespaced capabilities (`orders:read:own`),
-  which drive `useCan()` and the framework guards.
+  which drive `onCan()` and the framework guards.
 - `wpCapabilities` — WordPress' snake_case names (`read_private_orders`), the
   declaration the site must hold.
 
@@ -47,14 +47,14 @@ would hide who may touch somebody else's record.
 
 On top of the declaration:
 
-- `useWpSyncRoles()` publishes declarations to the access service so guards
+- `onWpSyncRoles()` publishes declarations to the access service so guards
   understand WordPress role slugs. It is explicit, not a side effect of
-  declaring: `useCan()` throws on an unknown slug by design, and that throw is
+  declaring: `onCan()` throws on an unknown slug by design, and that throw is
   the signal that the boot sequence is incomplete.
-- `useWpAssignRole()` verifies the roles on the response and fails with `422`
+- `onWpAssignRole()` verifies the roles on the response and fails with `422`
   when the grant did not land, naming the missing role. Unassignment is
   idempotent instead, because nothing there can be silently ignored.
-- `useWpAuditRole()` compares the declaration against the capabilities WordPress
+- `onWpAuditRole()` compares the declaration against the capabilities WordPress
   reports for the role's holders. `granted` is the intersection across holders —
   a capability only one holder has is not a capability the role grants. With no
   holders the status is `unverifiable`, never `verified`: an empty list is not

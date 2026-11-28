@@ -6,4 +6,4 @@
 type AstroServiceError = z.infer<typeof AstroServiceErrorSchema>;
 ```
 
-Defined in: [types/adapters/astro.ts:33](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/astro.ts#L33)
+Defined in: [types/astro/types.ts:36](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/astro/types.ts#L36)

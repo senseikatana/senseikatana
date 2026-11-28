@@ -40,10 +40,10 @@ and [ADR-0003: Subpath adapters](/explanation/decisions/adr-0003-adapter-subpath
                │  framework-facing entry points
    ┌───────────▼──────────────────────────────────────┐
    │                  adapters/                       │  framework adapters
-   │   astro/  (AstroService, RssService)            │
-   │   express/ (ServerExpress reference)            │
+   │   astro/  (AstroCollections, RssService)        │
+   │   express/ (ExpressService reference)           │
    │   nuxt/    (pure Nuxt helpers)                  │
-   │   vue/     (useRequest composable)          │
+   │   vue/     (onRequest composable)          │
    └──────────────────────────────────────────────────┘
    │
    ├── config/   siteConfig (typed SiteConfig) + SEO helpers (seo.service.ts)
@@ -55,8 +55,17 @@ and [ADR-0003: Subpath adapters](/explanation/decisions/adr-0003-adapter-subpath
 ### `types/` — the shared kernel
 
 `src/types/index.ts` is the single source of truth for every contract and domain
-type in the library: the strategy contracts (`StorageStrategy`, `ICryptoStrategy`,
-`IUuidStrategy`), the facade interfaces (`IFetchApiManager`, `IFormatterService`,
+type in the library, organized **by feature** (one folder per domain or
+integration, each with an `index.ts` barrel and leaf modules split by topic):
+
+| Folder | Contents |
+| --- | --- |
+| `types/core/` | Services and shared primitives (`http.ts`, `dates.ts`, `reactive.ts`, `access.ts`, …). |
+| `types/astro/` | Astro paths, pagination and SEO meta types. |
+| `types/express/` · `types/notion/` · `types/rss/` · `types/vue/` · `types/wordpress/` · `types/insforge/` · `types/cli/` | Adapter contracts. |
+
+The types cover strategy contracts (`StorageStrategy`, `ICryptoStrategy`,
+`IUuidStrategy`), facade interfaces (`IFetchApiManager`, `IFormatterService`,
 `IRssService`, …) and every shared type (`LogLevel`, `Currency`, `FetchResult`,
 `ApiError`, …). The complete inventory lives in the
 [API Reference](/api/#interfaces).
@@ -75,42 +84,42 @@ facade), `URL`, `crypto` and guarded `process.env` — per
 [ADR-0016](/explanation/decisions/adr-0016-universal-runtime-apis-in-core).
 Platform modules enter only through a lazy `import()` inside a method, as
 `generator.service.ts` does with `node:crypto`. The storage-backed signal
-`useCreateStorageSignal` lives in
+`onCreateStorageSignal` lives in
 `infrastructure/storage/storage-signal.service.ts`, so no module in `core/`
 imports `infrastructure/` — `tests/architecture.test.ts` enforces it.
 
 | File                   | Exports (public facade)                     |
 | ---------------------- | ------------------------------------------- |
-| `logger.service.ts`    | `LoggerService`, `useLogger`, `useLoggerTable`, `useLoggerClear` |
+| `logger.service.ts`    | `LoggerService`, `onLogger`, `onLoggerTable`, `onLoggerClear` |
 | `http.service.ts`      | `FetchApiManager`                           |
 | `formatter.service.ts` | `FormatterService`                          |
 | `converter.service.ts` | `UnitConverterService` (injects `IFormatterService`) |
 | `currency.service.ts`  | `CurrencyConverterService` (port: `ICurrencyRateProvider`) |
-| `error.service.ts`     | `ErrorService`, `useErrorNormalize`, `useErrorSerialize`, `useErrorCustom`     |
-| `result.service.ts`    | `ResultService`, `useAttempt`, `useTryJsonParse`             |
+| `error.service.ts`     | `ErrorService`, `onErrorNormalize`, `onSerializeError`, `onErrorCustom`     |
+| `result.service.ts`    | `ResultService`, `onAttempt`, `onTryJsonParse`             |
 | `generator.service.ts` | `GeneratorService`, `LazyNodeCryptoStrategy`, `NativeUuidStrategy` |
-| `faker.service.ts`     | `FakerService` + `useFake*` wrappers (`useFakeEmail`, `useFakeList`, `useFakeSeed`, …) over an optional, lazy-loaded `@faker-js/faker` peer — see [Faker](/guides/faker) |
+| `faker.service.ts`     | `FakerService` + `onFake*` wrappers (`onFakeEmail`, `onFakeList`, `onFakeSeed`, …) over an optional, lazy-loaded `@faker-js/faker` peer — see [Faker](/guides/faker) |
 | `dates.service.ts`     | `DatesService` (Temporal polyfill adapter)  |
 | `geometry.service.ts`  | `GeometryAreaService`, `GeometryPerimeterService`, `GeometryVolumeService`, composed as `GeometryUtils` |
 | `timing.service.ts`    | `TimingService`                             |
-| `utils.service.ts`     | `DataUtils`, `SystemUtils`, `AppUtils`      |
+| `utils.service.ts`     | `UtilsService` + `on*` facades (`onUnique`, `onChunk`, `onGroupBy`, …) |
 | `reactive.service.ts`  | `ReactiveService` (signals kernel)          |
 
 Every service is a **Singleton class** (`getInstance()`) that owns its state and
-exposes `use*` methods; the module also exports thin `use*` wrapper functions
-that delegate to `getInstance()`. The wrappers keep the public API stable while
-the class carries the implementation:
+exposes plain-named methods; the module also exports thin `on*` wrapper
+functions that delegate to `getInstance()`. The wrappers keep the public API
+stable while the class carries the implementation:
 
 ```ts
 export class LoggerService {
 	private static instance: LoggerService;
 	static getInstance(): LoggerService { /* ... */ }
-	useLog(message: string, data?: unknown, level: LogLevel = "log"): void { /* ... */ }
+	log(message: string, data?: unknown, level: LogLevel = "log"): void { /* ... */ }
 }
 
 // backward-compatible wrapper over the singleton
-export function useLogger(message: string, data?: unknown, level: LogLevel = "log"): void {
-	LoggerService.getInstance().useLog(message, data, level);
+export function onLogger(message: string, data?: unknown, level: LogLevel = "log"): void {
+	LoggerService.getInstance().log(message, data, level);
 }
 ```
 
@@ -130,8 +139,8 @@ gracefully when `window`/`document`/`navigator` is absent.
   `LocalStorageStrategy`, `SessionStorageStrategy` and an in-memory
   `MemoryStorageStrategy` SSR fallback.
 - `currency/` — `FrankfurterCurrencyProvider` (ECB reference rates, fetched
-  through `FetchApiManager`) and the flat helpers (`useCurrencyConverter`,
-  `useConvertCurrency`, …) that wire it into `CurrencyConverterService`: the
+  through `FetchApiManager`) and the flat helpers (`onCurrencyConverter`,
+  `onConvertCurrency`, …) that wire it into `CurrencyConverterService`: the
   composition point between the pure core and the I/O. The core only knows the
   `ICurrencyRateProvider` port — see
   [Currency Conversion](/guides/currency) and
@@ -140,7 +149,7 @@ gracefully when `window`/`document`/`navigator` is absent.
   JSON, directories, stats, copy/move/remove, hashing) plus `path.service.ts`.
   Built-ins load through dynamic `import()`; every fallible call returns a Safe
   Result with the native errno `code`, and non-Node runtimes get
-  `ERR_FS_UNAVAILABLE`. `useReadJsonFile`/`useReadModuleJson` accept an optional
+  `ERR_FS_UNAVAILABLE`. `onReadJsonFile`/`onReadModuleJson` accept an optional
   Zod schema. Full surface: [Filesystem](/guides/filesystem).
 - `viewport/` — `ViewportService` (dimensions, scroll, media queries,
   fullscreen, visibility, title).
@@ -151,13 +160,13 @@ gracefully when `window`/`document`/`navigator` is absent.
 - `worker/` — `WorkerService` (one-shot workers and worker pools with an
   SSR/main-thread fallback).
 - `theme/` — theme mode switching over DOM + storage + a media-query listener
-  (`useInitTheme`, `useToggleTheme`, `useGetThemeMode`, …).
+  (`onInitTheme`, `onToggleTheme`, `onGetThemeMode`, …).
 - `decorators/` — composable function decorators (Decorator Pattern) that add
   behaviour without touching the wrapped function:
   - `RetryDecorator(fn, retries?, delayMs?)` — re-runs a failing async function
     with a fixed delay before propagating the last error.
   - `CacheDecorator(fn, { ttlMs?, keyFn? })` — memoizes results by argument key;
-    the decorated function also exposes `useClearCache()` / `useCacheSize()`.
+    the decorated function also exposes `onClearCache()` / `onCacheSize()`.
   - `LoggerDecorator(fn, label?, level?)` — traces start/ok/error with duration
     for sync and async functions.
 
@@ -176,33 +185,33 @@ and gives stable named exports to the default-exported classes
 
 ### `adapters/` — the framework layer
 
-- `astro/` — pure `use*` helpers: `useAstroPathsFrom` (converts collections
+- `astro/` — module-level helpers: `pathsFrom` (converts collections
   into `getStaticPaths` payloads, Safe Result style), the RSS family
-  (`useAstroGenerateRss`, `useAstroCreateRssEndpoint`, …) for RSS 2.0 XML and
-  Astro `GET` endpoints, and SEO re-exports (`useSeoTag`, `useHeadTags`,
-  …) for Layout frontmatter. Published as `katanakit-js/adapters/astro`
-  (Astro + RSS also available from the main barrel).
-- `express/` — a reference Express server (`ServerExpress`), a demo
+  (`onAstroGenerateRss`, `onAstroCreateRssEndpoint`, …) for RSS 2.0 XML and
+  Astro `GET` endpoints, and SEO re-exports (`onSeoMeta`, `onHeadTags`,
+  …) for Layout frontmatter. Published **only** as
+  `katanakit-js/adapters/astro`.
+- `express/` — a reference Express server (`ExpressService`), a demo
   `ProductController` and a `router`. Published only as the
   `katanakit-js/adapters/express` subpath so the main bundle never pulls in
   Express. Requires the `express` optional peer dependency.
 - `nuxt/` — three **pure exported functions**, not singletons:
-  `useUnwrap(result, context?)`, `useSafeResponse(result)` and
-  `useEventResponse(event, result)`. They bridge KatanaKit `FetchResult` values
+  `onUnwrap(result, context?)`, `onSafeResponse(result)` and
+  `onEventResponse(event, result)`. They bridge KatanaKit `FetchResult` values
   to Nuxt/Nitro server routes without importing `h3`. Published only as the
   `katanakit-js/adapters/nuxt` subpath.
-- `vue/` — `useRequest`, a Vue 3 composable that wraps `useGet` with the
+- `vue/` — `onRequest`, a Vue 3 composable that wraps `onGet` with the
   reactivity system (`data`, `error`, `loading`, `refetch`). It imports `vue`
   directly and is published only as the `katanakit-js/adapters/vue` subpath;
   `vue` is an optional peer dependency.
-- `photoswipe/` — `usePhotoSwipe(options)` binds a lightbox from CSS
-  selectors (`gallery`, `children`, `root`), plus `usePhotoSwipeOpen`,
-  `usePhotoSwipeDestroy` and `usePhotoSwipeSupported`. Rebinding is
+- `photoswipe/` — `onPhotoSwipe(options)` binds a lightbox from CSS
+  selectors (`gallery`, `children`, `root`), plus `onPhotoSwipeOpen`,
+  `onPhotoSwipeDestroy` and `onPhotoSwipeSupported`. Rebinding is
   idempotent, so late-rendered galleries are safe. Published only as the
   `katanakit-js/adapters/photoswipe` subpath; `photoswipe` is an optional peer.
-- `better-auth/` — `useAuthClient({ framework })` creates the Better Auth
+- `better-auth/` — `onAuthClient({ framework })` creates the Better Auth
   client for vanilla/react/vue/svelte/solid (only that entry is imported), and
-  `useAuthSession` / `useAuthHandler` / `useAstroAuthLocals` wrap the server
+  `onAuthSession` / `onAuthHandler` / `onAstroAuthLocals` wrap the server
   calls in Safe Results. Published only as the
   `katanakit-js/adapters/better-auth` subpath; `better-auth` is an optional peer.
 
@@ -212,12 +221,12 @@ and gives stable named exports to the default-exported classes
   instance (site URL, title, description, language, author, RSS options, SEO
   toggles and optional nav). Required vs optional at a glance:
   `seo` required · `rss` required · `nav?` optional · `ogImage?` optional.
-  (`UseSeoMetaOptions` keeps `seo`/`rss` partial because the `defaults`
+  (`SeoMetaOptions` keeps `seo`/`rss` partial because the `defaults`
   fill the gaps; a full `SiteConfig` must carry them.)
-- `seo.service.ts` — pure Nuxt-inspired `useSeoMeta(input, config?)` flat object
-  API (`SeoMetaInput` / `SeoMetaFlat`: OG, Twitter, article, robots, canonical,
-  …), plus `useApplySeoTag` (Vanilla), legacy `useSeoTag`, and helpers
-  `useGenerateMetaTags`, `useTitle`, `useRssHeadLink`, `useHeadTags`. Prefer
+- `seo.service.ts` — pure Nuxt-inspired `onSeoMeta(input, config?)` flat object
+  API (`SeoMeta` / `SeoSocial`: OG, Twitter, article, robots, canonical,
+  …), plus `onApplySeoTag` (Vanilla) and helpers
+  `onGenerateMetaTags`, `onTitle`, `onRssHeadLink`, `onHeadTags`. Prefer
   Nuxt's own head APIs inside Nuxt. `SiteConfig` inputs are validated
   fail-fast (`assertSiteConfigSeo` / `assertSiteConfigRss`): a missing
   `seo`/`rss` throws `[Seo] SiteConfig.seo is required (caller)` /
@@ -225,7 +234,7 @@ and gives stable named exports to the default-exported classes
   reference and never dereferenced, so it stays optional.
 
 Both are re-exported from the main barrel (`import { siteConfig, type
-SiteConfig, useSeoMeta } from "katanakit-js"`) and from
+SiteConfig, onSeoMeta } from "katanakit-js"`) and from
 `katanakit-js/adapters/astro`.
 
 ### `prisma/` — database layer (optional)
@@ -235,7 +244,7 @@ SiteConfig, useSeoMeta } from "katanakit-js"`) and from
   `dist/prisma/schema.prisma`).
 - `schema.json` / `schema.d.ts` — generated contract artifacts
   (**do not edit**; regenerate with `prisma contract emit`).
-- `use-prisma.ts` — `usePrismaClient()`, the typed database client built with
+- `use-prisma.ts` — `onPrismaClient()`, the typed database client built with
   `@prisma/orm-postgres` from the contract and `DATABASE_URL`, read from the
   environment on first call (the package never loads `.env` itself).
 - `prisma.config.ts` (repo root) — Prisma CLI/ORM configuration.
@@ -248,10 +257,10 @@ from the main barrel.
 
 - `schema.ts` — the `conversations` and `messages` tables, shaped after the
   Prisma contract so both integrations describe the same database.
-- `use-drizzle.ts` — `useDrizzleClient()`, the singleton client built with
+- `use-drizzle.ts` — `onDrizzleClient()`, the singleton client built with
   Drizzle ORM over the node-postgres driver (`pg`); `DATABASE_URL` is read on
   first call, never at import.
-- `assistant.store.ts` — `useCreateDrizzleStore()` / `DrizzleConversationStore`
+- `assistant.store.ts` — `onCreateDrizzleStore()` / `DrizzleConversationStore`
   for the assistant, mirroring the Prisma store.
 
 Also optional: `drizzle-orm` and `pg` are optional peer dependencies (install
@@ -262,7 +271,7 @@ main barrel.
 
 - **Pure ESM.** `package.json` has `"type": "module"`, `"module":
   "nodenext"` and `"exports"`. Imports always carry an explicit `.js`
-  extension (e.g. `import { useLogger } from
+  extension (e.g. `import { onLogger } from
   "@/core/services/logger.service.js"`), and cross-folder imports use the `@/`
   alias, so the emitted `dist/` resolves identically under Node's ESM loader
   and bundlers once `tsc-alias` has rewritten the alias (ADR-0009).
@@ -270,8 +279,8 @@ main barrel.
 
   | Import specifier                  | What it exposes                               |
   | --------------------------------- | --------------------------------------------- |
-  | `katanakit-js`                    | astro (Astro + RSS), config (site + SEO), core, infrastructure, types |
-  | `katanakit-js/adapters/astro`     | `AstroService`, `RssService`, SEO re-exports (`useSeoTag`, …) |
+  | `katanakit-js`                    | config (site + SEO), core, infrastructure, schemas, types |
+  | `katanakit-js/adapters/astro`     | `AstroCollections`, `RssService`, SEO re-exports (`onSeoMeta`, …) |
   | `katanakit-js/adapters/express`   | Express reference adapter                     |
   | `katanakit-js/adapters/nuxt`      | Nuxt helpers                                  |
   | `katanakit-js/adapters/vue`       | Vue 3 composable                              |
@@ -285,8 +294,8 @@ main barrel.
   [ADR-0009](/explanation/decisions/adr-0009-alias-imports-in-src).
 - **No side effects on import.** Barrel files only re-export; strategy
   instantiation happens lazily inside services, and so do environment reads:
-  `usePrismaClient()` resolves `DATABASE_URL` on first call, never at import,
-  and it is not exported from the main barrel — `useDrizzleClient()` follows
+  `onPrismaClient()` resolves `DATABASE_URL` on first call, never at import,
+  and it is not exported from the main barrel — `onDrizzleClient()` follows
   the same rule.
 
 ## Design patterns in use
@@ -298,7 +307,7 @@ main barrel.
 | Strategy   | `AccessService` (`HierarchicalAccessStrategy` / `FlatAccessStrategy`), `AgentService` (`OpenAiCompatibleStrategy`), storage backends, generator crypto/UUID, worker |
 | Factory    | `QueryClientFactory` (per-request `QueryClient` for SSR); debounce/throttle/timeout factories in `TimingService`; crypto strategies in `GeneratorService` |
 | Observer   | `ReactiveService` signals, `ObserverService`, theme media query, `CurrencyConverterService` (`onRatesUpdate` / `onRatesError`) |
-| Dependency Injection | `UnitConverterService` → `IFormatterService`, `CurrencyConverterService` → `ICurrencyRateProvider`, access/crypto strategies — injected via `create()` or `useSet*` |
+| Dependency Injection | `UnitConverterService` → `IFormatterService`, `CurrencyConverterService` → `ICurrencyRateProvider`, access/crypto strategies — injected via `create()` or `onSet*` |
 | Decorator  | `RetryDecorator`, `CacheDecorator`, `LoggerDecorator` (`infrastructure/decorators/`) |
 | Adapter    | `DatesService` (Temporal), infrastructure layer, framework adapters |
 
@@ -310,8 +319,8 @@ Stateful services follow **Singleton + (Strategy | Decorator | Factory | Observe
   (`ExpressService`, `WordPressService`, `FetchApiManager`,
   `AssistantService`, `QueryService`).
 - **Singleton + Strategy** — the singleton delegates a swappable algorithm:
-  `AccessService.useSetStrategy(new FlatAccessStrategy())` and
-  `AgentService.useSetStrategy(...)` swap implementations at runtime; both also
+  `AccessService.getInstance().setStrategy(new FlatAccessStrategy())` and
+  `AgentService.getInstance().setStrategy(...)` swap implementations at runtime; both also
   expose a static `create(strategy)` for isolated (non-singleton) instances.
 - **Singleton + Decorator** — cross-cutting behaviour wraps functions without
   modifying them (`RetryDecorator`, `CacheDecorator`, `LoggerDecorator`).
@@ -320,7 +329,7 @@ Stateful services follow **Singleton + (Strategy | Decorator | Factory | Observe
   clients vs. the shared `QueryService` singleton).
 - **Singleton + Observer + DI** — `CurrencyConverterService` owns the rate
   cache, notifies `onRatesUpdate` / `onRatesError` subscribers and fetches
-  through an injected `ICurrencyRateProvider`; `useConvertCurrency()` is the
+  through an injected `ICurrencyRateProvider`; `onConvertCurrency()` is the
   Facade layered on top.
 
 SOLID is preserved because the client only knows the contracts
@@ -331,22 +340,23 @@ walks through the vocabulary with the currency converter as the worked example.
 
 ## Conventions
 
-- **`use*` methods** — every public method (except `getInstance()` and the
-  static factory `create()`) uses the `use` prefix, mirroring React hooks. This
-  makes the API consistent and predictable.
-- **Singleton class + `use*` wrappers** — each stateful service is a Singleton
-  class (`getInstance()`) and the module re-exports thin `use*` wrapper
-  functions that delegate to it, so callers keep the functional API
-  (`useLogger(...)`, `useFetch(...)`) while the class owns the state. Decorators
-  are the exception to the `use*` rule: `RetryDecorator`/`CacheDecorator`/
-  `LoggerDecorator` use PascalCase because they are composables, not API
-  functions. See [ADR-0002](/explanation/decisions/adr-0002-singleton-facades).
-- **`on*` is for callbacks only** — the `on*` prefix marks Observer callbacks
-  the service invokes (`onRatesUpdate`, `onRatesError`), never an imperative
-  method; registration stays a `use*` call (`useSubscribe`). Statics are
-  limited to `getInstance()` and `create(options)` — there are no static
-  business methods. See
-  [ADR-0010](/explanation/decisions/adr-0010-use-prefix-on-callbacks) and
+- **`on*` module helpers** — module-level helpers and facades use the `on`
+  prefix (`onLogger`, `onFetch`, `onDateBetween`, `onConvertCurrency`). It is
+  also the form for Observer callbacks the service invokes (`onRatesUpdate`,
+  `onRatesError`) and for UI element factories (`onButton`). Third-party APIs
+  keep their upstream names (`useState`, `useQuery`, `useSession`,
+  `@UseGuards`). See
+  [ADR-0017](/explanation/decisions/adr-0017-on-prefix-for-module-helpers).
+- **Plain class methods** — each stateful service is a Singleton class
+  (`getInstance()`) whose methods use descriptive names without a prefix
+  (`convert`, `getSnapshot`, `setProvider`, `log`). The module re-exports the
+  main ones as thin `on*` wrappers, so callers keep the functional API while
+  the class owns the state. Decorators stay PascalCase —
+  `RetryDecorator`/`CacheDecorator`/`LoggerDecorator` — because they are
+  composables, not API functions. See
+  [ADR-0002](/explanation/decisions/adr-0002-singleton-facades).
+- **No static business methods** — statics are limited to `getInstance()` and
+  `create(options)`; everything else lives on the instance. See
   [ADR-0011](/explanation/decisions/adr-0011-no-static-business-methods).
 - **Safe Result** — fallible operations return a discriminated union
   `{ data, error, ok }` instead of throwing. The generic `SafeResult<T, E>` is

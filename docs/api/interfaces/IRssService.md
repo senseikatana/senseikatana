@@ -2,19 +2,19 @@
 
 # Interface: IRssService
 
-Defined in: [types/adapters/rss.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/rss.ts#L18)
+Defined in: [types/rss/types.ts:18](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/rss/types.ts#L18)
 
 Contract of the RSS facade.
 
 ## Methods
 
-### useCreateRssEndpoint()
+### onCreateRssEndpoint()
 
 ```ts
-useCreateRssEndpoint(config): (context) => Promise<Response>;
+onCreateRssEndpoint(config): (context) => Promise<Response>;
 ```
 
-Defined in: [types/adapters/rss.ts:24](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/rss.ts#L24)
+Defined in: [types/rss/types.ts:24](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/rss/types.ts#L24)
 
 Generates an Astro GET endpoint handler for the RSS feed.
 
@@ -30,13 +30,13 @@ Generates an Astro GET endpoint handler for the RSS feed.
 
 ***
 
-### useCreateRssEndpointFromConfig()
+### onCreateRssEndpointFromConfig()
 
 ```ts
-useCreateRssEndpointFromConfig(siteConfig, items): (context) => Promise<Response>;
+onCreateRssEndpointFromConfig(siteConfig, items): (context) => Promise<Response>;
 ```
 
-Defined in: [types/adapters/rss.ts:28](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/rss.ts#L28)
+Defined in: [types/rss/types.ts:28](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/rss/types.ts#L28)
 
 Convenience: creates an RSS endpoint from a SiteConfig.
 
@@ -53,13 +53,13 @@ Convenience: creates an RSS endpoint from a SiteConfig.
 
 ***
 
-### useGenerateRss()
+### onGenerateRss()
 
 ```ts
-useGenerateRss(config): RssResult;
+onGenerateRss(config): RssResult;
 ```
 
-Defined in: [types/adapters/rss.ts:20](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/rss.ts#L20)
+Defined in: [types/rss/types.ts:20](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/rss/types.ts#L20)
 
 Generates the RSS XML string from a config.
 
@@ -85,13 +85,13 @@ Generates the RSS XML string from a config.
 
 ***
 
-### useRssLinkTag()
+### onRssLinkTag()
 
 ```ts
-useRssLinkTag(config): string;
+onRssLinkTag(config): string;
 ```
 
-Defined in: [types/adapters/rss.ts:22](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/rss.ts#L22)
+Defined in: [types/rss/types.ts:22](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/rss/types.ts#L22)
 
 Generates an HTML `<link>` tag for the RSS feed.
 

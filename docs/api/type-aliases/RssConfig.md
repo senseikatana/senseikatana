@@ -6,6 +6,6 @@
 type RssConfig = z.infer<typeof RssConfigSchema>;
 ```
 
-Defined in: [types/adapters/rss.ts:12](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/adapters/rss.ts#L12)
+Defined in: [types/rss/types.ts:12](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/rss/types.ts#L12)
 
 Configuration for generating an RSS feed.

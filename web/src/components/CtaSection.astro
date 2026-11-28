@@ -28,9 +28,7 @@ const { title = tr('home.ctaTitle'), lede = tr('home.ctaBody') } = Astro.props;
       class="mt-9 flex flex-wrap justify-center items-center gap-x-7 gap-y-4 max-md:flex-col max-md:items-stretch"
     >
       <a href={site.cta.href} class="btn btn-primary">{tr('nav.cta')} -&gt;</a>
-      <a href={site.secondary.href} class="link text-[15px]" rel="noopener"
-        >{tr('home.worksCta')} ↗</a
-      >
+      <a href={site.secondary.href} class="link text-[15px]">{tr('home.worksCta')} -&gt;</a>
     </div>
   </div>
 </Section>

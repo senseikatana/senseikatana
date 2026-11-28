@@ -30,7 +30,7 @@ implementation detail: the [Architecture](/start/architecture) page and the
 | # | Decision | Status | Date |
 | --- | --- | --- | --- |
 | [ADR-0001](/explanation/decisions/adr-0001-safe-results) | Safe Results instead of exceptions | Accepted | 2026-09-26 |
-| [ADR-0002](/explanation/decisions/adr-0002-singleton-facades) | Singleton facades exposed as `use*` functions | Accepted | 2026-10-04 |
+| [ADR-0002](/explanation/decisions/adr-0002-singleton-facades) | Singleton facades exposed as wrappers (naming amended by ADR-0017) | Accepted | 2026-10-04 |
 | [ADR-0003](/explanation/decisions/adr-0003-adapter-subpath-exports) | Framework adapters only on subpath exports | Accepted | 2026-09-20 |
 | [ADR-0004](/explanation/decisions/adr-0004-hexagonal-core) | Hexagonal layout with a pure core | Accepted | 2026-09-03 |
 | [ADR-0005](/explanation/decisions/adr-0005-docs-as-code) | Docs as code: generated reference, four page kinds | Accepted | 2026-09-26 |
@@ -38,13 +38,14 @@ implementation detail: the [Architecture](/start/architecture) page and the
 | [ADR-0007](/explanation/decisions/adr-0007-wordpress-roles-declared-not-created) | WordPress roles are declared in the app, not created over REST | Accepted | 2026-10-18 |
 | [ADR-0008](/explanation/decisions/adr-0008-access-is-three-orthogonal-axes) | Access is three orthogonal axes, not one role ladder | Accepted | 2026-10-18 |
 | [ADR-0009](/explanation/decisions/adr-0009-alias-imports-in-src) | The `@/` alias is used in `src/`, rewritten by `tsc-alias` | Accepted | 2026-10-18 |
-| [ADR-0010](/explanation/decisions/adr-0010-use-prefix-on-callbacks) | The `use*` prefix is kept; `on*` is reserved for Observer callbacks | Accepted | 2026-10-19 |
+| [ADR-0010](/explanation/decisions/adr-0010-use-prefix-on-callbacks) | The `use*` prefix is kept; `on*` is reserved for Observer callbacks | Superseded by ADR-0017 | 2026-10-19 |
 | [ADR-0011](/explanation/decisions/adr-0011-no-static-business-methods) | No static business methods — Singleton plus DI instead | Accepted | 2026-10-19 |
 | [ADR-0012](/explanation/decisions/adr-0012-currency-adapter-in-infrastructure) | The currency rate adapter lives in `src/infrastructure/` | Accepted | 2026-10-19 |
 | [ADR-0013](/explanation/decisions/adr-0013-round-money-with-intl) | Money is rounded with `Intl.NumberFormat`, not `Math.round` | Accepted | 2026-10-19 |
 | [ADR-0014](/explanation/decisions/adr-0014-frankfurter-ecb-rates) | Frankfurter/ECB reference rates behind the provider port | Accepted | 2026-10-19 |
 | [ADR-0015](/explanation/decisions/adr-0015-cross-rates-through-a-pivot) | Cross-rates divide through a pivot currency | Accepted | 2026-10-19 |
 | [ADR-0016](/explanation/decisions/adr-0016-universal-runtime-apis-in-core) | Universal runtime APIs in the core | Accepted (amends ADR-0004) | 2026-10-25 |
+| [ADR-0017](/explanation/decisions/adr-0017-on-prefix-for-module-helpers) | `on*` marks module helpers; class methods stay unprefixed | Accepted (supersedes ADR-0010 naming, amends ADR-0002) | 2026-11-28 |
 
 ## Adding a record
 

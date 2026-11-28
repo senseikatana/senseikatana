@@ -32,23 +32,23 @@ bun run dev:bun
 
 ```ts
 import { defineApiConfig } from "katanakit-js";
-import { dummyJsonApiConfig, useBunStart } from "katanakit-js/adapters/bun";
+import { dummyJsonApiConfig, onBunStart } from "katanakit-js/adapters/bun";
 
 defineApiConfig(dummyJsonApiConfig);
 
-const server = useBunStart(3000);
+const server = onBunStart(3000);
 console.log(`Server running at ${server.url}`);
 ```
 
 ## The route table
 
-`useBuildDummyJsonRoutes()` returns a typed `Bun.serve` route table. Handlers are pure and return `Response` — they reuse the core `useFetch` with the Safe Result pattern.
+`onBuildDummyJsonRoutes()` returns a typed `Bun.serve` route table. Handlers are pure and return `Response` — they reuse the core `onFetch` with the Safe Result pattern.
 
 ```ts
-import { useBuildDummyJsonRoutes } from "katanakit-js/adapters/bun";
+import { onBuildDummyJsonRoutes } from "katanakit-js/adapters/bun";
 
 Bun.serve({
-  routes: useBuildDummyJsonRoutes(),
+  routes: onBuildDummyJsonRoutes(),
   fetch: () => new Response("Not Found", { status: 404 }),
 });
 ```
@@ -56,11 +56,11 @@ Bun.serve({
 | Route | Handler |
 |---|---|
 | `GET /api/status` | static JSON |
-| `GET /api/products` | `useDummyJsonProducts` |
-| `GET /api/products/:id` | `useDummyJsonProductById` |
-| `GET /api/products/search?q=` | `useDummyJsonProductSearch` |
-| `GET /api/products/categories` | `useDummyJsonProductCategories` |
-| `GET /api/products/category/:category` | `useDummyJsonProductsByCategory` |
+| `GET /api/products` | `onDummyJsonProducts` |
+| `GET /api/products/:id` | `onDummyJsonProductById` |
+| `GET /api/products/search?q=` | `onDummyJsonProductSearch` |
+| `GET /api/products/categories` | `onDummyJsonProductCategories` |
+| `GET /api/products/category/:category` | `onDummyJsonProductsByCategory` |
 | `GET /api/users`, `GET /api/users/:id` | users |
 | `GET /api/posts`, `GET /api/posts/:id` | posts |
 | `GET /api/quotes`, `GET /api/quotes/random` | quotes |
@@ -73,30 +73,30 @@ You can use the handlers anywhere a `Response` is expected — no Bun router req
 
 ```ts
 import { defineApiConfig } from "katanakit-js";
-import { dummyJsonApiConfig, useDummyJsonProducts } from "katanakit-js/adapters/bun";
+import { dummyJsonApiConfig, onDummyJsonProducts } from "katanakit-js/adapters/bun";
 
 defineApiConfig(dummyJsonApiConfig);
-const response = await useDummyJsonProducts(); // Response with the product list
+const response = await onDummyJsonProducts(); // Response with the product list
 ```
 
 ## Seed data
 
 ```ts
-import { useGetDummyJsonSeed } from "katanakit-js/adapters/bun";
+import { onGetDummyJsonSeed } from "katanakit-js/adapters/bun";
 
-const seed = useGetDummyJsonSeed();
+const seed = onGetDummyJsonSeed();
 seed.products; // [{ id, title, description, category, price, rating, stock, brand }]
 seed.users;    // [{ id, firstName, lastName, username, email, age, role }]
 ```
 
 ## Server facade
 
-`useBunCreate` is a singleton — subsequent calls return the same server:
+`onBunCreate` is a singleton — subsequent calls return the same server:
 
 ```ts
-import { useBunCreate, useBunGetServer, useBunStop } from "katanakit-js/adapters/bun";
+import { onBunCreate, onBunGetServer, onBunStop } from "katanakit-js/adapters/bun";
 
-useBunCreate({ port: 3000, hostname: "localhost" });
-useBunGetServer()?.url; // URL
-await useBunStop();
+onBunCreate({ port: 3000, hostname: "localhost" });
+onBunGetServer()?.url; // URL
+await onBunStop();
 ```

@@ -6,6 +6,6 @@
 type CurrencyConversion = z.infer<typeof CurrencyConversionSchema>;
 ```
 
-Defined in: [types/core/currency.ts:31](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency.ts#L31)
+Defined in: [types/core/currency.ts:31](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/currency.ts#L31)
 
 Result of a currency conversion: the math plus the rate and date it came from.

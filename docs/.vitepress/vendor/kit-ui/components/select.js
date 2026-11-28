@@ -11,7 +11,7 @@
  * still announces each option as the arrows move, and closing the list does not
  * have to move focus back from somewhere it never left.
  *
- * Contrast {@link useTabs}, where the tabs are permanently in the DOM, so
+ * Contrast {@link onTabs}, where the tabs are permanently in the DOM, so
  * roving `tabindex` is the right tool there. The distinction is lifetime, not
  * preference.
  *
@@ -23,7 +23,7 @@
  *
  * ## SSR
  *
- * {@link selectClass} is pure. {@link useSelect} needs a DOM.
+ * {@link selectClass} is pure. {@link onSelect} needs a DOM.
  *
  * @module ui/components/select
  */
@@ -32,6 +32,16 @@
 /* -------------------------------------------------------------------------- */
 /** Milliseconds a multi-character typeahead stays active. */
 const TYPEAHEAD_RESET_MS = 500;
+/**
+ * Per-instance counter, used to build the ids that wire the combobox together.
+ *
+ * `aria-controls` and `aria-activedescendant` are id references. A page with
+ * two selects must not let both claim `select-listbox`: the second one would
+ * silently retarget the first one's button at its own list, and a screen reader
+ * would announce the wrong options. The counter makes the ids unique without
+ * asking the caller to name anything.
+ */
+let selectCounter = 0;
 /* -------------------------------------------------------------------------- */
 /* Pure surface (SSR-safe)                                                    */
 /* -------------------------------------------------------------------------- */
@@ -67,7 +77,7 @@ function requireDom(api) {
  *
  * @example
  * ```ts
- * const select = useSelect({
+ * const select = onSelect({
  *   label: "Country",
  *   name: "country",
  *   options: [
@@ -78,8 +88,12 @@ function requireDom(api) {
  * document.body.append(select.root);
  * ```
  */
-export function useSelect(options) {
-    requireDom("useSelect");
+export function onSelect(options) {
+    requireDom("onSelect");
+    // Unique prefix for every id this instance owns: the listbox, each option,
+    // and the button's `aria-controls` all hang off it.
+    selectCounter += 1;
+    const uid = `select-${selectCounter}`;
     const defs = options.options;
     const root = document.createElement("div");
     root.className = selectClass();
@@ -101,7 +115,7 @@ export function useSelect(options) {
     button.setAttribute("aria-haspopup", "listbox");
     button.setAttribute("aria-expanded", "false");
     button.setAttribute("aria-label", options.label);
-    button.setAttribute("aria-controls", "select-listbox");
+    button.setAttribute("aria-controls", `${uid}-listbox`);
     const value = document.createElement("span");
     value.className = "select__value";
     button.append(value);
@@ -113,14 +127,14 @@ export function useSelect(options) {
     button.append(arrow);
     const list = document.createElement("div");
     list.className = "select__list";
-    list.id = "select-listbox";
+    list.id = `${uid}-listbox`;
     list.setAttribute("role", "listbox");
     list.setAttribute("aria-label", options.label);
     list.hidden = true;
     const optionElements = defs.map((definition, index) => {
         const element = document.createElement("div");
         element.className = "select__option";
-        element.id = `select-option-${index}`;
+        element.id = `select-option-${index}-${selectCounter}`;
         element.setAttribute("role", "option");
         element.setAttribute("aria-selected", String(index === selected));
         element.textContent = definition.label;
@@ -136,7 +150,7 @@ export function useSelect(options) {
         .map((definition, index) => (definition.disabled ? -1 : index))
         .filter((index) => index !== -1);
     /** Reflects selection and active state onto the DOM. */
-    const useApply = () => {
+    const onApply = () => {
         const chosen = defs[selected];
         value.textContent = chosen ? chosen.label : (options.placeholder ?? "Select…");
         value.classList.toggle("select__value--placeholder", !chosen);
@@ -161,7 +175,7 @@ export function useSelect(options) {
         // arrows do not appear to start somewhere unrelated.
         if (open)
             activeIndex = selected;
-        useApply();
+        onApply();
     };
     const choose = (index) => {
         if (index === -1 || defs[index]?.disabled)
@@ -170,7 +184,7 @@ export function useSelect(options) {
         activeIndex = index;
         setOpen(false);
         // Focus is on the button throughout, so nothing has to move.
-        useApply();
+        onApply();
         options.onChange?.(defs[index].value);
     };
     /** Moves the active row, wrapping around the enabled set. */
@@ -180,11 +194,11 @@ export function useSelect(options) {
         const at = enabledIndexes.indexOf(activeIndex);
         const from = at === -1 ? 0 : at;
         activeIndex = enabledIndexes[(from + step + enabledIndexes.length) % enabledIndexes.length];
-        useApply();
+        onApply();
     };
     let typeahead = "";
     let typeaheadTimer = null;
-    const useTypeahead = (character) => {
+    const onTypeahead = (character) => {
         if (typeaheadTimer)
             clearTimeout(typeaheadTimer);
         typeahead += character.toLowerCase();
@@ -202,7 +216,7 @@ export function useSelect(options) {
             selected = match;
             options.onChange?.(defs[match].value);
         }
-        useApply();
+        onApply();
     };
     button.addEventListener("click", () => setOpen(!open));
     button.addEventListener("keydown", (event) => {
@@ -228,14 +242,14 @@ export function useSelect(options) {
                     return;
                 event.preventDefault();
                 activeIndex = enabledIndexes[0] ?? -1;
-                useApply();
+                onApply();
                 return;
             case "End":
                 if (!open)
                     return;
                 event.preventDefault();
                 activeIndex = enabledIndexes[enabledIndexes.length - 1] ?? -1;
-                useApply();
+                onApply();
                 return;
             case "Enter":
             case " ":
@@ -253,7 +267,7 @@ export function useSelect(options) {
                 // Closing without choosing restores the selection.
                 activeIndex = selected;
                 setOpen(false);
-                useApply();
+                onApply();
                 return;
             case "Tab":
                 // Tabbing away closes without committing the active row.
@@ -268,7 +282,7 @@ export function useSelect(options) {
         // Typeahead only applies to printable, single-character keys.
         if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) {
             event.preventDefault();
-            useTypeahead(event.key);
+            onTypeahead(event.key);
         }
     });
     list.addEventListener("click", (event) => {
@@ -285,7 +299,7 @@ export function useSelect(options) {
             return;
         activeIndex = selected;
         setOpen(false);
-        useApply();
+        onApply();
     };
     document.addEventListener("pointerdown", onDocumentPointerDown);
     button.addEventListener("blur", () => {
@@ -293,7 +307,7 @@ export function useSelect(options) {
             return;
         activeIndex = selected;
         setOpen(false);
-        useApply();
+        onApply();
     });
     const input = options.name
         ? Object.assign(document.createElement("input"), {
@@ -304,7 +318,7 @@ export function useSelect(options) {
     root.append(button, list);
     if (input)
         root.append(input);
-    useApply();
+    onApply();
     return {
         root,
         button,

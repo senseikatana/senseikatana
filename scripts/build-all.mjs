@@ -11,7 +11,6 @@
  *   4. build   — web (astro) and docs (vitepress), each output checked
  */
 
-
 import { execFileSync } from 'node:child_process';
 import { existsSync, readdirSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';

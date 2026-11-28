@@ -2,7 +2,7 @@
 
 # Interface: ICurrencyRateProvider
 
-Defined in: [types/core/currency-conversion.ts:18](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L18)
+Defined in: [types/core/currency-conversion.ts:18](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/currency-conversion.ts#L18)
 
 Port for fetching exchange rates from an external source.
 
@@ -14,10 +14,10 @@ provider is plugged in.
 
 ## Methods
 
-### useFetchRates()
+### fetchRates()
 
 ```ts
-useFetchRates(base, quotes?): Promise<SafeResult<{
+fetchRates(base, quotes?): Promise<SafeResult<{
   base:   | "USD"
      | "EUR"
      | "GBP"
@@ -56,7 +56,7 @@ useFetchRates(base, quotes?): Promise<SafeResult<{
 }>>;
 ```
 
-Defined in: [types/core/currency-conversion.ts:26](https://github.com/senseikatana/katanakit-js/blob/fa43771ecc51650d55e9d2de06a20a76879f6691/src/types/core/currency-conversion.ts#L26)
+Defined in: [types/core/currency-conversion.ts:26](https://github.com/senseikatana/katanakit-js/blob/d0c71bf0d799a28bbecce0cc0b37ec4082e11b5d/src/types/core/currency-conversion.ts#L26)
 
 Returns a dated rate snapshot quoted against `base`.
 

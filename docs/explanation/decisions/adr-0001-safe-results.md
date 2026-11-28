@@ -30,9 +30,9 @@ type SafeResult<T, E> =
 `FetchResult<T>`, `FilesystemResult<T>`, `AstroServiceResult<T>`, `AiResult<T>`
 and `RssResult` all derive from it. Errors travel as structured values
 (`ApiError`: `message`, `status`, `details?`), and the boundary helpers
-`useAttempt()`, `useTryJsonParse()` and `useErrorNormalize()` convert unknown
+`onAttempt()`, `onTryJsonParse()` and `onErrorNormalize()` convert unknown
 throws into the same shape. Synchronous preconditions still throw by
-convention — `useBuildUrl()` on an unregistered API, for example — because
+convention — `onBuildUrl()` on an unregistered API, for example — because
 Safe Result covers fallible async work, and building a URL never leaves the
 process.
 
@@ -46,7 +46,7 @@ which is what the Nuxt/Nitro helpers do.
 
 **Worse.** Callers who ignore `ok` still compile and get `data: null` at
 runtime. Libraries that expect exceptions (TanStack Query, error boundaries)
-need a bridge — `useSafeQueryFn()` exists for exactly that. And the
+need a bridge — `onSafeQueryFn()` exists for exactly that. And the
 convention only works if it is followed everywhere: one throwing service
 would split the error story in two.
 
